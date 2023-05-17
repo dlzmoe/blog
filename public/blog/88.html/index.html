@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Hugo 0.110.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="toTop" content="true">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="referrer" content="no-referrer">
+  <meta name="author" content="" />
+  <meta property="og:url" content="/blog/88.html/" />
+  <link rel="canonical" href="/blog/88.html/" /><link rel="apple-touch-icon" href="https://img.zburu.com/favicon1.png" />
+  <link rel="icon" href="https://img.zburu.com/favicon1.png" />
+  <link rel="shortcut" href="https://img.zburu.com/favicon1.png" /><link rel="alternate" type="application/atom+xml" href="index.xml" title="子舒的博客">
+
+  <script type="application/ld+json">
+  {
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": ""
+    },
+    "articleSection" : "blog",
+    "name" : "实现图片灯箱功能",
+    "headline" : "实现图片灯箱功能",
+    "description" : "写博客必不可少的一个功能就是图片灯箱功能，也就是点击放大查看。但是不同程序的博客所使用的插件也都不一样，我这里研究出一套可以满足绝大部分程序的灯箱插件。已经测试过hexo, hugo, typecho 均无问题。 引入文件 首先引",
+    "inLanguage" : "en-US",
+    "author" : "",
+    "creator" : "",
+    "publisher": "",
+    "accountablePerson" : "",
+    "copyrightHolder" : "",
+    "copyrightYear" : "2021",
+    "datePublished": "2021-12-07 16:55:00 \u002b0000 UTC",
+    "dateModified" : "2021-12-07 16:55:00 \u002b0000 UTC",
+    "url" : "\/blog\/88.html\/",
+    "keywords" : [ "博客","插件", ]
+  }
+</script><title>实现图片灯箱功能 @子舒</title>
+  <meta property="og:title" content="实现图片灯箱功能" />
+  <meta property="og:type" content="article" />
+  <meta property="og:description" content="写博客必不可少的一个功能就是图片灯箱功能，也就是点击放大查看。但是不同程序的博客所使用的插件也都不一样，我这里研究出一套可以满足绝大部分程序的灯箱插件。已经测试过hexo, hugo, typecho 均无问题。 引入文件 首先引" />
+  <meta name="description" content="写博客必不可少的一个功能就是图片灯箱功能，也就是点击放大查看。但是不同程序的博客所使用的插件也都不一样，我这里研究出一套可以满足绝大部分程序的灯箱插件。已经测试过hexo, hugo, typecho 均无问题。 引入文件 首先引" />
+  <meta property="og:locale" content="en-us" /><meta property="og:image" content="https://img.zburu.com/favicon1.png" />
+  
+
+  <link rel="stylesheet" href="/css/github-markdown.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/index.css">
+  <link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
+  <script src="/js/jquery3.6.0.min.js"></script>
+</head>
+
+<body>
+  <header>
+    <a href="/" class="logo"> 子舒的博客</a>
+    <div class="nav">
+      <a href="/">首页</a>
+      
+      <a href="/blog/">归档</a>
+      
+      <a href="/message/">留言</a>
+      
+      <a href="/about/">关于</a>
+      
+      <a href="/lab/">实验室</a>
+      
+      <a href="/index.xml" target="_blank"><svg xmlns="http://www.w3.org/2000/svg"
+          class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
+          stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <path d="M5 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+          <path d="M4 4a16 16 0 0 1 16 16"></path>
+          <path d="M4 11a9 9 0 0 1 9 9"></path>
+        </svg></a>
+      <a href="/search"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24"
+          height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+          stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
+          <path d="M21 21l-6 -6"></path>
+        </svg></a>
+    </div>
+    <div class="search-bg"></div>
+    <div class="mob-menu">
+      <em></em><em></em><em></em>
+    </div>
+  </header>
+  <main class="main">
+
+<section>
+  <div class="single-title">实现图片灯箱功能</div>
+  
+  
+  <time class="single-date" datetime=" 2021-12-07 16:55:00 UTC">
+    2021年12月07日
+  </time>
+  
+  
+
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#引入文件">引入文件</a></li>
+    <li><a href="#调用js">调用js</a></li>
+    <li><a href="#结束">结束</a></li>
+  </ul>
+</nav>
+  <div class="post-content markdown-body" id="post-content">
+    
+    <p>写博客必不可少的一个功能就是图片灯箱功能，也就是点击放大查看。但是不同程序的博客所使用的插件也都不一样，我这里研究出一套可以满足绝大部分程序的灯箱插件。已经测试过hexo, hugo, typecho 均无问题。</p>
+<h2 id="引入文件">引入文件</h2>
+<p>首先引入我们关键的两个文件分别是 <code>zoom.css</code> 和 <code>zoom.js</code> 。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#998;font-style:italic">&lt;!-- head头部 --&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">link</span> <span style="color:#008080">rel</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;stylesheet&#34;</span> <span style="color:#008080">href</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;https://cdn.imhan.cn/list/zoom.css&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">&lt;!-- body底部 --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">&lt;!-- 如果已经有jq文件了，就不要引入jquery --&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span> <span style="color:#008080">src</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;https://cdn.imhan.cn/list/jquery3.6.0.js&#34;</span>&gt;&lt;/<span style="color:#000080">script</span>&gt; 
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">&lt;!--图片灯箱--&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">img</span> <span style="color:#008080">src</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;&#34;</span> <span style="color:#008080">alt</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;&#34;</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;bigimg&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;mask&#34;</span>&gt;&lt;/<span style="color:#000080">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span> <span style="color:#008080">src</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;https://cdn.imhan.cn/list/zoom.js&#34;</span>&gt;&lt;/<span style="color:#000080">script</span>&gt;
+</span></span></code></pre></div><p>因为这个文件是放在我自己服务器上的，所以不敢保证以后还是这个路径，建议在浏览器打开，然后把里面的代码复制到本地使用。</p>
+<h2 id="调用js">调用js</h2>
+<p>然后我们需要给图片一个类名，以及一个父元素盒子，同样也可以使用 jq 来完成。</p>
+<p>这里的 <code>.post-content</code> 正文的类名，如果你是别的类名，可以直接将 <code>.post-content</code> 替换掉。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>$(<span style="color:#000;font-weight:bold">function</span>(){
+</span></span><span style="display:flex;"><span>	$(<span style="color:#d14">&#39;.post-content img&#39;</span>).addClass(<span style="color:#d14">&#39;smallimg&#39;</span>)
+</span></span><span style="display:flex;"><span>  	$(<span style="color:#d14">&#39;.post-content img&#39;</span>).wrap(<span style="color:#d14">&#39;&lt;div class=&#34;imgbox&#34;&gt;&lt;/div&gt;&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><p>接着我们需要对插件进行初始化，直接在刚才的代码下面写入。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>$(<span style="color:#000;font-weight:bold">function</span>(){
+</span></span><span style="display:flex;"><span>	$(<span style="color:#d14">&#39;.post-content img&#39;</span>).addClass(<span style="color:#d14">&#39;smallimg&#39;</span>)
+</span></span><span style="display:flex;"><span>		$(<span style="color:#d14">&#39;.post-content img&#39;</span>).wrap(<span style="color:#d14">&#39;&lt;div class=&#34;imgbox&#34;&gt;&lt;/div&gt;&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#998;font-style:italic">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">	smallimg   // 小图
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">	bigimg  //点击放大的图片
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">	mask   //黑色遮罩
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">	*/</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000;font-weight:bold">var</span> obj <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> zoom(<span style="color:#d14">&#39;mask&#39;</span>, <span style="color:#d14">&#39;bigimg&#39;</span>, <span style="color:#d14">&#39;smallimg&#39;</span>);
+</span></span><span style="display:flex;"><span>	obj.init();
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><p>回到页面上，点击正文的图片就可以成功放大了。</p>
+<h2 id="结束">结束</h2>
+<p>随便放个图片试验一下吧！</p>
+<p><img src="https://img.zburu.com/i/2021/11/10/5b39fa131726043fecb309d5ce196243.png" alt=""></p>
+<p>之所以我限制了在正文中才可以放大，是因为网站其他地方也有图片，如果都可以点击放大，就很不合理。</p>
+<p>如果在使用中有其他问题，欢迎留言。</p>
+
+  </div>
+</section>
+
+
+
+
+
+<section>
+  <h4>评论~</h4>
+  <link href="https://artalk.zburu.com/dist/Artalk.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/artalk.css">
+<script src="https://artalk.zburu.com/dist/Artalk.js"></script>
+<div id="Comments"></div>
+<script>
+  Artalk.init({
+    el: '#Comments',
+    pageKey: '',
+    pageTitle: '',
+    server: 'https://artalk.zburu.com',
+    site: '子舒的博客',
+  })
+</script>
+</section>
+
+
+
+</main>
+<footer>
+  <div>
+    © 2020 - <span id="year"></span>
+  </div>
+  <div>
+    <a href="https://beian.miit.gov.cn/" target="_blank">
+      <span>浙ICP备2022002453号-2</span>
+    </a>
+    Powered by <a href="https://zburu.com/">子舒</a>
+
+  </div>
+  <div>网站已经运行 <span id="days">0</span></div>
+  <div class="gotop">
+    ▲
+  </div>
+</footer>
+
+<script>
+  var s0 = '2020-06-14';
+  s1 = new Date(s0.replace(/-/g, "/"));
+  s2 = new Date();
+  var days = s2.getTime() - s1.getTime();
+
+  var date = new Date;
+  var year = date.getFullYear();
+  document.getElementById('year').innerHTML = year;
+
+
+  var BootDate = new Date("2020-06-14");
+  function ShowRunTime(id) {
+    var NowDate = new Date();
+    var RunDateM = parseInt(NowDate - BootDate);
+    var RunDays = Math.floor(RunDateM / (24 * 3600 * 1000));
+    var RunHours = Math.floor(RunDateM % (24 * 3600 * 1000) / (3600 * 1000));
+    var RunMinutes = Math.floor(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) / (60 * 1000));
+    var RunSeconds = Math.round(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) % (60 * 1000) / 1000);
+    var days = RunDays + "天" + RunHours + "时" + RunMinutes + "分" + RunSeconds + "秒";
+    document.getElementById(id).innerHTML = days;
+  }
+  ShowRunTime('days');
+  setInterval("ShowRunTime('days')", 1000);
+</script>
+
+
+<script src="/js/vanilla-lazyload.js"></script>
+<script src="/js/simplebox.min.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+</body>
+
+</html>

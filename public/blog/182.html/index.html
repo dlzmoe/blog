@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Hugo 0.110.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="toTop" content="true">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="referrer" content="no-referrer">
+  <meta name="author" content="" />
+  <meta property="og:url" content="/blog/182.html/" />
+  <link rel="canonical" href="/blog/182.html/" /><link rel="apple-touch-icon" href="https://img.zburu.com/favicon1.png" />
+  <link rel="icon" href="https://img.zburu.com/favicon1.png" />
+  <link rel="shortcut" href="https://img.zburu.com/favicon1.png" /><link rel="alternate" type="application/atom+xml" href="index.xml" title="子舒的博客">
+
+  <script type="application/ld+json">
+  {
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": ""
+    },
+    "articleSection" : "blog",
+    "name" : "使用 cloudflare 反代 gravatar 免费生成国内镜像",
+    "headline" : "使用 cloudflare 反代 gravatar 免费生成国内镜像",
+    "description" : "cloudflare 有一个非常好用的功能\u0026mdash;Workers，可以在无服务器的状态下运行一些程序，包括常见的反向代理等。 所以我利用这一功能实现对 gravatar 反代，达到国内访问加速的目的。 话不多说，开始流程操作，分享我的部",
+    "inLanguage" : "en-US",
+    "author" : "",
+    "creator" : "",
+    "publisher": "",
+    "accountablePerson" : "",
+    "copyrightHolder" : "",
+    "copyrightYear" : "2023",
+    "datePublished": "2023-02-01 00:00:00 \u002b0000 UTC",
+    "dateModified" : "2023-02-01 00:00:00 \u002b0000 UTC",
+    "url" : "\/blog\/182.html\/",
+    "keywords" : [ "cloudflare","gravatar", ]
+  }
+</script><title>使用 cloudflare 反代 gravatar 免费生成国内镜像 @子舒</title>
+  <meta property="og:title" content="使用 cloudflare 反代 gravatar 免费生成国内镜像" />
+  <meta property="og:type" content="article" />
+  <meta property="og:description" content="cloudflare 有一个非常好用的功能&amp;mdash;Workers，可以在无服务器的状态下运行一些程序，包括常见的反向代理等。 所以我利用这一功能实现对 gravatar 反代，达到国内访问加速的目的。 话不多说，开始流程操作，分享我的部" />
+  <meta name="description" content="cloudflare 有一个非常好用的功能&amp;mdash;Workers，可以在无服务器的状态下运行一些程序，包括常见的反向代理等。 所以我利用这一功能实现对 gravatar 反代，达到国内访问加速的目的。 话不多说，开始流程操作，分享我的部" />
+  <meta property="og:locale" content="en-us" /><meta property="og:image" content="https://img.zburu.com/favicon1.png" />
+  
+
+  <link rel="stylesheet" href="/css/github-markdown.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/index.css">
+  <link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
+  <script src="/js/jquery3.6.0.min.js"></script>
+</head>
+
+<body>
+  <header>
+    <a href="/" class="logo"> 子舒的博客</a>
+    <div class="nav">
+      <a href="/">首页</a>
+      
+      <a href="/blog/">归档</a>
+      
+      <a href="/message/">留言</a>
+      
+      <a href="/about/">关于</a>
+      
+      <a href="/lab/">实验室</a>
+      
+      <a href="/index.xml" target="_blank"><svg xmlns="http://www.w3.org/2000/svg"
+          class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
+          stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <path d="M5 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+          <path d="M4 4a16 16 0 0 1 16 16"></path>
+          <path d="M4 11a9 9 0 0 1 9 9"></path>
+        </svg></a>
+      <a href="/search"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24"
+          height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+          stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
+          <path d="M21 21l-6 -6"></path>
+        </svg></a>
+    </div>
+    <div class="search-bg"></div>
+    <div class="mob-menu">
+      <em></em><em></em><em></em>
+    </div>
+  </header>
+  <main class="main">
+
+<section>
+  <div class="single-title">使用 cloudflare 反代 gravatar 免费生成国内镜像</div>
+  
+  
+  <time class="single-date" datetime=" 2023-02-01 00:00:00 UTC">
+    2023年02月01日
+  </time>
+  
+  
+
+  <nav id="TableOfContents"></nav>
+  <div class="post-content markdown-body" id="post-content">
+    
+    <p>cloudflare 有一个非常好用的功能&mdash;Workers，可以在无服务器的状态下运行一些程序，包括常见的反向代理等。</p>
+<p>所以我利用这一功能实现对 gravatar 反代，达到国内访问加速的目的。</p>
+<p>话不多说，开始流程操作，分享我的部署过程。</p>
+<p><strong>1.登陆后，在主页点击左侧的 <code>Workers</code>，然后点击<code>创建服务</code>。</strong></p>
+<p><img src="https://img.zburu.com/i/20230201/1675253358798.5h6helivsl00.webp" alt=""></p>
+<p><strong>2.服务名称随意填写，然后点击右下角创建。</strong></p>
+<p><img src="https://img.zburu.com/i/20230201/1675253485344.451pp9l8u920.webp" alt=""></p>
+<p><strong>3.点击右上角快速编辑</strong></p>
+<p><img src="https://img.zburu.com/i/20230201/image.2ple8r24vra.webp" alt=""></p>
+<p><strong>4.在左侧编辑器中输入下列的代码</strong></p>
+<p><img src="https://img.zburu.com/i/20230201/image.7hrwxy8aok00.webp" alt=""></p>
+<details>
+<summary>点击展开代码</summary>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 替换成你想镜像的站点
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">const</span> upstream <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;gravatar.com&#39;</span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 如果那个站点有专门的移动适配站点，否则保持和上面一致
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">const</span> upstream_mobile <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;gravatar.com&#39;</span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 你希望禁止哪些国家访问
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">const</span> blocked_region <span style="color:#000;font-weight:bold">=</span> []
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 禁止自访问
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">const</span> blocked_ip_address <span style="color:#000;font-weight:bold">=</span> []
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 替换成你想镜像的站点
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">const</span> replace_dict <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#d14">&#39;$upstream&#39;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;$custom_domain&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#d14">&#39;//gravatar.com&#39;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">//以下内容都不用动
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>addEventListener(<span style="color:#d14">&#39;fetch&#39;</span>, event =&gt; {
+</span></span><span style="display:flex;"><span>    event.respondWith(fetchAndApply(event.request));
+</span></span><span style="display:flex;"><span>})
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">async</span> <span style="color:#000;font-weight:bold">function</span> fetchAndApply(request) {
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">const</span> region <span style="color:#000;font-weight:bold">=</span> request.headers.get(<span style="color:#d14">&#39;cf-ipcountry&#39;</span>).toUpperCase();
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">const</span> ip_address <span style="color:#000;font-weight:bold">=</span> request.headers.get(<span style="color:#d14">&#39;cf-connecting-ip&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">const</span> user_agent <span style="color:#000;font-weight:bold">=</span> request.headers.get(<span style="color:#d14">&#39;user-agent&#39;</span>);
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">let</span> response <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">null</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">let</span> url <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> URL(request.url);
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">let</span> url_host <span style="color:#000;font-weight:bold">=</span> url.host;
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">if</span> (url.protocol <span style="color:#000;font-weight:bold">==</span> <span style="color:#d14">&#39;http:&#39;</span>) {
+</span></span><span style="display:flex;"><span>        url.protocol <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;https:&#39;</span>
+</span></span><span style="display:flex;"><span>        response <span style="color:#000;font-weight:bold">=</span> Response.redirect(url.href);
+</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">return</span> response;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">if</span> (<span style="color:#000;font-weight:bold">await</span> device_status(user_agent)) {
+</span></span><span style="display:flex;"><span>        upstream_domain <span style="color:#000;font-weight:bold">=</span> upstream
+</span></span><span style="display:flex;"><span>    } <span style="color:#000;font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>        upstream_domain <span style="color:#000;font-weight:bold">=</span> upstream_mobile
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>    url.host <span style="color:#000;font-weight:bold">=</span> upstream_domain;
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">if</span> (blocked_region.includes(region)) {
+</span></span><span style="display:flex;"><span>        response <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> Response(<span style="color:#d14">&#39;Access denied: WorkersProxy is not available in your region yet.&#39;</span>, {
+</span></span><span style="display:flex;"><span>            status<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">403</span>
+</span></span><span style="display:flex;"><span>        });
+</span></span><span style="display:flex;"><span>    } <span style="color:#000;font-weight:bold">else</span> <span style="color:#000;font-weight:bold">if</span>(blocked_ip_address.includes(ip_address)){
+</span></span><span style="display:flex;"><span>        response <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> Response(<span style="color:#d14">&#39;Access denied: Your IP address is blocked by WorkersProxy.&#39;</span>, {
+</span></span><span style="display:flex;"><span>            status<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">403</span>
+</span></span><span style="display:flex;"><span>        });
+</span></span><span style="display:flex;"><span>    } <span style="color:#000;font-weight:bold">else</span>{
+</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">let</span> method <span style="color:#000;font-weight:bold">=</span> request.method;
+</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">let</span> request_headers <span style="color:#000;font-weight:bold">=</span> request.headers;
+</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">let</span> new_request_headers <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> Headers(request_headers);
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>        new_request_headers.set(<span style="color:#d14">&#39;Host&#39;</span>, upstream_domain);
+</span></span><span style="display:flex;"><span>        new_request_headers.set(<span style="color:#d14">&#39;Referer&#39;</span>, url.href);
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">let</span> original_response <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">await</span> fetch(url.href, {
+</span></span><span style="display:flex;"><span>            method<span style="color:#000;font-weight:bold">:</span> method,
+</span></span><span style="display:flex;"><span>            headers<span style="color:#000;font-weight:bold">:</span> new_request_headers
+</span></span><span style="display:flex;"><span>        })
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">let</span> original_response_clone <span style="color:#000;font-weight:bold">=</span> original_response.clone();
+</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">let</span> original_text <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">null</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">let</span> response_headers <span style="color:#000;font-weight:bold">=</span> original_response.headers;
+</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">let</span> new_response_headers <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> Headers(response_headers);
+</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">let</span> status <span style="color:#000;font-weight:bold">=</span> original_response.status;
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>        new_response_headers.set(<span style="color:#d14">&#39;access-control-allow-origin&#39;</span>, <span style="color:#d14">&#39;*&#39;</span>);
+</span></span><span style="display:flex;"><span>        new_response_headers.set(<span style="color:#d14">&#39;access-control-allow-credentials&#39;</span>, <span style="color:#000;font-weight:bold">true</span>);
+</span></span><span style="display:flex;"><span>        new_response_headers.<span style="color:#000;font-weight:bold">delete</span>(<span style="color:#d14">&#39;content-security-policy&#39;</span>);
+</span></span><span style="display:flex;"><span>        new_response_headers.<span style="color:#000;font-weight:bold">delete</span>(<span style="color:#d14">&#39;content-security-policy-report-only&#39;</span>);
+</span></span><span style="display:flex;"><span>        new_response_headers.<span style="color:#000;font-weight:bold">delete</span>(<span style="color:#d14">&#39;clear-site-data&#39;</span>);
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">const</span> content_type <span style="color:#000;font-weight:bold">=</span> new_response_headers.get(<span style="color:#d14">&#39;content-type&#39;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">if</span> (content_type.includes(<span style="color:#d14">&#39;text/html&#39;</span>) <span style="color:#000;font-weight:bold">&amp;&amp;</span> content_type.includes(<span style="color:#d14">&#39;UTF-8&#39;</span>)) {
+</span></span><span style="display:flex;"><span>            original_text <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">await</span> replace_response_text(original_response_clone, upstream_domain, url_host);
+</span></span><span style="display:flex;"><span>        } <span style="color:#000;font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>            original_text <span style="color:#000;font-weight:bold">=</span> original_response_clone.body
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>        response <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> Response(original_text, {
+</span></span><span style="display:flex;"><span>            status,
+</span></span><span style="display:flex;"><span>            headers<span style="color:#000;font-weight:bold">:</span> new_response_headers
+</span></span><span style="display:flex;"><span>        })
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">return</span> response;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">async</span> <span style="color:#000;font-weight:bold">function</span> replace_response_text(response, upstream_domain, host_name) {
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">let</span> text <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">await</span> response.text()
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> i, j;
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">for</span> (i <span style="color:#000;font-weight:bold">in</span> replace_dict) {
+</span></span><span style="display:flex;"><span>        j <span style="color:#000;font-weight:bold">=</span> replace_dict[i]
+</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">if</span> (i <span style="color:#000;font-weight:bold">==</span> <span style="color:#d14">&#39;$upstream&#39;</span>) {
+</span></span><span style="display:flex;"><span>            i <span style="color:#000;font-weight:bold">=</span> upstream_domain
+</span></span><span style="display:flex;"><span>        } <span style="color:#000;font-weight:bold">else</span> <span style="color:#000;font-weight:bold">if</span> (i <span style="color:#000;font-weight:bold">==</span> <span style="color:#d14">&#39;$custom_domain&#39;</span>) {
+</span></span><span style="display:flex;"><span>            i <span style="color:#000;font-weight:bold">=</span> host_name
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">if</span> (j <span style="color:#000;font-weight:bold">==</span> <span style="color:#d14">&#39;$upstream&#39;</span>) {
+</span></span><span style="display:flex;"><span>            j <span style="color:#000;font-weight:bold">=</span> upstream_domain
+</span></span><span style="display:flex;"><span>        } <span style="color:#000;font-weight:bold">else</span> <span style="color:#000;font-weight:bold">if</span> (j <span style="color:#000;font-weight:bold">==</span> <span style="color:#d14">&#39;$custom_domain&#39;</span>) {
+</span></span><span style="display:flex;"><span>            j <span style="color:#000;font-weight:bold">=</span> host_name
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">let</span> re <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> <span style="color:#0086b3">RegExp</span>(i, <span style="color:#d14">&#39;g&#39;</span>)
+</span></span><span style="display:flex;"><span>        text <span style="color:#000;font-weight:bold">=</span> text.replace(re, j);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">return</span> text;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">async</span> <span style="color:#000;font-weight:bold">function</span> device_status (user_agent_info) {
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> agents <span style="color:#000;font-weight:bold">=</span> [<span style="color:#d14">&#34;Android&#34;</span>, <span style="color:#d14">&#34;iPhone&#34;</span>, <span style="color:#d14">&#34;SymbianOS&#34;</span>, <span style="color:#d14">&#34;Windows Phone&#34;</span>, <span style="color:#d14">&#34;iPad&#34;</span>, <span style="color:#d14">&#34;iPod&#34;</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> flag <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">true</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">for</span> (<span style="color:#000;font-weight:bold">var</span> v <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>; v <span style="color:#000;font-weight:bold">&lt;</span> agents.length; v<span style="color:#000;font-weight:bold">++</span>) { <span style="color:#000;font-weight:bold">if</span> (user_agent_info.indexOf(agents[v]) <span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#099">0</span>) {
+</span></span><span style="display:flex;"><span>            flag <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">false</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#000;font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">return</span> flag;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></details>
+<p>然后点击<code>保存并部署</code>，就可以成功反代 gravatar 镜像了。</p>
+<p>然后照葫芦画瓢，可以通过这种方式反代任何网站，我就使用 <a href="https://zsh.im">https://zsh.im</a> 反代了我的国内博客 <a href="https://zburu.com">https://zburu.com</a>。</p>
+<p>访问起来大致无压力，延迟100+ms左右。</p>
+<p><strong>5.自定义域名</strong></p>
+<p><img src="https://img.zburu.com/i/20230201/1675254069096.51n0e9vl53g0.webp" alt=""></p>
+<p>在触发器中可以找到自定义域名选项，输入已经绑定 cloudflare 的域名，再次赞美 cloudflare，如果事前绑定好了域名，在这里可以直接输入二级域名，cloudflare 会自动解析，全部都是自动化的。</p>
+<p>在主页左侧的 <code>网站</code> 绑定域名。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#998;font-style:italic"># 分享我的免费镜像。</span>
+</span></span><span style="display:flex;"><span>https://gravatar.zsh.im/avatar
+</span></span></code></pre></div>
+  </div>
+</section>
+
+
+
+
+
+<section>
+  <h4>评论~</h4>
+  <link href="https://artalk.zburu.com/dist/Artalk.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/artalk.css">
+<script src="https://artalk.zburu.com/dist/Artalk.js"></script>
+<div id="Comments"></div>
+<script>
+  Artalk.init({
+    el: '#Comments',
+    pageKey: '',
+    pageTitle: '',
+    server: 'https://artalk.zburu.com',
+    site: '子舒的博客',
+  })
+</script>
+</section>
+
+
+
+</main>
+<footer>
+  <div>
+    © 2020 - <span id="year"></span>
+  </div>
+  <div>
+    <a href="https://beian.miit.gov.cn/" target="_blank">
+      <span>浙ICP备2022002453号-2</span>
+    </a>
+    Powered by <a href="https://zburu.com/">子舒</a>
+
+  </div>
+  <div>网站已经运行 <span id="days">0</span></div>
+  <div class="gotop">
+    ▲
+  </div>
+</footer>
+
+<script>
+  var s0 = '2020-06-14';
+  s1 = new Date(s0.replace(/-/g, "/"));
+  s2 = new Date();
+  var days = s2.getTime() - s1.getTime();
+
+  var date = new Date;
+  var year = date.getFullYear();
+  document.getElementById('year').innerHTML = year;
+
+
+  var BootDate = new Date("2020-06-14");
+  function ShowRunTime(id) {
+    var NowDate = new Date();
+    var RunDateM = parseInt(NowDate - BootDate);
+    var RunDays = Math.floor(RunDateM / (24 * 3600 * 1000));
+    var RunHours = Math.floor(RunDateM % (24 * 3600 * 1000) / (3600 * 1000));
+    var RunMinutes = Math.floor(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) / (60 * 1000));
+    var RunSeconds = Math.round(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) % (60 * 1000) / 1000);
+    var days = RunDays + "天" + RunHours + "时" + RunMinutes + "分" + RunSeconds + "秒";
+    document.getElementById(id).innerHTML = days;
+  }
+  ShowRunTime('days');
+  setInterval("ShowRunTime('days')", 1000);
+</script>
+
+
+<script src="/js/vanilla-lazyload.js"></script>
+<script src="/js/simplebox.min.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+</body>
+
+</html>

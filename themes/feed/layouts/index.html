@@ -1,0 +1,26 @@
+{{ partial "header.html" . }}
+<!-- <section>
+  <div class="subscribe">
+    我是子舒，前端程序员，喜欢折腾一些技术，研究各种奇怪的程序和网站。<br>
+    <a href="https://zburu.com/" rel="noopener noreferrer" target="_blank">Blog</a> /
+    <a href="https://github.com/lovezsh/" rel="noopener noreferrer" target="_blank">Github</a> /
+    <a href="https://weekly.zsh.im/" rel="noopener noreferrer" target="_blank">Weekly</a>
+  </div>
+</section> -->
+
+<div class="postlist">
+  {{ $pages := .Site.RegularPages }}
+  {{ $paginator := .Paginate ($pages) }}
+  {{ range $paginator.Pages }}
+  {{ $title := .Title }}
+  {{ $summary := .Summary }}
+  <a class="postitem" href="{{ .RelPermalink }}">
+    <div class="title">{{ .Title }}</div>
+    <div class="summary">{{ .Summary }}</div>
+    <time datetime="{{ .Date.Format " 2006-01-02 15:04:05 MST" }}">
+      {{ .Date.Format "2006年01月02日"}}</time>
+  </a>
+  {{ end }}
+</div>
+{{ partial "pagination.html" . }}
+{{ partial "footer.html" . }}

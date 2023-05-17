@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Hugo 0.110.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="toTop" content="true">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="referrer" content="no-referrer">
+  <meta name="author" content="" />
+  <meta property="og:url" content="/blog/18.html/" />
+  <link rel="canonical" href="/blog/18.html/" /><link rel="apple-touch-icon" href="https://img.zburu.com/favicon1.png" />
+  <link rel="icon" href="https://img.zburu.com/favicon1.png" />
+  <link rel="shortcut" href="https://img.zburu.com/favicon1.png" /><link rel="alternate" type="application/atom+xml" href="index.xml" title="子舒的博客">
+
+  <script type="application/ld+json">
+  {
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": ""
+    },
+    "articleSection" : "blog",
+    "name" : "DOM－－文档对象模型",
+    "headline" : "DOM－－文档对象模型",
+    "description" : "DOM中文名文档对象模型，英文名Document Object Model，我们简称为DOM，是针对html和xml文档的一种API，将html以一种树状结构呈现出来，可以更直观去研究文档结构，我们将这种树状文档结",
+    "inLanguage" : "en-US",
+    "author" : "",
+    "creator" : "",
+    "publisher": "",
+    "accountablePerson" : "",
+    "copyrightHolder" : "",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-11-15 12:58:00 \u002b0000 UTC",
+    "dateModified" : "2020-11-15 12:58:00 \u002b0000 UTC",
+    "url" : "\/blog\/18.html\/",
+    "keywords" : [ "笔记", ]
+  }
+</script><title>DOM－－文档对象模型 @子舒</title>
+  <meta property="og:title" content="DOM－－文档对象模型" />
+  <meta property="og:type" content="article" />
+  <meta property="og:description" content="DOM中文名文档对象模型，英文名Document Object Model，我们简称为DOM，是针对html和xml文档的一种API，将html以一种树状结构呈现出来，可以更直观去研究文档结构，我们将这种树状文档结" />
+  <meta name="description" content="DOM中文名文档对象模型，英文名Document Object Model，我们简称为DOM，是针对html和xml文档的一种API，将html以一种树状结构呈现出来，可以更直观去研究文档结构，我们将这种树状文档结" />
+  <meta property="og:locale" content="en-us" /><meta property="og:image" content="https://img.zburu.com/favicon1.png" />
+  
+
+  <link rel="stylesheet" href="/css/github-markdown.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/index.css">
+  <link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
+  <script src="/js/jquery3.6.0.min.js"></script>
+</head>
+
+<body>
+  <header>
+    <a href="/" class="logo"> 子舒的博客</a>
+    <div class="nav">
+      <a href="/">首页</a>
+      
+      <a href="/blog/">归档</a>
+      
+      <a href="/message/">留言</a>
+      
+      <a href="/about/">关于</a>
+      
+      <a href="/lab/">实验室</a>
+      
+      <a href="/index.xml" target="_blank"><svg xmlns="http://www.w3.org/2000/svg"
+          class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
+          stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <path d="M5 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+          <path d="M4 4a16 16 0 0 1 16 16"></path>
+          <path d="M4 11a9 9 0 0 1 9 9"></path>
+        </svg></a>
+      <a href="/search"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24"
+          height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+          stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
+          <path d="M21 21l-6 -6"></path>
+        </svg></a>
+    </div>
+    <div class="search-bg"></div>
+    <div class="mob-menu">
+      <em></em><em></em><em></em>
+    </div>
+  </header>
+  <main class="main">
+
+<section>
+  <div class="single-title">DOM－－文档对象模型</div>
+  
+  
+  <time class="single-date" datetime=" 2020-11-15 12:58:00 UTC">
+    2020年11月15日
+  </time>
+  
+  
+
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一什么是dom">一、什么是DOM？</a></li>
+    <li><a href="#二节点树">二、节点树</a>
+      <ul>
+        <li><a href="#1节点类型">1.节点类型</a></li>
+        <li><a href="#2-属性">2. 属性</a></li>
+        <li><a href="#3文档节点document">3.文档节点－－document</a></li>
+        <li><a href="#4元素节点element对象">4.元素节点(element对象)</a></li>
+        <li><a href="#5属性节点attr对象">5.属性节点(Attr对象)</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  <div class="post-content markdown-body" id="post-content">
+    
+    <p>DOM中文名文档对象模型，英文名Document Object Model，我们简称为DOM，是针对html和xml文档的一种API，将html以一种树状结构呈现出来，可以更直观去研究文档结构，我们将这种树状文档结构称为－－DOM树，或者节点树，一样的概念</p>
+<!-- more -->
+<h2 id="一什么是dom">一、什么是DOM？</h2>
+<p>DOM中文名文档对象模型，英文名Document Object Model，我们简称为DOM，是针对html和xml文档的一种API，将html以一种树状结构呈现出来，可以更直观去研究文档结构，我们将这种树状文档结构称为－－DOM树，或者节点树，一样的概念</p>
+<p>js通过dom节点，可以对文档的html标签，属性，css样式，以及具体的内容做出修改，并对页面中的所有事件进行响应</p>
+<p><img src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-imgbed/3ffa522b-37ce-4b61-9c1d-2e7a5ed9fe29.jpg" alt="dom树结构图"></p>
+<!-- more -->
+<h2 id="二节点树">二、节点树</h2>
+<h3 id="1节点类型">1.节点类型</h3>
+<ol>
+<li>文档节点－－Document</li>
+<li>标签节点－－Element</li>
+<li>文本节点－－Text</li>
+<li>注释节点－－Comment</li>
+<li>属性节点－－Attr</li>
+</ol>
+<h3 id="2-属性">2. 属性</h3>
+<ol>
+<li>节点类型－－nodeType</li>
+<li>节点名称－－nodeName</li>
+<li>节点值－－nodeValue</li>
+<li>子节点－－childNodes</li>
+<li>父节点－－parentNodes</li>
+<li>上一个节点－－previousSibling</li>
+<li>下一个节点－－nextSibling</li>
+<li>第一个子节点－－firstChild</li>
+<li>最后一个子节点－－lastChild</li>
+</ol>
+<h3 id="3文档节点document">3.文档节点－－document</h3>
+<h4 id="1-获取">(1) 获取</h4>
+<ol>
+<li>getElementById()－－通过id获取元素</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;demo&#34;</span>&gt;通过id获取元素&lt;/<span style="color:#000080">div</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> demo <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#39;demo&#39;</span>);
+</span></span><span style="display:flex;"><span>    demo.onclick <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">function</span>() {
+</span></span><span style="display:flex;"><span>        console.log(<span style="color:#d14">&#39;通过id获取元素&#39;</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">&lt;!-- 点击id为demo的元素，控制台输出&#39;通过id获取元素&#39; --&gt;</span>
+</span></span></code></pre></div><ol start="2">
+<li>getElementsByName()－－通过name获取元素</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">input</span> <span style="color:#008080">type</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;text&#34;</span> <span style="color:#008080">name</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;int&#34;</span> <span style="color:#008080">value</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;通过name获取元素1&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">input</span> <span style="color:#008080">type</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;text&#34;</span> <span style="color:#008080">name</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;int&#34;</span> <span style="color:#008080">value</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;通过name获取元素2&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> <span style="color:#000;font-weight:bold">int</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.getElementsByName(<span style="color:#d14">&#39;int&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">for</span>(<span style="color:#000;font-weight:bold">var</span> i <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>;i <span style="color:#000;font-weight:bold">&lt;</span> <span style="color:#000;font-weight:bold">int</span>.length; i<span style="color:#000;font-weight:bold">++</span>) {
+</span></span><span style="display:flex;"><span>        console.log(<span style="color:#000;font-weight:bold">int</span>[i].value);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">&lt;!-- 控制台输出name为int的元素的value值 --&gt;</span>
+</span></span></code></pre></div><ol start="3">
+<li>getElementsByTagName()－－通过标签名获取元素</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span>&gt;通过标签名获取元素1&lt;/<span style="color:#000080">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span>&gt;通过标签名获取元素2&lt;/<span style="color:#000080">div</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> div <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.getElementsByTagName(<span style="color:#d14">&#39;div&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">for</span>(<span style="color:#000;font-weight:bold">var</span> i <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>;i <span style="color:#000;font-weight:bold">&lt;</span> div.length; i<span style="color:#000;font-weight:bold">++</span>) {
+</span></span><span style="display:flex;"><span>        console.log(div[i].innerHTML)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">&lt;!-- 控制台输出标签名为div的元素的文本内容 --&gt;</span>
+</span></span></code></pre></div><ol start="4">
+<li>getElementsByClassName()－－通过class获取元素</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;demo&#34;</span>&gt;通过class获取元素1&lt;/<span style="color:#000080">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;demo&#34;</span>&gt;通过class获取元素2&lt;/<span style="color:#000080">div</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> demo <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.getElementsByClassName(<span style="color:#d14">&#39;demo&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">for</span>(<span style="color:#000;font-weight:bold">var</span> i <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>;i <span style="color:#000;font-weight:bold">&lt;</span> demo.length; i<span style="color:#000;font-weight:bold">++</span>) {
+</span></span><span style="display:flex;"><span>        console.log(demo[i].innerHTML)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">&lt;!-- 控制台输出class为demo的元素的文本内容 --&gt;</span>
+</span></span></code></pre></div><ol start="5">
+<li>querySelector()－－通过选择器获取元素</li>
+</ol>
+<p>querySelector()括号里面要跟上符号，<code>class就写.</code>，<code>id就写#</code>，<code>标签直接写标签名TagName</code></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span>&gt;通过选择器获取标签名&lt;/<span style="color:#000080">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;div&#34;</span>&gt;通过选择器获取class&lt;/<span style="color:#000080">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;div&#34;</span>&gt;通过选择器获取id&lt;/<span style="color:#000080">div</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> divtag <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.querySelector(<span style="color:#d14">&#39;div&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> divclass <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.querySelector(<span style="color:#d14">&#39;.div&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> divid <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.querySelector(<span style="color:#d14">&#39;#div&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    divtag.onclick <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">function</span>() {
+</span></span><span style="display:flex;"><span>        console.log(<span style="color:#d14">&#39;通过选择器获取标签名&#39;</span>)
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// 点击标签div，控制台输出&#34;通过选择器获取标签名&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span>    divclass.onclick <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">function</span>() {
+</span></span><span style="display:flex;"><span>        console.log(<span style="color:#d14">&#39;通过选择器获取class&#39;</span>)
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// 点击class为div，控制台输出&#34;通过选择器获取class&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span>    divid.onclick <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">function</span>() {
+</span></span><span style="display:flex;"><span>        console.log(<span style="color:#d14">&#39;通过选择器获取id&#39;</span>)
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// 点击id为div，控制台输出&#34;通过选择器获取id&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>&lt;/<span style="color:#000080">script</span>&gt;
+</span></span></code></pre></div><ol start="6">
+<li>querySelectorAll()－－通过选择器获取元素集合</li>
+</ol>
+<p>获取的是一个数组集合</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">input</span> <span style="color:#008080">type</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;text&#34;</span> <span style="color:#008080">value</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;int1&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">input</span> <span style="color:#008080">type</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;text&#34;</span> <span style="color:#008080">value</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;int2&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">input</span> <span style="color:#008080">type</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;text&#34;</span> <span style="color:#008080">value</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;int3&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> <span style="color:#000;font-weight:bold">int</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.querySelectorAll(<span style="color:#d14">&#39;input&#39;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">for</span>(i <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>; i <span style="color:#000;font-weight:bold">&lt;</span> <span style="color:#000;font-weight:bold">int</span>.length; i<span style="color:#000;font-weight:bold">++</span>) {
+</span></span><span style="display:flex;"><span>        console.log(<span style="color:#000;font-weight:bold">int</span>[i].value)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">&lt;!-- 浏览器依次打印出`int1`,`int2`,`int3` --&gt;</span>
+</span></span></code></pre></div><h4 id="2-创建">(2) 创建</h4>
+<ol>
+<li>createElement()－－创建元素（标签）节点</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">ul</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;ul&#34;</span>&gt;&lt;/<span style="color:#000080">ul</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> ul <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#39;ul&#39;</span>);
+</span></span><span style="display:flex;"><span>    ul.appendChild(<span style="color:#0086b3">document</span>.createElement(<span style="color:#d14">&#39;li&#39;</span>))
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">script</span>&gt;
+</span></span></code></pre></div><p>可以看到，ul下面已经生成了一个li标签</p>
+<p><img src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-imgbed/1730cc20-f0c5-40f7-bfd7-502e65d255d7.png" alt=""></p>
+<ol start="2">
+<li>createTextNode()－－创建文本节点</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">ul</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;ul&#34;</span>&gt;&lt;/<span style="color:#000080">ul</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> ul <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#39;ul&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> li <span style="color:#000;font-weight:bold">=</span> ul.appendChild(<span style="color:#0086b3">document</span>.createElement(<span style="color:#d14">&#39;li&#39;</span>));
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> node <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.createTextNode(<span style="color:#d14">&#39;我是li&#39;</span>);
+</span></span><span style="display:flex;"><span>    li.appendChild(node);
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">script</span>&gt;
+</span></span></code></pre></div><p>li标签中生成了一段文本</p>
+<p><img src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-imgbed/2e3bf1b9-8285-4128-a809-a21136cf4687.png" alt=""></p>
+<ol start="3">
+<li>createAttribute()－－创建属性节点</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">input</span> <span style="color:#008080">type</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;text&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> <span style="color:#000;font-weight:bold">int</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.getElementsByTagName(<span style="color:#d14">&#39;input&#39;</span>)[<span style="color:#099">0</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> value <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.createAttribute(<span style="color:#d14">&#39;value&#39;</span>);
+</span></span><span style="display:flex;"><span>    value.nodeValue <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;通过创建属性节点生成&#39;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">int</span>.setAttributeNode(value);
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">script</span>&gt;
+</span></span></code></pre></div><p>可以看到value属性值被成功创建</p>
+<p><img src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-imgbed/3a640bc1-d9b0-436e-b2d4-f440e41cd1af.png" alt=""></p>
+<ol start="4">
+<li>createComment()－－创建注释节点</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;div&#34;</span>&gt;创建一个注释节点&lt;/<span style="color:#000080">div</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> div <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#39;div&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> comment <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.createComment(<span style="color:#d14">&#39;添加一个注释节点&#39;</span>);
+</span></span><span style="display:flex;"><span>    div.appendChild(comment);
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">script</span>&gt;
+</span></span></code></pre></div><p>f12查看源码，可以看到div生成一行注释</p>
+<p><img src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-imgbed/0d1412e5-3790-4005-9c65-a30bfb1f0f6a.png" alt=""></p>
+<ol start="5">
+<li>createDocumentFragment()－－创建文档片段</li>
+</ol>
+<p>文档片段的作用，就相当于是添加的所有的节点的父元素</p>
+<blockquote>
+<p>1.假如没有createDocumentFragment，添加了很多节点，也可以在dom上呈现，但是每次添加的时候都会调用一次appendChild()方法，产生很多次页面渲染，显得比较臃肿
+2.把多次添加的节点放在一个createDocumentFragment节点里面，页面只会调用一次就可以把所有的节点都渲染了</p>
+</blockquote>
+<ol start="6">
+<li>
+<p>createEvent()－－创建事件对象</p>
+</li>
+<li>
+<p>addEventListener()－－添加事件监听函数</p>
+</li>
+<li>
+<p>removeEventListener()－－移除事件监听函数</p>
+</li>
+</ol>
+<p><a href="../20201117-eventlistener" target="_blank">事件监听函数详解</a></p>
+<ol start="9">
+<li>dispatchEvent()－－触发事件</li>
+</ol>
+<h4 id="操作css">操作css</h4>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;demo&#34;</span>&gt;dom&lt;/<span style="color:#000080">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// 直接通过&#39;.&#39;来操作style
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    <span style="color:#000;font-weight:bold">var</span> demo<span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#39;demo&#39;</span>);
+</span></span><span style="display:flex;"><span>    demo.style.color <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;red&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// 通过setAttribute()来创建属性节点
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    demo.setAttribute(<span style="color:#d14">&#39;style&#39;</span>,<span style="color:#d14">&#39;background-color: green&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// 通过style的cssText属性
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    demo.style.cssText <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;border: 10px solid black&#34;</span>;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">script</span>&gt;
+</span></span></code></pre></div><h3 id="4元素节点element对象">4.元素节点(element对象)</h3>
+<p><img src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-imgbed/a31a07ef-124c-4f86-8f8f-b88ce42ad09c.png" alt=""></p>
+<p><strong>有关innerHTML, innerText, outerHTML, outerText的区别</strong></p>
+<p>一个是元素内容，一个是文本内容</p>
+<p><img src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-imgbed/45a3bf80-f294-444c-ae76-64300242dfa3.gif" alt=""></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;div1&#34;</span>&gt;第一个div&lt;/<span style="color:#000080">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;div2&#34;</span>&gt;第二个div&lt;/<span style="color:#000080">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;div3&#34;</span>&gt;第三个div&lt;/<span style="color:#000080">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;div4&#34;</span>&gt;第四个div&lt;/<span style="color:#000080">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;div5&#34;</span>&gt;&lt;/<span style="color:#000080">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;div6&#34;</span>&gt;&lt;/<span style="color:#000080">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;div7&#34;</span>&gt;&lt;/<span style="color:#000080">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;div8&#34;</span>&gt;&lt;/<span style="color:#000080">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> div1 <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#39;div1&#39;</span>).innerHTML
+</span></span><span style="display:flex;"><span>    console.log(div1)   <span style="color:#998;font-style:italic">// 第一个div
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> div1 <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#39;div1&#39;</span>).outerHTML
+</span></span><span style="display:flex;"><span>    console.log(div1)   <span style="color:#998;font-style:italic">// &lt;div id=&#34;div1&#34;&gt;第一个div&lt;/div&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> div2 <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#39;div2&#39;</span>).innerText
+</span></span><span style="display:flex;"><span>    console.log(div2)   <span style="color:#998;font-style:italic">// 第二个div
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> div2 <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#39;div2&#39;</span>).outerText
+</span></span><span style="display:flex;"><span>    console.log(div2)   <span style="color:#998;font-style:italic">// 第二个div
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#39;div5&#39;</span>).innerHTML <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;&lt;a&gt;《第5个div》&lt;/a&gt;&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// 在原有的标签内增加内容，如果有标签会被识别
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#39;div6&#39;</span>).outerHTML <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;&lt;a&gt;《第6个div》&lt;/a&gt;&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// 原来的标签会被覆盖，新的文本中如果含有标签会自动生成，如果没有标签则直接以文本形式展示
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#39;div7&#39;</span>).innerText <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;&lt;a&gt;《第7个div》&lt;/a&gt;&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// 在原有的标签内增加内容，新标签不会被识别为标签元素，而是被当作文本内容直接写入原标签内
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#39;div8&#39;</span>).outerText <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;&lt;a&gt;《第8个div》&lt;/a&gt;&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// 原来的标签会被覆盖，新标签不会被识别为标签元素，而是直接被当作文本形式展示
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>&lt;/<span style="color:#000080">script</span>&gt;
+</span></span></code></pre></div><h4 id="1-节点属性">(1) 节点属性</h4>
+<ol>
+<li>childElementCount－－返回当前元素的子节点的个数</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;demo&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">a</span>&gt;&lt;/<span style="color:#000080">a</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">span</span>&gt;&lt;/<span style="color:#000080">span</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">p</span>&gt;&lt;/<span style="color:#000080">p</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">div</span>&gt;&lt;/<span style="color:#000080">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">div</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> demo <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#39;demo&#39;</span>)
+</span></span><span style="display:flex;"><span>    console.log(demo.childElementCount) <span style="color:#998;font-style:italic">// 4
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>&lt;/<span style="color:#000080">script</span>&gt;
+</span></span></code></pre></div><ol start="2">
+<li>firstElementChild－－返回当前元素的第一个子元素节点
+lastElementChild－－返回当前元素的最后一个子元素节点</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;demo&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">a</span>&gt;&lt;/<span style="color:#000080">a</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">span</span>&gt;&lt;/<span style="color:#000080">span</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">p</span>&gt;&lt;/<span style="color:#000080">p</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">div</span>&gt;&lt;/<span style="color:#000080">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">div</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> demo <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#39;demo&#39;</span>)
+</span></span><span style="display:flex;"><span>    console.log(demo.firstElementChild) <span style="color:#998;font-style:italic">// &lt;a&gt;&lt;/a&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    console.log(demo.lastElementChild)  <span style="color:#998;font-style:italic">// &lt;div&gt;&lt;/div&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>&lt;/<span style="color:#000080">script</span>&gt;
+</span></span></code></pre></div><ol start="3">
+<li>nextElementSibling－－返回当前元素的下一个兄弟元素节点
+previousElementSibling－－返回当前元素的上一个兄弟元素节点</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">span</span>&gt;&lt;/<span style="color:#000080">span</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;demo&#34;</span>&gt;&lt;/<span style="color:#000080">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">p</span>&gt;&lt;/<span style="color:#000080">p</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> demo <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#39;demo&#39;</span>)
+</span></span><span style="display:flex;"><span>    console.log(demo.nextElementSibling)        <span style="color:#998;font-style:italic">// &lt;p&gt;&lt;/p&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    console.log(demo.previousElementSibling)    <span style="color:#998;font-style:italic">// &lt;span&gt;&lt;/span&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>&lt;/<span style="color:#000080">script</span>&gt;
+</span></span></code></pre></div><ol start="4">
+<li>返回当前元素所有的子节点</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;demo&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">span</span>&gt;&lt;/<span style="color:#000080">span</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">p</span>&gt;&lt;/<span style="color:#000080">p</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">a</span>&gt;&lt;/<span style="color:#000080">a</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">div</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> demo <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#39;demo&#39;</span>).children
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">for</span>(<span style="color:#000;font-weight:bold">var</span> i <span style="color:#000;font-weight:bold">in</span> demo) {
+</span></span><span style="display:flex;"><span>        console.log(demo[i])
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">script</span>&gt;
+</span></span></code></pre></div><p>控制台查看返回结果</p>
+<p><img src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-imgbed/069d6703-ec2f-499e-9236-cc4ddea0a6a5.jpg" alt=""></p>
+<ol start="5">
+<li>返回所有子节点集合</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;demo&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">span</span>&gt;&lt;/<span style="color:#000080">span</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">p</span>&gt;&lt;/<span style="color:#000080">p</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">a</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;demo1&#34;</span>&gt;&lt;/<span style="color:#000080">a</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">div</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> demo <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#39;demo&#39;</span>).children
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">for</span>(<span style="color:#000;font-weight:bold">var</span> i <span style="color:#000;font-weight:bold">in</span> demo1.childNodes) {
+</span></span><span style="display:flex;"><span>        console.log(demo[i])
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">script</span>&gt;
+</span></span></code></pre></div><p><img src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-imgbed/2f2dded9-71e7-4fe5-b252-3c0e7451d56f.jpg" alt=""></p>
+<h4 id="2-节点方法">(2) 节点方法</h4>
+<ol>
+<li>appendChild－－插入子节点</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;demo&#34;</span>&gt;&lt;/<span style="color:#000080">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> demo <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#39;demo&#39;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> node <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.createTextNode(<span style="color:#d14">&#39;插入一个子节点&#39;</span>)
+</span></span><span style="display:flex;"><span>    demo.appendChild(node)
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">script</span>&gt;  
+</span></span></code></pre></div><p>f12可以看到，div被插入了一个节点</p>
+<p><img src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-imgbed/f5826008-b3f3-404c-8d6e-e11d54e2136a.jpg" alt=""></p>
+<ol start="2">
+<li>insertBefore(a, b)－－在指定位置插入节点</li>
+</ol>
+<p>参数a表示要插入的内容，b表示定位，在b节点之前插入a节点</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;demo&#34;</span>&gt;&lt;/<span style="color:#000080">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> demo <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#39;demo&#39;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> node <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.createTextNode(<span style="color:#d14">&#39;插入一个子节点&#39;</span>)
+</span></span><span style="display:flex;"><span>    demo.appendChild(node)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> hr <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.createElement(<span style="color:#d14">&#39;hr&#39;</span>)
+</span></span><span style="display:flex;"><span>    demo.insertBefore(hr, node)
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">script</span>&gt;  
+</span></span></code></pre></div><p>可以看到，原来的文本节点之前，被添加了一个新的元素节点</p>
+<p><img src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-imgbed/0676c84c-1c2a-4992-b95b-f95234b11b6d.png" alt=""></p>
+<ol start="3">
+<li>replaceChild(a, b)－－替换节点</li>
+</ol>
+<p>用参数a替换参数b，a表示新节点，b表示旧节点</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;demo&#34;</span>&gt;&lt;/<span style="color:#000080">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> demo <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#39;demo&#39;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> node <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.createTextNode(<span style="color:#d14">&#39;插入一个子节点&#39;</span>)
+</span></span><span style="display:flex;"><span>    demo.appendChild(node)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> h3 <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.createElement(<span style="color:#d14">&#39;h3&#39;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> h3node <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.createTextNode(<span style="color:#d14">&#39;title标题&#39;</span>)
+</span></span><span style="display:flex;"><span>    h3.appendChild(h3node)
+</span></span><span style="display:flex;"><span>    demo.replaceChild(h3, node)
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">script</span>&gt;  
+</span></span></code></pre></div><p><code>h3</code>是新节点，<code>node</code>是旧节点，根据图片可以看到，b替换掉了a，成功上位</p>
+<p><img src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-imgbed/d44385ba-a6b9-4b9b-b381-c26b87c26b96.jpg" alt=""></p>
+<ol start="4">
+<li>removeChild－－父节点删除子节点</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;demo&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">div</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;son&#34;</span>&gt;&lt;/<span style="color:#000080">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">div</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> demo <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#39;demo&#39;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> son <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#39;son&#39;</span>)
+</span></span><span style="display:flex;"><span>    demo.removeChild(son)
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">script</span>&gt;  
+</span></span></code></pre></div><p>f12可以看到，id为son的元素节点，通过<code>demo.removeChild()</code>已经被删除了</p>
+<p><img src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-imgbed/0b56c5f7-d57d-469f-ac90-9630ac22a792.jpg" alt=""></p>
+<ol start="5">
+<li>removeAttribute－－删除属性节点</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;demo&#34;</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;div&#34;</span>&gt;&lt;/<span style="color:#000080">div</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> demo <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#39;demo&#39;</span>)
+</span></span><span style="display:flex;"><span>    demo.removeAttribute(<span style="color:#d14">&#39;class&#39;</span>)
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">script</span>&gt;  
+</span></span></code></pre></div><p>class属性已经被删除了</p>
+<p><img src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-imgbed/5094309b-decd-4983-9a03-db94eaf87656.jpg" alt=""></p>
+<ol start="6">
+<li>删除文本节点</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;demo&#34;</span>&gt;文本&lt;/<span style="color:#000080">div</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> demo <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#39;demo&#39;</span>)
+</span></span><span style="display:flex;"><span>    demo.removeChild(demo.childNodes[<span style="color:#099">0</span>])
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">script</span>&gt;  
+</span></span></code></pre></div><p>通过<code>demo.childNodesp[0]</code>获取demo的第一个节点，即文本节点，然后<code>removeChild</code>它，就删除了</p>
+<p><img src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-imgbed/03ef7200-9157-430a-aad0-5caf26a233bb.png" alt=""></p>
+<ol start="7">
+<li>isEqualNode－－判断两个元素是否<code>相等</code>
+isSameNode－－判断两个元素是否<code>相同</code></li>
+</ol>
+<blockquote>
+<p>两者分别代表<code>相等</code>和<code>相同</code></p>
+</blockquote>
+<p>(1) <code>isEqualNode</code>相等，指的是两个节点是否是同一类型，具有相等的属性（包括：nodeName, nodeValue&hellip;等等），还有相等的attributes,childNodes（相等的位置包含相同的值）
+(2) <code>isSameNode</code>相同，指的是两个节点引用的是同一个对象</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">form</span> <span style="color:#008080">action</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;#&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">input</span> <span style="color:#008080">type</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;button&#34;</span> /&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">form</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">form</span> <span style="color:#008080">action</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;#&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">input</span> <span style="color:#008080">type</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;button&#34;</span> /&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">form</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">form</span> <span style="color:#008080">action</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;#&#34;</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;o&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">input</span> <span style="color:#008080">type</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;button&#34;</span> /&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">form</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">form</span> <span style="color:#008080">action</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;#&#34;</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;o&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">input</span> <span style="color:#008080">type</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;text&#34;</span> /&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">form</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> forms <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.forms;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> form1 <span style="color:#000;font-weight:bold">=</span> forms[<span style="color:#099">0</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> form2 <span style="color:#000;font-weight:bold">=</span> forms[<span style="color:#099">1</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> form3 <span style="color:#000;font-weight:bold">=</span> forms[<span style="color:#099">2</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> form4 <span style="color:#000;font-weight:bold">=</span> forms[<span style="color:#099">3</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> _form1 <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.querySelectorAll(<span style="color:#d14">&#39;form&#39;</span>)[<span style="color:#099">0</span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    console.log(form1.isSameNode(form1))  <span style="color:#998;font-style:italic">//true  两个节点引用的对象都是第一个form
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    console.log(form1.isSameNode(_form1)) <span style="color:#998;font-style:italic">//true  两个节点引用的对象都是第一个form
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    console.log(form1.isSameNode(form2))  <span style="color:#998;font-style:italic">//false 两个节点引用的不是一个对象
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span>    console.log(form1.isEqualNode(form2)) <span style="color:#998;font-style:italic">//true  两个节点具有完全等同属性
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    console.log(form1.isEqualNode(form3)) <span style="color:#998;font-style:italic">//false form1中无等同的id属性
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    console.log(form3.isEqualNode(form4))  <span style="color:#998;font-style:italic">//fasle form4的childNodes中的input为text类别，与form3不同
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>&lt;/<span style="color:#000080">script</span>&gt;
+</span></span></code></pre></div><p>根据例子代码可以看出区别：</p>
+<p>(1) <code>isSameNode</code>只有引用同一个对象时才相同，比如用两中方法调用同一个对象，再比较这两种方法，比来比去还是那个对象，所以相同
+(2) 而<code>isEqualNode</code>比较两个对象的元素节点是否相等，只要两者一致就可以相等true</p>
+<ol start="8">
+<li>hasChildNodes()－－判断一个元素是否拥有子节点</li>
+</ol>
+<p>判断<code>demo</code>是否拥有子节点，然后输出他的子节点</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;demo&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">&lt;!-- &lt;a&gt;&lt;/a&gt; --&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">div</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> demo <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#39;demo&#39;</span>)
+</span></span><span style="display:flex;"><span>    console.log(demo.hasChildNodes())
+</span></span><span style="display:flex;"><span>    console.log(demo.childNodes)
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">script</span>&gt;
+</span></span></code></pre></div><p><img src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-imgbed/f68efaf2-912a-4c67-a878-cf4c271fac33.png" alt=""></p>
+<ol start="9">
+<li>contains(a)－－判断一个节点是否包含指定子节点（参数a表示要判断的子节点）</li>
+</ol>
+<p>存在<code>id=&quot;a&quot;</code>的元素，因此contains判断成功输出<code>true</code>，</p>
+<p>不存在<code>id=&quot;b&quot;</code>的元素，因此输出<code>false</code></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;demo&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">a</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;a&#34;</span>&gt;&lt;/<span style="color:#000080">a</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">a</span>&gt;&lt;/<span style="color:#000080">a</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">div</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> demo <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#39;demo&#39;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> a <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#39;a&#39;</span>)
+</span></span><span style="display:flex;"><span>    console.log(demo.contains(a))   <span style="color:#998;font-style:italic">// true
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> b <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#39;b&#39;</span>)
+</span></span><span style="display:flex;"><span>    console.log(demo.contains(b))   <span style="color:#998;font-style:italic">// false
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>&lt;/<span style="color:#000080">script</span>&gt;
+</span></span></code></pre></div><h3 id="5属性节点attr对象">5.属性节点(Attr对象)</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">input</span> <span style="color:#008080">type</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;text&#34;</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;int&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> <span style="color:#000;font-weight:bold">int</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#39;int&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// 1.获取属性值
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    console.log(<span style="color:#000;font-weight:bold">int</span>.getAttribute(<span style="color:#d14">&#34;type&#34;</span>))   
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// text
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// 2.获取属性节点
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    console.log(<span style="color:#000;font-weight:bold">int</span>.getAttributeNode(<span style="color:#d14">&#34;type&#34;</span>))
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// type=&#34;text&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// 3.设置属性值
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    <span style="color:#000;font-weight:bold">int</span>.setAttribute(<span style="color:#d14">&#34;value&#34;</span>, <span style="color:#d14">&#34;input框&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// &lt;input type=&#34;text&#34; id=&#34;int&#34; value=&#34;input框&#34;&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// 4.设置属性节点
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    <span style="color:#000;font-weight:bold">let</span> name <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.createAttribute(<span style="color:#d14">&#34;name&#34;</span>);
+</span></span><span style="display:flex;"><span>    name.nodeValue <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;uname&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">int</span>.setAttributeNode(name);
+</span></span><span style="display:flex;"><span>    console.log(<span style="color:#000;font-weight:bold">int</span>.getAttributeNode(<span style="color:#d14">&#39;name&#39;</span>).value) 
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// &lt;input type=&#34;text&#34; id=&#34;int&#34; value=&#34;input框&#34; name=&#34;uname&#34;&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// 5.删除属性节点
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    console.log(<span style="color:#000;font-weight:bold">int</span>.removeAttribute(<span style="color:#d14">&#39;name&#39;</span>))
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// &lt;input type=&#34;text&#34; id=&#34;int&#34; value=&#34;input框&#34;&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// 6.判断是否存在属性
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    console.log(<span style="color:#000;font-weight:bold">int</span>.hasAttributes())
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// true
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// 7.判断是否存在指定属性
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    console.log(<span style="color:#000;font-weight:bold">int</span>.hasAttribute(<span style="color:#d14">&#39;value&#39;</span>))
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// true
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>&lt;/<span style="color:#000080">script</span>&gt;
+</span></span></code></pre></div><blockquote>
+<p>注意：<code>hasAttribute</code>和<code>hasAttributes</code>的区别
+<code>hasAttributes</code>判断是否存在属性，
+<code>hasAttribute</code>判断是否存在指定属性</p>
+</blockquote>
+
+  </div>
+</section>
+
+
+
+
+
+<section>
+  <h4>评论~</h4>
+  <link href="https://artalk.zburu.com/dist/Artalk.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/artalk.css">
+<script src="https://artalk.zburu.com/dist/Artalk.js"></script>
+<div id="Comments"></div>
+<script>
+  Artalk.init({
+    el: '#Comments',
+    pageKey: '',
+    pageTitle: '',
+    server: 'https://artalk.zburu.com',
+    site: '子舒的博客',
+  })
+</script>
+</section>
+
+
+
+</main>
+<footer>
+  <div>
+    © 2020 - <span id="year"></span>
+  </div>
+  <div>
+    <a href="https://beian.miit.gov.cn/" target="_blank">
+      <span>浙ICP备2022002453号-2</span>
+    </a>
+    Powered by <a href="https://zburu.com/">子舒</a>
+
+  </div>
+  <div>网站已经运行 <span id="days">0</span></div>
+  <div class="gotop">
+    ▲
+  </div>
+</footer>
+
+<script>
+  var s0 = '2020-06-14';
+  s1 = new Date(s0.replace(/-/g, "/"));
+  s2 = new Date();
+  var days = s2.getTime() - s1.getTime();
+
+  var date = new Date;
+  var year = date.getFullYear();
+  document.getElementById('year').innerHTML = year;
+
+
+  var BootDate = new Date("2020-06-14");
+  function ShowRunTime(id) {
+    var NowDate = new Date();
+    var RunDateM = parseInt(NowDate - BootDate);
+    var RunDays = Math.floor(RunDateM / (24 * 3600 * 1000));
+    var RunHours = Math.floor(RunDateM % (24 * 3600 * 1000) / (3600 * 1000));
+    var RunMinutes = Math.floor(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) / (60 * 1000));
+    var RunSeconds = Math.round(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) % (60 * 1000) / 1000);
+    var days = RunDays + "天" + RunHours + "时" + RunMinutes + "分" + RunSeconds + "秒";
+    document.getElementById(id).innerHTML = days;
+  }
+  ShowRunTime('days');
+  setInterval("ShowRunTime('days')", 1000);
+</script>
+
+
+<script src="/js/vanilla-lazyload.js"></script>
+<script src="/js/simplebox.min.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+</body>
+
+</html>
