@@ -45,6 +45,7 @@ $(window).on("scroll", function () {
   }
 });
 
+// 统计总数字和文章数
 $(document).ready(function () {
   $.ajax({
     url: '/index.json',
