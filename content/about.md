@@ -21,7 +21,6 @@ E-mail: shuxhan#163.com
 
 ### 2. 博客日志
 
-2023-03-07: 创建 Github 组织 [Anghunk](https://github.com/Anghunk)，存储开发的主题，目前已有6套。  
 2022-12-14: 重构博客主题。  
 2022-11-10: 开源本博客主题 [hugo-theme-Reader](https://github.com/lovezsh/hugo-theme-Reader)。  
 2022-10-09: 博客使用 hugo 构建。  
