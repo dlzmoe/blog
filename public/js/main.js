@@ -34,17 +34,6 @@ $(function () {
   })
 })
 
-$(window).on("scroll", function () {
-  if ($(window).scrollTop() >= 80) {
-    $('header').addClass('is-active');
-    var title = $('.single-title').text();
-    $('.header-title').html(title)
-  } else {
-    $('header').removeClass('is-active');
-    $('.header-title').html('')
-  }
-});
-
 // 统计总数字和文章数
 $(document).ready(function () {
   $.ajax({
