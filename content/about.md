@@ -16,8 +16,8 @@ RSS订阅流: [https://zburu.com/index.xml](https://zburu.com/index.xml)
 
 
 Github: [https://github.com/lovezsh](https://github.com/lovezsh)  
+仓库: [https://github.com/lovezsh/hugo-blog](https://github.com/lovezsh/hugo-blog)  
 E-mail: shuxhan#163.com  
-
 
 ### 2. 博客日志
 
