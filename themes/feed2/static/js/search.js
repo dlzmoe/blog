@@ -43,14 +43,3 @@ function initiateSearch() {
   };
   xhr.send();
 }
-
-$('#startSearch').click(function () {
-  $('.search-bg').show();
-  $('#search').toggle();
-  $('#searchTerm').focus();
-})
-
-$('.search-bg').click(function () {
-  $(this).hide();
-  $('#search').hide();
-})
