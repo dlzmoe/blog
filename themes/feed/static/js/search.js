@@ -19,7 +19,7 @@ function displayResults(searchResults) {
       let resultDiv = document.createElement("div");
       let resultTitle = document.createElement("a");
       resultTitle.innerText = searchResults[i].title;
-      resultTitle.setAttribute('href', searchResults[i].permalink)
+      resultTitle.setAttribute('href', searchResults[i].permalink);
       resultDiv.appendChild(resultTitle);
       container.appendChild(resultDiv);
     }
@@ -43,14 +43,3 @@ function initiateSearch() {
   };
   xhr.send();
 }
-
-$('#startSearch').click(function () {
-  $('.search-bg').show();
-  $('#search').toggle();
-  $('#searchTerm').focus();
-})
-
-$('.search-bg').click(function () {
-  $(this).hide();
-  $('#search').hide();
-})
