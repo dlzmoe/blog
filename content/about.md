@@ -21,6 +21,7 @@ E-mail: shuxhan#163.com
 
 ### 2. 博客日志
 
+2023-05-25: 新主题 [hugo-themes-meteor](https://github.com/lovezsh/hugo-themes-meteor) 正式上线。  
 2023-05-14: 购买域名[han.ge](https://han.ge)，并做了反向代理连接博客。  
 2022-12-14: 重构博客主题。  
 2022-11-10: 开源本博客主题 [hugo-theme-Reader](https://github.com/lovezsh/hugo-theme-Reader)。  
