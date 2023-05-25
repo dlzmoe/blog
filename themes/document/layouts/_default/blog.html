@@ -1,0 +1,35 @@
+<script src="{{ .Site.Params.staticPrefix }}{{ "js/jquery3.6.0.min.js" | relURL }}"></script>
+<link rel="stylesheet" href="{{ .Site.Params.staticPrefix }}{{ "css/index.css" | relURL }}">
+<script src="{{ .Site.Params.staticPrefix }}{{ "js/main.js" | relURL }}"></script>
+
+{{ range (where .Data.Pages "Type" "in" site.Params.mainSections).GroupByDate "2006" -}}
+<section>
+  <h2 style="margin:0;">{{ .Key }}</h2>
+  {{ range .Pages }}
+  <div class="arthive-item">
+    <a data-src="{{ .RelPermalink }}" class="arthive-title">{{ .Title }}</a>
+  </div>
+  {{ end }}
+</section>
+{{ end }}
+
+<style>
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 18px;
+    background: none;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #bdbdbd;
+  }
+</style>
+<script>
+  $('.arthive-title').each(function () {
+    $(this).click(function () {
+      iframeSrc = $(this).attr('data-src');
+      parent.location.href = iframeSrc
+      
+    })
+  })
+</script>
