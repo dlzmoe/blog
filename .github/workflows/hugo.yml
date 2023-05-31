@@ -24,3 +24,15 @@ jobs:
 
             - name: Build Web
               run: hugo
+            - name: Commit changes
+              run: |
+                git config --global user.email "shuxhan@163.com"
+                git config --global user.name "lovezsh"
+                git pull
+                git add .
+                git commit -m "my commit"
+            - name: Push changes
+              uses: ad-m/github-push-action@master
+              with:
+                github_token: ${{ secrets.GITHUB_TOKEN }}
+                branch: main
