@@ -2,12 +2,11 @@
 slug: 1
 title: hello world
 date: 2020-06-14
-categories: 
+categories:
   - 随笔
-tags: 
+tags:
   - 随笔
 ---
-
 
 2020年6月14日
 
