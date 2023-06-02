@@ -36,7 +36,7 @@ PS E:\demo> node 1.js
 ```
 复制下来怪怪的，直接上个图，就是下面这个样子。
 
-![](https://img.zburu.com/i/2021/11/04/5b865e6a38851240419ceb0984e6557e.png)
+![](https://imgurl.s3.bitiful.net/images/2021/11/04/5b865e6a38851240419ceb0984e6557e.png)
 
 ---
 
@@ -59,14 +59,14 @@ console.table([one, two, three], ["title", "date"])
 
 打印出来，就是下面这个样子。
 
-![](https://img.zburu.com/i/2021/11/04/ed587c8b3373abe1fca2c9cdc6dd50dd.png)
+![](https://imgurl.s3.bitiful.net/images/2021/11/04/ed587c8b3373abe1fca2c9cdc6dd50dd.png)
 
 
 ### 3.console.table() 的应用场景
 
 前面是在通过在编辑器中使用 node.js 输出数据，看看在浏览器中输出会不会不一样的效果。
 
-![](https://img.zburu.com/i/2021/11/04/092caebd508948e18d29468739d17e18.png)
+![](https://imgurl.s3.bitiful.net/images/2021/11/04/092caebd508948e18d29468739d17e18.png)
 
 可以看到成功输出数据，并且点击表头时，可以按照不同顺序进行排序，这么一看....嗯，还挺有用的（假笑）
 

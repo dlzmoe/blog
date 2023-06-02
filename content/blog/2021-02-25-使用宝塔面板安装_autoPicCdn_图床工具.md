@@ -29,7 +29,7 @@ tags:
 1. 进入 github 仓库下载资源到本地。
 [https://github.com/yumusb/autoPicCdn](https://github.com/yumusb/autoPicCdn)
 
-![](https://img.zburu.com/i/2021/02/25/c5afee4580eb4e9ab70e48e79024efa9.png)
+![](https://imgurl.s3.bitiful.net/images/2021/02/25/c5afee4580eb4e9ab70e48e79024efa9.png)
 
 2. 在 github 建立一个新的仓库，自由命名，我的是 shuxhan/pic-cdn ，简单易懂
 3. 去这个页面 [https://github.com/settings/tokens](https://github.com/settings/tokens)生成一个有写权限的 token（repo：Full control of private repositories 和write:packages 前打勾，然后点击确定，会生成一个 token码，**记住它，最好复制到你的记事本，不然一刷新网页就不会再显示了**
@@ -40,7 +40,7 @@ tags:
 
 先利用自己的域名添加一个新的站点，比如我使用的是 [img.shuxhan.com](https://img.shuxhan.com) ，然后建立数据库。
 
-![](https://img.zburu.com/i/2021/02/25/22154c6e873e4741530c0344940069b2.png)
+![](https://imgurl.s3.bitiful.net/images/2021/02/25/22154c6e873e4741530c0344940069b2.png)
 
 站点建立成功后，进入目录将默认生成的文件删除，然后点击上传，找到刚才解压的文件，点击上传即可。
 
@@ -79,7 +79,7 @@ $database = array(
 ```
 然后最重要的一步是，将目录下的 pic.sql 导入刚才建立并链接的数据库，先右键复制 pic.sql 文件，然后进入路径
 
-![](https://img.zburu.com/i/2021/02/25/8d1badf54c5439b18c8dd8334357183c.png)
+![](https://imgurl.s3.bitiful.net/images/2021/02/25/8d1badf54c5439b18c8dd8334357183c.png)
 
 点击粘贴即可。
 
@@ -87,10 +87,10 @@ $database = array(
 
 打开你的浏览器，输入绑定的站点
 
-![](https://img.zburu.com/i/2021/02/25/a5a7c37f2f0312035c54726c9d1cd46f.png)
+![](https://imgurl.s3.bitiful.net/images/2021/02/25/a5a7c37f2f0312035c54726c9d1cd46f.png)
 
 然后随便截个图，然后拖动到上传窗口，显示上传成功，下面是图片的廉价，复制 markdown 可以在写文章的时候使用辣！
 
-![](https://img.zburu.com/i/2021/02/25/908c287c823d4ceb7752e9071cde6737.png)
+![](https://imgurl.s3.bitiful.net/images/2021/02/25/908c287c823d4ceb7752e9071cde6737.png)
 
 通过 jsdelivr 加速，结果非常令人满意，以后就决定使用 github + jsdelivr + autoPicCdn 来做图床工具啦！
