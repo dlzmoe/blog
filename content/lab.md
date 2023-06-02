@@ -67,8 +67,11 @@ https://fyfy.fm/
 
 </details>
 
+https://github.com/lovezsh/HugoFast  
+利用 GitHub 本身提供的Api，将hugo博客管理面板化。
+
 https://github.com/lovezsh/chrome-plugin-memos  
-Memos的chrome插件，集成到浏览器扩展中，个人感觉比较方便，后续将会集成更多的功能。
+Memos 的 chrome 插件，集成到浏览器扩展中，个人感觉比较方便，后续将会集成更多的功能。
 
 https://www.npmjs.com/package/pagedark  
 pagedark: 一个基于 vue2 的全局黑夜模式切换组件。
@@ -78,6 +81,7 @@ https://weekly.zsh.im/
 
 https://nav.zburu.com/  
 导航网站，记录了我自托管的部分服务以及网址导航。
+
 
 ---
 
