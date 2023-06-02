@@ -1,6 +1,6 @@
 ---
 slug: 1
-title: hello, world / 你好，世界！
+title: hello, world
 date: 2020-06-14
 categories:
   - 随笔
@@ -13,5 +13,3 @@ tags:
 我的博客正式建立。
 
 愿一切安好。
-
-测试。

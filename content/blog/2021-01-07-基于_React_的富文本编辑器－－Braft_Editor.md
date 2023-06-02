@@ -76,8 +76,6 @@ export default class PageDemo extends React.Component {
 
 写完组件之后，`npm start` 运行看看效果
 
-![](https://shuxhan-imgbed.oss-cn-hangzhou.aliyuncs.com/img/20210108143022.png)
-
 相当不错，页面很简洁，如果觉得样式不喜欢，完全可以自己重新定制风格，非常方便。
 
 ## 4.文档

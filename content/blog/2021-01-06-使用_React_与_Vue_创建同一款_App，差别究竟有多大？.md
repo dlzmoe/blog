@@ -34,19 +34,13 @@ tags:
 
 两个应用程序的外观如下： 
 
-![](https://shuxhan-imgbed.oss-cn-hangzhou.aliyuncs.com/img/20210108143025.jpg)
-
 两个应用程序的 CSS 代码几乎一样，但这些代码的位置存在差异。考虑到这一点，我们来看看这两个应用程序的文件结构： 
-
-![](https://shuxhan-imgbed.oss-cn-hangzhou.aliyuncs.com/img/20210108143026.jpg)
 
 你会发现它们的结构几乎完全相同。唯一的区别在于 React App 拥有三个 CSS 文件，而 Vue App 中没有 CSS 文件。这是因为 React 的 create-react-app 组件需要一个附带文件来保存其样式，而 Vue CLI 采用全包方法，其样式在实际组件文件中声明。
 
 两种不同的策略得到的结果是一样的，相信开发者很快能够掌握这两种不同的策略。开发者可以根据自己的偏好做出选择，你会听到开发社区关于如何构建 CSS 的大量讨论。以上，我们遵循两个 CLI 列出了代码结构。
 
 在我们进一步讨论之前，先快速看一下典型的 Vue 和 React 组件的外观：
-
-![](https://shuxhan-imgbed.oss-cn-hangzhou.aliyuncs.com/img/20210108143027.jpg)
 
 现在让我们正式开始，深入其中的细节！
 
@@ -55,10 +49,8 @@ tags:
 首先，我们需要明白“修改数据”的意思是什么。它听起来有些学术，但实际上很简单，就是把我们已经存储好的数据进行更改。比如，如果我们想把一个人的名字变量从“Jhon”改为“Mark”，我们就需要执行“修改数据”的操作。在这一点上，React 和 Vue 的处理方式有所区别。Vue 本质上会创建一个数据对象，其中的数据可以自由更改；React 则创建一个状态对象，更改数据需要一些额外的操作。React 之所以需要额外的操作有着自己的理由，稍后我会深入介绍。在此之前，我们先看看 Vue 中的数据对象和 React 中的状态对象： 
 
 **vue 数据对象**
-![](https://shuxhan-imgbed.oss-cn-hangzhou.aliyuncs.com/img/20210108143028.jpg)
 
 **React 状态对象**
-![](https://shuxhan-imgbed.oss-cn-hangzhou.aliyuncs.com/img/20210108143029.jpg)
 
 从图中可以看出，我们传入了相同的数据，但它们的标记方法不同。因此，将初始数据传递到组件的方式非常相似。但正如我们提到的那样，在两个框架中更改数据的方式有所不同。
 
@@ -71,8 +63,6 @@ tags:
 虽然这基本上与我们在 Vue 中实现的结果一样，但是 React 的操作更为繁琐，那是因为 Vue 在每次更新数据时默认组合了自己的 setState 版本。 简单来说就是，React 需要 setState，然后更新其内部数据，而对于 Vue 来说，当你更新数据对象的值时它就默认了你的更改意图。 那么为什么 React 没有进行简化，为什么需要 setState 呢？ Revanth Kumar 对此做出了解释：
 
 >“这是因为 React 希望在状态发生变化时重新运行某些生命周期 hook，比如 componentWillReceiveProps、shouldComponentUpdate、componentWillUpdate、render、componentDidUpdate。当你调用 setState 函数时，它知道状态已经改变。如果你直接改变状态，React 将需要做更多工作来跟踪更改以及运行生命周期 hook 等等。所以为了简单起见，React 使用 setState。" 
-
-![](https://shuxhan-imgbed.oss-cn-hangzhou.aliyuncs.com/img/20210108143030.jpg)
 
 ## 3.添加新的待办事项
 

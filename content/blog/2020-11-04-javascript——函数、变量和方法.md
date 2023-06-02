@@ -160,7 +160,6 @@ function arr(a, b) {
 arr(1,2,3,4);
 ````
 控制台打印：
-![](https://vkceyugu.cdn.bspapp.com/VKCEYUGU-imgbed/38997556-a940-4ce8-8bed-444ab5b1ab3f.png)
 
 可以看到多余的部分被打印到`Array`中了
 
@@ -368,7 +367,6 @@ console.log(name, age, email);
 
 控制台就可以打印出我们想要的内容了
 
-![](https://vkceyugu.cdn.bspapp.com/VKCEYUGU-imgbed/e21eee28-b9e9-4ec1-9966-3fcce23a6e05.png)
 
 >对对象进行解构赋值时，也可以进行嵌套
 
@@ -392,7 +390,6 @@ console.log(email);
 
 控制台输出结果：
 
-![](https://vkceyugu.cdn.bspapp.com/VKCEYUGU-imgbed/c2870bea-95b0-45e0-88b7-a49f243c0856.png)
 
 可以看到，name,age,id都打印出来了，而email报错，因为email的内容赋值给了新变量`id`，而`email`没有任何内容，所以报错
 
@@ -485,7 +482,6 @@ var xiaoming = {
     age: getage
 };
 ````
-![](https://vkceyugu.cdn.bspapp.com/VKCEYUGU-imgbed/b5b196c3-ddd9-48ce-936f-8571038d21ba.png)
 
 单独调用`getage()`的时候，这时的`getage()`指的是一个方法，同时这个方法处于全局作用域下，此时`this`指向的是全局对象`window`，所以返回`NaN`
 
@@ -516,7 +512,6 @@ var xm = {
 
 // xm.age();
 ````
-![](https://vkceyugu.cdn.bspapp.com/VKCEYUGU-imgbed/2a11db51-3cd5-4ec7-bc60-c13bc1100ac9.png)
 
 可以看到，通过定义`var that = this`，然后在方法里面使用`that.`指向属性，不管套了几层方法，都不会报错，直接指向对象下面的属性
 
@@ -546,8 +541,6 @@ var xm = {
 // getage.apply(xm, []);
 ````
 写法就是`getage.apply(xm, [])`，`apply`的第一个参数代表`this指向`，即对象，第二个参数，表示函数本身的参数
-
-![](https://vkceyugu.cdn.bspapp.com/VKCEYUGU-imgbed/d9be897f-6f36-4e48-b736-f7a6cc262bff.png)
 
 ### 4.apply( ) 和 call( )
 
