@@ -42,4 +42,4 @@ jobs:
 
 程序会自动获取 github token，只需要在仓库设置 `/settings/actions` 中把 `Workflow permissions` 设为读写权限。
 
-![](https://imgurl.s3.bitiful.net/images/2023/04/13/6437a8b1404b2.webp)
+![](https://imgurl.zburu.com/images/2023/04/13/6437a8b1404b2.webp)
