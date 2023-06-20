@@ -82,6 +82,9 @@ https://weekly.zsh.im/
 https://nav.zburu.com/  
 导航网站，记录了我自托管的部分服务以及网址导航。
 
+https://openai-images.netlify.app/  
+在线生成图像工具
+
 
 ---
 
