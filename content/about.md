@@ -48,6 +48,8 @@ E-mail: shuxhan#163.com
 [SharpG.的博客](https://www.sharpgan.com)
 [星落](https://urosi.cn)
 [Java码农博客](https://ichochy.com)
+[Leon Fong](https://www.leonfong.me/)
+[卢涛南博客](https://lutaonan.com/)
 
 ---
 

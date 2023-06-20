@@ -72,3 +72,5 @@ function isMob() {
 if (!isMob()) {
   $('header').append($('footer'))
 }
+
+$("#searchTerm").focus();
