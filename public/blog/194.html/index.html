@@ -127,46 +127,49 @@
     <p>早上起来的时候看到微信群中有博友分享自己的建站时间，聊着聊着说到总字数上面，这时我才发现我的网站没有统计的地方，索性就自己写一个吧，因为是静态博客，所以不涉及后端、服务器等，只用前端的方式来解决。</p>
 <p>这里需要借助我之前的一篇文章，<a href="/blog/189.html/">《用原生js给网站写个搜索功能》</a>，里面有提到如何生成一个文章列表json文件，这里我们会用到这个文件 <code>index.json</code>。</p>
 <p>写一个ajax方法，让浏览器遍历每个页面。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>$(<span style="color:#0086b3">document</span>).ready(<span style="color:#000;font-weight:bold">function</span> () {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>$(document).ready(<span style="color:#000080;font-weight:bold">function</span> () {
 </span></span><span style="display:flex;"><span>  $.ajax({
-</span></span><span style="display:flex;"><span>    url<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;/index.json&#39;</span>,
-</span></span><span style="display:flex;"><span>    type<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;get&#39;</span>,
-</span></span><span style="display:flex;"><span>    dataType<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;json&#39;</span>,
-</span></span><span style="display:flex;"><span>    success<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">function</span> (data) {
-</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">const</span> pageUrls <span style="color:#000;font-weight:bold">=</span> data;
-</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">const</span> totalNum <span style="color:#000;font-weight:bold">=</span> pageUrls.length;
-</span></span><span style="display:flex;"><span>      $(<span style="color:#d14">&#39;#totalNum&#39;</span>).html(totalNum);
-</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">let</span> totalWords <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>;
+</span></span><span style="display:flex;"><span>    url: <span style="color:#00f">&#39;/index.json&#39;</span>,
+</span></span><span style="display:flex;"><span>    type: <span style="color:#00f">&#39;get&#39;</span>,
+</span></span><span style="display:flex;"><span>    dataType: <span style="color:#00f">&#39;json&#39;</span>,
+</span></span><span style="display:flex;"><span>    success: <span style="color:#000080;font-weight:bold">function</span> (data) {
+</span></span><span style="display:flex;"><span>      <span style="color:#000080;font-weight:bold">const</span> pageUrls = data;
+</span></span><span style="display:flex;"><span>      <span style="color:#000080;font-weight:bold">const</span> totalNum = pageUrls.length;
+</span></span><span style="display:flex;"><span>      $(<span style="color:#00f">&#39;#totalNum&#39;</span>).html(totalNum);
+</span></span><span style="display:flex;"><span>      <span style="color:#000080;font-weight:bold">let</span> totalWords = <span style="color:#00f">0</span>;
 </span></span><span style="display:flex;"><span>      pageUrls.forEach(urlObj =&gt; {
-</span></span><span style="display:flex;"><span>        $.get(urlObj.permalink, <span style="color:#000;font-weight:bold">function</span>(data) {
-</span></span><span style="display:flex;"><span>          <span style="color:#000;font-weight:bold">const</span> content <span style="color:#000;font-weight:bold">=</span> data.replace(<span style="color:#009926">/(&lt;([^&gt;]+)&gt;)/gi</span>, <span style="color:#d14">&#34; &#34;</span>).replace(<span style="color:#009926">/[^\w\s]/gi</span>, <span style="color:#d14">&#34; &#34;</span>);
-</span></span><span style="display:flex;"><span>          <span style="color:#000;font-weight:bold">const</span> words <span style="color:#000;font-weight:bold">=</span> content.split(<span style="color:#d14">&#34; &#34;</span>);
-</span></span><span style="display:flex;"><span>          <span style="color:#000;font-weight:bold">const</span> wordCount <span style="color:#000;font-weight:bold">=</span> words.filter(word =&gt; word <span style="color:#000;font-weight:bold">!==</span> <span style="color:#d14">&#34;&#34;</span>).length;
-</span></span><span style="display:flex;"><span>          totalWords <span style="color:#000;font-weight:bold">+=</span> wordCount;
-</span></span><span style="display:flex;"><span>          $(<span style="color:#d14">&#39;#totalWords&#39;</span>).html(totalWords);
+</span></span><span style="display:flex;"><span>        $.get(urlObj.permalink, <span style="color:#000080;font-weight:bold">function</span>(data) {
+</span></span><span style="display:flex;"><span>          <span style="color:#000080;font-weight:bold">const</span> content = data.replace(<span style="color:#00f">/(&lt;([^&gt;]+)&gt;)/gi</span>, <span style="color:#00f">&#34; &#34;</span>).replace(<span style="color:#00f">/[^\w\s]/gi</span>, <span style="color:#00f">&#34; &#34;</span>);
+</span></span><span style="display:flex;"><span>          <span style="color:#000080;font-weight:bold">const</span> words = content.split(<span style="color:#00f">&#34; &#34;</span>);
+</span></span><span style="display:flex;"><span>          <span style="color:#000080;font-weight:bold">const</span> wordCount = words.filter(word =&gt; word !== <span style="color:#00f">&#34;&#34;</span>).length;
+</span></span><span style="display:flex;"><span>          totalWords += wordCount;
+</span></span><span style="display:flex;"><span>          $(<span style="color:#00f">&#39;#totalWords&#39;</span>).html(totalWords);
 </span></span><span style="display:flex;"><span>        });
 </span></span><span style="display:flex;"><span>      });
 </span></span><span style="display:flex;"><span>    },
-</span></span><span style="display:flex;"><span>    error<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">function</span> () {
-</span></span><span style="display:flex;"><span>      console.log(<span style="color:#d14">&#39;error&#39;</span>)
+</span></span><span style="display:flex;"><span>    error: <span style="color:#000080;font-weight:bold">function</span> () {
+</span></span><span style="display:flex;"><span>      console.log(<span style="color:#00f">&#39;error&#39;</span>)
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>  })
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>});
 </span></span></code></pre></div><p>我是将信息放在我的 <a href="/about/">关于</a> 页面下。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-md" data-lang="md"><span style="display:flex;"><span>经过脚本统计，我已经写了 &lt;<span style="color:#000080">span</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;totalNum&#34;</span>&gt;&lt;/<span style="color:#000080">span</span>&gt; 篇文章，总共 &lt;<span style="color:#000080">span</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;totalWords&#34;</span>&gt;&lt;/<span style="color:#000080">span</span>&gt; 个字。
-</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">&lt;!-- 经过脚本统计，我已经写了 164 篇文章，总共 97577 个字。 --&gt;</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-md" data-lang="md"><span style="display:flex;"><span>经过脚本统计，我已经写了 &lt;<span style="color:#000080;font-weight:bold">span</span> <span style="color:#f00">id</span>=<span style="color:#00f">&#34;totalNum&#34;</span>&gt;&lt;/<span style="color:#000080;font-weight:bold">span</span>&gt; 篇文章，总共 &lt;<span style="color:#000080;font-weight:bold">span</span> <span style="color:#f00">id</span>=<span style="color:#00f">&#34;totalWords&#34;</span>&gt;&lt;/<span style="color:#000080;font-weight:bold">span</span>&gt; 个字。
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">&lt;!-- 经过脚本统计，我已经写了 164 篇文章，总共 97577 个字。 --&gt;</span>
 </span></span></code></pre></div><p><img src="https://imgurl.zburu.com/images/2023/05/13/645f33d7e3209.webp" alt="image"></p>
 
   </div>
 
   
   
-   
-  <a class="tag" href="https://zburu.com/tags/js">js</a>
-   
-  <a class="tag" href="https://zburu.com/tags/%E5%8D%9A%E5%AE%A2">博客</a>
-  
+  <div class="tags">
+    <span>Tags: </span>
+     
+    <a href="https://zburu.com/tags/js">js</a>
+     
+    <a href="https://zburu.com/tags/%E5%8D%9A%E5%AE%A2">博客</a>
+    
+  </div>
   
 
 </section>

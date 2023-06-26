@@ -128,53 +128,56 @@
 <!-- more -->
 <p><red>但是需要注意：getElementBy系列和querySelector系列的区别</red></p>
 <p>比如，我们写一个for循环，每次获取li标签的时候，ul生成一个li子元素</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">ul</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;ul&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">li</span>&gt;a&lt;/<span style="color:#000080">li</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">li</span>&gt;b&lt;/<span style="color:#000080">li</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">li</span>&gt;c&lt;/<span style="color:#000080">li</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">ul</span>&gt;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080;font-weight:bold">ul</span> <span style="color:#f00">id</span>=<span style="color:#00f">&#34;ul&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080;font-weight:bold">li</span>&gt;a&lt;/<span style="color:#000080;font-weight:bold">li</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080;font-weight:bold">li</span>&gt;b&lt;/<span style="color:#000080;font-weight:bold">li</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080;font-weight:bold">li</span>&gt;c&lt;/<span style="color:#000080;font-weight:bold">li</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080;font-weight:bold">ul</span>&gt;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span>&gt;
-</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> ul <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#39;ul&#39;</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> li <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.getElementsByTagName(<span style="color:#d14">&#39;li&#39;</span>);
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080;font-weight:bold">script</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#000080;font-weight:bold">var</span> ul = document.getElementById(<span style="color:#00f">&#39;ul&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#000080;font-weight:bold">var</span> li = document.getElementsByTagName(<span style="color:#00f">&#39;li&#39;</span>);
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">for</span>(<span style="color:#000;font-weight:bold">var</span> i <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>;i <span style="color:#000;font-weight:bold">&lt;</span> li.length; i<span style="color:#000;font-weight:bold">++</span>) {
-</span></span><span style="display:flex;"><span>        ul.appendChild(<span style="color:#0086b3">document</span>.createElement(<span style="color:#d14">&#39;li&#39;</span>))
+</span></span><span style="display:flex;"><span>    <span style="color:#000080;font-weight:bold">for</span>(<span style="color:#000080;font-weight:bold">var</span> i = <span style="color:#00f">0</span>;i &lt; li.length; i++) {
+</span></span><span style="display:flex;"><span>        ul.appendChild(document.createElement(<span style="color:#00f">&#39;li&#39;</span>))
 </span></span><span style="display:flex;"><span>    };
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    console.log(li.length);
-</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// 陷入死循环
-</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>&lt;/<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-style:italic">// 陷入死循环
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>&lt;/<span style="color:#000080;font-weight:bold">script</span>&gt;
 </span></span></code></pre></div><p>用<code>i &lt; li.length</code>来进行判断时，会导致浏览器死循环，因为循环一次的时候，浏览器又重新获取li标签数组，每调用一次就会重新对文档进行查询，就会进入死循环</p>
 <p>进行修改：把<code>i &lt; li.length</code>改成<code>i &lt; 3</code>，把li标签数组静态化，然后打印</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>conosle.log(li.length)  <span style="color:#998;font-style:italic">// 6
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>conosle.log(li.length)  <span style="color:#080;font-style:italic">// 6
 </span></span></span></code></pre></div><p><red>重新用querySelector获取一遍元素</red></p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">ul</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;ul&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">li</span>&gt;a&lt;/<span style="color:#000080">li</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">li</span>&gt;b&lt;/<span style="color:#000080">li</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">li</span>&gt;c&lt;/<span style="color:#000080">li</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">ul</span>&gt;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080;font-weight:bold">ul</span> <span style="color:#f00">id</span>=<span style="color:#00f">&#34;ul&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080;font-weight:bold">li</span>&gt;a&lt;/<span style="color:#000080;font-weight:bold">li</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080;font-weight:bold">li</span>&gt;b&lt;/<span style="color:#000080;font-weight:bold">li</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080;font-weight:bold">li</span>&gt;c&lt;/<span style="color:#000080;font-weight:bold">li</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080;font-weight:bold">ul</span>&gt;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span>&gt;
-</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> ul <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.querySelector(<span style="color:#d14">&#39;ul&#39;</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> li <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.querySelectorAll(<span style="color:#d14">&#39;li&#39;</span>);
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080;font-weight:bold">script</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#000080;font-weight:bold">var</span> ul = document.querySelector(<span style="color:#00f">&#39;ul&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#000080;font-weight:bold">var</span> li = document.querySelectorAll(<span style="color:#00f">&#39;li&#39;</span>);
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">for</span>(<span style="color:#000;font-weight:bold">var</span> i <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>;i<span style="color:#000;font-weight:bold">&lt;</span>li.length;i<span style="color:#000;font-weight:bold">++</span>) {
-</span></span><span style="display:flex;"><span>        ul.appendChild(<span style="color:#0086b3">document</span>.createElement(<span style="color:#d14">&#39;li&#39;</span>))
+</span></span><span style="display:flex;"><span>    <span style="color:#000080;font-weight:bold">for</span>(<span style="color:#000080;font-weight:bold">var</span> i = <span style="color:#00f">0</span>;i&lt;li.length;i++) {
+</span></span><span style="display:flex;"><span>        ul.appendChild(document.createElement(<span style="color:#00f">&#39;li&#39;</span>))
 </span></span><span style="display:flex;"><span>    };
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    console.log(li.length);
-</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// 输出对结果是原来的li.length = 3，而不是增加后的 6
-</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>&lt;/<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-style:italic">// 输出对结果是原来的li.length = 3，而不是增加后的 6
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>&lt;/<span style="color:#000080;font-weight:bold">script</span>&gt;
 </span></span></code></pre></div><p>静态集合体现在<code>querySelectorAll('li')</code>获取到ul里所有li后，不管后续再动态添加了多少li，都是不会对其参数影响</p>
 
   </div>
 
   
   
-   
-  <a class="tag" href="https://zburu.com/tags/%E7%AC%94%E8%AE%B0">笔记</a>
-  
+  <div class="tags">
+    <span>Tags: </span>
+     
+    <a href="https://zburu.com/tags/%E7%AC%94%E8%AE%B0">笔记</a>
+    
+  </div>
   
 
 </section>

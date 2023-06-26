@@ -148,17 +148,17 @@
 <p>我的服务器是 Ubuntu 20.04，其他版本类似，没有很大不同。</p>
 <p>首先，使用ssh连接服务器。</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sudo su 
-</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"># 启用sudo模式</span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"># 启用sudo模式</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#0086b3">cd</span> /www/wwwroot/
-</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"># 进入站点目录</span>
+</span></span><span style="display:flex;"><span>cd /www/wwwroot/
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"># 进入站点目录</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>mkdir ArtalkGo
-</span></span><span style="display:flex;"><span><span style="color:#0086b3">cd</span> ArtalkGo
-</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"># 为 ArtalkGo 创建一个目录</span>
+</span></span><span style="display:flex;"><span>cd ArtalkGo
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"># 为 ArtalkGo 创建一个目录</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>curl -L https://raw.githubusercontent.com/ArtalkJS/ArtalkGo/master/artalk-go.example.yml &gt; conf.yml
-</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"># 下载配置文件模版</span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"># 下载配置文件模版</span>
 </span></span></code></pre></div><hr>
 <p>到这里之后，官方说的是用 <code>vim conf.yml</code> 进入配置文件，修改参数然后配置。我不是很建议，因为用着并不是那么顺手（因为我菜），我建议直接到达 <code>/www/wwwroot/ArtalkGo</code> 目录下修改 <code>conf.yml</code> 文件，文本模式操作起来更顺手。</p>
 <p><img src="https://imgurl.zburu.com/images/2022/02/18/1861474b101c0fb69d42e7f922a52fea.png" alt=""></p>
@@ -169,12 +169,12 @@
 <p><img src="https://imgurl.zburu.com/images/2022/02/18/d2d1227986b852267f027bd6f815b7e9.png" alt=""></p>
 <p>然后在镜像名称输入 <code>artalk/artalk-go</code> 点击获取镜像即可，大概两分钟就下载结束了。</p>
 <p>然后回到 ssh 连接，新建 docker 容器。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>docker run -d <span style="color:#d14">\
-</span></span></span><span style="display:flex;"><span><span style="color:#d14"></span>   --name artalk-go <span style="color:#d14">\
-</span></span></span><span style="display:flex;"><span><span style="color:#d14"></span>   -p 0.0.0.0:8080:23366 <span style="color:#d14">\
-</span></span></span><span style="display:flex;"><span><span style="color:#d14"></span>   -v <span style="color:#000;font-weight:bold">$(</span><span style="color:#0086b3">pwd</span><span style="color:#000;font-weight:bold">)</span>/conf.yml:/conf.yml <span style="color:#d14">\
-</span></span></span><span style="display:flex;"><span><span style="color:#d14"></span>   -v <span style="color:#000;font-weight:bold">$(</span><span style="color:#0086b3">pwd</span><span style="color:#000;font-weight:bold">)</span>/data:/data <span style="color:#d14">\
-</span></span></span><span style="display:flex;"><span><span style="color:#d14"></span>   artalk/artalk-go
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>docker run -d <span style="color:#00f">\
+</span></span></span><span style="display:flex;"><span><span style="color:#00f"></span>   --name artalk-go <span style="color:#00f">\
+</span></span></span><span style="display:flex;"><span><span style="color:#00f"></span>   -p 0.0.0.0:8080:23366 <span style="color:#00f">\
+</span></span></span><span style="display:flex;"><span><span style="color:#00f"></span>   -v <span style="color:#000080;font-weight:bold">$(</span>pwd<span style="color:#000080;font-weight:bold">)</span>/conf.yml:/conf.yml <span style="color:#00f">\
+</span></span></span><span style="display:flex;"><span><span style="color:#00f"></span>   -v <span style="color:#000080;font-weight:bold">$(</span>pwd<span style="color:#000080;font-weight:bold">)</span>/data:/data <span style="color:#00f">\
+</span></span></span><span style="display:flex;"><span><span style="color:#00f"></span>   artalk/artalk-go
 </span></span></code></pre></div><p>将上面的命令行在命令行，直接回车就行了。</p>
 <p>这个时候需要去你的服务器厂商那里放行端口 <code>8080</code> ，如果之前放行过不用管，没有放行的话需要去设置一下。</p>
 <p>然后在浏览器输入 <code>http://ip地址:8080</code> 。</p>
@@ -193,60 +193,60 @@
 <p>博客使用 vue + nuxt 开发。</p>
 <p>我使用的是通过cdn引入的，npm我目前发现和我博客有些冲突，暂时不使用该方式。</p>
 <p>先在 <code>/components</code> 目录下新建一个组件名为 <code>Comments.vue</code></p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#998;font-style:italic">&lt;!-- Comments.vue --&gt;</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#080;font-style:italic">&lt;!-- Comments.vue --&gt;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">template</span>&gt;
-</span></span><span style="display:flex;"><span>  &lt;<span style="color:#000080">div</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;wrapper&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>	&lt;<span style="color:#000080">link</span> <span style="color:#008080">href</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;https://cdn.jsdelivr.net/npm/artalk@2.1.4/dist/Artalk.css&#34;</span> <span style="color:#008080">rel</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;stylesheet&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>	&lt;<span style="color:#000080">script</span> <span style="color:#008080">src</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;https://cdn.jsdelivr.net/npm/artalk@2.1.4/dist/Artalk.js&#34;</span>&gt;&lt;/<span style="color:#000080">script</span>&gt;
-</span></span><span style="display:flex;"><span>	&lt;<span style="color:#000080">div</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;Comments&#34;</span>&gt;&lt;/<span style="color:#000080">div</span>&gt;
-</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#000080">div</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">template</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080;font-weight:bold">template</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#000080;font-weight:bold">div</span> <span style="color:#f00">class</span>=<span style="color:#00f">&#34;wrapper&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>	&lt;<span style="color:#000080;font-weight:bold">link</span> <span style="color:#f00">href</span>=<span style="color:#00f">&#34;https://cdn.jsdelivr.net/npm/artalk@2.1.4/dist/Artalk.css&#34;</span> <span style="color:#f00">rel</span>=<span style="color:#00f">&#34;stylesheet&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>	&lt;<span style="color:#000080;font-weight:bold">script</span> <span style="color:#f00">src</span>=<span style="color:#00f">&#34;https://cdn.jsdelivr.net/npm/artalk@2.1.4/dist/Artalk.js&#34;</span>&gt;&lt;/<span style="color:#000080;font-weight:bold">script</span>&gt;
+</span></span><span style="display:flex;"><span>	&lt;<span style="color:#000080;font-weight:bold">div</span> <span style="color:#f00">id</span>=<span style="color:#00f">&#34;Comments&#34;</span>&gt;&lt;/<span style="color:#000080;font-weight:bold">div</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#000080;font-weight:bold">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080;font-weight:bold">template</span>&gt;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span>&gt;
-</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">export</span> <span style="color:#000;font-weight:bold">default</span> {
-</span></span><span style="display:flex;"><span>  name<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;Comments&#39;</span>,
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080;font-weight:bold">script</span>&gt;
+</span></span><span style="display:flex;"><span><span style="color:#000080;font-weight:bold">export</span> <span style="color:#000080;font-weight:bold">default</span> {
+</span></span><span style="display:flex;"><span>  name: <span style="color:#00f">&#39;Comments&#39;</span>,
 </span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080;font-weight:bold">script</span>&gt;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">style</span> <span style="color:#008080">lang</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;scss&#34;</span> <span style="color:#008080">scoped</span>&gt;
-</span></span><span style="display:flex;"><span>	<span style="color:#000;font-weight:bold">&lt;!</span><span style="color:#000080">--</span> <span style="color:#000080">css</span><span style="color:#a61717;background-color:#e3d2d2">代码</span> <span style="color:#000080">--</span><span style="color:#000;font-weight:bold">&gt;</span>
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">style</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080;font-weight:bold">style</span> <span style="color:#f00">lang</span>=<span style="color:#00f">&#34;scss&#34;</span> <span style="color:#f00">scoped</span>&gt;
+</span></span><span style="display:flex;"><span>	&lt;!<span style="color:#000080;font-weight:bold">--</span> <span style="color:#000080;font-weight:bold">css</span><span style="color:#a61717;background-color:#e3d2d2">代码</span> <span style="color:#000080;font-weight:bold">--</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080;font-weight:bold">style</span>&gt;
 </span></span></code></pre></div><hr>
 <p>配置代码我单独放在 <code>/static/main.js</code> ，然后在 <code>nuxt.config.js</code> 引入。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// nuxt.config.js
-</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
-</span></span><span style="display:flex;"><span>head<span style="color:#000;font-weight:bold">:</span> {
-</span></span><span style="display:flex;"><span>    title<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;子舒的博客 | imhan.cn&#39;</span>,
-</span></span><span style="display:flex;"><span>    meta<span style="color:#000;font-weight:bold">:</span> [
-</span></span><span style="display:flex;"><span>      <span style="color:#998;font-style:italic">// ...
-</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    ]
-</span></span><span style="display:flex;"><span>    script<span style="color:#000;font-weight:bold">:</span> [
-</span></span><span style="display:flex;"><span>      { src<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;/js/main.js&#39;</span> },
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#080;font-style:italic">// nuxt.config.js
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>
+</span></span><span style="display:flex;"><span>head: {
+</span></span><span style="display:flex;"><span>    title: <span style="color:#00f">&#39;子舒的博客 | imhan.cn&#39;</span>,
+</span></span><span style="display:flex;"><span>    meta: [
+</span></span><span style="display:flex;"><span>      <span style="color:#080;font-style:italic">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>    ]
+</span></span><span style="display:flex;"><span>    script: [
+</span></span><span style="display:flex;"><span>      { src: <span style="color:#00f">&#39;/js/main.js&#39;</span> },
 </span></span><span style="display:flex;"><span>    ]
 </span></span><span style="display:flex;"><span>  },
 </span></span></code></pre></div><hr>
 <p>在 <code>main.js</code> 中配置 Artick。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">new</span> Artalk({
-</span></span><span style="display:flex;"><span>	el<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;#Comments&#34;</span>,
-</span></span><span style="display:flex;"><span>	server<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;https://域名/api&#39;</span>,
-</span></span><span style="display:flex;"><span>	site<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;子舒的博客&#34;</span>,
-</span></span><span style="display:flex;"><span>	placeholder<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;说点什么...&#39;</span>,
-</span></span><span style="display:flex;"><span>	gravatar<span style="color:#000;font-weight:bold">:</span> {
-</span></span><span style="display:flex;"><span>	  mirror<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;https://sdn.geekzu.org/avatar/&#39;</span>,
-</span></span><span style="display:flex;"><span>	  <span style="color:#000;font-weight:bold">default</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;mp&#39;</span>,
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#000080;font-weight:bold">new</span> Artalk({
+</span></span><span style="display:flex;"><span>	el: <span style="color:#00f">&#34;#Comments&#34;</span>,
+</span></span><span style="display:flex;"><span>	server: <span style="color:#00f">&#39;https://域名/api&#39;</span>,
+</span></span><span style="display:flex;"><span>	site: <span style="color:#00f">&#34;子舒的博客&#34;</span>,
+</span></span><span style="display:flex;"><span>	placeholder: <span style="color:#00f">&#39;说点什么...&#39;</span>,
+</span></span><span style="display:flex;"><span>	gravatar: {
+</span></span><span style="display:flex;"><span>	  mirror: <span style="color:#00f">&#39;https://sdn.geekzu.org/avatar/&#39;</span>,
+</span></span><span style="display:flex;"><span>	  <span style="color:#000080;font-weight:bold">default</span>: <span style="color:#00f">&#39;mp&#39;</span>,
 </span></span><span style="display:flex;"><span>	},
-</span></span><span style="display:flex;"><span>	pagination<span style="color:#000;font-weight:bold">:</span> {
-</span></span><span style="display:flex;"><span>	  pageSize<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">15</span>,   <span style="color:#998;font-style:italic">// 每页评论数
-</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>	  readMore<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">true</span>, <span style="color:#998;font-style:italic">// 加载更多 or 分页条
-</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>	  autoLoad<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">true</span>, <span style="color:#998;font-style:italic">// 自动加载 (加载更多)
-</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>	},
-</span></span><span style="display:flex;"><span>	heightLimit<span style="color:#000;font-weight:bold">:</span> {
-</span></span><span style="display:flex;"><span>	  content<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">200</span>, <span style="color:#998;font-style:italic">// 评论内容限高
-</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>	  children<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">300</span>, <span style="color:#998;font-style:italic">// 子评论区域限高
-</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>	},
-</span></span><span style="display:flex;"><span>	versionCheck<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">true</span>, <span style="color:#998;font-style:italic">// 前端版本检测
-</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>});
+</span></span><span style="display:flex;"><span>	pagination: {
+</span></span><span style="display:flex;"><span>	  pageSize: <span style="color:#00f">15</span>,   <span style="color:#080;font-style:italic">// 每页评论数
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>	  readMore: <span style="color:#000080;font-weight:bold">true</span>, <span style="color:#080;font-style:italic">// 加载更多 or 分页条
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>	  autoLoad: <span style="color:#000080;font-weight:bold">true</span>, <span style="color:#080;font-style:italic">// 自动加载 (加载更多)
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>	},
+</span></span><span style="display:flex;"><span>	heightLimit: {
+</span></span><span style="display:flex;"><span>	  content: <span style="color:#00f">200</span>, <span style="color:#080;font-style:italic">// 评论内容限高
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>	  children: <span style="color:#00f">300</span>, <span style="color:#080;font-style:italic">// 子评论区域限高
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>	},
+</span></span><span style="display:flex;"><span>	versionCheck: <span style="color:#000080;font-weight:bold">true</span>, <span style="color:#080;font-style:italic">// 前端版本检测
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>});
 </span></span></code></pre></div><p>还有一个方案就是将文件放在服务器或者github，将它引入，不过有些舍本逐末了，不是很建议。</p>
 <hr>
 <h2 id="3问题研究">3.问题研究</h2>
@@ -260,7 +260,7 @@
 <p>qwqcode: <a href="https://example.com/1">https://example.com/1</a> 和 <a href="https://example.com/1/">https://example.com/1/</a> 本来就不属于相同路径，后者等价于 <a href="https://example.com/1/index.html">https://example.com/1/index.html</a> (和 web 服务器配置有关)</p>
 </blockquote>
 <p>所以我直接在我博客里把路径然后默认加一个 <code>/</code> 符号，不管打开哪个页面都会跳转到带有 <code>/</code> 的url，也是非常简单粗暴的解决了这个问题。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>path<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">`/posts/</span><span style="color:#d14">${</span>key.replace(<span style="color:#d14">&#39;.md&#39;</span>, <span style="color:#d14">&#39;&#39;</span>).replace(<span style="color:#d14">&#39;./&#39;</span>, <span style="color:#d14">&#39;&#39;</span>)<span style="color:#d14">}</span><span style="color:#d14">/`</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>path: <span style="color:#00f">`/posts/</span><span style="color:#00f">${</span>key.replace(<span style="color:#00f">&#39;.md&#39;</span>, <span style="color:#00f">&#39;&#39;</span>).replace(<span style="color:#00f">&#39;./&#39;</span>, <span style="color:#00f">&#39;&#39;</span>)<span style="color:#00f">}</span><span style="color:#00f">/`</span>
 </span></span></code></pre></div><hr>
 <p><strong>2. localhost:3000 和域名</strong></p>
 <p>由此引发的另一个问题就是我在本地构建 <code>localhost:3000</code> 是不会显示域名后的评论，这个问题也不是大问题，我研究过 Artalk 文档，因为他是一个后端，可以多个前端使用，如果仅仅判断二级目录会造成一个很大的问题。</p>
@@ -273,11 +273,14 @@
 
   
   
-   
-  <a class="tag" href="https://zburu.com/tags/%E5%8D%9A%E5%AE%A2">博客</a>
-   
-  <a class="tag" href="https://zburu.com/tags/%E8%AF%84%E8%AE%BA">评论</a>
-  
+  <div class="tags">
+    <span>Tags: </span>
+     
+    <a href="https://zburu.com/tags/%E5%8D%9A%E5%AE%A2">博客</a>
+     
+    <a href="https://zburu.com/tags/%E8%AF%84%E8%AE%BA">评论</a>
+    
+  </div>
   
 
 </section>

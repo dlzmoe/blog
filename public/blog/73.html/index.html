@@ -140,125 +140,125 @@
 <p><img src="https://imgurl.zburu.com/images/2021/07/09/ca83cb18747714715f949f90931ec4c4.png" alt=""></p>
 <h2 id="写一个接口">写一个接口</h2>
 <p>很好，拥有我们需要的字段。事不宜迟，直接开动，下面是完成的接口代码。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">&lt;?</span>php
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span>&lt;?php
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>header(<span style="color:#d14">&#39;Content-Type:application/json; charset=utf-8&#39;</span>);
-</span></span><span style="display:flex;"><span>header(<span style="color:#d14">&#34;Access-Control-Allow-Origin:*&#34;</span>);
+</span></span><span style="display:flex;"><span>header(<span style="color:#00f">&#39;Content-Type:application/json; charset=utf-8&#39;</span>);
+</span></span><span style="display:flex;"><span>header(<span style="color:#00f">&#34;Access-Control-Allow-Origin:*&#34;</span>);
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#008080">$servername</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;localhost&#34;</span>;
-</span></span><span style="display:flex;"><span><span style="color:#008080">$username</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;imgbed&#34;</span>;
-</span></span><span style="display:flex;"><span><span style="color:#008080">$password</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;imgbed&#34;</span>;
-</span></span><span style="display:flex;"><span><span style="color:#008080">$dbname</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;imgbed&#34;</span>;
+</span></span><span style="display:flex;"><span>$servername = <span style="color:#00f">&#34;localhost&#34;</span>;
+</span></span><span style="display:flex;"><span>$username = <span style="color:#00f">&#34;imgbed&#34;</span>;
+</span></span><span style="display:flex;"><span>$password = <span style="color:#00f">&#34;imgbed&#34;</span>;
+</span></span><span style="display:flex;"><span>$dbname = <span style="color:#00f">&#34;imgbed&#34;</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 创建连接
-</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#008080">$conn</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> mysqli(<span style="color:#008080">$servername</span>, <span style="color:#008080">$username</span>, <span style="color:#008080">$password</span>, <span style="color:#008080">$dbname</span>);
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 创建连接
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>$conn = <span style="color:#000080;font-weight:bold">new</span> mysqli($servername, $username, $password, $dbname);
 </span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 检测连接
-</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">if</span> (<span style="color:#008080">$conn</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">connect_error</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">die</span>(<span style="color:#d14">&#34;连接失败: &#34;</span> <span style="color:#000;font-weight:bold">.</span> <span style="color:#008080">$conn</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">connect_error</span>);
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 检测连接
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#000080;font-weight:bold">if</span> ($conn-&gt;<span style="color:#f00">connect_error</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#000080;font-weight:bold">die</span>(<span style="color:#00f">&#34;连接失败: &#34;</span> . $conn-&gt;<span style="color:#f00">connect_error</span>);
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// imgmd5 名称转md5
-</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// imguploadtime 上传时间戳
-</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// imgurl 链接
-</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 上传 ip
-</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#008080">$sql</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;select imgmd5,imguploadtime,imgurl,imguploadip from remote_imgs
-</span></span></span><span style="display:flex;"><span><span style="color:#d14">&#34;</span>;
-</span></span><span style="display:flex;"><span><span style="color:#008080">$result</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#008080">$conn</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">query</span>(<span style="color:#008080">$sql</span>);
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// imgmd5 名称转md5
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// imguploadtime 上传时间戳
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// imgurl 链接
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 上传 ip
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>$sql = <span style="color:#00f">&#34;select imgmd5,imguploadtime,imgurl,imguploadip from remote_imgs
+</span></span></span><span style="display:flex;"><span><span style="color:#00f">&#34;</span>;
+</span></span><span style="display:flex;"><span>$result = $conn-&gt;<span style="color:#f00">query</span>($sql);
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">if</span> (<span style="color:#008080">$result</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">num_rows</span> <span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#099">0</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// 输出数据
-</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    <span style="color:#000;font-weight:bold">while</span>(<span style="color:#008080">$row</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#008080">$result</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">fetch_assoc</span>()) {
+</span></span><span style="display:flex;"><span><span style="color:#000080;font-weight:bold">if</span> ($result-&gt;<span style="color:#f00">num_rows</span> &gt; <span style="color:#00f">0</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-style:italic">// 输出数据
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>    <span style="color:#000080;font-weight:bold">while</span>($row = $result-&gt;<span style="color:#f00">fetch_assoc</span>()) {
 </span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>    <span style="color:#008080">$data</span>[]<span style="color:#000;font-weight:bold">=</span><span style="color:#008080">$row</span>;
+</span></span><span style="display:flex;"><span>    $data[]=$row;
 </span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#008080">$json</span> <span style="color:#000;font-weight:bold">=</span> json_encode(<span style="color:#008080">$data</span>,JSON_UNESCAPED_UNICODE<span style="color:#000;font-weight:bold">|</span>JSON_PRETTY_PRINT);<span style="color:#998;font-style:italic">//把数据转换为JSON数据.
-</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">exit</span>(<span style="color:#008080">$json</span>) ;
+</span></span><span style="display:flex;"><span>    $json = json_encode($data,JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);<span style="color:#080;font-style:italic">//把数据转换为JSON数据.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#000080;font-weight:bold">exit</span>($json) ;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>} <span style="color:#000;font-weight:bold">else</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">echo</span> <span style="color:#d14">&#34;未查询到结果！&#34;</span>;
+</span></span><span style="display:flex;"><span>} <span style="color:#000080;font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#000080;font-weight:bold">echo</span> <span style="color:#00f">&#34;未查询到结果！&#34;</span>;
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#008080">$conn</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">close</span>();
+</span></span><span style="display:flex;"><span>$conn-&gt;<span style="color:#f00">close</span>();
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#999;font-weight:bold;font-style:italic">?&gt;</span><span style="color:#a61717;background-color:#e3d2d2">
+</span></span><span style="display:flex;"><span><span style="color:#008080">?&gt;</span><span style="color:#a61717;background-color:#e3d2d2">
 </span></span></span></code></pre></div><p>分别将缩略名，时间戳，图片链接，和上传ip通过 json 格式导出，非常完美。 接口链接：<a href="http://121.196.166.173/img/img.php">http://121.196.166.173/img/img.php</a></p>
 <h2 id="使用-ajax-进行调用">使用 ajax 进行调用</h2>
 <p>然后只需要在前端将接口调用，然后简单写一个页面即可，下面是 html 代码,，通过 ajax 调用。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#999;font-weight:bold;font-style:italic">&lt;!DOCTYPE html&gt;</span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">html</span> <span style="color:#008080">lang</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;en&#34;</span>&gt;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#008080">&lt;!DOCTYPE html&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080;font-weight:bold">html</span> <span style="color:#f00">lang</span>=<span style="color:#00f">&#34;en&#34;</span>&gt;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">head</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">meta</span> <span style="color:#008080">charset</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;UTF-8&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">meta</span> <span style="color:#008080">http-equiv</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;X-UA-Compatible&#34;</span> <span style="color:#008080">content</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;IE=edge&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">meta</span> <span style="color:#008080">name</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;viewport&#34;</span> <span style="color:#008080">content</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;width=device-width, initial-scale=1.0&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">title</span>&gt;图床&lt;/<span style="color:#000080">title</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">style</span>&gt;
-</span></span><span style="display:flex;"><span>        .<span style="color:#458;font-weight:bold">container</span> {
-</span></span><span style="display:flex;"><span>            <span style="color:#000;font-weight:bold">max-width</span>: <span style="color:#099">1000</span><span style="color:#458;font-weight:bold">px</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#000;font-weight:bold">margin</span>: <span style="color:#099">40</span><span style="color:#458;font-weight:bold">px</span> <span style="color:#000;font-weight:bold">auto</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#000;font-weight:bold">display</span>: <span style="color:#000;font-weight:bold">flex</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#000;font-weight:bold">flex-wrap</span>: <span style="color:#000;font-weight:bold">wrap</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#000;font-weight:bold">justify-content</span>: <span style="color:#000;font-weight:bold">space-between</span>;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080;font-weight:bold">head</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080;font-weight:bold">meta</span> <span style="color:#f00">charset</span>=<span style="color:#00f">&#34;UTF-8&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080;font-weight:bold">meta</span> <span style="color:#f00">http-equiv</span>=<span style="color:#00f">&#34;X-UA-Compatible&#34;</span> <span style="color:#f00">content</span>=<span style="color:#00f">&#34;IE=edge&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080;font-weight:bold">meta</span> <span style="color:#f00">name</span>=<span style="color:#00f">&#34;viewport&#34;</span> <span style="color:#f00">content</span>=<span style="color:#00f">&#34;width=device-width, initial-scale=1.0&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080;font-weight:bold">title</span>&gt;图床&lt;/<span style="color:#000080;font-weight:bold">title</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080;font-weight:bold">style</span>&gt;
+</span></span><span style="display:flex;"><span>        .container {
+</span></span><span style="display:flex;"><span>            <span style="color:#000080;font-weight:bold">max-width</span>: <span style="color:#00f">1000</span><span style="color:#000080;font-weight:bold">px</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#000080;font-weight:bold">margin</span>: <span style="color:#00f">40</span><span style="color:#000080;font-weight:bold">px</span> <span style="color:#000080;font-weight:bold">auto</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#000080;font-weight:bold">display</span>: <span style="color:#000080;font-weight:bold">flex</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#000080;font-weight:bold">flex-wrap</span>: <span style="color:#000080;font-weight:bold">wrap</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#000080;font-weight:bold">justify-content</span>: <span style="color:#000080;font-weight:bold">space-between</span>;
 </span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        .<span style="color:#458;font-weight:bold">item</span> {
-</span></span><span style="display:flex;"><span>            <span style="color:#000;font-weight:bold">width</span>:<span style="color:#099">300</span><span style="color:#458;font-weight:bold">px</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#998;font-style:italic">/* height: 300px; */</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#000;font-weight:bold">overflow</span>: <span style="color:#000;font-weight:bold">hidden</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#000;font-weight:bold">border</span>: <span style="color:#099">2</span><span style="color:#458;font-weight:bold">px</span> <span style="color:#000;font-weight:bold">solid</span> <span style="color:#099">#bbb</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#000;font-weight:bold">margin-bottom</span>: <span style="color:#099">24</span><span style="color:#458;font-weight:bold">px</span>;
+</span></span><span style="display:flex;"><span>        .item {
+</span></span><span style="display:flex;"><span>            <span style="color:#000080;font-weight:bold">width</span>:<span style="color:#00f">300</span><span style="color:#000080;font-weight:bold">px</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#080;font-style:italic">/* height: 300px; */</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#000080;font-weight:bold">overflow</span>: <span style="color:#000080;font-weight:bold">hidden</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#000080;font-weight:bold">border</span>: <span style="color:#00f">2</span><span style="color:#000080;font-weight:bold">px</span> <span style="color:#000080;font-weight:bold">solid</span> <span style="color:#00f">#bbb</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#000080;font-weight:bold">margin-bottom</span>: <span style="color:#00f">24</span><span style="color:#000080;font-weight:bold">px</span>;
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        .<span style="color:#458;font-weight:bold">item</span> <span style="color:#000080">a</span>{
-</span></span><span style="display:flex;"><span>            <span style="color:#000;font-weight:bold">display</span>: <span style="color:#000;font-weight:bold">block</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#000;font-weight:bold">width</span>: <span style="color:#099">300</span><span style="color:#458;font-weight:bold">px</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#998;font-style:italic">/* height: 300px; */</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#000;font-weight:bold">overflow</span>: <span style="color:#000;font-weight:bold">hidden</span>;
+</span></span><span style="display:flex;"><span>        .item <span style="color:#000080;font-weight:bold">a</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#000080;font-weight:bold">display</span>: <span style="color:#000080;font-weight:bold">block</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#000080;font-weight:bold">width</span>: <span style="color:#00f">300</span><span style="color:#000080;font-weight:bold">px</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#080;font-style:italic">/* height: 300px; */</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#000080;font-weight:bold">overflow</span>: <span style="color:#000080;font-weight:bold">hidden</span>;
 </span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        .<span style="color:#458;font-weight:bold">item</span> <span style="color:#000080">img</span>{
-</span></span><span style="display:flex;"><span>            <span style="color:#000;font-weight:bold">max-width</span>: <span style="color:#099">300</span><span style="color:#458;font-weight:bold">px</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#000;font-weight:bold">max-height</span>: <span style="color:#099">300</span><span style="color:#458;font-weight:bold">px</span>;
+</span></span><span style="display:flex;"><span>        .item <span style="color:#000080;font-weight:bold">img</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#000080;font-weight:bold">max-width</span>: <span style="color:#00f">300</span><span style="color:#000080;font-weight:bold">px</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#000080;font-weight:bold">max-height</span>: <span style="color:#00f">300</span><span style="color:#000080;font-weight:bold">px</span>;
 </span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#000080">style</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">head</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#000080;font-weight:bold">style</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080;font-weight:bold">head</span>&gt;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">body</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">div</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;container&#34;</span>&gt;&lt;/<span style="color:#000080">div</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">script</span> <span style="color:#008080">src</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;https://cdn.shuxhan.com/jquery3.6.0.js&#34;</span>&gt;&lt;/<span style="color:#000080">script</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">script</span>&gt;
-</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">var</span> str <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;&#39;</span>;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080;font-weight:bold">body</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080;font-weight:bold">div</span> <span style="color:#f00">class</span>=<span style="color:#00f">&#34;container&#34;</span>&gt;&lt;/<span style="color:#000080;font-weight:bold">div</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080;font-weight:bold">script</span> <span style="color:#f00">src</span>=<span style="color:#00f">&#34;https://cdn.shuxhan.com/jquery3.6.0.js&#34;</span>&gt;&lt;/<span style="color:#000080;font-weight:bold">script</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080;font-weight:bold">script</span>&gt;
+</span></span><span style="display:flex;"><span>        <span style="color:#000080;font-weight:bold">var</span> str = <span style="color:#00f">&#39;&#39;</span>;
 </span></span><span style="display:flex;"><span>        $.ajax({
-</span></span><span style="display:flex;"><span>            url<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;http://121.196.166.173/img/img.php&#39;</span>,
-</span></span><span style="display:flex;"><span>            type<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;get&#39;</span>,
-</span></span><span style="display:flex;"><span>            dataType<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;json&#39;</span>,
-</span></span><span style="display:flex;"><span>            <span style="color:#000;font-weight:bold">async</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">false</span>,
-</span></span><span style="display:flex;"><span>            success<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">function</span> (data) {
-</span></span><span style="display:flex;"><span>                $.each(data, <span style="color:#000;font-weight:bold">function</span> (i, item) {
+</span></span><span style="display:flex;"><span>            url: <span style="color:#00f">&#39;http://121.196.166.173/img/img.php&#39;</span>,
+</span></span><span style="display:flex;"><span>            type: <span style="color:#00f">&#39;get&#39;</span>,
+</span></span><span style="display:flex;"><span>            dataType: <span style="color:#00f">&#39;json&#39;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#000080;font-weight:bold">async</span>: <span style="color:#000080;font-weight:bold">false</span>,
+</span></span><span style="display:flex;"><span>            success: <span style="color:#000080;font-weight:bold">function</span> (data) {
+</span></span><span style="display:flex;"><span>                $.each(data, <span style="color:#000080;font-weight:bold">function</span> (i, item) {
 </span></span><span style="display:flex;"><span>                    console.log(item)
-</span></span><span style="display:flex;"><span>                    list <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;&lt;div class=&#39;item&#39;&gt;&lt;p&gt;缩略名：&#34;</span> <span style="color:#000;font-weight:bold">+</span> item.imgmd5 <span style="color:#000;font-weight:bold">+</span> <span style="color:#d14">&#34;&lt;/p&gt;&#34;</span> <span style="color:#000;font-weight:bold">+</span>
-</span></span><span style="display:flex;"><span>                        <span style="color:#d14">&#34;&lt;p&gt;时间戳：&#34;</span> <span style="color:#000;font-weight:bold">+</span> item.imguploadtime <span style="color:#000;font-weight:bold">+</span> <span style="color:#d14">&#34;&lt;/p&gt;&#34;</span> <span style="color:#000;font-weight:bold">+</span>
-</span></span><span style="display:flex;"><span>                        <span style="color:#d14">&#34;&lt;a target=&#39;_blank&#39; href=&#39;&#34;</span><span style="color:#000;font-weight:bold">+</span> item.imgurl <span style="color:#000;font-weight:bold">+</span><span style="color:#d14">&#34;&#39;&gt;&lt;img src=&#39;&#34;</span> <span style="color:#000;font-weight:bold">+</span> item.imgurl <span style="color:#000;font-weight:bold">+</span> <span style="color:#d14">&#34;&#39;&gt;&lt;/a&gt;&#34;</span> <span style="color:#000;font-weight:bold">+</span>
-</span></span><span style="display:flex;"><span>                        <span style="color:#d14">&#34;&lt;p&gt;上传ip：&#34;</span> <span style="color:#000;font-weight:bold">+</span> item.imguploadip <span style="color:#000;font-weight:bold">+</span> <span style="color:#d14">&#34;&lt;/p&gt;&lt;/div&gt;&#34;</span>
+</span></span><span style="display:flex;"><span>                    list = <span style="color:#00f">&#34;&lt;div class=&#39;item&#39;&gt;&lt;p&gt;缩略名：&#34;</span> + item.imgmd5 + <span style="color:#00f">&#34;&lt;/p&gt;&#34;</span> +
+</span></span><span style="display:flex;"><span>                        <span style="color:#00f">&#34;&lt;p&gt;时间戳：&#34;</span> + item.imguploadtime + <span style="color:#00f">&#34;&lt;/p&gt;&#34;</span> +
+</span></span><span style="display:flex;"><span>                        <span style="color:#00f">&#34;&lt;a target=&#39;_blank&#39; href=&#39;&#34;</span>+ item.imgurl +<span style="color:#00f">&#34;&#39;&gt;&lt;img src=&#39;&#34;</span> + item.imgurl + <span style="color:#00f">&#34;&#39;&gt;&lt;/a&gt;&#34;</span> +
+</span></span><span style="display:flex;"><span>                        <span style="color:#00f">&#34;&lt;p&gt;上传ip：&#34;</span> + item.imguploadip + <span style="color:#00f">&#34;&lt;/p&gt;&lt;/div&gt;&#34;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>                    str <span style="color:#000;font-weight:bold">+=</span> list;
+</span></span><span style="display:flex;"><span>                    str += list;
 </span></span><span style="display:flex;"><span>                }),
-</span></span><span style="display:flex;"><span>                $(<span style="color:#d14">&#34;.container&#34;</span>).html(str);
-</span></span><span style="display:flex;"><span>                console.log(<span style="color:#d14">&#39;数据请求成功&#39;</span>)
+</span></span><span style="display:flex;"><span>                $(<span style="color:#00f">&#34;.container&#34;</span>).html(str);
+</span></span><span style="display:flex;"><span>                console.log(<span style="color:#00f">&#39;数据请求成功&#39;</span>)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>            },
-</span></span><span style="display:flex;"><span>            error<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">function</span> () {
-</span></span><span style="display:flex;"><span>                console.log(<span style="color:#d14">&#39;数据请求失败&#39;</span>)
+</span></span><span style="display:flex;"><span>            error: <span style="color:#000080;font-weight:bold">function</span> () {
+</span></span><span style="display:flex;"><span>                console.log(<span style="color:#00f">&#39;数据请求失败&#39;</span>)
 </span></span><span style="display:flex;"><span>            }
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>        });
-</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#000080">script</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">body</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#000080;font-weight:bold">script</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080;font-weight:bold">body</span>&gt;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">html</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080;font-weight:bold">html</span>&gt;
 </span></span></code></pre></div><p>最后我把这个页面传到我的服务器当中，可以看一下效果 <a href="http://121.196.166.173/img">http://121.196.166.173/img</a></p>
 <p>时间仓促，我也没使用更好的 ui 进行优化，只是大致写一下这个过程，待到以后具体使用时，我会对这个展示图片的页面进一步优化。</p>
 
@@ -266,13 +266,16 @@
 
   
   
-   
-  <a class="tag" href="https://zburu.com/tags/ajax">ajax</a>
-   
-  <a class="tag" href="https://zburu.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93">数据库</a>
-   
-  <a class="tag" href="https://zburu.com/tags/%E5%9B%BE%E5%BA%8A">图床</a>
-  
+  <div class="tags">
+    <span>Tags: </span>
+     
+    <a href="https://zburu.com/tags/ajax">ajax</a>
+     
+    <a href="https://zburu.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93">数据库</a>
+     
+    <a href="https://zburu.com/tags/%E5%9B%BE%E5%BA%8A">图床</a>
+    
+  </div>
   
 
 </section>

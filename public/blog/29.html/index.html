@@ -145,46 +145,46 @@
     
     <h2 id="一计算属性computed">一、计算属性computed</h2>
 <h3 id="1例子">1.例子</h3>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;app&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>  &lt;<span style="color:#000080">div</span>&gt;{{message}}&lt;/<span style="color:#000080">div</span>&gt;
-</span></span><span style="display:flex;"><span>  &lt;<span style="color:#000080">div</span>&gt;{{revermessage}}&lt;/<span style="color:#000080">div</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">div</span>&gt;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080;font-weight:bold">div</span> <span style="color:#f00">id</span>=<span style="color:#00f">&#34;app&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#000080;font-weight:bold">div</span>&gt;{{message}}&lt;/<span style="color:#000080;font-weight:bold">div</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#000080;font-weight:bold">div</span>&gt;{{revermessage}}&lt;/<span style="color:#000080;font-weight:bold">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080;font-weight:bold">div</span>&gt;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span>&gt;
-</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">var</span> vm <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> Vue({
-</span></span><span style="display:flex;"><span>    el<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;#app&#39;</span>,
-</span></span><span style="display:flex;"><span>    data<span style="color:#000;font-weight:bold">:</span> {
-</span></span><span style="display:flex;"><span>      message<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;hello,wolrd&#39;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080;font-weight:bold">script</span>&gt;
+</span></span><span style="display:flex;"><span>  <span style="color:#000080;font-weight:bold">var</span> vm = <span style="color:#000080;font-weight:bold">new</span> Vue({
+</span></span><span style="display:flex;"><span>    el: <span style="color:#00f">&#39;#app&#39;</span>,
+</span></span><span style="display:flex;"><span>    data: {
+</span></span><span style="display:flex;"><span>      message: <span style="color:#00f">&#39;hello,wolrd&#39;</span>
 </span></span><span style="display:flex;"><span>    },
-</span></span><span style="display:flex;"><span>    computed<span style="color:#000;font-weight:bold">:</span> {
-</span></span><span style="display:flex;"><span>      revermessage<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">function</span>() {
-</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">this</span>.message.split(<span style="color:#d14">&#39;&#39;</span>).reverse().join(<span style="color:#d14">&#39;&#39;</span>)
+</span></span><span style="display:flex;"><span>    computed: {
+</span></span><span style="display:flex;"><span>      revermessage: <span style="color:#000080;font-weight:bold">function</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#000080;font-weight:bold">return</span> <span style="color:#000080;font-weight:bold">this</span>.message.split(<span style="color:#00f">&#39;&#39;</span>).reverse().join(<span style="color:#00f">&#39;&#39;</span>)
 </span></span><span style="display:flex;"><span>      }
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>  })
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080;font-weight:bold">script</span>&gt;
 </span></span></code></pre></div><p>声明一个计算属性<code>severmessage</code>，在<code>computed</code>中被指向对<code>message</code>进行一些方法操作后的返回值</p>
 <p>此时<code>vm.severmessage</code>依赖于<code>vm.message</code>的变化，对<code>message</code>改变数据，会引起<code>severmessage</code>的更新</p>
 <h3 id="2计算属性缓存和方法">2.计算属性缓存和方法</h3>
 <p>还可以通过在表达式中调用方法来达到想要的效果</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;app&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>  &lt;<span style="color:#000080">div</span>&gt;{{message}}&lt;/<span style="color:#000080">div</span>&gt;
-</span></span><span style="display:flex;"><span>  &lt;<span style="color:#000080">div</span>&gt;{{revermessage()}}&lt;/<span style="color:#000080">div</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">div</span>&gt;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080;font-weight:bold">div</span> <span style="color:#f00">id</span>=<span style="color:#00f">&#34;app&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#000080;font-weight:bold">div</span>&gt;{{message}}&lt;/<span style="color:#000080;font-weight:bold">div</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#000080;font-weight:bold">div</span>&gt;{{revermessage()}}&lt;/<span style="color:#000080;font-weight:bold">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080;font-weight:bold">div</span>&gt;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span>&gt;
-</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">var</span> vm <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> Vue({
-</span></span><span style="display:flex;"><span>    el<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;#app&#39;</span>,
-</span></span><span style="display:flex;"><span>    data<span style="color:#000;font-weight:bold">:</span> {
-</span></span><span style="display:flex;"><span>      message<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;hello,wolrd&#39;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080;font-weight:bold">script</span>&gt;
+</span></span><span style="display:flex;"><span>  <span style="color:#000080;font-weight:bold">var</span> vm = <span style="color:#000080;font-weight:bold">new</span> Vue({
+</span></span><span style="display:flex;"><span>    el: <span style="color:#00f">&#39;#app&#39;</span>,
+</span></span><span style="display:flex;"><span>    data: {
+</span></span><span style="display:flex;"><span>      message: <span style="color:#00f">&#39;hello,wolrd&#39;</span>
 </span></span><span style="display:flex;"><span>    },
-</span></span><span style="display:flex;"><span>    methods<span style="color:#000;font-weight:bold">:</span> {
-</span></span><span style="display:flex;"><span>      revermessage<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">function</span>() {
-</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">this</span>.message.split(<span style="color:#d14">&#39;&#39;</span>).reverse().join(<span style="color:#d14">&#39;&#39;</span>)
+</span></span><span style="display:flex;"><span>    methods: {
+</span></span><span style="display:flex;"><span>      revermessage: <span style="color:#000080;font-weight:bold">function</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#000080;font-weight:bold">return</span> <span style="color:#000080;font-weight:bold">this</span>.message.split(<span style="color:#00f">&#39;&#39;</span>).reverse().join(<span style="color:#00f">&#39;&#39;</span>)
 </span></span><span style="display:flex;"><span>      }
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>  })
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080;font-weight:bold">script</span>&gt;
 </span></span></code></pre></div><p>经过测试，两者的结果是一样的</p>
 <p>我们可以将同一函数定义为一个方法而不是一个计算属性。两种方式的最终结果确实是完全相同的</p>
 <p>区别是：<strong>计算属性是基于他们的响应式依赖进行缓存的，只有当响应式依赖，也就是<code>message</code>发生改变时才会重新求值</strong>，就意味着，只要<code>message</code>还没改变，多次访问<code>revermessage</code>计算属性只会返回之前计算结果的缓存，而不是直接执行计算属性的函数</p>
@@ -192,60 +192,60 @@
 <p>我们为什么需要缓存？假设我们有一个性能开销比较大的计算属性 A，它需要遍历一个巨大的数组并做大量的计算。然后我们可能有其他的计算属性依赖于 A。如果没有缓存，我们将不可避免的多次执行 A 的 getter！如果你不希望有缓存，请用方法来替代</p>
 <h3 id="3计算属性和侦听属性">3.计算属性和侦听属性</h3>
 <p>vue还有一种方式来观测vue实例上的数据变动：<strong>侦听属性－－watch</strong></p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;app&#34;</span>&gt;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080;font-weight:bold">div</span> <span style="color:#f00">id</span>=<span style="color:#00f">&#34;app&#34;</span>&gt;
 </span></span><span style="display:flex;"><span>  {{fullname}}
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080;font-weight:bold">div</span>&gt;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span>&gt;
-</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">var</span> vm <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> Vue({
-</span></span><span style="display:flex;"><span>    el<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;#app&#39;</span>,
-</span></span><span style="display:flex;"><span>    data<span style="color:#000;font-weight:bold">:</span> {
-</span></span><span style="display:flex;"><span>      firstname<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;a&#39;</span>,
-</span></span><span style="display:flex;"><span>      lastname<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;b&#39;</span>,
-</span></span><span style="display:flex;"><span>      fullname<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;ab&#39;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080;font-weight:bold">script</span>&gt;
+</span></span><span style="display:flex;"><span>  <span style="color:#000080;font-weight:bold">var</span> vm = <span style="color:#000080;font-weight:bold">new</span> Vue({
+</span></span><span style="display:flex;"><span>    el: <span style="color:#00f">&#39;#app&#39;</span>,
+</span></span><span style="display:flex;"><span>    data: {
+</span></span><span style="display:flex;"><span>      firstname: <span style="color:#00f">&#39;a&#39;</span>,
+</span></span><span style="display:flex;"><span>      lastname: <span style="color:#00f">&#39;b&#39;</span>,
+</span></span><span style="display:flex;"><span>      fullname: <span style="color:#00f">&#39;ab&#39;</span>
 </span></span><span style="display:flex;"><span>    },
-</span></span><span style="display:flex;"><span>    watch<span style="color:#000;font-weight:bold">:</span> {
-</span></span><span style="display:flex;"><span>      firstname<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">function</span>(val) {
-</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">this</span>.fullName <span style="color:#000;font-weight:bold">=</span> val <span style="color:#000;font-weight:bold">+</span> <span style="color:#d14">&#39; &#39;</span> <span style="color:#000;font-weight:bold">+</span> <span style="color:#000;font-weight:bold">this</span>.lastName
+</span></span><span style="display:flex;"><span>    watch: {
+</span></span><span style="display:flex;"><span>      firstname: <span style="color:#000080;font-weight:bold">function</span>(val) {
+</span></span><span style="display:flex;"><span>        <span style="color:#000080;font-weight:bold">this</span>.fullName = val + <span style="color:#00f">&#39; &#39;</span> + <span style="color:#000080;font-weight:bold">this</span>.lastName
 </span></span><span style="display:flex;"><span>      },
-</span></span><span style="display:flex;"><span>      lastname<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">function</span>(val) {
-</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">this</span>.fullName <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">this</span>.firstName <span style="color:#000;font-weight:bold">+</span> <span style="color:#d14">&#39; &#39;</span> <span style="color:#000;font-weight:bold">+</span> val
+</span></span><span style="display:flex;"><span>      lastname: <span style="color:#000080;font-weight:bold">function</span>(val) {
+</span></span><span style="display:flex;"><span>        <span style="color:#000080;font-weight:bold">this</span>.fullName = <span style="color:#000080;font-weight:bold">this</span>.firstName + <span style="color:#00f">&#39; &#39;</span> + val
 </span></span><span style="display:flex;"><span>      }
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>  })
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080;font-weight:bold">script</span>&gt;
 </span></span></code></pre></div><p>使用过程是极其繁琐且重复的，再来用计算属性试一下</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;app&#34;</span>&gt;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080;font-weight:bold">div</span> <span style="color:#f00">id</span>=<span style="color:#00f">&#34;app&#34;</span>&gt;
 </span></span><span style="display:flex;"><span>  {{fullname}}
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080;font-weight:bold">div</span>&gt;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span>&gt;
-</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">var</span> vm <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> Vue({
-</span></span><span style="display:flex;"><span>    el<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;#app&#39;</span>,
-</span></span><span style="display:flex;"><span>    data<span style="color:#000;font-weight:bold">:</span> {
-</span></span><span style="display:flex;"><span>      firstname<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;a&#39;</span>,
-</span></span><span style="display:flex;"><span>      lastname<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;b&#39;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080;font-weight:bold">script</span>&gt;
+</span></span><span style="display:flex;"><span>  <span style="color:#000080;font-weight:bold">var</span> vm = <span style="color:#000080;font-weight:bold">new</span> Vue({
+</span></span><span style="display:flex;"><span>    el: <span style="color:#00f">&#39;#app&#39;</span>,
+</span></span><span style="display:flex;"><span>    data: {
+</span></span><span style="display:flex;"><span>      firstname: <span style="color:#00f">&#39;a&#39;</span>,
+</span></span><span style="display:flex;"><span>      lastname: <span style="color:#00f">&#39;b&#39;</span>
 </span></span><span style="display:flex;"><span>    },
-</span></span><span style="display:flex;"><span>    computed<span style="color:#000;font-weight:bold">:</span> {
-</span></span><span style="display:flex;"><span>      fullname<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">function</span>() {
-</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">this</span>.firstname <span style="color:#000;font-weight:bold">+</span> <span style="color:#000;font-weight:bold">this</span>.lastname
+</span></span><span style="display:flex;"><span>    computed: {
+</span></span><span style="display:flex;"><span>      fullname: <span style="color:#000080;font-weight:bold">function</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#000080;font-weight:bold">return</span> <span style="color:#000080;font-weight:bold">this</span>.firstname + <span style="color:#000080;font-weight:bold">this</span>.lastname
 </span></span><span style="display:flex;"><span>      }
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>  })
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080;font-weight:bold">script</span>&gt;
 </span></span></code></pre></div><p>很简单快速的就得到了我们想要的函数表达式</p>
 <h3 id="4计算属性的setter">4.计算属性的setter</h3>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>computed<span style="color:#000;font-weight:bold">:</span> {
-</span></span><span style="display:flex;"><span>  fullName<span style="color:#000;font-weight:bold">:</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// getter
-</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    get<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">function</span> () {
-</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">this</span>.firstName <span style="color:#000;font-weight:bold">+</span> <span style="color:#d14">&#39; &#39;</span> <span style="color:#000;font-weight:bold">+</span> <span style="color:#000;font-weight:bold">this</span>.lastName
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>computed: {
+</span></span><span style="display:flex;"><span>  fullName: {
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-style:italic">// getter
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>    get: <span style="color:#000080;font-weight:bold">function</span> () {
+</span></span><span style="display:flex;"><span>      <span style="color:#000080;font-weight:bold">return</span> <span style="color:#000080;font-weight:bold">this</span>.firstName + <span style="color:#00f">&#39; &#39;</span> + <span style="color:#000080;font-weight:bold">this</span>.lastName
 </span></span><span style="display:flex;"><span>    },
-</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// setter
-</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    set<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">function</span> (newValue) {
-</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">var</span> names <span style="color:#000;font-weight:bold">=</span> newValue.split(<span style="color:#d14">&#39; &#39;</span>)
-</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">this</span>.firstName <span style="color:#000;font-weight:bold">=</span> names[<span style="color:#099">0</span>]
-</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">this</span>.lastName <span style="color:#000;font-weight:bold">=</span> names[names.length <span style="color:#000;font-weight:bold">-</span> <span style="color:#099">1</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-style:italic">// setter
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>    set: <span style="color:#000080;font-weight:bold">function</span> (newValue) {
+</span></span><span style="display:flex;"><span>      <span style="color:#000080;font-weight:bold">var</span> names = newValue.split(<span style="color:#00f">&#39; &#39;</span>)
+</span></span><span style="display:flex;"><span>      <span style="color:#000080;font-weight:bold">this</span>.firstName = names[<span style="color:#00f">0</span>]
+</span></span><span style="display:flex;"><span>      <span style="color:#000080;font-weight:bold">this</span>.lastName = names[names.length - <span style="color:#00f">1</span>]
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>}
@@ -253,84 +253,84 @@
 <h2 id="二绑定class和style">二、绑定class和style</h2>
 <h3 id="1对象语法">1.对象语法</h3>
 <p>可以给<code>v-bind:class</code>传入一个对象，动态的切换<code>class</code></p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">v-bind:class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;{active: ok}&#34;</span>&gt;&lt;/<span style="color:#000080">div</span>&gt;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080;font-weight:bold">div</span> <span style="color:#f00">v-bind:class</span>=<span style="color:#00f">&#34;{active: ok}&#34;</span>&gt;&lt;/<span style="color:#000080;font-weight:bold">div</span>&gt;
 </span></span></code></pre></div><p>可以通过控制<code>ok</code>的布尔值来动态的控制class</p>
 <p>还可以创建多个字段，并且不影响普通的<code>className</code>的存在</p>
 <p>html:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;static&#34;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#008080">v-bind:class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;{ active: isActive, &#39;text-danger&#39;: hasError }&#34;</span>
-</span></span><span style="display:flex;"><span>&gt;&lt;/<span style="color:#000080">div</span>&gt;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080;font-weight:bold">div</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f00">class</span>=<span style="color:#00f">&#34;static&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f00">v-bind:class</span>=<span style="color:#00f">&#34;{ active: isActive, &#39;text-danger&#39;: hasError }&#34;</span>
+</span></span><span style="display:flex;"><span>&gt;&lt;/<span style="color:#000080;font-weight:bold">div</span>&gt;
 </span></span></code></pre></div><p>data:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>data{
-</span></span><span style="display:flex;"><span>  isActive<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">true</span>,
-</span></span><span style="display:flex;"><span>  hasError<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">false</span>
+</span></span><span style="display:flex;"><span>  isActive: <span style="color:#000080;font-weight:bold">true</span>,
+</span></span><span style="display:flex;"><span>  hasError: <span style="color:#000080;font-weight:bold">false</span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>结果为：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;static active&#34;</span>&gt;&lt;/<span style="color:#000080">div</span>&gt;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080;font-weight:bold">div</span> <span style="color:#f00">class</span>=<span style="color:#00f">&#34;static active&#34;</span>&gt;&lt;/<span style="color:#000080;font-weight:bold">div</span>&gt;
 </span></span></code></pre></div><p>当<code>isActive</code>或者<code>hasError</code>变化时，class 列表将相应地更新。例如，如果<code>hasError</code>的值为<code>true</code>，class 列表将变为<code>&quot;static active text-danger&quot;</code>。</p>
 <p>绑定的数据对象也不必直接写在内联模板里</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;app&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>  &lt;<span style="color:#000080">div</span> <span style="color:#008080">v-bind:class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;classobject&#34;</span>&gt;&lt;/<span style="color:#000080">div</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">div</span>&gt;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080;font-weight:bold">div</span> <span style="color:#f00">id</span>=<span style="color:#00f">&#34;app&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#000080;font-weight:bold">div</span> <span style="color:#f00">v-bind:class</span>=<span style="color:#00f">&#34;classobject&#34;</span>&gt;&lt;/<span style="color:#000080;font-weight:bold">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080;font-weight:bold">div</span>&gt;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span>&gt;
-</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">var</span> vm <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> Vue({
-</span></span><span style="display:flex;"><span>    el<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;#app&#39;</span>,
-</span></span><span style="display:flex;"><span>    data<span style="color:#000;font-weight:bold">:</span> {
-</span></span><span style="display:flex;"><span>      classobject<span style="color:#000;font-weight:bold">:</span> {
-</span></span><span style="display:flex;"><span>        active<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">true</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#d14">&#39;text-danger&#39;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">true</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080;font-weight:bold">script</span>&gt;
+</span></span><span style="display:flex;"><span>  <span style="color:#000080;font-weight:bold">var</span> vm = <span style="color:#000080;font-weight:bold">new</span> Vue({
+</span></span><span style="display:flex;"><span>    el: <span style="color:#00f">&#39;#app&#39;</span>,
+</span></span><span style="display:flex;"><span>    data: {
+</span></span><span style="display:flex;"><span>      classobject: {
+</span></span><span style="display:flex;"><span>        active: <span style="color:#000080;font-weight:bold">true</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#00f">&#39;text-danger&#39;</span>: <span style="color:#000080;font-weight:bold">true</span>
 </span></span><span style="display:flex;"><span>      }
 </span></span><span style="display:flex;"><span>    },
 </span></span><span style="display:flex;"><span>  })
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080;font-weight:bold">script</span>&gt;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">&lt;!-- &lt;div class=&#34;active text-danger&#34;&gt;&lt;/div&gt; --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">&lt;!-- &lt;div class=&#34;active text-danger&#34;&gt;&lt;/div&gt; --&gt;</span>
 </span></span></code></pre></div><blockquote>
 <p>如果<code>className</code>有特殊符号，必须加上引号<code>''</code>，或者<code>&quot;&quot;</code></p>
 </blockquote>
 <h3 id="2数组语法">2.数组语法</h3>
 <p>我们可以把一个数组传给<code>v-bind:class</code>，以应用一个 class 列表</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">v-bind:class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;[activeClass, errorClass]&#34;</span>&gt;&lt;/<span style="color:#000080">div</span>&gt;
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>data<span style="color:#000;font-weight:bold">:</span> {
-</span></span><span style="display:flex;"><span>  activeClass<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;active&#39;</span>,
-</span></span><span style="display:flex;"><span>  errorClass<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;text-danger&#39;</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080;font-weight:bold">div</span> <span style="color:#f00">v-bind:class</span>=<span style="color:#00f">&#34;[activeClass, errorClass]&#34;</span>&gt;&lt;/<span style="color:#000080;font-weight:bold">div</span>&gt;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>data: {
+</span></span><span style="display:flex;"><span>  activeClass: <span style="color:#00f">&#39;active&#39;</span>,
+</span></span><span style="display:flex;"><span>  errorClass: <span style="color:#00f">&#39;text-danger&#39;</span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>渲染为：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;active text-danger&#34;</span>&gt;&lt;/<span style="color:#000080">div</span>&gt;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080;font-weight:bold">div</span> <span style="color:#f00">class</span>=<span style="color:#00f">&#34;active text-danger&#34;</span>&gt;&lt;/<span style="color:#000080;font-weight:bold">div</span>&gt;
 </span></span></code></pre></div><h3 id="3用在组件上">3.用在组件上</h3>
 <p>当在一个自定义组件上使用<code>class</code>property 时，这些 class 将被添加到该组件的根元素上面。这个元素上已经存在的 class 不会被覆盖。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>Vue.component(<span style="color:#d14">&#39;my-component&#39;</span>, {
-</span></span><span style="display:flex;"><span>  template<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;&lt;p class=&#34;foo bar&#34;&gt;Hi&lt;/p&gt;&#39;</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>Vue.component(<span style="color:#00f">&#39;my-component&#39;</span>, {
+</span></span><span style="display:flex;"><span>  template: <span style="color:#00f">&#39;&lt;p class=&#34;foo bar&#34;&gt;Hi&lt;/p&gt;&#39;</span>
 </span></span><span style="display:flex;"><span>})
 </span></span></code></pre></div><p>然后在使用的使用的时候添加了一些<code>class</code>：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">my-component</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;baz boo&#34;</span>&gt;&lt;/<span style="color:#000080">my-component</span>&gt;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080;font-weight:bold">my-component</span> <span style="color:#f00">class</span>=<span style="color:#00f">&#34;baz boo&#34;</span>&gt;&lt;/<span style="color:#000080;font-weight:bold">my-component</span>&gt;
 </span></span></code></pre></div><p>html将会被渲染成：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">p</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;foo bar baz boo&#34;</span>&gt;Hi&lt;/<span style="color:#000080">p</span>&gt;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080;font-weight:bold">p</span> <span style="color:#f00">class</span>=<span style="color:#00f">&#34;foo bar baz boo&#34;</span>&gt;Hi&lt;/<span style="color:#000080;font-weight:bold">p</span>&gt;
 </span></span></code></pre></div><p>对于带数据绑定的<code>class</code>也同样适用</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">my-component</span> <span style="color:#008080">v-bind:class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;{ active: isActive }&#34;</span>&gt;&lt;/<span style="color:#000080">my-component</span>&gt;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080;font-weight:bold">my-component</span> <span style="color:#f00">v-bind:class</span>=<span style="color:#00f">&#34;{ active: isActive }&#34;</span>&gt;&lt;/<span style="color:#000080;font-weight:bold">my-component</span>&gt;
 </span></span></code></pre></div><p>当<code>isActive</code>为 truthy 时，HTML 将被渲染成为：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">p</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;foo bar active&#34;</span>&gt;Hi&lt;/<span style="color:#000080">p</span>&gt;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080;font-weight:bold">p</span> <span style="color:#f00">class</span>=<span style="color:#00f">&#34;foo bar active&#34;</span>&gt;Hi&lt;/<span style="color:#000080;font-weight:bold">p</span>&gt;
 </span></span></code></pre></div><h3 id="4绑定内联样式style">4.绑定内联样式style</h3>
 <p><code>v-bind:style</code>的对象语法十分直观——看着非常像 CSS，但其实是一个 JavaScript 对象。CSS property 名可以用<code>驼峰式</code>或<code>带引号的短横线</code>来命名</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">v-bind:style</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;{ color: activeColor, fontSize: fontSize + &#39;px&#39; }&#34;</span>&gt;&lt;/<span style="color:#000080">div</span>&gt;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080;font-weight:bold">div</span> <span style="color:#f00">v-bind:style</span>=<span style="color:#00f">&#34;{ color: activeColor, fontSize: fontSize + &#39;px&#39; }&#34;</span>&gt;&lt;/<span style="color:#000080;font-weight:bold">div</span>&gt;
 </span></span></code></pre></div><p>js:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>data<span style="color:#000;font-weight:bold">:</span> {
-</span></span><span style="display:flex;"><span>  activeColor<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;red&#39;</span>,
-</span></span><span style="display:flex;"><span>  fontSize<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">30</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>data: {
+</span></span><span style="display:flex;"><span>  activeColor: <span style="color:#00f">&#39;red&#39;</span>,
+</span></span><span style="display:flex;"><span>  fontSize: <span style="color:#00f">30</span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p><strong>或者直接绑定到一个对象，会让模板更加清晰</strong></p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">v-bind:style</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;styleObject&#34;</span>&gt;&lt;/<span style="color:#000080">div</span>&gt;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080;font-weight:bold">div</span> <span style="color:#f00">v-bind:style</span>=<span style="color:#00f">&#34;styleObject&#34;</span>&gt;&lt;/<span style="color:#000080;font-weight:bold">div</span>&gt;
 </span></span></code></pre></div><p>js:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>data<span style="color:#000;font-weight:bold">:</span> {
-</span></span><span style="display:flex;"><span>  styleObject<span style="color:#000;font-weight:bold">:</span> {
-</span></span><span style="display:flex;"><span>    color<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;red&#39;</span>,
-</span></span><span style="display:flex;"><span>    fontSize<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;13px&#39;</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>data: {
+</span></span><span style="display:flex;"><span>  styleObject: {
+</span></span><span style="display:flex;"><span>    color: <span style="color:#00f">&#39;red&#39;</span>,
+</span></span><span style="display:flex;"><span>    fontSize: <span style="color:#00f">&#39;13px&#39;</span>
 </span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p><strong>也可以将多个对象应用到一个元素上</strong></p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">v-bind:style</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;[baseStyles, overridingStyles]&#34;</span>&gt;&lt;/<span style="color:#000080">div</span>&gt;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080;font-weight:bold">div</span> <span style="color:#f00">v-bind:style</span>=<span style="color:#00f">&#34;[baseStyles, overridingStyles]&#34;</span>&gt;&lt;/<span style="color:#000080;font-weight:bold">div</span>&gt;
 </span></span></code></pre></div><p><strong>自动添加前缀</strong></p>
 <p>当<code>v-bind:style</code>需要使用浏览器前缀的时候，如：<code>-webkit-</code>等，vue会自动侦测并帮生成相应的前缀</p>
 
@@ -338,11 +338,14 @@
 
   
   
-   
-  <a class="tag" href="https://zburu.com/tags/vue">vue</a>
-   
-  <a class="tag" href="https://zburu.com/tags/%E7%AC%94%E8%AE%B0">笔记</a>
-  
+  <div class="tags">
+    <span>Tags: </span>
+     
+    <a href="https://zburu.com/tags/vue">vue</a>
+     
+    <a href="https://zburu.com/tags/%E7%AC%94%E8%AE%B0">笔记</a>
+    
+  </div>
   
 
 </section>

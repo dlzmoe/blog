@@ -137,134 +137,134 @@
 <p><img src="https://imgurl.zburu.com/images/20230201/image.7hrwxy8aok00.webp" alt=""></p>
 <details>
 <summary>点击展开代码</summary>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 替换成你想镜像的站点
-</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">const</span> upstream <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;gravatar.com&#39;</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 替换成你想镜像的站点
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#000080;font-weight:bold">const</span> upstream = <span style="color:#00f">&#39;gravatar.com&#39;</span>
 </span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 如果那个站点有专门的移动适配站点，否则保持和上面一致
-</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">const</span> upstream_mobile <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;gravatar.com&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 如果那个站点有专门的移动适配站点，否则保持和上面一致
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#000080;font-weight:bold">const</span> upstream_mobile = <span style="color:#00f">&#39;gravatar.com&#39;</span>
 </span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 你希望禁止哪些国家访问
-</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">const</span> blocked_region <span style="color:#000;font-weight:bold">=</span> []
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 你希望禁止哪些国家访问
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#000080;font-weight:bold">const</span> blocked_region = []
 </span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 禁止自访问
-</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">const</span> blocked_ip_address <span style="color:#000;font-weight:bold">=</span> []
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 禁止自访问
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#000080;font-weight:bold">const</span> blocked_ip_address = []
 </span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 替换成你想镜像的站点
-</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">const</span> replace_dict <span style="color:#000;font-weight:bold">=</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#d14">&#39;$upstream&#39;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;$custom_domain&#39;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#d14">&#39;//gravatar.com&#39;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 替换成你想镜像的站点
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#000080;font-weight:bold">const</span> replace_dict = {
+</span></span><span style="display:flex;"><span>    <span style="color:#00f">&#39;$upstream&#39;</span>: <span style="color:#00f">&#39;$custom_domain&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#00f">&#39;//gravatar.com&#39;</span>: <span style="color:#00f">&#39;&#39;</span>
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">//以下内容都不用动
-</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>addEventListener(<span style="color:#d14">&#39;fetch&#39;</span>, event =&gt; {
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">//以下内容都不用动
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>addEventListener(<span style="color:#00f">&#39;fetch&#39;</span>, event =&gt; {
 </span></span><span style="display:flex;"><span>    event.respondWith(fetchAndApply(event.request));
 </span></span><span style="display:flex;"><span>})
 </span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">async</span> <span style="color:#000;font-weight:bold">function</span> fetchAndApply(request) {
+</span></span><span style="display:flex;"><span><span style="color:#000080;font-weight:bold">async</span> <span style="color:#000080;font-weight:bold">function</span> fetchAndApply(request) {
 </span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">const</span> region <span style="color:#000;font-weight:bold">=</span> request.headers.get(<span style="color:#d14">&#39;cf-ipcountry&#39;</span>).toUpperCase();
-</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">const</span> ip_address <span style="color:#000;font-weight:bold">=</span> request.headers.get(<span style="color:#d14">&#39;cf-connecting-ip&#39;</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">const</span> user_agent <span style="color:#000;font-weight:bold">=</span> request.headers.get(<span style="color:#d14">&#39;user-agent&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#000080;font-weight:bold">const</span> region = request.headers.get(<span style="color:#00f">&#39;cf-ipcountry&#39;</span>).toUpperCase();
+</span></span><span style="display:flex;"><span>    <span style="color:#000080;font-weight:bold">const</span> ip_address = request.headers.get(<span style="color:#00f">&#39;cf-connecting-ip&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#000080;font-weight:bold">const</span> user_agent = request.headers.get(<span style="color:#00f">&#39;user-agent&#39;</span>);
 </span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">let</span> response <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">null</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">let</span> url <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> URL(request.url);
-</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">let</span> url_host <span style="color:#000;font-weight:bold">=</span> url.host;
+</span></span><span style="display:flex;"><span>    <span style="color:#000080;font-weight:bold">let</span> response = <span style="color:#000080;font-weight:bold">null</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#000080;font-weight:bold">let</span> url = <span style="color:#000080;font-weight:bold">new</span> URL(request.url);
+</span></span><span style="display:flex;"><span>    <span style="color:#000080;font-weight:bold">let</span> url_host = url.host;
 </span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">if</span> (url.protocol <span style="color:#000;font-weight:bold">==</span> <span style="color:#d14">&#39;http:&#39;</span>) {
-</span></span><span style="display:flex;"><span>        url.protocol <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;https:&#39;</span>
-</span></span><span style="display:flex;"><span>        response <span style="color:#000;font-weight:bold">=</span> Response.redirect(url.href);
-</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">return</span> response;
+</span></span><span style="display:flex;"><span>    <span style="color:#000080;font-weight:bold">if</span> (url.protocol == <span style="color:#00f">&#39;http:&#39;</span>) {
+</span></span><span style="display:flex;"><span>        url.protocol = <span style="color:#00f">&#39;https:&#39;</span>
+</span></span><span style="display:flex;"><span>        response = Response.redirect(url.href);
+</span></span><span style="display:flex;"><span>        <span style="color:#000080;font-weight:bold">return</span> response;
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">if</span> (<span style="color:#000;font-weight:bold">await</span> device_status(user_agent)) {
-</span></span><span style="display:flex;"><span>        upstream_domain <span style="color:#000;font-weight:bold">=</span> upstream
-</span></span><span style="display:flex;"><span>    } <span style="color:#000;font-weight:bold">else</span> {
-</span></span><span style="display:flex;"><span>        upstream_domain <span style="color:#000;font-weight:bold">=</span> upstream_mobile
+</span></span><span style="display:flex;"><span>    <span style="color:#000080;font-weight:bold">if</span> (<span style="color:#000080;font-weight:bold">await</span> device_status(user_agent)) {
+</span></span><span style="display:flex;"><span>        upstream_domain = upstream
+</span></span><span style="display:flex;"><span>    } <span style="color:#000080;font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>        upstream_domain = upstream_mobile
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span>    url.host <span style="color:#000;font-weight:bold">=</span> upstream_domain;
+</span></span><span style="display:flex;"><span>    url.host = upstream_domain;
 </span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">if</span> (blocked_region.includes(region)) {
-</span></span><span style="display:flex;"><span>        response <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> Response(<span style="color:#d14">&#39;Access denied: WorkersProxy is not available in your region yet.&#39;</span>, {
-</span></span><span style="display:flex;"><span>            status<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">403</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000080;font-weight:bold">if</span> (blocked_region.includes(region)) {
+</span></span><span style="display:flex;"><span>        response = <span style="color:#000080;font-weight:bold">new</span> Response(<span style="color:#00f">&#39;Access denied: WorkersProxy is not available in your region yet.&#39;</span>, {
+</span></span><span style="display:flex;"><span>            status: <span style="color:#00f">403</span>
 </span></span><span style="display:flex;"><span>        });
-</span></span><span style="display:flex;"><span>    } <span style="color:#000;font-weight:bold">else</span> <span style="color:#000;font-weight:bold">if</span>(blocked_ip_address.includes(ip_address)){
-</span></span><span style="display:flex;"><span>        response <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> Response(<span style="color:#d14">&#39;Access denied: Your IP address is blocked by WorkersProxy.&#39;</span>, {
-</span></span><span style="display:flex;"><span>            status<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">403</span>
+</span></span><span style="display:flex;"><span>    } <span style="color:#000080;font-weight:bold">else</span> <span style="color:#000080;font-weight:bold">if</span>(blocked_ip_address.includes(ip_address)){
+</span></span><span style="display:flex;"><span>        response = <span style="color:#000080;font-weight:bold">new</span> Response(<span style="color:#00f">&#39;Access denied: Your IP address is blocked by WorkersProxy.&#39;</span>, {
+</span></span><span style="display:flex;"><span>            status: <span style="color:#00f">403</span>
 </span></span><span style="display:flex;"><span>        });
-</span></span><span style="display:flex;"><span>    } <span style="color:#000;font-weight:bold">else</span>{
-</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">let</span> method <span style="color:#000;font-weight:bold">=</span> request.method;
-</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">let</span> request_headers <span style="color:#000;font-weight:bold">=</span> request.headers;
-</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">let</span> new_request_headers <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> Headers(request_headers);
+</span></span><span style="display:flex;"><span>    } <span style="color:#000080;font-weight:bold">else</span>{
+</span></span><span style="display:flex;"><span>        <span style="color:#000080;font-weight:bold">let</span> method = request.method;
+</span></span><span style="display:flex;"><span>        <span style="color:#000080;font-weight:bold">let</span> request_headers = request.headers;
+</span></span><span style="display:flex;"><span>        <span style="color:#000080;font-weight:bold">let</span> new_request_headers = <span style="color:#000080;font-weight:bold">new</span> Headers(request_headers);
 </span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span>        new_request_headers.set(<span style="color:#d14">&#39;Host&#39;</span>, upstream_domain);
-</span></span><span style="display:flex;"><span>        new_request_headers.set(<span style="color:#d14">&#39;Referer&#39;</span>, url.href);
+</span></span><span style="display:flex;"><span>        new_request_headers.set(<span style="color:#00f">&#39;Host&#39;</span>, upstream_domain);
+</span></span><span style="display:flex;"><span>        new_request_headers.set(<span style="color:#00f">&#39;Referer&#39;</span>, url.href);
 </span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">let</span> original_response <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">await</span> fetch(url.href, {
-</span></span><span style="display:flex;"><span>            method<span style="color:#000;font-weight:bold">:</span> method,
-</span></span><span style="display:flex;"><span>            headers<span style="color:#000;font-weight:bold">:</span> new_request_headers
+</span></span><span style="display:flex;"><span>        <span style="color:#000080;font-weight:bold">let</span> original_response = <span style="color:#000080;font-weight:bold">await</span> fetch(url.href, {
+</span></span><span style="display:flex;"><span>            method: method,
+</span></span><span style="display:flex;"><span>            headers: new_request_headers
 </span></span><span style="display:flex;"><span>        })
 </span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">let</span> original_response_clone <span style="color:#000;font-weight:bold">=</span> original_response.clone();
-</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">let</span> original_text <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">null</span>;
-</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">let</span> response_headers <span style="color:#000;font-weight:bold">=</span> original_response.headers;
-</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">let</span> new_response_headers <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> Headers(response_headers);
-</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">let</span> status <span style="color:#000;font-weight:bold">=</span> original_response.status;
+</span></span><span style="display:flex;"><span>        <span style="color:#000080;font-weight:bold">let</span> original_response_clone = original_response.clone();
+</span></span><span style="display:flex;"><span>        <span style="color:#000080;font-weight:bold">let</span> original_text = <span style="color:#000080;font-weight:bold">null</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#000080;font-weight:bold">let</span> response_headers = original_response.headers;
+</span></span><span style="display:flex;"><span>        <span style="color:#000080;font-weight:bold">let</span> new_response_headers = <span style="color:#000080;font-weight:bold">new</span> Headers(response_headers);
+</span></span><span style="display:flex;"><span>        <span style="color:#000080;font-weight:bold">let</span> status = original_response.status;
 </span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span>        new_response_headers.set(<span style="color:#d14">&#39;access-control-allow-origin&#39;</span>, <span style="color:#d14">&#39;*&#39;</span>);
-</span></span><span style="display:flex;"><span>        new_response_headers.set(<span style="color:#d14">&#39;access-control-allow-credentials&#39;</span>, <span style="color:#000;font-weight:bold">true</span>);
-</span></span><span style="display:flex;"><span>        new_response_headers.<span style="color:#000;font-weight:bold">delete</span>(<span style="color:#d14">&#39;content-security-policy&#39;</span>);
-</span></span><span style="display:flex;"><span>        new_response_headers.<span style="color:#000;font-weight:bold">delete</span>(<span style="color:#d14">&#39;content-security-policy-report-only&#39;</span>);
-</span></span><span style="display:flex;"><span>        new_response_headers.<span style="color:#000;font-weight:bold">delete</span>(<span style="color:#d14">&#39;clear-site-data&#39;</span>);
+</span></span><span style="display:flex;"><span>        new_response_headers.set(<span style="color:#00f">&#39;access-control-allow-origin&#39;</span>, <span style="color:#00f">&#39;*&#39;</span>);
+</span></span><span style="display:flex;"><span>        new_response_headers.set(<span style="color:#00f">&#39;access-control-allow-credentials&#39;</span>, <span style="color:#000080;font-weight:bold">true</span>);
+</span></span><span style="display:flex;"><span>        new_response_headers.<span style="color:#000080;font-weight:bold">delete</span>(<span style="color:#00f">&#39;content-security-policy&#39;</span>);
+</span></span><span style="display:flex;"><span>        new_response_headers.<span style="color:#000080;font-weight:bold">delete</span>(<span style="color:#00f">&#39;content-security-policy-report-only&#39;</span>);
+</span></span><span style="display:flex;"><span>        new_response_headers.<span style="color:#000080;font-weight:bold">delete</span>(<span style="color:#00f">&#39;clear-site-data&#39;</span>);
 </span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">const</span> content_type <span style="color:#000;font-weight:bold">=</span> new_response_headers.get(<span style="color:#d14">&#39;content-type&#39;</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">if</span> (content_type.includes(<span style="color:#d14">&#39;text/html&#39;</span>) <span style="color:#000;font-weight:bold">&amp;&amp;</span> content_type.includes(<span style="color:#d14">&#39;UTF-8&#39;</span>)) {
-</span></span><span style="display:flex;"><span>            original_text <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">await</span> replace_response_text(original_response_clone, upstream_domain, url_host);
-</span></span><span style="display:flex;"><span>        } <span style="color:#000;font-weight:bold">else</span> {
-</span></span><span style="display:flex;"><span>            original_text <span style="color:#000;font-weight:bold">=</span> original_response_clone.body
+</span></span><span style="display:flex;"><span>        <span style="color:#000080;font-weight:bold">const</span> content_type = new_response_headers.get(<span style="color:#00f">&#39;content-type&#39;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000080;font-weight:bold">if</span> (content_type.includes(<span style="color:#00f">&#39;text/html&#39;</span>) &amp;&amp; content_type.includes(<span style="color:#00f">&#39;UTF-8&#39;</span>)) {
+</span></span><span style="display:flex;"><span>            original_text = <span style="color:#000080;font-weight:bold">await</span> replace_response_text(original_response_clone, upstream_domain, url_host);
+</span></span><span style="display:flex;"><span>        } <span style="color:#000080;font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>            original_text = original_response_clone.body
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span>        response <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> Response(original_text, {
+</span></span><span style="display:flex;"><span>        response = <span style="color:#000080;font-weight:bold">new</span> Response(original_text, {
 </span></span><span style="display:flex;"><span>            status,
-</span></span><span style="display:flex;"><span>            headers<span style="color:#000;font-weight:bold">:</span> new_response_headers
+</span></span><span style="display:flex;"><span>            headers: new_response_headers
 </span></span><span style="display:flex;"><span>        })
 </span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">return</span> response;
+</span></span><span style="display:flex;"><span>    <span style="color:#000080;font-weight:bold">return</span> response;
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">async</span> <span style="color:#000;font-weight:bold">function</span> replace_response_text(response, upstream_domain, host_name) {
-</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">let</span> text <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">await</span> response.text()
+</span></span><span style="display:flex;"><span><span style="color:#000080;font-weight:bold">async</span> <span style="color:#000080;font-weight:bold">function</span> replace_response_text(response, upstream_domain, host_name) {
+</span></span><span style="display:flex;"><span>    <span style="color:#000080;font-weight:bold">let</span> text = <span style="color:#000080;font-weight:bold">await</span> response.text()
 </span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> i, j;
-</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">for</span> (i <span style="color:#000;font-weight:bold">in</span> replace_dict) {
-</span></span><span style="display:flex;"><span>        j <span style="color:#000;font-weight:bold">=</span> replace_dict[i]
-</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">if</span> (i <span style="color:#000;font-weight:bold">==</span> <span style="color:#d14">&#39;$upstream&#39;</span>) {
-</span></span><span style="display:flex;"><span>            i <span style="color:#000;font-weight:bold">=</span> upstream_domain
-</span></span><span style="display:flex;"><span>        } <span style="color:#000;font-weight:bold">else</span> <span style="color:#000;font-weight:bold">if</span> (i <span style="color:#000;font-weight:bold">==</span> <span style="color:#d14">&#39;$custom_domain&#39;</span>) {
-</span></span><span style="display:flex;"><span>            i <span style="color:#000;font-weight:bold">=</span> host_name
+</span></span><span style="display:flex;"><span>    <span style="color:#000080;font-weight:bold">var</span> i, j;
+</span></span><span style="display:flex;"><span>    <span style="color:#000080;font-weight:bold">for</span> (i <span style="color:#000080;font-weight:bold">in</span> replace_dict) {
+</span></span><span style="display:flex;"><span>        j = replace_dict[i]
+</span></span><span style="display:flex;"><span>        <span style="color:#000080;font-weight:bold">if</span> (i == <span style="color:#00f">&#39;$upstream&#39;</span>) {
+</span></span><span style="display:flex;"><span>            i = upstream_domain
+</span></span><span style="display:flex;"><span>        } <span style="color:#000080;font-weight:bold">else</span> <span style="color:#000080;font-weight:bold">if</span> (i == <span style="color:#00f">&#39;$custom_domain&#39;</span>) {
+</span></span><span style="display:flex;"><span>            i = host_name
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">if</span> (j <span style="color:#000;font-weight:bold">==</span> <span style="color:#d14">&#39;$upstream&#39;</span>) {
-</span></span><span style="display:flex;"><span>            j <span style="color:#000;font-weight:bold">=</span> upstream_domain
-</span></span><span style="display:flex;"><span>        } <span style="color:#000;font-weight:bold">else</span> <span style="color:#000;font-weight:bold">if</span> (j <span style="color:#000;font-weight:bold">==</span> <span style="color:#d14">&#39;$custom_domain&#39;</span>) {
-</span></span><span style="display:flex;"><span>            j <span style="color:#000;font-weight:bold">=</span> host_name
+</span></span><span style="display:flex;"><span>        <span style="color:#000080;font-weight:bold">if</span> (j == <span style="color:#00f">&#39;$upstream&#39;</span>) {
+</span></span><span style="display:flex;"><span>            j = upstream_domain
+</span></span><span style="display:flex;"><span>        } <span style="color:#000080;font-weight:bold">else</span> <span style="color:#000080;font-weight:bold">if</span> (j == <span style="color:#00f">&#39;$custom_domain&#39;</span>) {
+</span></span><span style="display:flex;"><span>            j = host_name
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">let</span> re <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> <span style="color:#0086b3">RegExp</span>(i, <span style="color:#d14">&#39;g&#39;</span>)
-</span></span><span style="display:flex;"><span>        text <span style="color:#000;font-weight:bold">=</span> text.replace(re, j);
+</span></span><span style="display:flex;"><span>        <span style="color:#000080;font-weight:bold">let</span> re = <span style="color:#000080;font-weight:bold">new</span> RegExp(i, <span style="color:#00f">&#39;g&#39;</span>)
+</span></span><span style="display:flex;"><span>        text = text.replace(re, j);
 </span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">return</span> text;
+</span></span><span style="display:flex;"><span>    <span style="color:#000080;font-weight:bold">return</span> text;
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">async</span> <span style="color:#000;font-weight:bold">function</span> device_status (user_agent_info) {
-</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> agents <span style="color:#000;font-weight:bold">=</span> [<span style="color:#d14">&#34;Android&#34;</span>, <span style="color:#d14">&#34;iPhone&#34;</span>, <span style="color:#d14">&#34;SymbianOS&#34;</span>, <span style="color:#d14">&#34;Windows Phone&#34;</span>, <span style="color:#d14">&#34;iPad&#34;</span>, <span style="color:#d14">&#34;iPod&#34;</span>];
-</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> flag <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">true</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">for</span> (<span style="color:#000;font-weight:bold">var</span> v <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>; v <span style="color:#000;font-weight:bold">&lt;</span> agents.length; v<span style="color:#000;font-weight:bold">++</span>) { <span style="color:#000;font-weight:bold">if</span> (user_agent_info.indexOf(agents[v]) <span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#099">0</span>) {
-</span></span><span style="display:flex;"><span>            flag <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">false</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#000;font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span><span style="color:#000080;font-weight:bold">async</span> <span style="color:#000080;font-weight:bold">function</span> device_status (user_agent_info) {
+</span></span><span style="display:flex;"><span>    <span style="color:#000080;font-weight:bold">var</span> agents = [<span style="color:#00f">&#34;Android&#34;</span>, <span style="color:#00f">&#34;iPhone&#34;</span>, <span style="color:#00f">&#34;SymbianOS&#34;</span>, <span style="color:#00f">&#34;Windows Phone&#34;</span>, <span style="color:#00f">&#34;iPad&#34;</span>, <span style="color:#00f">&#34;iPod&#34;</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#000080;font-weight:bold">var</span> flag = <span style="color:#000080;font-weight:bold">true</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#000080;font-weight:bold">for</span> (<span style="color:#000080;font-weight:bold">var</span> v = <span style="color:#00f">0</span>; v &lt; agents.length; v++) { <span style="color:#000080;font-weight:bold">if</span> (user_agent_info.indexOf(agents[v]) &gt; <span style="color:#00f">0</span>) {
+</span></span><span style="display:flex;"><span>            flag = <span style="color:#000080;font-weight:bold">false</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#000080;font-weight:bold">break</span>;
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">return</span> flag;
+</span></span><span style="display:flex;"><span>    <span style="color:#000080;font-weight:bold">return</span> flag;
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></details>
 <p>然后点击<code>保存并部署</code>，就可以成功反代 gravatar 镜像了。</p>
@@ -274,18 +274,21 @@
 <p><img src="https://imgurl.zburu.com/images/20230201/1675254069096.51n0e9vl53g0.webp" alt=""></p>
 <p>在触发器中可以找到自定义域名选项，输入已经绑定 cloudflare 的域名，再次赞美 cloudflare，如果事前绑定好了域名，在这里可以直接输入二级域名，cloudflare 会自动解析，全部都是自动化的。</p>
 <p>在主页左侧的 <code>网站</code> 绑定域名。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#998;font-style:italic"># 分享我的免费镜像。</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#080;font-style:italic"># 分享我的免费镜像。</span>
 </span></span><span style="display:flex;"><span>https://gravatar.zsh.im/avatar
 </span></span></code></pre></div>
   </div>
 
   
   
-   
-  <a class="tag" href="https://zburu.com/tags/cloudflare">cloudflare</a>
-   
-  <a class="tag" href="https://zburu.com/tags/gravatar">gravatar</a>
-  
+  <div class="tags">
+    <span>Tags: </span>
+     
+    <a href="https://zburu.com/tags/cloudflare">cloudflare</a>
+     
+    <a href="https://zburu.com/tags/gravatar">gravatar</a>
+    
+  </div>
   
 
 </section>

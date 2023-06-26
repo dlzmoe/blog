@@ -129,37 +129,40 @@
 <p>世界协调时间 (UTC) 是世界时间标准设定的时间, UTC 时间与 GMT 时间（格林威治时间）相同。</p>
 </blockquote>
 <p>测一下我所在时区和标准时区的时间差</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> myDate () {
-</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">var</span> d <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> <span style="color:#0086b3">Date</span>();
-</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">var</span> n <span style="color:#000;font-weight:bold">=</span> d.getTimezoneOffset();
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#000080;font-weight:bold">function</span> myDate () {
+</span></span><span style="display:flex;"><span>  <span style="color:#000080;font-weight:bold">var</span> d = <span style="color:#000080;font-weight:bold">new</span> Date();
+</span></span><span style="display:flex;"><span>  <span style="color:#000080;font-weight:bold">var</span> n = d.getTimezoneOffset();
 </span></span><span style="display:flex;"><span>  console.log(n)
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>myDate();
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// PS E:\demo&gt; node 1.js
-</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// -480
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// PS E:\demo&gt; node 1.js
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// -480
 </span></span></span></code></pre></div><p>也就是 480分钟（8个小时），北京时间是东八区，刚好与格林威治时间相差8个小时，这说明 <code>getTimezoneOffset()</code> 方法是很有效的。</p>
 <p>接下来利用这个方法，判断一下当前时区是否为夏令时。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> time1 <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> <span style="color:#0086b3">Date</span>(<span style="color:#099">2021</span>, <span style="color:#099">0</span>, <span style="color:#099">1</span>);
-</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> time2 <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> <span style="color:#0086b3">Date</span>(<span style="color:#099">2021</span>, <span style="color:#099">6</span>, <span style="color:#099">1</span>);
-</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">if</span> (time1.getTimezoneOffset() <span style="color:#000;font-weight:bold">!=</span> time2.getTimezoneOffset()) {
-</span></span><span style="display:flex;"><span>  console.log(<span style="color:#d14">&#39;夏令时&#39;</span>);
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#000080;font-weight:bold">const</span> time1 = <span style="color:#000080;font-weight:bold">new</span> Date(<span style="color:#00f">2021</span>, <span style="color:#00f">0</span>, <span style="color:#00f">1</span>);
+</span></span><span style="display:flex;"><span><span style="color:#000080;font-weight:bold">const</span> time2 = <span style="color:#000080;font-weight:bold">new</span> Date(<span style="color:#00f">2021</span>, <span style="color:#00f">6</span>, <span style="color:#00f">1</span>);
+</span></span><span style="display:flex;"><span><span style="color:#000080;font-weight:bold">if</span> (time1.getTimezoneOffset() != time2.getTimezoneOffset()) {
+</span></span><span style="display:flex;"><span>  console.log(<span style="color:#00f">&#39;夏令时&#39;</span>);
 </span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">else</span> {
-</span></span><span style="display:flex;"><span>  console.log(<span style="color:#d14">&#39;非夏令时&#39;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#000080;font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>  console.log(<span style="color:#00f">&#39;非夏令时&#39;</span>);
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// PS E:\demo&gt; node 1.js
-</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 非夏令时
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// PS E:\demo&gt; node 1.js
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 非夏令时
 </span></span></span></code></pre></div>
   </div>
 
   
   
-   
-  <a class="tag" href="https://zburu.com/tags/js">js</a>
-  
+  <div class="tags">
+    <span>Tags: </span>
+     
+    <a href="https://zburu.com/tags/js">js</a>
+    
+  </div>
   
 
 </section>

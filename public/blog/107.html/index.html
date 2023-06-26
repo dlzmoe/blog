@@ -127,14 +127,14 @@
     <p>需求: 我将博客和 typecho 后台结合起来，打算做一个在线说说的功能，在 typecho 中输入内容，然后调用接口，实现在我的博客查看说说功能的功能。是不是有点绕？我也这么觉得，但是折腾一下也挺好的。</p>
 <!-- more -->
 <p>typecho 导出的数据默认是时间戳格式，那我在前端调用的时候就很麻烦，所以选择在 sql 查询时直接转换，created 是表里面的参数。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 时间转换语句
-</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>FROM_UNIXTIME(created)
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 数据库查询语句
-</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#008080">$sql</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;select FROM_UNIXTIME(created),text from ... order by created desc&#34;</span>;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 时间转换语句
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>FROM_UNIXTIME(created)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#080;font-style:italic">// 数据库查询语句
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>$sql = <span style="color:#00f">&#34;select FROM_UNIXTIME(created),text from ... order by created desc&#34;</span>;
 </span></span></code></pre></div><p>这里导出的数据就是下面这个样子。</p>
 <p><img src="https://imgurl.zburu.com/images/2022/03/10/bca1ba598bbfc240545a5ba9c194a115.png" alt=""></p>
 <p>所以使用 <code>as</code> 参数将前面的语句自定义一下。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#008080">$sql</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;select FROM_UNIXTIME(created) as created,text from ... order by created desc&#34;</span>;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span>$sql = <span style="color:#00f">&#34;select FROM_UNIXTIME(created) as created,text from ... order by created desc&#34;</span>;
 </span></span></code></pre></div><p><img src="https://imgurl.zburu.com/images/2022/03/10/2f2a51643ff08d48fdbf9eec5cf193c5.png" alt=""></p>
 <p>成功导出，接下来调用就很简单了。</p>
 <p>多谢<a href="https://www.emoao.com/">梦繁星</a>的指导。</p>
@@ -143,11 +143,14 @@
 
   
   
-   
-  <a class="tag" href="https://zburu.com/tags/sql">sql</a>
-   
-  <a class="tag" href="https://zburu.com/tags/%E6%97%B6%E9%97%B4%E6%88%B3">时间戳</a>
-  
+  <div class="tags">
+    <span>Tags: </span>
+     
+    <a href="https://zburu.com/tags/sql">sql</a>
+     
+    <a href="https://zburu.com/tags/%E6%97%B6%E9%97%B4%E6%88%B3">时间戳</a>
+    
+  </div>
   
 
 </section>

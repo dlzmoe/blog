@@ -168,32 +168,32 @@
 <h3 id="3beforemount">3.beforeMount</h3>
 <p>在挂载开始之前被调用：相关的 render 函数（模板）首次被调用。</p>
 <p>例如通过v-for生成的html还没有被挂载到页面上</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span> beforeMount<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">function</span> () {
-</span></span><span style="display:flex;"><span>    console.log(<span style="color:#d14">&#39;beforeMount:&#39;</span>,<span style="color:#0086b3">document</span>.getElementsByTagName(<span style="color:#d14">&#39;li&#39;</span>).length);
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span> beforeMount: <span style="color:#000080;font-weight:bold">function</span> () {
+</span></span><span style="display:flex;"><span>    console.log(<span style="color:#00f">&#39;beforeMount:&#39;</span>,document.getElementsByTagName(<span style="color:#00f">&#39;li&#39;</span>).length);
 </span></span><span style="display:flex;"><span>  },
 </span></span></code></pre></div><p>console打印出来的beforeMount为1</p>
 <h3 id="4mounted">4.mounted</h3>
 <p>el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用该钩子。</p>
 <p><strong>有初始值的DOM渲染，例如我们的初始数据list,渲染出来的li，只有这里才能获取</strong></p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span> mounted<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">function</span> () {
-</span></span><span style="display:flex;"><span>    console.log(<span style="color:#d14">&#39;mounted:&#39;</span>,<span style="color:#0086b3">document</span>.getElementsByTagName(<span style="color:#d14">&#39;li&#39;</span>).length);
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span> mounted: <span style="color:#000080;font-weight:bold">function</span> () {
+</span></span><span style="display:flex;"><span>    console.log(<span style="color:#00f">&#39;mounted:&#39;</span>,document.getElementsByTagName(<span style="color:#00f">&#39;li&#39;</span>).length);
 </span></span><span style="display:flex;"><span>  },
 </span></span></code></pre></div><p>结果 mounted: 3 , 可以看到到这里为止，挂载到实例上了，我们可以获取到li的个数了</p>
 <h3 id="5beforeupdate">5.beforeUpdate</h3>
 <p>数据更新时调用，发生在虚拟 DOM 重新渲染和打补丁之前。 你可以在这个钩子中进一步地更改状态，这不会触发附加的重渲染过程。</p>
 <p>当我们更改Vue的任何数据，都会触发该函数</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span> beforeUpdate<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">function</span> () {
-</span></span><span style="display:flex;"><span>    console.log(<span style="color:#d14">&#39;beforeUpdate 钩子执行.&#39;</span>);
-</span></span><span style="display:flex;"><span>    console.log(<span style="color:#d14">&#39;beforeUpdate:&#39;</span><span style="color:#000;font-weight:bold">+</span><span style="color:#000;font-weight:bold">this</span>.message)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span> beforeUpdate: <span style="color:#000080;font-weight:bold">function</span> () {
+</span></span><span style="display:flex;"><span>    console.log(<span style="color:#00f">&#39;beforeUpdate 钩子执行.&#39;</span>);
+</span></span><span style="display:flex;"><span>    console.log(<span style="color:#00f">&#39;beforeUpdate:&#39;</span>+<span style="color:#000080;font-weight:bold">this</span>.message)
 </span></span><span style="display:flex;"><span>  },
 </span></span></code></pre></div><h3 id="6updated">6.updated</h3>
 <p>由于数据更改导致的虚拟 DOM 重新渲染和打补丁，在这之后会调用该钩子。</p>
 <p>当这个钩子被调用时，组件 DOM 已经更新，所以你现在可以执行依赖于 DOM 的操作。然而在大多数情况下，你应该避免在此期间更改状态，因为这可能会导致更新无限循环。</p>
 <p>该钩子在服务器端渲染期间不被调用。</p>
 <p>数据更新就会触发（vue所有的数据只有有更新就会触发）,如果想数据一遍就做统一的处理，可以用这个，如果想对不同数据的更新做不同的处理可以用nextTick，或者是watch进行监听</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span> updated<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">function</span> () {
-</span></span><span style="display:flex;"><span>    console.log(<span style="color:#d14">&#39;updated 钩子执行...&#39;</span>);
-</span></span><span style="display:flex;"><span>    console.log(<span style="color:#d14">&#39;updated:&#39;</span>,<span style="color:#000;font-weight:bold">this</span>.message)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span> updated: <span style="color:#000080;font-weight:bold">function</span> () {
+</span></span><span style="display:flex;"><span>    console.log(<span style="color:#00f">&#39;updated 钩子执行...&#39;</span>);
+</span></span><span style="display:flex;"><span>    console.log(<span style="color:#00f">&#39;updated:&#39;</span>,<span style="color:#000080;font-weight:bold">this</span>.message)
 </span></span><span style="display:flex;"><span>  },
 </span></span></code></pre></div><h3 id="7beforedestroy">7.beforeDestroy</h3>
 <p>实例销毁之前调用。在这一步，实例仍然完全可用。</p>
@@ -206,9 +206,12 @@
 
   
   
-   
-  <a class="tag" href="https://zburu.com/tags/vue">vue</a>
-  
+  <div class="tags">
+    <span>Tags: </span>
+     
+    <a href="https://zburu.com/tags/vue">vue</a>
+    
+  </div>
   
 
 </section>
