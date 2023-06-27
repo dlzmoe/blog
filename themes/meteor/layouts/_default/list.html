@@ -1,5 +1,13 @@
 {{ partial "header.html" . }}
 
+<section>
+  <h2 style="margin:0;">{{ .Title }}</h2>
+  <ul class="tagslist">
+    {{ range .Site.Taxonomies.tags }}
+    <li><a href="{{ .Page.Permalink }}">{{ .Page.Title }}</a> <sup>{{ .Count }}</sup></li>
+    {{ end }}
+  </ul>
+</section>
 {{ range (where .Data.Pages "Type" "in" site.Params.mainSections).GroupByDate "2006" -}}
 <section>
   <h2 style="margin:0;">{{ .Key }}</h2>
