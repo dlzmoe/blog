@@ -6,3 +6,5 @@ https://github.com/lovezsh/hugo-blog
 
 - 在线预览: https://zburu.com
 - 使用主题: https://github.com/lovezsh/hugo-theme-meteor  
+
+主题仓库暂停更新，直接同步到本仓库 `/themes/meteor`
