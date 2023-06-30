@@ -75,3 +75,7 @@ if (!isMob()) {
 }
 
 $("#searchTerm").focus();
+
+$('.rss').click(function(){
+  window.location.href = '/index.xml'
+})
