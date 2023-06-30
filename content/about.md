@@ -3,8 +3,6 @@ slug: about
 title: 关于
 ---
 
-经过脚本统计，我已经写了 <span id="totalNum"></span> 篇文章，总共 <span id="totalWords"></span> 个字。
-
 RSS订阅流: [https://zburu.com/index.xml](https://zburu.com/index.xml)
 
 ### 1. 个人说明
