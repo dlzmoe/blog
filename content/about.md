@@ -35,7 +35,7 @@ E-mail: shuxhan#163.com
 ***伙伴，推荐一些个人独立博客***
 
 [涛叔](https://taoshu.in)
-[江卮可乐](https://blog.ijann.com)
+[江卮可乐](https://emo.ijann.com/)
 [梦繁星](https://blog.emoao.com)
 [依然](https://wind.ink)
 [王宜楷工作室](http://www.wangyikai.com)
