@@ -3,30 +3,18 @@ slug: about
 title: 关于
 ---
 
-RSS订阅流: [https://zburu.com/index.xml](https://zburu.com/index.xml)
-
 ### 1. 个人说明
 
 我是子舒。
 
 学习新思想，争做新青年，新生代农民工，20年毕业后来到杭州，从事前端方面的工作。  
-这是一个我在闲暇时间写的博客，记录一些生活琐事，也会写一些技术笔记。
+这是一个我在闲暇时间写的博客，记录一些生活琐事。
 
+// 希望用技术改变生活。
 
-Github: [https://github.com/lovezsh](https://github.com/lovezsh)  
-仓库: [https://github.com/lovezsh/hugo-blog](https://github.com/lovezsh/hugo-blog)  
-E-mail: shuxhan#163.com  
-
-### 2. 博客日志
-
-2023-05-25: 新主题 [hugo-themes-meteor](https://github.com/lovezsh/hugo-themes-meteor) 正式上线。  
-2023-05-14: 购买域名[han.ge](https://han.ge)，并指向主域名。  
-2022-12-14: 重构博客主题。  
-2022-11-10: 开源本博客主题 [hugo-theme-Reader](https://github.com/lovezsh/hugo-theme-Reader)。  
-2022-10-09: 博客使用 hugo 构建。  
-2022-05-13: 更换域名 [zburu.com](https://zburu.com)。  
-2022-04-10: 博客使用 [Anghunk](https://github.com/lovezsh/Anghunk) 主题，程序使用 Typecho。  
-2020-06-14 - 2022-04-09: 折腾了不少，换过不少域名和博客系统。。。  
+Github: [https://github.com/imzsh](https://github.com/imzsh)  
+Blog Code: [https://github.com/imzsh/hugo-blog](https://github.com/imzsh/hugo-blog)  
+E-mail: me@zsh.im
 
 ### 3. 友情链接
 
@@ -51,4 +39,4 @@ E-mail: shuxhan#163.com
 
 ---
 
-版权声明：网站文章所有版权如无特殊说明，均归本人所有。允许转载，标明出处即可。
+版权声明：网站文章所有版权如无特殊说明，均归本人所有，允许转载，标明出处即可。
