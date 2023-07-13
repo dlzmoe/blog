@@ -91,3 +91,8 @@ $(window).on('scroll', function () {
     updateProgress(perc);
   });
 });
+
+// 在代码段显示对应代码语言
+$('.markdown-body pre>code').each(function () {
+  $(this).parents('pre').prepend('<span class="data-lang">' + $(this).attr('data-lang') + '</span>')
+})
