@@ -94,5 +94,5 @@ $(window).on('scroll', function () {
 
 // 在代码段显示对应代码语言
 $('.markdown-body pre>code').each(function () {
-  $(this).parents('pre').prepend('<span class="data-lang">' + $(this).attr('data-lang') + '</span>')
+  $(this).parents('.highlight').prepend('<span class="data-lang">' + $(this).attr('data-lang') + '</span>')
 })
