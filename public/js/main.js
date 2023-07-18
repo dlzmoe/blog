@@ -34,42 +34,6 @@ $(function () {
   })
 })
 
-// 统计总数字和文章数
-$(document).ready(function () {
-  $.ajax({
-    url: '/index.json',
-    type: 'get',
-    dataType: 'json',
-    success: function (data) {
-      const pageUrls = data;
-      const totalNum = pageUrls.length;
-      $('#totalNum').html(totalNum);
-      let totalWords = 0;
-      pageUrls.forEach(urlObj => {
-        $.get(urlObj.permalink, function (data) {
-          const content = data.replace(/(<([^>]+)>)/gi, " ").replace(/[^\w\s]/gi, " ");
-          const words = content.split(" ");
-          const wordCount = words.filter(word => word !== "").length;
-          totalWords += wordCount;
-          $('#totalWords').html(totalWords);
-        });
-      });
-
-    },
-    error: function () {
-      console.log('error')
-    }
-  })
-});
-
-function isMob() {
-  if ($(window).width() <= 1000) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
 $("#searchTerm").focus();
 
 $('.rss').click(function () {
@@ -95,4 +59,8 @@ $(window).on('scroll', function () {
 // 在代码段显示对应代码语言
 $('.markdown-body pre>code').each(function () {
   $(this).parents('.highlight').prepend('<span class="data-lang">' + $(this).attr('data-lang') + '</span>')
+})
+
+$('.back').click(function () {
+  history.back();
 })
