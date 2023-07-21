@@ -105,12 +105,8 @@ var _hmt = _hmt || [];
   
   
   <div class="meta page-meta">
-    <p>发布于<time datetime=" 2021-03-17 21:55:00 UTC">
-        2021年03月17日</time></p>
-    <i>-</i>
-    <p>阅读量: <span id="ArtalkPV" data-page-key="/blog/55.html/"></span></p>
-    <i>-</i>
-    <p>评论数: <span id="ArtalkCount" data-page-key="/blog/55.html/"></span></p>
+    <p><time datetime=" 2021-03-17 21:55:00 UTC">
+        2021-03-17</time></p>
   </div>
   
   
@@ -122,42 +118,42 @@ var _hmt = _hmt || [];
   <div class="post-content markdown-body" id="post-content">
     
     <p>页面监听是我们经常用的一个功能，下面两个段代码表示两个事件，分别在页面滚动500px和1000px的时候触发，在代码中使用了箭头函数。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>window.addEventListener(<span style="color:#00f">&#39;scroll&#39;</span>, () =&gt; {
-</span></span><span style="display:flex;"><span>   <span style="color:#000080;font-weight:bold">var</span> scrollTop = document.documentElement.scrollTop 
-</span></span><span style="display:flex;"><span>   <span style="color:#000080;font-weight:bold">if</span> (scrollTop &gt; <span style="color:#00f">500</span>) {
-</span></span><span style="display:flex;"><span>       console.log(<span style="color:#00f">&#39;滚动了500px&#39;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#0086b3">window</span>.addEventListener(<span style="color:#d14">&#39;scroll&#39;</span>, () =&gt; {
+</span></span><span style="display:flex;"><span>   <span style="color:#000;font-weight:bold">var</span> scrollTop <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.documentElement.scrollTop 
+</span></span><span style="display:flex;"><span>   <span style="color:#000;font-weight:bold">if</span> (scrollTop <span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#099">500</span>) {
+</span></span><span style="display:flex;"><span>       console.log(<span style="color:#d14">&#39;滚动了500px&#39;</span>)
 </span></span><span style="display:flex;"><span>   }
 </span></span><span style="display:flex;"><span>})
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>window.addEventListener(<span style="color:#00f">&#39;scroll&#39;</span>, () =&gt; {
-</span></span><span style="display:flex;"><span>   <span style="color:#000080;font-weight:bold">var</span> scrollTop = document.documentElement.scrollTop 
-</span></span><span style="display:flex;"><span>   <span style="color:#000080;font-weight:bold">if</span> (scrollTop &gt; <span style="color:#00f">1000</span>) {
-</span></span><span style="display:flex;"><span>        console.log(<span style="color:#00f">&#39;滚动了1000px&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#0086b3">window</span>.addEventListener(<span style="color:#d14">&#39;scroll&#39;</span>, () =&gt; {
+</span></span><span style="display:flex;"><span>   <span style="color:#000;font-weight:bold">var</span> scrollTop <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.documentElement.scrollTop 
+</span></span><span style="display:flex;"><span>   <span style="color:#000;font-weight:bold">if</span> (scrollTop <span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#099">1000</span>) {
+</span></span><span style="display:flex;"><span>        console.log(<span style="color:#d14">&#39;滚动了1000px&#39;</span>)
 </span></span><span style="display:flex;"><span>   }
 </span></span><span style="display:flex;"><span>})
 </span></span></code></pre></div><p>但是后面又要求代码兼容到IE10，就不能采用这种写法了。然后我就想使用原生的<code>function</code>写法。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>window.onscroll = <span style="color:#000080;font-weight:bold">function</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#080;font-style:italic">// ...
-</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>}
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#0086b3">window</span>.onscroll <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">function</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>}
 </span></span></code></pre></div><p>在用的过程中我发现，如果只有一个<code>window.scroll</code>没有任何问题，但是如果有多个<code>window.scroll</code>，后面的就不会生效。</p>
 <p><strong>那么如何解决这个问题呢？</strong></p>
 <p><code>window.scroll</code>只能存在一次，第一个会生效，后面的不生效，可以通过js处理这个问题。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-JS" data-lang="JS"><span style="display:flex;"><span><span style="color:#000080;font-weight:bold">function</span> addEvent(type, toDo) {
-</span></span><span style="display:flex;"><span>    <span style="color:#000080;font-weight:bold">if</span> (window.attachEvent) {
-</span></span><span style="display:flex;"><span>        window.attachEvent(<span style="color:#00f">&#39;on&#39;</span> + type, <span style="color:#000080;font-weight:bold">function</span>() {
-</span></span><span style="display:flex;"><span>            toDo.call(window)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-JS" data-lang="JS"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> addEvent(type, toDo) {
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">if</span> (<span style="color:#0086b3">window</span>.attachEvent) {
+</span></span><span style="display:flex;"><span>        <span style="color:#0086b3">window</span>.attachEvent(<span style="color:#d14">&#39;on&#39;</span> <span style="color:#000;font-weight:bold">+</span> type, <span style="color:#000;font-weight:bold">function</span>() {
+</span></span><span style="display:flex;"><span>            toDo.call(<span style="color:#0086b3">window</span>)
 </span></span><span style="display:flex;"><span>        })
-</span></span><span style="display:flex;"><span>    } <span style="color:#000080;font-weight:bold">else</span> {
-</span></span><span style="display:flex;"><span>        window.addEventListener(type, toDo, <span style="color:#000080;font-weight:bold">false</span>)
+</span></span><span style="display:flex;"><span>    } <span style="color:#000;font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#0086b3">window</span>.addEventListener(type, toDo, <span style="color:#000;font-weight:bold">false</span>)
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>addEvent(<span style="color:#00f">&#39;scroll&#39;</span>, <span style="color:#000080;font-weight:bold">function</span>(){
-</span></span><span style="display:flex;"><span>    console.log(<span style="color:#00f">&#39;第一次调用window.scroll&#39;</span>)
+</span></span><span style="display:flex;"><span>addEvent(<span style="color:#d14">&#39;scroll&#39;</span>, <span style="color:#000;font-weight:bold">function</span>(){
+</span></span><span style="display:flex;"><span>    console.log(<span style="color:#d14">&#39;第一次调用window.scroll&#39;</span>)
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>addEvent(<span style="color:#00f">&#39;scroll&#39;</span>, <span style="color:#000080;font-weight:bold">function</span>(){
-</span></span><span style="display:flex;"><span>    console.log(<span style="color:#00f">&#39;第一次调用window.scroll&#39;</span>)
+</span></span><span style="display:flex;"><span>addEvent(<span style="color:#d14">&#39;scroll&#39;</span>, <span style="color:#000;font-weight:bold">function</span>(){
+</span></span><span style="display:flex;"><span>    console.log(<span style="color:#d14">&#39;第一次调用window.scroll&#39;</span>)
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>运行一下，多个<code>scroll</code>可以同时运行。</p>
 
@@ -175,10 +171,10 @@ var _hmt = _hmt || [];
 
 </section>
 
+<div class="end">END</div>
 
 
 <section>
-  <h4>评论~</h4>
   <div id="Comments"></div>
 <link href="https://artalk.zburu.com/dist/Artalk.css" rel="stylesheet">
 <link rel="stylesheet" href="/css/artalk.css">
