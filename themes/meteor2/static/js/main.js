@@ -60,7 +60,3 @@ $(window).on('scroll', function () {
 $('.markdown-body pre>code').each(function () {
   $(this).parents('.highlight').prepend('<span class="data-lang">' + $(this).attr('data-lang') + '</span>')
 })
-
-$('.back').click(function () {
-  history.back();
-})
