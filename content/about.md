@@ -5,16 +5,14 @@ title: 关于
 
 ### 1. 个人说明
 
-我是子舒。
-
-学习新思想，争做新青年，新生代农民工，20年毕业后来到杭州，从事前端方面的工作。  
-这是一个我在闲暇时间写的博客，记录一些生活琐事。
+我是子舒。    
+现在在杭州从事互联网行业工作。  
+这是一个我在闲暇时间写的博客，记录生活。  
 
 // 希望用技术改变生活。
 
+E-mail: me@zsh.im  
 Github: [https://github.com/imzsh](https://github.com/imzsh)  
-Blog Code: [https://github.com/imzsh/hugo-blog](https://github.com/imzsh/hugo-blog)  
-E-mail: me@zsh.im
 
 ### 3. 友情链接
 
