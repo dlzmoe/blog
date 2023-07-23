@@ -24,7 +24,7 @@ $(function () {
 
   $('.mob-menu').click(function () {
     $(this).toggleClass('act');
-    $('.nav').toggleClass('active');
+    $('.nav').toggle();
   })
 
   $('.nav a').each(function () {
