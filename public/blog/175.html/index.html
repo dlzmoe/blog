@@ -22,7 +22,7 @@
 "articleSection" : "blog",
 "name" : "js中 [ ]\u002b{ } 和 { }\u002b[ ] 的区别",
 "headline" : "js中 [ ]\u002b{ } 和 { }\u002b[ ] 的区别",
-"description" : "[ ]\u002b{ }：一个数组加一个对象。 加法会进行隐式类型转换，规则是调用其valueOf()或toString()以取得一个非对象的值(primitive value)。 如果两个值中的任何一个是字符串，则进行字符",
+"description" : "[ ]\u002b{ }：一个数组加一个对象。 加法会进行隐式类型转换，规则是调用其valueOf()或toString()以取得一个非对象的值(primitive value)。 如果两个值中的任何一个是字符串，则进行字符串串接，否则进行数字加法。[ ] 和 { } 的 valueOf() 都返回对象自身，所以都会调用 toString()，最后的结果是字符串串接。 [ ].toString()返回空字符串，({ }).toString()返回 \u0026ldquo;[object Object]\u0026quot;，最后的结果就是 \u0026ldquo;[object Object]\u0026quot;。 { }\u002b[ ]：看上去应该和上面一样。 但是{ }除了表示一个对象之外，也可以表示一个空的bock。在 [ ] \u002b { }中，[ ]被解析为数组，因此后续的\u002b被解析为加法运算符，而{ }就解析为对象。 但在{ } \u002b [ ]中，{ }被解析为空的bock，随后的\u002b被解析为正号运算符。即实际上成了：{∥empty block}\u002b[ ]，即对一个空数组执行正号运算，实际上就是把数组转型为数字。首先调用.valueOf()，返回数组自身，不是primitive value,因此继续调用 [ ].toString()，返回空字符串。空字符串转型为数字，返回0，即最后的结果。",
 "inLanguage" : "en-US",
 "author" : "子舒",
 "creator" : "子舒",
@@ -38,8 +38,8 @@
 </script><title>js中 [ ]&#43;{ } 和 { }&#43;[ ] 的区别@子舒</title>
 <meta property="og:title" content="js中 [ ]&#43;{ } 和 { }&#43;[ ] 的区别" />
 <meta property="og:type" content="article" />
-<meta property="og:description" content="[ ]&#43;{ }：一个数组加一个对象。 加法会进行隐式类型转换，规则是调用其valueOf()或toString()以取得一个非对象的值(primitive value)。 如果两个值中的任何一个是字符串，则进行字符" />
-<meta name="description" content="[ ]&#43;{ }：一个数组加一个对象。 加法会进行隐式类型转换，规则是调用其valueOf()或toString()以取得一个非对象的值(primitive value)。 如果两个值中的任何一个是字符串，则进行字符" />
+<meta property="og:description" content="[ ]&#43;{ }：一个数组加一个对象。 加法会进行隐式类型转换，规则是调用其valueOf()或toString()以取得一个非对象的值(primitive value)。 如果两个值中的任何一个是字符串，则进行字符串串接，否则进行数字加法。[ ] 和 { } 的 valueOf() 都返回对象自身，所以都会调用 toString()，最后的结果是字符串串接。 [ ].toString()返回空字符串，({ }).toString()返回 &amp;ldquo;[object Object]&amp;quot;，最后的结果就是 &amp;ldquo;[object Object]&amp;quot;。 { }&#43;[ ]：看上去应该和上面一样。 但是{ }除了表示一个对象之外，也可以表示一个空的bock。在 [ ] &#43; { }中，[ ]被解析为数组，因此后续的&#43;被解析为加法运算符，而{ }就解析为对象。 但在{ } &#43; [ ]中，{ }被解析为空的bock，随后的&#43;被解析为正号运算符。即实际上成了：{∥empty block}&#43;[ ]，即对一个空数组执行正号运算，实际上就是把数组转型为数字。首先调用.valueOf()，返回数组自身，不是primitive value,因此继续调用 [ ].toString()，返回空字符串。空字符串转型为数字，返回0，即最后的结果。" />
+<meta name="description" content="[ ]&#43;{ }：一个数组加一个对象。 加法会进行隐式类型转换，规则是调用其valueOf()或toString()以取得一个非对象的值(primitive value)。 如果两个值中的任何一个是字符串，则进行字符串串接，否则进行数字加法。[ ] 和 { } 的 valueOf() 都返回对象自身，所以都会调用 toString()，最后的结果是字符串串接。 [ ].toString()返回空字符串，({ }).toString()返回 &amp;ldquo;[object Object]&amp;quot;，最后的结果就是 &amp;ldquo;[object Object]&amp;quot;。 { }&#43;[ ]：看上去应该和上面一样。 但是{ }除了表示一个对象之外，也可以表示一个空的bock。在 [ ] &#43; { }中，[ ]被解析为数组，因此后续的&#43;被解析为加法运算符，而{ }就解析为对象。 但在{ } &#43; [ ]中，{ }被解析为空的bock，随后的&#43;被解析为正号运算符。即实际上成了：{∥empty block}&#43;[ ]，即对一个空数组执行正号运算，实际上就是把数组转型为数字。首先调用.valueOf()，返回数组自身，不是primitive value,因此继续调用 [ ].toString()，返回空字符串。空字符串转型为数字，返回0，即最后的结果。" />
 <meta property="og:locale" content="en-us" /><meta property="og:image" content="https://img.zburu.com/favicon.png" />
 
 <link rel="stylesheet" href="/css/github-markdown.css">
@@ -79,16 +79,14 @@ var _hmt = _hmt || [];
         
         <a href="/lab/">实验室</a>
         
-        <div class="icon">
-          
-          <a href="/search"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search"
+
+        <a href="/search"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search"
               width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
               stroke-linecap="round" stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
               <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
               <path d="M21 21l-6 -6"></path>
-            </svg></a>
-        </div>
+        </svg></a>
       </div>
 
     </header>

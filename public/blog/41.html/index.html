@@ -22,7 +22,7 @@
 "articleSection" : "blog",
 "name" : "如何在 React 中引入 less？",
 "headline" : "如何在 React 中引入 less？",
-"description" : "本文主要写如何在 React 中引入 less 。因为 less 和 css 非常像，因此很容易学习。而且 less 仅对 css 语言增加了少许方便的扩展，这就是 less 如此易学的原因之一。 1.安装 less npm install less less-loader --save-dev 2.暴露 webpack 文件 利用 npx create-react-app 搭建的 React 项目，默认隐藏 webpack 配置文",
+"description" : "本文主要写如何在 React 中引入 less 。因为 less 和 css 非常像，因此很容易学习。而且 less 仅对 css 语言增加了少许方便的扩展，这就是 less 如此易学的原因之一。 1.安装 less npm install less less-loader --save-dev 2.暴露 webpack 文件 利用 npx create-react-app 搭建的 React 项目，默认隐藏 webpack 配置文件，引入 less 需要修改 webpack 配置文件，因此我们需要执行命令暴露 webpack 配置文件。 这里需要注意，一旦暴露，无法回退。 npm run eject 如果这一步失败，执行下列命令： git add . git commit -m \u0026#34;init\u0026#34; 然后再执行 npm run eject 注意：暴露 webpack 文件只能在 create-react-app 之初，一旦项目结构发生改变，再进行暴露操作就会失败。所以尽量在项目建立时就进行 npm run eject 操作。 3.修改 wenpack.config.js 配置 在合适的位置添加： \/\/ 放在 \/\/ const sassRegex = \/\\.(scss|sass)$\/; \/\/ const sassModuleRegex = \/\\.module\\.(scss|sass)$\/; \/\/ 后面 const lessRegex = \/\\.less$\/; const lessModuleRegex = \/\\.module\\.less$\/; \/\/ 放在 oneof 数组下 { test: lessRegex, exclude: lessModuleRegex, use: getStyleLoaders( { importLoaders: 2, sourceMap: isEnvProduction \u0026amp;\u0026amp; shouldUseSourceMap, }, \u0026#39;less-loader\u0026#39; ), \/\/ Don\u0026#39;t consider CSS imports dead code even if the \/\/ containing package claims to have no side effects. \/\/ Remove this when webpack adds a warning or an error for this. \/\/ See https:\/\/github.com\/webpack\/webpack\/issues\/6571 sideEffects: true, }, \/\/ Adds support for CSS Modules, but using SASS \/\/ using the extension .module.scss or .module.sass { test: lessModuleRegex, use: getStyleLoaders( { importLoaders: 2, sourceMap: isEnvProduction \u0026amp;\u0026amp; shouldUseSourceMap, modules: true, getLocalIdent: getCSSModuleLocalIdent, }, \u0026#39;less-loader\u0026#39; ), }, 4.如何使用 less 新建一个 App.less 文件，然后在 App.js 中引入： import \u0026#39;.\/Map.less\u0026#39; less 语法手册",
 "inLanguage" : "en-US",
 "author" : "子舒",
 "creator" : "子舒",
@@ -38,8 +38,8 @@
 </script><title>如何在 React 中引入 less？@子舒</title>
 <meta property="og:title" content="如何在 React 中引入 less？" />
 <meta property="og:type" content="article" />
-<meta property="og:description" content="本文主要写如何在 React 中引入 less 。因为 less 和 css 非常像，因此很容易学习。而且 less 仅对 css 语言增加了少许方便的扩展，这就是 less 如此易学的原因之一。 1.安装 less npm install less less-loader --save-dev 2.暴露 webpack 文件 利用 npx create-react-app 搭建的 React 项目，默认隐藏 webpack 配置文" />
-<meta name="description" content="本文主要写如何在 React 中引入 less 。因为 less 和 css 非常像，因此很容易学习。而且 less 仅对 css 语言增加了少许方便的扩展，这就是 less 如此易学的原因之一。 1.安装 less npm install less less-loader --save-dev 2.暴露 webpack 文件 利用 npx create-react-app 搭建的 React 项目，默认隐藏 webpack 配置文" />
+<meta property="og:description" content="本文主要写如何在 React 中引入 less 。因为 less 和 css 非常像，因此很容易学习。而且 less 仅对 css 语言增加了少许方便的扩展，这就是 less 如此易学的原因之一。 1.安装 less npm install less less-loader --save-dev 2.暴露 webpack 文件 利用 npx create-react-app 搭建的 React 项目，默认隐藏 webpack 配置文件，引入 less 需要修改 webpack 配置文件，因此我们需要执行命令暴露 webpack 配置文件。 这里需要注意，一旦暴露，无法回退。 npm run eject 如果这一步失败，执行下列命令： git add . git commit -m &amp;#34;init&amp;#34; 然后再执行 npm run eject 注意：暴露 webpack 文件只能在 create-react-app 之初，一旦项目结构发生改变，再进行暴露操作就会失败。所以尽量在项目建立时就进行 npm run eject 操作。 3.修改 wenpack.config.js 配置 在合适的位置添加： // 放在 // const sassRegex = /\.(scss|sass)$/; // const sassModuleRegex = /\.module\.(scss|sass)$/; // 后面 const lessRegex = /\.less$/; const lessModuleRegex = /\.module\.less$/; // 放在 oneof 数组下 { test: lessRegex, exclude: lessModuleRegex, use: getStyleLoaders( { importLoaders: 2, sourceMap: isEnvProduction &amp;amp;&amp;amp; shouldUseSourceMap, }, &amp;#39;less-loader&amp;#39; ), // Don&amp;#39;t consider CSS imports dead code even if the // containing package claims to have no side effects. // Remove this when webpack adds a warning or an error for this. // See https://github.com/webpack/webpack/issues/6571 sideEffects: true, }, // Adds support for CSS Modules, but using SASS // using the extension .module.scss or .module.sass { test: lessModuleRegex, use: getStyleLoaders( { importLoaders: 2, sourceMap: isEnvProduction &amp;amp;&amp;amp; shouldUseSourceMap, modules: true, getLocalIdent: getCSSModuleLocalIdent, }, &amp;#39;less-loader&amp;#39; ), }, 4.如何使用 less 新建一个 App.less 文件，然后在 App.js 中引入： import &amp;#39;./Map.less&amp;#39; less 语法手册" />
+<meta name="description" content="本文主要写如何在 React 中引入 less 。因为 less 和 css 非常像，因此很容易学习。而且 less 仅对 css 语言增加了少许方便的扩展，这就是 less 如此易学的原因之一。 1.安装 less npm install less less-loader --save-dev 2.暴露 webpack 文件 利用 npx create-react-app 搭建的 React 项目，默认隐藏 webpack 配置文件，引入 less 需要修改 webpack 配置文件，因此我们需要执行命令暴露 webpack 配置文件。 这里需要注意，一旦暴露，无法回退。 npm run eject 如果这一步失败，执行下列命令： git add . git commit -m &amp;#34;init&amp;#34; 然后再执行 npm run eject 注意：暴露 webpack 文件只能在 create-react-app 之初，一旦项目结构发生改变，再进行暴露操作就会失败。所以尽量在项目建立时就进行 npm run eject 操作。 3.修改 wenpack.config.js 配置 在合适的位置添加： // 放在 // const sassRegex = /\.(scss|sass)$/; // const sassModuleRegex = /\.module\.(scss|sass)$/; // 后面 const lessRegex = /\.less$/; const lessModuleRegex = /\.module\.less$/; // 放在 oneof 数组下 { test: lessRegex, exclude: lessModuleRegex, use: getStyleLoaders( { importLoaders: 2, sourceMap: isEnvProduction &amp;amp;&amp;amp; shouldUseSourceMap, }, &amp;#39;less-loader&amp;#39; ), // Don&amp;#39;t consider CSS imports dead code even if the // containing package claims to have no side effects. // Remove this when webpack adds a warning or an error for this. // See https://github.com/webpack/webpack/issues/6571 sideEffects: true, }, // Adds support for CSS Modules, but using SASS // using the extension .module.scss or .module.sass { test: lessModuleRegex, use: getStyleLoaders( { importLoaders: 2, sourceMap: isEnvProduction &amp;amp;&amp;amp; shouldUseSourceMap, modules: true, getLocalIdent: getCSSModuleLocalIdent, }, &amp;#39;less-loader&amp;#39; ), }, 4.如何使用 less 新建一个 App.less 文件，然后在 App.js 中引入： import &amp;#39;./Map.less&amp;#39; less 语法手册" />
 <meta property="og:locale" content="en-us" /><meta property="og:image" content="https://img.zburu.com/favicon.png" />
 
 <link rel="stylesheet" href="/css/github-markdown.css">
@@ -79,16 +79,14 @@ var _hmt = _hmt || [];
         
         <a href="/lab/">实验室</a>
         
-        <div class="icon">
-          
-          <a href="/search"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search"
+
+        <a href="/search"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search"
               width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
               stroke-linecap="round" stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
               <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
               <path d="M21 21l-6 -6"></path>
-            </svg></a>
-        </div>
+        </svg></a>
       </div>
 
     </header>

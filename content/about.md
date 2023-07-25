@@ -3,6 +3,8 @@ slug: about
 title: 关于
 ---
 
+RSS: <a href="https://zishu.me/index.xml" target="_blank">https://zishu.me/index.xml</a>
+
 ### 1. 个人说明
 
 我是子舒。    

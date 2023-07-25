@@ -22,7 +22,7 @@
 "articleSection" : "blog",
 "name" : "getElementBy系列和querySelector系列的区别",
 "headline" : "getElementBy系列和querySelector系列的区别",
-"description" : "querySelector和querySelectorAll的用法和getElementBy大致一样，获取的时候带上符号，getElementBy获取的是元素的动态集合，querySelector获取",
+"description" : "querySelector和querySelectorAll的用法和getElementBy大致一样，获取的时候带上符号，getElementBy获取的是元素的动态集合，querySelector获取的是元素的静态集合。 但是需要注意：getElementBy系列和querySelector系列的区别 比如，我们写一个for循环，每次获取li标签的时候，ul生成一个li子元素 \u0026lt;ul id=\u0026#34;ul\u0026#34;\u0026gt; \u0026lt;li\u0026gt;a\u0026lt;\/li\u0026gt; \u0026lt;li\u0026gt;b\u0026lt;\/li\u0026gt; \u0026lt;li\u0026gt;c\u0026lt;\/li\u0026gt; \u0026lt;\/ul\u0026gt; \u0026lt;script\u0026gt; var ul = document.getElementById(\u0026#39;ul\u0026#39;); var li = document.getElementsByTagName(\u0026#39;li\u0026#39;); for(var i = 0;i \u0026lt; li.length; i\u002b\u002b) { ul.appendChild(document.createElement(\u0026#39;li\u0026#39;)) }; console.log(li.length); \/\/ 陷入死循环 \u0026lt;\/script\u0026gt; 用i \u0026lt; li.length来进行判断时，会导致浏览器死循环，因为循环一次的时候，浏览器又重新获取li标签数组，每调用一次就会重新对文档进行查询，就会进入死循环 进行修改：把i \u0026lt; li.length改成i \u0026lt; 3，把li标签数组静态化，然后打印 conosle.log(li.length) \/\/ 6 重新用querySelector获取一遍元素 \u0026lt;ul id=\u0026#34;ul\u0026#34;\u0026gt; \u0026lt;li\u0026gt;a\u0026lt;\/li\u0026gt; \u0026lt;li\u0026gt;b\u0026lt;\/li\u0026gt; \u0026lt;li\u0026gt;c\u0026lt;\/li\u0026gt; \u0026lt;\/ul\u0026gt; \u0026lt;script\u0026gt; var ul = document.querySelector(\u0026#39;ul\u0026#39;); var li = document.querySelectorAll(\u0026#39;li\u0026#39;); for(var i = 0;i\u0026lt;li.length;i\u002b\u002b) { ul.appendChild(document.createElement(\u0026#39;li\u0026#39;)) }; console.log(li.length); \/\/ 输出对结果是原来的li.length = 3，而不是增加后的 6 \u0026lt;\/script\u0026gt; 静态集合体现在querySelectorAll(\u0027li\u0027)获取到ul里所有li后，不管后续再动态添加了多少li，都是不会对其参数影响",
 "inLanguage" : "en-US",
 "author" : "子舒",
 "creator" : "子舒",
@@ -38,8 +38,8 @@
 </script><title>getElementBy系列和querySelector系列的区别@子舒</title>
 <meta property="og:title" content="getElementBy系列和querySelector系列的区别" />
 <meta property="og:type" content="article" />
-<meta property="og:description" content="querySelector和querySelectorAll的用法和getElementBy大致一样，获取的时候带上符号，getElementBy获取的是元素的动态集合，querySelector获取" />
-<meta name="description" content="querySelector和querySelectorAll的用法和getElementBy大致一样，获取的时候带上符号，getElementBy获取的是元素的动态集合，querySelector获取" />
+<meta property="og:description" content="querySelector和querySelectorAll的用法和getElementBy大致一样，获取的时候带上符号，getElementBy获取的是元素的动态集合，querySelector获取的是元素的静态集合。 但是需要注意：getElementBy系列和querySelector系列的区别 比如，我们写一个for循环，每次获取li标签的时候，ul生成一个li子元素 &amp;lt;ul id=&amp;#34;ul&amp;#34;&amp;gt; &amp;lt;li&amp;gt;a&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;b&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;c&amp;lt;/li&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;script&amp;gt; var ul = document.getElementById(&amp;#39;ul&amp;#39;); var li = document.getElementsByTagName(&amp;#39;li&amp;#39;); for(var i = 0;i &amp;lt; li.length; i&#43;&#43;) { ul.appendChild(document.createElement(&amp;#39;li&amp;#39;)) }; console.log(li.length); // 陷入死循环 &amp;lt;/script&amp;gt; 用i &amp;lt; li.length来进行判断时，会导致浏览器死循环，因为循环一次的时候，浏览器又重新获取li标签数组，每调用一次就会重新对文档进行查询，就会进入死循环 进行修改：把i &amp;lt; li.length改成i &amp;lt; 3，把li标签数组静态化，然后打印 conosle.log(li.length) // 6 重新用querySelector获取一遍元素 &amp;lt;ul id=&amp;#34;ul&amp;#34;&amp;gt; &amp;lt;li&amp;gt;a&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;b&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;c&amp;lt;/li&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;script&amp;gt; var ul = document.querySelector(&amp;#39;ul&amp;#39;); var li = document.querySelectorAll(&amp;#39;li&amp;#39;); for(var i = 0;i&amp;lt;li.length;i&#43;&#43;) { ul.appendChild(document.createElement(&amp;#39;li&amp;#39;)) }; console.log(li.length); // 输出对结果是原来的li.length = 3，而不是增加后的 6 &amp;lt;/script&amp;gt; 静态集合体现在querySelectorAll(&#39;li&#39;)获取到ul里所有li后，不管后续再动态添加了多少li，都是不会对其参数影响" />
+<meta name="description" content="querySelector和querySelectorAll的用法和getElementBy大致一样，获取的时候带上符号，getElementBy获取的是元素的动态集合，querySelector获取的是元素的静态集合。 但是需要注意：getElementBy系列和querySelector系列的区别 比如，我们写一个for循环，每次获取li标签的时候，ul生成一个li子元素 &amp;lt;ul id=&amp;#34;ul&amp;#34;&amp;gt; &amp;lt;li&amp;gt;a&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;b&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;c&amp;lt;/li&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;script&amp;gt; var ul = document.getElementById(&amp;#39;ul&amp;#39;); var li = document.getElementsByTagName(&amp;#39;li&amp;#39;); for(var i = 0;i &amp;lt; li.length; i&#43;&#43;) { ul.appendChild(document.createElement(&amp;#39;li&amp;#39;)) }; console.log(li.length); // 陷入死循环 &amp;lt;/script&amp;gt; 用i &amp;lt; li.length来进行判断时，会导致浏览器死循环，因为循环一次的时候，浏览器又重新获取li标签数组，每调用一次就会重新对文档进行查询，就会进入死循环 进行修改：把i &amp;lt; li.length改成i &amp;lt; 3，把li标签数组静态化，然后打印 conosle.log(li.length) // 6 重新用querySelector获取一遍元素 &amp;lt;ul id=&amp;#34;ul&amp;#34;&amp;gt; &amp;lt;li&amp;gt;a&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;b&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;c&amp;lt;/li&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;script&amp;gt; var ul = document.querySelector(&amp;#39;ul&amp;#39;); var li = document.querySelectorAll(&amp;#39;li&amp;#39;); for(var i = 0;i&amp;lt;li.length;i&#43;&#43;) { ul.appendChild(document.createElement(&amp;#39;li&amp;#39;)) }; console.log(li.length); // 输出对结果是原来的li.length = 3，而不是增加后的 6 &amp;lt;/script&amp;gt; 静态集合体现在querySelectorAll(&#39;li&#39;)获取到ul里所有li后，不管后续再动态添加了多少li，都是不会对其参数影响" />
 <meta property="og:locale" content="en-us" /><meta property="og:image" content="https://img.zburu.com/favicon.png" />
 
 <link rel="stylesheet" href="/css/github-markdown.css">
@@ -79,16 +79,14 @@ var _hmt = _hmt || [];
         
         <a href="/lab/">实验室</a>
         
-        <div class="icon">
-          
-          <a href="/search"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search"
+
+        <a href="/search"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search"
               width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
               stroke-linecap="round" stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
               <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
               <path d="M21 21l-6 -6"></path>
-            </svg></a>
-        </div>
+        </svg></a>
       </div>
 
     </header>

@@ -22,7 +22,7 @@
 "articleSection" : "blog",
 "name" : "Nuxt 项目中如何引入百度统计？",
 "headline" : "Nuxt 项目中如何引入百度统计？",
-"description" : "在部署一个网站之后，我们最关心的事情无异于是访问量，以及对它的分析。国内的百度统计是一个不错的选择，基本的功能都是免费的。 只需要在head中引入一串 javascript 代码即可。 \u0026lt;!-- \u0026lt;script\u0026gt; var _hmt = _hmt || []; (function() { var hm = document.createElement(\u0026#34;script\u0026#34;); hm.src = \u0026#34;https:\/\/hm.baidu.com\/hm.js?xxxxxxxxxxxxxxxxxxx\u0026#34;; var s =",
+"description" : "在部署一个网站之后，我们最关心的事情无异于是访问量，以及对它的分析。国内的百度统计是一个不错的选择，基本的功能都是免费的。 只需要在head中引入一串 javascript 代码即可。 \u0026lt;!-- \u0026lt;script\u0026gt; var _hmt = _hmt || []; (function() { var hm = document.createElement(\u0026#34;script\u0026#34;); hm.src = \u0026#34;https:\/\/hm.baidu.com\/hm.js?xxxxxxxxxxxxxxxxxxx\u0026#34;; var s = document.getElementsByTagName(\u0026#34;script\u0026#34;)[0]; s.parentNode.insertBefore(hm, s); })(); \u0026lt;\/script\u0026gt; --\u0026gt; 上面是百度提供的统计代码，需要放在 \u0026lt;head\u0026gt;\u0026lt;\/head\u0026gt;中。 但是在nuxt中，没有传统的 \u0026lt;head\u0026gt;\u0026lt;\/head\u0026gt; 。所以要对他进行一些处理。 1. 首先在根目录下 \/plugins 新建一个文件 baidu.js \/\/ \/plugins\/baidu.js export default ({app: {router}, store}) =\u0026gt; { \/* 每次路由变更时进行pv统计 *\/ router.afterEach((to, from) =\u0026gt; { \/* 告诉增加一个PV *\/ try { window._hmt = window._hmt || [] window._hmt.push([\u0026#39;_trackPageview\u0026#39;, to.fullPath]) } catch (e) { } }) } 2. 配置 nuxt.config.js 文件 在 plugins中： plugins: [ { src: \u0026#39;~\/plugins\/baidu\u0026#39; } ], 在 head中： head: { \/\/ ... link: [ \/\/ ... ], script: [ { src: \u0026#39;https:\/\/hm.baidu.com\/hm.js?xxxxxxxxxxxxxxxxxxx\u0026#39; } ] }, 在script中写入百度统计提供的 url 即可，按照对应的字符。",
 "inLanguage" : "en-US",
 "author" : "子舒",
 "creator" : "子舒",
@@ -38,8 +38,8 @@
 </script><title>Nuxt 项目中如何引入百度统计？@子舒</title>
 <meta property="og:title" content="Nuxt 项目中如何引入百度统计？" />
 <meta property="og:type" content="article" />
-<meta property="og:description" content="在部署一个网站之后，我们最关心的事情无异于是访问量，以及对它的分析。国内的百度统计是一个不错的选择，基本的功能都是免费的。 只需要在head中引入一串 javascript 代码即可。 &amp;lt;!-- &amp;lt;script&amp;gt; var _hmt = _hmt || []; (function() { var hm = document.createElement(&amp;#34;script&amp;#34;); hm.src = &amp;#34;https://hm.baidu.com/hm.js?xxxxxxxxxxxxxxxxxxx&amp;#34;; var s =" />
-<meta name="description" content="在部署一个网站之后，我们最关心的事情无异于是访问量，以及对它的分析。国内的百度统计是一个不错的选择，基本的功能都是免费的。 只需要在head中引入一串 javascript 代码即可。 &amp;lt;!-- &amp;lt;script&amp;gt; var _hmt = _hmt || []; (function() { var hm = document.createElement(&amp;#34;script&amp;#34;); hm.src = &amp;#34;https://hm.baidu.com/hm.js?xxxxxxxxxxxxxxxxxxx&amp;#34;; var s =" />
+<meta property="og:description" content="在部署一个网站之后，我们最关心的事情无异于是访问量，以及对它的分析。国内的百度统计是一个不错的选择，基本的功能都是免费的。 只需要在head中引入一串 javascript 代码即可。 &amp;lt;!-- &amp;lt;script&amp;gt; var _hmt = _hmt || []; (function() { var hm = document.createElement(&amp;#34;script&amp;#34;); hm.src = &amp;#34;https://hm.baidu.com/hm.js?xxxxxxxxxxxxxxxxxxx&amp;#34;; var s = document.getElementsByTagName(&amp;#34;script&amp;#34;)[0]; s.parentNode.insertBefore(hm, s); })(); &amp;lt;/script&amp;gt; --&amp;gt; 上面是百度提供的统计代码，需要放在 &amp;lt;head&amp;gt;&amp;lt;/head&amp;gt;中。 但是在nuxt中，没有传统的 &amp;lt;head&amp;gt;&amp;lt;/head&amp;gt; 。所以要对他进行一些处理。 1. 首先在根目录下 /plugins 新建一个文件 baidu.js // /plugins/baidu.js export default ({app: {router}, store}) =&amp;gt; { /* 每次路由变更时进行pv统计 */ router.afterEach((to, from) =&amp;gt; { /* 告诉增加一个PV */ try { window._hmt = window._hmt || [] window._hmt.push([&amp;#39;_trackPageview&amp;#39;, to.fullPath]) } catch (e) { } }) } 2. 配置 nuxt.config.js 文件 在 plugins中： plugins: [ { src: &amp;#39;~/plugins/baidu&amp;#39; } ], 在 head中： head: { // ... link: [ // ... ], script: [ { src: &amp;#39;https://hm.baidu.com/hm.js?xxxxxxxxxxxxxxxxxxx&amp;#39; } ] }, 在script中写入百度统计提供的 url 即可，按照对应的字符。" />
+<meta name="description" content="在部署一个网站之后，我们最关心的事情无异于是访问量，以及对它的分析。国内的百度统计是一个不错的选择，基本的功能都是免费的。 只需要在head中引入一串 javascript 代码即可。 &amp;lt;!-- &amp;lt;script&amp;gt; var _hmt = _hmt || []; (function() { var hm = document.createElement(&amp;#34;script&amp;#34;); hm.src = &amp;#34;https://hm.baidu.com/hm.js?xxxxxxxxxxxxxxxxxxx&amp;#34;; var s = document.getElementsByTagName(&amp;#34;script&amp;#34;)[0]; s.parentNode.insertBefore(hm, s); })(); &amp;lt;/script&amp;gt; --&amp;gt; 上面是百度提供的统计代码，需要放在 &amp;lt;head&amp;gt;&amp;lt;/head&amp;gt;中。 但是在nuxt中，没有传统的 &amp;lt;head&amp;gt;&amp;lt;/head&amp;gt; 。所以要对他进行一些处理。 1. 首先在根目录下 /plugins 新建一个文件 baidu.js // /plugins/baidu.js export default ({app: {router}, store}) =&amp;gt; { /* 每次路由变更时进行pv统计 */ router.afterEach((to, from) =&amp;gt; { /* 告诉增加一个PV */ try { window._hmt = window._hmt || [] window._hmt.push([&amp;#39;_trackPageview&amp;#39;, to.fullPath]) } catch (e) { } }) } 2. 配置 nuxt.config.js 文件 在 plugins中： plugins: [ { src: &amp;#39;~/plugins/baidu&amp;#39; } ], 在 head中： head: { // ... link: [ // ... ], script: [ { src: &amp;#39;https://hm.baidu.com/hm.js?xxxxxxxxxxxxxxxxxxx&amp;#39; } ] }, 在script中写入百度统计提供的 url 即可，按照对应的字符。" />
 <meta property="og:locale" content="en-us" /><meta property="og:image" content="https://img.zburu.com/favicon.png" />
 
 <link rel="stylesheet" href="/css/github-markdown.css">
@@ -79,16 +79,14 @@ var _hmt = _hmt || [];
         
         <a href="/lab/">实验室</a>
         
-        <div class="icon">
-          
-          <a href="/search"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search"
+
+        <a href="/search"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search"
               width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
               stroke-linecap="round" stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
               <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
               <path d="M21 21l-6 -6"></path>
-            </svg></a>
-        </div>
+        </svg></a>
       </div>
 
     </header>

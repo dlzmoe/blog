@@ -22,7 +22,7 @@
 "articleSection" : "blog",
 "name" : "ajax 和 js 事件的执行顺序",
 "headline" : "ajax 和 js 事件的执行顺序",
-"description" : "有一个需求，滚轮滚动到相应位置的时候执行当前的动画，这个动画在footer里面，而网页的主体通过ajax进行渲染，我在js里面调用ajax渲染数据，然后再获取主体的高度，滚动到该高度的时候执行动画。 本",
+"description" : "有一个需求，滚轮滚动到相应位置的时候执行当前的动画，这个动画在footer里面，而网页的主体通过ajax进行渲染，我在js里面调用ajax渲染数据，然后再获取主体的高度，滚动到该高度的时候执行动画。 本地测试了一下没什么问题，该有的效果都有了。放在服务器上测试发现无论怎么写，都是先获取主体的高度，然后才进行数据的渲染。那么必然高度是一个极小的值，不符合我想要的属性。 我大致想了两种解决办法，均以失败告终，本地是ajax先执行，服务器是js先执行。 让获取高度的事件时间延时500ms，发现最后获取不到事件了； 将该事件写在ajax的success回调里面，结果是只有打开网页第一次能够成功，然后不管刷新多少次均无效，事件被屏蔽，所以方法二也被废除； 最后我想到了，ajax不就是一种异步方法，我将其改为同步不就行，先让ajax执行完在执行js事件。 async: false, 我在ajax里面写了async这个方法，false 意思是将其默认为同步获取数据，很好，回到服务器打开控制台，发现是先渲染了数据，才获取了主体的高度，问题得以解决。 当然这样做有弊端的，如果接口出问题，ajax渲染失败，那么整个网页的js都将执行不了。不过我想真到了数据都渲染不出的地方，访问网页就没有意义了，所以最后我采用了这种方法。",
 "inLanguage" : "en-US",
 "author" : "子舒",
 "creator" : "子舒",
@@ -38,8 +38,8 @@
 </script><title>ajax 和 js 事件的执行顺序@子舒</title>
 <meta property="og:title" content="ajax 和 js 事件的执行顺序" />
 <meta property="og:type" content="article" />
-<meta property="og:description" content="有一个需求，滚轮滚动到相应位置的时候执行当前的动画，这个动画在footer里面，而网页的主体通过ajax进行渲染，我在js里面调用ajax渲染数据，然后再获取主体的高度，滚动到该高度的时候执行动画。 本" />
-<meta name="description" content="有一个需求，滚轮滚动到相应位置的时候执行当前的动画，这个动画在footer里面，而网页的主体通过ajax进行渲染，我在js里面调用ajax渲染数据，然后再获取主体的高度，滚动到该高度的时候执行动画。 本" />
+<meta property="og:description" content="有一个需求，滚轮滚动到相应位置的时候执行当前的动画，这个动画在footer里面，而网页的主体通过ajax进行渲染，我在js里面调用ajax渲染数据，然后再获取主体的高度，滚动到该高度的时候执行动画。 本地测试了一下没什么问题，该有的效果都有了。放在服务器上测试发现无论怎么写，都是先获取主体的高度，然后才进行数据的渲染。那么必然高度是一个极小的值，不符合我想要的属性。 我大致想了两种解决办法，均以失败告终，本地是ajax先执行，服务器是js先执行。 让获取高度的事件时间延时500ms，发现最后获取不到事件了； 将该事件写在ajax的success回调里面，结果是只有打开网页第一次能够成功，然后不管刷新多少次均无效，事件被屏蔽，所以方法二也被废除； 最后我想到了，ajax不就是一种异步方法，我将其改为同步不就行，先让ajax执行完在执行js事件。 async: false, 我在ajax里面写了async这个方法，false 意思是将其默认为同步获取数据，很好，回到服务器打开控制台，发现是先渲染了数据，才获取了主体的高度，问题得以解决。 当然这样做有弊端的，如果接口出问题，ajax渲染失败，那么整个网页的js都将执行不了。不过我想真到了数据都渲染不出的地方，访问网页就没有意义了，所以最后我采用了这种方法。" />
+<meta name="description" content="有一个需求，滚轮滚动到相应位置的时候执行当前的动画，这个动画在footer里面，而网页的主体通过ajax进行渲染，我在js里面调用ajax渲染数据，然后再获取主体的高度，滚动到该高度的时候执行动画。 本地测试了一下没什么问题，该有的效果都有了。放在服务器上测试发现无论怎么写，都是先获取主体的高度，然后才进行数据的渲染。那么必然高度是一个极小的值，不符合我想要的属性。 我大致想了两种解决办法，均以失败告终，本地是ajax先执行，服务器是js先执行。 让获取高度的事件时间延时500ms，发现最后获取不到事件了； 将该事件写在ajax的success回调里面，结果是只有打开网页第一次能够成功，然后不管刷新多少次均无效，事件被屏蔽，所以方法二也被废除； 最后我想到了，ajax不就是一种异步方法，我将其改为同步不就行，先让ajax执行完在执行js事件。 async: false, 我在ajax里面写了async这个方法，false 意思是将其默认为同步获取数据，很好，回到服务器打开控制台，发现是先渲染了数据，才获取了主体的高度，问题得以解决。 当然这样做有弊端的，如果接口出问题，ajax渲染失败，那么整个网页的js都将执行不了。不过我想真到了数据都渲染不出的地方，访问网页就没有意义了，所以最后我采用了这种方法。" />
 <meta property="og:locale" content="en-us" /><meta property="og:image" content="https://img.zburu.com/favicon.png" />
 
 <link rel="stylesheet" href="/css/github-markdown.css">
@@ -79,16 +79,14 @@ var _hmt = _hmt || [];
         
         <a href="/lab/">实验室</a>
         
-        <div class="icon">
-          
-          <a href="/search"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search"
+
+        <a href="/search"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search"
               width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
               stroke-linecap="round" stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
               <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
               <path d="M21 21l-6 -6"></path>
-            </svg></a>
-        </div>
+        </svg></a>
       </div>
 
     </header>
