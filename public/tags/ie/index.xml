@@ -13,7 +13,7 @@
       <pubDate>Thu, 18 Mar 2021 22:15:00 +0000</pubDate>
       
       <guid>/blog/56.html/</guid>
-      <description>IE10不支持箭头函数，写js的时候慎用。 IE10下对js的语法要求严格，正常参数后如果没有多余的代码，写个,会报错，如果加了删掉就OK，Chrome下不会产生影响。 zoom属性能不用，尽量别用。我在Chrome使用zoom进行大小调整，放到IE10运行，整个页面都错位了，找半天才想起来之前给一个容器设置了zoom: 1.1;，真是让人头大。 IE10下img标签自带白边，在默认样式里面设置border: none;即可。 img { border: none; } IE10能兼容大部分的html5新标签，唯独不能兼容 main。 box-shadow 阴影属性其实IE10是支持的，但是需要注意语法问题，在普通浏览器color可以用rgba,#等写法，但是在IE10下，只能通过#000000写法，#和六位的颜色标记，不可以简写，否则不生效。 IE10不兼容es6新语法。</description>
+      <description>IE10不支持箭头函数，写js的时候慎用。 IE10下对js的语法要求严格，正常参数后如果没有多余的代码，写个,会报错，如果加了删掉就OK，Chrome下不会产生影响。 zoom属性能不用，尽量别用。我在</description>
     </item>
     
     <item>
@@ -22,7 +22,7 @@
       <pubDate>Wed, 17 Mar 2021 21:55:00 +0000</pubDate>
       
       <guid>/blog/55.html/</guid>
-      <description>页面监听是我们经常用的一个功能，下面两个段代码表示两个事件，分别在页面滚动500px和1000px的时候触发，在代码中使用了箭头函数。 window.addEventListener(&amp;#39;scroll&amp;#39;, () =&amp;gt; { var scrollTop = document.documentElement.scrollTop if (scrollTop &amp;gt; 500) { console.log(&amp;#39;滚动了500px&amp;#39;) } }) window.addEventListener(&amp;#39;scroll&amp;#39;, () =&amp;gt; { var scrollTop = document.documentElement.scrollTop if (scrollTop &amp;gt; 1000) { console.log(&amp;#39;滚动了1000px&amp;#39;) } }) 但是后面又要求代码兼容到IE10，就不能采用这种写法了。然后我就想使用原生的function写法。 window.onscroll = function() { // ... } 在用的过程中我发现，如果只有一个window.scroll没有任何问题，但是如果有多个window.scroll，后面的就不会生效。 那么如何解决这个问题呢？ window.scroll只能存在一次，第一个会生效，后面的不生效，可以通过js处理这个问题。 function addEvent(type, toDo) { if (window.attachEvent) { window.attachEvent(&amp;#39;on&amp;#39; + type, function() { toDo.call(window) }) } else { window.addEventListener(type, toDo, false) } } addEvent(&amp;#39;scroll&amp;#39;, function(){ console.log(&amp;#39;第一次调用window.scroll&amp;#39;) } addEvent(&amp;#39;scroll&amp;#39;, function(){ console.log(&amp;#39;第一次调用window.scroll&amp;#39;) } 运行一下，多个scroll可以同时运行。</description>
+      <description>页面监听是我们经常用的一个功能，下面两个段代码表示两个事件，分别在页面滚动500px和1000px的时候触发，在代码中使用了箭头函数。 window.addEventListener(&amp;#39;scroll&amp;#39;, () =&amp;gt; { var scrollTop = document.documentElement.scrollTop if (scrollTop &amp;gt; 500) { console.log(&amp;#39;滚动了</description>
     </item>
     
     <item>
@@ -31,7 +31,7 @@
       <pubDate>Tue, 16 Mar 2021 10:29:00 +0000</pubDate>
       
       <guid>/blog/54.html/</guid>
-      <description>$(&amp;#34;#test&amp;#34;).click(function () { $(&amp;#39;html,body&amp;#39;).animate({ &amp;#39;scrollTop&amp;#39;: &amp;#39;0&amp;#39; }, 500,) }) 这行代码使用的是jquery的写法，一个500毫秒的动画，这样写在Chrome浏览器等没问题，可以正常运行。 但是今天在写项目的过程中，要求代码兼容到IE10，没办法，被迫在IE浏览器下运行，结果发现这行代码会报错。这是怎么回事呢？ 简单分析一下，这有点类似js中定时器的写法，setimeout，两个参数，分别代表指定的时间，和定时时间。 而animate是动画的属性，这个时间共花费500毫秒执行完毕。但是这个不是重点，为什么会报错呢？ 这时候我注意到500后面的,，我突然想到一种可能，先把,删掉。果然不出我所料。控制台不会报错了。 我猜测，这是由IE的机制引起的，浏览器识别到,的时候，会自动默认后面跟有语句，但是如果空着不写，与浏览器预期的后果不同，就会产生报错。可能IE内核要求也比较严格吧。</description>
+      <description>$(&amp;#34;#test&amp;#34;).click(function () { $(&amp;#39;html,body&amp;#39;).animate({ &amp;#39;scrollTop&amp;#39;: &amp;#39;0&amp;#39; }, 500,) }) 这行代码使用的是jquery的写法，一个500毫秒的动画，这样写在Chrome浏览器等没问题，可以正常运行。 但是今天在写项目的过程中，要求代码兼容到IE10，没办法，被迫在IE浏览器</description>
     </item>
     
   </channel>
