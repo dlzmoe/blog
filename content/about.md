@@ -10,6 +10,7 @@ RSS: <a href="https://zishu.me/index.xml" target="_blank">https://zishu.me/index
 我是子舒。    
 现在在杭州从事互联网行业工作。  
 这是一个我在闲暇时间写的博客，记录生活。  
+热爱骑行，[<记录我的里程>](/riding/)。
 
 // 希望用技术改变生活。
 

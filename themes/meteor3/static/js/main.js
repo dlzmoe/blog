@@ -24,7 +24,7 @@ $(function () {
 
   $('.mob-menu').click(function () {
     $(this).toggleClass('act');
-    $('.nav').toggle();
+    $('.nav').slideToggle();
   })
 
   $('.nav a').each(function () {
@@ -35,10 +35,6 @@ $(function () {
 })
 
 $("#searchTerm").focus();
-
-$('.rss').click(function () {
-  window.location.href = '/index.xml'
-})
 
 $(window).off('scroll');
 let progress_bar = $('.progress-bar');
