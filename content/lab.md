@@ -67,16 +67,16 @@ https://fyfy.fm/
 
 </details>
 
-https://github.com/imzsh/HugoFast  
+https://github.com/zishume/HugoFast  
 利用 GitHub 本身提供的Api，将hugo博客管理面板化。
 
-https://github.com/imzsh/chrome-plugin-memos  
+https://github.com/zishume/chrome-plugin-memos  
 Memos 的 chrome 插件，集成到浏览器扩展中，个人感觉比较方便，后续将会集成更多的功能。
 
 https://www.npmjs.com/package/pagedark  
 pagedark: 一个基于 vue2 的全局黑夜模式切换组件。
 
-https://weekly.zsh.im/  
+https://weekly.zishu.me/  
 周刊。
 
 https://nav.zburu.com/  
