@@ -7,9 +7,9 @@ RSS: <a href="https://zishu.me/index.xml" target="_blank">https://zishu.me/index
 
 ### 1. 个人说明
 
-我是子舒。    
+我是子舒，一个前端程序员。  
 现在在杭州从事互联网行业工作。  
-这是一个我在闲暇时间写的博客，记录生活。  
+这是我在闲暇时间写的博客，记录生活。  
 热爱骑行，[<记录我的里程>](/riding/)。
 
 // 希望用技术改变生活。
@@ -17,11 +17,9 @@ RSS: <a href="https://zishu.me/index.xml" target="_blank">https://zishu.me/index
 E-mail: me@zsh.im  
 Github: [https://github.com/zishume](https://github.com/zishume)  
 
-### 3. 友情链接
+### 2. 友情链接
 
 有时候就会遇到一些文章写的不错的博主，于是就记录在这里了。
-
-***伙伴，推荐一些个人独立博客***
 
 [涛叔](https://taoshu.in)
 [江卮可乐](https://emo.ijann.com/)
@@ -38,6 +36,6 @@ Github: [https://github.com/zishume](https://github.com/zishume)
 [Leon Fong](https://www.leonfong.me/)
 [卢涛南博客](https://lutaonan.com/)
 
----
+### 3. 版权声明
 
-版权声明：网站文章所有版权如无特殊说明，均归本人所有，允许转载，标明出处即可。
+网站文章所有版权如无特殊说明，均归本人所有，允许转载，标明出处即可。
