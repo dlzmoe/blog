@@ -16,6 +16,11 @@
       <span>{{ .Title }}</span>
     </div>
     <div class="meta">
+      {{ if .Params.categories }}
+      {{ range .Params.categories }} {{ $href := print (absURL "/tags/") (urlize .) }}
+      <span class="cate">{{ . }}</span>
+      {{ end }}
+      {{ end }}
       <time datetime="{{ .Date.Format " 2006-01-02 15:04:05 MST" }}">{{ .Date.Format "2006-01-02"}}</time>
     </div>
   </a>
