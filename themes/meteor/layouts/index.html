@@ -1,19 +1,26 @@
 {{ partial "header.html" . }}
 
-<div class="postlist">
-  {{ $pages := .Site.RegularPages }}
-  {{ $paginator := .Paginate ($pages) }}
-  {{ range $paginator.Pages }}
-  {{ $title := .Title }}
-  {{ $summary := .Summary }}
-  <div class="postitem">
-    <time datetime="{{ .Date.Format " 2006-01-02 15:04:05 MST" }}">{{ .Date.Format "2006/01/02"}}</time>
-    <div class="content">
-      <a class="title" href="{{ .RelPermalink }}">{{ .Title }}</a>
-      <div class="summary">{{ .Summary }}</div>
-    </div>
-  </div>
-  {{ end }}
-</div>
+<section id="home">
+  <ul>
+    {{ $pages := .Site.RegularPages }}
+    {{ $paginator := .Paginate ($pages) }}
+    {{ range $paginator.Pages }}
+    {{ $title := .Title }}
+    {{ $summary := .Summary }}
+    <li>
+      <h1><a href="{{ .RelPermalink }}" title="{{ .Title }}">{{ .Title }}</a></h1>
+      <aside>
+        <ul>
+          <li>
+            <time class="post-date" datetime="{{ .Date.Format " 2006-01-02 15:04:05 MST" }}">{{ .Date.Format
+              "2006-01-02"}}</time>
+          </li>
+        </ul>
+      </aside>
+      <p>{{ .Summary }}</p>
+    </li>
+    {{ end }}
+  </ul>
+</section>
 {{ partial "pagination.html" . }}
 {{ partial "footer.html" . }}
