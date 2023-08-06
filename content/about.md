@@ -14,8 +14,6 @@ RSS: <a href="https://zishu.me/index.xml" target="_blank">https://zishu.me/index
 
 // 希望用技术改变生活。
 
-E-mail: me@zsh.im  
-Github: [https://github.com/zishume](https://github.com/zishume)  
 
 ### 2. 友情链接
 

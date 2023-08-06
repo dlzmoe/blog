@@ -1,26 +1,34 @@
 {{ partial "header.html" . }}
 
-<section id="home">
-  <ul>
+<div class="main">
+  <div class="list">
     {{ $pages := .Site.RegularPages }}
     {{ $paginator := .Paginate ($pages) }}
     {{ range $paginator.Pages }}
     {{ $title := .Title }}
     {{ $summary := .Summary }}
-    <li>
-      <h1><a href="{{ .RelPermalink }}" title="{{ .Title }}">{{ .Title }}</a></h1>
-      <aside>
-        <ul>
-          <li>
-            <time class="post-date" datetime="{{ .Date.Format " 2006-01-02 15:04:05 MST" }}">{{ .Date.Format
-              "2006-01-02"}}</time>
-          </li>
-        </ul>
-      </aside>
-      <p>{{ .Summary }}</p>
-    </li>
+    <article>
+      <h2><a href="{{ .RelPermalink }}" title="{{ .Title }}" class="title">{{ .Title }}</a></h2>
+      <p class="description">{{ .Summary }}</p>
+      <p class="date">
+        <span>posted @</span>
+        <time class="post-date" datetime="{{ .Date.Format " 2006-01-02 15:04:05 MST" }}">{{ .Date.Format
+          "2006-01-02"}}</time>
+        <span class="comment">评论(<span id="ArtalkCount" data-page-key="{{ .RelPermalink }}"></span>)</span>
+      </p>
+    </article>
     {{ end }}
-  </ul>
-</section>
+  </div>
+  
 {{ partial "pagination.html" . }}
+</div>
 {{ partial "footer.html" . }}
+
+<script>
+  Artalk.init({
+    pageKey: '',
+    pageTitle: '',
+    server: 'https://artalk.zburu.com',
+    site: '子舒的博客',
+  })
+</script>

@@ -22,12 +22,12 @@ $(function () {
     })
   })
 
-  $('.mob-menu').click(function () {
+  $('nav em').click(function () {
     $(this).toggleClass('act');
-    $('.nav').slideToggle();
+    $('nav ul').slideToggle();
   })
 
-  $('.nav a').each(function () {
+  $('nav ul a').each(function () {
     if ($(this).attr('href') == window.location.pathname) {
       $(this).addClass('active');
     }

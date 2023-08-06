@@ -1,43 +1,45 @@
 {{ partial "header.html" . }}
 
-<article>
+
+<div class="main detail">
   <h1>{{ .Title }}</h1>
+
   {{ if in .Site.Params.mainSections .Type }}
   {{ if .Date }}
+  <div class="date">发布于 <time datetime="{{ .Date.Format " 2006-01-02 15:04:05 MST" }}"> {{ .Date.Format
+      "2006-01-02"}}</time></div>
+  {{ end }}
+  {{ end }}
 
+  <article class="post-content markdown-body">
+    {{ .Site.Params.postHeaderContent | safeHTML }}
+    {{ .Content }}
+  </article>
 
-  <div class="meta">
-    <!-- Post Tags -->
-    {{ if .Params.tags }}
-    <li class="tags">
+  <!-- Post Tags -->
+  {{ if .Params.tags }}
+  <div class="info">
+    <div class="tags">
+      <span>标签：</span>
+
       {{ range .Params.tags }} {{ $href := print (absURL "/tags/") (urlize .) }}
       <a href="{{ $href }}">{{ . }}</a>
       {{ end }}
-    </li>
-    {{ end }}
-    <time datetime="{{ .Date.Format " 2006-01-02 15:04:05 MST" }}"> {{ .Date.Format "2006-01-02"}}</time>
+    </div>
+    <section class="read">
+      <span class="pubtime">阅读(<span id="ArtalkPV"></span>)</span>
+      <span class="pubtime">评论(<span id="ArtalkCount"></span>)</span>
+    </section>
   </div>
-
-  {{ end }}
   {{ end }}
 
-  <!-- {{ if in .Site.Params.mainSections .Type }}
-  {{ .TableOfContents }}
-  {{ end }} -->
+  <div class="end">END</div>
 
-  <div class="post-content markdown-body" id="post-content">
-    {{ .Site.Params.postHeaderContent | safeHTML }}
-    {{ .Content }}
-  </div>
-
-</article>
-
-<div class="end">END</div>
-
-{{ if in .Site.Params.mainSections .Type }}
-<section>
-  {{ partial "comment.html" . }}
-</section>
-{{ end }}
+  {{ if in .Site.Params.mainSections .Type }}
+  <section>
+    {{ partial "comment.html" . }}
+  </section>
+  {{ end }}
+</div>
 
 {{ partial "footer.html" . }}
