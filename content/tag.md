@@ -1,5 +1,5 @@
 ---
-slug: tag
+slug: tags
 title: 标签
-layout: tag
+layout: tags
 ---

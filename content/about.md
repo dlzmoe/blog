@@ -3,6 +3,8 @@ slug: about
 title: 关于
 ---
 
+![](https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=zishume&theme=nord_dark)
+
 RSS: <a href="https://zishu.me/index.xml" target="_blank">https://zishu.me/index.xml</a>
 
 ### 1. 个人说明
