@@ -9,7 +9,10 @@
   <div class="date">发布于 <time datetime="{{ .Date.Format " 2006-01-02 15:04:05 MST" }}"> {{ .Date.Format
       "2006-01-02"}}</time></div>
   {{ end }}
-  {{ end }}
+  {{ end }}    
+  <br>
+  <script type="module" src="https://cdn.jsdelivr.net/gh/emaction/frontend.dist@1.0.9/bundle.js"></script>
+  <emoji-reaction></emoji-reaction>
 
   <article class="post-content markdown-body">
     {{ .Site.Params.postHeaderContent | safeHTML }}
@@ -19,21 +22,20 @@
   <!-- Post Tags -->
   {{ if .Params.tags }}
   <div class="info">
-    <div class="tags">
+    <div class="tag">
       <span>标签：</span>
 
       {{ range .Params.tags }} {{ $href := print (absURL "/tags/") (urlize .) }}
       <a href="{{ $href }}">{{ . }}</a>
       {{ end }}
     </div>
+
     <section class="read">
       <span class="pubtime">阅读(<span id="ArtalkPV"></span>)</span> /
       <span class="pubtime">评论(<span id="ArtalkCount"></span>)</span>
     </section>
   </div>
   {{ end }}
-  <script type="module" src="https://cdn.jsdelivr.net/gh/emaction/frontend.dist@1.0.7/bundle.js"></script>
-  <emoji-reaction endpoint="https://api-emaction.shuxhan.workers.dev"></emoji-reaction>
 
   <div class="end">END</div>
 
