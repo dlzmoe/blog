@@ -54,3 +54,9 @@ $(window).on('scroll', function () {
 $('.markdown-body pre>code').each(function () {
   $(this).parents('.highlight').prepend('<span class="data-lang">' + $(this).attr('data-lang') + '</span>')
 })
+
+function goComments() {
+  $("html,body").animate({
+    scrollTop: $("#twikoo").offset().top - 120
+  }, 500)
+}
