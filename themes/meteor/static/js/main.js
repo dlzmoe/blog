@@ -3,7 +3,7 @@ $(function () {
   $('.slb').simplebox({
     fadeSpeed: 100
   });
-  $('iframe').wrap('<p class="iframe"></p>');
+  $('.post-content iframe').wrap('<p class="iframe"></p>');
 
   $(document).on('scroll', function () {
     var $pageScrollTop = $(this).scrollTop()
