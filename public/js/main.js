@@ -57,6 +57,22 @@ $('.markdown-body pre>code').each(function () {
 
 function goComments() {
   $("html,body").animate({
-    scrollTop: $("#twikoo").offset().top - 120
+    scrollTop: $("#comments").offset().top - 120
   }, 500)
 }
+
+function comments() {
+  $('.comments-title>li:nth-child(1)').addClass('active');
+  $('.comments-content>.item:nth-child(1)').show();
+
+  $('.comments-title>li').each(function () {
+    $(this).click(function () {
+      $('.comments-title>li').removeClass('active');
+      $(this).addClass('active');
+      var index = $(this).index() + 1;
+      $('.comments-content>.item').hide();
+      $('.comments-content>.item:nth-child(' + index + ')').show();
+    })
+  })
+}
+comments();
