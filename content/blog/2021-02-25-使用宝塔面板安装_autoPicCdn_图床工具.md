@@ -1,8 +1,7 @@
 ---
 slug: 51
 title: 使用宝塔面板安装 autoPicCdn 图床工具
-date: 2021-02-25 22:41:00
-updated: 2021-12-01 08:57:26
+date: "2021-02-25"
 categories: 
   - 技术
 tags: 

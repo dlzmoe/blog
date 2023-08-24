@@ -1,8 +1,7 @@
 ---
 slug: 44
 title: 基于 React 的富文本编辑器－－Braft Editor
-date: 2021-01-07 20:46:00
-updated: 2021-12-01 08:53:53
+date: "2021-01-07"
 categories: 
   - 技术
 tags: 
