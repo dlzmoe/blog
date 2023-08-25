@@ -1,17 +1,26 @@
 {{ partial "header.html" . }}
 
-<div class="main list">
+<script>$('body').addClass('list')</script>
+<div class="main">
   {{ range (where .Data.Pages "Type" "in" site.Params.mainSections).GroupByDate "2006" -}}
 
-  <h2>{{ .Key }}</h2>
+  <h2 style="margin-bottom:10px;">{{ .Key }}</h2>
   {{ range .Pages }}
-  <div class="archive-post">
-    <time class="uptime" datetime="{{ .Date.Format " 2006-01-02 15:04:05 MST" }}">
-      {{ .Date.Format "01-02"}}</time>
-    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-  </div>
+  <article class="post-entry">
+    <header class="entry-header">
+      <h2>{{ .Title }}</h2>
+    </header>
+    <div class="entry-content">
+      <p>{{ .Summary }}</p>
+    </div>
+    <footer class="entry-footer">
+      <time datetime="{{ .Date.Format " 2006-01-02 15:04:05 MST" }}"> {{ .Date.Format
+        "January 02, 2006"}}</time>
+    </footer>
+    <a class="entry-link" aria-label="post link to Installation | Update" href="{{ .RelPermalink }}"></a>
+  </article>
   {{ end }}
-  
+
   {{ end }}
 </div>
 

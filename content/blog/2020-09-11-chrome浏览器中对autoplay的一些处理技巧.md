@@ -17,7 +17,7 @@ tags:
 
 
 
-````html html
+````html
  <audio src=""></audio>
 ````
 
@@ -35,21 +35,21 @@ tags:
 
 回过头一想，不对啊，我的目的是解决这个问题，不是夸赞谷歌的。我想给自己的个人博客添加喜欢的音乐，所以我找了一个不算办法的办法。我直接在模拟一个事件，当鼠标点击网页任意处的时候，自动触发autoplay的音频效果，直接上代码。
 
-````js javascript
+````html
 <script>
-    function toggleSound() {
-      var music = document.getElementById("vd");          
-      //获取ID  
-      console.log(music);
-      console.log(music.paused);
-      if (music.paused) { 
-        //判读是否播放  
-        music.paused=false;
-        music.play(); 
-        //没有就播放 
-      }  
-    }
-    setInterval("toggleSound()",1);
+function toggleSound() {
+  var music = document.getElementById("vd");          
+  //获取ID  
+  console.log(music);
+  console.log(music.paused);
+  if (music.paused) { 
+    //判读是否播放  
+    music.paused=false;
+    music.play(); 
+    //没有就播放 
+  }  
+}
+setInterval("toggleSound()",1);
 </script>
 ````
 

@@ -1,27 +1,14 @@
 {{ partial "header.html" . }}
 
-{{ if in .Site.Params.mainSections .Type }}
-<div class="aside">
-  <a class="item" onclick="goComments()">
-    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-message-2" width="24" height="24"
-      viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-      stroke-linejoin="round">
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-      <path d="M8 9h8"></path>
-      <path d="M8 13h6"></path>
-      <path d="M9 18h-3a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-3l-3 3l-3 -3z"></path>
-    </svg>
-  </a>
-</div>
-{{ end }}
-
 <div class="main detail">
   <h1 class="titleh1">{{ .Title }}</h1>
 
   {{ if in .Site.Params.mainSections .Type }}
   {{ if .Date }}
-  <div class="date">发布于 <time datetime="{{ .Date.Format " 2006-01-02 15:04:05 MST" }}"> {{ .Date.Format
-      "2006-01-02"}}</time></div>
+  <div class="post-meta">
+    发布于 <time datetime="{{ .Date.Format " 2006-01-02 15:04:05 MST" }}"> {{ .Date.Format
+      "2006-01-02"}}</time>
+    </div>
   {{ end }}
   {{ end }}
   <br>
@@ -35,15 +22,11 @@
 
   <!-- Post Tags -->
   {{ if .Params.tags }}
-  <div class="info">
-    <div class="tag">
-      <span>标签：</span>
-
-      {{ range .Params.tags }} {{ $href := print (absURL "/tags/") (urlize .) }}
-      <a href="{{ $href }}">{{ . }}</a>
-      {{ end }}
-    </div>
-  </div>
+  <ul class="post-tags">
+    {{ range .Params.tags }} {{ $href := print (absURL "/tags/") (urlize .) }}
+    <li><a href="{{ $href }}">{{ . }}</a></li>
+    {{ end }}
+  </ul>
   {{ end }}
 
   <div class="end">END</div>

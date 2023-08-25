@@ -30,36 +30,15 @@ $(function () {
       $(this).addClass('active');
     }
   })
+
 })
 
 $("#searchTerm").focus();
 
-$(window).off('scroll');
-let progress_bar = $('.progress-bar');
-let win_h = $(window).height();
-let body_h = $('body').height();
-let sHeight = body_h - win_h;
-
-function updateProgress(p) {
-  progress_bar.css('width', p * 100 + '%');
-}
-$(window).on('scroll', function () {
-  window.requestAnimationFrame(function () {
-    let perc = Math.max(0, Math.min(1, $(window).scrollTop() / sHeight));
-    updateProgress(perc);
-  });
-});
-
 // 在代码段显示对应代码语言
-$('.markdown-body pre>code').each(function () {
-  $(this).parents('.highlight').prepend('<span class="data-lang">' + $(this).attr('data-lang') + '</span>')
-})
-
-function goComments() {
-  $("html,body").animate({
-    scrollTop: $("#comments").offset().top - 120
-  }, 500)
-}
+// $('.markdown-body pre>code').each(function () {
+//   $(this).parents('.highlight').prepend('<span class="data-lang">' + $(this).attr('data-lang') + '</span>')
+// })
 
 function comments() {
   $('.comments-title>li:nth-child(1)').addClass('active');
