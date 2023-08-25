@@ -16,7 +16,7 @@ tags:
 
 今天分享的是一款基于 React 的富文本编辑器－－Braft Editor。
 
-<!-- more -->
+
 
 >Braft Editor 官网：[https://braft.margox.cn](https://braft.margox.cn)
 >Github 仓库地址：[https://github.com/margox/braft-editor](https://github.com/margox/braft-editor)

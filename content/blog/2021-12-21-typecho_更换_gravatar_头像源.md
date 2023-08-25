@@ -12,7 +12,7 @@ tags:
 
 找到根目录下 `config.inc.php` 文件，在最前面加入下面的代码。
 
-<!-- more -->
+
 
 ![](https://imgurl.zburu.com/images/2022/01/05/3e5e307b9fb3ba048fdc9f7b5351d7b9.png)
 

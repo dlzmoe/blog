@@ -14,7 +14,7 @@ tags:
 
 
 关于 [React 框架](https://react.docschina.org/) 和 [Vue 框架](https://cn.vuejs.org/) 的对比，用两者写出同一个程序，对比其代码实现的过程，看看它们的差异究竟有多大？
-<!-- more -->
+
 
 >转载于：https://blog.csdn.net/csdnnews/article/details/81880378
 >原文：https://medium.com/javascript-in-plain-english/i-created-the-exact-same-app-in-react-and-vue-here-are-the-differences-e9a1ae8077fd 

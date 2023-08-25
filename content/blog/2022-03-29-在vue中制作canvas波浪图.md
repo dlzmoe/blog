@@ -14,7 +14,7 @@ tags:
 
 新建组件 `Canvas.vue` 。
 
-<!-- more -->
+
 
 ```js
 // @/components/Canvas.vue

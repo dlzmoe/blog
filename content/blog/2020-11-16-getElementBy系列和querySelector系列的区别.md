@@ -12,7 +12,7 @@ tags:
 
 
 `querySelector`和`querySelectorAll`的用法和`getElementBy`大致一样，获取的时候带上符号，getElementBy获取的是元素的`动态集合`，querySelector获取的是元素的`静态集合`。
-<!-- more -->
+
 
 <red>但是需要注意：getElementBy系列和querySelector系列的区别</red>
 

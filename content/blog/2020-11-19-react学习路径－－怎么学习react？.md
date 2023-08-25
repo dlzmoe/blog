@@ -12,7 +12,7 @@ tags:
 
 
 转载于:[https://github.com/petehunt/react-howto](https://github.com/petehunt/react-howto)，react开源作者对于react框架的一个学习路径的建议，个人感觉还是相当不错的学习路线
-<!-- more -->
+
 ---
 
 # 如何学习React?
