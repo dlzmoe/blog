@@ -18,6 +18,8 @@ RSS: <a href="https://zishu.me/index.xml" target="_blank">https://zishu.me/index
 
 // 希望用技术改变生活。
 
+E-mail: me@zsh.im
+
 
 ![](https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=zishume&theme=nord_dark)
 
