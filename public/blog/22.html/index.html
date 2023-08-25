@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8" />
+<meta name="generator" content="Hugo 0.114.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="toTop" content="true">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="author" content="" />
+<meta property="og:url" content="/blog/22.html/" />
+<link rel="canonical" href="/blog/22.html/" /><link rel="apple-touch-icon" href="https://img.zburu.com/favicon.png" />
+<link rel="icon" href="https://img.zburu.com/favicon.png" />
+<link rel="shortcut" href="https://img.zburu.com/favicon.png" /><link rel="alternate" type="application/atom+xml" href="index.xml" title="子舒的博客">
+<script type="application/ld+json">
+{
+"@context" : "http://schema.org",
+"@type" : "BlogPosting",
+"mainEntityOfPage": {
+"@type": "WebPage",
+"@id": ""
+},
+"articleSection" : "blog",
+"name" : "在js中运算不能随便把value属性定义成变量",
+"headline" : "在js中运算不能随便把value属性定义成变量",
+"description" : "在写一个小demo的时候，无意中发现定义变量的时候直接写入value，会导致获取不到数据，或者获取的不是我们想要的内容，在js中运算不能随便把value属性定义成变量 先看一段代码 \u0026lt;input type=\u0026#34;text\u0026#34;\u0026#34; id=\u0026#34;a\u0026#34;\u0026gt; \u0026lt;span\u0026gt;*\u0026lt;\/span\u0026gt; \u0026lt;input type=\u0026#34;text\u0026#34; id=\u0026#34;b\u0026#34;\u0026gt; \u0026lt;input type=\u0026#34;button\u0026#34; value=\u0026#34;=\u0026#34; onclick=\u0026#34;beto()\u0026#34;\u0026gt;",
+"inLanguage" : "en-US",
+"author" : "子舒",
+"creator" : "子舒",
+"publisher": "子舒",
+"accountablePerson" : "子舒",
+"copyrightHolder" : "子舒",
+"copyrightYear" : "2020",
+"datePublished": "2020-11-18 00:00:00 \u002b0000 UTC",
+"dateModified" : "2020-11-18 00:00:00 \u002b0000 UTC",
+"url" : "\/blog\/22.html\/",
+"keywords" : [ "js", ]
+}
+</script><title>在js中运算不能随便把value属性定义成变量 - 子舒</title>
+<meta property="og:title" content="在js中运算不能随便把value属性定义成变量" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="在写一个小demo的时候，无意中发现定义变量的时候直接写入value，会导致获取不到数据，或者获取的不是我们想要的内容，在js中运算不能随便把value属性定义成变量 先看一段代码 &amp;lt;input type=&amp;#34;text&amp;#34;&amp;#34; id=&amp;#34;a&amp;#34;&amp;gt; &amp;lt;span&amp;gt;*&amp;lt;/span&amp;gt; &amp;lt;input type=&amp;#34;text&amp;#34; id=&amp;#34;b&amp;#34;&amp;gt; &amp;lt;input type=&amp;#34;button&amp;#34; value=&amp;#34;=&amp;#34; onclick=&amp;#34;beto()&amp;#34;&amp;gt;" />
+<meta name="description" content="在写一个小demo的时候，无意中发现定义变量的时候直接写入value，会导致获取不到数据，或者获取的不是我们想要的内容，在js中运算不能随便把value属性定义成变量 先看一段代码 &amp;lt;input type=&amp;#34;text&amp;#34;&amp;#34; id=&amp;#34;a&amp;#34;&amp;gt; &amp;lt;span&amp;gt;*&amp;lt;/span&amp;gt; &amp;lt;input type=&amp;#34;text&amp;#34; id=&amp;#34;b&amp;#34;&amp;gt; &amp;lt;input type=&amp;#34;button&amp;#34; value=&amp;#34;=&amp;#34; onclick=&amp;#34;beto()&amp;#34;&amp;gt;" />
+<meta property="og:locale" content="en-us" /><meta property="og:image" content="https://img.zburu.com/favicon.png" />
+
+
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/css/twikoo.css">
+<link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
+<script src="/js/jquery3.6.0.min.js"></script>
+<script async src="https://umami.zburu.com/script.js" data-website-id="9e5fc8da-b70b-4767-81cd-35ba13110fd5"></script>
+</head>
+
+<body>
+  <header class="header">
+    <nav class="nav">
+      <div class="logo">
+        <a href="/">zishu.me</a>
+        <div class="logo-switches">
+          <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+            <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <ul id="menu">
+        
+        <li>
+          <a href="/blog/" title="归档"><span>归档</span></a>
+        </li>
+        
+        <li>
+          <a href="/tags/" title="标签"><span>标签</span></a>
+        </li>
+        
+        <li>
+          <a href="/message/" title="留言板"><span>留言板</span></a>
+        </li>
+        
+        <li>
+          <a href="/about/" title="关于"><span>关于</span></a>
+        </li>
+        
+        <li>
+          <a href="/search/" title="Search"><span>Search</span></a>
+        </li>
+        
+        <li>
+          <a href="/index.xml" title="RSS"><span>RSS</span></a>
+        </li>
+        
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="content">
+
+<div class="main detail">
+  <h1 class="titleh1">在js中运算不能随便把value属性定义成变量</h1>
+
+  
+  
+  <div class="post-meta">
+    发布于 <time datetime=" 2020-11-18 00:00:00 UTC"> 2020-11-18</time>
+    </div>
+  
+  
+  <br>
+  <script type="module" src="https://cdn.jsdelivr.net/gh/emaction/frontend.dist@1.0.9/bundle.js"></script>
+  <emoji-reaction></emoji-reaction>
+
+  <article class="post-content markdown-body">
+    
+    <p>在写一个小demo的时候，无意中发现定义变量的时候直接写入value，会导致获取不到数据，或者获取的不是我们想要的内容，在js中运算不能随便把value属性定义成变量</p>
+<p>先看一段代码</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">input</span> <span style="color:#008080">type</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;text&#34;</span><span style="color:#a61717;background-color:#e3d2d2">&#34;</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;a&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">span</span>&gt;*&lt;/<span style="color:#000080">span</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">input</span> <span style="color:#008080">type</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;text&#34;</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;b&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">input</span> <span style="color:#008080">type</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;button&#34;</span> <span style="color:#008080">value</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;=&#34;</span> <span style="color:#008080">onclick</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;beto()&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">input</span> <span style="color:#008080">type</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;text&#34;</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;sub&#34;</span> <span style="color:#008080">disabled</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">function</span> beto() {
+</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">var</span> a <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#39;a&#39;</span>).value
+</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">var</span> b <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#39;b&#39;</span>).value
+</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">var</span> sub <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#39;sub&#39;</span>).value
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        sub <span style="color:#000;font-weight:bold">=</span> a <span style="color:#000;font-weight:bold">+</span> b
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">script</span>&gt;
+</span></span></code></pre></div><p>就这么一看，逻辑貌似没有问题，获取a和b的value，乘法运算，然后输出sub</p>
+<p>但是放在浏览器运行的时候，发现完全没有反应</p>
+<p>为什么呢？</p>
+<p>（假装思考五分钟&hellip;）</p>
+<p>因为sub.value不能直接定义在变量中</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 先定义id为sub的input框
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">var</span> sub <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#39;sub&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 然后在运算的时候在直接使用sub.value
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>sub.value <span style="color:#000;font-weight:bold">=</span> a <span style="color:#000;font-weight:bold">*</span> b
+</span></span></code></pre></div><p>顺手放一个写demo时候用的简易计算器</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#999;font-weight:bold;font-style:italic">&lt;!DOCTYPE html&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">html</span> <span style="color:#008080">lang</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;en&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">head</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">meta</span> <span style="color:#008080">charset</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;UTF-8&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">title</span>&gt;简易计算器&lt;/<span style="color:#000080">title</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">head</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">body</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">input</span> <span style="color:#008080">type</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;text&#34;</span><span style="color:#a61717;background-color:#e3d2d2">&#34;</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;a&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">select</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;c&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#000080">option</span> <span style="color:#008080">value</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;+&#34;</span>&gt;+&lt;/<span style="color:#000080">option</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#000080">option</span> <span style="color:#008080">value</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;-&#34;</span>&gt;-&lt;/<span style="color:#000080">option</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#000080">option</span> <span style="color:#008080">value</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;*&#34;</span>&gt;*&lt;/<span style="color:#000080">option</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#000080">option</span> <span style="color:#008080">value</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;/&#34;</span>&gt;/&lt;/<span style="color:#000080">option</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#000080">select</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">input</span> <span style="color:#008080">type</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;text&#34;</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;b&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">input</span> <span style="color:#008080">type</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;button&#34;</span> <span style="color:#008080">value</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;=&#34;</span> <span style="color:#008080">onclick</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;beto()&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">input</span> <span style="color:#008080">type</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;text&#34;</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;sub&#34;</span> <span style="color:#008080">disabled</span>&gt;
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">function</span> beto() {
+</span></span><span style="display:flex;"><span>            <span style="color:#000;font-weight:bold">var</span> a <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#39;a&#39;</span>).value
+</span></span><span style="display:flex;"><span>            <span style="color:#000;font-weight:bold">var</span> b <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#39;b&#39;</span>).value
+</span></span><span style="display:flex;"><span>            <span style="color:#000;font-weight:bold">var</span> c <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#39;c&#39;</span>).value
+</span></span><span style="display:flex;"><span>            <span style="color:#000;font-weight:bold">var</span> sub <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.getElementById(<span style="color:#d14">&#39;sub&#39;</span>)
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#000;font-weight:bold">switch</span>(c) {
+</span></span><span style="display:flex;"><span>                <span style="color:#000;font-weight:bold">case</span>  <span style="color:#d14">&#34;+&#34;</span><span style="color:#000;font-weight:bold">:</span>
+</span></span><span style="display:flex;"><span>                sub.value <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">parseInt</span>(a) <span style="color:#000;font-weight:bold">+</span> <span style="color:#0086b3">parseInt</span>(b);
+</span></span><span style="display:flex;"><span>                <span style="color:#000;font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#000;font-weight:bold">case</span>  <span style="color:#d14">&#34;-&#34;</span><span style="color:#000;font-weight:bold">:</span>
+</span></span><span style="display:flex;"><span>                sub.value <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">parseInt</span>(a) <span style="color:#000;font-weight:bold">-</span> <span style="color:#0086b3">parseInt</span>(b);
+</span></span><span style="display:flex;"><span>                <span style="color:#000;font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#000;font-weight:bold">case</span>  <span style="color:#d14">&#34;*&#34;</span><span style="color:#000;font-weight:bold">:</span>
+</span></span><span style="display:flex;"><span>                sub.value <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">parseInt</span>(a) <span style="color:#000;font-weight:bold">*</span> <span style="color:#0086b3">parseInt</span>(b);
+</span></span><span style="display:flex;"><span>                <span style="color:#000;font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#000;font-weight:bold">case</span>  <span style="color:#d14">&#34;/&#34;</span><span style="color:#000;font-weight:bold">:</span>
+</span></span><span style="display:flex;"><span>                sub.value <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">parseInt</span>(a) <span style="color:#000;font-weight:bold">/</span> <span style="color:#0086b3">parseInt</span>(b);
+</span></span><span style="display:flex;"><span>                <span style="color:#000;font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#000080">script</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">body</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">html</span>&gt;
+</span></span></code></pre></div>
+  </article>
+
+  
+  
+  <ul class="post-tags">
+     
+    <li><a href="/tags/js">js</a></li>
+    
+  </ul>
+  
+
+  <div class="end">END</div>
+
+  
+  <section id="comments">
+  <ul class="comments-title">
+    <li>Twikoo</li>
+    <li>Giscus</li>
+    <span>可选择你评论的方式</span>
+  </ul>
+  <div class="comments-content">
+    <div class="item">
+      <div id="tcomment"></div>
+    </div>
+    <div class="item">
+      <div class="giscus"></div>
+    </div>
+  </div>
+</section>
+<script 
+  src="https://giscus.app/client.js" 
+  data-repo="zishume/giscus" 
+  data-repo-id="R_kgDOKJ2hEg"
+  data-category="Announcements" 
+  data-category-id="DIC_kwDOKJ2hEs4CYw4Y" 
+  data-mapping="pathname" 
+  data-strict="0"
+  data-reactions-enabled="1" 
+  data-emit-metadata="1" 
+  data-input-position="top" 
+  data-theme="https://cdn.hocgin.top/icons/giscus-theme.css"
+  data-lang="zh-CN" 
+  data-loading="lazy" 
+  crossorigin="anonymous" 
+  async>
+</script>
+<script src="https://cdn.staticfile.org/twikoo/1.6.17/twikoo.all.min.js"></script>
+<script>
+  twikoo.init({
+    envId: 'https://twikoo.zburu.com/',
+    el: '#tcomment',
+    lang: 'zh-CN',
+  })
+</script>
+  
+</div>
+</div>
+</main>
+
+<footer class="footer">
+  <div>© 2020 - <span id="year"></span> Powered by 子舒</div>
+  <div>网站已经运行 <span id="days">0</span></div>
+  <div class="gotop">▲</div>
+</footer>
+
+<script>
+  var s0 = '2020-06-14';
+  s1 = new Date(s0.replace(/-/g, "/"));
+  s2 = new Date();
+  var days = s2.getTime() - s1.getTime();
+
+  var date = new Date;
+  var year = date.getFullYear();
+  document.getElementById('year').innerHTML = year;
+
+  var BootDate = new Date("2020-06-14");
+  function ShowRunTime(id) {
+    var NowDate = new Date();
+    var RunDateM = parseInt(NowDate - BootDate);
+    var RunDays = Math.floor(RunDateM / (24 * 3600 * 1000));
+    var RunHours = Math.floor(RunDateM % (24 * 3600 * 1000) / (3600 * 1000));
+    var RunMinutes = Math.floor(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) / (60 * 1000));
+    var RunSeconds = Math.round(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) % (60 * 1000) / 1000);
+    var days = RunDays + "天" + RunHours + "时" + RunMinutes + "分" + RunSeconds + "秒";
+    document.getElementById(id).innerHTML = days;
+  }
+  ShowRunTime('days');
+  setInterval("ShowRunTime('days')", 1000);
+</script>
+<script src="/js/simplebox.min.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+</body>
+
+</html>

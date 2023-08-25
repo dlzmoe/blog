@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8" />
+<meta name="generator" content="Hugo 0.114.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="toTop" content="true">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="author" content="" />
+<meta property="og:url" content="/blog/194.html/" />
+<link rel="canonical" href="/blog/194.html/" /><link rel="apple-touch-icon" href="https://img.zburu.com/favicon.png" />
+<link rel="icon" href="https://img.zburu.com/favicon.png" />
+<link rel="shortcut" href="https://img.zburu.com/favicon.png" /><link rel="alternate" type="application/atom+xml" href="index.xml" title="子舒的博客">
+<script type="application/ld+json">
+{
+"@context" : "http://schema.org",
+"@type" : "BlogPosting",
+"mainEntityOfPage": {
+"@type": "WebPage",
+"@id": ""
+},
+"articleSection" : "blog",
+"name" : "hugo纯静态编写一个字数统计脚本",
+"headline" : "hugo纯静态编写一个字数统计脚本",
+"description" : "早上起来的时候看到微信群中有博友分享自己的建站时间，聊着聊着说到总字数上面，这时我才发现我的网站没有统计的地方，索性就自己写一个吧，因为是静态博客，所以不涉及后端、服务器等，只用前端的方式来解决。 这里",
+"inLanguage" : "en-US",
+"author" : "子舒",
+"creator" : "子舒",
+"publisher": "子舒",
+"accountablePerson" : "子舒",
+"copyrightHolder" : "子舒",
+"copyrightYear" : "2023",
+"datePublished": "2023-05-13 00:00:00 \u002b0000 UTC",
+"dateModified" : "2023-05-13 00:00:00 \u002b0000 UTC",
+"url" : "\/blog\/194.html\/",
+"keywords" : [ "js","博客", ]
+}
+</script><title>hugo纯静态编写一个字数统计脚本 - 子舒</title>
+<meta property="og:title" content="hugo纯静态编写一个字数统计脚本" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="早上起来的时候看到微信群中有博友分享自己的建站时间，聊着聊着说到总字数上面，这时我才发现我的网站没有统计的地方，索性就自己写一个吧，因为是静态博客，所以不涉及后端、服务器等，只用前端的方式来解决。 这里" />
+<meta name="description" content="早上起来的时候看到微信群中有博友分享自己的建站时间，聊着聊着说到总字数上面，这时我才发现我的网站没有统计的地方，索性就自己写一个吧，因为是静态博客，所以不涉及后端、服务器等，只用前端的方式来解决。 这里" />
+<meta property="og:locale" content="en-us" /><meta property="og:image" content="https://img.zburu.com/favicon.png" />
+
+
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/css/twikoo.css">
+<link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
+<script src="/js/jquery3.6.0.min.js"></script>
+<script async src="https://umami.zburu.com/script.js" data-website-id="9e5fc8da-b70b-4767-81cd-35ba13110fd5"></script>
+</head>
+
+<body>
+  <header class="header">
+    <nav class="nav">
+      <div class="logo">
+        <a href="/">zishu.me</a>
+        <div class="logo-switches">
+          <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+            <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <ul id="menu">
+        
+        <li>
+          <a href="/blog/" title="归档"><span>归档</span></a>
+        </li>
+        
+        <li>
+          <a href="/tags/" title="标签"><span>标签</span></a>
+        </li>
+        
+        <li>
+          <a href="/message/" title="留言板"><span>留言板</span></a>
+        </li>
+        
+        <li>
+          <a href="/about/" title="关于"><span>关于</span></a>
+        </li>
+        
+        <li>
+          <a href="/search/" title="Search"><span>Search</span></a>
+        </li>
+        
+        <li>
+          <a href="/index.xml" title="RSS"><span>RSS</span></a>
+        </li>
+        
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="content">
+
+<div class="main detail">
+  <h1 class="titleh1">hugo纯静态编写一个字数统计脚本</h1>
+
+  
+  
+  <div class="post-meta">
+    发布于 <time datetime=" 2023-05-13 00:00:00 UTC"> 2023-05-13</time>
+    </div>
+  
+  
+  <br>
+  <script type="module" src="https://cdn.jsdelivr.net/gh/emaction/frontend.dist@1.0.9/bundle.js"></script>
+  <emoji-reaction></emoji-reaction>
+
+  <article class="post-content markdown-body">
+    
+    <p>早上起来的时候看到微信群中有博友分享自己的建站时间，聊着聊着说到总字数上面，这时我才发现我的网站没有统计的地方，索性就自己写一个吧，因为是静态博客，所以不涉及后端、服务器等，只用前端的方式来解决。</p>
+<p>这里需要借助我之前的一篇文章，<a href="/blog/189.html/">《用原生js给网站写个搜索功能》</a>，里面有提到如何生成一个文章列表json文件，这里我们会用到这个文件 <code>index.json</code>。</p>
+<p>写一个ajax方法，让浏览器遍历每个页面。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>$(<span style="color:#0086b3">document</span>).ready(<span style="color:#000;font-weight:bold">function</span> () {
+</span></span><span style="display:flex;"><span>  $.ajax({
+</span></span><span style="display:flex;"><span>    url<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;/index.json&#39;</span>,
+</span></span><span style="display:flex;"><span>    type<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;get&#39;</span>,
+</span></span><span style="display:flex;"><span>    dataType<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;json&#39;</span>,
+</span></span><span style="display:flex;"><span>    success<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">function</span> (data) {
+</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">const</span> pageUrls <span style="color:#000;font-weight:bold">=</span> data;
+</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">const</span> totalNum <span style="color:#000;font-weight:bold">=</span> pageUrls.length;
+</span></span><span style="display:flex;"><span>      $(<span style="color:#d14">&#39;#totalNum&#39;</span>).html(totalNum);
+</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">let</span> totalWords <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>;
+</span></span><span style="display:flex;"><span>      pageUrls.forEach(urlObj =&gt; {
+</span></span><span style="display:flex;"><span>        $.get(urlObj.permalink, <span style="color:#000;font-weight:bold">function</span>(data) {
+</span></span><span style="display:flex;"><span>          <span style="color:#000;font-weight:bold">const</span> content <span style="color:#000;font-weight:bold">=</span> data.replace(<span style="color:#009926">/(&lt;([^&gt;]+)&gt;)/gi</span>, <span style="color:#d14">&#34; &#34;</span>).replace(<span style="color:#009926">/[^\w\s]/gi</span>, <span style="color:#d14">&#34; &#34;</span>);
+</span></span><span style="display:flex;"><span>          <span style="color:#000;font-weight:bold">const</span> words <span style="color:#000;font-weight:bold">=</span> content.split(<span style="color:#d14">&#34; &#34;</span>);
+</span></span><span style="display:flex;"><span>          <span style="color:#000;font-weight:bold">const</span> wordCount <span style="color:#000;font-weight:bold">=</span> words.filter(word =&gt; word <span style="color:#000;font-weight:bold">!==</span> <span style="color:#d14">&#34;&#34;</span>).length;
+</span></span><span style="display:flex;"><span>          totalWords <span style="color:#000;font-weight:bold">+=</span> wordCount;
+</span></span><span style="display:flex;"><span>          $(<span style="color:#d14">&#39;#totalWords&#39;</span>).html(totalWords);
+</span></span><span style="display:flex;"><span>        });
+</span></span><span style="display:flex;"><span>      });
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    error<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">function</span> () {
+</span></span><span style="display:flex;"><span>      console.log(<span style="color:#d14">&#39;error&#39;</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  })
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre></div><p>我是将信息放在我的 <a href="/about/">关于</a> 页面下。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-md" data-lang="md"><span style="display:flex;"><span>经过脚本统计，我已经写了 &lt;<span style="color:#000080">span</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;totalNum&#34;</span>&gt;&lt;/<span style="color:#000080">span</span>&gt; 篇文章，总共 &lt;<span style="color:#000080">span</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;totalWords&#34;</span>&gt;&lt;/<span style="color:#000080">span</span>&gt; 个字。
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">&lt;!-- 经过脚本统计，我已经写了 164 篇文章，总共 97577 个字。 --&gt;</span>
+</span></span></code></pre></div><p><img src="https://imgurl.zburu.com/images/2023/05/13/645f33d7e3209.webp" alt="image"></p>
+
+  </article>
+
+  
+  
+  <ul class="post-tags">
+     
+    <li><a href="/tags/js">js</a></li>
+     
+    <li><a href="/tags/%E5%8D%9A%E5%AE%A2">博客</a></li>
+    
+  </ul>
+  
+
+  <div class="end">END</div>
+
+  
+  <section id="comments">
+  <ul class="comments-title">
+    <li>Twikoo</li>
+    <li>Giscus</li>
+    <span>可选择你评论的方式</span>
+  </ul>
+  <div class="comments-content">
+    <div class="item">
+      <div id="tcomment"></div>
+    </div>
+    <div class="item">
+      <div class="giscus"></div>
+    </div>
+  </div>
+</section>
+<script 
+  src="https://giscus.app/client.js" 
+  data-repo="zishume/giscus" 
+  data-repo-id="R_kgDOKJ2hEg"
+  data-category="Announcements" 
+  data-category-id="DIC_kwDOKJ2hEs4CYw4Y" 
+  data-mapping="pathname" 
+  data-strict="0"
+  data-reactions-enabled="1" 
+  data-emit-metadata="1" 
+  data-input-position="top" 
+  data-theme="https://cdn.hocgin.top/icons/giscus-theme.css"
+  data-lang="zh-CN" 
+  data-loading="lazy" 
+  crossorigin="anonymous" 
+  async>
+</script>
+<script src="https://cdn.staticfile.org/twikoo/1.6.17/twikoo.all.min.js"></script>
+<script>
+  twikoo.init({
+    envId: 'https://twikoo.zburu.com/',
+    el: '#tcomment',
+    lang: 'zh-CN',
+  })
+</script>
+  
+</div>
+</div>
+</main>
+
+<footer class="footer">
+  <div>© 2020 - <span id="year"></span> Powered by 子舒</div>
+  <div>网站已经运行 <span id="days">0</span></div>
+  <div class="gotop">▲</div>
+</footer>
+
+<script>
+  var s0 = '2020-06-14';
+  s1 = new Date(s0.replace(/-/g, "/"));
+  s2 = new Date();
+  var days = s2.getTime() - s1.getTime();
+
+  var date = new Date;
+  var year = date.getFullYear();
+  document.getElementById('year').innerHTML = year;
+
+  var BootDate = new Date("2020-06-14");
+  function ShowRunTime(id) {
+    var NowDate = new Date();
+    var RunDateM = parseInt(NowDate - BootDate);
+    var RunDays = Math.floor(RunDateM / (24 * 3600 * 1000));
+    var RunHours = Math.floor(RunDateM % (24 * 3600 * 1000) / (3600 * 1000));
+    var RunMinutes = Math.floor(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) / (60 * 1000));
+    var RunSeconds = Math.round(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) % (60 * 1000) / 1000);
+    var days = RunDays + "天" + RunHours + "时" + RunMinutes + "分" + RunSeconds + "秒";
+    document.getElementById(id).innerHTML = days;
+  }
+  ShowRunTime('days');
+  setInterval("ShowRunTime('days')", 1000);
+</script>
+<script src="/js/simplebox.min.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+</body>
+
+</html>
