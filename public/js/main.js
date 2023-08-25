@@ -3,7 +3,6 @@ $(function () {
   $('.slb').simplebox({
     fadeSpeed: 100
   });
-  // $('.post-content iframe').wrap('<p class="iframe"></p>');
 
   $(document).on('scroll', function () {
     var $pageScrollTop = $(this).scrollTop()
@@ -35,11 +34,7 @@ $(function () {
 
 $("#searchTerm").focus();
 
-// 在代码段显示对应代码语言
-// $('.markdown-body pre>code').each(function () {
-//   $(this).parents('.highlight').prepend('<span class="data-lang">' + $(this).attr('data-lang') + '</span>')
-// })
-
+// 评论切换
 function comments() {
   $('.comments-title>li:nth-child(1)').addClass('active');
   $('.comments-content>.item:nth-child(1)').show();
@@ -55,3 +50,21 @@ function comments() {
   })
 }
 comments();
+
+// 黑夜模式
+function themedark() {
+  var themedark = localStorage.getItem('themedark');
+  if (themedark == 'dark') {
+    $('body').addClass('dark');
+  }
+  $('#theme-toggle').click(function () {
+    $('body').toggleClass('dark');
+    if ($('.dark').length > 0) {
+      localStorage.setItem('themedark', 'dark');
+    } else {
+      localStorage.setItem('themedark', 'light');
+    }
+
+  })
+}
+themedark();
