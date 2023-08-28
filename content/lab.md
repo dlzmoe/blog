@@ -73,18 +73,11 @@ https://github.com/zishume/HugoFast
 https://github.com/zishume/chrome-plugin-memos  
 Memos 的 chrome 插件，集成到浏览器扩展中，个人感觉比较方便，后续将会集成更多的功能。
 
-https://www.npmjs.com/package/pagedark  
-pagedark: 一个基于 vue2 的全局黑夜模式切换组件。
-
 https://weekly.zishu.me/  
 周刊。
 
-https://nav.zburu.com/  
-导航网站，记录了我自托管的部分服务以及网址导航。
-
-https://openai-images.netlify.app/  
-在线生成图像工具
-
+https://han.ge/  
+一个基于cloudflare kv存储的短链接服务，稳定高效长期维护。
 
 ---
 

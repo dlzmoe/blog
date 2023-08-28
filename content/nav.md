@@ -1,4 +1,0 @@
----
-slug: nav
-title: nav
----
