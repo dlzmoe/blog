@@ -119,7 +119,7 @@
       <h2>Github Actions 自动化打包流程</h2>
     </header>
     <div class="entry-content">
-      <p>Github Actions 监听仓库 commit 事件，然后执行自动化打包流程，并通过第三方平台自动部署，发布非常方便。 name: Build on: push: branches: - main jobs: build: runs-on: ubuntu-latest steps: - name: Checkout code uses: actions/checkout@v2 - name: Install dependencies run: npm install - name: Build run: npm run build - name: Commit changes run: | git config --global user.email &#34;youremail&#34; git config --global user.name &#34;username&#34; git add . git commit -m &#34;Action bot commit&#34; -</p>
+      <p>Github Actions 监听仓库 commit 事件，然后执行自动化打包流程，并通过第三方平台自动部署，发布非常方便。 name: Build on: push: branches: - main jobs: build: runs-on: ubuntu-latest steps: - name: Checkout code uses: actions/checkout@v2 - name: Install dependencies run: npm install - name: Build run: npm run build - name: Commit changes run: | git config --global user.email &#34;youremail&#34; git config --global user.name &#34;username&#34; git add . git commit -m &#34;Action bot commit&#34; - name: Push changes uses: ad-m/github-push-action@master with: github_token: ${{ secrets.GITHUB_TOKEN }} branch: main 程序会自动获取 github token，只需要在仓库设置 /settings/actions 中把 Workflow permissions 设为读写权限。</p>
     </div>
     <footer class="entry-footer">
       <time datetime=" 2023-04-13 00:00:00 UTC"> April 13, 2023</time>

@@ -191,7 +191,7 @@
       <h2>关于 HugoFast 这个项目</h2>
     </header>
     <div class="entry-content">
-      <p>项目来源于我的突发奇想，并且基于热爱折腾的心理，利用GitHub本身提供的Api，将博客管理面板化。 目前仅支持 hugo，其他程序有对应的工具，就不造轮子了。 Github: https://github.com/zishume/HugoFast 网站: https://hugofast.netlify.app/ 用户文档: https://hugofast-docs.netlify.app/ 1. 自托管 前往 https://github.com/zishume/HugoFast fork 本项</p>
+      <p>项目来源于我的突发奇想，并且基于热爱折腾的心理，利用GitHub本身提供的Api，将博客管理面板化。 目前仅支持 hugo，其他程序有对应的工具，就不造轮子了。 Github: https://github.com/zishume/HugoFast 网站: https://hugofast.netlify.app/ 用户文档: https://hugofast-docs.netlify.app/ 1. 自托管 前往 https://github.com/zishume/HugoFast fork 本项目，然后下载到本地。 git clone https://github.com/zishume/HugoFast.git ::: warning 这里默认你有一定的代码基础，本地提前安装好了 node 依赖等。 ::: # 进入项目安装依赖包 cd HugoFast yarn # 使用 `yarn serve` 运行项目 yarn serve # 打包到 dist 文件 yarn build 打包后的文件可以放在的任意空间部署。 2. 准备工作 (1) 获取Github Token 前往 https://github.com/settings/tokens/ 。 新建一个 token ，选择 repo / user 这两个权限，名称随意，最后生成 token。 注意要保存好这个密钥，在新的终端打开网站需要用到这个密钥。 (2) 操作 hugo 源码仓库 前往你的 hugo 源码仓库，如下图。 在仓库的 setting/actions，滑到最下面，打开actions 的 pr 权限，不然actions自动部署会失败。 (3) 添加 .github/workflows/main.yml 点击 actions &gt; set up a workflow yourself 新建一个 actions 工作流。 注意： git config --global user.email &quot;&quot; 和 git config --global user.name &quot;&quot; 里面要填写你的GitHub 邮箱以及用户名。 name: hugo deploy on: push: workflow_dispatch: schedule: # Runs everyday at 8:00 AM - cron: &#34;0 0 * * *&#34; jobs: build: runs-on: ubuntu-latest steps: - name: Checkout uses: actions/checkout@v2 with: submodules: true fetch-depth: 0 - name: Setup Hugo uses: peaceiris/actions-hugo@v2 with: hugo-version: &#34;latest&#34; - name: Build Web run: hugo - name: Commit changes run: | git config --global user.email &#34;&#34; git config --global user.name &#34;&#34; git pull git add . git commit -m &#34;my commit&#34; - name: Push changes uses: ad-m/github-push-action@master with: github_token: ${{ secrets.GITHUB_TOKEN }} branch: main 3. HugoFast 网站 使用官方提供的版本。 在线管理: https://hugofast.netlify.app/ 第一行：获取的 GitHub Token 第二行：hugo 源码仓库 填写完成后，会自动获取文章目录，选择后点击确认。 进入网站就可以正常使用功能了，如修改文章，发布新文章，其他功能还在开发中。 未完待续&hellip;</p>
     </div>
     <footer class="entry-footer">
       <time datetime=" 2023-06-02 00:00:00 UTC"> June 02, 2023</time>
@@ -208,7 +208,7 @@
       <h2>随想录 (10)</h2>
     </header>
     <div class="entry-content">
-      <p>夕阳伴随着晚霞划破了云层。 下班时在路口发现的风景，记录美好的瞬间。 https://github.com/canton7/SyncTrayzor 搞定了 SyncTrayzor，一个Syncthing 的应用，可以不用挂载终端，始终在电脑后台进行同步，占用也很低，一切都是在无感下进</p>
+      <p>夕阳伴随着晚霞划破了云层。 下班时在路口发现的风景，记录美好的瞬间。 https://github.com/canton7/SyncTrayzor 搞定了 SyncTrayzor，一个Syncthing 的应用，可以不用挂载终端，始终在电脑后台进行同步，占用也很低，一切都是在无感下进行操作的，适合我这种极简主义风格的人。 流程是：家中的电脑 &lt;&ndash;&gt; 服务器 &lt;&ndash;&gt; 公司电脑三方同步，写笔记和博客更方便了。</p>
     </div>
     <footer class="entry-footer">
       <time datetime=" 2023-05-23 00:00:00 UTC"> May 23, 2023</time>
@@ -225,7 +225,7 @@
       <h2>hugo纯静态编写一个字数统计脚本</h2>
     </header>
     <div class="entry-content">
-      <p>早上起来的时候看到微信群中有博友分享自己的建站时间，聊着聊着说到总字数上面，这时我才发现我的网站没有统计的地方，索性就自己写一个吧，因为是静态博客，所以不涉及后端、服务器等，只用前端的方式来解决。 这里</p>
+      <p>早上起来的时候看到微信群中有博友分享自己的建站时间，聊着聊着说到总字数上面，这时我才发现我的网站没有统计的地方，索性就自己写一个吧，因为是静态博客，所以不涉及后端、服务器等，只用前端的方式来解决。 这里需要借助我之前的一篇文章，《用原生js给网站写个搜索功能》，里面有提到如何生成一个文章列表json文件，这里我们会用到这个文件 index.json。 写一个ajax方法，让浏览器遍历每个页面。 $(document).ready(function () { $.ajax({ url: &#39;/index.json&#39;, type: &#39;get&#39;, dataType: &#39;json&#39;, success: function (data) { const pageUrls = data; const totalNum = pageUrls.length; $(&#39;#totalNum&#39;).html(totalNum); let totalWords = 0; pageUrls.forEach(urlObj =&gt; { $.get(urlObj.permalink, function(data) { const content = data.replace(/(&lt;([^&gt;]+)&gt;)/gi, &#34; &#34;).replace(/[^\w\s]/gi, &#34; &#34;); const words = content.split(&#34; &#34;); const wordCount = words.filter(word =&gt; word !== &#34;&#34;).length; totalWords += wordCount; $(&#39;#totalWords&#39;).html(totalWords); }); }); }, error: function () { console.log(&#39;error&#39;) } }) }); 我是将信息放在我的 关于 页面下。 经过脚本统计，我已经写了 &lt;span id=&#34;totalNum&#34;&gt;&lt;/span&gt; 篇文章，总共 &lt;span id=&#34;totalWords&#34;&gt;&lt;/span&gt; 个字。 &lt;!-- 经过脚本统计，我已经写了 164 篇文章，总共 97577 个字。 --&gt;</p>
     </div>
     <footer class="entry-footer">
       <time datetime=" 2023-05-13 00:00:00 UTC"> May 13, 2023</time>
@@ -242,7 +242,7 @@
       <h2>周六爬山日常</h2>
     </header>
     <div class="entry-content">
-      <p>本周行程：万松书院出发，翻越凤凰山，登顶玉皇山，俯瞰八卦田。 上周和朋友爬山，由于实力太弱拖了后腿，因此奋发图强，直接下单了一把登山杖，差生文具多。但是有一说一，登山杖是真的好用，不管是上山还是下山都很</p>
+      <p>本周行程：万松书院出发，翻越凤凰山，登顶玉皇山，俯瞰八卦田。 上周和朋友爬山，由于实力太弱拖了后腿，因此奋发图强，直接下单了一把登山杖，差生文具多。但是有一说一，登山杖是真的好用，不管是上山还是下山都很借力，对膝盖起到了一定的保护作用。 这次徒步旅行相对来说还是比较轻松的，拥抱大自然，见到了很多不一样的风景，这是城市所不能拥有的，特别是登高望远，那种心理状态一下子就升华了。虽然只是个小山坡，但是还是能体会到 “会当凌绝顶，一览众山小。” 再加上一路与朋友说说笑笑，聊聊天，说实话还是蛮充实的。最近迷上了爬山这项活动，基本每周都会去一趟，呼吸新鲜空气，观看自然的风光。 每到一个地方都会打卡记录一番。 八卦田遗址公园 凤凰山俯瞰钱塘江 玉皇山俯瞰西湖 万松书院</p>
     </div>
     <footer class="entry-footer">
       <time datetime=" 2023-04-15 00:00:00 UTC"> April 15, 2023</time>
@@ -259,7 +259,7 @@
       <h2>Github Actions 自动化打包流程</h2>
     </header>
     <div class="entry-content">
-      <p>Github Actions 监听仓库 commit 事件，然后执行自动化打包流程，并通过第三方平台自动部署，发布非常方便。 name: Build on: push: branches: - main jobs: build: runs-on: ubuntu-latest steps: - name: Checkout code uses: actions/checkout@v2 - name: Install dependencies run: npm install - name: Build run: npm run build - name: Commit changes run: | git config --global user.email &#34;youremail&#34; git config --global user.name &#34;username&#34; git add . git commit -m &#34;Action bot commit&#34; -</p>
+      <p>Github Actions 监听仓库 commit 事件，然后执行自动化打包流程，并通过第三方平台自动部署，发布非常方便。 name: Build on: push: branches: - main jobs: build: runs-on: ubuntu-latest steps: - name: Checkout code uses: actions/checkout@v2 - name: Install dependencies run: npm install - name: Build run: npm run build - name: Commit changes run: | git config --global user.email &#34;youremail&#34; git config --global user.name &#34;username&#34; git add . git commit -m &#34;Action bot commit&#34; - name: Push changes uses: ad-m/github-push-action@master with: github_token: ${{ secrets.GITHUB_TOKEN }} branch: main 程序会自动获取 github token，只需要在仓库设置 /settings/actions 中把 Workflow permissions 设为读写权限。</p>
     </div>
     <footer class="entry-footer">
       <time datetime=" 2023-04-13 00:00:00 UTC"> April 13, 2023</time>

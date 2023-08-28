@@ -191,7 +191,7 @@
       <h2>一些容易遗漏的点</h2>
     </header>
     <div class="entry-content">
-      <p>监听对象时如果值是null会报错，默认值设置为{}； for in 只能遍历对象 i in 4是错误的写法； 动态获取数组-拼接传参 var arr = [ &#34;单位1&#34;, &#34;单位2&#34;, &#34;单位3&#34;</p>
+      <p>监听对象时如果值是null会报错，默认值设置为{}； for in 只能遍历对象 i in 4是错误的写法； 动态获取数组-拼接传参 var arr = [ &#34;单位1&#34;, &#34;单位2&#34;, &#34;单位3&#34;, &#34;单位4&#34;, &#34;单位5&#34; ] // 1.数组[] for (var i = 0; i &lt; arr.length; i++) { this.defaultData.hostUnitList.push({ [arr[i]]: this.defaultData[arr[i]] }); } // 2.对象{} for (var i = 0; i &lt; arr.length; i++) { this.defaultData.hostUnitList[arr[i]] = this.defaultData[arr[i]] }</p>
     </div>
     <footer class="entry-footer">
       <time datetime=" 2022-08-10 00:00:00 UTC"> August 10, 2022</time>
@@ -208,7 +208,7 @@
       <h2>随想录 (9)</h2>
     </header>
     <div class="entry-content">
-      <p>落霞与孤鹜齐飞，秋水共长天一色。 放个图防止抑郁。 昨天看了一个帖子很有感触，土生土长的城市本地人很难体会每隔一段时间要重新建立社会关系的难受，从小到大，每到一个地方上学，从陌生变为熟悉，中间总有有一段难</p>
+      <p>落霞与孤鹜齐飞，秋水共长天一色。 放个图防止抑郁。 昨天看了一个帖子很有感触，土生土长的城市本地人很难体会每隔一段时间要重新建立社会关系的难受，从小到大，每到一个地方上学，从陌生变为熟悉，中间总有有一段难熬的时间。很多随父母打工而四处的求学的小孩，特别能有这种体会，因此也就有很多人厌恶上学，他们不理解为什么总是要四处奔波，父母也不理解小孩为什么不喜欢学习，两者误会，家庭矛盾也因此诞生了。当然我说的很片面，这只是其中一个原因。 我也只是想让自己牢记，原来艰苦的生活不但让身心变得疲惫，还能带来精神上的贫穷，让自己明白原来还有这种只有四处奔波的人才能体会。说一下我的经历，小学二年级之前在老家乡下读书，然后辗转在厦门上的小学，初中和高中又回到县城读书，大学是在郑州读书，工作后又来到杭州。 看着这个时间段，很难有一个朋友可以从小到大陪着你，大多数人都是这样，悲哀又现实。 踏入工作之后，应该是更能体会，一个人在陌生的城市，除了工作好像也没有其他事可以做，对于社恐来说更是一种严重的环境。而我应该算是比较幸运的，在一个陌生的城市还有家人和恋人，减缓了那种焦虑感，但我认识的一些人确是情绪受到很大影响，包括压力太大而离开这座城市。 写博客并不是为了贩卖焦虑，而且觉得有些话不吐不为快，在文字中发泄情绪也是一种良好的方法，为了明天的生活慢慢加油。</p>
     </div>
     <footer class="entry-footer">
       <time datetime=" 2022-08-07 00:00:00 UTC"> August 07, 2022</time>
@@ -259,7 +259,7 @@
       <h2>Anghunk 主题如何在后台评论列表解析表情？</h2>
     </header>
     <div class="entry-content">
-      <p>本文专为 Anghunk 主题开发文档而写。 https://github.com/zishume/Anghunk 方案是在梦繁星的协助下完成的。 介绍 Anghunk 评论携带很多精美的表情，但是正常情况下 Typecho 后台是没办法正常解析这些表情的。如下图； 但是，经过我解析表情之后，就可以变成下面这样，使用主题</p>
+      <p>本文专为 Anghunk 主题开发文档而写。 https://github.com/zishume/Anghunk 方案是在梦繁星的协助下完成的。 介绍 Anghunk 评论携带很多精美的表情，但是正常情况下 Typecho 后台是没办法正常解析这些表情的。如下图； 但是，经过我解析表情之后，就可以变成下面这样，使用主题如果需要这种功能，可以按照我下面的步骤进行改造。 修改 打开 /admin/manage-comments.php 文件，在题头插入： /* * 解析表情 */ function getparseBiaoQingComment($content) { $emopath=$_SERVER[&#39;REQUEST_SCHEME&#39;].&#34;:&#34;. DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR . $_SERVER[&#39;HTTP_HOST&#39;]; $emo = false; global $emo; if(!$emo) { $emo = json_decode(file_get_contents(dirname(dirname(dirname(__FILE__))).&#39;/zburu.com/usr/themes/Anghunk/libs/OwO.json&#39;), true); } foreach ($emo as $v) { if($v[&#39;type&#39;] == &#39;image&#39;) { foreach ($v[&#39;container&#39;] as $vv) { $emoaa=&#34;::&#34;.$v[&#39;name&#39;].&#34;:&#34;.$vv[&#39;icon&#39;].&#34;::&#34;; $content = str_replace($emoaa, &#39; &lt;img style=&#34;max-height:40px;vertical-align:middle;&#34; src=&#34;&#39;.$emopath.&#39;/usr/themes/Anghunk/libs/emotion/&#39;.$v[&#39;name&#39;].&#39;/&#39;.$vv[&#39;icon&#39;] .&#39;.png&#34; alt=&#34;&#39;.$vv[&#39;text&#39;] .&#39;&#34;&gt; &#39;, $content); } } } return $content; } 注意我放置的位置，必须要要 &lt;?php ... ?&gt; 之间 **找到 第166行，修改一下，把标签中的代码替换为下方标注的。 ** &lt;div class=&#34;comment-content&#34;&gt; &lt;!-- 解析输出带表情的评论 --&gt; &lt;?php $con=$comments-&gt;content; echo getparseBiaoQingComment($con); ?&gt; &lt;/div&gt; 之后回到后台评论列表就可以看到评论成功被解析了，本方法仅适用于 Anghunk 主题。</p>
     </div>
     <footer class="entry-footer">
       <time datetime=" 2022-07-30 00:00:00 UTC"> July 30, 2022</time>

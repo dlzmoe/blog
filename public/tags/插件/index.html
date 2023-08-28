@@ -119,7 +119,7 @@
       <h2>实现图片灯箱功能</h2>
     </header>
     <div class="entry-content">
-      <p>写博客必不可少的一个功能就是图片灯箱功能，也就是点击放大查看。但是不同程序的博客所使用的插件也都不一样，我这里研究出一套可以满足绝大部分程序的灯箱插件。已经测试过hexo, hugo, typecho 均无问题。 引入文件 首先引</p>
+      <p>写博客必不可少的一个功能就是图片灯箱功能，也就是点击放大查看。但是不同程序的博客所使用的插件也都不一样，我这里研究出一套可以满足绝大部分程序的灯箱插件。已经测试过hexo, hugo, typecho 均无问题。 引入文件 首先引入我们关键的两个文件分别是 zoom.css 和 zoom.js 。 &lt;!-- head头部 --&gt; &lt;link rel=&#34;stylesheet&#34; href=&#34;https://cdn.imhan.cn/list/zoom.css&#34;&gt; &lt;!-- body底部 --&gt; &lt;!-- 如果已经有jq文件了，就不要引入jquery --&gt; &lt;script src=&#34;https://cdn.imhan.cn/list/jquery3.6.0.js&#34;&gt;&lt;/script&gt; &lt;!--图片灯箱--&gt; &lt;img src=&#34;&#34; alt=&#34;&#34; class=&#34;bigimg&#34;&gt; &lt;div class=&#34;mask&#34;&gt;&lt;/div&gt; &lt;script src=&#34;https://cdn.imhan.cn/list/zoom.js&#34;&gt;&lt;/script&gt; 因为这个文件是放在我自己服务器上的，所以不敢保证以后还是这个路径，建议在浏览器打开，然后把里面的代码复制到本地使用。 调用js 然后我们需要给图片一个类名，以及一个父元素盒子，同样也可以使用 jq 来完成。 这里的 .post-content 正文的类名，如果你是别的类名，可以直接将 .post-content 替换掉。 $(function(){ $(&#39;.post-content img&#39;).addClass(&#39;smallimg&#39;) $(&#39;.post-content img&#39;).wrap(&#39;&lt;div class=&#34;imgbox&#34;&gt;&lt;/div&gt;&#39;) }) 接着我们需要对插件进行初始化，直接在刚才的代码下面写入。 $(function(){ $(&#39;.post-content img&#39;).addClass(&#39;smallimg&#39;) $(&#39;.post-content img&#39;).wrap(&#39;&lt;div class=&#34;imgbox&#34;&gt;&lt;/div&gt;&#39;) /* smallimg // 小图 bigimg //点击放大的图片 mask //黑色遮罩 */ var obj = new zoom(&#39;mask&#39;, &#39;bigimg&#39;, &#39;smallimg&#39;); obj.init(); }) 回到页面上，点击正文的图片就可以成功放大了。 结束 随便放个图片试验一下吧！ 之所以我限制了在正文中才可以放大，是因为网站其他地方也有图片，如果都可以点击放大，就很不合理。 如果在使用中有其他问题，欢迎留言。</p>
     </div>
     <footer class="entry-footer">
       <time datetime=" 2021-12-07 00:00:00 UTC"> December 07, 2021</time>
