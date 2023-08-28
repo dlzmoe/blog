@@ -2,7 +2,7 @@
 <html lang="en-us">
 <head>
 <meta charset="utf-8" />
-<meta name="generator" content="Hugo 0.114.0">
+<meta name="generator" content="Hugo 0.117.0">
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="toTop" content="true">
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -84,7 +84,7 @@
         </li>
         
         <li>
-          <a href="/tags/" title="标签"><span>标签</span></a>
+          <a href="/tag/" title="标签"><span>标签</span></a>
         </li>
         
         <li>
@@ -162,49 +162,49 @@
 </blockquote>
 <h2 id="3添加新的待办事项">3.添加新的待办事项</h2>
 <h3 id="react-的实现方法">React 的实现方法</h3>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>createNewToDoItem<span style="color:#a61717;background-color:#e3d2d2"> </span><span style="color:#000;font-weight:bold">=</span><span style="color:#a61717;background-color:#e3d2d2"> </span>()<span style="color:#a61717;background-color:#e3d2d2"> </span>=&gt;<span style="color:#a61717;background-color:#e3d2d2"> </span>{
-</span></span><span style="display:flex;"><span><span style="color:#a61717;background-color:#e3d2d2">    </span><span style="color:#000;font-weight:bold">this</span>.setState(<span style="color:#a61717;background-color:#e3d2d2"> </span>({<span style="color:#a61717;background-color:#e3d2d2"> </span>list,<span style="color:#a61717;background-color:#e3d2d2"> </span>todo<span style="color:#a61717;background-color:#e3d2d2"> </span>})<span style="color:#a61717;background-color:#e3d2d2"> </span>=&gt;<span style="color:#a61717;background-color:#e3d2d2"> </span>({
-</span></span><span style="display:flex;"><span><span style="color:#a61717;background-color:#e3d2d2">      </span>list<span style="color:#000;font-weight:bold">:</span><span style="color:#a61717;background-color:#e3d2d2"> </span>[
-</span></span><span style="display:flex;"><span><span style="color:#a61717;background-color:#e3d2d2">          </span>...list,
-</span></span><span style="display:flex;"><span><span style="color:#a61717;background-color:#e3d2d2">        </span>{
-</span></span><span style="display:flex;"><span><span style="color:#a61717;background-color:#e3d2d2">          </span>todo
-</span></span><span style="display:flex;"><span><span style="color:#a61717;background-color:#e3d2d2">        </span>}
-</span></span><span style="display:flex;"><span><span style="color:#a61717;background-color:#e3d2d2">      </span>],
-</span></span><span style="display:flex;"><span><span style="color:#a61717;background-color:#e3d2d2">      </span>todo<span style="color:#000;font-weight:bold">:</span><span style="color:#a61717;background-color:#e3d2d2"> </span><span style="color:#d14">&#39;&#39;</span>
-</span></span><span style="display:flex;"><span><span style="color:#a61717;background-color:#e3d2d2">    </span>})
-</span></span><span style="display:flex;"><span><span style="color:#a61717;background-color:#e3d2d2">  </span>);
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>createNewToDoItem <span style="color:#000;font-weight:bold">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">this</span>.setState( ({ list, todo }) =&gt; ({
+</span></span><span style="display:flex;"><span>      list<span style="color:#000;font-weight:bold">:</span> [
+</span></span><span style="display:flex;"><span>          ...list,
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>          todo
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      ],
+</span></span><span style="display:flex;"><span>      todo<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>    })
+</span></span><span style="display:flex;"><span>  );
 </span></span><span style="display:flex;"><span>};
 </span></span></code></pre></div><p>在 React 中，我们的输入字段有一个名为 value 的属性。这个 value 通过使用几个函数自动更新，这些函数绑定在一起以创建双向绑定。我们通过在输入字段上附加一个 onChange 事件监听器来创建这种形式的双向绑定。看看代码，一探究竟：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">input</span><span style="color:#a61717;background-color:#e3d2d2"> </span><span style="color:#008080">type</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;text&#34;</span><span style="color:#a61717;background-color:#e3d2d2"> </span>
-</span></span><span style="display:flex;"><span><span style="color:#a61717;background-color:#e3d2d2">       </span><span style="color:#008080">value</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">{this.state.todo} </span>
-</span></span><span style="display:flex;"><span><span style="color:#a61717;background-color:#e3d2d2">       </span><span style="color:#008080">onChange</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">{this.handleInput}/</span>&gt;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">input</span> <span style="color:#008080">type</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;text&#34;</span> 
+</span></span><span style="display:flex;"><span>       <span style="color:#008080">value</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">{this.state.todo}</span> 
+</span></span><span style="display:flex;"><span>       <span style="color:#008080">onChange</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">{this.handleInput}/</span>&gt;
 </span></span></code></pre></div><p>只要输入字段的值发生更改，handleInput 函数就会运行。它通过将状态对象设置为输入字段中的任何内容来更新状态对象内的 todo。handleInput 函数如下：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>handleInput<span style="color:#a61717;background-color:#e3d2d2"> </span><span style="color:#000;font-weight:bold">=</span><span style="color:#a61717;background-color:#e3d2d2"> </span>e<span style="color:#a61717;background-color:#e3d2d2"> </span>=&gt;<span style="color:#a61717;background-color:#e3d2d2"> </span>{
-</span></span><span style="display:flex;"><span><span style="color:#a61717;background-color:#e3d2d2">  </span><span style="color:#000;font-weight:bold">this</span>.setState({
-</span></span><span style="display:flex;"><span><span style="color:#a61717;background-color:#e3d2d2">    </span>todo<span style="color:#000;font-weight:bold">:</span><span style="color:#a61717;background-color:#e3d2d2"> </span>e.target.value
-</span></span><span style="display:flex;"><span><span style="color:#a61717;background-color:#e3d2d2">  </span>});
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>handleInput <span style="color:#000;font-weight:bold">=</span> e =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">this</span>.setState({
+</span></span><span style="display:flex;"><span>    todo<span style="color:#000;font-weight:bold">:</span> e.target.value
+</span></span><span style="display:flex;"><span>  });
 </span></span><span style="display:flex;"><span>};
 </span></span></code></pre></div><p>现在，只要用户按下页面上的 + 按钮添加新项目，createNewToDoItem 函数就会运行 this.setState 并向其传递一个函数。该函数有两个参数，第一个是来自状态对象的整个列表数组，第二个是由 handleInput 函数更新的todo。然后该函数返回一个新对象，该对象包含之前的整个列表，并在其末尾添加todo。整个列表是通过使用扩展运算符添加的。</p>
 <p>最后，我们将 todo 设置为空字符串，它会自动更新输入字段中的 value。</p>
 <h3 id="vue-的实现方法">Vue 的实现方法</h3>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>createNewToDoItem()<span style="color:#a61717;background-color:#e3d2d2"> </span>{
-</span></span><span style="display:flex;"><span><span style="color:#a61717;background-color:#e3d2d2">    </span><span style="color:#000;font-weight:bold">this</span>.list.push(
-</span></span><span style="display:flex;"><span><span style="color:#a61717;background-color:#e3d2d2">        </span>{
-</span></span><span style="display:flex;"><span><span style="color:#a61717;background-color:#e3d2d2">            </span><span style="color:#d14">&#39;todo&#39;</span><span style="color:#000;font-weight:bold">:</span><span style="color:#a61717;background-color:#e3d2d2"> </span><span style="color:#000;font-weight:bold">this</span>.todo
-</span></span><span style="display:flex;"><span><span style="color:#a61717;background-color:#e3d2d2">        </span>}
-</span></span><span style="display:flex;"><span><span style="color:#a61717;background-color:#e3d2d2">    </span>);
-</span></span><span style="display:flex;"><span><span style="color:#a61717;background-color:#e3d2d2">    </span><span style="color:#000;font-weight:bold">this</span>.todo<span style="color:#a61717;background-color:#e3d2d2"> </span><span style="color:#000;font-weight:bold">=</span><span style="color:#a61717;background-color:#e3d2d2"> </span><span style="color:#d14">&#39;&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>createNewToDoItem() {
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">this</span>.list.push(
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#d14">&#39;todo&#39;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">this</span>.todo
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    );
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">this</span>.todo <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;&#39;</span>;
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>在 Vue 中，我们的输入字段中有一个名为 v-model 的句柄。这实现了**双向绑定。输入字段代码如下：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">input</span><span style="color:#a61717;background-color:#e3d2d2"> </span><span style="color:#008080">type</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;text&#34;</span><span style="color:#a61717;background-color:#e3d2d2"> </span><span style="color:#008080">v-model</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;todo&#34;</span>/&gt;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">input</span> <span style="color:#008080">type</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;text&#34;</span> <span style="color:#008080">v-model</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;todo&#34;</span>/&gt;
 </span></span></code></pre></div><p>V-Model 将输入字段的内容绑定到名为 toDoItem 的数据对象的键（key）上。当页面加载时，我们将 toDoItem 设置为空字符串，比如：todo：&rsquo; &lsquo;。如果已经存在数据，例如 todo：&lsquo;添加文本处&rsquo;，输入字段将加载添加文本处的输入内容。无论如何，将其作为空字符串，我们在输入字段中键入的任何文本都会绑定到 todo。这实际上是双向绑定（输入字段可以更新数据对象，数据对象可以更新输入字段）。</p>
 <p>因此，回顾前面的 createNewToDoItem() 代码块，我们将 todo 的内容存放到列表数组中 ，然后将 todo 改为空字符串。</p>
 <h2 id="4删除待办事项">4.删除待办事项</h2>
 <h3 id="react-的实现方法-1">React 的实现方法</h3>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>deleteItem<span style="color:#a61717;background-color:#e3d2d2"> </span><span style="color:#000;font-weight:bold">=</span><span style="color:#a61717;background-color:#e3d2d2"> </span>indexToDelete<span style="color:#a61717;background-color:#e3d2d2"> </span>=&gt;<span style="color:#a61717;background-color:#e3d2d2"> </span>{
-</span></span><span style="display:flex;"><span><span style="color:#a61717;background-color:#e3d2d2">    </span><span style="color:#000;font-weight:bold">this</span>.setState(({<span style="color:#a61717;background-color:#e3d2d2"> </span>list<span style="color:#a61717;background-color:#e3d2d2"> </span>})<span style="color:#a61717;background-color:#e3d2d2"> </span>=&gt;<span style="color:#a61717;background-color:#e3d2d2"> </span>({
-</span></span><span style="display:flex;"><span><span style="color:#a61717;background-color:#e3d2d2">      </span>list<span style="color:#000;font-weight:bold">:</span><span style="color:#a61717;background-color:#e3d2d2"> </span>list.filter((toDo,<span style="color:#a61717;background-color:#e3d2d2"> </span>index)<span style="color:#a61717;background-color:#e3d2d2"> </span>=&gt;<span style="color:#a61717;background-color:#e3d2d2"> </span>index<span style="color:#a61717;background-color:#e3d2d2"> </span><span style="color:#000;font-weight:bold">!==</span><span style="color:#a61717;background-color:#e3d2d2"> </span>indexToDelete)
-</span></span><span style="display:flex;"><span><span style="color:#a61717;background-color:#e3d2d2">    </span>}));
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>deleteItem <span style="color:#000;font-weight:bold">=</span> indexToDelete =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">this</span>.setState(({ list }) =&gt; ({
+</span></span><span style="display:flex;"><span>      list<span style="color:#000;font-weight:bold">:</span> list.filter((toDo, index) =&gt; index <span style="color:#000;font-weight:bold">!==</span> indexToDelete)
+</span></span><span style="display:flex;"><span>    }));
 </span></span><span style="display:flex;"><span>};
 </span></span></code></pre></div><p>尽管 deleteItem 函数位于 ToDo.js 文件中，但是从 ToDoItem.js 文件中引用它也很容易，将 deleteItem() 函数作为 上的 prop 传递：</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">&lt;</span>ToDoItem deleteItem<span style="color:#000;font-weight:bold">=</span>{<span style="color:#000;font-weight:bold">this</span>.deleteItem.bind(<span style="color:#000;font-weight:bold">this</span>, key)}<span style="color:#000;font-weight:bold">/&gt;</span>
