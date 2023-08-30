@@ -1,6 +1,7 @@
 ---
 slug: lab
 title: 实验室
+layout: message
 ---
 
 记录我订阅的周刊，质量不错，内容挺有意思。如果你有推荐，欢迎在评论区分享。
@@ -63,8 +64,6 @@ https://fyfy.fm/
 
 听见科技与人文的声音
 一档由开发者 @枫影JustinYan 和设计师 @自力hzlzh 主持的播客节目。
-
-
 </details>
 
 https://github.com/zishume/HugoFast  
