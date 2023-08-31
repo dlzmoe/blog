@@ -32,7 +32,7 @@ const arr = JSON.parse(localStorage.getItem("key"));
 
 比如静态保存某个设置参数，可以将其写入数组中，然后通过 localStorage 存储，原本刷新就会显示默认设置，现在可以在每次刷新的适合读取存入的参数。
 
-![](https://imgurl.zburu.com/images/2022/20221020-1.59d2myq20340.webp)
+![](https://imgurl.zishu.me/images/2022/20221020-1.59d2myq20340.webp)
 
 在一些场景下非常好用，比如开发一个油猴脚本等等。
 
