@@ -30,8 +30,8 @@
 "accountablePerson" : "子舒",
 "copyrightHolder" : "子舒",
 "copyrightYear" : "2023",
-"datePublished": "2023-08-25 00:00:00 \u002b0000 UTC",
-"dateModified" : "2023-08-25 00:00:00 \u002b0000 UTC",
+"datePublished": "2023-09-02 00:00:00 \u002b0000 UTC",
+"dateModified" : "2023-09-02 00:00:00 \u002b0000 UTC",
 "url" : "\/",
 "keywords" : [  ]
 }
@@ -153,6 +153,23 @@
 
   <article class="post-entry">
     <header class="entry-header">
+      <h2>网站引入iframe视频，如何实现高度自适应?</h2>
+    </header>
+    <div class="entry-content">
+      <p>我想很多小伙伴在写博客的时候都能遇到一个令人头疼的问题，某一篇文章想用 iframe 引入一个外链视频，但是大小总是有问题，宽度可以固定到 100% ，但是高度比如用实际高度来表示，比如 100px, 200px，诸如此类。 但是问题来了，在不同的页面宽度下，视频的高度是一致的，就会导致一个很麻烦的问题, 看下面两个图， pc端 移动端 很明显，在pc端正常显示的视频，放到移动端高度就错位了，很不美观。 解决这个问题，可以同媒体查询，但是显然费时费力，还不那么完美。 其实很简单，只需要不到10行代码即可完美实现。 引入 jq ，（一般网站默认都有这个文件） 加上一段 js 代码，最好放在网站底部， &lt;/body&gt; 前即可。 $(&#39;iframe&#39;).wrap(&#39;&lt;p class=&#34;iframe&#34;&gt;&lt;/p&gt;&#39;) 在css文件的底部加上: .iframe{ position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; } .iframe iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; } 这个时候再访问带有 iframe 视频的网页，不管宽度如何变化，高度可以随视频自适应。 例如这个网页，可以看一下效果: https://imhan.cn/posts/20210507.html</p>
+    </div>
+    <footer class="entry-footer">
+      <time datetime=" 2021-05-09 00:00:00 UTC"> May 09, 2021</time>
+    </footer>
+    <a class="entry-link" aria-label="post link to Installation | Update" href="/blog/66.html/"></a>
+  </article>
+
+  
+  
+  
+
+  <article class="post-entry">
+    <header class="entry-header">
       <h2>呼吸之野</h2>
     </header>
     <div class="entry-content">
@@ -247,23 +264,6 @@
       <time datetime=" 2021-03-26 00:00:00 UTC"> March 26, 2021</time>
     </footer>
     <a class="entry-link" aria-label="post link to Installation | Update" href="/blog/60.html/"></a>
-  </article>
-
-  
-  
-  
-
-  <article class="post-entry">
-    <header class="entry-header">
-      <h2>ajax 和 js 事件的执行顺序</h2>
-    </header>
-    <div class="entry-content">
-      <p>有一个需求，滚轮滚动到相应位置的时候执行当前的动画，这个动画在footer里面，而网页的主体通过ajax进行渲染，我在js里面调用ajax渲染数据，然后再获取主体的高度，滚动到该高度的时候执行动画。 本地测试了一下没什么问题，该有的效果都有了。放在服务器上测试发现无论怎么写，都是先获取主体的高度，然后才进行数据的渲染。那么必然高度是一个极小的值，不符合我想要的属性。 我大致想了两种解决办法，均以失败告终，本地是ajax先执行，服务器是js先执行。 让获取高度的事件时间延时500ms，发现最后获取不到事件了； 将该事件写在ajax的success回调里面，结果是只有打开网页第一次能够成功，然后不管刷新多少次均无效，事件被屏蔽，所以方法二也被废除； 最后我想到了，ajax不就是一种异步方法，我将其改为同步不就行，先让ajax执行完在执行js事件。 async: false, 我在ajax里面写了async这个方法，false 意思是将其默认为同步获取数据，很好，回到服务器打开控制台，发现是先渲染了数据，才获取了主体的高度，问题得以解决。 当然这样做有弊端的，如果接口出问题，ajax渲染失败，那么整个网页的js都将执行不了。不过我想真到了数据都渲染不出的地方，访问网页就没有意义了，所以最后我采用了这种方法。</p>
-    </div>
-    <footer class="entry-footer">
-      <time datetime=" 2021-03-23 00:00:00 UTC"> March 23, 2021</time>
-    </footer>
-    <a class="entry-link" aria-label="post link to Installation | Update" href="/blog/58.html/"></a>
   </article>
 
   

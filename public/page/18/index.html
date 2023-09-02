@@ -30,8 +30,8 @@
 "accountablePerson" : "子舒",
 "copyrightHolder" : "子舒",
 "copyrightYear" : "2023",
-"datePublished": "2023-08-25 00:00:00 \u002b0000 UTC",
-"dateModified" : "2023-08-25 00:00:00 \u002b0000 UTC",
+"datePublished": "2023-09-02 00:00:00 \u002b0000 UTC",
+"dateModified" : "2023-09-02 00:00:00 \u002b0000 UTC",
 "url" : "\/",
 "keywords" : [  ]
 }
@@ -153,6 +153,23 @@
 
   <article class="post-entry">
     <header class="entry-header">
+      <h2>ajax 和 js 事件的执行顺序</h2>
+    </header>
+    <div class="entry-content">
+      <p>有一个需求，滚轮滚动到相应位置的时候执行当前的动画，这个动画在footer里面，而网页的主体通过ajax进行渲染，我在js里面调用ajax渲染数据，然后再获取主体的高度，滚动到该高度的时候执行动画。 本地测试了一下没什么问题，该有的效果都有了。放在服务器上测试发现无论怎么写，都是先获取主体的高度，然后才进行数据的渲染。那么必然高度是一个极小的值，不符合我想要的属性。 我大致想了两种解决办法，均以失败告终，本地是ajax先执行，服务器是js先执行。 让获取高度的事件时间延时500ms，发现最后获取不到事件了； 将该事件写在ajax的success回调里面，结果是只有打开网页第一次能够成功，然后不管刷新多少次均无效，事件被屏蔽，所以方法二也被废除； 最后我想到了，ajax不就是一种异步方法，我将其改为同步不就行，先让ajax执行完在执行js事件。 async: false, 我在ajax里面写了async这个方法，false 意思是将其默认为同步获取数据，很好，回到服务器打开控制台，发现是先渲染了数据，才获取了主体的高度，问题得以解决。 当然这样做有弊端的，如果接口出问题，ajax渲染失败，那么整个网页的js都将执行不了。不过我想真到了数据都渲染不出的地方，访问网页就没有意义了，所以最后我采用了这种方法。</p>
+    </div>
+    <footer class="entry-footer">
+      <time datetime=" 2021-03-23 00:00:00 UTC"> March 23, 2021</time>
+    </footer>
+    <a class="entry-link" aria-label="post link to Installation | Update" href="/blog/58.html/"></a>
+  </article>
+
+  
+  
+  
+
+  <article class="post-entry">
+    <header class="entry-header">
       <h2>ajax拼接模版字符串的几种方法</h2>
     </header>
     <div class="entry-content">
@@ -247,23 +264,6 @@
       <time datetime=" 2021-03-14 00:00:00 UTC"> March 14, 2021</time>
     </footer>
     <a class="entry-link" aria-label="post link to Installation | Update" href="/blog/53.html/"></a>
-  </article>
-
-  
-  
-  
-
-  <article class="post-entry">
-    <header class="entry-header">
-      <h2>chrome浏览器无法显示12px以下的字体</h2>
-    </header>
-    <div class="entry-content">
-      <p>最近正在面试，遇到了很多有意思的东西，比如今天，在面试前先做了一套面试题，其中有这么一道题，觉得挺有意思，之前也没见过，就打算记录下来： &lt;!-- chrome浏览器12px字体大小以下无法显示，均显示为12px，应该怎么解决。 --&gt; 我确实有点蒙，在之前写代码的时候，没有遇到过这样的情况，不过既然这样问了，就得想出解决的办法。 首先我想到之前的一个问题，0.5px 的边框该如何实现，通过 scale(0.5) 可以实现，这是 css3 新属性。 所以当时我就写了通过 transform:scale() 可以实现。不过后续在面试的中，面试官也没有提及这些问题。 回到家之后，吃完饭坐在电脑旁，正准备逛一逛 github ，突然想起来了这么一个问题，就自己测试了一遍： &lt;div style=&#34;font-size: 13px;&#34;&gt; 测试 &lt;/div&gt; &lt;div style=&#34;font-size: 12px;&#34;&gt; 测试 &lt;/div&gt; &lt;div style=&#34;font-size: 11px;&#34;&gt; 测试 &lt;/div&gt; 竟然真的存在这样的问题，Chrome 12px 以下的字体无法正常显示，均显示为12px。 然后我用 scale 设置了一下属性， &lt;div style=&#34;font-size: 13px;&#34;&gt; 测试 &lt;/div&gt; &lt;div style=&#34;font-size: 12px;&#34;&gt; 测试 &lt;/div&gt; &lt;div style=&#34;font-size: 11px;transform: scale(0.5);&#34;&gt; 测试 &lt;/div&gt; 字体确实可以再次缩小到自己想到的程度，但是存在一些弊端，所有带有长度的属性均被缩小，比如图中的div的长度，本来默认是 100% ，但是显示只有原来的一半了。 虽然存在这么个问题，但是按照我自己的预估，平时我们浏览的网站基本没有低于12px大小的字体吧！反正我是没有遇到过，我估计面试题也是想考验我们对一些生僻知识的处理吧，不过也不算生僻，前有0.5px，后有12px，其实都大同小异。 在遇到这个问题的时候，确实可以通过 scale() 处理一下，然后在认真设置其他属性，尽量避免更多的弊端。</p>
-    </div>
-    <footer class="entry-footer">
-      <time datetime=" 2021-02-26 00:00:00 UTC"> February 26, 2021</time>
-    </footer>
-    <a class="entry-link" aria-label="post link to Installation | Update" href="/blog/52.html/"></a>
   </article>
 
   
