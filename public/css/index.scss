@@ -82,7 +82,7 @@ body {
   font-size: 18px;
   line-height: 1.8;
   word-break: break-word;
-  background: #F4F4F5;
+  background: var(--theme);
 }
 
 @media (min-width: 769px) {
@@ -353,7 +353,7 @@ body:not(.dark) #sun {
   white-space: nowrap;
 }
 
-#menu li+li {
+#menu li + li {
   margin-inline-start: var(--gap);
 }
 
@@ -391,9 +391,9 @@ body:not(.dark) #sun {
 .main {
   position: relative;
   min-height: calc(100vh - 200px);
-  max-width: 730px;
+  max-width: calc(var(--main-width) + var(--gap) * 2);
   margin: auto;
-  padding: 24px 0;
+  padding: var(--gap);
 }
 
 .page-header h1 {
@@ -496,20 +496,9 @@ pre:hover .copy-code {
   margin-bottom: var(--gap);
   padding: var(--gap);
   background: var(--entry);
-  border-radius: 6px;
+  border-radius: var(--radius);
   transition: transform 0.1s;
   border: 1px solid var(--border);
-  box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.1) 0px 2px 4px -2px;
-}
-
-.detail {
-  box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.1) 0px 2px 4px -2px;
-  position: relative;
-  padding: var(--gap);
-  background: var(--entry);
-  border-radius: 6px;
-  border: 1px solid var(--border);
-  margin-top: 50px;
 }
 
 .post-entry:active {
@@ -700,8 +689,8 @@ pre:hover .copy-code {
   padding-inline-start: 10px;
 }
 
-.post-content dd~dd,
-.post-content dt~dt {
+.post-content dd ~ dd,
+.post-content dt ~ dt {
   margin-top: 10px;
 }
 
@@ -737,7 +726,7 @@ pre:hover .copy-code {
   direction: ltr;
 }
 
-.post-content li>.highlight {
+.post-content li > .highlight {
   margin-inline-end: 0;
 }
 
@@ -816,14 +805,14 @@ pre:hover .copy-code {
   text-align: center;
 }
 
-.post-content figure>figcaption {
+.post-content figure > figcaption {
   color: var(--primary);
   font-size: 16px;
   font-weight: 700;
   margin: 8px 0 16px;
 }
 
-.post-content figure>figcaption>p {
+.post-content figure > figcaption > p {
   color: var(--secondary);
   font-size: 14px;
   font-weight: 400;
@@ -968,7 +957,7 @@ h6:hover .anchor {
   text-align: left;
 }
 
-h1>a>svg {
+h1 > a > svg {
   display: inline;
 }
 
@@ -1181,7 +1170,6 @@ img.in-text {
 }
 
 @media (prefers-reduced-motion) {
-
   .terms-tags a:active,
   .button:active,
   .post-entry:active,
@@ -1202,11 +1190,14 @@ img.in-text {
   background-color: #282a36;
 }
 
-.chroma .x {}
+.chroma .x {
+}
 
-.chroma .err {}
+.chroma .err {
+}
 
-.chroma .cl {}
+.chroma .cl {
+}
 
 .chroma .lntd {
   vertical-align: top;
@@ -1275,7 +1266,8 @@ img.in-text {
   color: #8be9fd;
 }
 
-.chroma .n {}
+.chroma .n {
+}
 
 .chroma .na {
   color: #50fa7b;
@@ -1286,36 +1278,45 @@ img.in-text {
   font-style: italic;
 }
 
-.chroma .bp {}
+.chroma .bp {
+}
 
 .chroma .nc {
   color: #50fa7b;
 }
 
-.chroma .no {}
+.chroma .no {
+}
 
-.chroma .nd {}
+.chroma .nd {
+}
 
-.chroma .ni {}
+.chroma .ni {
+}
 
-.chroma .ne {}
+.chroma .ne {
+}
 
 .chroma .nf {
   color: #50fa7b;
 }
 
-.chroma .fm {}
+.chroma .fm {
+}
 
 .chroma .nl {
   color: #8be9fd;
   font-style: italic;
 }
 
-.chroma .nn {}
+.chroma .nn {
+}
 
-.chroma .nx {}
+.chroma .nx {
+}
 
-.chroma .py {}
+.chroma .py {
+}
 
 .chroma .nt {
   color: #ff79c6;
@@ -1341,11 +1342,14 @@ img.in-text {
   font-style: italic;
 }
 
-.chroma .vm {}
+.chroma .vm {
+}
 
-.chroma .l {}
+.chroma .l {
+}
 
-.chroma .ld {}
+.chroma .ld {
+}
 
 .chroma .s {
   color: #f1fa8c;
@@ -1439,7 +1443,8 @@ img.in-text {
   color: #ff79c6;
 }
 
-.chroma .p {}
+.chroma .p {
+}
 
 .chroma .c {
   color: #6272a4;
@@ -1469,7 +1474,8 @@ img.in-text {
   color: #ff79c6;
 }
 
-.chroma .g {}
+.chroma .g {
+}
 
 .chroma .gd {
   color: #f55;
@@ -1479,7 +1485,8 @@ img.in-text {
   text-decoration: underline;
 }
 
-.chroma .gr {}
+.chroma .gr {
+}
 
 .chroma .gh {
   font-weight: 700;
@@ -1494,28 +1501,27 @@ img.in-text {
   color: #44475a;
 }
 
-.chroma .gp {}
+.chroma .gp {
+}
 
-.chroma .gs {}
+.chroma .gs {
+}
 
 .chroma .gu {
   font-weight: 700;
 }
 
-.chroma .gt {}
+.chroma .gt {
+}
 
 .chroma .gl {
   text-decoration: underline;
 }
 
-.chroma .w {}
+.chroma .w {
+}
 
 .titleh1 {
   font-size: 1.8rem;
   font-weight: 400;
-}
-
-.container {
-  margin-left: 10px;
-  margin-right: 10px;
 }
