@@ -1,179 +1,208 @@
 <!DOCTYPE html>
-<html lang="en-us">
-<head>
-<meta charset="utf-8" />
-<meta name="generator" content="Hugo 0.117.0">
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="toTop" content="true">
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="author" content="" />
-<meta property="og:url" content="/blog/29.html/" />
-<link rel="canonical" href="/blog/29.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon2.png" />
-<link rel="icon" href="https://imgurl.zishu.me/favicon2.png" />
-<link rel="shortcut" href="https://imgurl.zishu.me/favicon2.png" /><link rel="alternate" type="application/atom+xml" href="index.xml" title="子舒的博客">
-<script type="application/ld+json">
-{
-"@context" : "http://schema.org",
-"@type" : "BlogPosting",
-"mainEntityOfPage": {
-"@type": "WebPage",
-"@id": ""
-},
-"articleSection" : "blog",
-"name" : "vue学习笔记(3)－－computed, watch，calss, style",
-"headline" : "vue学习笔记(3)－－computed, watch，calss, style",
-"description" : "一、计算属性computed 1.例子 \u0026lt;div id=\u0026#34;app\u0026#34;\u0026gt; \u0026lt;div\u0026gt;{{message}}\u0026lt;\/div\u0026gt; \u0026lt;div\u0026gt;{{revermessage}}\u0026lt;\/div\u0026gt; \u0026lt;\/div\u0026gt; \u0026lt;script\u0026gt; var vm = new Vue({ el: \u0026#39;#app\u0026#39;, data: { message: \u0026#39;hello,wolrd\u0026#39; }, computed: { revermessage: function() { return this.message.split(\u0026#39;\u0026#39;).reverse().join(\u0026#39;\u0026#39;) } } }) \u0026lt;\/script\u0026gt; 声明一个计算属性severmessage，在computed中被指向对message进行一些方法操作后的返回值 此时vm.severmessage依赖于vm.message的变化，对message改变数据，会引起severmessage的更新 2.计算属性缓存和方法 还可以通过在表达式中调用方法来达到想要的效果 \u0026lt;div id=\u0026#34;app\u0026#34;\u0026gt; \u0026lt;div\u0026gt;{{message}}\u0026lt;\/div\u0026gt; \u0026lt;div\u0026gt;{{revermessage()}}\u0026lt;\/div\u0026gt; \u0026lt;\/div\u0026gt; \u0026lt;script\u0026gt; var vm = new Vue({ el: \u0026#39;#app\u0026#39;, data: { message: \u0026#39;hello,wolrd\u0026#39; }, methods: { revermessage: function() { return this.message.split(\u0026#39;\u0026#39;).reverse().join(\u0026#39;\u0026#39;) } } }) \u0026lt;\/script\u0026gt; 经过测试，两者的结果是一样的 我们可以将同一函数定义为一个方法而不是一个计算属性。两种方式的最终结果确实是完全相同的 区别是：计算属性是基于他们的响应式依赖进行缓存的，只有当响应式依赖，也就是message发生改变时才会重新求值，就意味着，只要message还没改变，多次访问revermessage计算属性只会返回之前计算结果的缓存，而不是直接执行计算属性的函数 而方法，在每次触发重新渲染时，调用方法都会执行一次函数，这就多了一份开销 我们为什么需要缓存？假设我们有一个性能开销比较大的计算属性 A，它需要遍历一个巨大的数组并做大量的计算。然后我们可能有其他的计算属性依赖于 A。如果没有缓存，我们将不可避免的多次执行 A 的 getter！如果你不希望有缓存，请用方法来替代 3.计算属性和侦听属性 vue还有一种方式来观测vue实例上的数据变动：侦听属性－－watch \u0026lt;div id=\u0026#34;app\u0026#34;\u0026gt; {{fullname}} \u0026lt;\/div\u0026gt; \u0026lt;script\u0026gt; var vm = new Vue({ el: \u0026#39;#app\u0026#39;, data: { firstname: \u0026#39;a\u0026#39;, lastname: \u0026#39;b\u0026#39;, fullname: \u0026#39;ab\u0026#39; }, watch: { firstname: function(val) { this.fullName = val \u002b \u0026#39; \u0026#39; \u002b this.lastName }, lastname: function(val) { this.fullName = this.firstName \u002b \u0026#39; \u0026#39; \u002b val } } }) \u0026lt;\/script\u0026gt; 使用过程是极其繁琐且重复的，再来用计算属性试一下 \u0026lt;div id=\u0026#34;app\u0026#34;\u0026gt; {{fullname}} \u0026lt;\/div\u0026gt; \u0026lt;script\u0026gt; var vm = new Vue({ el: \u0026#39;#app\u0026#39;, data: { firstname: \u0026#39;a\u0026#39;, lastname: \u0026#39;b\u0026#39; }, computed: { fullname: function() { return this.firstname \u002b this.lastname } } }) \u0026lt;\/script\u0026gt; 很简单快速的就得到了我们想要的函数表达式 4.计算属性的setter computed: { fullName: { \/\/ getter get: function () { return this.firstName \u002b \u0026#39; \u0026#39; \u002b this.lastName }, \/\/ setter set: function (newValue) { var names = newValue.split(\u0026#39; \u0026#39;) this.firstName = names[0] this.lastName = names[names.length - 1] } } } 现在在控制台输入vm.fullName = \u0027John Doe\u0027，页面会响应，并且setter会被调用，vm.firstname和vm.lastname也会相应地被更新 二、绑定class和style 1.对象语法 可以给v-bind:class传入一个对象，动态的切换class \u0026lt;div v-bind:class=\u0026#34;{active: ok}\u0026#34;\u0026gt;\u0026lt;\/div\u0026gt; 可以通过控制ok的布尔值来动态的控制class 还可以创建多个字段，并且不影响普通的className的存在 html: \u0026lt;div class=\u0026#34;static\u0026#34; v-bind:class=\u0026#34;{ active: isActive, \u0026#39;text-danger\u0026#39;: hasError }\u0026#34; \u0026gt;\u0026lt;\/div\u0026gt; data: data{ isActive: true, hasError: false } 结果为： \u0026lt;div class=\u0026#34;static active\u0026#34;\u0026gt;\u0026lt;\/div\u0026gt; 当isActive或者hasError变化时，class 列表将相应地更新。例如，如果hasError的值为true，class 列表将变为\u0026quot;static active text-danger\u0026quot;。 绑定的数据对象也不必直接写在内联模板里 \u0026lt;div id=\u0026#34;app\u0026#34;\u0026gt; \u0026lt;div v-bind:class=\u0026#34;classobject\u0026#34;\u0026gt;\u0026lt;\/div\u0026gt; \u0026lt;\/div\u0026gt; \u0026lt;script\u0026gt; var vm = new Vue({ el: \u0026#39;#app\u0026#39;, data: { classobject: { active: true, \u0026#39;text-danger\u0026#39;: true } }, }) \u0026lt;\/script\u0026gt; \u0026lt;!-- \u0026lt;div class=\u0026#34;active text-danger\u0026#34;\u0026gt;\u0026lt;\/div\u0026gt; --\u0026gt; 如果className有特殊符号，必须加上引号\u0027\u0027，或者\u0026quot;\u0026quot; 2.数组语法 我们可以把一个数组传给v-bind:class，以应用一个 class 列表 \u0026lt;div v-bind:class=\u0026#34;[activeClass, errorClass]\u0026#34;\u0026gt;\u0026lt;\/div\u0026gt; data: { activeClass: \u0026#39;active\u0026#39;, errorClass: \u0026#39;text-danger\u0026#39; } 渲染为： \u0026lt;div class=\u0026#34;active text-danger\u0026#34;\u0026gt;\u0026lt;\/div\u0026gt; 3.用在组件上 当在一个自定义组件上使用classproperty 时，这些 class 将被添加到该组件的根元素上面。这个元素上已经存在的 class 不会被覆盖。 Vue.component(\u0026#39;my-component\u0026#39;, { template: \u0026#39;\u0026lt;p class=\u0026#34;foo bar\u0026#34;\u0026gt;Hi\u0026lt;\/p\u0026gt;\u0026#39; }) 然后在使用的使用的时候添加了一些class： \u0026lt;my-component class=\u0026#34;baz boo\u0026#34;\u0026gt;\u0026lt;\/my-component\u0026gt; html将会被渲染成： \u0026lt;p class=\u0026#34;foo bar baz boo\u0026#34;\u0026gt;Hi\u0026lt;\/p\u0026gt; 对于带数据绑定的class也同样适用 \u0026lt;my-component v-bind:class=\u0026#34;{ active: isActive }\u0026#34;\u0026gt;\u0026lt;\/my-component\u0026gt; 当isActive为 truthy 时，HTML 将被渲染成为： \u0026lt;p class=\u0026#34;foo bar active\u0026#34;\u0026gt;Hi\u0026lt;\/p\u0026gt; 4.绑定内联样式style v-bind:style的对象语法十分直观——看着非常像 CSS，但其实是一个 JavaScript 对象。CSS property 名可以用驼峰式或带引号的短横线来命名 \u0026lt;div v-bind:style=\u0026#34;{ color: activeColor, fontSize: fontSize \u002b \u0026#39;px\u0026#39; }\u0026#34;\u0026gt;\u0026lt;\/div\u0026gt; js: data: { activeColor: \u0026#39;red\u0026#39;, fontSize: 30 } 或者直接绑定到一个对象，会让模板更加清晰 \u0026lt;div v-bind:style=\u0026#34;styleObject\u0026#34;\u0026gt;\u0026lt;\/div\u0026gt; js: data: { styleObject: { color: \u0026#39;red\u0026#39;, fontSize: \u0026#39;13px\u0026#39; } } 也可以将多个对象应用到一个元素上 \u0026lt;div v-bind:style=\u0026#34;[baseStyles, overridingStyles]\u0026#34;\u0026gt;\u0026lt;\/div\u0026gt; 自动添加前缀 当v-bind:style需要使用浏览器前缀的时候，如：-webkit-等，vue会自动侦测并帮生成相应的前缀",
-"inLanguage" : "en-US",
-"author" : "子舒",
-"creator" : "子舒",
-"publisher": "子舒",
-"accountablePerson" : "子舒",
-"copyrightHolder" : "子舒",
-"copyrightYear" : "2020",
-"datePublished": "2020-11-25 00:00:00 \u002b0000 UTC",
-"dateModified" : "2020-11-25 00:00:00 \u002b0000 UTC",
-"url" : "\/blog\/29.html\/",
-"keywords" : [ "vue","笔记", ]
-}
-</script><title>vue学习笔记(3)－－computed, watch，calss, style - 子舒</title>
-<meta property="og:title" content="vue学习笔记(3)－－computed, watch，calss, style" />
-<meta property="og:type" content="article" />
-<meta property="og:description" content="一、计算属性computed 1.例子 &amp;lt;div id=&amp;#34;app&amp;#34;&amp;gt; &amp;lt;div&amp;gt;{{message}}&amp;lt;/div&amp;gt; &amp;lt;div&amp;gt;{{revermessage}}&amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;script&amp;gt; var vm = new Vue({ el: &amp;#39;#app&amp;#39;, data: { message: &amp;#39;hello,wolrd&amp;#39; }, computed: { revermessage: function() { return this.message.split(&amp;#39;&amp;#39;).reverse().join(&amp;#39;&amp;#39;) } } }) &amp;lt;/script&amp;gt; 声明一个计算属性severmessage，在computed中被指向对message进行一些方法操作后的返回值 此时vm.severmessage依赖于vm.message的变化，对message改变数据，会引起severmessage的更新 2.计算属性缓存和方法 还可以通过在表达式中调用方法来达到想要的效果 &amp;lt;div id=&amp;#34;app&amp;#34;&amp;gt; &amp;lt;div&amp;gt;{{message}}&amp;lt;/div&amp;gt; &amp;lt;div&amp;gt;{{revermessage()}}&amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;script&amp;gt; var vm = new Vue({ el: &amp;#39;#app&amp;#39;, data: { message: &amp;#39;hello,wolrd&amp;#39; }, methods: { revermessage: function() { return this.message.split(&amp;#39;&amp;#39;).reverse().join(&amp;#39;&amp;#39;) } } }) &amp;lt;/script&amp;gt; 经过测试，两者的结果是一样的 我们可以将同一函数定义为一个方法而不是一个计算属性。两种方式的最终结果确实是完全相同的 区别是：计算属性是基于他们的响应式依赖进行缓存的，只有当响应式依赖，也就是message发生改变时才会重新求值，就意味着，只要message还没改变，多次访问revermessage计算属性只会返回之前计算结果的缓存，而不是直接执行计算属性的函数 而方法，在每次触发重新渲染时，调用方法都会执行一次函数，这就多了一份开销 我们为什么需要缓存？假设我们有一个性能开销比较大的计算属性 A，它需要遍历一个巨大的数组并做大量的计算。然后我们可能有其他的计算属性依赖于 A。如果没有缓存，我们将不可避免的多次执行 A 的 getter！如果你不希望有缓存，请用方法来替代 3.计算属性和侦听属性 vue还有一种方式来观测vue实例上的数据变动：侦听属性－－watch &amp;lt;div id=&amp;#34;app&amp;#34;&amp;gt; {{fullname}} &amp;lt;/div&amp;gt; &amp;lt;script&amp;gt; var vm = new Vue({ el: &amp;#39;#app&amp;#39;, data: { firstname: &amp;#39;a&amp;#39;, lastname: &amp;#39;b&amp;#39;, fullname: &amp;#39;ab&amp;#39; }, watch: { firstname: function(val) { this.fullName = val &#43; &amp;#39; &amp;#39; &#43; this.lastName }, lastname: function(val) { this.fullName = this.firstName &#43; &amp;#39; &amp;#39; &#43; val } } }) &amp;lt;/script&amp;gt; 使用过程是极其繁琐且重复的，再来用计算属性试一下 &amp;lt;div id=&amp;#34;app&amp;#34;&amp;gt; {{fullname}} &amp;lt;/div&amp;gt; &amp;lt;script&amp;gt; var vm = new Vue({ el: &amp;#39;#app&amp;#39;, data: { firstname: &amp;#39;a&amp;#39;, lastname: &amp;#39;b&amp;#39; }, computed: { fullname: function() { return this.firstname &#43; this.lastname } } }) &amp;lt;/script&amp;gt; 很简单快速的就得到了我们想要的函数表达式 4.计算属性的setter computed: { fullName: { // getter get: function () { return this.firstName &#43; &amp;#39; &amp;#39; &#43; this.lastName }, // setter set: function (newValue) { var names = newValue.split(&amp;#39; &amp;#39;) this.firstName = names[0] this.lastName = names[names.length - 1] } } } 现在在控制台输入vm.fullName = &#39;John Doe&#39;，页面会响应，并且setter会被调用，vm.firstname和vm.lastname也会相应地被更新 二、绑定class和style 1.对象语法 可以给v-bind:class传入一个对象，动态的切换class &amp;lt;div v-bind:class=&amp;#34;{active: ok}&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; 可以通过控制ok的布尔值来动态的控制class 还可以创建多个字段，并且不影响普通的className的存在 html: &amp;lt;div class=&amp;#34;static&amp;#34; v-bind:class=&amp;#34;{ active: isActive, &amp;#39;text-danger&amp;#39;: hasError }&amp;#34; &amp;gt;&amp;lt;/div&amp;gt; data: data{ isActive: true, hasError: false } 结果为： &amp;lt;div class=&amp;#34;static active&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; 当isActive或者hasError变化时，class 列表将相应地更新。例如，如果hasError的值为true，class 列表将变为&amp;quot;static active text-danger&amp;quot;。 绑定的数据对象也不必直接写在内联模板里 &amp;lt;div id=&amp;#34;app&amp;#34;&amp;gt; &amp;lt;div v-bind:class=&amp;#34;classobject&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;script&amp;gt; var vm = new Vue({ el: &amp;#39;#app&amp;#39;, data: { classobject: { active: true, &amp;#39;text-danger&amp;#39;: true } }, }) &amp;lt;/script&amp;gt; &amp;lt;!-- &amp;lt;div class=&amp;#34;active text-danger&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; --&amp;gt; 如果className有特殊符号，必须加上引号&#39;&#39;，或者&amp;quot;&amp;quot; 2.数组语法 我们可以把一个数组传给v-bind:class，以应用一个 class 列表 &amp;lt;div v-bind:class=&amp;#34;[activeClass, errorClass]&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; data: { activeClass: &amp;#39;active&amp;#39;, errorClass: &amp;#39;text-danger&amp;#39; } 渲染为： &amp;lt;div class=&amp;#34;active text-danger&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; 3.用在组件上 当在一个自定义组件上使用classproperty 时，这些 class 将被添加到该组件的根元素上面。这个元素上已经存在的 class 不会被覆盖。 Vue.component(&amp;#39;my-component&amp;#39;, { template: &amp;#39;&amp;lt;p class=&amp;#34;foo bar&amp;#34;&amp;gt;Hi&amp;lt;/p&amp;gt;&amp;#39; }) 然后在使用的使用的时候添加了一些class： &amp;lt;my-component class=&amp;#34;baz boo&amp;#34;&amp;gt;&amp;lt;/my-component&amp;gt; html将会被渲染成： &amp;lt;p class=&amp;#34;foo bar baz boo&amp;#34;&amp;gt;Hi&amp;lt;/p&amp;gt; 对于带数据绑定的class也同样适用 &amp;lt;my-component v-bind:class=&amp;#34;{ active: isActive }&amp;#34;&amp;gt;&amp;lt;/my-component&amp;gt; 当isActive为 truthy 时，HTML 将被渲染成为： &amp;lt;p class=&amp;#34;foo bar active&amp;#34;&amp;gt;Hi&amp;lt;/p&amp;gt; 4.绑定内联样式style v-bind:style的对象语法十分直观——看着非常像 CSS，但其实是一个 JavaScript 对象。CSS property 名可以用驼峰式或带引号的短横线来命名 &amp;lt;div v-bind:style=&amp;#34;{ color: activeColor, fontSize: fontSize &#43; &amp;#39;px&amp;#39; }&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; js: data: { activeColor: &amp;#39;red&amp;#39;, fontSize: 30 } 或者直接绑定到一个对象，会让模板更加清晰 &amp;lt;div v-bind:style=&amp;#34;styleObject&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; js: data: { styleObject: { color: &amp;#39;red&amp;#39;, fontSize: &amp;#39;13px&amp;#39; } } 也可以将多个对象应用到一个元素上 &amp;lt;div v-bind:style=&amp;#34;[baseStyles, overridingStyles]&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; 自动添加前缀 当v-bind:style需要使用浏览器前缀的时候，如：-webkit-等，vue会自动侦测并帮生成相应的前缀" />
-<meta name="description" content="一、计算属性computed 1.例子 &amp;lt;div id=&amp;#34;app&amp;#34;&amp;gt; &amp;lt;div&amp;gt;{{message}}&amp;lt;/div&amp;gt; &amp;lt;div&amp;gt;{{revermessage}}&amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;script&amp;gt; var vm = new Vue({ el: &amp;#39;#app&amp;#39;, data: { message: &amp;#39;hello,wolrd&amp;#39; }, computed: { revermessage: function() { return this.message.split(&amp;#39;&amp;#39;).reverse().join(&amp;#39;&amp;#39;) } } }) &amp;lt;/script&amp;gt; 声明一个计算属性severmessage，在computed中被指向对message进行一些方法操作后的返回值 此时vm.severmessage依赖于vm.message的变化，对message改变数据，会引起severmessage的更新 2.计算属性缓存和方法 还可以通过在表达式中调用方法来达到想要的效果 &amp;lt;div id=&amp;#34;app&amp;#34;&amp;gt; &amp;lt;div&amp;gt;{{message}}&amp;lt;/div&amp;gt; &amp;lt;div&amp;gt;{{revermessage()}}&amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;script&amp;gt; var vm = new Vue({ el: &amp;#39;#app&amp;#39;, data: { message: &amp;#39;hello,wolrd&amp;#39; }, methods: { revermessage: function() { return this.message.split(&amp;#39;&amp;#39;).reverse().join(&amp;#39;&amp;#39;) } } }) &amp;lt;/script&amp;gt; 经过测试，两者的结果是一样的 我们可以将同一函数定义为一个方法而不是一个计算属性。两种方式的最终结果确实是完全相同的 区别是：计算属性是基于他们的响应式依赖进行缓存的，只有当响应式依赖，也就是message发生改变时才会重新求值，就意味着，只要message还没改变，多次访问revermessage计算属性只会返回之前计算结果的缓存，而不是直接执行计算属性的函数 而方法，在每次触发重新渲染时，调用方法都会执行一次函数，这就多了一份开销 我们为什么需要缓存？假设我们有一个性能开销比较大的计算属性 A，它需要遍历一个巨大的数组并做大量的计算。然后我们可能有其他的计算属性依赖于 A。如果没有缓存，我们将不可避免的多次执行 A 的 getter！如果你不希望有缓存，请用方法来替代 3.计算属性和侦听属性 vue还有一种方式来观测vue实例上的数据变动：侦听属性－－watch &amp;lt;div id=&amp;#34;app&amp;#34;&amp;gt; {{fullname}} &amp;lt;/div&amp;gt; &amp;lt;script&amp;gt; var vm = new Vue({ el: &amp;#39;#app&amp;#39;, data: { firstname: &amp;#39;a&amp;#39;, lastname: &amp;#39;b&amp;#39;, fullname: &amp;#39;ab&amp;#39; }, watch: { firstname: function(val) { this.fullName = val &#43; &amp;#39; &amp;#39; &#43; this.lastName }, lastname: function(val) { this.fullName = this.firstName &#43; &amp;#39; &amp;#39; &#43; val } } }) &amp;lt;/script&amp;gt; 使用过程是极其繁琐且重复的，再来用计算属性试一下 &amp;lt;div id=&amp;#34;app&amp;#34;&amp;gt; {{fullname}} &amp;lt;/div&amp;gt; &amp;lt;script&amp;gt; var vm = new Vue({ el: &amp;#39;#app&amp;#39;, data: { firstname: &amp;#39;a&amp;#39;, lastname: &amp;#39;b&amp;#39; }, computed: { fullname: function() { return this.firstname &#43; this.lastname } } }) &amp;lt;/script&amp;gt; 很简单快速的就得到了我们想要的函数表达式 4.计算属性的setter computed: { fullName: { // getter get: function () { return this.firstName &#43; &amp;#39; &amp;#39; &#43; this.lastName }, // setter set: function (newValue) { var names = newValue.split(&amp;#39; &amp;#39;) this.firstName = names[0] this.lastName = names[names.length - 1] } } } 现在在控制台输入vm.fullName = &#39;John Doe&#39;，页面会响应，并且setter会被调用，vm.firstname和vm.lastname也会相应地被更新 二、绑定class和style 1.对象语法 可以给v-bind:class传入一个对象，动态的切换class &amp;lt;div v-bind:class=&amp;#34;{active: ok}&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; 可以通过控制ok的布尔值来动态的控制class 还可以创建多个字段，并且不影响普通的className的存在 html: &amp;lt;div class=&amp;#34;static&amp;#34; v-bind:class=&amp;#34;{ active: isActive, &amp;#39;text-danger&amp;#39;: hasError }&amp;#34; &amp;gt;&amp;lt;/div&amp;gt; data: data{ isActive: true, hasError: false } 结果为： &amp;lt;div class=&amp;#34;static active&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; 当isActive或者hasError变化时，class 列表将相应地更新。例如，如果hasError的值为true，class 列表将变为&amp;quot;static active text-danger&amp;quot;。 绑定的数据对象也不必直接写在内联模板里 &amp;lt;div id=&amp;#34;app&amp;#34;&amp;gt; &amp;lt;div v-bind:class=&amp;#34;classobject&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;script&amp;gt; var vm = new Vue({ el: &amp;#39;#app&amp;#39;, data: { classobject: { active: true, &amp;#39;text-danger&amp;#39;: true } }, }) &amp;lt;/script&amp;gt; &amp;lt;!-- &amp;lt;div class=&amp;#34;active text-danger&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; --&amp;gt; 如果className有特殊符号，必须加上引号&#39;&#39;，或者&amp;quot;&amp;quot; 2.数组语法 我们可以把一个数组传给v-bind:class，以应用一个 class 列表 &amp;lt;div v-bind:class=&amp;#34;[activeClass, errorClass]&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; data: { activeClass: &amp;#39;active&amp;#39;, errorClass: &amp;#39;text-danger&amp;#39; } 渲染为： &amp;lt;div class=&amp;#34;active text-danger&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; 3.用在组件上 当在一个自定义组件上使用classproperty 时，这些 class 将被添加到该组件的根元素上面。这个元素上已经存在的 class 不会被覆盖。 Vue.component(&amp;#39;my-component&amp;#39;, { template: &amp;#39;&amp;lt;p class=&amp;#34;foo bar&amp;#34;&amp;gt;Hi&amp;lt;/p&amp;gt;&amp;#39; }) 然后在使用的使用的时候添加了一些class： &amp;lt;my-component class=&amp;#34;baz boo&amp;#34;&amp;gt;&amp;lt;/my-component&amp;gt; html将会被渲染成： &amp;lt;p class=&amp;#34;foo bar baz boo&amp;#34;&amp;gt;Hi&amp;lt;/p&amp;gt; 对于带数据绑定的class也同样适用 &amp;lt;my-component v-bind:class=&amp;#34;{ active: isActive }&amp;#34;&amp;gt;&amp;lt;/my-component&amp;gt; 当isActive为 truthy 时，HTML 将被渲染成为： &amp;lt;p class=&amp;#34;foo bar active&amp;#34;&amp;gt;Hi&amp;lt;/p&amp;gt; 4.绑定内联样式style v-bind:style的对象语法十分直观——看着非常像 CSS，但其实是一个 JavaScript 对象。CSS property 名可以用驼峰式或带引号的短横线来命名 &amp;lt;div v-bind:style=&amp;#34;{ color: activeColor, fontSize: fontSize &#43; &amp;#39;px&amp;#39; }&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; js: data: { activeColor: &amp;#39;red&amp;#39;, fontSize: 30 } 或者直接绑定到一个对象，会让模板更加清晰 &amp;lt;div v-bind:style=&amp;#34;styleObject&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; js: data: { styleObject: { color: &amp;#39;red&amp;#39;, fontSize: &amp;#39;13px&amp;#39; } } 也可以将多个对象应用到一个元素上 &amp;lt;div v-bind:style=&amp;#34;[baseStyles, overridingStyles]&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; 自动添加前缀 当v-bind:style需要使用浏览器前缀的时候，如：-webkit-等，vue会自动侦测并帮生成相应的前缀" />
-<meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon2.png" />
+<html lang="en-us"><head><meta charset="utf-8">
+<meta http-equiv="content-type" content="text/html">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title itemprop="name">vue学习笔记(3)－－computed, watch，calss, style | 子舒的博客</title>
+<meta property="og:title" content="vue学习笔记(3)－－computed, watch，calss, style | 子舒的博客" />
+<meta name="twitter:title" content="vue学习笔记(3)－－computed, watch，calss, style | 子舒的博客" />
+<meta itemprop="name" content="vue学习笔记(3)－－computed, watch，calss, style | 子舒的博客" />
+<meta name="application-name" content="vue学习笔记(3)－－computed, watch，calss, style | 子舒的博客" />
+<meta property="og:site_name" content="子舒的博客" />
+
+<meta name="description" content="我是子舒。前端程序员，独立博客作者，骑行爱好者，摄影爱好者，INFJ人格。现在生活工作在杭州。这是我在闲暇时间写的博客，记录生活。">
+<meta itemprop="description" content="我是子舒。前端程序员，独立博客作者，骑行爱好者，摄影爱好者，INFJ人格。现在生活工作在杭州。这是我在闲暇时间写的博客，记录生活。" />
+<meta property="og:description" content="我是子舒。前端程序员，独立博客作者，骑行爱好者，摄影爱好者，INFJ人格。现在生活工作在杭州。这是我在闲暇时间写的博客，记录生活。" />
+<meta name="twitter:description" content="我是子舒。前端程序员，独立博客作者，骑行爱好者，摄影爱好者，INFJ人格。现在生活工作在杭州。这是我在闲暇时间写的博客，记录生活。" />
+
+<meta property="og:locale" content="en-us" />
+<meta name="language" content="en-us" />
 
 
-<link rel="stylesheet" href="/css/base.css">
-<link rel="stylesheet" href="/css/index.css">
 
-<link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
-<script src="/js/jquery3.6.0.min.js"></script>
-<script async src="https://umami.zburu.com/script.js" data-website-id="9e5fc8da-b70b-4767-81cd-35ba13110fd5"></script>
-</head>
+  <meta itemprop="image" content="" />
+  <meta property="og:image" content="" />
+  <meta name="twitter:image" content="" />
+  <meta name="twitter:image:src" content="" />
 
-<body>
 
-  <main class="container">
-    <header class="header">
-      <nav class="nav">
-        <div class="logo">
-          <a href="/">zishu.me</a>
-          <div class="logo-switches">
-            <button id="theme-toggle" accesskey="t" title="(Alt + T)">
-              <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-              </svg>
-              <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="5"></circle>
-                <line x1="12" y1="1" x2="12" y2="3"></line>
-                <line x1="12" y1="21" x2="12" y2="23"></line>
-                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                <line x1="1" y1="12" x2="3" y2="12"></line>
-                <line x1="21" y1="12" x2="23" y2="12"></line>
-                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-              </svg>
-            </button>
-          </div>
-        </div>
-        <ul id="menu">
-          
-          <li>
-            <a href="/" title="首页"><span>首页</span></a>
-          </li>
-          
-          <li>
-            <a href="/blog/" title="归档"><span>归档</span></a>
-          </li>
-          
-          <li>
-            <a href="/message/" title="留言板"><span>留言板</span></a>
-          </li>
-          
-          <li>
-            <a href="/lab/" title="实验室"><span>实验室</span></a>
-          </li>
-          
-          <li>
-            <a href="/about/" title="关于"><span>关于</span></a>
-          </li>
-          
-          <li>
-            <a href="/search/" title="Search"><span>Search</span></a>
-          </li>
-          
-          <li>
-            <a href="/index.xml" title="RSS"><span>RSS</span></a>
-          </li>
-          
-        </ul>
-      </nav>
-    </header>
 
-    <div class="content">
 
-<div class="main detail">
-  <h1 class="titleh1">vue学习笔记(3)－－computed, watch，calss, style</h1>
 
-  
-  
-  <div class="post-meta">
-    发布于 <time datetime=" 2020-11-25 00:00:00 UTC"> 2020-11-25</time>
-  </div>
-  
-  
-  
-  <br>
-  <script type="module" src="https://cdn.jsdelivr.net/gh/emaction/frontend.dist@1.0.9/bundle.js"></script>
-  <emoji-reaction></emoji-reaction>
+<meta name="generator" content="Hugo 0.118.2">
 
-  <article class="post-content markdown-body">
     
-    <h2 id="一计算属性computed">一、计算属性computed</h2>
+
+    <link rel="canonical" href="/blog/29.html/">
+    <link href="/style.min.45167c7de0b00806157891d7795d5562bfa40ff5935205330acf9a4deab39e3e.css" rel="stylesheet">
+    <link href="/code-highlight.min.706d31975fec544a864cb7f0d847a73ea55ca1df91bf495fd12a177138d807cf.css" rel="stylesheet">
+
+    
+    <link rel="shortcut icon" href="https://imgurl.zishu.me/favicon2.png" type="image/x-icon">
+
+
+
+
+<link rel="manifest" href="/site.webmanifest">
+
+<meta name="msapplication-config" content="/browserconfig.xml">
+<meta name="msapplication-TileColor" content="#2d89ef">
+<meta name="theme-color" content="#434648">
+
+    
+    </head>
+<body data-theme = "auto" class="notransition">
+
+<script src="/js/theme.min.8961c317c5b88b953fe27525839672c9343f1058ab044696ca225656c8ba2ab0.js" integrity="sha256-iWHDF8W4i5U/4nUlg5ZyyTQ/EFirBEaWyiJWVsi6KrA="></script>
+
+<div class="navbar" role="navigation">
+    <nav class="menu" aria-label="Main Navigation">
+        <a href="/" class="logo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" 
+viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" 
+stroke-linejoin="round" class="feather feather-home">
+<title>Home</title>
+<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+<polyline points="9 22 9 12 15 12 15 22"></polyline>
+</svg>
+        </a>
+        <input type="checkbox" id="menu-trigger" class="menu-trigger" />
+        <label for="menu-trigger">
+            <span class="menu-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" stroke="currentColor" fill="none" viewBox="0 0 14 14"><title>Menu</title><path stroke-linecap="round" stroke-linejoin="round" d="M10.595 7L3.40726 7"></path><path stroke-linecap="round" stroke-linejoin="round" d="M10.5096 3.51488L3.49301 3.51488"></path><path stroke-linecap="round" stroke-linejoin="round" d="M10.5096 10.4851H3.49301"></path><path stroke-linecap="round" stroke-linejoin="round" d="M0.5 12.5V1.5C0.5 0.947715 0.947715 0.5 1.5 0.5H12.5C13.0523 0.5 13.5 0.947715 13.5 1.5V12.5C13.5 13.0523 13.0523 13.5 12.5 13.5H1.5C0.947715 13.5 0.5 13.0523 0.5 12.5Z"></path></svg>
+            </span>
+        </label>
+
+        <div class="trigger">
+            <ul class="trigger-container">
+                
+                
+                <li>
+                    <a class="menu-link " href="/">
+                        Home
+                    </a>
+                    
+                </li>
+                
+                <li>
+                    <a class="menu-link " href="/blog/">
+                        Posts
+                    </a>
+                    
+                </li>
+                
+                <li>
+                    <a class="menu-link " href="/message/">
+                        Message
+                    </a>
+                    
+                </li>
+                
+                <li>
+                    <a class="menu-link " href="/about/">
+                        About
+                    </a>
+                    
+                </li>
+                
+                <li>
+                    <a class="menu-link " href="/lab/">
+                        Lab
+                    </a>
+                    
+                </li>
+                
+                <li class="menu-separator">
+                    <span>|</span>
+                </li>
+            </ul>
+            <a id="mode" href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mode-sunny" width="21" height="21" viewBox="0 0 14 14" stroke-width="1">
+<title>LIGHT</title><g><circle cx="7" cy="7" r="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></circle><line x1="7" y1="0.5" x2="7" y2="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="2.4" x2="3.82" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="0.5" y1="7" x2="2.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="11.6" x2="3.82" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="7" y1="13.5" x2="7" y2="11.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="11.6" x2="10.18" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="13.5" y1="7" x2="11.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="2.4" x2="10.18" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line></g></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="mode-moon" width="21" height="21" viewBox="0 0 14 14" stroke-width="1">
+<title>DARK</title><g><circle cx="7" cy="7" r="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></circle><line x1="7" y1="0.5" x2="7" y2="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="2.4" x2="3.82" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="0.5" y1="7" x2="2.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="11.6" x2="3.82" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="7" y1="13.5" x2="7" y2="11.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="11.6" x2="10.18" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="13.5" y1="7" x2="11.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="2.4" x2="10.18" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line></g></svg>
+            </a>
+        </div>
+    </nav>
+</div>
+
+<div class="wrapper post">
+    <main class="page-content" aria-label="Content">
+        <article>
+            <header class="header">
+                <h1 class="header-title">vue学习笔记(3)－－computed, watch，calss, style</h1>
+                
+                
+                <div class="post-meta">
+                    <time datetime="2020-11-25T00:00:00&#43;00:00" itemprop="datePublished"> 25 Nov 2020 </time>
+                </div>
+                
+            </header>
+            <details class="toc">
+                <summary><b>Table of Contents</b></summary>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一计算属性computed">一、计算属性computed</a>
+      <ul>
+        <li><a href="#1例子">1.例子</a></li>
+        <li><a href="#2计算属性缓存和方法">2.计算属性缓存和方法</a></li>
+        <li><a href="#3计算属性和侦听属性">3.计算属性和侦听属性</a></li>
+        <li><a href="#4计算属性的setter">4.计算属性的setter</a></li>
+      </ul>
+    </li>
+    <li><a href="#二绑定class和style">二、绑定class和style</a>
+      <ul>
+        <li><a href="#1对象语法">1.对象语法</a></li>
+        <li><a href="#2数组语法">2.数组语法</a></li>
+        <li><a href="#3用在组件上">3.用在组件上</a></li>
+        <li><a href="#4绑定内联样式style">4.绑定内联样式style</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+            </details><div class="page-content">
+                <h2 id="一计算属性computed">一、计算属性computed</h2>
 <h3 id="1例子">1.例子</h3>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;app&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>  &lt;<span style="color:#000080">div</span>&gt;{{message}}&lt;/<span style="color:#000080">div</span>&gt;
-</span></span><span style="display:flex;"><span>  &lt;<span style="color:#000080">div</span>&gt;{{revermessage}}&lt;/<span style="color:#000080">div</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">div</span>&gt;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span>&gt;
-</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">var</span> vm <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> Vue({
-</span></span><span style="display:flex;"><span>    el<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;#app&#39;</span>,
-</span></span><span style="display:flex;"><span>    data<span style="color:#000;font-weight:bold">:</span> {
-</span></span><span style="display:flex;"><span>      message<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;hello,wolrd&#39;</span>
-</span></span><span style="display:flex;"><span>    },
-</span></span><span style="display:flex;"><span>    computed<span style="color:#000;font-weight:bold">:</span> {
-</span></span><span style="display:flex;"><span>      revermessage<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">function</span>() {
-</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">this</span>.message.split(<span style="color:#d14">&#39;&#39;</span>).reverse().join(<span style="color:#d14">&#39;&#39;</span>)
-</span></span><span style="display:flex;"><span>      }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>  })
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">script</span>&gt;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;app&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>{{message}}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>{{revermessage}}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="nx">vm</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">el</span><span class="o">:</span> <span class="s1">&#39;#app&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;hello,wolrd&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">computed</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">revermessage</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">message</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">).</span><span class="nx">reverse</span><span class="p">().</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </span></span></code></pre></div><p>声明一个计算属性<code>severmessage</code>，在<code>computed</code>中被指向对<code>message</code>进行一些方法操作后的返回值</p>
 <p>此时<code>vm.severmessage</code>依赖于<code>vm.message</code>的变化，对<code>message</code>改变数据，会引起<code>severmessage</code>的更新</p>
 <h3 id="2计算属性缓存和方法">2.计算属性缓存和方法</h3>
 <p>还可以通过在表达式中调用方法来达到想要的效果</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;app&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>  &lt;<span style="color:#000080">div</span>&gt;{{message}}&lt;/<span style="color:#000080">div</span>&gt;
-</span></span><span style="display:flex;"><span>  &lt;<span style="color:#000080">div</span>&gt;{{revermessage()}}&lt;/<span style="color:#000080">div</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">div</span>&gt;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span>&gt;
-</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">var</span> vm <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> Vue({
-</span></span><span style="display:flex;"><span>    el<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;#app&#39;</span>,
-</span></span><span style="display:flex;"><span>    data<span style="color:#000;font-weight:bold">:</span> {
-</span></span><span style="display:flex;"><span>      message<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;hello,wolrd&#39;</span>
-</span></span><span style="display:flex;"><span>    },
-</span></span><span style="display:flex;"><span>    methods<span style="color:#000;font-weight:bold">:</span> {
-</span></span><span style="display:flex;"><span>      revermessage<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">function</span>() {
-</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">this</span>.message.split(<span style="color:#d14">&#39;&#39;</span>).reverse().join(<span style="color:#d14">&#39;&#39;</span>)
-</span></span><span style="display:flex;"><span>      }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>  })
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">script</span>&gt;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;app&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>{{message}}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>{{revermessage()}}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="nx">vm</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">el</span><span class="o">:</span> <span class="s1">&#39;#app&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;hello,wolrd&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">methods</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">revermessage</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">message</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">).</span><span class="nx">reverse</span><span class="p">().</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </span></span></code></pre></div><p>经过测试，两者的结果是一样的</p>
 <p>我们可以将同一函数定义为一个方法而不是一个计算属性。两种方式的最终结果确实是完全相同的</p>
 <p>区别是：<strong>计算属性是基于他们的响应式依赖进行缓存的，只有当响应式依赖，也就是<code>message</code>发生改变时才会重新求值</strong>，就意味着，只要<code>message</code>还没改变，多次访问<code>revermessage</code>计算属性只会返回之前计算结果的缓存，而不是直接执行计算属性的函数</p>
@@ -181,220 +210,254 @@
 <p>我们为什么需要缓存？假设我们有一个性能开销比较大的计算属性 A，它需要遍历一个巨大的数组并做大量的计算。然后我们可能有其他的计算属性依赖于 A。如果没有缓存，我们将不可避免的多次执行 A 的 getter！如果你不希望有缓存，请用方法来替代</p>
 <h3 id="3计算属性和侦听属性">3.计算属性和侦听属性</h3>
 <p>vue还有一种方式来观测vue实例上的数据变动：<strong>侦听属性－－watch</strong></p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;app&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>  {{fullname}}
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">div</span>&gt;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span>&gt;
-</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">var</span> vm <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> Vue({
-</span></span><span style="display:flex;"><span>    el<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;#app&#39;</span>,
-</span></span><span style="display:flex;"><span>    data<span style="color:#000;font-weight:bold">:</span> {
-</span></span><span style="display:flex;"><span>      firstname<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;a&#39;</span>,
-</span></span><span style="display:flex;"><span>      lastname<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;b&#39;</span>,
-</span></span><span style="display:flex;"><span>      fullname<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;ab&#39;</span>
-</span></span><span style="display:flex;"><span>    },
-</span></span><span style="display:flex;"><span>    watch<span style="color:#000;font-weight:bold">:</span> {
-</span></span><span style="display:flex;"><span>      firstname<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">function</span>(val) {
-</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">this</span>.fullName <span style="color:#000;font-weight:bold">=</span> val <span style="color:#000;font-weight:bold">+</span> <span style="color:#d14">&#39; &#39;</span> <span style="color:#000;font-weight:bold">+</span> <span style="color:#000;font-weight:bold">this</span>.lastName
-</span></span><span style="display:flex;"><span>      },
-</span></span><span style="display:flex;"><span>      lastname<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">function</span>(val) {
-</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">this</span>.fullName <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">this</span>.firstName <span style="color:#000;font-weight:bold">+</span> <span style="color:#d14">&#39; &#39;</span> <span style="color:#000;font-weight:bold">+</span> val
-</span></span><span style="display:flex;"><span>      }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>  })
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">script</span>&gt;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;app&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  {{fullname}}
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="nx">vm</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">el</span><span class="o">:</span> <span class="s1">&#39;#app&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">firstname</span><span class="o">:</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">lastname</span><span class="o">:</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">fullname</span><span class="o">:</span> <span class="s1">&#39;ab&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">watch</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">firstname</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">val</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">fullName</span> <span class="o">=</span> <span class="nx">val</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">lastName</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">lastname</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">val</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">fullName</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">firstName</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="nx">val</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </span></span></code></pre></div><p>使用过程是极其繁琐且重复的，再来用计算属性试一下</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;app&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>  {{fullname}}
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">div</span>&gt;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span>&gt;
-</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">var</span> vm <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> Vue({
-</span></span><span style="display:flex;"><span>    el<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;#app&#39;</span>,
-</span></span><span style="display:flex;"><span>    data<span style="color:#000;font-weight:bold">:</span> {
-</span></span><span style="display:flex;"><span>      firstname<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;a&#39;</span>,
-</span></span><span style="display:flex;"><span>      lastname<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;b&#39;</span>
-</span></span><span style="display:flex;"><span>    },
-</span></span><span style="display:flex;"><span>    computed<span style="color:#000;font-weight:bold">:</span> {
-</span></span><span style="display:flex;"><span>      fullname<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">function</span>() {
-</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">this</span>.firstname <span style="color:#000;font-weight:bold">+</span> <span style="color:#000;font-weight:bold">this</span>.lastname
-</span></span><span style="display:flex;"><span>      }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>  })
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">script</span>&gt;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;app&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  {{fullname}}
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="nx">vm</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">el</span><span class="o">:</span> <span class="s1">&#39;#app&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">firstname</span><span class="o">:</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">lastname</span><span class="o">:</span> <span class="s1">&#39;b&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">computed</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">fullname</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">firstname</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">lastname</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </span></span></code></pre></div><p>很简单快速的就得到了我们想要的函数表达式</p>
 <h3 id="4计算属性的setter">4.计算属性的setter</h3>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>computed<span style="color:#000;font-weight:bold">:</span> {
-</span></span><span style="display:flex;"><span>  fullName<span style="color:#000;font-weight:bold">:</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// getter
-</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    get<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">function</span> () {
-</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">this</span>.firstName <span style="color:#000;font-weight:bold">+</span> <span style="color:#d14">&#39; &#39;</span> <span style="color:#000;font-weight:bold">+</span> <span style="color:#000;font-weight:bold">this</span>.lastName
-</span></span><span style="display:flex;"><span>    },
-</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// setter
-</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    set<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">function</span> (newValue) {
-</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">var</span> names <span style="color:#000;font-weight:bold">=</span> newValue.split(<span style="color:#d14">&#39; &#39;</span>)
-</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">this</span>.firstName <span style="color:#000;font-weight:bold">=</span> names[<span style="color:#099">0</span>]
-</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">this</span>.lastName <span style="color:#000;font-weight:bold">=</span> names[names.length <span style="color:#000;font-weight:bold">-</span> <span style="color:#099">1</span>]
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">computed</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">fullName</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// getter
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">get</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">firstName</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">lastName</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// setter
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">set</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">newValue</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kd">var</span> <span class="nx">names</span> <span class="o">=</span> <span class="nx">newValue</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="k">this</span><span class="p">.</span><span class="nx">firstName</span> <span class="o">=</span> <span class="nx">names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">      <span class="k">this</span><span class="p">.</span><span class="nx">lastName</span> <span class="o">=</span> <span class="nx">names</span><span class="p">[</span><span class="nx">names</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>现在在控制台输入<code>vm.fullName = 'John Doe'</code>，页面会响应，并且<code>setter</code>会被调用，<code>vm.firstname</code>和<code>vm.lastname</code>也会相应地被更新</p>
 <h2 id="二绑定class和style">二、绑定class和style</h2>
 <h3 id="1对象语法">1.对象语法</h3>
 <p>可以给<code>v-bind:class</code>传入一个对象，动态的切换<code>class</code></p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">v-bind:class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;{active: ok}&#34;</span>&gt;&lt;/<span style="color:#000080">div</span>&gt;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">v-bind:class</span><span class="o">=</span><span class="s">&#34;{active: ok}&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 </span></span></code></pre></div><p>可以通过控制<code>ok</code>的布尔值来动态的控制class</p>
 <p>还可以创建多个字段，并且不影响普通的<code>className</code>的存在</p>
 <p>html:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;static&#34;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#008080">v-bind:class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;{ active: isActive, &#39;text-danger&#39;: hasError }&#34;</span>
-</span></span><span style="display:flex;"><span>&gt;&lt;/<span style="color:#000080">div</span>&gt;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span>
+</span></span><span class="line"><span class="cl">  <span class="na">class</span><span class="o">=</span><span class="s">&#34;static&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">v-bind:class</span><span class="o">=</span><span class="s">&#34;{ active: isActive, &#39;text-danger&#39;: hasError }&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 </span></span></code></pre></div><p>data:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>data{
-</span></span><span style="display:flex;"><span>  isActive<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">true</span>,
-</span></span><span style="display:flex;"><span>  hasError<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">false</span>
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">data</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">isActive</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">hasError</span><span class="o">:</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>结果为：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;static active&#34;</span>&gt;&lt;/<span style="color:#000080">div</span>&gt;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;static active&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 </span></span></code></pre></div><p>当<code>isActive</code>或者<code>hasError</code>变化时，class 列表将相应地更新。例如，如果<code>hasError</code>的值为<code>true</code>，class 列表将变为<code>&quot;static active text-danger&quot;</code>。</p>
 <p>绑定的数据对象也不必直接写在内联模板里</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;app&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>  &lt;<span style="color:#000080">div</span> <span style="color:#008080">v-bind:class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;classobject&#34;</span>&gt;&lt;/<span style="color:#000080">div</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">div</span>&gt;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">script</span>&gt;
-</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">var</span> vm <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> Vue({
-</span></span><span style="display:flex;"><span>    el<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;#app&#39;</span>,
-</span></span><span style="display:flex;"><span>    data<span style="color:#000;font-weight:bold">:</span> {
-</span></span><span style="display:flex;"><span>      classobject<span style="color:#000;font-weight:bold">:</span> {
-</span></span><span style="display:flex;"><span>        active<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">true</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#d14">&#39;text-danger&#39;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">true</span>
-</span></span><span style="display:flex;"><span>      }
-</span></span><span style="display:flex;"><span>    },
-</span></span><span style="display:flex;"><span>  })
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">script</span>&gt;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">&lt;!-- &lt;div class=&#34;active text-danger&#34;&gt;&lt;/div&gt; --&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;app&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">v-bind:class</span><span class="o">=</span><span class="s">&#34;classobject&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="nx">vm</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">el</span><span class="o">:</span> <span class="s1">&#39;#app&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">classobject</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">active</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;text-danger&#39;</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- &lt;div class=&#34;active text-danger&#34;&gt;&lt;/div&gt; --&gt;</span>
 </span></span></code></pre></div><blockquote>
 <p>如果<code>className</code>有特殊符号，必须加上引号<code>''</code>，或者<code>&quot;&quot;</code></p>
 </blockquote>
 <h3 id="2数组语法">2.数组语法</h3>
 <p>我们可以把一个数组传给<code>v-bind:class</code>，以应用一个 class 列表</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">v-bind:class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;[activeClass, errorClass]&#34;</span>&gt;&lt;/<span style="color:#000080">div</span>&gt;
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>data<span style="color:#000;font-weight:bold">:</span> {
-</span></span><span style="display:flex;"><span>  activeClass<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;active&#39;</span>,
-</span></span><span style="display:flex;"><span>  errorClass<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;text-danger&#39;</span>
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">v-bind:class</span><span class="o">=</span><span class="s">&#34;[activeClass, errorClass]&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">activeClass</span><span class="o">:</span> <span class="s1">&#39;active&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">errorClass</span><span class="o">:</span> <span class="s1">&#39;text-danger&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>渲染为：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;active text-danger&#34;</span>&gt;&lt;/<span style="color:#000080">div</span>&gt;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;active text-danger&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 </span></span></code></pre></div><h3 id="3用在组件上">3.用在组件上</h3>
 <p>当在一个自定义组件上使用<code>class</code>property 时，这些 class 将被添加到该组件的根元素上面。这个元素上已经存在的 class 不会被覆盖。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>Vue.component(<span style="color:#d14">&#39;my-component&#39;</span>, {
-</span></span><span style="display:flex;"><span>  template<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;&lt;p class=&#34;foo bar&#34;&gt;Hi&lt;/p&gt;&#39;</span>
-</span></span><span style="display:flex;"><span>})
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">Vue</span><span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="s1">&#39;my-component&#39;</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">template</span><span class="o">:</span> <span class="s1">&#39;&lt;p class=&#34;foo bar&#34;&gt;Hi&lt;/p&gt;&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
 </span></span></code></pre></div><p>然后在使用的使用的时候添加了一些<code>class</code>：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">my-component</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;baz boo&#34;</span>&gt;&lt;/<span style="color:#000080">my-component</span>&gt;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">my-component</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;baz boo&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">my-component</span><span class="p">&gt;</span>
 </span></span></code></pre></div><p>html将会被渲染成：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">p</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;foo bar baz boo&#34;</span>&gt;Hi&lt;/<span style="color:#000080">p</span>&gt;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;foo bar baz boo&#34;</span><span class="p">&gt;</span>Hi<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 </span></span></code></pre></div><p>对于带数据绑定的<code>class</code>也同样适用</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">my-component</span> <span style="color:#008080">v-bind:class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;{ active: isActive }&#34;</span>&gt;&lt;/<span style="color:#000080">my-component</span>&gt;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">my-component</span> <span class="na">v-bind:class</span><span class="o">=</span><span class="s">&#34;{ active: isActive }&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">my-component</span><span class="p">&gt;</span>
 </span></span></code></pre></div><p>当<code>isActive</code>为 truthy 时，HTML 将被渲染成为：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">p</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;foo bar active&#34;</span>&gt;Hi&lt;/<span style="color:#000080">p</span>&gt;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;foo bar active&#34;</span><span class="p">&gt;</span>Hi<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 </span></span></code></pre></div><h3 id="4绑定内联样式style">4.绑定内联样式style</h3>
 <p><code>v-bind:style</code>的对象语法十分直观——看着非常像 CSS，但其实是一个 JavaScript 对象。CSS property 名可以用<code>驼峰式</code>或<code>带引号的短横线</code>来命名</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">v-bind:style</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;{ color: activeColor, fontSize: fontSize + &#39;px&#39; }&#34;</span>&gt;&lt;/<span style="color:#000080">div</span>&gt;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">v-bind:style</span><span class="o">=</span><span class="s">&#34;{ color: activeColor, fontSize: fontSize + &#39;px&#39; }&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 </span></span></code></pre></div><p>js:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>data<span style="color:#000;font-weight:bold">:</span> {
-</span></span><span style="display:flex;"><span>  activeColor<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;red&#39;</span>,
-</span></span><span style="display:flex;"><span>  fontSize<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">30</span>
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">activeColor</span><span class="o">:</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">fontSize</span><span class="o">:</span> <span class="mi">30</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p><strong>或者直接绑定到一个对象，会让模板更加清晰</strong></p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">v-bind:style</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;styleObject&#34;</span>&gt;&lt;/<span style="color:#000080">div</span>&gt;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">v-bind:style</span><span class="o">=</span><span class="s">&#34;styleObject&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 </span></span></code></pre></div><p>js:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>data<span style="color:#000;font-weight:bold">:</span> {
-</span></span><span style="display:flex;"><span>  styleObject<span style="color:#000;font-weight:bold">:</span> {
-</span></span><span style="display:flex;"><span>    color<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;red&#39;</span>,
-</span></span><span style="display:flex;"><span>    fontSize<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;13px&#39;</span>
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">styleObject</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fontSize</span><span class="o">:</span> <span class="s1">&#39;13px&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p><strong>也可以将多个对象应用到一个元素上</strong></p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">v-bind:style</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;[baseStyles, overridingStyles]&#34;</span>&gt;&lt;/<span style="color:#000080">div</span>&gt;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">v-bind:style</span><span class="o">=</span><span class="s">&#34;[baseStyles, overridingStyles]&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 </span></span></code></pre></div><p><strong>自动添加前缀</strong></p>
 <p>当<code>v-bind:style</code>需要使用浏览器前缀的时候，如：<code>-webkit-</code>等，vue会自动侦测并帮生成相应的前缀</p>
 
-  </article>
+            </div>
+        </article>
+        <hr style="margin-top: 40px; margin-bottom: 40px;" />
 
-  
-  
-  <ul class="post-tags">
-     
-    <li><a href="/tags/vue">vue</a></li>
-     
-    <li><a href="/tags/%E7%AC%94%E8%AE%B0">笔记</a></li>
-    
-  </ul>
-  
-
-  
-  <p style="font-size:14px;">本文访问量：<span id="twikoo_visitors">0</span></p>
-  
-
-  <div class="end">END</div>
-
-  
-  <section id="comments">
-  <div id="tcomment"></div>
-  <link rel="stylesheet" href="/css/twikoo.css">
-  <script src="https://cdn.staticfile.org/twikoo/1.6.17/twikoo.all.min.js"></script>
-  <script src="/js/twikoo.js"></script>
-  <script>
-    twikoo.init({
-      envId: 'https://twikoo.zburu.com/',
-      el: '#tcomment',
-      lang: 'zh-CN',
-      includeReply: true,
-    })
-  </script>
-</section>
-  
-</div>
-</div>
-</main>
-
-<footer class="footer">
-  <div>© 2020 - <span id="year"></span> Powered by 子舒</div>
-  <div>网站已经运行 <span id="days">0</span></div>
-  <div class="gotop">▲</div>
-</footer>
-
+<div id="tcomment"></div>
+<script src="https://cdn.staticfile.org/twikoo/1.6.17/twikoo.all.min.js"></script>
 <script>
-  var s0 = '2020-06-14';
-  s1 = new Date(s0.replace(/-/g, "/"));
-  s2 = new Date();
-  var days = s2.getTime() - s1.getTime();
-
-  var date = new Date;
-  var year = date.getFullYear();
-  document.getElementById('year').innerHTML = year;
-
-  var BootDate = new Date("2020-06-14");
-  function ShowRunTime(id) {
-    var NowDate = new Date();
-    var RunDateM = parseInt(NowDate - BootDate);
-    var RunDays = Math.floor(RunDateM / (24 * 3600 * 1000));
-    var RunHours = Math.floor(RunDateM % (24 * 3600 * 1000) / (3600 * 1000));
-    var RunMinutes = Math.floor(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) / (60 * 1000));
-    var RunSeconds = Math.round(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) % (60 * 1000) / 1000);
-    var days = RunDays + "天" + RunHours + "时" + RunMinutes + "分" + RunSeconds + "秒";
-    document.getElementById(id).innerHTML = days;
-  }
-  ShowRunTime('days');
-  setInterval("ShowRunTime('days')", 1000);
+  twikoo.init({
+    envId: 'https://twikoo.zburu.com/',
+    el: '#tcomment',
+    lang: 'zh-CN',
+    includeReply: true,
+  })
 </script>
-<script src="/js/simplebox.min.js"></script>
-<script src="/js/search.js"></script>
-<script src="/js/main.js"></script>
-</body>
+    </main>
+</div>
+<footer class="footer">
+    <span class="footer_item"> </span>
+    &nbsp;
 
+    <div class="footer_social-icons">
+<a href="https://github.com/zishume" target="_blank" rel="noopener noreferrer me"
+    title="Github">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+    stroke-linecap="round" stroke-linejoin="round">
+    <path
+        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+    </path>
+</svg>
+</a>
+<a href="https://twitter.com/Anghunk520" target="_blank" rel="noopener noreferrer me"
+    title="Twitter">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+    stroke-linecap="round" stroke-linejoin="round">
+    <path
+        d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
+    </path>
+</svg>
+</a>
+<a href="index.xml" target="_blank" rel="noopener noreferrer me"
+    title="Rss">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+    stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 11a9 9 0 0 1 9 9" />
+    <path d="M4 4a16 16 0 0 1 16 16" />
+    <circle cx="5" cy="19" r="1" />
+</svg>
+</a>
+</div>
+    <small class="footer_copyright">
+        <div>© 2020 - <span id="year">2023</span> Powered by 子舒</div>
+        <div>网站已经运行 <span id="days">0</span></div>
+    </small>
+</footer>
+<script>
+    var s0 = '2020-06-14';
+    s1 = new Date(s0.replace(/-/g, "/"));
+    s2 = new Date();
+    var days = s2.getTime() - s1.getTime();
+  
+    var date = new Date;
+    var year = date.getFullYear();
+    document.getElementById('year').innerHTML = year;
+  
+    var BootDate = new Date("2020-06-14");
+    function ShowRunTime(id) {
+      var NowDate = new Date();
+      var RunDateM = parseInt(NowDate - BootDate);
+      var RunDays = Math.floor(RunDateM / (24 * 3600 * 1000));
+      var RunHours = Math.floor(RunDateM % (24 * 3600 * 1000) / (3600 * 1000));
+      var RunMinutes = Math.floor(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) / (60 * 1000));
+      var RunSeconds = Math.round(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) % (60 * 1000) / 1000);
+      var days = RunDays + "天" + RunHours + "时" + RunMinutes + "分" + RunSeconds + "秒";
+      document.getElementById(id).innerHTML = days;
+    }
+    ShowRunTime('days');
+    setInterval("ShowRunTime('days')", 1000);
+  </script><a href="#" title="Go to top" id="totop">
+    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" stroke="currentColor" viewBox="0 96 960 960">
+    <path d="M283 704.739 234.261 656 480 410.261 725.739 656 677 704.739l-197-197-197 197Z"/>
+</svg>
+
+</a>
+
+
+    
+
+
+
+
+    
+    
+        
+    
+
+    
+    
+        
+    
+
+
+
+    
+    <script src="/js/main.min.35f435a5d8eac613c52daa28d8af544a4512337d3e95236e4a4978417b8dcb2f.js" integrity="sha256-NfQ1pdjqxhPFLaoo2K9USkUSM30&#43;lSNuSkl4QXuNyy8="></script>
+
+    
+
+</body>
 </html>

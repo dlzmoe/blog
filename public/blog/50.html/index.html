@@ -1,238 +1,291 @@
 <!DOCTYPE html>
-<html lang="en-us">
-<head>
-<meta charset="utf-8" />
-<meta name="generator" content="Hugo 0.117.0">
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="toTop" content="true">
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="author" content="" />
-<meta property="og:url" content="/blog/50.html/" />
-<link rel="canonical" href="/blog/50.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon2.png" />
-<link rel="icon" href="https://imgurl.zishu.me/favicon2.png" />
-<link rel="shortcut" href="https://imgurl.zishu.me/favicon2.png" /><link rel="alternate" type="application/atom+xml" href="index.xml" title="子舒的博客">
-<script type="application/ld+json">
-{
-"@context" : "http://schema.org",
-"@type" : "BlogPosting",
-"mainEntityOfPage": {
-"@type": "WebPage",
-"@id": ""
-},
-"articleSection" : "blog",
-"name" : "typecho 博客小表情无法显示问题",
-"headline" : "typecho 博客小表情无法显示问题",
-"description" : "typecho 博客建立完成之后，会发现如果插入一些小表情，页面渲染完之后，表情不会显示，并且表情之后的内容全部消失，导致体验感很差。 表情无法显示的原因是 uft-8 编码的问题，无法识别小表情，需要将其改成 utf8mb4 第一步，进入数据库 首先登陆博客后台的数据库，然后点击 sql ，输入下列代码： alter table typecho_comments convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_contents convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_fields convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_metas convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_options convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_relationships convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_users convert to character set utf8mb4 collate utf8mb4_unicode_ci; 直接复制，然后点击右下角的执行 第二步，修改 typecho 配置文件 我使用的宝塔面板，点击左侧 网站 ，然后点击我们这个网站的根目录，进入之后，可以找到一个 config.inc.php 的文件，进入然后滑到最下面。 **可以发现 \u0027charset\u0027 =\u0026gt; \u0027utf8\u0027,**下面我为了更直观的显示，将其注释掉，重新写的，实际操作中，将 utf8 改为 utf8mb4 即可。 \/** 定义数据库参数 *\/ $db = new Typecho_Db(\u0026#39;Pdo_Mysql\u0026#39;, \u0026#39;typecho_\u0026#39;); $db-\u0026gt;addServer(array ( \u0026#39;host\u0026#39; =\u0026gt; \u0026#39;localhost\u0026#39;, \u0026#39;user\u0026#39; =\u0026gt; \u0026#39;blog\u0026#39;, \u0026#39;password\u0026#39; =\u0026gt; \u0026#39;blog\u0026#39;, \/** \u0026#39;charset\u0026#39; =\u0026gt; \u0026#39;utf8\u0026#39;, *\/ \u0026#39;charset\u0026#39; =\u0026gt; \u0026#39;utf8mb4\u0026#39;, \u0026#39;port\u0026#39; =\u0026gt; \u0026#39;3306\u0026#39;, \u0026#39;database\u0026#39; =\u0026gt; \u0026#39;blog\u0026#39;, ), Typecho_Db::READ | Typecho_Db::WRITE); Typecho_Db::set($db); 在文章后台重新输入小表情，然后保存回到页面，小表情成功显示了。",
-"inLanguage" : "en-US",
-"author" : "子舒",
-"creator" : "子舒",
-"publisher": "子舒",
-"accountablePerson" : "子舒",
-"copyrightHolder" : "子舒",
-"copyrightYear" : "2021",
-"datePublished": "2021-02-04 00:00:00 \u002b0000 UTC",
-"dateModified" : "2021-02-04 00:00:00 \u002b0000 UTC",
-"url" : "\/blog\/50.html\/",
-"keywords" : [ "博客","typecho", ]
-}
-</script><title>typecho 博客小表情无法显示问题 - 子舒</title>
-<meta property="og:title" content="typecho 博客小表情无法显示问题" />
-<meta property="og:type" content="article" />
-<meta property="og:description" content="typecho 博客建立完成之后，会发现如果插入一些小表情，页面渲染完之后，表情不会显示，并且表情之后的内容全部消失，导致体验感很差。 表情无法显示的原因是 uft-8 编码的问题，无法识别小表情，需要将其改成 utf8mb4 第一步，进入数据库 首先登陆博客后台的数据库，然后点击 sql ，输入下列代码： alter table typecho_comments convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_contents convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_fields convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_metas convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_options convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_relationships convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_users convert to character set utf8mb4 collate utf8mb4_unicode_ci; 直接复制，然后点击右下角的执行 第二步，修改 typecho 配置文件 我使用的宝塔面板，点击左侧 网站 ，然后点击我们这个网站的根目录，进入之后，可以找到一个 config.inc.php 的文件，进入然后滑到最下面。 **可以发现 &#39;charset&#39; =&amp;gt; &#39;utf8&#39;,**下面我为了更直观的显示，将其注释掉，重新写的，实际操作中，将 utf8 改为 utf8mb4 即可。 /** 定义数据库参数 */ $db = new Typecho_Db(&amp;#39;Pdo_Mysql&amp;#39;, &amp;#39;typecho_&amp;#39;); $db-&amp;gt;addServer(array ( &amp;#39;host&amp;#39; =&amp;gt; &amp;#39;localhost&amp;#39;, &amp;#39;user&amp;#39; =&amp;gt; &amp;#39;blog&amp;#39;, &amp;#39;password&amp;#39; =&amp;gt; &amp;#39;blog&amp;#39;, /** &amp;#39;charset&amp;#39; =&amp;gt; &amp;#39;utf8&amp;#39;, */ &amp;#39;charset&amp;#39; =&amp;gt; &amp;#39;utf8mb4&amp;#39;, &amp;#39;port&amp;#39; =&amp;gt; &amp;#39;3306&amp;#39;, &amp;#39;database&amp;#39; =&amp;gt; &amp;#39;blog&amp;#39;, ), Typecho_Db::READ | Typecho_Db::WRITE); Typecho_Db::set($db); 在文章后台重新输入小表情，然后保存回到页面，小表情成功显示了。" />
-<meta name="description" content="typecho 博客建立完成之后，会发现如果插入一些小表情，页面渲染完之后，表情不会显示，并且表情之后的内容全部消失，导致体验感很差。 表情无法显示的原因是 uft-8 编码的问题，无法识别小表情，需要将其改成 utf8mb4 第一步，进入数据库 首先登陆博客后台的数据库，然后点击 sql ，输入下列代码： alter table typecho_comments convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_contents convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_fields convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_metas convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_options convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_relationships convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_users convert to character set utf8mb4 collate utf8mb4_unicode_ci; 直接复制，然后点击右下角的执行 第二步，修改 typecho 配置文件 我使用的宝塔面板，点击左侧 网站 ，然后点击我们这个网站的根目录，进入之后，可以找到一个 config.inc.php 的文件，进入然后滑到最下面。 **可以发现 &#39;charset&#39; =&amp;gt; &#39;utf8&#39;,**下面我为了更直观的显示，将其注释掉，重新写的，实际操作中，将 utf8 改为 utf8mb4 即可。 /** 定义数据库参数 */ $db = new Typecho_Db(&amp;#39;Pdo_Mysql&amp;#39;, &amp;#39;typecho_&amp;#39;); $db-&amp;gt;addServer(array ( &amp;#39;host&amp;#39; =&amp;gt; &amp;#39;localhost&amp;#39;, &amp;#39;user&amp;#39; =&amp;gt; &amp;#39;blog&amp;#39;, &amp;#39;password&amp;#39; =&amp;gt; &amp;#39;blog&amp;#39;, /** &amp;#39;charset&amp;#39; =&amp;gt; &amp;#39;utf8&amp;#39;, */ &amp;#39;charset&amp;#39; =&amp;gt; &amp;#39;utf8mb4&amp;#39;, &amp;#39;port&amp;#39; =&amp;gt; &amp;#39;3306&amp;#39;, &amp;#39;database&amp;#39; =&amp;gt; &amp;#39;blog&amp;#39;, ), Typecho_Db::READ | Typecho_Db::WRITE); Typecho_Db::set($db); 在文章后台重新输入小表情，然后保存回到页面，小表情成功显示了。" />
-<meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon2.png" />
+<html lang="en-us"><head><meta charset="utf-8">
+<meta http-equiv="content-type" content="text/html">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title itemprop="name">typecho 博客小表情无法显示问题 | 子舒的博客</title>
+<meta property="og:title" content="typecho 博客小表情无法显示问题 | 子舒的博客" />
+<meta name="twitter:title" content="typecho 博客小表情无法显示问题 | 子舒的博客" />
+<meta itemprop="name" content="typecho 博客小表情无法显示问题 | 子舒的博客" />
+<meta name="application-name" content="typecho 博客小表情无法显示问题 | 子舒的博客" />
+<meta property="og:site_name" content="子舒的博客" />
+
+<meta name="description" content="我是子舒。前端程序员，独立博客作者，骑行爱好者，摄影爱好者，INFJ人格。现在生活工作在杭州。这是我在闲暇时间写的博客，记录生活。">
+<meta itemprop="description" content="我是子舒。前端程序员，独立博客作者，骑行爱好者，摄影爱好者，INFJ人格。现在生活工作在杭州。这是我在闲暇时间写的博客，记录生活。" />
+<meta property="og:description" content="我是子舒。前端程序员，独立博客作者，骑行爱好者，摄影爱好者，INFJ人格。现在生活工作在杭州。这是我在闲暇时间写的博客，记录生活。" />
+<meta name="twitter:description" content="我是子舒。前端程序员，独立博客作者，骑行爱好者，摄影爱好者，INFJ人格。现在生活工作在杭州。这是我在闲暇时间写的博客，记录生活。" />
+
+<meta property="og:locale" content="en-us" />
+<meta name="language" content="en-us" />
 
 
-<link rel="stylesheet" href="/css/base.css">
-<link rel="stylesheet" href="/css/index.css">
 
-<link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
-<script src="/js/jquery3.6.0.min.js"></script>
-<script async src="https://umami.zburu.com/script.js" data-website-id="9e5fc8da-b70b-4767-81cd-35ba13110fd5"></script>
-</head>
+  <meta itemprop="image" content="" />
+  <meta property="og:image" content="" />
+  <meta name="twitter:image" content="" />
+  <meta name="twitter:image:src" content="" />
 
-<body>
 
-  <main class="container">
-    <header class="header">
-      <nav class="nav">
-        <div class="logo">
-          <a href="/">zishu.me</a>
-          <div class="logo-switches">
-            <button id="theme-toggle" accesskey="t" title="(Alt + T)">
-              <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-              </svg>
-              <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="5"></circle>
-                <line x1="12" y1="1" x2="12" y2="3"></line>
-                <line x1="12" y1="21" x2="12" y2="23"></line>
-                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                <line x1="1" y1="12" x2="3" y2="12"></line>
-                <line x1="21" y1="12" x2="23" y2="12"></line>
-                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-              </svg>
-            </button>
-          </div>
-        </div>
-        <ul id="menu">
-          
-          <li>
-            <a href="/" title="首页"><span>首页</span></a>
-          </li>
-          
-          <li>
-            <a href="/blog/" title="归档"><span>归档</span></a>
-          </li>
-          
-          <li>
-            <a href="/message/" title="留言板"><span>留言板</span></a>
-          </li>
-          
-          <li>
-            <a href="/lab/" title="实验室"><span>实验室</span></a>
-          </li>
-          
-          <li>
-            <a href="/about/" title="关于"><span>关于</span></a>
-          </li>
-          
-          <li>
-            <a href="/search/" title="Search"><span>Search</span></a>
-          </li>
-          
-          <li>
-            <a href="/index.xml" title="RSS"><span>RSS</span></a>
-          </li>
-          
-        </ul>
-      </nav>
-    </header>
 
-    <div class="content">
 
-<div class="main detail">
-  <h1 class="titleh1">typecho 博客小表情无法显示问题</h1>
 
-  
-  
-  <div class="post-meta">
-    发布于 <time datetime=" 2021-02-04 00:00:00 UTC"> 2021-02-04</time>
-  </div>
-  
-  
-  
-  <br>
-  <script type="module" src="https://cdn.jsdelivr.net/gh/emaction/frontend.dist@1.0.9/bundle.js"></script>
-  <emoji-reaction></emoji-reaction>
+<meta name="generator" content="Hugo 0.118.2">
 
-  <article class="post-content markdown-body">
     
-    <p>typecho 博客建立完成之后，会发现如果插入一些小表情，页面渲染完之后，表情不会显示，并且表情之后的内容全部消失，导致体验感很差。</p>
+
+    <link rel="canonical" href="/blog/50.html/">
+    <link href="/style.min.45167c7de0b00806157891d7795d5562bfa40ff5935205330acf9a4deab39e3e.css" rel="stylesheet">
+    <link href="/code-highlight.min.706d31975fec544a864cb7f0d847a73ea55ca1df91bf495fd12a177138d807cf.css" rel="stylesheet">
+
+    
+    <link rel="shortcut icon" href="https://imgurl.zishu.me/favicon2.png" type="image/x-icon">
+
+
+
+
+<link rel="manifest" href="/site.webmanifest">
+
+<meta name="msapplication-config" content="/browserconfig.xml">
+<meta name="msapplication-TileColor" content="#2d89ef">
+<meta name="theme-color" content="#434648">
+
+    
+    </head>
+<body data-theme = "auto" class="notransition">
+
+<script src="/js/theme.min.8961c317c5b88b953fe27525839672c9343f1058ab044696ca225656c8ba2ab0.js" integrity="sha256-iWHDF8W4i5U/4nUlg5ZyyTQ/EFirBEaWyiJWVsi6KrA="></script>
+
+<div class="navbar" role="navigation">
+    <nav class="menu" aria-label="Main Navigation">
+        <a href="/" class="logo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" 
+viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" 
+stroke-linejoin="round" class="feather feather-home">
+<title>Home</title>
+<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+<polyline points="9 22 9 12 15 12 15 22"></polyline>
+</svg>
+        </a>
+        <input type="checkbox" id="menu-trigger" class="menu-trigger" />
+        <label for="menu-trigger">
+            <span class="menu-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" stroke="currentColor" fill="none" viewBox="0 0 14 14"><title>Menu</title><path stroke-linecap="round" stroke-linejoin="round" d="M10.595 7L3.40726 7"></path><path stroke-linecap="round" stroke-linejoin="round" d="M10.5096 3.51488L3.49301 3.51488"></path><path stroke-linecap="round" stroke-linejoin="round" d="M10.5096 10.4851H3.49301"></path><path stroke-linecap="round" stroke-linejoin="round" d="M0.5 12.5V1.5C0.5 0.947715 0.947715 0.5 1.5 0.5H12.5C13.0523 0.5 13.5 0.947715 13.5 1.5V12.5C13.5 13.0523 13.0523 13.5 12.5 13.5H1.5C0.947715 13.5 0.5 13.0523 0.5 12.5Z"></path></svg>
+            </span>
+        </label>
+
+        <div class="trigger">
+            <ul class="trigger-container">
+                
+                
+                <li>
+                    <a class="menu-link " href="/">
+                        Home
+                    </a>
+                    
+                </li>
+                
+                <li>
+                    <a class="menu-link " href="/blog/">
+                        Posts
+                    </a>
+                    
+                </li>
+                
+                <li>
+                    <a class="menu-link " href="/message/">
+                        Message
+                    </a>
+                    
+                </li>
+                
+                <li>
+                    <a class="menu-link " href="/about/">
+                        About
+                    </a>
+                    
+                </li>
+                
+                <li>
+                    <a class="menu-link " href="/lab/">
+                        Lab
+                    </a>
+                    
+                </li>
+                
+                <li class="menu-separator">
+                    <span>|</span>
+                </li>
+            </ul>
+            <a id="mode" href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mode-sunny" width="21" height="21" viewBox="0 0 14 14" stroke-width="1">
+<title>LIGHT</title><g><circle cx="7" cy="7" r="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></circle><line x1="7" y1="0.5" x2="7" y2="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="2.4" x2="3.82" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="0.5" y1="7" x2="2.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="11.6" x2="3.82" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="7" y1="13.5" x2="7" y2="11.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="11.6" x2="10.18" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="13.5" y1="7" x2="11.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="2.4" x2="10.18" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line></g></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="mode-moon" width="21" height="21" viewBox="0 0 14 14" stroke-width="1">
+<title>DARK</title><g><circle cx="7" cy="7" r="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></circle><line x1="7" y1="0.5" x2="7" y2="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="2.4" x2="3.82" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="0.5" y1="7" x2="2.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="11.6" x2="3.82" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="7" y1="13.5" x2="7" y2="11.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="11.6" x2="10.18" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="13.5" y1="7" x2="11.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="2.4" x2="10.18" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line></g></svg>
+            </a>
+        </div>
+    </nav>
+</div>
+
+<div class="wrapper post">
+    <main class="page-content" aria-label="Content">
+        <article>
+            <header class="header">
+                <h1 class="header-title">typecho 博客小表情无法显示问题</h1>
+                
+                
+                <div class="post-meta">
+                    <time datetime="2021-02-04T00:00:00&#43;00:00" itemprop="datePublished"> 4 Feb 2021 </time>
+                </div>
+                
+            </header>
+            <details class="toc">
+                <summary><b>Table of Contents</b></summary>
+                <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#第一步进入数据库">第一步，进入数据库</a></li>
+        <li><a href="#第二步修改-typecho-配置文件">第二步，修改 typecho 配置文件</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+            </details><div class="page-content">
+                <p>typecho 博客建立完成之后，会发现如果插入一些小表情，页面渲染完之后，表情不会显示，并且表情之后的内容全部消失，导致体验感很差。</p>
 <p>表情无法显示的原因是 uft-8 编码的问题，无法识别小表情，需要将其改成 utf8mb4</p>
 <h3 id="第一步进入数据库">第一步，进入数据库</h3>
 <p>首先登陆博客后台的数据库，然后点击 sql ，输入下列代码：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">alter</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">table</span><span style="color:#bbb"> </span>typecho_comments<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">convert</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">to</span><span style="color:#bbb"> </span><span style="color:#0086b3">character</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">set</span><span style="color:#bbb"> </span>utf8mb4<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">collate</span><span style="color:#bbb"> </span>utf8mb4_unicode_ci;<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">alter</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">table</span><span style="color:#bbb"> </span>typecho_contents<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">convert</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">to</span><span style="color:#bbb"> </span><span style="color:#0086b3">character</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">set</span><span style="color:#bbb"> </span>utf8mb4<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">collate</span><span style="color:#bbb"> </span>utf8mb4_unicode_ci;<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">alter</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">table</span><span style="color:#bbb"> </span>typecho_fields<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">convert</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">to</span><span style="color:#bbb"> </span><span style="color:#0086b3">character</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">set</span><span style="color:#bbb"> </span>utf8mb4<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">collate</span><span style="color:#bbb"> </span>utf8mb4_unicode_ci;<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">alter</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">table</span><span style="color:#bbb"> </span>typecho_metas<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">convert</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">to</span><span style="color:#bbb"> </span><span style="color:#0086b3">character</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">set</span><span style="color:#bbb"> </span>utf8mb4<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">collate</span><span style="color:#bbb"> </span>utf8mb4_unicode_ci;<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">alter</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">table</span><span style="color:#bbb"> </span>typecho_options<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">convert</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">to</span><span style="color:#bbb"> </span><span style="color:#0086b3">character</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">set</span><span style="color:#bbb"> </span>utf8mb4<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">collate</span><span style="color:#bbb"> </span>utf8mb4_unicode_ci;<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">alter</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">table</span><span style="color:#bbb"> </span>typecho_relationships<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">convert</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">to</span><span style="color:#bbb"> </span><span style="color:#0086b3">character</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">set</span><span style="color:#bbb"> </span>utf8mb4<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">collate</span><span style="color:#bbb"> </span>utf8mb4_unicode_ci;<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">alter</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">table</span><span style="color:#bbb"> </span>typecho_users<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">convert</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">to</span><span style="color:#bbb"> </span><span style="color:#0086b3">character</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">set</span><span style="color:#bbb"> </span>utf8mb4<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">collate</span><span style="color:#bbb"> </span>utf8mb4_unicode_ci;<span style="color:#bbb">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">typecho_comments</span><span class="w"> </span><span class="k">convert</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="nb">character</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">utf8mb4</span><span class="w"> </span><span class="k">collate</span><span class="w"> </span><span class="n">utf8mb4_unicode_ci</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">typecho_contents</span><span class="w"> </span><span class="k">convert</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="nb">character</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">utf8mb4</span><span class="w"> </span><span class="k">collate</span><span class="w"> </span><span class="n">utf8mb4_unicode_ci</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">typecho_fields</span><span class="w"> </span><span class="k">convert</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="nb">character</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">utf8mb4</span><span class="w"> </span><span class="k">collate</span><span class="w"> </span><span class="n">utf8mb4_unicode_ci</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">typecho_metas</span><span class="w"> </span><span class="k">convert</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="nb">character</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">utf8mb4</span><span class="w"> </span><span class="k">collate</span><span class="w"> </span><span class="n">utf8mb4_unicode_ci</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">typecho_options</span><span class="w"> </span><span class="k">convert</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="nb">character</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">utf8mb4</span><span class="w"> </span><span class="k">collate</span><span class="w"> </span><span class="n">utf8mb4_unicode_ci</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">typecho_relationships</span><span class="w"> </span><span class="k">convert</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="nb">character</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">utf8mb4</span><span class="w"> </span><span class="k">collate</span><span class="w"> </span><span class="n">utf8mb4_unicode_ci</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">typecho_users</span><span class="w"> </span><span class="k">convert</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="nb">character</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">utf8mb4</span><span class="w"> </span><span class="k">collate</span><span class="w"> </span><span class="n">utf8mb4_unicode_ci</span><span class="p">;</span><span class="w">
 </span></span></span></code></pre></div><p>直接复制，然后点击右下角的执行</p>
 <h3 id="第二步修改-typecho-配置文件">第二步，修改 typecho 配置文件</h3>
 <p>我使用的宝塔面板，点击左侧 <code>网站</code> ，然后点击我们这个网站的根目录，进入之后，可以找到一个 <code>config.inc.php</code> 的文件，进入然后滑到最下面。</p>
 <p>**可以发现 <code>'charset' =&gt; 'utf8',</code>**下面我为了更直观的显示，将其注释掉，重新写的，实际操作中，将 <code>utf8</code> 改为 <code>utf8mb4</code> 即可。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#d14">/** 定义数据库参数 */</span>
-</span></span><span style="display:flex;"><span><span style="color:#008080">$db</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> Typecho_Db(<span style="color:#d14">&#39;Pdo_Mysql&#39;</span>, <span style="color:#d14">&#39;typecho_&#39;</span>);
-</span></span><span style="display:flex;"><span><span style="color:#008080">$db</span><span style="color:#000;font-weight:bold">-&gt;</span><span style="color:#008080">addServer</span>(<span style="color:#000;font-weight:bold">array</span> (
-</span></span><span style="display:flex;"><span>  <span style="color:#d14">&#39;host&#39;</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#d14">&#39;localhost&#39;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#d14">&#39;user&#39;</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#d14">&#39;blog&#39;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#d14">&#39;password&#39;</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#d14">&#39;blog&#39;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#d14">/** &#39;charset&#39; =&gt; &#39;utf8&#39;, */</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#d14">&#39;charset&#39;</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#d14">&#39;utf8mb4&#39;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#d14">&#39;port&#39;</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#d14">&#39;3306&#39;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#d14">&#39;database&#39;</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#d14">&#39;blog&#39;</span>,
-</span></span><span style="display:flex;"><span>), Typecho_Db<span style="color:#000;font-weight:bold">::</span><span style="color:#008080">READ</span> <span style="color:#000;font-weight:bold">|</span> Typecho_Db<span style="color:#000;font-weight:bold">::</span><span style="color:#008080">WRITE</span>);
-</span></span><span style="display:flex;"><span>Typecho_Db<span style="color:#000;font-weight:bold">::</span><span style="color:#008080">set</span>(<span style="color:#008080">$db</span>);
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="sd">/** 定义数据库参数 */</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Typecho_Db</span><span class="p">(</span><span class="s1">&#39;Pdo_Mysql&#39;</span><span class="p">,</span> <span class="s1">&#39;typecho_&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">addServer</span><span class="p">(</span><span class="k">array</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="s1">&#39;host&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s1">&#39;user&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;blog&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;blog&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="sd">/** &#39;charset&#39; =&gt; &#39;utf8&#39;, */</span>
+</span></span><span class="line"><span class="cl">  <span class="s1">&#39;charset&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;utf8mb4&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s1">&#39;port&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;3306&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s1">&#39;database&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;blog&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">),</span> <span class="nx">Typecho_Db</span><span class="o">::</span><span class="na">READ</span> <span class="o">|</span> <span class="nx">Typecho_Db</span><span class="o">::</span><span class="na">WRITE</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Typecho_Db</span><span class="o">::</span><span class="na">set</span><span class="p">(</span><span class="nv">$db</span><span class="p">);</span>
 </span></span></code></pre></div><p>在文章后台重新输入小表情，然后保存回到页面，小表情成功显示了。</p>
 
-  </article>
+            </div>
+        </article>
+        <hr style="margin-top: 40px; margin-bottom: 40px;" />
 
-  
-  
-  <ul class="post-tags">
-     
-    <li><a href="/tags/%E5%8D%9A%E5%AE%A2">博客</a></li>
-     
-    <li><a href="/tags/typecho">typecho</a></li>
-    
-  </ul>
-  
-
-  
-  <p style="font-size:14px;">本文访问量：<span id="twikoo_visitors">0</span></p>
-  
-
-  <div class="end">END</div>
-
-  
-  <section id="comments">
-  <div id="tcomment"></div>
-  <link rel="stylesheet" href="/css/twikoo.css">
-  <script src="https://cdn.staticfile.org/twikoo/1.6.17/twikoo.all.min.js"></script>
-  <script src="/js/twikoo.js"></script>
-  <script>
-    twikoo.init({
-      envId: 'https://twikoo.zburu.com/',
-      el: '#tcomment',
-      lang: 'zh-CN',
-      includeReply: true,
-    })
-  </script>
-</section>
-  
-</div>
-</div>
-</main>
-
-<footer class="footer">
-  <div>© 2020 - <span id="year"></span> Powered by 子舒</div>
-  <div>网站已经运行 <span id="days">0</span></div>
-  <div class="gotop">▲</div>
-</footer>
-
+<div id="tcomment"></div>
+<script src="https://cdn.staticfile.org/twikoo/1.6.17/twikoo.all.min.js"></script>
 <script>
-  var s0 = '2020-06-14';
-  s1 = new Date(s0.replace(/-/g, "/"));
-  s2 = new Date();
-  var days = s2.getTime() - s1.getTime();
-
-  var date = new Date;
-  var year = date.getFullYear();
-  document.getElementById('year').innerHTML = year;
-
-  var BootDate = new Date("2020-06-14");
-  function ShowRunTime(id) {
-    var NowDate = new Date();
-    var RunDateM = parseInt(NowDate - BootDate);
-    var RunDays = Math.floor(RunDateM / (24 * 3600 * 1000));
-    var RunHours = Math.floor(RunDateM % (24 * 3600 * 1000) / (3600 * 1000));
-    var RunMinutes = Math.floor(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) / (60 * 1000));
-    var RunSeconds = Math.round(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) % (60 * 1000) / 1000);
-    var days = RunDays + "天" + RunHours + "时" + RunMinutes + "分" + RunSeconds + "秒";
-    document.getElementById(id).innerHTML = days;
-  }
-  ShowRunTime('days');
-  setInterval("ShowRunTime('days')", 1000);
+  twikoo.init({
+    envId: 'https://twikoo.zburu.com/',
+    el: '#tcomment',
+    lang: 'zh-CN',
+    includeReply: true,
+  })
 </script>
-<script src="/js/simplebox.min.js"></script>
-<script src="/js/search.js"></script>
-<script src="/js/main.js"></script>
-</body>
+    </main>
+</div>
+<footer class="footer">
+    <span class="footer_item"> </span>
+    &nbsp;
 
+    <div class="footer_social-icons">
+<a href="https://github.com/zishume" target="_blank" rel="noopener noreferrer me"
+    title="Github">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+    stroke-linecap="round" stroke-linejoin="round">
+    <path
+        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+    </path>
+</svg>
+</a>
+<a href="https://twitter.com/Anghunk520" target="_blank" rel="noopener noreferrer me"
+    title="Twitter">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+    stroke-linecap="round" stroke-linejoin="round">
+    <path
+        d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
+    </path>
+</svg>
+</a>
+<a href="index.xml" target="_blank" rel="noopener noreferrer me"
+    title="Rss">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+    stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 11a9 9 0 0 1 9 9" />
+    <path d="M4 4a16 16 0 0 1 16 16" />
+    <circle cx="5" cy="19" r="1" />
+</svg>
+</a>
+</div>
+    <small class="footer_copyright">
+        <div>© 2020 - <span id="year">2023</span> Powered by 子舒</div>
+        <div>网站已经运行 <span id="days">0</span></div>
+    </small>
+</footer>
+<script>
+    var s0 = '2020-06-14';
+    s1 = new Date(s0.replace(/-/g, "/"));
+    s2 = new Date();
+    var days = s2.getTime() - s1.getTime();
+  
+    var date = new Date;
+    var year = date.getFullYear();
+    document.getElementById('year').innerHTML = year;
+  
+    var BootDate = new Date("2020-06-14");
+    function ShowRunTime(id) {
+      var NowDate = new Date();
+      var RunDateM = parseInt(NowDate - BootDate);
+      var RunDays = Math.floor(RunDateM / (24 * 3600 * 1000));
+      var RunHours = Math.floor(RunDateM % (24 * 3600 * 1000) / (3600 * 1000));
+      var RunMinutes = Math.floor(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) / (60 * 1000));
+      var RunSeconds = Math.round(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) % (60 * 1000) / 1000);
+      var days = RunDays + "天" + RunHours + "时" + RunMinutes + "分" + RunSeconds + "秒";
+      document.getElementById(id).innerHTML = days;
+    }
+    ShowRunTime('days');
+    setInterval("ShowRunTime('days')", 1000);
+  </script><a href="#" title="Go to top" id="totop">
+    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" stroke="currentColor" viewBox="0 96 960 960">
+    <path d="M283 704.739 234.261 656 480 410.261 725.739 656 677 704.739l-197-197-197 197Z"/>
+</svg>
+
+</a>
+
+
+    
+
+
+
+
+    
+    
+        
+    
+
+    
+    
+        
+    
+
+
+
+    
+    <script src="/js/main.min.35f435a5d8eac613c52daa28d8af544a4512337d3e95236e4a4978417b8dcb2f.js" integrity="sha256-NfQ1pdjqxhPFLaoo2K9USkUSM30&#43;lSNuSkl4QXuNyy8="></script>
+
+    
+
+</body>
 </html>

@@ -1,153 +1,163 @@
 <!DOCTYPE html>
-<html lang="en-us">
-<head>
-<meta charset="utf-8" />
-<meta name="generator" content="Hugo 0.117.0">
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="toTop" content="true">
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="author" content="" />
-<meta property="og:url" content="/blog/16.html/" />
-<link rel="canonical" href="/blog/16.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon2.png" />
-<link rel="icon" href="https://imgurl.zishu.me/favicon2.png" />
-<link rel="shortcut" href="https://imgurl.zishu.me/favicon2.png" /><link rel="alternate" type="application/atom+xml" href="index.xml" title="子舒的博客">
-<script type="application/ld+json">
-{
-"@context" : "http://schema.org",
-"@type" : "BlogPosting",
-"mainEntityOfPage": {
-"@type": "WebPage",
-"@id": ""
-},
-"articleSection" : "blog",
-"name" : "为什么getTime()返回1970年至今的毫秒？",
-"headline" : "为什么getTime()返回1970年至今的毫秒？",
-"description" : "今天在写new Date()时候，无意中发现了一个很有意思的方法，getTime()，百度了一下，有人说是计算从1970年1月1日至今的毫秒数 为什么要是1970年呢？ new Date().getTime(); \/\/ xxxxxxxxxxx 这个起源于unix的诞生，因为Unix在1969年被开发出来，1971年正式发布，在这之前没有机器会需要来表示1970-01-01-00:00:00之前的时间，后面的语言很多就沿用了这一习惯，js只是也沿用了这种习惯而已。 当然，这一做法现在看来是很有问题的，例如不方便用它表示更早的时间而且精度有限。 定义time从1970年1月1日开始，忽然想到在JAVA里，Oracle数据库时间也是从1970年1月1日开始计算。 比如java类代码: Date date = new Date(0); System.out.println(date); \/\/ 打印出来的结果：Thu Jan 01 08:00:00 CST 1970也 是1970年1月1日，实际上时分秒是0点0分0秒(这里打印出来是8点，稍后会作解释)。 为什么这个时间会定义在1970年1月1日这个时候呢? 于是开始了Google，中文网页根本找不到答案。于是试着搜索英文关键字,在Sun java论坛总算找到准确的帖子: http:\/\/forums.sun.com\/thread.jspa?threadID=595140\u0026amp;start=15 其中有一个回复: I suspect that Java was born and raised on a UNIX system. UNIX considers the epoch (when did time begin) to be midnight, January 1, 1970. 是说java起源于UNIX系统，而UNIX认为1970年1月1日0点是时间纪元. 但这依然没很好的解释\u0026quot;为什么\u0026quot;,出于好奇，继续Google，总算找到了答案: http:\/\/en.wikipedia.org\/wiki\/Unix_time 这里的解释是: 最初计算机操作系统是32位，而时间也是用32位表示。 System.out.println(Integer.MAX_VALUE); 2147483647 Integer在JAVA内用32位表示，因此32位能表示的最大值是2147483647。另外1年365天的总秒数是31536000，2147483647\/31536000 = 68.1,也就是说32位能表示的最长时间是68年，而实际上到2038年01月19日03时14分07秒，便会到达最大时间，过了这个时间点，所有32位操作系统时间便会变为10000000 00000000 00000000 00000000也就是1901年12月13日20时45分52秒，这样便会出现时间回归的现象，很多软件便会运行异常了。 到这里，我想问题的答案已经出来了: 因为用32位来表示时间的最大间隔是68年，而最早出现的UNIX操作系统考虑到计算机产生的年代和应用的时限综合取了1970年1月1日作为UNIX TIME的纪元时间(开始时间)，而java自然也遵循了这一约束。 至于时间回归的现象相信随着64为操作系统的产生逐渐得到解决，因为用64位操作系统可以表示到292,277,026,596年12月4日15时30分08秒，相信我们的N代子孙，哪怕地球毁灭那天都不用愁不够用了，因为这个时间已经是千亿年以后了。 最后一个问题: 上面System.out.println(new Date(0))，打印出来的时间是8点而非0点，原因是存在系统时间和本地时间的问题，其实系统时间依然是0点，只不过我的电脑时区设置为东8区，故打印的结果是8点。",
-"inLanguage" : "en-US",
-"author" : "子舒",
-"creator" : "子舒",
-"publisher": "子舒",
-"accountablePerson" : "子舒",
-"copyrightHolder" : "子舒",
-"copyrightYear" : "2020",
-"datePublished": "2020-11-13 00:00:00 \u002b0000 UTC",
-"dateModified" : "2020-11-13 00:00:00 \u002b0000 UTC",
-"url" : "\/blog\/16.html\/",
-"keywords" : [ "杂谈", ]
-}
-</script><title>为什么getTime()返回1970年至今的毫秒？ - 子舒</title>
-<meta property="og:title" content="为什么getTime()返回1970年至今的毫秒？" />
-<meta property="og:type" content="article" />
-<meta property="og:description" content="今天在写new Date()时候，无意中发现了一个很有意思的方法，getTime()，百度了一下，有人说是计算从1970年1月1日至今的毫秒数 为什么要是1970年呢？ new Date().getTime(); // xxxxxxxxxxx 这个起源于unix的诞生，因为Unix在1969年被开发出来，1971年正式发布，在这之前没有机器会需要来表示1970-01-01-00:00:00之前的时间，后面的语言很多就沿用了这一习惯，js只是也沿用了这种习惯而已。 当然，这一做法现在看来是很有问题的，例如不方便用它表示更早的时间而且精度有限。 定义time从1970年1月1日开始，忽然想到在JAVA里，Oracle数据库时间也是从1970年1月1日开始计算。 比如java类代码: Date date = new Date(0); System.out.println(date); // 打印出来的结果：Thu Jan 01 08:00:00 CST 1970也 是1970年1月1日，实际上时分秒是0点0分0秒(这里打印出来是8点，稍后会作解释)。 为什么这个时间会定义在1970年1月1日这个时候呢? 于是开始了Google，中文网页根本找不到答案。于是试着搜索英文关键字,在Sun java论坛总算找到准确的帖子: http://forums.sun.com/thread.jspa?threadID=595140&amp;amp;start=15 其中有一个回复: I suspect that Java was born and raised on a UNIX system. UNIX considers the epoch (when did time begin) to be midnight, January 1, 1970. 是说java起源于UNIX系统，而UNIX认为1970年1月1日0点是时间纪元. 但这依然没很好的解释&amp;quot;为什么&amp;quot;,出于好奇，继续Google，总算找到了答案: http://en.wikipedia.org/wiki/Unix_time 这里的解释是: 最初计算机操作系统是32位，而时间也是用32位表示。 System.out.println(Integer.MAX_VALUE); 2147483647 Integer在JAVA内用32位表示，因此32位能表示的最大值是2147483647。另外1年365天的总秒数是31536000，2147483647/31536000 = 68.1,也就是说32位能表示的最长时间是68年，而实际上到2038年01月19日03时14分07秒，便会到达最大时间，过了这个时间点，所有32位操作系统时间便会变为10000000 00000000 00000000 00000000也就是1901年12月13日20时45分52秒，这样便会出现时间回归的现象，很多软件便会运行异常了。 到这里，我想问题的答案已经出来了: 因为用32位来表示时间的最大间隔是68年，而最早出现的UNIX操作系统考虑到计算机产生的年代和应用的时限综合取了1970年1月1日作为UNIX TIME的纪元时间(开始时间)，而java自然也遵循了这一约束。 至于时间回归的现象相信随着64为操作系统的产生逐渐得到解决，因为用64位操作系统可以表示到292,277,026,596年12月4日15时30分08秒，相信我们的N代子孙，哪怕地球毁灭那天都不用愁不够用了，因为这个时间已经是千亿年以后了。 最后一个问题: 上面System.out.println(new Date(0))，打印出来的时间是8点而非0点，原因是存在系统时间和本地时间的问题，其实系统时间依然是0点，只不过我的电脑时区设置为东8区，故打印的结果是8点。" />
-<meta name="description" content="今天在写new Date()时候，无意中发现了一个很有意思的方法，getTime()，百度了一下，有人说是计算从1970年1月1日至今的毫秒数 为什么要是1970年呢？ new Date().getTime(); // xxxxxxxxxxx 这个起源于unix的诞生，因为Unix在1969年被开发出来，1971年正式发布，在这之前没有机器会需要来表示1970-01-01-00:00:00之前的时间，后面的语言很多就沿用了这一习惯，js只是也沿用了这种习惯而已。 当然，这一做法现在看来是很有问题的，例如不方便用它表示更早的时间而且精度有限。 定义time从1970年1月1日开始，忽然想到在JAVA里，Oracle数据库时间也是从1970年1月1日开始计算。 比如java类代码: Date date = new Date(0); System.out.println(date); // 打印出来的结果：Thu Jan 01 08:00:00 CST 1970也 是1970年1月1日，实际上时分秒是0点0分0秒(这里打印出来是8点，稍后会作解释)。 为什么这个时间会定义在1970年1月1日这个时候呢? 于是开始了Google，中文网页根本找不到答案。于是试着搜索英文关键字,在Sun java论坛总算找到准确的帖子: http://forums.sun.com/thread.jspa?threadID=595140&amp;amp;start=15 其中有一个回复: I suspect that Java was born and raised on a UNIX system. UNIX considers the epoch (when did time begin) to be midnight, January 1, 1970. 是说java起源于UNIX系统，而UNIX认为1970年1月1日0点是时间纪元. 但这依然没很好的解释&amp;quot;为什么&amp;quot;,出于好奇，继续Google，总算找到了答案: http://en.wikipedia.org/wiki/Unix_time 这里的解释是: 最初计算机操作系统是32位，而时间也是用32位表示。 System.out.println(Integer.MAX_VALUE); 2147483647 Integer在JAVA内用32位表示，因此32位能表示的最大值是2147483647。另外1年365天的总秒数是31536000，2147483647/31536000 = 68.1,也就是说32位能表示的最长时间是68年，而实际上到2038年01月19日03时14分07秒，便会到达最大时间，过了这个时间点，所有32位操作系统时间便会变为10000000 00000000 00000000 00000000也就是1901年12月13日20时45分52秒，这样便会出现时间回归的现象，很多软件便会运行异常了。 到这里，我想问题的答案已经出来了: 因为用32位来表示时间的最大间隔是68年，而最早出现的UNIX操作系统考虑到计算机产生的年代和应用的时限综合取了1970年1月1日作为UNIX TIME的纪元时间(开始时间)，而java自然也遵循了这一约束。 至于时间回归的现象相信随着64为操作系统的产生逐渐得到解决，因为用64位操作系统可以表示到292,277,026,596年12月4日15时30分08秒，相信我们的N代子孙，哪怕地球毁灭那天都不用愁不够用了，因为这个时间已经是千亿年以后了。 最后一个问题: 上面System.out.println(new Date(0))，打印出来的时间是8点而非0点，原因是存在系统时间和本地时间的问题，其实系统时间依然是0点，只不过我的电脑时区设置为东8区，故打印的结果是8点。" />
-<meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon2.png" />
+<html lang="en-us"><head><meta charset="utf-8">
+<meta http-equiv="content-type" content="text/html">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title itemprop="name">为什么getTime()返回1970年至今的毫秒？ | 子舒的博客</title>
+<meta property="og:title" content="为什么getTime()返回1970年至今的毫秒？ | 子舒的博客" />
+<meta name="twitter:title" content="为什么getTime()返回1970年至今的毫秒？ | 子舒的博客" />
+<meta itemprop="name" content="为什么getTime()返回1970年至今的毫秒？ | 子舒的博客" />
+<meta name="application-name" content="为什么getTime()返回1970年至今的毫秒？ | 子舒的博客" />
+<meta property="og:site_name" content="子舒的博客" />
+
+<meta name="description" content="我是子舒。前端程序员，独立博客作者，骑行爱好者，摄影爱好者，INFJ人格。现在生活工作在杭州。这是我在闲暇时间写的博客，记录生活。">
+<meta itemprop="description" content="我是子舒。前端程序员，独立博客作者，骑行爱好者，摄影爱好者，INFJ人格。现在生活工作在杭州。这是我在闲暇时间写的博客，记录生活。" />
+<meta property="og:description" content="我是子舒。前端程序员，独立博客作者，骑行爱好者，摄影爱好者，INFJ人格。现在生活工作在杭州。这是我在闲暇时间写的博客，记录生活。" />
+<meta name="twitter:description" content="我是子舒。前端程序员，独立博客作者，骑行爱好者，摄影爱好者，INFJ人格。现在生活工作在杭州。这是我在闲暇时间写的博客，记录生活。" />
+
+<meta property="og:locale" content="en-us" />
+<meta name="language" content="en-us" />
 
 
-<link rel="stylesheet" href="/css/base.css">
-<link rel="stylesheet" href="/css/index.css">
 
-<link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
-<script src="/js/jquery3.6.0.min.js"></script>
-<script async src="https://umami.zburu.com/script.js" data-website-id="9e5fc8da-b70b-4767-81cd-35ba13110fd5"></script>
-</head>
+  <meta itemprop="image" content="" />
+  <meta property="og:image" content="" />
+  <meta name="twitter:image" content="" />
+  <meta name="twitter:image:src" content="" />
 
-<body>
 
-  <main class="container">
-    <header class="header">
-      <nav class="nav">
-        <div class="logo">
-          <a href="/">zishu.me</a>
-          <div class="logo-switches">
-            <button id="theme-toggle" accesskey="t" title="(Alt + T)">
-              <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-              </svg>
-              <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="5"></circle>
-                <line x1="12" y1="1" x2="12" y2="3"></line>
-                <line x1="12" y1="21" x2="12" y2="23"></line>
-                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                <line x1="1" y1="12" x2="3" y2="12"></line>
-                <line x1="21" y1="12" x2="23" y2="12"></line>
-                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-              </svg>
-            </button>
-          </div>
-        </div>
-        <ul id="menu">
-          
-          <li>
-            <a href="/" title="首页"><span>首页</span></a>
-          </li>
-          
-          <li>
-            <a href="/blog/" title="归档"><span>归档</span></a>
-          </li>
-          
-          <li>
-            <a href="/message/" title="留言板"><span>留言板</span></a>
-          </li>
-          
-          <li>
-            <a href="/lab/" title="实验室"><span>实验室</span></a>
-          </li>
-          
-          <li>
-            <a href="/about/" title="关于"><span>关于</span></a>
-          </li>
-          
-          <li>
-            <a href="/search/" title="Search"><span>Search</span></a>
-          </li>
-          
-          <li>
-            <a href="/index.xml" title="RSS"><span>RSS</span></a>
-          </li>
-          
-        </ul>
-      </nav>
-    </header>
 
-    <div class="content">
 
-<div class="main detail">
-  <h1 class="titleh1">为什么getTime()返回1970年至今的毫秒？</h1>
 
-  
-  
-  <div class="post-meta">
-    发布于 <time datetime=" 2020-11-13 00:00:00 UTC"> 2020-11-13</time>
-  </div>
-  
-  
-  
-  <br>
-  <script type="module" src="https://cdn.jsdelivr.net/gh/emaction/frontend.dist@1.0.9/bundle.js"></script>
-  <emoji-reaction></emoji-reaction>
+<meta name="generator" content="Hugo 0.118.2">
 
-  <article class="post-content markdown-body">
     
-    <p>今天在写new Date()时候，无意中发现了一个很有意思的方法，<code>getTime()</code>，百度了一下，有人说是计算从1970年1月1日至今的毫秒数</p>
+
+    <link rel="canonical" href="/blog/16.html/">
+    <link href="/style.min.45167c7de0b00806157891d7795d5562bfa40ff5935205330acf9a4deab39e3e.css" rel="stylesheet">
+    <link href="/code-highlight.min.706d31975fec544a864cb7f0d847a73ea55ca1df91bf495fd12a177138d807cf.css" rel="stylesheet">
+
+    
+    <link rel="shortcut icon" href="https://imgurl.zishu.me/favicon2.png" type="image/x-icon">
+
+
+
+
+<link rel="manifest" href="/site.webmanifest">
+
+<meta name="msapplication-config" content="/browserconfig.xml">
+<meta name="msapplication-TileColor" content="#2d89ef">
+<meta name="theme-color" content="#434648">
+
+    
+    </head>
+<body data-theme = "auto" class="notransition">
+
+<script src="/js/theme.min.8961c317c5b88b953fe27525839672c9343f1058ab044696ca225656c8ba2ab0.js" integrity="sha256-iWHDF8W4i5U/4nUlg5ZyyTQ/EFirBEaWyiJWVsi6KrA="></script>
+
+<div class="navbar" role="navigation">
+    <nav class="menu" aria-label="Main Navigation">
+        <a href="/" class="logo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" 
+viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" 
+stroke-linejoin="round" class="feather feather-home">
+<title>Home</title>
+<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+<polyline points="9 22 9 12 15 12 15 22"></polyline>
+</svg>
+        </a>
+        <input type="checkbox" id="menu-trigger" class="menu-trigger" />
+        <label for="menu-trigger">
+            <span class="menu-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" stroke="currentColor" fill="none" viewBox="0 0 14 14"><title>Menu</title><path stroke-linecap="round" stroke-linejoin="round" d="M10.595 7L3.40726 7"></path><path stroke-linecap="round" stroke-linejoin="round" d="M10.5096 3.51488L3.49301 3.51488"></path><path stroke-linecap="round" stroke-linejoin="round" d="M10.5096 10.4851H3.49301"></path><path stroke-linecap="round" stroke-linejoin="round" d="M0.5 12.5V1.5C0.5 0.947715 0.947715 0.5 1.5 0.5H12.5C13.0523 0.5 13.5 0.947715 13.5 1.5V12.5C13.5 13.0523 13.0523 13.5 12.5 13.5H1.5C0.947715 13.5 0.5 13.0523 0.5 12.5Z"></path></svg>
+            </span>
+        </label>
+
+        <div class="trigger">
+            <ul class="trigger-container">
+                
+                
+                <li>
+                    <a class="menu-link " href="/">
+                        Home
+                    </a>
+                    
+                </li>
+                
+                <li>
+                    <a class="menu-link " href="/blog/">
+                        Posts
+                    </a>
+                    
+                </li>
+                
+                <li>
+                    <a class="menu-link " href="/message/">
+                        Message
+                    </a>
+                    
+                </li>
+                
+                <li>
+                    <a class="menu-link " href="/about/">
+                        About
+                    </a>
+                    
+                </li>
+                
+                <li>
+                    <a class="menu-link " href="/lab/">
+                        Lab
+                    </a>
+                    
+                </li>
+                
+                <li class="menu-separator">
+                    <span>|</span>
+                </li>
+            </ul>
+            <a id="mode" href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mode-sunny" width="21" height="21" viewBox="0 0 14 14" stroke-width="1">
+<title>LIGHT</title><g><circle cx="7" cy="7" r="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></circle><line x1="7" y1="0.5" x2="7" y2="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="2.4" x2="3.82" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="0.5" y1="7" x2="2.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="11.6" x2="3.82" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="7" y1="13.5" x2="7" y2="11.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="11.6" x2="10.18" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="13.5" y1="7" x2="11.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="2.4" x2="10.18" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line></g></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="mode-moon" width="21" height="21" viewBox="0 0 14 14" stroke-width="1">
+<title>DARK</title><g><circle cx="7" cy="7" r="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></circle><line x1="7" y1="0.5" x2="7" y2="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="2.4" x2="3.82" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="0.5" y1="7" x2="2.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="11.6" x2="3.82" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="7" y1="13.5" x2="7" y2="11.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="11.6" x2="10.18" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="13.5" y1="7" x2="11.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="2.4" x2="10.18" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line></g></svg>
+            </a>
+        </div>
+    </nav>
+</div>
+
+<div class="wrapper post">
+    <main class="page-content" aria-label="Content">
+        <article>
+            <header class="header">
+                <h1 class="header-title">为什么getTime()返回1970年至今的毫秒？</h1>
+                
+                
+                <div class="post-meta">
+                    <time datetime="2020-11-13T00:00:00&#43;00:00" itemprop="datePublished"> 13 Nov 2020 </time>
+                </div>
+                
+            </header>
+            <details class="toc">
+                <summary><b>Table of Contents</b></summary>
+                <nav id="TableOfContents"></nav>
+            </details><div class="page-content">
+                <p>今天在写new Date()时候，无意中发现了一个很有意思的方法，<code>getTime()</code>，百度了一下，有人说是计算从1970年1月1日至今的毫秒数</p>
 <blockquote>
 <p>为什么要是1970年呢？</p>
 </blockquote>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">new</span> <span style="color:#0086b3">Date</span>().getTime();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// xxxxxxxxxxx
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getTime</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// xxxxxxxxxxx
 </span></span></span></code></pre></div><p>这个起源于unix的诞生，因为Unix在1969年被开发出来，1971年正式发布，在这之前没有机器会需要来表示1970-01-01-00:00:00之前的时间，后面的语言很多就沿用了这一习惯，js只是也沿用了这种习惯而已。</p>
 <p>当然，这一做法现在看来是很有问题的，例如不方便用它表示更早的时间而且精度有限。</p>
 <p>定义time从1970年1月1日开始，忽然想到在JAVA里，Oracle数据库时间也是从1970年1月1日开始计算。</p>
 <p>比如java类代码:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Date date <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> Date<span style="color:#000;font-weight:bold">(</span>0<span style="color:#000;font-weight:bold">);</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>System<span style="color:#000;font-weight:bold">.</span><span style="color:#008080">out</span><span style="color:#000;font-weight:bold">.</span><span style="color:#008080">println</span><span style="color:#000;font-weight:bold">(</span>date<span style="color:#000;font-weight:bold">);</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 打印出来的结果：Thu Jan 01 08:00:00 CST 1970也
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Date</span> <span class="n">date</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Date</span><span class="o">(</span><span class="n">0</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">date</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 打印出来的结果：Thu Jan 01 08:00:00 CST 1970也
 </span></span></span></code></pre></div><p>是1970年1月1日，实际上时分秒是0点0分0秒(这里打印出来是8点，稍后会作解释)。</p>
 <p>为什么这个时间会定义在1970年1月1日这个时候呢?</p>
 <p>于是开始了Google，中文网页根本找不到答案。于是试着搜索英文关键字,在Sun java论坛总算找到准确的帖子:</p>
@@ -169,76 +179,112 @@ UNIX considers the epoch (when did time begin) to be midnight, January 1, 1970.
 <p>最后一个问题:</p>
 <p>上面System.out.println(new Date(0))，打印出来的时间是8点而非0点，原因是存在系统时间和本地时间的问题，其实系统时间依然是0点，只不过我的电脑时区设置为东8区，故打印的结果是8点。</p>
 
-  </article>
+            </div>
+        </article>
+        <hr style="margin-top: 40px; margin-bottom: 40px;" />
 
-  
-  
-  <ul class="post-tags">
-     
-    <li><a href="/tags/%E6%9D%82%E8%B0%88">杂谈</a></li>
-    
-  </ul>
-  
-
-  
-  <p style="font-size:14px;">本文访问量：<span id="twikoo_visitors">0</span></p>
-  
-
-  <div class="end">END</div>
-
-  
-  <section id="comments">
-  <div id="tcomment"></div>
-  <link rel="stylesheet" href="/css/twikoo.css">
-  <script src="https://cdn.staticfile.org/twikoo/1.6.17/twikoo.all.min.js"></script>
-  <script src="/js/twikoo.js"></script>
-  <script>
-    twikoo.init({
-      envId: 'https://twikoo.zburu.com/',
-      el: '#tcomment',
-      lang: 'zh-CN',
-      includeReply: true,
-    })
-  </script>
-</section>
-  
-</div>
-</div>
-</main>
-
-<footer class="footer">
-  <div>© 2020 - <span id="year"></span> Powered by 子舒</div>
-  <div>网站已经运行 <span id="days">0</span></div>
-  <div class="gotop">▲</div>
-</footer>
-
+<div id="tcomment"></div>
+<script src="https://cdn.staticfile.org/twikoo/1.6.17/twikoo.all.min.js"></script>
 <script>
-  var s0 = '2020-06-14';
-  s1 = new Date(s0.replace(/-/g, "/"));
-  s2 = new Date();
-  var days = s2.getTime() - s1.getTime();
-
-  var date = new Date;
-  var year = date.getFullYear();
-  document.getElementById('year').innerHTML = year;
-
-  var BootDate = new Date("2020-06-14");
-  function ShowRunTime(id) {
-    var NowDate = new Date();
-    var RunDateM = parseInt(NowDate - BootDate);
-    var RunDays = Math.floor(RunDateM / (24 * 3600 * 1000));
-    var RunHours = Math.floor(RunDateM % (24 * 3600 * 1000) / (3600 * 1000));
-    var RunMinutes = Math.floor(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) / (60 * 1000));
-    var RunSeconds = Math.round(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) % (60 * 1000) / 1000);
-    var days = RunDays + "天" + RunHours + "时" + RunMinutes + "分" + RunSeconds + "秒";
-    document.getElementById(id).innerHTML = days;
-  }
-  ShowRunTime('days');
-  setInterval("ShowRunTime('days')", 1000);
+  twikoo.init({
+    envId: 'https://twikoo.zburu.com/',
+    el: '#tcomment',
+    lang: 'zh-CN',
+    includeReply: true,
+  })
 </script>
-<script src="/js/simplebox.min.js"></script>
-<script src="/js/search.js"></script>
-<script src="/js/main.js"></script>
-</body>
+    </main>
+</div>
+<footer class="footer">
+    <span class="footer_item"> </span>
+    &nbsp;
 
+    <div class="footer_social-icons">
+<a href="https://github.com/zishume" target="_blank" rel="noopener noreferrer me"
+    title="Github">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+    stroke-linecap="round" stroke-linejoin="round">
+    <path
+        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+    </path>
+</svg>
+</a>
+<a href="https://twitter.com/Anghunk520" target="_blank" rel="noopener noreferrer me"
+    title="Twitter">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+    stroke-linecap="round" stroke-linejoin="round">
+    <path
+        d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
+    </path>
+</svg>
+</a>
+<a href="index.xml" target="_blank" rel="noopener noreferrer me"
+    title="Rss">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+    stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 11a9 9 0 0 1 9 9" />
+    <path d="M4 4a16 16 0 0 1 16 16" />
+    <circle cx="5" cy="19" r="1" />
+</svg>
+</a>
+</div>
+    <small class="footer_copyright">
+        <div>© 2020 - <span id="year">2023</span> Powered by 子舒</div>
+        <div>网站已经运行 <span id="days">0</span></div>
+    </small>
+</footer>
+<script>
+    var s0 = '2020-06-14';
+    s1 = new Date(s0.replace(/-/g, "/"));
+    s2 = new Date();
+    var days = s2.getTime() - s1.getTime();
+  
+    var date = new Date;
+    var year = date.getFullYear();
+    document.getElementById('year').innerHTML = year;
+  
+    var BootDate = new Date("2020-06-14");
+    function ShowRunTime(id) {
+      var NowDate = new Date();
+      var RunDateM = parseInt(NowDate - BootDate);
+      var RunDays = Math.floor(RunDateM / (24 * 3600 * 1000));
+      var RunHours = Math.floor(RunDateM % (24 * 3600 * 1000) / (3600 * 1000));
+      var RunMinutes = Math.floor(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) / (60 * 1000));
+      var RunSeconds = Math.round(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) % (60 * 1000) / 1000);
+      var days = RunDays + "天" + RunHours + "时" + RunMinutes + "分" + RunSeconds + "秒";
+      document.getElementById(id).innerHTML = days;
+    }
+    ShowRunTime('days');
+    setInterval("ShowRunTime('days')", 1000);
+  </script><a href="#" title="Go to top" id="totop">
+    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" stroke="currentColor" viewBox="0 96 960 960">
+    <path d="M283 704.739 234.261 656 480 410.261 725.739 656 677 704.739l-197-197-197 197Z"/>
+</svg>
+
+</a>
+
+
+    
+
+
+
+
+    
+    
+        
+    
+
+    
+    
+        
+    
+
+
+
+    
+    <script src="/js/main.min.35f435a5d8eac613c52daa28d8af544a4512337d3e95236e4a4978417b8dcb2f.js" integrity="sha256-NfQ1pdjqxhPFLaoo2K9USkUSM30&#43;lSNuSkl4QXuNyy8="></script>
+
+    
+
+</body>
 </html>
