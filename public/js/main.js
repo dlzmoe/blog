@@ -19,9 +19,9 @@ $(function () {
     })
   })
 
-  $('nav em').click(function () {
+  $('.menu-icon').click(function () {
     $(this).toggleClass('act');
-    $('nav ul').slideToggle();
+    $('.menu .trigger').slideToggle();
   })
 
   $('nav ul a').each(function () {
@@ -55,10 +55,10 @@ comments();
 function themedark() {
   var themedark = localStorage.getItem('themedark');
   if (themedark == 'dark') {
-    $('body').addClass('dark');
+    $('html').addClass('dark');
   }
   $('#theme-toggle').click(function () {
-    $('body').toggleClass('dark');
+    $('html').toggleClass('dark');
     if ($('.dark').length > 0) {
       localStorage.setItem('themedark', 'dark');
     } else {

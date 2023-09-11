@@ -1,148 +1,163 @@
 <!DOCTYPE html>
-<html lang="en-us"><head><meta charset="utf-8">
-<meta http-equiv="content-type" content="text/html">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title itemprop="name">使用 cloudflare 反代 gravatar 免费生成国内镜像 | 子舒的博客</title>
-<meta property="og:title" content="使用 cloudflare 反代 gravatar 免费生成国内镜像 | 子舒的博客" />
-<meta name="twitter:title" content="使用 cloudflare 反代 gravatar 免费生成国内镜像 | 子舒的博客" />
-<meta itemprop="name" content="使用 cloudflare 反代 gravatar 免费生成国内镜像 | 子舒的博客" />
-<meta name="application-name" content="使用 cloudflare 反代 gravatar 免费生成国内镜像 | 子舒的博客" />
-<meta property="og:site_name" content="子舒的博客" />
-
-<meta name="description" content="我是子舒。前端程序员，独立博客作者，骑行爱好者，摄影爱好者，INFJ人格。现在生活工作在杭州。这是我在闲暇时间写的博客，记录生活。">
-<meta itemprop="description" content="我是子舒。前端程序员，独立博客作者，骑行爱好者，摄影爱好者，INFJ人格。现在生活工作在杭州。这是我在闲暇时间写的博客，记录生活。" />
-<meta property="og:description" content="我是子舒。前端程序员，独立博客作者，骑行爱好者，摄影爱好者，INFJ人格。现在生活工作在杭州。这是我在闲暇时间写的博客，记录生活。" />
-<meta name="twitter:description" content="我是子舒。前端程序员，独立博客作者，骑行爱好者，摄影爱好者，INFJ人格。现在生活工作在杭州。这是我在闲暇时间写的博客，记录生活。" />
-
-<meta property="og:locale" content="en-us" />
-<meta name="language" content="en-us" />
-
-
-
-  <meta itemprop="image" content="" />
-  <meta property="og:image" content="" />
-  <meta name="twitter:image" content="" />
-  <meta name="twitter:image:src" content="" />
-
-
-
-
-
+<html lang="en-us">
+<head>
+<meta charset="utf-8" />
 <meta name="generator" content="Hugo 0.118.2">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="toTop" content="true">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="author" content="" />
+<meta property="og:url" content="/blog/182.html/" />
+<link rel="canonical" href="/blog/182.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon2.png" />
+<link rel="icon" href="https://imgurl.zishu.me/favicon2.png" />
+<link rel="shortcut" href="https://imgurl.zishu.me/favicon2.png" /><link rel="alternate" type="application/atom+xml" href="index.xml" title="子舒的博客">
+<script type="application/ld+json">
+{
+"@context" : "http://schema.org",
+"@type" : "BlogPosting",
+"mainEntityOfPage": {
+"@type": "WebPage",
+"@id": ""
+},
+"articleSection" : "blog",
+"name" : "使用 cloudflare 反代 gravatar 免费生成国内镜像",
+"headline" : "使用 cloudflare 反代 gravatar 免费生成国内镜像",
+"description" : "cloudflare 有一个非常好用的功能\u0026mdash;Workers，可以在无服务器的状态下运行一些程序，包括常见的反向代理等。 所以我利用这一功能实现对 gravatar 反代，达到国内访问加速的目的。 话不多说，开始流程操作，分享我的部署过程。 1.登陆后，在主页点击左侧的 Workers，然后点击创建服务。 2.服务名称随意填写，然后点击右下角创建。 3.点击右上角快速编辑 4.在左侧编辑器中输入下列的代码 点击展开代码 \/\/ 替换成你想镜像的站点 const upstream = \u0026#39;gravatar.com\u0026#39; \/\/ 如果那个站点有专门的移动适配站点，否则保持和上面一致 const upstream_mobile = \u0026#39;gravatar.com\u0026#39; \/\/ 你希望禁止哪些国家访问 const blocked_region = [] \/\/ 禁止自访问 const blocked_ip_address = [] \/\/ 替换成你想镜像的站点 const replace_dict = { \u0026#39;$upstream\u0026#39;: \u0026#39;$custom_domain\u0026#39;, \u0026#39;\/\/gravatar.com\u0026#39;: \u0026#39;\u0026#39; } \/\/以下内容都不用动 addEventListener(\u0026#39;fetch\u0026#39;, event =\u0026gt; { event.respondWith(fetchAndApply(event.request)); }) async function fetchAndApply(request) { const region = request.headers.get(\u0026#39;cf-ipcountry\u0026#39;).toUpperCase(); const ip_address = request.headers.get(\u0026#39;cf-connecting-ip\u0026#39;); const user_agent = request.headers.get(\u0026#39;user-agent\u0026#39;); let response = null; let url = new URL(request.url); let url_host = url.host; if (url.protocol == \u0026#39;http:\u0026#39;) { url.protocol = \u0026#39;https:\u0026#39; response = Response.redirect(url.href); return response; } if (await device_status(user_agent)) { upstream_domain = upstream } else { upstream_domain = upstream_mobile } url.host = upstream_domain; if (blocked_region.includes(region)) { response = new Response(\u0026#39;Access denied: WorkersProxy is not available in your region yet.\u0026#39;, { status: 403 }); } else if(blocked_ip_address.includes(ip_address)){ response = new Response(\u0026#39;Access denied: Your IP address is blocked by WorkersProxy.\u0026#39;, { status: 403 }); } else{ let method = request.method; let request_headers = request.headers; let new_request_headers = new Headers(request_headers); new_request_headers.set(\u0026#39;Host\u0026#39;, upstream_domain); new_request_headers.set(\u0026#39;Referer\u0026#39;, url.href); let original_response = await fetch(url.href, { method: method, headers: new_request_headers }) let original_response_clone = original_response.clone(); let original_text = null; let response_headers = original_response.headers; let new_response_headers = new Headers(response_headers); let status = original_response.status; new_response_headers.set(\u0026#39;access-control-allow-origin\u0026#39;, \u0026#39;*\u0026#39;); new_response_headers.set(\u0026#39;access-control-allow-credentials\u0026#39;, true); new_response_headers.delete(\u0026#39;content-security-policy\u0026#39;); new_response_headers.delete(\u0026#39;content-security-policy-report-only\u0026#39;); new_response_headers.delete(\u0026#39;clear-site-data\u0026#39;); const content_type = new_response_headers.get(\u0026#39;content-type\u0026#39;); if (content_type.includes(\u0026#39;text\/html\u0026#39;) \u0026amp;\u0026amp; content_type.includes(\u0026#39;UTF-8\u0026#39;)) { original_text = await replace_response_text(original_response_clone, upstream_domain, url_host); } else { original_text = original_response_clone.body } response = new Response(original_text, { status, headers: new_response_headers }) } return response; } async function replace_response_text(response, upstream_domain, host_name) { let text = await response.text() var i, j; for (i in replace_dict) { j = replace_dict[i] if (i == \u0026#39;$upstream\u0026#39;) { i = upstream_domain } else if (i == \u0026#39;$custom_domain\u0026#39;) { i = host_name } if (j == \u0026#39;$upstream\u0026#39;) { j = upstream_domain } else if (j == \u0026#39;$custom_domain\u0026#39;) { j = host_name } let re = new RegExp(i, \u0026#39;g\u0026#39;) text = text.replace(re, j); } return text; } async function device_status (user_agent_info) { var agents = [\u0026#34;Android\u0026#34;, \u0026#34;iPhone\u0026#34;, \u0026#34;SymbianOS\u0026#34;, \u0026#34;Windows Phone\u0026#34;, \u0026#34;iPad\u0026#34;, \u0026#34;iPod\u0026#34;]; var flag = true; for (var v = 0; v \u0026lt; agents.length; v\u002b\u002b) { if (user_agent_info.indexOf(agents[v]) \u0026gt; 0) { flag = false; break; } } return flag; } 然后点击保存并部署，就可以成功反代 gravatar 镜像了。 然后照葫芦画瓢，可以通过这种方式反代任何网站，我就使用 https:\/\/zsh.im 反代了我的国内博客 https:\/\/zburu.com。 访问起来大致无压力，延迟100\u002bms左右。 5.自定义域名 在触发器中可以找到自定义域名选项，输入已经绑定 cloudflare 的域名，再次赞美 cloudflare，如果事前绑定好了域名，在这里可以直接输入二级域名，cloudflare 会自动解析，全部都是自动化的。 在主页左侧的 网站 绑定域名。 # 分享我的免费镜像。 https:\/\/gravatar.zsh.im\/avatar",
+"inLanguage" : "en-US",
+"author" : "子舒",
+"creator" : "子舒",
+"publisher": "子舒",
+"accountablePerson" : "子舒",
+"copyrightHolder" : "子舒",
+"copyrightYear" : "2023",
+"datePublished": "2023-02-01 00:00:00 \u002b0000 UTC",
+"dateModified" : "2023-02-01 00:00:00 \u002b0000 UTC",
+"url" : "\/blog\/182.html\/",
+"keywords" : [ "cloudflare","gravatar", ]
+}
+</script><title>使用 cloudflare 反代 gravatar 免费生成国内镜像 - 子舒</title>
+<meta property="og:title" content="使用 cloudflare 反代 gravatar 免费生成国内镜像" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="cloudflare 有一个非常好用的功能&amp;mdash;Workers，可以在无服务器的状态下运行一些程序，包括常见的反向代理等。 所以我利用这一功能实现对 gravatar 反代，达到国内访问加速的目的。 话不多说，开始流程操作，分享我的部署过程。 1.登陆后，在主页点击左侧的 Workers，然后点击创建服务。 2.服务名称随意填写，然后点击右下角创建。 3.点击右上角快速编辑 4.在左侧编辑器中输入下列的代码 点击展开代码 // 替换成你想镜像的站点 const upstream = &amp;#39;gravatar.com&amp;#39; // 如果那个站点有专门的移动适配站点，否则保持和上面一致 const upstream_mobile = &amp;#39;gravatar.com&amp;#39; // 你希望禁止哪些国家访问 const blocked_region = [] // 禁止自访问 const blocked_ip_address = [] // 替换成你想镜像的站点 const replace_dict = { &amp;#39;$upstream&amp;#39;: &amp;#39;$custom_domain&amp;#39;, &amp;#39;//gravatar.com&amp;#39;: &amp;#39;&amp;#39; } //以下内容都不用动 addEventListener(&amp;#39;fetch&amp;#39;, event =&amp;gt; { event.respondWith(fetchAndApply(event.request)); }) async function fetchAndApply(request) { const region = request.headers.get(&amp;#39;cf-ipcountry&amp;#39;).toUpperCase(); const ip_address = request.headers.get(&amp;#39;cf-connecting-ip&amp;#39;); const user_agent = request.headers.get(&amp;#39;user-agent&amp;#39;); let response = null; let url = new URL(request.url); let url_host = url.host; if (url.protocol == &amp;#39;http:&amp;#39;) { url.protocol = &amp;#39;https:&amp;#39; response = Response.redirect(url.href); return response; } if (await device_status(user_agent)) { upstream_domain = upstream } else { upstream_domain = upstream_mobile } url.host = upstream_domain; if (blocked_region.includes(region)) { response = new Response(&amp;#39;Access denied: WorkersProxy is not available in your region yet.&amp;#39;, { status: 403 }); } else if(blocked_ip_address.includes(ip_address)){ response = new Response(&amp;#39;Access denied: Your IP address is blocked by WorkersProxy.&amp;#39;, { status: 403 }); } else{ let method = request.method; let request_headers = request.headers; let new_request_headers = new Headers(request_headers); new_request_headers.set(&amp;#39;Host&amp;#39;, upstream_domain); new_request_headers.set(&amp;#39;Referer&amp;#39;, url.href); let original_response = await fetch(url.href, { method: method, headers: new_request_headers }) let original_response_clone = original_response.clone(); let original_text = null; let response_headers = original_response.headers; let new_response_headers = new Headers(response_headers); let status = original_response.status; new_response_headers.set(&amp;#39;access-control-allow-origin&amp;#39;, &amp;#39;*&amp;#39;); new_response_headers.set(&amp;#39;access-control-allow-credentials&amp;#39;, true); new_response_headers.delete(&amp;#39;content-security-policy&amp;#39;); new_response_headers.delete(&amp;#39;content-security-policy-report-only&amp;#39;); new_response_headers.delete(&amp;#39;clear-site-data&amp;#39;); const content_type = new_response_headers.get(&amp;#39;content-type&amp;#39;); if (content_type.includes(&amp;#39;text/html&amp;#39;) &amp;amp;&amp;amp; content_type.includes(&amp;#39;UTF-8&amp;#39;)) { original_text = await replace_response_text(original_response_clone, upstream_domain, url_host); } else { original_text = original_response_clone.body } response = new Response(original_text, { status, headers: new_response_headers }) } return response; } async function replace_response_text(response, upstream_domain, host_name) { let text = await response.text() var i, j; for (i in replace_dict) { j = replace_dict[i] if (i == &amp;#39;$upstream&amp;#39;) { i = upstream_domain } else if (i == &amp;#39;$custom_domain&amp;#39;) { i = host_name } if (j == &amp;#39;$upstream&amp;#39;) { j = upstream_domain } else if (j == &amp;#39;$custom_domain&amp;#39;) { j = host_name } let re = new RegExp(i, &amp;#39;g&amp;#39;) text = text.replace(re, j); } return text; } async function device_status (user_agent_info) { var agents = [&amp;#34;Android&amp;#34;, &amp;#34;iPhone&amp;#34;, &amp;#34;SymbianOS&amp;#34;, &amp;#34;Windows Phone&amp;#34;, &amp;#34;iPad&amp;#34;, &amp;#34;iPod&amp;#34;]; var flag = true; for (var v = 0; v &amp;lt; agents.length; v&#43;&#43;) { if (user_agent_info.indexOf(agents[v]) &amp;gt; 0) { flag = false; break; } } return flag; } 然后点击保存并部署，就可以成功反代 gravatar 镜像了。 然后照葫芦画瓢，可以通过这种方式反代任何网站，我就使用 https://zsh.im 反代了我的国内博客 https://zburu.com。 访问起来大致无压力，延迟100&#43;ms左右。 5.自定义域名 在触发器中可以找到自定义域名选项，输入已经绑定 cloudflare 的域名，再次赞美 cloudflare，如果事前绑定好了域名，在这里可以直接输入二级域名，cloudflare 会自动解析，全部都是自动化的。 在主页左侧的 网站 绑定域名。 # 分享我的免费镜像。 https://gravatar.zsh.im/avatar" />
+<meta name="description" content="cloudflare 有一个非常好用的功能&amp;mdash;Workers，可以在无服务器的状态下运行一些程序，包括常见的反向代理等。 所以我利用这一功能实现对 gravatar 反代，达到国内访问加速的目的。 话不多说，开始流程操作，分享我的部署过程。 1.登陆后，在主页点击左侧的 Workers，然后点击创建服务。 2.服务名称随意填写，然后点击右下角创建。 3.点击右上角快速编辑 4.在左侧编辑器中输入下列的代码 点击展开代码 // 替换成你想镜像的站点 const upstream = &amp;#39;gravatar.com&amp;#39; // 如果那个站点有专门的移动适配站点，否则保持和上面一致 const upstream_mobile = &amp;#39;gravatar.com&amp;#39; // 你希望禁止哪些国家访问 const blocked_region = [] // 禁止自访问 const blocked_ip_address = [] // 替换成你想镜像的站点 const replace_dict = { &amp;#39;$upstream&amp;#39;: &amp;#39;$custom_domain&amp;#39;, &amp;#39;//gravatar.com&amp;#39;: &amp;#39;&amp;#39; } //以下内容都不用动 addEventListener(&amp;#39;fetch&amp;#39;, event =&amp;gt; { event.respondWith(fetchAndApply(event.request)); }) async function fetchAndApply(request) { const region = request.headers.get(&amp;#39;cf-ipcountry&amp;#39;).toUpperCase(); const ip_address = request.headers.get(&amp;#39;cf-connecting-ip&amp;#39;); const user_agent = request.headers.get(&amp;#39;user-agent&amp;#39;); let response = null; let url = new URL(request.url); let url_host = url.host; if (url.protocol == &amp;#39;http:&amp;#39;) { url.protocol = &amp;#39;https:&amp;#39; response = Response.redirect(url.href); return response; } if (await device_status(user_agent)) { upstream_domain = upstream } else { upstream_domain = upstream_mobile } url.host = upstream_domain; if (blocked_region.includes(region)) { response = new Response(&amp;#39;Access denied: WorkersProxy is not available in your region yet.&amp;#39;, { status: 403 }); } else if(blocked_ip_address.includes(ip_address)){ response = new Response(&amp;#39;Access denied: Your IP address is blocked by WorkersProxy.&amp;#39;, { status: 403 }); } else{ let method = request.method; let request_headers = request.headers; let new_request_headers = new Headers(request_headers); new_request_headers.set(&amp;#39;Host&amp;#39;, upstream_domain); new_request_headers.set(&amp;#39;Referer&amp;#39;, url.href); let original_response = await fetch(url.href, { method: method, headers: new_request_headers }) let original_response_clone = original_response.clone(); let original_text = null; let response_headers = original_response.headers; let new_response_headers = new Headers(response_headers); let status = original_response.status; new_response_headers.set(&amp;#39;access-control-allow-origin&amp;#39;, &amp;#39;*&amp;#39;); new_response_headers.set(&amp;#39;access-control-allow-credentials&amp;#39;, true); new_response_headers.delete(&amp;#39;content-security-policy&amp;#39;); new_response_headers.delete(&amp;#39;content-security-policy-report-only&amp;#39;); new_response_headers.delete(&amp;#39;clear-site-data&amp;#39;); const content_type = new_response_headers.get(&amp;#39;content-type&amp;#39;); if (content_type.includes(&amp;#39;text/html&amp;#39;) &amp;amp;&amp;amp; content_type.includes(&amp;#39;UTF-8&amp;#39;)) { original_text = await replace_response_text(original_response_clone, upstream_domain, url_host); } else { original_text = original_response_clone.body } response = new Response(original_text, { status, headers: new_response_headers }) } return response; } async function replace_response_text(response, upstream_domain, host_name) { let text = await response.text() var i, j; for (i in replace_dict) { j = replace_dict[i] if (i == &amp;#39;$upstream&amp;#39;) { i = upstream_domain } else if (i == &amp;#39;$custom_domain&amp;#39;) { i = host_name } if (j == &amp;#39;$upstream&amp;#39;) { j = upstream_domain } else if (j == &amp;#39;$custom_domain&amp;#39;) { j = host_name } let re = new RegExp(i, &amp;#39;g&amp;#39;) text = text.replace(re, j); } return text; } async function device_status (user_agent_info) { var agents = [&amp;#34;Android&amp;#34;, &amp;#34;iPhone&amp;#34;, &amp;#34;SymbianOS&amp;#34;, &amp;#34;Windows Phone&amp;#34;, &amp;#34;iPad&amp;#34;, &amp;#34;iPod&amp;#34;]; var flag = true; for (var v = 0; v &amp;lt; agents.length; v&#43;&#43;) { if (user_agent_info.indexOf(agents[v]) &amp;gt; 0) { flag = false; break; } } return flag; } 然后点击保存并部署，就可以成功反代 gravatar 镜像了。 然后照葫芦画瓢，可以通过这种方式反代任何网站，我就使用 https://zsh.im 反代了我的国内博客 https://zburu.com。 访问起来大致无压力，延迟100&#43;ms左右。 5.自定义域名 在触发器中可以找到自定义域名选项，输入已经绑定 cloudflare 的域名，再次赞美 cloudflare，如果事前绑定好了域名，在这里可以直接输入二级域名，cloudflare 会自动解析，全部都是自动化的。 在主页左侧的 网站 绑定域名。 # 分享我的免费镜像。 https://gravatar.zsh.im/avatar" />
+<meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon2.png" />
 
-    
 
-    <link rel="canonical" href="/blog/182.html/">
-    <link href="/style.min.45167c7de0b00806157891d7795d5562bfa40ff5935205330acf9a4deab39e3e.css" rel="stylesheet">
-    <link href="/code-highlight.min.706d31975fec544a864cb7f0d847a73ea55ca1df91bf495fd12a177138d807cf.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect" />
+<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/css/index.css">
+<link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
+<script src="/js/jquery3.6.0.min.js"></script>
+<script async src="https://umami.zburu.com/script.js" data-website-id="9e5fc8da-b70b-4767-81cd-35ba13110fd5"></script>
+</head>
 
-    
-    <link rel="shortcut icon" href="https://imgurl.zishu.me/favicon2.png" type="image/x-icon">
-
-
-
-
-<link rel="manifest" href="/site.webmanifest">
-
-<meta name="msapplication-config" content="/browserconfig.xml">
-<meta name="msapplication-TileColor" content="#2d89ef">
-<meta name="theme-color" content="#434648">
-
-    
-    </head>
-<body data-theme = "auto" class="notransition">
-
-<script src="/js/theme.min.8961c317c5b88b953fe27525839672c9343f1058ab044696ca225656c8ba2ab0.js" integrity="sha256-iWHDF8W4i5U/4nUlg5ZyyTQ/EFirBEaWyiJWVsi6KrA="></script>
-
-<div class="navbar" role="navigation">
+<body>
+  <div class="navbar" role="navigation">
     <nav class="menu" aria-label="Main Navigation">
-        <a href="/" class="logo">
-            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" 
-viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" 
-stroke-linejoin="round" class="feather feather-home">
-<title>Home</title>
-<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-<polyline points="9 22 9 12 15 12 15 22"></polyline>
-</svg>
-        </a>
-        <input type="checkbox" id="menu-trigger" class="menu-trigger" />
-        <label for="menu-trigger">
-            <span class="menu-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" stroke="currentColor" fill="none" viewBox="0 0 14 14"><title>Menu</title><path stroke-linecap="round" stroke-linejoin="round" d="M10.595 7L3.40726 7"></path><path stroke-linecap="round" stroke-linejoin="round" d="M10.5096 3.51488L3.49301 3.51488"></path><path stroke-linecap="round" stroke-linejoin="round" d="M10.5096 10.4851H3.49301"></path><path stroke-linecap="round" stroke-linejoin="round" d="M0.5 12.5V1.5C0.5 0.947715 0.947715 0.5 1.5 0.5H12.5C13.0523 0.5 13.5 0.947715 13.5 1.5V12.5C13.5 13.0523 13.0523 13.5 12.5 13.5H1.5C0.947715 13.5 0.5 13.0523 0.5 12.5Z"></path></svg>
-            </span>
-        </label>
+      
+      <a href="/" class="logo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="feather feather-home">
+          <title>Home</title>
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+      </a>
+      <label for="menu-trigger">
+        <span class="menu-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" stroke="currentColor" fill="none"
+            viewBox="0 0 14 14">
+            <title>Menu</title>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.595 7L3.40726 7"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5096 3.51488L3.49301 3.51488"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5096 10.4851H3.49301"></path>
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M0.5 12.5V1.5C0.5 0.947715 0.947715 0.5 1.5 0.5H12.5C13.0523 0.5 13.5 0.947715 13.5 1.5V12.5C13.5 13.0523 13.0523 13.5 12.5 13.5H1.5C0.947715 13.5 0.5 13.0523 0.5 12.5Z">
+            </path>
+          </svg>
+        </span>
+      </label>
 
-        <div class="trigger">
-            <ul class="trigger-container">
-                
-                
-                <li>
-                    <a class="menu-link " href="/">
-                        Home
-                    </a>
-                    
-                </li>
-                
-                <li>
-                    <a class="menu-link " href="/blog/">
-                        Posts
-                    </a>
-                    
-                </li>
-                
-                <li>
-                    <a class="menu-link " href="/message/">
-                        Message
-                    </a>
-                    
-                </li>
-                
-                <li>
-                    <a class="menu-link " href="/about/">
-                        About
-                    </a>
-                    
-                </li>
-                
-                <li>
-                    <a class="menu-link " href="/lab/">
-                        Lab
-                    </a>
-                    
-                </li>
-                
-                <li class="menu-separator">
-                    <span>|</span>
-                </li>
-            </ul>
-            <a id="mode" href="#">
-                <svg xmlns="http://www.w3.org/2000/svg" class="mode-sunny" width="21" height="21" viewBox="0 0 14 14" stroke-width="1">
-<title>LIGHT</title><g><circle cx="7" cy="7" r="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></circle><line x1="7" y1="0.5" x2="7" y2="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="2.4" x2="3.82" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="0.5" y1="7" x2="2.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="11.6" x2="3.82" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="7" y1="13.5" x2="7" y2="11.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="11.6" x2="10.18" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="13.5" y1="7" x2="11.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="2.4" x2="10.18" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line></g></svg>
-                <svg xmlns="http://www.w3.org/2000/svg" class="mode-moon" width="21" height="21" viewBox="0 0 14 14" stroke-width="1">
-<title>DARK</title><g><circle cx="7" cy="7" r="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></circle><line x1="7" y1="0.5" x2="7" y2="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="2.4" x2="3.82" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="0.5" y1="7" x2="2.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="11.6" x2="3.82" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="7" y1="13.5" x2="7" y2="11.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="11.6" x2="10.18" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="13.5" y1="7" x2="11.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="2.4" x2="10.18" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line></g></svg>
-            </a>
+      <div class="trigger">
+        <ul class="trigger-container">
+          
+          <li>
+            <a class="menu-link" href="/" title="Home">Home</a>
+          </li>
+          
+          <li>
+            <a class="menu-link" href="/blog/" title="Posts">Posts</a>
+          </li>
+          
+          <li>
+            <a class="menu-link" href="/message/" title="Message">Message</a>
+          </li>
+          
+          <li>
+            <a class="menu-link" href="/lab/" title="Lab">Lab</a>
+          </li>
+          
+          <li>
+            <a class="menu-link" href="/about/" title="About">About</a>
+          </li>
+          
+          <li>
+            <a class="menu-link" href="/search/" title="Search">Search</a>
+          </li>
+          
+        </ul>
+      
+        <div class="logo-switches">
+          <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+            <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+          </button>
         </div>
+      </div>
     </nav>
-</div>
+  </div>
 
-<div class="wrapper post">
-    <main class="page-content" aria-label="Content">
-        <article>
-            <header class="header">
-                <h1 class="header-title">使用 cloudflare 反代 gravatar 免费生成国内镜像</h1>
-                
-                
-                <div class="post-meta">
-                    <time datetime="2023-02-01T00:00:00&#43;00:00" itemprop="datePublished"> 1 Feb 2023 </time>
-                </div>
-                
-            </header>
-            <details class="toc">
-                <summary><b>Table of Contents</b></summary>
-                <nav id="TableOfContents"></nav>
-            </details><div class="page-content">
-                <p>cloudflare 有一个非常好用的功能&mdash;Workers，可以在无服务器的状态下运行一些程序，包括常见的反向代理等。</p>
+  <main class="wrapper">
+    <div class="content">
+
+<div class="main detail">
+  <header class="header">
+    <h1 class="header-title">使用 cloudflare 反代 gravatar 免费生成国内镜像</h1>
+    
+    
+    <div class="post-meta">
+      发布于 <time datetime=" 2023-02-01 00:00:00 UTC"> 2023-02-01</time>
+    </div>
+    
+    
+  </header>
+  <br>
+  <script type="module" src="https://cdn.jsdelivr.net/gh/emaction/frontend.dist@1.0.9/bundle.js"></script>
+  <emoji-reaction></emoji-reaction>
+  <details class="toc">
+    <summary><b>Table of Contents</b></summary>
+    <nav id="TableOfContents"></nav>
+  </details>
+
+  <article class="post-content markdown-body">
+    
+    <p>cloudflare 有一个非常好用的功能&mdash;Workers，可以在无服务器的状态下运行一些程序，包括常见的反向代理等。</p>
 <p>所以我利用这一功能实现对 gravatar 反代，达到国内访问加速的目的。</p>
 <p>话不多说，开始流程操作，分享我的部署过程。</p>
 <p><strong>1.登陆后，在主页点击左侧的 <code>Workers</code>，然后点击<code>创建服务</code>。</strong></p>
@@ -295,14 +310,26 @@ stroke-linejoin="round" class="feather feather-home">
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 分享我的免费镜像。</span>
 </span></span><span class="line"><span class="cl">https://gravatar.zsh.im/avatar
 </span></span></code></pre></div>
-            </div>
-        </article>
-        <hr style="margin-top: 40px; margin-bottom: 40px;" />
+  </article>
+
+  
+  
+  <ul class="post-tags">
+     
+    <li><a href="/tags/cloudflare">cloudflare</a></li>
+     
+    <li><a href="/tags/gravatar">gravatar</a></li>
+    
+  </ul>
+  
+
+  <div class="end">END</div>
+
+  
+  <hr style="margin-top: 40px; margin-bottom: 40px;" />
 
 <div id="tcomment"></div>
 <script src="https://cdn.staticfile.org/twikoo/1.6.19/twikoo.all.min.js"></script>
-
-
 <script>
   twikoo.init({
     envId: 'https://twikoo.zishu.me/.netlify/functions/twikoo',
@@ -318,98 +345,73 @@ stroke-linejoin="round" class="feather feather-home">
     border-radius: 5px;
   }
 </style>
-    </main>
+  
 </div>
+</div>
+</main>
+
 <footer class="footer">
-    <span class="footer_item"> </span>
-    &nbsp;
-
-    <div class="footer_social-icons">
-<a href="https://github.com/zishume" target="_blank" rel="noopener noreferrer me"
-    title="Github">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-    stroke-linecap="round" stroke-linejoin="round">
-    <path
-        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
-    </path>
-</svg>
-</a>
-<a href="https://twitter.com/Anghunk520" target="_blank" rel="noopener noreferrer me"
-    title="Twitter">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-    stroke-linecap="round" stroke-linejoin="round">
-    <path
-        d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
-    </path>
-</svg>
-</a>
-<a href="index.xml" target="_blank" rel="noopener noreferrer me"
-    title="Rss">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-    stroke-linecap="round" stroke-linejoin="round">
-    <path d="M4 11a9 9 0 0 1 9 9" />
-    <path d="M4 4a16 16 0 0 1 16 16" />
-    <circle cx="5" cy="19" r="1" />
-</svg>
-</a>
-</div>
-    <small class="footer_copyright">
-        <div>© 2020 - <span id="year">2023</span> Powered by 子舒</div>
-        <div>网站已经运行 <span id="days">0</span></div>
-    </small>
+  <span class="footer_item"> </span>
+  <div class="footer_social-icons">
+    <a href="https://github.com/zishume" target="_blank" rel="noopener noreferrer me" title="Github">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path
+          d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+        </path>
+      </svg>
+    </a>
+    <a href="https://twitter.com/Anghunk520" target="_blank" rel="noopener noreferrer me" title="Twitter">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path
+          d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
+        </path>
+      </svg>
+    </a>
+    <a href="index.xml" target="_blank" rel="noopener noreferrer me" title="Rss">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 11a9 9 0 0 1 9 9"></path>
+        <path d="M4 4a16 16 0 0 1 16 16"></path>
+        <circle cx="5" cy="19" r="1"></circle>
+      </svg>
+    </a>
+  </div>
+  <small class="footer_copyright">
+    <div>© 2020 - <span id="year"></span> Powered by 子舒</div>
+    <div>网站已经运行 <span id="days">0</span></div>
+    <div class="gotop">▲</div>
+  </small>
 </footer>
+
 <script>
-    var s0 = '2020-06-14';
-    s1 = new Date(s0.replace(/-/g, "/"));
-    s2 = new Date();
-    var days = s2.getTime() - s1.getTime();
-  
-    var date = new Date;
-    var year = date.getFullYear();
-    document.getElementById('year').innerHTML = year;
-  
-    var BootDate = new Date("2020-06-14");
-    function ShowRunTime(id) {
-      var NowDate = new Date();
-      var RunDateM = parseInt(NowDate - BootDate);
-      var RunDays = Math.floor(RunDateM / (24 * 3600 * 1000));
-      var RunHours = Math.floor(RunDateM % (24 * 3600 * 1000) / (3600 * 1000));
-      var RunMinutes = Math.floor(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) / (60 * 1000));
-      var RunSeconds = Math.round(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) % (60 * 1000) / 1000);
-      var days = RunDays + "天" + RunHours + "时" + RunMinutes + "分" + RunSeconds + "秒";
-      document.getElementById(id).innerHTML = days;
-    }
-    ShowRunTime('days');
-    setInterval("ShowRunTime('days')", 1000);
-  </script><a href="#" title="Go to top" id="totop">
-    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" stroke="currentColor" viewBox="0 96 960 960">
-    <path d="M283 704.739 234.261 656 480 410.261 725.739 656 677 704.739l-197-197-197 197Z"/>
-</svg>
+  var s0 = '2020-06-14';
+  s1 = new Date(s0.replace(/-/g, "/"));
+  s2 = new Date();
+  var days = s2.getTime() - s1.getTime();
 
-</a>
+  var date = new Date;
+  var year = date.getFullYear();
+  document.getElementById('year').innerHTML = year;
 
-
-    
-
-
-
-
-    
-    
-        
-    
-
-    
-    
-        
-    
-
-
-
-    
-    <script src="/js/main.min.35f435a5d8eac613c52daa28d8af544a4512337d3e95236e4a4978417b8dcb2f.js" integrity="sha256-NfQ1pdjqxhPFLaoo2K9USkUSM30&#43;lSNuSkl4QXuNyy8="></script>
-
-    
-
+  var BootDate = new Date("2020-06-14");
+  function ShowRunTime(id) {
+    var NowDate = new Date();
+    var RunDateM = parseInt(NowDate - BootDate);
+    var RunDays = Math.floor(RunDateM / (24 * 3600 * 1000));
+    var RunHours = Math.floor(RunDateM % (24 * 3600 * 1000) / (3600 * 1000));
+    var RunMinutes = Math.floor(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) / (60 * 1000));
+    var RunSeconds = Math.round(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) % (60 * 1000) / 1000);
+    var days = RunDays + "天" + RunHours + "时" + RunMinutes + "分" + RunSeconds + "秒";
+    document.getElementById(id).innerHTML = days;
+  }
+  ShowRunTime('days');
+  setInterval("ShowRunTime('days')", 1000);
+</script>
+<script src="/js/simplebox.min.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
 </body>
+
 </html>

@@ -1,148 +1,163 @@
 <!DOCTYPE html>
-<html lang="en-us"><head><meta charset="utf-8">
-<meta http-equiv="content-type" content="text/html">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title itemprop="name">webpack安装配置指令 | 子舒的博客</title>
-<meta property="og:title" content="webpack安装配置指令 | 子舒的博客" />
-<meta name="twitter:title" content="webpack安装配置指令 | 子舒的博客" />
-<meta itemprop="name" content="webpack安装配置指令 | 子舒的博客" />
-<meta name="application-name" content="webpack安装配置指令 | 子舒的博客" />
-<meta property="og:site_name" content="子舒的博客" />
-
-<meta name="description" content="我是子舒。前端程序员，独立博客作者，骑行爱好者，摄影爱好者，INFJ人格。现在生活工作在杭州。这是我在闲暇时间写的博客，记录生活。">
-<meta itemprop="description" content="我是子舒。前端程序员，独立博客作者，骑行爱好者，摄影爱好者，INFJ人格。现在生活工作在杭州。这是我在闲暇时间写的博客，记录生活。" />
-<meta property="og:description" content="我是子舒。前端程序员，独立博客作者，骑行爱好者，摄影爱好者，INFJ人格。现在生活工作在杭州。这是我在闲暇时间写的博客，记录生活。" />
-<meta name="twitter:description" content="我是子舒。前端程序员，独立博客作者，骑行爱好者，摄影爱好者，INFJ人格。现在生活工作在杭州。这是我在闲暇时间写的博客，记录生活。" />
-
-<meta property="og:locale" content="en-us" />
-<meta name="language" content="en-us" />
-
-
-
-  <meta itemprop="image" content="" />
-  <meta property="og:image" content="" />
-  <meta name="twitter:image" content="" />
-  <meta name="twitter:image:src" content="" />
-
-
-
-
-
+<html lang="en-us">
+<head>
+<meta charset="utf-8" />
 <meta name="generator" content="Hugo 0.118.2">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="toTop" content="true">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="author" content="" />
+<meta property="og:url" content="/blog/30.html/" />
+<link rel="canonical" href="/blog/30.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon2.png" />
+<link rel="icon" href="https://imgurl.zishu.me/favicon2.png" />
+<link rel="shortcut" href="https://imgurl.zishu.me/favicon2.png" /><link rel="alternate" type="application/atom+xml" href="index.xml" title="子舒的博客">
+<script type="application/ld+json">
+{
+"@context" : "http://schema.org",
+"@type" : "BlogPosting",
+"mainEntityOfPage": {
+"@type": "WebPage",
+"@id": ""
+},
+"articleSection" : "blog",
+"name" : "webpack安装配置指令",
+"headline" : "webpack安装配置指令",
+"description" : "进行重新加载编译。实际就是将浏览器不认识的语法编译成浏览器认识的语法。比如less编译成css，ES6 语法 转成 ES5等等。 减少io请求,通常我们在请求后，会返回一个html到浏览器。这时，我们如果打开控制台，就会发现在html页面通过script,link等标签引用的静态资源， 浏览器会再次发出请求去获取这些资源。但是webpack的打包，将所有的静态资源都合并好了，减少了io请求。 # 安装webpack npm install --save-dev webpack # 安装webpack-cli依赖 npm install --save-dev webpack-cli # 创建新项目 mkdir demo # cd项目 cd demo # 初始化 npm init -y # 安装开发版本cli npm install webpack webpack-cli --save-dev 新建一个html文件和一个js文件，工程目录如下 demo |- package.json \u002b |- index.html \u002b |- \/src \u002b |- index.js src\/index.js: function component() { var element = document.createElement(\u0026#39;div\u0026#39;); \/\/ Lodash（目前通过一个 script 脚本引入）对于执行这一行是必需的 element.innerHTML = _.join([\u0026#39;Hello\u0026#39;, \u0026#39;webpack\u0026#39;], \u0026#39; \u0026#39;); return element; } document.body.appendChild(component()); index.html: \u0026lt;!doctype html\u0026gt; \u0026lt;html\u0026gt; \u0026lt;head\u0026gt; \u0026lt;title\u0026gt;起步\u0026lt;\/title\u0026gt; \u0026lt;script src=\u0026#34;https:\/\/unpkg.com\/lodash@4.16.6\u0026#34;\u0026gt;\u0026lt;\/script\u0026gt; \u0026lt;\/head\u0026gt; \u0026lt;body\u0026gt; \u0026lt;script src=\u0026#34;.\/src\/index.js\u0026#34;\u0026gt;\u0026lt;\/script\u0026gt; \u0026lt;\/body\u0026gt; \u0026lt;\/html\u0026gt; 在package.json中： 删除\u0026quot;main\u0026quot;: \u0026quot;index.js\u0026quot;,添加\u0026quot;private\u0026quot;: true 调整工程目录： demo |- package.json \u002b |- \/dist \u002b |- index.html - |- index.html |- \/src |- index.js 要在index.js中打包lodash依赖，我们需要在本地安装 library，终端输入指令： npm install --save lodash 然后调整index.js内容 \/\/ 添加一行代码 import _ from \u0026#39;lodash\u0026#39;; 在dist\/index.html中可以把引入的外部文件lodash删去 删去\u0026lt;script src=\u0026quot;.\/src\/index.js\u0026quot;\u0026gt;\u0026lt;\/script\u0026gt; 添加\u0026lt;script src=\u0026quot;main.js\u0026quot;\u0026gt;\u0026lt;\/script\u0026gt; 执行终端： npx webpack 即可在dist中打包生成需要的main.js文件 还可以手动配置文件，在根目录下新建一个webpack.config.js文件 const path = require(\u0026#39;path\u0026#39;); module.exports = { \/\/ 这里放着需要打包的文件，如果多个文件，用数组形式写 entry: \u0026#39;.\/src\/index.js\u0026#39;, output: { \/\/ 这里是打包生成的文件名，还可以手动修改 filename: \u0026#39;bundle.js\u0026#39;, path: path.resolve(__dirname, \u0026#39;dist\u0026#39;) } }; 考虑到用 CLI 这种方式来运行本地的 webpack 不是特别方便，我们可以设置一个快捷方式， 在package.json中的\u0026quot;scripts\u0026quot;新增 \u0026#34;build\u0026#34;: \u0026#34;webpack\u0026#34; 这样就可以使用npm run build指令代替之前的npx了 把之前dist文件夹里面的js文件删去，然后重新打包 npm run build 看一下工程目录 demo |- package.json |- webpack.config.js |- \/dist |- bundle.js |- index.html |- \/src |- index.js |- \/node_modules 没问题，成功打包，浏览器也正常显示 在js文件中import了一个css文件，需要在配置中安装并添加style-loaader和css-loader npm install --save-dev style-loader css-loader webpack.config.js: const path = require(\u0026#39;path\u0026#39;); module.exports = { entry: \u0026#39;.\/src\/index.js\u0026#39;, output: { filename: \u0026#39;bundle.js\u0026#39;, path: path.resolve(__dirname, \u0026#39;dist\u0026#39;) }, \/\/ 添加的内容 module: { rules: [ { test: \/\\.css$\/, use: [ \u0026#39;style-loader\u0026#39;, \u0026#39;css-loader\u0026#39; ] } ] } }; 然后在js模块中： import \u0026#39;.\/style.css\u0026#39; npm run build就可以自动解析打包啦 加载图片 下载安装file-loader npm install --save-dev file-loader webpack.config.js: module: { rules: [ { test: \/\\.css$\/, use: [ \u0026#39;style-loader\u0026#39;, \u0026#39;css-loader\u0026#39; ] },{ test: \/\\.(png|svg|jpg|gif)$\/, use: [ \u0026#39;file-loader\u0026#39; ] } ] } 加载字体 webpack加载字体资源 记载数据资源 此外，可加载的有用资源还有数据，json文件，CSV，TSV，XML等，实际上，json是内置的，可以直接import data from \u0027.\/data.json\u0027引入 但是CSV，TSV，XML不可以，需要配置一下依赖 终端下载安装： npm install --save-dev csv-loader xml-loader webpack.config.js: { test: \/\\.(csv|tsv)$\/, use: [ \u0026#39;csv-loader\u0026#39; ] }, { test: \/\\.xml$\/, use: [ \u0026#39;xml-loader\u0026#39; ] } 在src目录下添加一个json文件data.json 然后在index.js中引入： import data from \u0026#39;.\/data.json\u0026#39;",
+"inLanguage" : "en-US",
+"author" : "子舒",
+"creator" : "子舒",
+"publisher": "子舒",
+"accountablePerson" : "子舒",
+"copyrightHolder" : "子舒",
+"copyrightYear" : "2020",
+"datePublished": "2020-11-26 00:00:00 \u002b0000 UTC",
+"dateModified" : "2020-11-26 00:00:00 \u002b0000 UTC",
+"url" : "\/blog\/30.html\/",
+"keywords" : [ "工具","webpack", ]
+}
+</script><title>webpack安装配置指令 - 子舒</title>
+<meta property="og:title" content="webpack安装配置指令" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="进行重新加载编译。实际就是将浏览器不认识的语法编译成浏览器认识的语法。比如less编译成css，ES6 语法 转成 ES5等等。 减少io请求,通常我们在请求后，会返回一个html到浏览器。这时，我们如果打开控制台，就会发现在html页面通过script,link等标签引用的静态资源， 浏览器会再次发出请求去获取这些资源。但是webpack的打包，将所有的静态资源都合并好了，减少了io请求。 # 安装webpack npm install --save-dev webpack # 安装webpack-cli依赖 npm install --save-dev webpack-cli # 创建新项目 mkdir demo # cd项目 cd demo # 初始化 npm init -y # 安装开发版本cli npm install webpack webpack-cli --save-dev 新建一个html文件和一个js文件，工程目录如下 demo |- package.json &#43; |- index.html &#43; |- /src &#43; |- index.js src/index.js: function component() { var element = document.createElement(&amp;#39;div&amp;#39;); // Lodash（目前通过一个 script 脚本引入）对于执行这一行是必需的 element.innerHTML = _.join([&amp;#39;Hello&amp;#39;, &amp;#39;webpack&amp;#39;], &amp;#39; &amp;#39;); return element; } document.body.appendChild(component()); index.html: &amp;lt;!doctype html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;title&amp;gt;起步&amp;lt;/title&amp;gt; &amp;lt;script src=&amp;#34;https://unpkg.com/lodash@4.16.6&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;script src=&amp;#34;./src/index.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt; 在package.json中： 删除&amp;quot;main&amp;quot;: &amp;quot;index.js&amp;quot;,添加&amp;quot;private&amp;quot;: true 调整工程目录： demo |- package.json &#43; |- /dist &#43; |- index.html - |- index.html |- /src |- index.js 要在index.js中打包lodash依赖，我们需要在本地安装 library，终端输入指令： npm install --save lodash 然后调整index.js内容 // 添加一行代码 import _ from &amp;#39;lodash&amp;#39;; 在dist/index.html中可以把引入的外部文件lodash删去 删去&amp;lt;script src=&amp;quot;./src/index.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt; 添加&amp;lt;script src=&amp;quot;main.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt; 执行终端： npx webpack 即可在dist中打包生成需要的main.js文件 还可以手动配置文件，在根目录下新建一个webpack.config.js文件 const path = require(&amp;#39;path&amp;#39;); module.exports = { // 这里放着需要打包的文件，如果多个文件，用数组形式写 entry: &amp;#39;./src/index.js&amp;#39;, output: { // 这里是打包生成的文件名，还可以手动修改 filename: &amp;#39;bundle.js&amp;#39;, path: path.resolve(__dirname, &amp;#39;dist&amp;#39;) } }; 考虑到用 CLI 这种方式来运行本地的 webpack 不是特别方便，我们可以设置一个快捷方式， 在package.json中的&amp;quot;scripts&amp;quot;新增 &amp;#34;build&amp;#34;: &amp;#34;webpack&amp;#34; 这样就可以使用npm run build指令代替之前的npx了 把之前dist文件夹里面的js文件删去，然后重新打包 npm run build 看一下工程目录 demo |- package.json |- webpack.config.js |- /dist |- bundle.js |- index.html |- /src |- index.js |- /node_modules 没问题，成功打包，浏览器也正常显示 在js文件中import了一个css文件，需要在配置中安装并添加style-loaader和css-loader npm install --save-dev style-loader css-loader webpack.config.js: const path = require(&amp;#39;path&amp;#39;); module.exports = { entry: &amp;#39;./src/index.js&amp;#39;, output: { filename: &amp;#39;bundle.js&amp;#39;, path: path.resolve(__dirname, &amp;#39;dist&amp;#39;) }, // 添加的内容 module: { rules: [ { test: /\.css$/, use: [ &amp;#39;style-loader&amp;#39;, &amp;#39;css-loader&amp;#39; ] } ] } }; 然后在js模块中： import &amp;#39;./style.css&amp;#39; npm run build就可以自动解析打包啦 加载图片 下载安装file-loader npm install --save-dev file-loader webpack.config.js: module: { rules: [ { test: /\.css$/, use: [ &amp;#39;style-loader&amp;#39;, &amp;#39;css-loader&amp;#39; ] },{ test: /\.(png|svg|jpg|gif)$/, use: [ &amp;#39;file-loader&amp;#39; ] } ] } 加载字体 webpack加载字体资源 记载数据资源 此外，可加载的有用资源还有数据，json文件，CSV，TSV，XML等，实际上，json是内置的，可以直接import data from &#39;./data.json&#39;引入 但是CSV，TSV，XML不可以，需要配置一下依赖 终端下载安装： npm install --save-dev csv-loader xml-loader webpack.config.js: { test: /\.(csv|tsv)$/, use: [ &amp;#39;csv-loader&amp;#39; ] }, { test: /\.xml$/, use: [ &amp;#39;xml-loader&amp;#39; ] } 在src目录下添加一个json文件data.json 然后在index.js中引入： import data from &amp;#39;./data.json&amp;#39;" />
+<meta name="description" content="进行重新加载编译。实际就是将浏览器不认识的语法编译成浏览器认识的语法。比如less编译成css，ES6 语法 转成 ES5等等。 减少io请求,通常我们在请求后，会返回一个html到浏览器。这时，我们如果打开控制台，就会发现在html页面通过script,link等标签引用的静态资源， 浏览器会再次发出请求去获取这些资源。但是webpack的打包，将所有的静态资源都合并好了，减少了io请求。 # 安装webpack npm install --save-dev webpack # 安装webpack-cli依赖 npm install --save-dev webpack-cli # 创建新项目 mkdir demo # cd项目 cd demo # 初始化 npm init -y # 安装开发版本cli npm install webpack webpack-cli --save-dev 新建一个html文件和一个js文件，工程目录如下 demo |- package.json &#43; |- index.html &#43; |- /src &#43; |- index.js src/index.js: function component() { var element = document.createElement(&amp;#39;div&amp;#39;); // Lodash（目前通过一个 script 脚本引入）对于执行这一行是必需的 element.innerHTML = _.join([&amp;#39;Hello&amp;#39;, &amp;#39;webpack&amp;#39;], &amp;#39; &amp;#39;); return element; } document.body.appendChild(component()); index.html: &amp;lt;!doctype html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;title&amp;gt;起步&amp;lt;/title&amp;gt; &amp;lt;script src=&amp;#34;https://unpkg.com/lodash@4.16.6&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;script src=&amp;#34;./src/index.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt; 在package.json中： 删除&amp;quot;main&amp;quot;: &amp;quot;index.js&amp;quot;,添加&amp;quot;private&amp;quot;: true 调整工程目录： demo |- package.json &#43; |- /dist &#43; |- index.html - |- index.html |- /src |- index.js 要在index.js中打包lodash依赖，我们需要在本地安装 library，终端输入指令： npm install --save lodash 然后调整index.js内容 // 添加一行代码 import _ from &amp;#39;lodash&amp;#39;; 在dist/index.html中可以把引入的外部文件lodash删去 删去&amp;lt;script src=&amp;quot;./src/index.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt; 添加&amp;lt;script src=&amp;quot;main.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt; 执行终端： npx webpack 即可在dist中打包生成需要的main.js文件 还可以手动配置文件，在根目录下新建一个webpack.config.js文件 const path = require(&amp;#39;path&amp;#39;); module.exports = { // 这里放着需要打包的文件，如果多个文件，用数组形式写 entry: &amp;#39;./src/index.js&amp;#39;, output: { // 这里是打包生成的文件名，还可以手动修改 filename: &amp;#39;bundle.js&amp;#39;, path: path.resolve(__dirname, &amp;#39;dist&amp;#39;) } }; 考虑到用 CLI 这种方式来运行本地的 webpack 不是特别方便，我们可以设置一个快捷方式， 在package.json中的&amp;quot;scripts&amp;quot;新增 &amp;#34;build&amp;#34;: &amp;#34;webpack&amp;#34; 这样就可以使用npm run build指令代替之前的npx了 把之前dist文件夹里面的js文件删去，然后重新打包 npm run build 看一下工程目录 demo |- package.json |- webpack.config.js |- /dist |- bundle.js |- index.html |- /src |- index.js |- /node_modules 没问题，成功打包，浏览器也正常显示 在js文件中import了一个css文件，需要在配置中安装并添加style-loaader和css-loader npm install --save-dev style-loader css-loader webpack.config.js: const path = require(&amp;#39;path&amp;#39;); module.exports = { entry: &amp;#39;./src/index.js&amp;#39;, output: { filename: &amp;#39;bundle.js&amp;#39;, path: path.resolve(__dirname, &amp;#39;dist&amp;#39;) }, // 添加的内容 module: { rules: [ { test: /\.css$/, use: [ &amp;#39;style-loader&amp;#39;, &amp;#39;css-loader&amp;#39; ] } ] } }; 然后在js模块中： import &amp;#39;./style.css&amp;#39; npm run build就可以自动解析打包啦 加载图片 下载安装file-loader npm install --save-dev file-loader webpack.config.js: module: { rules: [ { test: /\.css$/, use: [ &amp;#39;style-loader&amp;#39;, &amp;#39;css-loader&amp;#39; ] },{ test: /\.(png|svg|jpg|gif)$/, use: [ &amp;#39;file-loader&amp;#39; ] } ] } 加载字体 webpack加载字体资源 记载数据资源 此外，可加载的有用资源还有数据，json文件，CSV，TSV，XML等，实际上，json是内置的，可以直接import data from &#39;./data.json&#39;引入 但是CSV，TSV，XML不可以，需要配置一下依赖 终端下载安装： npm install --save-dev csv-loader xml-loader webpack.config.js: { test: /\.(csv|tsv)$/, use: [ &amp;#39;csv-loader&amp;#39; ] }, { test: /\.xml$/, use: [ &amp;#39;xml-loader&amp;#39; ] } 在src目录下添加一个json文件data.json 然后在index.js中引入： import data from &amp;#39;./data.json&amp;#39;" />
+<meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon2.png" />
 
-    
 
-    <link rel="canonical" href="/blog/30.html/">
-    <link href="/style.min.45167c7de0b00806157891d7795d5562bfa40ff5935205330acf9a4deab39e3e.css" rel="stylesheet">
-    <link href="/code-highlight.min.706d31975fec544a864cb7f0d847a73ea55ca1df91bf495fd12a177138d807cf.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect" />
+<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/css/index.css">
+<link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
+<script src="/js/jquery3.6.0.min.js"></script>
+<script async src="https://umami.zburu.com/script.js" data-website-id="9e5fc8da-b70b-4767-81cd-35ba13110fd5"></script>
+</head>
 
-    
-    <link rel="shortcut icon" href="https://imgurl.zishu.me/favicon2.png" type="image/x-icon">
-
-
-
-
-<link rel="manifest" href="/site.webmanifest">
-
-<meta name="msapplication-config" content="/browserconfig.xml">
-<meta name="msapplication-TileColor" content="#2d89ef">
-<meta name="theme-color" content="#434648">
-
-    
-    </head>
-<body data-theme = "auto" class="notransition">
-
-<script src="/js/theme.min.8961c317c5b88b953fe27525839672c9343f1058ab044696ca225656c8ba2ab0.js" integrity="sha256-iWHDF8W4i5U/4nUlg5ZyyTQ/EFirBEaWyiJWVsi6KrA="></script>
-
-<div class="navbar" role="navigation">
+<body>
+  <div class="navbar" role="navigation">
     <nav class="menu" aria-label="Main Navigation">
-        <a href="/" class="logo">
-            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" 
-viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" 
-stroke-linejoin="round" class="feather feather-home">
-<title>Home</title>
-<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-<polyline points="9 22 9 12 15 12 15 22"></polyline>
-</svg>
-        </a>
-        <input type="checkbox" id="menu-trigger" class="menu-trigger" />
-        <label for="menu-trigger">
-            <span class="menu-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" stroke="currentColor" fill="none" viewBox="0 0 14 14"><title>Menu</title><path stroke-linecap="round" stroke-linejoin="round" d="M10.595 7L3.40726 7"></path><path stroke-linecap="round" stroke-linejoin="round" d="M10.5096 3.51488L3.49301 3.51488"></path><path stroke-linecap="round" stroke-linejoin="round" d="M10.5096 10.4851H3.49301"></path><path stroke-linecap="round" stroke-linejoin="round" d="M0.5 12.5V1.5C0.5 0.947715 0.947715 0.5 1.5 0.5H12.5C13.0523 0.5 13.5 0.947715 13.5 1.5V12.5C13.5 13.0523 13.0523 13.5 12.5 13.5H1.5C0.947715 13.5 0.5 13.0523 0.5 12.5Z"></path></svg>
-            </span>
-        </label>
+      
+      <a href="/" class="logo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="feather feather-home">
+          <title>Home</title>
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+      </a>
+      <label for="menu-trigger">
+        <span class="menu-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" stroke="currentColor" fill="none"
+            viewBox="0 0 14 14">
+            <title>Menu</title>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.595 7L3.40726 7"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5096 3.51488L3.49301 3.51488"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5096 10.4851H3.49301"></path>
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M0.5 12.5V1.5C0.5 0.947715 0.947715 0.5 1.5 0.5H12.5C13.0523 0.5 13.5 0.947715 13.5 1.5V12.5C13.5 13.0523 13.0523 13.5 12.5 13.5H1.5C0.947715 13.5 0.5 13.0523 0.5 12.5Z">
+            </path>
+          </svg>
+        </span>
+      </label>
 
-        <div class="trigger">
-            <ul class="trigger-container">
-                
-                
-                <li>
-                    <a class="menu-link " href="/">
-                        Home
-                    </a>
-                    
-                </li>
-                
-                <li>
-                    <a class="menu-link " href="/blog/">
-                        Posts
-                    </a>
-                    
-                </li>
-                
-                <li>
-                    <a class="menu-link " href="/message/">
-                        Message
-                    </a>
-                    
-                </li>
-                
-                <li>
-                    <a class="menu-link " href="/about/">
-                        About
-                    </a>
-                    
-                </li>
-                
-                <li>
-                    <a class="menu-link " href="/lab/">
-                        Lab
-                    </a>
-                    
-                </li>
-                
-                <li class="menu-separator">
-                    <span>|</span>
-                </li>
-            </ul>
-            <a id="mode" href="#">
-                <svg xmlns="http://www.w3.org/2000/svg" class="mode-sunny" width="21" height="21" viewBox="0 0 14 14" stroke-width="1">
-<title>LIGHT</title><g><circle cx="7" cy="7" r="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></circle><line x1="7" y1="0.5" x2="7" y2="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="2.4" x2="3.82" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="0.5" y1="7" x2="2.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="11.6" x2="3.82" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="7" y1="13.5" x2="7" y2="11.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="11.6" x2="10.18" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="13.5" y1="7" x2="11.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="2.4" x2="10.18" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line></g></svg>
-                <svg xmlns="http://www.w3.org/2000/svg" class="mode-moon" width="21" height="21" viewBox="0 0 14 14" stroke-width="1">
-<title>DARK</title><g><circle cx="7" cy="7" r="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></circle><line x1="7" y1="0.5" x2="7" y2="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="2.4" x2="3.82" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="0.5" y1="7" x2="2.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="11.6" x2="3.82" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="7" y1="13.5" x2="7" y2="11.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="11.6" x2="10.18" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="13.5" y1="7" x2="11.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="2.4" x2="10.18" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line></g></svg>
-            </a>
+      <div class="trigger">
+        <ul class="trigger-container">
+          
+          <li>
+            <a class="menu-link" href="/" title="Home">Home</a>
+          </li>
+          
+          <li>
+            <a class="menu-link" href="/blog/" title="Posts">Posts</a>
+          </li>
+          
+          <li>
+            <a class="menu-link" href="/message/" title="Message">Message</a>
+          </li>
+          
+          <li>
+            <a class="menu-link" href="/lab/" title="Lab">Lab</a>
+          </li>
+          
+          <li>
+            <a class="menu-link" href="/about/" title="About">About</a>
+          </li>
+          
+          <li>
+            <a class="menu-link" href="/search/" title="Search">Search</a>
+          </li>
+          
+        </ul>
+      
+        <div class="logo-switches">
+          <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+            <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+          </button>
         </div>
+      </div>
     </nav>
-</div>
+  </div>
 
-<div class="wrapper post">
-    <main class="page-content" aria-label="Content">
-        <article>
-            <header class="header">
-                <h1 class="header-title">webpack安装配置指令</h1>
-                
-                
-                <div class="post-meta">
-                    <time datetime="2020-11-26T00:00:00&#43;00:00" itemprop="datePublished"> 26 Nov 2020 </time>
-                </div>
-                
-            </header>
-            <details class="toc">
-                <summary><b>Table of Contents</b></summary>
-                <nav id="TableOfContents"></nav>
-            </details><div class="page-content">
-                <p>进行重新加载编译。实际就是将浏览器不认识的语法编译成浏览器认识的语法。比如less编译成css，ES6 语法 转成 ES5等等。</p>
+  <main class="wrapper">
+    <div class="content">
+
+<div class="main detail">
+  <header class="header">
+    <h1 class="header-title">webpack安装配置指令</h1>
+    
+    
+    <div class="post-meta">
+      发布于 <time datetime=" 2020-11-26 00:00:00 UTC"> 2020-11-26</time>
+    </div>
+    
+    
+  </header>
+  <br>
+  <script type="module" src="https://cdn.jsdelivr.net/gh/emaction/frontend.dist@1.0.9/bundle.js"></script>
+  <emoji-reaction></emoji-reaction>
+  <details class="toc">
+    <summary><b>Table of Contents</b></summary>
+    <nav id="TableOfContents"></nav>
+  </details>
+
+  <article class="post-content markdown-body">
+    
+    <p>进行重新加载编译。实际就是将浏览器不认识的语法编译成浏览器认识的语法。比如less编译成css，ES6 语法 转成 ES5等等。</p>
 <p>减少io请求,通常我们在请求后，会返回一个html到浏览器。这时，我们如果打开控制台，就会发现在html页面通过script,link等标签引用的静态资源， 浏览器会再次发出请求去获取这些资源。但是webpack的打包，将所有的静态资源都合并好了，减少了io请求。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 安装webpack</span>
 </span></span><span class="line"><span class="cl">npm install --save-dev webpack
@@ -306,14 +321,26 @@ stroke-linejoin="round" class="feather feather-home">
 <p>然后在<code>index.js</code>中引入：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">data</span> <span class="nx">from</span> <span class="s1">&#39;./data.json&#39;</span>
 </span></span></code></pre></div>
-            </div>
-        </article>
-        <hr style="margin-top: 40px; margin-bottom: 40px;" />
+  </article>
+
+  
+  
+  <ul class="post-tags">
+     
+    <li><a href="/tags/%E5%B7%A5%E5%85%B7">工具</a></li>
+     
+    <li><a href="/tags/webpack">webpack</a></li>
+    
+  </ul>
+  
+
+  <div class="end">END</div>
+
+  
+  <hr style="margin-top: 40px; margin-bottom: 40px;" />
 
 <div id="tcomment"></div>
 <script src="https://cdn.staticfile.org/twikoo/1.6.19/twikoo.all.min.js"></script>
-
-
 <script>
   twikoo.init({
     envId: 'https://twikoo.zishu.me/.netlify/functions/twikoo',
@@ -329,98 +356,73 @@ stroke-linejoin="round" class="feather feather-home">
     border-radius: 5px;
   }
 </style>
-    </main>
+  
 </div>
+</div>
+</main>
+
 <footer class="footer">
-    <span class="footer_item"> </span>
-    &nbsp;
-
-    <div class="footer_social-icons">
-<a href="https://github.com/zishume" target="_blank" rel="noopener noreferrer me"
-    title="Github">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-    stroke-linecap="round" stroke-linejoin="round">
-    <path
-        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
-    </path>
-</svg>
-</a>
-<a href="https://twitter.com/Anghunk520" target="_blank" rel="noopener noreferrer me"
-    title="Twitter">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-    stroke-linecap="round" stroke-linejoin="round">
-    <path
-        d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
-    </path>
-</svg>
-</a>
-<a href="index.xml" target="_blank" rel="noopener noreferrer me"
-    title="Rss">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-    stroke-linecap="round" stroke-linejoin="round">
-    <path d="M4 11a9 9 0 0 1 9 9" />
-    <path d="M4 4a16 16 0 0 1 16 16" />
-    <circle cx="5" cy="19" r="1" />
-</svg>
-</a>
-</div>
-    <small class="footer_copyright">
-        <div>© 2020 - <span id="year">2023</span> Powered by 子舒</div>
-        <div>网站已经运行 <span id="days">0</span></div>
-    </small>
+  <span class="footer_item"> </span>
+  <div class="footer_social-icons">
+    <a href="https://github.com/zishume" target="_blank" rel="noopener noreferrer me" title="Github">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path
+          d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+        </path>
+      </svg>
+    </a>
+    <a href="https://twitter.com/Anghunk520" target="_blank" rel="noopener noreferrer me" title="Twitter">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path
+          d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
+        </path>
+      </svg>
+    </a>
+    <a href="index.xml" target="_blank" rel="noopener noreferrer me" title="Rss">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 11a9 9 0 0 1 9 9"></path>
+        <path d="M4 4a16 16 0 0 1 16 16"></path>
+        <circle cx="5" cy="19" r="1"></circle>
+      </svg>
+    </a>
+  </div>
+  <small class="footer_copyright">
+    <div>© 2020 - <span id="year"></span> Powered by 子舒</div>
+    <div>网站已经运行 <span id="days">0</span></div>
+    <div class="gotop">▲</div>
+  </small>
 </footer>
+
 <script>
-    var s0 = '2020-06-14';
-    s1 = new Date(s0.replace(/-/g, "/"));
-    s2 = new Date();
-    var days = s2.getTime() - s1.getTime();
-  
-    var date = new Date;
-    var year = date.getFullYear();
-    document.getElementById('year').innerHTML = year;
-  
-    var BootDate = new Date("2020-06-14");
-    function ShowRunTime(id) {
-      var NowDate = new Date();
-      var RunDateM = parseInt(NowDate - BootDate);
-      var RunDays = Math.floor(RunDateM / (24 * 3600 * 1000));
-      var RunHours = Math.floor(RunDateM % (24 * 3600 * 1000) / (3600 * 1000));
-      var RunMinutes = Math.floor(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) / (60 * 1000));
-      var RunSeconds = Math.round(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) % (60 * 1000) / 1000);
-      var days = RunDays + "天" + RunHours + "时" + RunMinutes + "分" + RunSeconds + "秒";
-      document.getElementById(id).innerHTML = days;
-    }
-    ShowRunTime('days');
-    setInterval("ShowRunTime('days')", 1000);
-  </script><a href="#" title="Go to top" id="totop">
-    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" stroke="currentColor" viewBox="0 96 960 960">
-    <path d="M283 704.739 234.261 656 480 410.261 725.739 656 677 704.739l-197-197-197 197Z"/>
-</svg>
+  var s0 = '2020-06-14';
+  s1 = new Date(s0.replace(/-/g, "/"));
+  s2 = new Date();
+  var days = s2.getTime() - s1.getTime();
 
-</a>
+  var date = new Date;
+  var year = date.getFullYear();
+  document.getElementById('year').innerHTML = year;
 
-
-    
-
-
-
-
-    
-    
-        
-    
-
-    
-    
-        
-    
-
-
-
-    
-    <script src="/js/main.min.35f435a5d8eac613c52daa28d8af544a4512337d3e95236e4a4978417b8dcb2f.js" integrity="sha256-NfQ1pdjqxhPFLaoo2K9USkUSM30&#43;lSNuSkl4QXuNyy8="></script>
-
-    
-
+  var BootDate = new Date("2020-06-14");
+  function ShowRunTime(id) {
+    var NowDate = new Date();
+    var RunDateM = parseInt(NowDate - BootDate);
+    var RunDays = Math.floor(RunDateM / (24 * 3600 * 1000));
+    var RunHours = Math.floor(RunDateM % (24 * 3600 * 1000) / (3600 * 1000));
+    var RunMinutes = Math.floor(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) / (60 * 1000));
+    var RunSeconds = Math.round(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) % (60 * 1000) / 1000);
+    var days = RunDays + "天" + RunHours + "时" + RunMinutes + "分" + RunSeconds + "秒";
+    document.getElementById(id).innerHTML = days;
+  }
+  ShowRunTime('days');
+  setInterval("ShowRunTime('days')", 1000);
+</script>
+<script src="/js/simplebox.min.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
 </body>
+
 </html>
