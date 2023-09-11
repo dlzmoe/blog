@@ -1,0 +1,37 @@
+<head>
+    {{- partial "meta/main.html" . }}
+    {{- hugo.Generator }}
+
+    {{/* Canonical link, RSS */}}
+
+    <link rel="canonical" href="{{ .Permalink }}">
+    {{- with .OutputFormats.Get "RSS" }}
+    <link href="{{ .RelPermalink }}" rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}">
+    <link href="{{ .RelPermalink }}" rel="feed" type="application/rss+xml" title="{{ $.Site.Title }}">
+    {{- end }}
+
+    {{- /* Styles */ -}}
+
+    {{- $style := resources.Get "sass/main.scss" | resources.ExecuteAsTemplate "style.scss" . | toCSS (dict "targetPath" "style.css") | minify | fingerprint }}
+    <link href="{{ $style.RelPermalink }}" rel="stylesheet">
+    {{- $code_syntax_highlight_css := resources.Get "code-highlight.css" | minify | fingerprint }}
+    <link href="{{ $code_syntax_highlight_css.RelPermalink }}" rel="stylesheet">
+
+    {{/* Favicons */}}
+    <link rel="shortcut icon" href="https://imgurl.zishu.me/favicon2.png" type="image/x-icon">
+
+    {{- partial "webmanifest.html" . -}}
+    {{- partial "browserconfig.html" . -}}
+
+    <meta name="theme-color" content="{{ .Site.Params.webmanifest.theme_color | default "#434648" }}">
+
+    {{/* Katex support (enabled on specific pages). See 'helpers/katex.html' for more info. */}}
+
+    {{- if or .Params.math .Site.Params.math }}{{ partial "helpers/katex.html" . -}}{{- end -}}
+
+    {{/* Google analytics script. See config.toml to enable/disable this. */}}
+    {{- if hugo.IsProduction | or (eq site.Params.env "production") }}
+    {{ template "_internal/google_analytics.html" . }}
+    {{- end -}}
+
+</head>

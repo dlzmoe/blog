@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{{- $defaultColor := .Site.Params.defaultColor | default "auto" -}}
+
+{{/* allow website developer to enforce default dark mode */}}
+{{- if eq $defaultColor "dark" -}}
+<html lang="{{ .Site.LanguageCode }}" class="dark">
+{{- else if eq $defaultColor "light" -}}
+<html lang="{{ .Site.LanguageCode }}" class="light">
+{{- else -}}
+<html lang="{{ .Site.LanguageCode }}">
+{{- end -}}
+
+{{- partial "head.html" . -}}
+
+<body data-theme="{{ $defaultColor }}" class="notransition">
+    {{- partial "scriptsBodyStart.html" . -}}
+    {{- partial "header.html" . -}}
+    <div class="wrapper">
+        {{ partial "bio" . }}
+        <main aria-label="Content">
+            <h3 class="posts-item-note" aria-label="Recent Posts">Recent Posts</h3>
+            {{/* Show last 5 posts in reverse date order */}}
+            {{ $pagesToShow := where .Site.RegularPages "Type" "in" site.Params.mainSections }}
+            {{ $posts := $pagesToShow.ByDate.Reverse }}
+            {{ range first 5 $posts }}
+            {{ partial "postCard" . }}
+            {{ end }}
+            {{ if gt (len $posts) 5 }}
+            <p>
+                {{ range $firstSection := (where .Site.Sections "Section" "in" (first 1 (.Site.Params.mainSections))) }}
+                <a href="{{ $firstSection.Permalink }}">See all posts</a>
+                {{ end }}
+            </p>
+            {{ end }}
+        </main>
+    </div>
+    {{- partial "footer.html" . -}}
+    {{- partial "scriptsBodyEnd.html" . -}}
+</body>
+
+</html>
