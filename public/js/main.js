@@ -1,5 +1,7 @@
 $(function () {
   $('.post-content img').addClass('slb');
+  $('.post-content iframe').wrap('<div class="iframe"></div>');
+  
   $('.slb').simplebox({
     fadeSpeed: 100
   });

@@ -79,4 +79,4 @@ https://han.ge/
 
 ---
 
-还有一些其他工具，比如 syncthing 同步，frp/rustdesk 远程链接，以及本站使用的 artalk 评论等程序，都是非常优秀的工具，强烈推荐大家使用。
+还有一些其他工具，比如 syncthing 同步，frp/rustdesk 远程链接，以及本站使用的 twikoo 评论等程序，都是非常优秀的工具，强烈推荐大家使用。
