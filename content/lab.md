@@ -75,7 +75,7 @@ https://weekly.zishu.me/
 周刊。
 
 https://han.ge/  
-一个基于cloudflare kv存储的短链接服务，稳定高效长期维护。
+一个导航站。
 
 ---
 
