@@ -65,10 +65,10 @@ https://fyfy.fm/
 一档由开发者 @枫影JustinYan 和设计师 @自力hzlzh 主持的播客节目。
 </details>
 
-https://github.com/zishume/HugoFast  
+https://github.com/98zi/HugoFast  
 利用 GitHub 本身提供的Api，将hugo博客管理面板化。
 
-https://github.com/zishume/chrome-plugin-memos  
+https://github.com/98zi/chrome-plugin-memos  
 Memos 的 chrome 插件，集成到浏览器扩展中，个人感觉比较方便，后续将会集成更多的功能。
 
 https://weekly.zishu.me/  

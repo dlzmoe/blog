@@ -3,7 +3,7 @@ slug: about
 title: 关于
 ---
 
-![GitHub followers](https://img.shields.io/github/followers/zishume)
+![GitHub followers](https://img.shields.io/github/followers/98zi)
 
 RSS: <a href="https://zishu.me/index.xml" target="_blank">https://zishu.me/index.xml</a>
 
@@ -20,10 +20,11 @@ RSS: <a href="https://zishu.me/index.xml" target="_blank">https://zishu.me/index
 
 // 希望用技术改变生活。
 
+Github: https://github.com/98zi  
 E-mail: me@zsh.im
 
 
-![](https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=zishume&theme=nord_dark)
+![](https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=98zi&theme=nord_dark)
 
 
 ### 2. 友情链接
