@@ -9,10 +9,12 @@
   {{ range (where .Data.Pages "Type" "in" site.Params.mainSections).GroupByDate "2006" -}}
   <h2 style="margin-bottom:10px;">{{ .Key }}</h2>
   {{ range .Pages }}
-  <article class="post-item">
-    <h4 class="post-item-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h4>
-    <time class="post-item-meta" datetime="{{ .Date.Format " 2006-01-02 15:04:05 MST" }}">{{ .Date.Format "01/02, 2006"}}</time>
-  </article>
+
+  <div class="list-item">
+    <div class="list-item-prefix"><time datetime="{{ .Date.Format " 2006-01-02 15:04:05 MST" }}">{{ .Date.Format "2006-01-02"}}</time></div>
+    <div class="list-item-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></div>
+  </div>
+  
   {{ end }}
 
   {{ end }}
