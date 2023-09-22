@@ -1,7 +1,7 @@
 ---
 slug: 192
 title: Github Actions 自动化打包流程
-date: "2023-04-13"
+date: 2023-04-13
 categories: 
   - 技术
 tags: 
