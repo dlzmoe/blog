@@ -14,7 +14,6 @@ RSS: <a href="https://zishu.me/index.xml" target="_blank">https://zishu.me/index
 喜欢折腾一些技术，研究各种奇怪的程序和网站，做了一些开源的东西。  
 现在生活工作在杭州。  
 这是我在闲暇时间写的博客，记录生活。  
-[<记录我的里程>](/riding/)。
 
 参与我的社区交流：<a href="https://discord.gg/dfG9Tvje9b" target="_blank">https://discord.gg/dfG9Tvje9b</a>
 
