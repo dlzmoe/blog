@@ -7,8 +7,14 @@
     {{ if .Date }}
     <div class="post-meta">
       发布于 <time datetime="{{ .Date.Format " 2006-01-02 15:04:05 MST" }}"> {{ .Date.Format
-        "2006-01-02"}}</time> · 
-        本文总阅读量 <span id="busuanzi_value_page_pv">~</span> 次
+        "2006-01-02"}}</time> ·
+      本文总阅读量 <span id="busuanzi_value_page_pv">~</span> 次 ·
+      <!-- Post Tags -->
+      {{ if .Params.tags }}
+      {{ range .Params.tags }} {{ $href := print (absURL "/tags/") (urlize .) }}
+      / <a href="{{ $href }}">{{ . }}</a>
+      {{ end }}
+      {{ end }}
     </div>
     {{ end }}
     {{ end }}
@@ -16,7 +22,7 @@
   <br>
   <script type="module" src="https://cdn.jsdelivr.net/gh/emaction/frontend.dist@1.0.9/bundle.js"></script>
   <emoji-reaction></emoji-reaction>
-  <details class="toc" open>
+  <details class="toc">
     <summary><b>Table of Contents</b></summary>
     {{ .TableOfContents }}
   </details>
@@ -26,14 +32,7 @@
     {{ .Content }}
   </article>
 
-  <!-- Post Tags -->
-  {{ if .Params.tags }}
-  <ul class="post-tags">
-    {{ range .Params.tags }} {{ $href := print (absURL "/tags/") (urlize .) }}
-    <li><a href="{{ $href }}">{{ . }}</a></li>
-    {{ end }}
-  </ul>
-  {{ end }}
+
 
   {{ if in .Site.Params.mainSections .Type }}
   {{ partial "comment.html" . }}
