@@ -56,9 +56,8 @@ themedark();
 
 // 显示目录
 function TableOfContents(){
-  if($('#TableOfContents').html() == ''){
-    $('.toc').hide();
-    // $('#TableOfContents').html('<p class="notoc">本文无目录</p>');
+  if($('#TableOfContents').html() != ''){
+    $('.toc').show();
   }
 }
 TableOfContents();
