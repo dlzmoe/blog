@@ -174,9 +174,7 @@ async function device_status (user_agent_info) {
 
 然后点击`保存并部署`，就可以成功反代 gravatar 镜像了。
 
-然后照葫芦画瓢，可以通过这种方式反代任何网站，我就使用 https://zsh.im 反代了我的国内博客 https://zburu.com。
-
-访问起来大致无压力，延迟100+ms左右。
+然后照葫芦画瓢，可以通过这种方式反代任何网站，访问起来大致无压力，延迟100+ms左右。
 
 **5.自定义域名**
 

@@ -23,7 +23,7 @@ pip install fonttools
 ### 字体库
 
 1. 本地新建一个文件夹，取名为 `fonts` ，随意即可。将自己需要压缩整理的字体放在文件夹中，如 `OPPOSans.ttf` 。
-2. 然后建立一个文件取名为 `word.txt`，这时我们需要找到一个常用字体库，这里我在github分享一个 [https://github.com/zburu/cdn/blob/main/font/汉字常用字体.txt](https://github.com/zburu/cdn/blob/main/font/%E6%B1%89%E5%AD%97%E5%B8%B8%E7%94%A8%E5%AD%97%E4%BD%93.txt) ，把里面的内容常用字体复制到 `word.txt` 文件。
+2. 然后建立一个文件取名为 `word.txt`，这时我们需要找到一个常用字体库，这里我在github分享一个 [https://github.com/98zi/cdn/blob/main/font/汉字常用字体.txt](https://github.com/98zi/cdn/blob/main/font/%E6%B1%89%E5%AD%97%E5%B8%B8%E7%94%A8%E5%AD%97%E4%BD%93.txt) ，把里面的内容常用字体复制到 `word.txt` 文件。
 
 ### 运行
 
