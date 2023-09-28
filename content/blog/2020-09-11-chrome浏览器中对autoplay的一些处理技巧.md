@@ -1,7 +1,7 @@
 ---
 slug: 8
 title: chrome浏览器中对autoplay的一些处理技巧
-date: 2020-09-11
+date: "2020-09-11"
 categories: 
   - 技术
 tags: 
