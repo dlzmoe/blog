@@ -1,10 +1,4 @@
 $(function () {
-  $('.sidebar-inner a').each(function () {
-    if ($(this).attr('href') == window.location.pathname) {
-      $(this).addClass('active');
-    }
-  })
-  
   $('.post-content img').addClass('slb');
   $('.post-content iframe').wrap('<div class="iframe"></div>');
   
@@ -32,6 +26,12 @@ $(function () {
     $('.menu .trigger').slideToggle();
   })
 
+  $('nav ul a').each(function () {
+    if ($(this).attr('href') == window.location.pathname) {
+      $(this).addClass('active');
+    }
+  })
+
 })
 
 $("#searchTerm").focus();
@@ -56,8 +56,8 @@ themedark();
 
 // 显示目录
 function TableOfContents(){
-  if($('#TableOfContents').html() == ''){
-    $('#TableOfContents').html('<p class="notoc">本文无目录</p>');
+  if($('#TableOfContents').html() != ''){
+    $('.toc').addClass('act');
   }
 }
 TableOfContents();
