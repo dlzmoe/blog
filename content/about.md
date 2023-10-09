@@ -29,14 +29,7 @@ E-mail: anghunk#gmail.com（#==@）
 
 [涛叔](https://taoshu.in)
 [江卮可乐](https://emo.ijann.com/)
-[依然](https://wind.ink)
-[王宜楷工作室](http://www.wangyikai.com)
-[随望淡思](https://www.lushaojun.com)
-[叶开楗博客](https://xn--qpru0x.cn)
 [东东博客](http://blog.shutwin.com)
-[涓滴意念汇成河](http://www.zahui.top)
-[星落](https://urosi.cn)
-[Java码农博客](https://ichochy.com)
 [Leon Fong](https://www.leonfong.me/)
 [卢涛南博客](https://lutaonan.com/)
 
