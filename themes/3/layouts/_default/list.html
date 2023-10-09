@@ -1,0 +1,21 @@
+{{ partial "header.html" . }}
+<script>$('body').addClass('list')</script>
+
+<div class="main">
+  <header class="header">
+    <h1 class="header-title">{{ .Title }}</h1>
+  </header>
+
+  {{ range (where .Data.Pages "Type" "in" site.Params.mainSections).GroupByDate "2006" -}}
+  <h2 style="margin-bottom:10px;">{{ .Key }}</h2>
+  {{ range .Pages }}
+  <article class="post-items">
+    <h4 class="post-item-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h4>
+    <time class="post-item-meta" datetime="{{ .Date.Format " 2006-01-02 15:04:05 MST" }}">{{ .Date.Format "01/02, 2006"}}</time>
+  </article>
+  {{ end }}
+
+  {{ end }}
+</div>
+
+{{ partial "footer.html" . }}

@@ -1,0 +1,24 @@
+{{ partial "header.html" . }}
+
+<main aria-label="Content">
+  <h3 class="posts-item-note" aria-label="Recent Posts">Recent Posts</h3>
+
+  {{ $pages := .Site.RegularPages }}
+  {{ $paginator := .Paginate ($pages) }}
+  {{ range $paginator.Pages }}
+  {{ $title := .Title }}
+  {{ $summary := .Summary }}
+
+  <article class="post-item">
+    <h4 class="post-item-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h4>
+    <time class="post-item-meta" datetime="{{ .Date.Format " 2006-01-02 15:04:05 MST" }}">{{ .Date.Format "2006年01月02日"}}</time>
+    <div class="entry-content">{{ .Summary }}</div>
+  </article>
+
+  {{ end }}
+
+  <p><a href="/blog/">See all posts</a></p>
+
+  <!-- {{ partial "pagination.html" . }} -->
+</main>
+{{ partial "footer.html" . }}

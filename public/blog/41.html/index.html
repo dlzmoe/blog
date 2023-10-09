@@ -22,7 +22,7 @@
 "articleSection" : "blog",
 "name" : "如何在 React 中引入 less？",
 "headline" : "如何在 React 中引入 less？",
-"description" : "本文主要写如何在 React 中引入 less 。因为 less 和 css 非常像，因此很容易学习。而且 less 仅对 css 语言增加了少许方便的扩展，这就是 less 如此易学的原因之一。 1.安装 less npm install less less-loader --save-dev 2.暴露 webpack 文件 利用 npx create-react-app 搭建的 React 项目，默认隐藏 webpack 配置文件，引入 less 需要修改 webpack 配置文件，因此我们需要执行命令暴露 webpack 配置文件。 这里需要注意，一旦暴露，无法回退。 npm run eject 如果这一步失败，执行下列命令： git add . git commit -m \u0026#34;init\u0026#34; 然后再执行 npm run eject 注意：暴露 webpack 文件只能在 create-react-app 之初，一旦项目结构发生改变，再进行暴露操作就会失败。所以尽量在项目建立时就进行 npm run eject 操作。 3.修改 wenpack.config.js 配置 在合适的位置添加： \/\/ 放在 \/\/ const sassRegex = \/\\.(scss|sass)$\/; \/\/ const sassModuleRegex = \/\\.module\\.(scss|sass)$\/; \/\/ 后面 const lessRegex = \/\\.less$\/; const lessModuleRegex = \/\\.module\\.less$\/; \/\/ 放在 oneof 数组下 { test: lessRegex, exclude: lessModuleRegex, use: getStyleLoaders( { importLoaders: 2, sourceMap: isEnvProduction \u0026amp;\u0026amp; shouldUseSourceMap, }, \u0026#39;less-loader\u0026#39; ), \/\/ Don\u0026#39;t consider CSS imports dead code even if the \/\/ containing package claims to have no side effects. \/\/ Remove this when webpack adds a warning or an error for this. \/\/ See https:\/\/github.com\/webpack\/webpack\/issues\/6571 sideEffects: true, }, \/\/ Adds support for CSS Modules, but using SASS \/\/ using the extension .module.scss or .module.sass { test: lessModuleRegex, use: getStyleLoaders( { importLoaders: 2, sourceMap: isEnvProduction \u0026amp;\u0026amp; shouldUseSourceMap, modules: true, getLocalIdent: getCSSModuleLocalIdent, }, \u0026#39;less-loader\u0026#39; ), }, 4.如何使用 less 新建一个 App.less 文件，然后在 App.js 中引入： import \u0026#39;.\/Map.less\u0026#39; less 语法手册",
+"description" : "本文主要写如何在 React 中引入 less 。因为 less 和 css 非常像，因此很容易学习。而且 less 仅对 css 语言增加了少许方便的扩展，这就是 less 如此易学的原因之一。 1.安装 less npm install less less-loader --save-dev 2.暴露 webpack 文件 利用 npx create-react-app 搭建的 React 项目，默认隐藏 webpack 配置文",
 "inLanguage" : "en-US",
 "author" : "子舒",
 "creator" : "子舒",
@@ -38,8 +38,8 @@
 </script><title>如何在 React 中引入 less？ - 子舒</title>
 <meta property="og:title" content="如何在 React 中引入 less？" />
 <meta property="og:type" content="article" />
-<meta property="og:description" content="本文主要写如何在 React 中引入 less 。因为 less 和 css 非常像，因此很容易学习。而且 less 仅对 css 语言增加了少许方便的扩展，这就是 less 如此易学的原因之一。 1.安装 less npm install less less-loader --save-dev 2.暴露 webpack 文件 利用 npx create-react-app 搭建的 React 项目，默认隐藏 webpack 配置文件，引入 less 需要修改 webpack 配置文件，因此我们需要执行命令暴露 webpack 配置文件。 这里需要注意，一旦暴露，无法回退。 npm run eject 如果这一步失败，执行下列命令： git add . git commit -m &amp;#34;init&amp;#34; 然后再执行 npm run eject 注意：暴露 webpack 文件只能在 create-react-app 之初，一旦项目结构发生改变，再进行暴露操作就会失败。所以尽量在项目建立时就进行 npm run eject 操作。 3.修改 wenpack.config.js 配置 在合适的位置添加： // 放在 // const sassRegex = /\.(scss|sass)$/; // const sassModuleRegex = /\.module\.(scss|sass)$/; // 后面 const lessRegex = /\.less$/; const lessModuleRegex = /\.module\.less$/; // 放在 oneof 数组下 { test: lessRegex, exclude: lessModuleRegex, use: getStyleLoaders( { importLoaders: 2, sourceMap: isEnvProduction &amp;amp;&amp;amp; shouldUseSourceMap, }, &amp;#39;less-loader&amp;#39; ), // Don&amp;#39;t consider CSS imports dead code even if the // containing package claims to have no side effects. // Remove this when webpack adds a warning or an error for this. // See https://github.com/webpack/webpack/issues/6571 sideEffects: true, }, // Adds support for CSS Modules, but using SASS // using the extension .module.scss or .module.sass { test: lessModuleRegex, use: getStyleLoaders( { importLoaders: 2, sourceMap: isEnvProduction &amp;amp;&amp;amp; shouldUseSourceMap, modules: true, getLocalIdent: getCSSModuleLocalIdent, }, &amp;#39;less-loader&amp;#39; ), }, 4.如何使用 less 新建一个 App.less 文件，然后在 App.js 中引入： import &amp;#39;./Map.less&amp;#39; less 语法手册" />
-<meta name="description" content="本文主要写如何在 React 中引入 less 。因为 less 和 css 非常像，因此很容易学习。而且 less 仅对 css 语言增加了少许方便的扩展，这就是 less 如此易学的原因之一。 1.安装 less npm install less less-loader --save-dev 2.暴露 webpack 文件 利用 npx create-react-app 搭建的 React 项目，默认隐藏 webpack 配置文件，引入 less 需要修改 webpack 配置文件，因此我们需要执行命令暴露 webpack 配置文件。 这里需要注意，一旦暴露，无法回退。 npm run eject 如果这一步失败，执行下列命令： git add . git commit -m &amp;#34;init&amp;#34; 然后再执行 npm run eject 注意：暴露 webpack 文件只能在 create-react-app 之初，一旦项目结构发生改变，再进行暴露操作就会失败。所以尽量在项目建立时就进行 npm run eject 操作。 3.修改 wenpack.config.js 配置 在合适的位置添加： // 放在 // const sassRegex = /\.(scss|sass)$/; // const sassModuleRegex = /\.module\.(scss|sass)$/; // 后面 const lessRegex = /\.less$/; const lessModuleRegex = /\.module\.less$/; // 放在 oneof 数组下 { test: lessRegex, exclude: lessModuleRegex, use: getStyleLoaders( { importLoaders: 2, sourceMap: isEnvProduction &amp;amp;&amp;amp; shouldUseSourceMap, }, &amp;#39;less-loader&amp;#39; ), // Don&amp;#39;t consider CSS imports dead code even if the // containing package claims to have no side effects. // Remove this when webpack adds a warning or an error for this. // See https://github.com/webpack/webpack/issues/6571 sideEffects: true, }, // Adds support for CSS Modules, but using SASS // using the extension .module.scss or .module.sass { test: lessModuleRegex, use: getStyleLoaders( { importLoaders: 2, sourceMap: isEnvProduction &amp;amp;&amp;amp; shouldUseSourceMap, modules: true, getLocalIdent: getCSSModuleLocalIdent, }, &amp;#39;less-loader&amp;#39; ), }, 4.如何使用 less 新建一个 App.less 文件，然后在 App.js 中引入： import &amp;#39;./Map.less&amp;#39; less 语法手册" />
+<meta property="og:description" content="本文主要写如何在 React 中引入 less 。因为 less 和 css 非常像，因此很容易学习。而且 less 仅对 css 语言增加了少许方便的扩展，这就是 less 如此易学的原因之一。 1.安装 less npm install less less-loader --save-dev 2.暴露 webpack 文件 利用 npx create-react-app 搭建的 React 项目，默认隐藏 webpack 配置文" />
+<meta name="description" content="本文主要写如何在 React 中引入 less 。因为 less 和 css 非常像，因此很容易学习。而且 less 仅对 css 语言增加了少许方便的扩展，这就是 less 如此易学的原因之一。 1.安装 less npm install less less-loader --save-dev 2.暴露 webpack 文件 利用 npx create-react-app 搭建的 React 项目，默认隐藏 webpack 配置文" />
 <meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
 
 
@@ -49,22 +49,13 @@
 <link rel="stylesheet" href="/css/index.css">
 <link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
 <script src="/js/jquery3.6.0.min.js"></script>
-<script async src="https://umami.zburu.com/script.js" data-website-id="9e5fc8da-b70b-4767-81cd-35ba13110fd5"></script>
 </head>
 
 <body>
   <div class="navbar" role="navigation">
     <nav class="menu" aria-label="Main Navigation">
       
-      <a href="/" class="logo">
-        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-          class="feather feather-home">
-          <title>Home</title>
-          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-          <polyline points="9 22 9 12 15 12 15 22"></polyline>
-        </svg>
-      </a>
+      <a href="/" class="logo">子舒的博客</a>
       <label for="menu-trigger">
         <span class="menu-icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" stroke="currentColor" fill="none"
@@ -92,11 +83,15 @@
           </li>
           
           <li>
-            <a class="menu-link" href="/message/" title="留言板">留言板</a>
+            <a class="menu-link" href="/categories/%e9%9a%8f%e7%ac%94/" title="随笔">随笔</a>
           </li>
           
           <li>
-            <a class="menu-link" href="/lab/" title="实验室">实验室</a>
+            <a class="menu-link" href="/categories/%e6%8a%80%e6%9c%af/" title="技术">技术</a>
+          </li>
+          
+          <li>
+            <a class="menu-link" href="/message/" title="留言">留言</a>
           </li>
           
           <li>
@@ -105,26 +100,6 @@
           
         </ul>
       
-        <div class="logo-switches">
-          <button id="theme-toggle" accesskey="t" title="(Alt + T)">
-            <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-            </svg>
-            <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="5"></circle>
-              <line x1="12" y1="1" x2="12" y2="3"></line>
-              <line x1="12" y1="21" x2="12" y2="23"></line>
-              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-              <line x1="1" y1="12" x2="3" y2="12"></line>
-              <line x1="21" y1="12" x2="23" y2="12"></line>
-              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-            </svg>
-          </button>
-        </div>
       </div>
     </nav>
   </div>

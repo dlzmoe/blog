@@ -22,7 +22,7 @@
 "articleSection" : "blog",
 "name" : "为什么getTime()返回1970年至今的毫秒？",
 "headline" : "为什么getTime()返回1970年至今的毫秒？",
-"description" : "今天在写new Date()时候，无意中发现了一个很有意思的方法，getTime()，百度了一下，有人说是计算从1970年1月1日至今的毫秒数 为什么要是1970年呢？ new Date().getTime(); \/\/ xxxxxxxxxxx 这个起源于unix的诞生，因为Unix在1969年被开发出来，1971年正式发布，在这之前没有机器会需要来表示1970-01-01-00:00:00之前的时间，后面的语言很多就沿用了这一习惯，js只是也沿用了这种习惯而已。 当然，这一做法现在看来是很有问题的，例如不方便用它表示更早的时间而且精度有限。 定义time从1970年1月1日开始，忽然想到在JAVA里，Oracle数据库时间也是从1970年1月1日开始计算。 比如java类代码: Date date = new Date(0); System.out.println(date); \/\/ 打印出来的结果：Thu Jan 01 08:00:00 CST 1970也 是1970年1月1日，实际上时分秒是0点0分0秒(这里打印出来是8点，稍后会作解释)。 为什么这个时间会定义在1970年1月1日这个时候呢? 于是开始了Google，中文网页根本找不到答案。于是试着搜索英文关键字,在Sun java论坛总算找到准确的帖子: http:\/\/forums.sun.com\/thread.jspa?threadID=595140\u0026amp;start=15 其中有一个回复: I suspect that Java was born and raised on a UNIX system. UNIX considers the epoch (when did time begin) to be midnight, January 1, 1970. 是说java起源于UNIX系统，而UNIX认为1970年1月1日0点是时间纪元. 但这依然没很好的解释\u0026quot;为什么\u0026quot;,出于好奇，继续Google，总算找到了答案: http:\/\/en.wikipedia.org\/wiki\/Unix_time 这里的解释是: 最初计算机操作系统是32位，而时间也是用32位表示。 System.out.println(Integer.MAX_VALUE); 2147483647 Integer在JAVA内用32位表示，因此32位能表示的最大值是2147483647。另外1年365天的总秒数是31536000，2147483647\/31536000 = 68.1,也就是说32位能表示的最长时间是68年，而实际上到2038年01月19日03时14分07秒，便会到达最大时间，过了这个时间点，所有32位操作系统时间便会变为10000000 00000000 00000000 00000000也就是1901年12月13日20时45分52秒，这样便会出现时间回归的现象，很多软件便会运行异常了。 到这里，我想问题的答案已经出来了: 因为用32位来表示时间的最大间隔是68年，而最早出现的UNIX操作系统考虑到计算机产生的年代和应用的时限综合取了1970年1月1日作为UNIX TIME的纪元时间(开始时间)，而java自然也遵循了这一约束。 至于时间回归的现象相信随着64为操作系统的产生逐渐得到解决，因为用64位操作系统可以表示到292,277,026,596年12月4日15时30分08秒，相信我们的N代子孙，哪怕地球毁灭那天都不用愁不够用了，因为这个时间已经是千亿年以后了。 最后一个问题: 上面System.out.println(new Date(0))，打印出来的时间是8点而非0点，原因是存在系统时间和本地时间的问题，其实系统时间依然是0点，只不过我的电脑时区设置为东8区，故打印的结果是8点。",
+"description" : "今天在写new Date()时候，无意中发现了一个很有意思的方法，getTime()，百度了一下，有人说是计算从1970年1月1日至今的毫秒数 为什么要是1970年呢？ new Date().getTime(); \/\/ xxxxxxxxxxx 这个起源于unix的诞生，因",
 "inLanguage" : "en-US",
 "author" : "子舒",
 "creator" : "子舒",
@@ -38,8 +38,8 @@
 </script><title>为什么getTime()返回1970年至今的毫秒？ - 子舒</title>
 <meta property="og:title" content="为什么getTime()返回1970年至今的毫秒？" />
 <meta property="og:type" content="article" />
-<meta property="og:description" content="今天在写new Date()时候，无意中发现了一个很有意思的方法，getTime()，百度了一下，有人说是计算从1970年1月1日至今的毫秒数 为什么要是1970年呢？ new Date().getTime(); // xxxxxxxxxxx 这个起源于unix的诞生，因为Unix在1969年被开发出来，1971年正式发布，在这之前没有机器会需要来表示1970-01-01-00:00:00之前的时间，后面的语言很多就沿用了这一习惯，js只是也沿用了这种习惯而已。 当然，这一做法现在看来是很有问题的，例如不方便用它表示更早的时间而且精度有限。 定义time从1970年1月1日开始，忽然想到在JAVA里，Oracle数据库时间也是从1970年1月1日开始计算。 比如java类代码: Date date = new Date(0); System.out.println(date); // 打印出来的结果：Thu Jan 01 08:00:00 CST 1970也 是1970年1月1日，实际上时分秒是0点0分0秒(这里打印出来是8点，稍后会作解释)。 为什么这个时间会定义在1970年1月1日这个时候呢? 于是开始了Google，中文网页根本找不到答案。于是试着搜索英文关键字,在Sun java论坛总算找到准确的帖子: http://forums.sun.com/thread.jspa?threadID=595140&amp;amp;start=15 其中有一个回复: I suspect that Java was born and raised on a UNIX system. UNIX considers the epoch (when did time begin) to be midnight, January 1, 1970. 是说java起源于UNIX系统，而UNIX认为1970年1月1日0点是时间纪元. 但这依然没很好的解释&amp;quot;为什么&amp;quot;,出于好奇，继续Google，总算找到了答案: http://en.wikipedia.org/wiki/Unix_time 这里的解释是: 最初计算机操作系统是32位，而时间也是用32位表示。 System.out.println(Integer.MAX_VALUE); 2147483647 Integer在JAVA内用32位表示，因此32位能表示的最大值是2147483647。另外1年365天的总秒数是31536000，2147483647/31536000 = 68.1,也就是说32位能表示的最长时间是68年，而实际上到2038年01月19日03时14分07秒，便会到达最大时间，过了这个时间点，所有32位操作系统时间便会变为10000000 00000000 00000000 00000000也就是1901年12月13日20时45分52秒，这样便会出现时间回归的现象，很多软件便会运行异常了。 到这里，我想问题的答案已经出来了: 因为用32位来表示时间的最大间隔是68年，而最早出现的UNIX操作系统考虑到计算机产生的年代和应用的时限综合取了1970年1月1日作为UNIX TIME的纪元时间(开始时间)，而java自然也遵循了这一约束。 至于时间回归的现象相信随着64为操作系统的产生逐渐得到解决，因为用64位操作系统可以表示到292,277,026,596年12月4日15时30分08秒，相信我们的N代子孙，哪怕地球毁灭那天都不用愁不够用了，因为这个时间已经是千亿年以后了。 最后一个问题: 上面System.out.println(new Date(0))，打印出来的时间是8点而非0点，原因是存在系统时间和本地时间的问题，其实系统时间依然是0点，只不过我的电脑时区设置为东8区，故打印的结果是8点。" />
-<meta name="description" content="今天在写new Date()时候，无意中发现了一个很有意思的方法，getTime()，百度了一下，有人说是计算从1970年1月1日至今的毫秒数 为什么要是1970年呢？ new Date().getTime(); // xxxxxxxxxxx 这个起源于unix的诞生，因为Unix在1969年被开发出来，1971年正式发布，在这之前没有机器会需要来表示1970-01-01-00:00:00之前的时间，后面的语言很多就沿用了这一习惯，js只是也沿用了这种习惯而已。 当然，这一做法现在看来是很有问题的，例如不方便用它表示更早的时间而且精度有限。 定义time从1970年1月1日开始，忽然想到在JAVA里，Oracle数据库时间也是从1970年1月1日开始计算。 比如java类代码: Date date = new Date(0); System.out.println(date); // 打印出来的结果：Thu Jan 01 08:00:00 CST 1970也 是1970年1月1日，实际上时分秒是0点0分0秒(这里打印出来是8点，稍后会作解释)。 为什么这个时间会定义在1970年1月1日这个时候呢? 于是开始了Google，中文网页根本找不到答案。于是试着搜索英文关键字,在Sun java论坛总算找到准确的帖子: http://forums.sun.com/thread.jspa?threadID=595140&amp;amp;start=15 其中有一个回复: I suspect that Java was born and raised on a UNIX system. UNIX considers the epoch (when did time begin) to be midnight, January 1, 1970. 是说java起源于UNIX系统，而UNIX认为1970年1月1日0点是时间纪元. 但这依然没很好的解释&amp;quot;为什么&amp;quot;,出于好奇，继续Google，总算找到了答案: http://en.wikipedia.org/wiki/Unix_time 这里的解释是: 最初计算机操作系统是32位，而时间也是用32位表示。 System.out.println(Integer.MAX_VALUE); 2147483647 Integer在JAVA内用32位表示，因此32位能表示的最大值是2147483647。另外1年365天的总秒数是31536000，2147483647/31536000 = 68.1,也就是说32位能表示的最长时间是68年，而实际上到2038年01月19日03时14分07秒，便会到达最大时间，过了这个时间点，所有32位操作系统时间便会变为10000000 00000000 00000000 00000000也就是1901年12月13日20时45分52秒，这样便会出现时间回归的现象，很多软件便会运行异常了。 到这里，我想问题的答案已经出来了: 因为用32位来表示时间的最大间隔是68年，而最早出现的UNIX操作系统考虑到计算机产生的年代和应用的时限综合取了1970年1月1日作为UNIX TIME的纪元时间(开始时间)，而java自然也遵循了这一约束。 至于时间回归的现象相信随着64为操作系统的产生逐渐得到解决，因为用64位操作系统可以表示到292,277,026,596年12月4日15时30分08秒，相信我们的N代子孙，哪怕地球毁灭那天都不用愁不够用了，因为这个时间已经是千亿年以后了。 最后一个问题: 上面System.out.println(new Date(0))，打印出来的时间是8点而非0点，原因是存在系统时间和本地时间的问题，其实系统时间依然是0点，只不过我的电脑时区设置为东8区，故打印的结果是8点。" />
+<meta property="og:description" content="今天在写new Date()时候，无意中发现了一个很有意思的方法，getTime()，百度了一下，有人说是计算从1970年1月1日至今的毫秒数 为什么要是1970年呢？ new Date().getTime(); // xxxxxxxxxxx 这个起源于unix的诞生，因" />
+<meta name="description" content="今天在写new Date()时候，无意中发现了一个很有意思的方法，getTime()，百度了一下，有人说是计算从1970年1月1日至今的毫秒数 为什么要是1970年呢？ new Date().getTime(); // xxxxxxxxxxx 这个起源于unix的诞生，因" />
 <meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
 
 
@@ -49,22 +49,13 @@
 <link rel="stylesheet" href="/css/index.css">
 <link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
 <script src="/js/jquery3.6.0.min.js"></script>
-<script async src="https://umami.zburu.com/script.js" data-website-id="9e5fc8da-b70b-4767-81cd-35ba13110fd5"></script>
 </head>
 
 <body>
   <div class="navbar" role="navigation">
     <nav class="menu" aria-label="Main Navigation">
       
-      <a href="/" class="logo">
-        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-          class="feather feather-home">
-          <title>Home</title>
-          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-          <polyline points="9 22 9 12 15 12 15 22"></polyline>
-        </svg>
-      </a>
+      <a href="/" class="logo">子舒的博客</a>
       <label for="menu-trigger">
         <span class="menu-icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" stroke="currentColor" fill="none"
@@ -92,11 +83,15 @@
           </li>
           
           <li>
-            <a class="menu-link" href="/message/" title="留言板">留言板</a>
+            <a class="menu-link" href="/categories/%e9%9a%8f%e7%ac%94/" title="随笔">随笔</a>
           </li>
           
           <li>
-            <a class="menu-link" href="/lab/" title="实验室">实验室</a>
+            <a class="menu-link" href="/categories/%e6%8a%80%e6%9c%af/" title="技术">技术</a>
+          </li>
+          
+          <li>
+            <a class="menu-link" href="/message/" title="留言">留言</a>
           </li>
           
           <li>
@@ -105,26 +100,6 @@
           
         </ul>
       
-        <div class="logo-switches">
-          <button id="theme-toggle" accesskey="t" title="(Alt + T)">
-            <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-            </svg>
-            <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="5"></circle>
-              <line x1="12" y1="1" x2="12" y2="3"></line>
-              <line x1="12" y1="21" x2="12" y2="23"></line>
-              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-              <line x1="1" y1="12" x2="3" y2="12"></line>
-              <line x1="21" y1="12" x2="23" y2="12"></line>
-              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-            </svg>
-          </button>
-        </div>
       </div>
     </nav>
   </div>

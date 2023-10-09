@@ -15,6 +15,8 @@ RSS: <a href="https://zishu.me/index.xml" target="_blank">https://zishu.me/index
 现在生活工作在杭州。  
 这是我在闲暇时间写的博客，记录生活。  
 
+[骑行记录](/riding/)
+
 // 希望用技术改变生活。
 
 Github: https://github.com/98zi  

@@ -22,7 +22,7 @@
 "articleSection" : "blog",
 "name" : "typecho 博客小表情无法显示问题",
 "headline" : "typecho 博客小表情无法显示问题",
-"description" : "typecho 博客建立完成之后，会发现如果插入一些小表情，页面渲染完之后，表情不会显示，并且表情之后的内容全部消失，导致体验感很差。 表情无法显示的原因是 uft-8 编码的问题，无法识别小表情，需要将其改成 utf8mb4 第一步，进入数据库 首先登陆博客后台的数据库，然后点击 sql ，输入下列代码： alter table typecho_comments convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_contents convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_fields convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_metas convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_options convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_relationships convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_users convert to character set utf8mb4 collate utf8mb4_unicode_ci; 直接复制，然后点击右下角的执行 第二步，修改 typecho 配置文件 我使用的宝塔面板，点击左侧 网站 ，然后点击我们这个网站的根目录，进入之后，可以找到一个 config.inc.php 的文件，进入然后滑到最下面。 **可以发现 \u0027charset\u0027 =\u0026gt; \u0027utf8\u0027,**下面我为了更直观的显示，将其注释掉，重新写的，实际操作中，将 utf8 改为 utf8mb4 即可。 \/** 定义数据库参数 *\/ $db = new Typecho_Db(\u0026#39;Pdo_Mysql\u0026#39;, \u0026#39;typecho_\u0026#39;); $db-\u0026gt;addServer(array ( \u0026#39;host\u0026#39; =\u0026gt; \u0026#39;localhost\u0026#39;, \u0026#39;user\u0026#39; =\u0026gt; \u0026#39;blog\u0026#39;, \u0026#39;password\u0026#39; =\u0026gt; \u0026#39;blog\u0026#39;, \/** \u0026#39;charset\u0026#39; =\u0026gt; \u0026#39;utf8\u0026#39;, *\/ \u0026#39;charset\u0026#39; =\u0026gt; \u0026#39;utf8mb4\u0026#39;, \u0026#39;port\u0026#39; =\u0026gt; \u0026#39;3306\u0026#39;, \u0026#39;database\u0026#39; =\u0026gt; \u0026#39;blog\u0026#39;, ), Typecho_Db::READ | Typecho_Db::WRITE); Typecho_Db::set($db); 在文章后台重新输入小表情，然后保存回到页面，小表情成功显示了。",
+"description" : "typecho 博客建立完成之后，会发现如果插入一些小表情，页面渲染完之后，表情不会显示，并且表情之后的内容全部消失，导致体验感很差。 表情无法显示的原因是 uft-8 编码的问题，无法识别小表情，需要将其改成 utf8mb4 第一步，进入数据",
 "inLanguage" : "en-US",
 "author" : "子舒",
 "creator" : "子舒",
@@ -38,8 +38,8 @@
 </script><title>typecho 博客小表情无法显示问题 - 子舒</title>
 <meta property="og:title" content="typecho 博客小表情无法显示问题" />
 <meta property="og:type" content="article" />
-<meta property="og:description" content="typecho 博客建立完成之后，会发现如果插入一些小表情，页面渲染完之后，表情不会显示，并且表情之后的内容全部消失，导致体验感很差。 表情无法显示的原因是 uft-8 编码的问题，无法识别小表情，需要将其改成 utf8mb4 第一步，进入数据库 首先登陆博客后台的数据库，然后点击 sql ，输入下列代码： alter table typecho_comments convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_contents convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_fields convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_metas convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_options convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_relationships convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_users convert to character set utf8mb4 collate utf8mb4_unicode_ci; 直接复制，然后点击右下角的执行 第二步，修改 typecho 配置文件 我使用的宝塔面板，点击左侧 网站 ，然后点击我们这个网站的根目录，进入之后，可以找到一个 config.inc.php 的文件，进入然后滑到最下面。 **可以发现 &#39;charset&#39; =&amp;gt; &#39;utf8&#39;,**下面我为了更直观的显示，将其注释掉，重新写的，实际操作中，将 utf8 改为 utf8mb4 即可。 /** 定义数据库参数 */ $db = new Typecho_Db(&amp;#39;Pdo_Mysql&amp;#39;, &amp;#39;typecho_&amp;#39;); $db-&amp;gt;addServer(array ( &amp;#39;host&amp;#39; =&amp;gt; &amp;#39;localhost&amp;#39;, &amp;#39;user&amp;#39; =&amp;gt; &amp;#39;blog&amp;#39;, &amp;#39;password&amp;#39; =&amp;gt; &amp;#39;blog&amp;#39;, /** &amp;#39;charset&amp;#39; =&amp;gt; &amp;#39;utf8&amp;#39;, */ &amp;#39;charset&amp;#39; =&amp;gt; &amp;#39;utf8mb4&amp;#39;, &amp;#39;port&amp;#39; =&amp;gt; &amp;#39;3306&amp;#39;, &amp;#39;database&amp;#39; =&amp;gt; &amp;#39;blog&amp;#39;, ), Typecho_Db::READ | Typecho_Db::WRITE); Typecho_Db::set($db); 在文章后台重新输入小表情，然后保存回到页面，小表情成功显示了。" />
-<meta name="description" content="typecho 博客建立完成之后，会发现如果插入一些小表情，页面渲染完之后，表情不会显示，并且表情之后的内容全部消失，导致体验感很差。 表情无法显示的原因是 uft-8 编码的问题，无法识别小表情，需要将其改成 utf8mb4 第一步，进入数据库 首先登陆博客后台的数据库，然后点击 sql ，输入下列代码： alter table typecho_comments convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_contents convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_fields convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_metas convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_options convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_relationships convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_users convert to character set utf8mb4 collate utf8mb4_unicode_ci; 直接复制，然后点击右下角的执行 第二步，修改 typecho 配置文件 我使用的宝塔面板，点击左侧 网站 ，然后点击我们这个网站的根目录，进入之后，可以找到一个 config.inc.php 的文件，进入然后滑到最下面。 **可以发现 &#39;charset&#39; =&amp;gt; &#39;utf8&#39;,**下面我为了更直观的显示，将其注释掉，重新写的，实际操作中，将 utf8 改为 utf8mb4 即可。 /** 定义数据库参数 */ $db = new Typecho_Db(&amp;#39;Pdo_Mysql&amp;#39;, &amp;#39;typecho_&amp;#39;); $db-&amp;gt;addServer(array ( &amp;#39;host&amp;#39; =&amp;gt; &amp;#39;localhost&amp;#39;, &amp;#39;user&amp;#39; =&amp;gt; &amp;#39;blog&amp;#39;, &amp;#39;password&amp;#39; =&amp;gt; &amp;#39;blog&amp;#39;, /** &amp;#39;charset&amp;#39; =&amp;gt; &amp;#39;utf8&amp;#39;, */ &amp;#39;charset&amp;#39; =&amp;gt; &amp;#39;utf8mb4&amp;#39;, &amp;#39;port&amp;#39; =&amp;gt; &amp;#39;3306&amp;#39;, &amp;#39;database&amp;#39; =&amp;gt; &amp;#39;blog&amp;#39;, ), Typecho_Db::READ | Typecho_Db::WRITE); Typecho_Db::set($db); 在文章后台重新输入小表情，然后保存回到页面，小表情成功显示了。" />
+<meta property="og:description" content="typecho 博客建立完成之后，会发现如果插入一些小表情，页面渲染完之后，表情不会显示，并且表情之后的内容全部消失，导致体验感很差。 表情无法显示的原因是 uft-8 编码的问题，无法识别小表情，需要将其改成 utf8mb4 第一步，进入数据" />
+<meta name="description" content="typecho 博客建立完成之后，会发现如果插入一些小表情，页面渲染完之后，表情不会显示，并且表情之后的内容全部消失，导致体验感很差。 表情无法显示的原因是 uft-8 编码的问题，无法识别小表情，需要将其改成 utf8mb4 第一步，进入数据" />
 <meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
 
 
@@ -49,22 +49,13 @@
 <link rel="stylesheet" href="/css/index.css">
 <link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
 <script src="/js/jquery3.6.0.min.js"></script>
-<script async src="https://umami.zburu.com/script.js" data-website-id="9e5fc8da-b70b-4767-81cd-35ba13110fd5"></script>
 </head>
 
 <body>
   <div class="navbar" role="navigation">
     <nav class="menu" aria-label="Main Navigation">
       
-      <a href="/" class="logo">
-        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-          class="feather feather-home">
-          <title>Home</title>
-          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-          <polyline points="9 22 9 12 15 12 15 22"></polyline>
-        </svg>
-      </a>
+      <a href="/" class="logo">子舒的博客</a>
       <label for="menu-trigger">
         <span class="menu-icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" stroke="currentColor" fill="none"
@@ -92,11 +83,15 @@
           </li>
           
           <li>
-            <a class="menu-link" href="/message/" title="留言板">留言板</a>
+            <a class="menu-link" href="/categories/%e9%9a%8f%e7%ac%94/" title="随笔">随笔</a>
           </li>
           
           <li>
-            <a class="menu-link" href="/lab/" title="实验室">实验室</a>
+            <a class="menu-link" href="/categories/%e6%8a%80%e6%9c%af/" title="技术">技术</a>
+          </li>
+          
+          <li>
+            <a class="menu-link" href="/message/" title="留言">留言</a>
           </li>
           
           <li>
@@ -105,26 +100,6 @@
           
         </ul>
       
-        <div class="logo-switches">
-          <button id="theme-toggle" accesskey="t" title="(Alt + T)">
-            <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-            </svg>
-            <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="5"></circle>
-              <line x1="12" y1="1" x2="12" y2="3"></line>
-              <line x1="12" y1="21" x2="12" y2="23"></line>
-              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-              <line x1="1" y1="12" x2="3" y2="12"></line>
-              <line x1="21" y1="12" x2="23" y2="12"></line>
-              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-            </svg>
-          </button>
-        </div>
       </div>
     </nav>
   </div>
