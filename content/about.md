@@ -15,8 +15,6 @@ RSS: <a href="https://zishu.me/index.xml" target="_blank">https://zishu.me/index
 现在生活工作在杭州。  
 这是我在闲暇时间写的博客，记录生活。  
 
-参与我的社区交流：<a href="https://discord.gg/dfG9Tvje9b" target="_blank">https://discord.gg/dfG9Tvje9b</a>
-
 // 希望用技术改变生活。
 
 Github: https://github.com/98zi  
@@ -31,14 +29,12 @@ E-mail: anghunk#gmail.com（#==@）
 
 [涛叔](https://taoshu.in)
 [江卮可乐](https://emo.ijann.com/)
-[梦繁星](https://blog.emoao.com)
 [依然](https://wind.ink)
 [王宜楷工作室](http://www.wangyikai.com)
 [随望淡思](https://www.lushaojun.com)
 [叶开楗博客](https://xn--qpru0x.cn)
 [东东博客](http://blog.shutwin.com)
 [涓滴意念汇成河](http://www.zahui.top)
-[SharpG.的博客](https://www.sharpgan.com)
 [星落](https://urosi.cn)
 [Java码农博客](https://ichochy.com)
 [Leon Fong](https://www.leonfong.me/)
