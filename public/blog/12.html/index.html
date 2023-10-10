@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8" />
+<meta name="generator" content="Hugo 0.118.2">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="toTop" content="true">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="author" content="" />
+<meta property="og:url" content="https://zishu.me/blog/12.html/" />
+<link rel="canonical" href="https://zishu.me/blog/12.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="shortcut" href="https://imgurl.zishu.me/favicon.ico" /><link rel="alternate" type="application/atom+xml" href="https://zishu.meindex.xml" title="子舒的博客">
+<script type="application/ld+json">
+{
+"@context" : "http://schema.org",
+"@type" : "BlogPosting",
+"mainEntityOfPage": {
+"@type": "WebPage",
+"@id": "https:\/\/zishu.me"
+},
+"articleSection" : "blog",
+"name" : "HTML事件属性--DOM",
+"headline" : "HTML事件属性--DOM",
+"description" : "研究html的对象，事件和方法，从js的角度来思考，这个标签的属性是通过什么方法，触发什么事件来实现的 键盘鼠标事件 页面窗口事件 表单事件 一、window事件属性 针对window对象触发的事件，在\u0026lt;",
+"inLanguage" : "en-US",
+"author" : "子舒",
+"creator" : "子舒",
+"publisher": "子舒",
+"accountablePerson" : "子舒",
+"copyrightHolder" : "子舒",
+"copyrightYear" : "2020",
+"datePublished": "2020-10-29 00:00:00 \u002b0000 UTC",
+"dateModified" : "2020-10-29 00:00:00 \u002b0000 UTC",
+"url" : "https:\/\/zishu.me\/blog\/12.html\/",
+"keywords" : [ "笔记", ]
+}
+</script><title>HTML事件属性--DOM - 子舒</title>
+<meta property="og:title" content="HTML事件属性--DOM" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="研究html的对象，事件和方法，从js的角度来思考，这个标签的属性是通过什么方法，触发什么事件来实现的 键盘鼠标事件 页面窗口事件 表单事件 一、window事件属性 针对window对象触发的事件，在&amp;lt;" />
+<meta name="description" content="研究html的对象，事件和方法，从js的角度来思考，这个标签的属性是通过什么方法，触发什么事件来实现的 键盘鼠标事件 页面窗口事件 表单事件 一、window事件属性 针对window对象触发的事件，在&amp;lt;" />
+<meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
+
+
+<link href="https://fonts.googleapis.com" rel="preconnect" />
+<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/css/index.css">
+<link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
+<script src="/js/jquery3.6.0.min.js"></script>
+</head>
+
+<body>
+  <div class="navbar" role="navigation">
+    <nav class="menu" aria-label="Main Navigation">
+      
+      <a href="/" class="logo">子舒的博客</a>
+      <label for="menu-trigger">
+        <span class="menu-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" stroke="currentColor" fill="none"
+            viewBox="0 0 14 14">
+            <title>Menu</title>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.595 7L3.40726 7"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5096 3.51488L3.49301 3.51488"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5096 10.4851H3.49301"></path>
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M0.5 12.5V1.5C0.5 0.947715 0.947715 0.5 1.5 0.5H12.5C13.0523 0.5 13.5 0.947715 13.5 1.5V12.5C13.5 13.0523 13.0523 13.5 12.5 13.5H1.5C0.947715 13.5 0.5 13.0523 0.5 12.5Z">
+            </path>
+          </svg>
+        </span>
+      </label>
+
+      <div class="trigger">
+        <ul class="trigger-container">
+          
+          <li>
+            <a class="menu-link" href="/" title="首页">首页</a>
+          </li>
+          
+          <li>
+            <a class="menu-link" href="/blog/" title="归档">归档</a>
+          </li>
+          
+          <li>
+            <a class="menu-link" href="/categories/%e9%9a%8f%e7%ac%94/" title="随笔">随笔</a>
+          </li>
+          
+          <li>
+            <a class="menu-link" href="/categories/%e6%8a%80%e6%9c%af/" title="技术">技术</a>
+          </li>
+          
+          <li>
+            <a class="menu-link" href="/message/" title="留言">留言</a>
+          </li>
+          
+          <li>
+            <a class="menu-link" href="/about/" title="关于">关于</a>
+          </li>
+          
+
+          <li>
+            <a class="menu-link" href="https://weekly.zishu.me/" target="_blank">周刊</a>
+          </li>
+        </ul>
+      
+      </div>
+    </nav>
+  </div>
+
+  <main class="wrapper">
+    <div class="content">
+
+<div class="main detail">
+  <header class="header">
+    <h1 class="header-title">HTML事件属性--DOM</h1>
+    
+    
+    <div class="post-meta">
+      发布于 <time datetime=" 2020-10-29 00:00:00 UTC"> 2020-10-29</time>
+      <em>-</em> 
+      本文总阅读量 <span id="busuanzi_value_page_pv">...</span> 次
+      <em>-</em>
+      <emoji-reaction></emoji-reaction>
+    </div>
+    
+    
+  </header>
+  <script type="module" src="https://cdn.jsdelivr.net/gh/emaction/frontend.dist@1.0.9/bundle.js"></script>
+  
+  
+  <details class="toc" open>
+    <summary><b>Table of Contents</b></summary>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一window事件属性">一、window事件属性</a>
+      <ul>
+        <li><a href="#1onbeforeprintonafterprint">1.onbeforeprint／onafterprint</a></li>
+        <li><a href="#2onbeforeunloadunload">2.onbeforeunload/unload</a></li>
+        <li><a href="#3onerror">3.onerror</a></li>
+        <li><a href="#4onhashchange">4.onhashchange</a></li>
+        <li><a href="#5onload">5.onload</a></li>
+        <li><a href="#6onmessage">6.onmessage</a></li>
+        <li><a href="#7onoffline">7.onoffline</a></li>
+        <li><a href="#8ononline">8.ononline</a></li>
+        <li><a href="#9onpagehide">9.onpagehide</a></li>
+        <li><a href="#10onpageshow">10.onpageshow</a></li>
+        <li><a href="#11onresize">11.onresize</a></li>
+        <li><a href="#12onunload">12.onunload</a></li>
+        <li><a href="#13onpopstate">13.onpopstate</a></li>
+        <li><a href="#14onredo">14.onredo</a></li>
+      </ul>
+    </li>
+    <li><a href="#二form事件属性">二、form事件属性</a>
+      <ul>
+        <li><a href="#1onblur">1.onblur</a></li>
+        <li><a href="#2onfocus">2.onfocus</a></li>
+        <li><a href="#3onchange">3.onchange</a></li>
+        <li><a href="#4oncontextmenu">4.oncontextmenu</a></li>
+        <li><a href="#5onformchange">5.onformchange</a></li>
+        <li><a href="#6onforminput">6.onforminput</a></li>
+        <li><a href="#6oninput">6.oninput</a></li>
+        <li><a href="#7oninvalid">7.oninvalid</a></li>
+        <li><a href="#8onreset">8.onreset</a></li>
+        <li><a href="#9onselect">9.onselect</a></li>
+        <li><a href="#10onsubmit">10.onsubmit</a></li>
+        <li><a href="#三key键盘事件">三、key键盘事件</a></li>
+        <li><a href="#1onkeydown">1.onkeydown</a></li>
+        <li><a href="#2onkeypress">2.onkeypress</a></li>
+        <li><a href="#3onkeyup">3.onkeyup</a></li>
+      </ul>
+    </li>
+    <li><a href="#四mouse鼠标事件">四、mouse鼠标事件</a>
+      <ul>
+        <li><a href="#1onclick">1.onclick</a></li>
+        <li><a href="#2ondblclick">2.ondblclick</a></li>
+        <li><a href="#3拖动事件">3.拖动事件</a></li>
+        <li><a href="#4onmousedownonmouseup">4.onmousedown/onmouseup</a></li>
+        <li><a href="#5onmousemove">5.onmousemove</a></li>
+        <li><a href="#6onmouseout">6.onmouseout</a></li>
+        <li><a href="#7onmouseover">7.onmouseover</a></li>
+        <li><a href="#8onmousewheel">8.onmousewheel</a></li>
+        <li><a href="#9onscroll">9.onscroll</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </details>
+  
+  
+  <article class="post-content markdown-body">
+    
+    <p>研究html的<code>对象，事件和方法</code>，从js的角度来思考，这个标签的属性是通过什么方法，触发什么事件来实现的</p>
+<ol>
+<li>
+<p>键盘鼠标事件</p>
+</li>
+<li>
+<p>页面窗口事件</p>
+</li>
+<li>
+<p>表单事件</p>
+</li>
+</ol>
+<h2 id="一window事件属性">一、window事件属性</h2>
+<p>针对window对象触发的事件，在<code>&lt;body&gt;</code>中执行</p>
+<h3 id="1onbeforeprintonafterprint">1.onbeforeprint／onafterprint</h3>
+<p>在浏览器打印之间/后触发</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">body</span> <span class="na">onbeforeprint </span><span class="o">=</span> <span class="s">print()</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nx">print</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">alert</span><span class="p">(</span><span class="s2">&#34;打印之间！&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p>打印前和打印后的事件方法类似，一个是在打印前触发事件，一个是在打印这个事件结束之后触发<code>onafterprint</code>这个事件</p>
+<p><a href="https://imzsh.com/Property-event-method/onbeforeprint.html" target="_black" class="demo-view">demo查看</a></p>
+<h3 id="2onbeforeunloadunload">2.onbeforeunload/unload</h3>
+<p>离开页面之间触发的事件／之后触发的事件</p>
+<p>打开f12，然后刷新，或者关闭浏览器，可以在浏览器触发事件</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">window</span><span class="p">.</span><span class="nx">onbeforeunload</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="s2">&#34;提示&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//返回的内容不会显示，
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//在刷新的时候触发，或者关闭浏览器，浏览会直接提示是否重新加载，不能直接返回return
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p><a href="https://imzsh.com/Property-event-method/onbeforeunload.html" target="_black" class="demo-view">demo查看</a></p>
+<h3 id="3onerror">3.onerror</h3>
+<p>当图片出错是可以触发该事件，支持该事件的标签只有 <code>&lt;img&gt;</code>,<code>&lt;object&gt;</code>,<code>&lt;style&gt;</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;1.gif&#34;</span> <span class="na">onerror </span><span class="o">=</span> <span class="s">&#34;myfun()&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nx">myfun</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">alert</span><span class="p">(</span><span class="s2">&#34;图片出错&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p>1.gif不存在，因此触发了一个myfun()事件，弹出窗口</p>
+<p><a href="https://imzsh.com/Property-event-method/orrer.html" target="_black" class="demo-view">demo查看</a></p>
+<h3 id="4onhashchange">4.onhashchange</h3>
+<p>当文档改变时发生的脚本
+？？？</p>
+<h3 id="5onload">5.onload</h3>
+<p>页面加载完成之后触发</p>
+<p><a href="https://imzsh.com/Property-event-method/onload.html" target="_black" class="demo-view">demo查看</a></p>
+<h3 id="6onmessage">6.onmessage</h3>
+<p>在消息被触发时运行
+???</p>
+<h3 id="7onoffline">7.onoffline</h3>
+<p>当浏览器<code>离线</code>时触发</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">body</span> <span class="na">onoffline</span><span class="o">=</span><span class="s">&#34;myfun()&#34;</span><span class="p">&gt;</span>
+</span></span></code></pre></div><h3 id="8ononline">8.ononline</h3>
+<p>当浏览器<code>在线</code>工作时触发</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">body</span> <span class="na">ononline</span><span class="o">=</span><span class="s">&#34;myfun()&#34;</span><span class="p">&gt;</span>
+</span></span></code></pre></div><blockquote>
+<p><code>ononline</code>和<code>onoffline</code>在网络断线或者连线时触发，可以控制电脑网络查看效果</p>
+</blockquote>
+<h3 id="9onpagehide">9.onpagehide</h3>
+<p>当用户从网页离开时触发，也可以理解成当窗口隐藏时运行的脚本</p>
+<p>刷新页面可以触发事件</p>
+<p><a href="https://imzsh.com/Property-event-method/onpagehide.html" target="_black" class="demo-view">demo查看</a></p>
+<h3 id="10onpageshow">10.onpageshow</h3>
+<p>打开一个新页面或者刷新的时候触发</p>
+<p><a href="https://imzsh.com/Property-event-method/onpageshow.html" target="_black" class="demo-view">demo查看</a></p>
+<p>相当于<code>onload</code>，加载页面时触发，但是在不同浏览器触发的有所不同</p>
+<blockquote>
+<p>第一次加载页面时，<code>onpageshow</code>在<code>ie浏览器</code>中不触发，其他情况都触发</p>
+</blockquote>
+<h3 id="11onresize">11.onresize</h3>
+<p>当浏览器窗口被改变大小时触发事件</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">body</span> <span class="na">onresize</span><span class="o">=</span><span class="s">&#34;myfun()&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">function</span> <span class="nx">myfun</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;浏览器窗口改变了&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p><a href="https://imzsh.com/Property-event-method/onresize.html" target="_black" class="demo-view">demo查看</a></p>
+<blockquote>
+<h3 id="12onunload">12.onunload</h3>
+</blockquote>
+<p>页面被下载时触发，就是刷新或者关闭页面时触发</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">window.onunload = function() {
+</span></span><span class="line"><span class="cl">    return &#39;确定关闭吗？&#39;
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></div><h3 id="13onpopstate">13.onpopstate</h3>
+<p>当浏览器窗口记录改变时运行的脚本，</p>
+<h3 id="14onredo">14.onredo</h3>
+<p>当文档执行撤销时触发的事件</p>
+<h2 id="二form事件属性">二、form事件属性</h2>
+<p>由html表单内触发的事件，通常使用在form元素中</p>
+<h3 id="1onblur">1.onblur</h3>
+<p>失去焦点时运行的脚本</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">input</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;int&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;int&#34;</span> <span class="na">onblur</span><span class="o">=</span><span class="s">&#34;myfun()&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nx">myfun</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="kr">int</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">).</span><span class="nx">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">).</span><span class="nx">value</span> <span class="o">=</span> <span class="kr">int</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p>给input绑定一个onblur=myfun()的事件，当input失去焦点的时候产生什么样的效果</p>
+<p><a href="https://imzsh.com/Property-event-method/onblur.html" target="_black" class="demo-view">demo查看</a></p>
+<h3 id="2onfocus">2.onfocus</h3>
+<p>元素获得焦点时触发事件，和onblur相反</p>
+<p><a href="https://imzsh.com/Property-event-method/onfocus.html" target="_black" class="demo-view">demo查看</a></p>
+<h3 id="3onchange">3.onchange</h3>
+<p>当元素值被改变的时候触发事件</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;int&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;int&#34;</span> <span class="na">onchange</span><span class="o">=</span><span class="s">&#34;myfun()&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nx">myfun</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;我的元素被改变啦！&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p>这个事件的意思就是，当我对input内容进行操作改变后，浏览器会弹出一个alert</p>
+<p><a href="https://imzsh.com/Property-event-method/onchange.html" target="_black" class="demo-view">demo查看</a></p>
+<h3 id="4oncontextmenu">4.oncontextmenu</h3>
+<p>当用户右键操作时触发该事件</p>
+<p>可以绑定在任意元素中触发，可以一直触发，不用刷新</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">oncontextmenu</span><span class="o">=</span><span class="s">&#34;myfun()&#34;</span><span class="p">&gt;</span>这是一个文本框！<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nx">myfun</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;oncontentmenu事件触发&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p><a href="https://imzsh.com/Property-event-method/oncontextmenu.html" target="_black" class="demo-view">demo查看</a></p>
+<h3 id="5onformchange">5.onformchange</h3>
+<p>当表单获得输入时可以触发事件</p>
+<blockquote>
+<p>触发发不了脚本</p>
+</blockquote>
+<h3 id="6onforminput">6.onforminput</h3>
+<p>当表单获得用户输入时触发的事件，无法触发</p>
+<p>浏览器不支持</p>
+<h3 id="6oninput">6.oninput</h3>
+<p>当元素获得用户输入时触发的事件
+当输入框输入或者删除时都会触发oninput</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">oninput</span><span class="o">=</span><span class="s">&#34;myfun()&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nx">myfun</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;oninput触发了&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></div><blockquote>
+<p><code>onchange</code>和<code>oninput</code>有相似的地方，都是改变文本内容时触发事件<br>
+但是<code>onchange</code>是在input失去焦点时才触发，<code>oninput</code>是立刻触发</p>
+</blockquote>
+<p><a href="https://imzsh.com/Property-event-method/oninput.html" target="_black" class="demo-view">demo查看</a></p>
+<h3 id="7oninvalid">7.oninvalid</h3>
+<p><code>oninvalid</code>事件要搭配<code>required</code>属性来使用</p>
+<blockquote>
+<p><code>required</code>如果使用该属性，代表必填字段，<code>oninvalid</code>是当元素无效时触发的事件</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">form</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">oninvalid</span><span class="o">=</span><span class="s">&#34;myfun()&#34;</span> <span class="na">required</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;submit&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">function</span> <span class="nx">myfun</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;填写为空&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p><a href="https://imzsh.com/Property-event-method/oninvalid.html" target="_black" class="demo-view">demo查看</a></p>
+<h3 id="8onreset">8.onreset</h3>
+<p>表单中重置按钮被点击时触发</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">form</span> <span class="na">onreset</span><span class="o">=</span><span class="s">&#34;myfun()&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;reset&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;reset&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nx">myfun</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;重置成功&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p><a href="https://imzsh.com/Property-event-method/onreset.html" target="_black" class="demo-view">demo查看</a></p>
+<h3 id="9onselect">9.onselect</h3>
+<p>文本被选中时触发</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">input</span> <span class="na">onselect</span><span class="o">=</span><span class="s">&#34;myfun()&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;选中我&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nx">myfun</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;onselect被触发 &#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p><a href="https://imzsh.com/Property-event-method/onselect.html" target="_black" class="demo-view">demo查看</a></p>
+<h3 id="10onsubmit">10.onsubmit</h3>
+<p>当表单被提交时触发</p>
+<p>要把事件绑定到form标签里面</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">form</span> <span class="na">onsubmit</span><span class="o">=</span><span class="s">&#34;myfun()&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="c">&lt;!-- 注意：事件要绑定到form标签上面 --&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;name&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;submit&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;submit&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nx">myfun</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;提交了&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p><a href="https://imzsh.com/Property-event-method/onsubmit.html" target="_black" class="demo-view">demo查看</a></p>
+<blockquote>
+<p>注意：提交了之后会自动刷新页面，document和console的触发内容会立刻刷新，一闪而过，只有alert能停留在页面上，等待点击确定</p>
+</blockquote>
+<h3 id="三key键盘事件">三、key键盘事件</h3>
+<h3 id="1onkeydown">1.onkeydown</h3>
+<p>按下任意键时触发，包括系统按钮，箭头和功能键</p>
+<p><a href="https://imzsh.com/Property-event-method/onkeydown.html" target="_black" class="demo-view">demo查看</a></p>
+<h3 id="2onkeypress">2.onkeypress</h3>
+<p>按下任意字母数字键时触发，但系统按钮，箭头和功能无法识别</p>
+<h3 id="3onkeyup">3.onkeyup</h3>
+<p>松开任何之前按下的键盘时触发</p>
+<p><a href="https://imzsh.com/Property-event-method/onkeyup.html" target="_black" class="demo-view">demo查看</a></p>
+<h2 id="四mouse鼠标事件">四、mouse鼠标事件</h2>
+<p>利用鼠标触发的事件</p>
+<h3 id="1onclick">1.onclick</h3>
+<p>鼠标点击元素触发的事件</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&#34;myfun()&#34;</span><span class="p">&gt;</span>点击我<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nx">myfun</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;点击成功&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p><a href="https://imzsh.com/Property-event-method/onclick.html" target="_black" class="demo-view">demo查看</a></p>
+<h3 id="2ondblclick">2.ondblclick</h3>
+<p>鼠标双击时触发的事件</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">ondblclick</span><span class="o">=</span><span class="s">&#34;myfun()&#34;</span><span class="p">&gt;</span>测试文本！<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nx">myfun</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;双击测试成功！&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p><a href="https://imzsh.com/Property-event-method/ondblclick.html" target="_black" class="demo-view">demo查看</a></p>
+<h3 id="3拖动事件">3.拖动事件</h3>
+<p>ondrag/
+元素被拖动时触发的事件</p>
+<p>ondragstart/在拖动操作开端运行的脚本</p>
+<p>ondrop/
+当元素正在被拖动时触发的事件</p>
+<p>ondragend/在拖动操作末端运行的脚本</p>
+<p>ondragenter/当元素元素已被拖动到有效拖放区域时运行的脚本</p>
+<p>ondragleave/当元素离开有效拖放目标时运行的脚本</p>
+<p>ondragover/当元素在有效拖放目标上正在被拖动时运行的脚本</p>
+<h3 id="4onmousedownonmouseup">4.onmousedown/onmouseup</h3>
+<p>当元素按下鼠标时触发的事件/鼠标释放时触发的事件</p>
+<ol>
+<li>一个是按下去的瞬间就触发</li>
+<li>一个是当鼠标被松开的时候触发</li>
+</ol>
+<p><code>onmouseup</code>效果和<code>onclick</code>一样，因为<code>click</code>也是点击过后触发</p>
+<p>这两个事件加起来相当于一个<code>click</code>事件，但是并不能用这两个事件来做点击事件的效果</p>
+<p><a href="https://imzsh.com/Property-event-method/onmousedown.html" target="_black" class="demo-view">demo查看</a></p>
+<h3 id="5onmousemove">5.onmousemove</h3>
+<p>当鼠标移动到元素上时触发</p>
+<p>相当于css里面的 <code>:hover</code>，但是作为事件拥有更灵活多变的用法</p>
+<p><a href="https://imzsh.com/Property-event-method/onmousemove.html" target="_black" class="demo-view">demo查看</a></p>
+<h3 id="6onmouseout">6.onmouseout</h3>
+<p>当鼠标离开元素时触发</p>
+<p><a href="https://imzsh.com/Property-event-method/onmouseout.html" target="_black" class="demo-view">demo查看</a></p>
+<h3 id="7onmouseover">7.onmouseover</h3>
+<p>当鼠标进入元素时触发</p>
+<blockquote>
+<p><code>onmouseover</code>和<code>onmousemove</code>都是鼠标进入元素触发<br>
+区别：<br>
+1.<br>
+<code>over</code>在进入元素时触发，但在元素内部移动时不触发 <br>
+<code>move</code>是进入元素时和在元素里面移动时都触发<br>
+2.<br>
+<code>over</code>优先触发，然后才触发<code>move</code></p>
+</blockquote>
+<h3 id="8onmousewheel">8.onmousewheel</h3>
+<p>当鼠标滚动被滚动时触发的事件</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">div</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">height</span><span class="p">:</span> <span class="mi">1000</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">onmousewheel</span><span class="o">=</span><span class="s">&#34;myfun()&#34;</span><span class="p">&gt;</span>测试<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">function</span> <span class="nx">myfun</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;onmousewheel&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p>每次滚动时都可以触发，可以绑定到body上</p>
+<p><a href="https://imzsh.com/Property-event-method/onmousewheel.html" target="_black" class="demo-view">demo查看</a></p>
+<h3 id="9onscroll">9.onscroll</h3>
+<p>当元素滚动条被滚动时触发的事件</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">onscroll</span><span class="o">=</span><span class="s">&#34;myfun()&#34;</span><span class="p">&gt;</span>In my younger and more vulnerable years my father gave me some advice that I&#39;ve been turning over in my mind ever since.<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>滑动了<span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;ci&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>次<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">x</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nx">myfun</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;ci&#39;</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">x</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p>这个案例－－－滑动滚动计数</p>
+<p><a href="https://imzsh.com/Property-event-method/onscroll.html" target="_black" class="demo-view">demo查看</a></p>
+<blockquote>
+<p>区别：<br>
+1.<code>wheel</code>在滚轮滑动的时候有效，鼠标拖拽的时候无效<br>
+2.<code>onscroll</code>不管在滑动还是拖动的时候，均生效</p>
+</blockquote>
+
+  </article>
+
+  
+  
+  <ul class="post-tags">
+     
+    <li><a href="https://zishu.me/tags/%E7%AC%94%E8%AE%B0">笔记</a></li>
+    
+  </ul>
+  
+
+  <div class="end">END</div>
+
+  
+  <hr style="margin-top: 40px; margin-bottom: 40px;" />
+<div id="tcomment"></div>
+<script src="https://cdn.staticfile.org/twikoo/1.6.20/twikoo.all.min.js"></script>
+<link rel="stylesheet" href="/css/twikoo.css">
+<script>
+  twikoo.init({
+    envId: 'https:\/\/twikoo.zishu.me\/.netlify\/functions\/twikoo',
+    el: '#tcomment',
+    lang: 'zh-CN',
+    includeReply: true,
+  })
+</script>
+  
+</div>
+</div>
+</main>
+
+<footer class="footer">
+  <img style="display:none;" src="https://counter.likepoems.com/get/@zishu?theme=moebooru " alt="">
+
+  <div class="footer_social-icons">
+    <a href="https://github.com/98zi" target="_blank" rel="noopener noreferrer me" title="Github">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path
+          d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+        </path>
+      </svg>
+    </a>
+    <a href="https://twitter.com/Anghunk520" target="_blank" rel="noopener noreferrer me" title="Twitter">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path
+          d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
+        </path>
+      </svg>
+    </a>
+    <a href="index.xml" target="_blank" rel="noopener noreferrer me" title="Rss">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 11a9 9 0 0 1 9 9"></path>
+        <path d="M4 4a16 16 0 0 1 16 16"></path>
+        <circle cx="5" cy="19" r="1"></circle>
+      </svg>
+    </a>
+  </div>
+  <div class="footer_copyright">
+    <div>© 2020 - <span id="year"></span> Powered by 子舒</div>
+    <div>
+      网站已经运行 <span id="days">0</span>  · 
+      本站总访问量 <span id="busuanzi_value_site_pv">~</span> 次
+    </div>
+    <div class="gotop">▲</div>
+  </div>
+</footer>
+
+<script>
+  var s0 = '2020-06-14';
+  s1 = new Date(s0.replace(/-/g, "/"));
+  s2 = new Date();
+  var days = s2.getTime() - s1.getTime();
+
+  var date = new Date;
+  var year = date.getFullYear();
+  document.getElementById('year').innerHTML = year;
+
+  var BootDate = new Date("2020-06-14");
+  function ShowRunTime(id) {
+    var NowDate = new Date();
+    var RunDateM = parseInt(NowDate - BootDate);
+    var RunDays = Math.floor(RunDateM / (24 * 3600 * 1000));
+    var RunHours = Math.floor(RunDateM % (24 * 3600 * 1000) / (3600 * 1000));
+    var RunMinutes = Math.floor(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) / (60 * 1000));
+    var RunSeconds = Math.round(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) % (60 * 1000) / 1000);
+    var days = RunDays + "天" + RunHours + "时" + RunMinutes + "分" + RunSeconds + "秒";
+    document.getElementById(id).innerHTML = days;
+  }
+  ShowRunTime('days');
+  setInterval("ShowRunTime('days')", 1000);
+</script>
+<script src="/js/simplebox.min.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+
+</html>
