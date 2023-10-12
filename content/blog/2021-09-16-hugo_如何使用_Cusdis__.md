@@ -1,7 +1,7 @@
 ---
 slug: 77
 title: hugo 如何使用 Cusdis ?
-date: "2021-09-16"
+date: 2021-09-16
 categories: 
   - 技术
 tags: 

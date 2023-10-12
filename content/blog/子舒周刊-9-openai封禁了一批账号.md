@@ -1,7 +1,7 @@
 ---
 slug: 219
 title: 子舒周刊-9 | openai封禁了一批账号
-date: "2023-04-15"
+date: 2023-04-15
 categories:
   - 周刊
 tags:

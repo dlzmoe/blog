@@ -1,7 +1,7 @@
 ---
 slug: 171
 title:  localStorage 的相关运用
-date: "2022-10-20"
+date: 2022-10-20
 categories: 
   - 技术
 tags: 

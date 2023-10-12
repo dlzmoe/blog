@@ -1,7 +1,7 @@
 ---
 slug: 214
 title: 子舒周刊-4 | chatGPT3.5API发布
-date: "2023-03-12"
+date: 2023-03-12
 categories:
   - 周刊
 tags:

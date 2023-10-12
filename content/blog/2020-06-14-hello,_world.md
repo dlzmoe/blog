@@ -1,7 +1,7 @@
 ---
 slug: 1
 title: hello, world
-date: "2020-06-14"
+date: 2020-06-14
 categories:
   - 随笔
 tags:
