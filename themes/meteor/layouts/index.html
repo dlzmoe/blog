@@ -1,34 +1,37 @@
 {{ partial "header.html" . }}
+<emoji-reaction></emoji-reaction>
+<h3 class="posts-item-note" aria-label="Recent Posts">Recent Posts</h3>
+<small>
+  <div>
+    {{ range .Site.Taxonomies.tags }}
+    <a href="{{ .Page.Permalink }}">#{{ .Page.Title }}</a>
+    {{ end }}
+  </div>
+</small>
 
-<div class="author">
-  <h2 class="author-name">zishu.me 😁</h2>
-  <p class="author-bio">我是子舒。<br>
-    前端程序员，独立博客作者，骑行爱好者，摄影爱好者，INFJ人格。<br>
-    现在生活工作在杭州。<br>
-    这是我在闲暇时间写的博客，记录生活。</p>
-</div>
-
-<main aria-label="Content">
-  <h3 class="posts-item-note" aria-label="Recent Posts">Recent Posts</h3>
-
+<ul class="blog-posts">
   {{ $pages := .Site.RegularPages }}
   {{ $paginator := .Paginate ($pages) }}
   {{ range $paginator.Pages }}
   {{ $title := .Title }}
   {{ $summary := .Summary }}
 
-  <article class="post-item">
-    <h4 class="post-item-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h4>
-    <time class="post-item-meta" datetime="{{ .Date.Format " 2006-01-02 15:04:05 MST" }}">{{ .Date.Format "01/02, 2006"}}</time>
+  <li>
+    <span><i>
+        <time datetime="{{ .Date.Format " 2006-01-02 15:04:05 MST" }}">{{ .Date.Format "2006-01-02"}}</time>
+      </i></span>
+    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
     <!-- <div class="entry-content">
       <p>{{ .Summary }}</p>
     </div> -->
-  </article>
+  </li>
 
   {{ end }}
+</ul>
+<p><a href="/blog/">See all posts</a></p>
 
-  <p><a href="/blog/">See all posts</a></p>
 
-  <!-- {{ partial "pagination.html" . }} -->
-</main>
+
+<!-- {{ partial "pagination.html" . }} -->
+
 {{ partial "footer.html" . }}

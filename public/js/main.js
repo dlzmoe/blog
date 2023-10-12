@@ -1,7 +1,7 @@
 $(function () {
   $('.post-content img').addClass('slb');
   $('.post-content iframe').wrap('<div class="iframe"></div>');
-
+  
   $('.slb').simplebox({
     fadeSpeed: 100
   });
@@ -55,8 +55,8 @@ function themedark() {
 themedark();
 
 // 显示目录
-function TableOfContents() {
-  if ($('#TableOfContents').html() != '') {
+function TableOfContents(){
+  if($('#TableOfContents').html() != ''){
     $('.toc').addClass('act');
   }
 }
