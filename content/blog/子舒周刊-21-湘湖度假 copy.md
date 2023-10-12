@@ -17,6 +17,8 @@ tags:
 
 > "There are two criteria for judging what should be done. First, if you like and be happy when you do it, you will definitely not regret it if you do it. Second, you may not like and be happy when you do it, but you will definitely regret it if you don't do it. Things. These two standards are basically enough, and they are easy to master."
 
+---
+
 ## 1.gkd 手机跳过广告
 
 https://github.com/gkd-kit/gkd
@@ -40,3 +42,8 @@ https://greasyfork.org/zh-CN/scripts/462447-chatgpt小助手
 ChatGPT 小助手可以为你带来更好的使用体验：添加快捷指令（prompts），暂时只适配了官方站点。
 
 ![](https://imgurl.zishu.me/images/1696646861708.jpg)
+
+## 4.推荐文章
+
+1. 怎么让ChatGPT的翻译结果更准确？  
+https://baoyu.io/blog/prompt-engineering/three-ai-agents-and-four-steps-flow-prompt
