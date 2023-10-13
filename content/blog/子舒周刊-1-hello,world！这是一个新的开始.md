@@ -1,7 +1,7 @@
 ---
 slug: 211
 title: 子舒周刊-1 | hello,world！这是一个新的开始
-date: "2023-02-21"
+date: 2023-02-21
 categories:
   - 周刊
 tags:

@@ -1,7 +1,7 @@
 ---
 slug: 231
 title: 子舒周刊-21 | 湘湖度假
-date: "2023-10-03"
+date: 2023-10-03
 categories:
   - 周刊
 tags:

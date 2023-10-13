@@ -1,7 +1,7 @@
 ---
 slug: 170
 title:  hugo 一键打包并上传 github
-date: "2022-10-14"
+date: 2022-10-14
 categories: 
   - 技术
 tags: 

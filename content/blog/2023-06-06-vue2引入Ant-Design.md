@@ -1,7 +1,7 @@
 ---
 slug: 197
 title: vue2 中引入 Ant Design 报错问题
-date: "2023-06-06"
+date: 2023-06-06
 categories: 
   - 技术
 tags:
