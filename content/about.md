@@ -19,7 +19,7 @@ const author = {
   Adress: '杭州',
   Email: 'anghunk@gmail.com',
   Github: 'https://github.com/98zi',
-  Blog: 'https://zishu.me'
+  Blog: 'https://zishu.me',
   introduce: '喜欢折腾技术，研究各种奇怪的程序和网站，做了一些开源的东西。'
 }
 ```
