@@ -7,7 +7,7 @@ title: 关于
 
 RSS: <a href="https://zishu.me/index.xml" target="_blank">https://zishu.me/index.xml</a>
 
-<div align="center"><img style="width:120px;" src="https://imgurl.zishu.me/author.png"></div>
+<div align="center"><img style="width:120px;border:none" src="https://imgurl.zishu.me/author.png"></div>
 
 ## 1. 个人说明
 
