@@ -1,5 +1,5 @@
 ---
-slug: 218
+slug: weekly-8
 title: 子舒周刊-8 | 一个ChatGPT应用平台
 date: 2023-04-08
 categories:

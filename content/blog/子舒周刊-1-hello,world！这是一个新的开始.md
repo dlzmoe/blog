@@ -1,5 +1,5 @@
 ---
-slug: 211
+slug: weekly-1
 title: 子舒周刊-1 | hello,world！这是一个新的开始
 date: 2023-02-21
 categories:
@@ -9,5 +9,7 @@ tags:
 ---
 
 每周分享一些软件，程序，文章等。 2023-02-21
+
+尽量保证每周四发布。
 
 ![](https://gw.alipayobjects.com/zos/k/h5/hzL4LG.jpg)

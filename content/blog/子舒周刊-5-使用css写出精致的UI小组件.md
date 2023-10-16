@@ -1,5 +1,5 @@
 ---
-slug: 215
+slug: weekly-5
 title: 子舒周刊-5 | 使用css写出精致的UI小组件
 date: 2023-03-19
 categories:

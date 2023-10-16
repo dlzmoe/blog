@@ -1,5 +1,5 @@
 ---
-slug: 216
+slug: weekly-6
 title: 子舒周刊-6 | 使用Notion搭建网站的方案
 date: 2023-03-26
 categories:

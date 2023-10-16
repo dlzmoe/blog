@@ -3,7 +3,7 @@ slug: about
 title: 关于
 ---
 
-![GitHub followers](https://img.shields.io/github/followers/98zi)
+<!-- ![GitHub followers](https://img.shields.io/github/followers/98zi) -->
 
 RSS: <a href="https://zishu.me/index.xml" target="_blank">https://zishu.me/index.xml</a>
 
