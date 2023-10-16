@@ -26,6 +26,7 @@ const author = {
 
 ![](https://raw.githubusercontent.com/98zi/98zi/main/github-user-contribution.svg)
 
+本博客使用主题 https://github.com/98zi/hugo-theme-syria
 
 ## 2. 友情链接
 
