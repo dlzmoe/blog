@@ -9,7 +9,9 @@ RSS: <a href="https://zishu.me/index.xml" target="_blank">https://zishu.me/index
 
 <div align="center"><img style="width:120px;border:none" src="https://imgurl.zishu.me/author.png"></div>
 
-## 1. 个人说明
+欢迎来到我的个人网站，记录了一些个人心得和笔记，并且分享有趣的生活。
+
+### 1.个人介绍
 
 ```js
 const author = {
@@ -28,7 +30,8 @@ const author = {
 
 本博客使用主题 https://github.com/98zi/hugo-theme-syria
 
-## 2. 友情链接
+
+### 2.友情链接
 
 有时候就会遇到一些文章写的不错的博主，于是就记录在这里了。
 
@@ -38,6 +41,7 @@ const author = {
 [Leon Fong](https://www.leonfong.me/)
 [卢涛南博客](https://lutaonan.com/)
 
-## 3. 版权声明
+
+### 3.版权声明
 
 网站文章所有版权如无特殊说明，均归本人所有，允许转载，标明出处即可。
