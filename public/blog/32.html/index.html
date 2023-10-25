@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="generator" content="Hugo 0.118.2">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="toTop" content="true">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="author" content="" />
+<meta property="og:url" content="https://zishu.me/blog/32.html/" />
+<link rel="canonical" href="https://zishu.me/blog/32.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="shortcut" href="https://imgurl.zishu.me/favicon.ico" /><link rel="alternate" type="application/atom+xml" href="https://zishu.meindex.xml" title="子舒的博客">
+<script type="application/ld+json">
+{
+"@context" : "http://schema.org",
+"@type" : "BlogPosting",
+"mainEntityOfPage": {
+"@type": "WebPage",
+"@id": "https:\/\/zishu.me"
+},
+"articleSection" : "blog",
+"name" : "为什么不可变性在 React 中那么重要？",
+"headline" : "为什么不可变性在 React 中那么重要？",
+"description" : "根据官网文档来解释，为什么不可变性的概念在 React 中非常重要的原因，一般来说，有两种改变数据的方式。第一种方式是直接修改变量的值，第二种方式是使用新的一份数据替换旧数据 React 文档 一般来说，有两种改变数据的方式。",
+"inLanguage" : "en-US",
+"author" : "子舒",
+"creator" : "子舒",
+"publisher": "子舒",
+"accountablePerson" : "子舒",
+"copyrightHolder" : "子舒",
+"copyrightYear" : "2020",
+"datePublished": "2020-12-02 00:00:00 \u002b0000 UTC",
+"dateModified" : "2020-12-02 00:00:00 \u002b0000 UTC",
+"url" : "https:\/\/zishu.me\/blog\/32.html\/",
+"keywords" : [ "编程","react", ]
+}
+</script><title>为什么不可变性在 React 中那么重要？ - 子舒</title>
+<meta property="og:title" content="为什么不可变性在 React 中那么重要？" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="根据官网文档来解释，为什么不可变性的概念在 React 中非常重要的原因，一般来说，有两种改变数据的方式。第一种方式是直接修改变量的值，第二种方式是使用新的一份数据替换旧数据 React 文档 一般来说，有两种改变数据的方式。" />
+<meta name="description" content="根据官网文档来解释，为什么不可变性的概念在 React 中非常重要的原因，一般来说，有两种改变数据的方式。第一种方式是直接修改变量的值，第二种方式是使用新的一份数据替换旧数据 React 文档 一般来说，有两种改变数据的方式。" />
+<meta property="og:locale" content="zh-CN" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
+
+
+<link href="https://fonts.googleapis.com" rel="preconnect" />
+<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/css/index.css">
+<link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
+<script src="/js/jquery3.6.0.min.js"></script>
+</head>
+
+<body>
+  <header>
+    <a href="/" class="title">
+      <h2>zishu.me 子舒的博客</h2>
+    </a>
+    <nav>
+      
+      <a href="/">首页</a>
+      
+      <a href="/blog">归档</a>
+      
+      <a href="/categories/%e9%9a%8f%e7%ac%94/">随笔</a>
+      
+      <a href="/categories/%e6%8a%80%e6%9c%af/">技术</a>
+      
+      <a href="/categories/%e5%91%a8%e5%88%8a/">周刊</a>
+      
+      <a href="/message/">留言</a>
+      
+      <a href="/about/">关于</a>
+      
+    </nav>
+  </header>
+
+  <main class="wrapper">
+    <content>
+
+<emoji-reaction></emoji-reaction>
+<header class="header">
+  <h1 class="header-title">为什么不可变性在 React 中那么重要？</h1>
+  
+  
+  <div class="post-meta">
+    发布于 <i>
+      <time datetime=" 2020-12-02 00:00:00 UTC">2020-12-02</time>
+    </i> / 
+    本文总阅读量 <span id="busuanzi_value_page_pv">~</span> 次
+  </div>
+  
+  
+</header>
+
+
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#直接修改数据">直接修改数据</a></li>
+    <li><a href="#新数据替换旧数据">新数据替换旧数据</a></li>
+    <li><a href="#简化复杂的功能">简化复杂的功能</a></li>
+    <li><a href="#跟踪数据的改变">跟踪数据的改变</a></li>
+    <li><a href="#确定在-react-中何时重新渲染">确定在 React 中何时重新渲染</a></li>
+  </ul>
+</nav>
+
+
+<article class="post-content markdown-body">
+  
+  <p>根据官网文档来解释，为什么不可变性的概念在 React 中非常重要的原因，一般来说，有两种改变数据的方式。第一种方式是直接修改变量的值，第二种方式是使用新的一份数据替换旧数据</p>
+<blockquote>
+<p><a href="https://react.docschina.org/tutorial/tutorial.html#why-immutability-is-important">React 文档</a></p>
+</blockquote>
+<p>一般来说，有两种改变数据的方式。第一种方式是直接修改变量的值，第二种方式是使用新的一份数据替换旧数据</p>
+<h2 id="直接修改数据">直接修改数据</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">player</span> <span class="o">=</span> <span class="p">{</span><span class="nx">score</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Jeff&#39;</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="nx">player</span><span class="p">.</span><span class="nx">score</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// player 修改后的值为 {score: 2, name: &#39;Jeff&#39;}
+</span></span></span></code></pre></div><h2 id="新数据替换旧数据">新数据替换旧数据</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">player</span> <span class="o">=</span> <span class="p">{</span><span class="nx">score</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Jeff&#39;</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">newPlayer</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">({},</span> <span class="nx">player</span><span class="p">,</span> <span class="p">{</span><span class="nx">score</span><span class="o">:</span> <span class="mi">2</span><span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// player 的值没有改变, 但是 newPlayer 的值是 {score: 2, name: &#39;Jeff&#39;}
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 使用对象展开语法，就可以写成：
+</span></span></span><span class="line"><span class="cl"><span class="c1">// var newPlayer = {...player, score: 2};
+</span></span></span></code></pre></div><p><strong>不直接修改（或改变底层数据）这种方式和前一种方式的结果是一样的，这种方式有以下几点好处:</strong></p>
+<h2 id="简化复杂的功能">简化复杂的功能</h2>
+<p>不可变性使得复杂的特性更容易实现。在后面的章节里，我们会实现一种叫做“时间旅行”的功能。“时间旅行”可以使我们回顾井字棋的历史步骤，并且可以“跳回”之前的步骤。这个功能并不是只有游戏才会用到——撤销和恢复功能在开发中是一个很常见的需求。不直接在数据上修改可以让我们追溯并复用游戏的历史记录</p>
+<h2 id="跟踪数据的改变">跟踪数据的改变</h2>
+<p>如果直接修改数据，那么就很难跟踪到数据的改变。跟踪数据的改变需要可变对象可以与改变之前的版本进行对比，这样整个对象树都需要被遍历一次</p>
+<h2 id="确定在-react-中何时重新渲染">确定在 React 中何时重新渲染</h2>
+<p>不可变性最主要的优势在于它可以帮助我们在 React 中创建 pure components。我们可以很轻松的确定不可变数据是否发生了改变，从而确定何时对组件进行重新渲染</p>
+
+</article>
+
+
+
+<p>
+   
+ <a href="https://zishu.me/tags/%E7%BC%96%E7%A8%8B">#编程</a>
+   
+ <a href="https://zishu.me/tags/react">#react</a>
+  
+</p>
+
+
+
+
+<div style="padding:30px 0;"></div>
+<div id="tcomment"></div>
+<script src="https://cdn.staticfile.org/twikoo/1.6.22/twikoo.all.min.js"></script>
+<link rel="stylesheet" href="/css/twikoo.css">
+<script>
+  twikoo.init({
+    envId: 'https:\/\/twikoo.zishu.me\/.netlify\/functions\/twikoo',
+    el: '#tcomment',
+    lang: 'zh-CN',
+    includeReply: true,
+  })
+</script>
+
+
+</content>
+</main>
+
+<footer class="footer">
+  <span class="footer_item"> </span>
+
+  <small class="footer_copyright">
+    <div>© 2020 - <span id="year"></span> Powered by 子舒</div>
+    <div>
+      网站已经运行 <span id="days">0</span>  · 
+      本站总访问量 <span id="busuanzi_value_site_pv">~</span> 次
+    </div>
+    <div class="gotop">▲</div>
+  </small>
+</footer>
+
+<script>
+  var s0 = '2020-06-14';
+  s1 = new Date(s0.replace(/-/g, "/"));
+  s2 = new Date();
+  var days = s2.getTime() - s1.getTime();
+
+  var date = new Date;
+  var year = date.getFullYear();
+  document.getElementById('year').innerHTML = year;
+
+  var BootDate = new Date("2020-06-14");
+  function ShowRunTime(id) {
+    var NowDate = new Date();
+    var RunDateM = parseInt(NowDate - BootDate);
+    var RunDays = Math.floor(RunDateM / (24 * 3600 * 1000));
+    var RunHours = Math.floor(RunDateM % (24 * 3600 * 1000) / (3600 * 1000));
+    var RunMinutes = Math.floor(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) / (60 * 1000));
+    var RunSeconds = Math.round(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) % (60 * 1000) / 1000);
+    var days = RunDays + "天" + RunHours + "时" + RunMinutes + "分" + RunSeconds + "秒";
+    document.getElementById(id).innerHTML = days;
+  }
+  ShowRunTime('days');
+  setInterval("ShowRunTime('days')", 1000);
+</script>
+<script src="/js/simplebox.min.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/gh/emaction/frontend.dist@1.0.9/bundle.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="generator" content="Hugo 0.118.2">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="toTop" content="true">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="author" content="" />
+<meta property="og:url" content="https://zishu.me/blog/16.html/" />
+<link rel="canonical" href="https://zishu.me/blog/16.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="shortcut" href="https://imgurl.zishu.me/favicon.ico" /><link rel="alternate" type="application/atom+xml" href="https://zishu.meindex.xml" title="子舒的博客">
+<script type="application/ld+json">
+{
+"@context" : "http://schema.org",
+"@type" : "BlogPosting",
+"mainEntityOfPage": {
+"@type": "WebPage",
+"@id": "https:\/\/zishu.me"
+},
+"articleSection" : "blog",
+"name" : "为什么getTime()返回1970年至今的毫秒？",
+"headline" : "为什么getTime()返回1970年至今的毫秒？",
+"description" : "今天在写new Date()时候，无意中发现了一个很有意思的方法，getTime()，百度了一下，有人说是计算从1970年1月1日至今的毫秒数 为什么要是1970年呢？ new Date().getTime(); \/\/ xxxxxxxxxxx 这个起源于unix的诞生，因",
+"inLanguage" : "en-US",
+"author" : "子舒",
+"creator" : "子舒",
+"publisher": "子舒",
+"accountablePerson" : "子舒",
+"copyrightHolder" : "子舒",
+"copyrightYear" : "2020",
+"datePublished": "2020-11-13 00:00:00 \u002b0000 UTC",
+"dateModified" : "2020-11-13 00:00:00 \u002b0000 UTC",
+"url" : "https:\/\/zishu.me\/blog\/16.html\/",
+"keywords" : [ "杂谈", ]
+}
+</script><title>为什么getTime()返回1970年至今的毫秒？ - 子舒</title>
+<meta property="og:title" content="为什么getTime()返回1970年至今的毫秒？" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="今天在写new Date()时候，无意中发现了一个很有意思的方法，getTime()，百度了一下，有人说是计算从1970年1月1日至今的毫秒数 为什么要是1970年呢？ new Date().getTime(); // xxxxxxxxxxx 这个起源于unix的诞生，因" />
+<meta name="description" content="今天在写new Date()时候，无意中发现了一个很有意思的方法，getTime()，百度了一下，有人说是计算从1970年1月1日至今的毫秒数 为什么要是1970年呢？ new Date().getTime(); // xxxxxxxxxxx 这个起源于unix的诞生，因" />
+<meta property="og:locale" content="zh-CN" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
+
+
+<link href="https://fonts.googleapis.com" rel="preconnect" />
+<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/css/index.css">
+<link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
+<script src="/js/jquery3.6.0.min.js"></script>
+</head>
+
+<body>
+  <header>
+    <a href="/" class="title">
+      <h2>zishu.me 子舒的博客</h2>
+    </a>
+    <nav>
+      
+      <a href="/">首页</a>
+      
+      <a href="/blog">归档</a>
+      
+      <a href="/categories/%e9%9a%8f%e7%ac%94/">随笔</a>
+      
+      <a href="/categories/%e6%8a%80%e6%9c%af/">技术</a>
+      
+      <a href="/categories/%e5%91%a8%e5%88%8a/">周刊</a>
+      
+      <a href="/message/">留言</a>
+      
+      <a href="/about/">关于</a>
+      
+    </nav>
+  </header>
+
+  <main class="wrapper">
+    <content>
+
+<emoji-reaction></emoji-reaction>
+<header class="header">
+  <h1 class="header-title">为什么getTime()返回1970年至今的毫秒？</h1>
+  
+  
+  <div class="post-meta">
+    发布于 <i>
+      <time datetime=" 2020-11-13 00:00:00 UTC">2020-11-13</time>
+    </i> / 
+    本文总阅读量 <span id="busuanzi_value_page_pv">~</span> 次
+  </div>
+  
+  
+</header>
+
+
+<nav id="TableOfContents"></nav>
+
+
+<article class="post-content markdown-body">
+  
+  <p>今天在写new Date()时候，无意中发现了一个很有意思的方法，<code>getTime()</code>，百度了一下，有人说是计算从1970年1月1日至今的毫秒数</p>
+<blockquote>
+<p>为什么要是1970年呢？</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getTime</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// xxxxxxxxxxx
+</span></span></span></code></pre></div><p>这个起源于unix的诞生，因为Unix在1969年被开发出来，1971年正式发布，在这之前没有机器会需要来表示1970-01-01-00:00:00之前的时间，后面的语言很多就沿用了这一习惯，js只是也沿用了这种习惯而已。</p>
+<p>当然，这一做法现在看来是很有问题的，例如不方便用它表示更早的时间而且精度有限。</p>
+<p>定义time从1970年1月1日开始，忽然想到在JAVA里，Oracle数据库时间也是从1970年1月1日开始计算。</p>
+<p>比如java类代码:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Date</span> <span class="n">date</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Date</span><span class="o">(</span><span class="n">0</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">date</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 打印出来的结果：Thu Jan 01 08:00:00 CST 1970也
+</span></span></span></code></pre></div><p>是1970年1月1日，实际上时分秒是0点0分0秒(这里打印出来是8点，稍后会作解释)。</p>
+<p>为什么这个时间会定义在1970年1月1日这个时候呢?</p>
+<p>于是开始了Google，中文网页根本找不到答案。于是试着搜索英文关键字,在Sun java论坛总算找到准确的帖子:</p>
+<p><a href="http://forums.sun.com/thread.jspa?threadID=595140&amp;start=15">http://forums.sun.com/thread.jspa?threadID=595140&amp;start=15</a></p>
+<p>其中有一个回复:</p>
+<p>I suspect that Java was born and raised on a UNIX system.
+UNIX considers the epoch (when did time begin) to be midnight, January 1, 1970.
+是说java起源于UNIX系统，而UNIX认为1970年1月1日0点是时间纪元.</p>
+<p>但这依然没很好的解释&quot;为什么&quot;,出于好奇，继续Google，总算找到了答案:</p>
+<p><a href="http://en.wikipedia.org/wiki/Unix_time">http://en.wikipedia.org/wiki/Unix_time</a></p>
+<p>这里的解释是:</p>
+<p>最初计算机操作系统是32位，而时间也是用32位表示。</p>
+<p>System.out.println(Integer.MAX_VALUE);</p>
+<p>2147483647</p>
+<p>Integer在JAVA内用32位表示，因此32位能表示的最大值是2147483647。另外1年365天的总秒数是31536000，2147483647/31536000 = 68.1,也就是说32位能表示的最长时间是68年，而实际上到2038年01月19日03时14分07秒，便会到达最大时间，过了这个时间点，所有32位操作系统时间便会变为10000000 00000000 00000000 00000000也就是1901年12月13日20时45分52秒，这样便会出现时间回归的现象，很多软件便会运行异常了。</p>
+<p>到这里，我想问题的答案已经出来了:</p>
+<p>因为用32位来表示时间的最大间隔是68年，而最早出现的UNIX操作系统考虑到计算机产生的年代和应用的时限综合取了1970年1月1日作为UNIX TIME的纪元时间(开始时间)，而java自然也遵循了这一约束。</p>
+<p>至于时间回归的现象相信随着64为操作系统的产生逐渐得到解决，因为用64位操作系统可以表示到292,277,026,596年12月4日15时30分08秒，相信我们的N代子孙，哪怕地球毁灭那天都不用愁不够用了，因为这个时间已经是千亿年以后了。</p>
+<p>最后一个问题:</p>
+<p>上面System.out.println(new Date(0))，打印出来的时间是8点而非0点，原因是存在系统时间和本地时间的问题，其实系统时间依然是0点，只不过我的电脑时区设置为东8区，故打印的结果是8点。</p>
+
+</article>
+
+
+
+<p>
+   
+ <a href="https://zishu.me/tags/%E6%9D%82%E8%B0%88">#杂谈</a>
+  
+</p>
+
+
+
+
+<div style="padding:30px 0;"></div>
+<div id="tcomment"></div>
+<script src="https://cdn.staticfile.org/twikoo/1.6.22/twikoo.all.min.js"></script>
+<link rel="stylesheet" href="/css/twikoo.css">
+<script>
+  twikoo.init({
+    envId: 'https:\/\/twikoo.zishu.me\/.netlify\/functions\/twikoo',
+    el: '#tcomment',
+    lang: 'zh-CN',
+    includeReply: true,
+  })
+</script>
+
+
+</content>
+</main>
+
+<footer class="footer">
+  <span class="footer_item"> </span>
+
+  <small class="footer_copyright">
+    <div>© 2020 - <span id="year"></span> Powered by 子舒</div>
+    <div>
+      网站已经运行 <span id="days">0</span>  · 
+      本站总访问量 <span id="busuanzi_value_site_pv">~</span> 次
+    </div>
+    <div class="gotop">▲</div>
+  </small>
+</footer>
+
+<script>
+  var s0 = '2020-06-14';
+  s1 = new Date(s0.replace(/-/g, "/"));
+  s2 = new Date();
+  var days = s2.getTime() - s1.getTime();
+
+  var date = new Date;
+  var year = date.getFullYear();
+  document.getElementById('year').innerHTML = year;
+
+  var BootDate = new Date("2020-06-14");
+  function ShowRunTime(id) {
+    var NowDate = new Date();
+    var RunDateM = parseInt(NowDate - BootDate);
+    var RunDays = Math.floor(RunDateM / (24 * 3600 * 1000));
+    var RunHours = Math.floor(RunDateM % (24 * 3600 * 1000) / (3600 * 1000));
+    var RunMinutes = Math.floor(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) / (60 * 1000));
+    var RunSeconds = Math.round(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) % (60 * 1000) / 1000);
+    var days = RunDays + "天" + RunHours + "时" + RunMinutes + "分" + RunSeconds + "秒";
+    document.getElementById(id).innerHTML = days;
+  }
+  ShowRunTime('days');
+  setInterval("ShowRunTime('days')", 1000);
+</script>
+<script src="/js/simplebox.min.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/gh/emaction/frontend.dist@1.0.9/bundle.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="generator" content="Hugo 0.118.2">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="toTop" content="true">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="author" content="" />
+<meta property="og:url" content="https://zishu.me/blog/175.html/" />
+<link rel="canonical" href="https://zishu.me/blog/175.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="shortcut" href="https://imgurl.zishu.me/favicon.ico" /><link rel="alternate" type="application/atom+xml" href="https://zishu.meindex.xml" title="子舒的博客">
+<script type="application/ld+json">
+{
+"@context" : "http://schema.org",
+"@type" : "BlogPosting",
+"mainEntityOfPage": {
+"@type": "WebPage",
+"@id": "https:\/\/zishu.me"
+},
+"articleSection" : "blog",
+"name" : "js中 [ ]\u002b{ } 和 { }\u002b[ ] 的区别",
+"headline" : "js中 [ ]\u002b{ } 和 { }\u002b[ ] 的区别",
+"description" : "[ ]\u002b{ }：一个数组加一个对象。 加法会进行隐式类型转换，规则是调用其valueOf()或toString()以取得一个非对象的值(primitive value)。 如果两个值中的任何一个是字符串，则进行字符",
+"inLanguage" : "en-US",
+"author" : "子舒",
+"creator" : "子舒",
+"publisher": "子舒",
+"accountablePerson" : "子舒",
+"copyrightHolder" : "子舒",
+"copyrightYear" : "2022",
+"datePublished": "2022-11-15 00:00:00 \u002b0000 UTC",
+"dateModified" : "2022-11-15 00:00:00 \u002b0000 UTC",
+"url" : "https:\/\/zishu.me\/blog\/175.html\/",
+"keywords" : [ "js", ]
+}
+</script><title>js中 [ ]&#43;{ } 和 { }&#43;[ ] 的区别 - 子舒</title>
+<meta property="og:title" content="js中 [ ]&#43;{ } 和 { }&#43;[ ] 的区别" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="[ ]&#43;{ }：一个数组加一个对象。 加法会进行隐式类型转换，规则是调用其valueOf()或toString()以取得一个非对象的值(primitive value)。 如果两个值中的任何一个是字符串，则进行字符" />
+<meta name="description" content="[ ]&#43;{ }：一个数组加一个对象。 加法会进行隐式类型转换，规则是调用其valueOf()或toString()以取得一个非对象的值(primitive value)。 如果两个值中的任何一个是字符串，则进行字符" />
+<meta property="og:locale" content="zh-CN" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
+
+
+<link href="https://fonts.googleapis.com" rel="preconnect" />
+<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/css/index.css">
+<link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
+<script src="/js/jquery3.6.0.min.js"></script>
+</head>
+
+<body>
+  <header>
+    <a href="/" class="title">
+      <h2>zishu.me 子舒的博客</h2>
+    </a>
+    <nav>
+      
+      <a href="/">首页</a>
+      
+      <a href="/blog">归档</a>
+      
+      <a href="/categories/%e9%9a%8f%e7%ac%94/">随笔</a>
+      
+      <a href="/categories/%e6%8a%80%e6%9c%af/">技术</a>
+      
+      <a href="/categories/%e5%91%a8%e5%88%8a/">周刊</a>
+      
+      <a href="/message/">留言</a>
+      
+      <a href="/about/">关于</a>
+      
+    </nav>
+  </header>
+
+  <main class="wrapper">
+    <content>
+
+<emoji-reaction></emoji-reaction>
+<header class="header">
+  <h1 class="header-title">js中 [ ]&#43;{ } 和 { }&#43;[ ] 的区别</h1>
+  
+  
+  <div class="post-meta">
+    发布于 <i>
+      <time datetime=" 2022-11-15 00:00:00 UTC">2022-11-15</time>
+    </i> / 
+    本文总阅读量 <span id="busuanzi_value_page_pv">~</span> 次
+  </div>
+  
+  
+</header>
+
+
+<nav id="TableOfContents"></nav>
+
+
+<article class="post-content markdown-body">
+  
+  <p><img src="https://imgurl.zishu.me/images/20221115/1668517551012.iwayac5c194.webp" alt="1668517551012"></p>
+<p><code>[ ]+{ }</code>：一个数组加一个对象。</p>
+<p>加法会进行隐式类型转换，规则是调用其valueOf()或toString()以取得一个非对象的值(primitive value)。</p>
+<p>如果两个值中的任何一个是字符串，则进行字符串串接，否则进行数字加法。[ ] 和 { } 的 valueOf() 都返回对象自身，所以都会调用 toString()，最后的结果是字符串串接。</p>
+<p>[ ].toString()返回空字符串，({ }).toString()返回 &ldquo;[object Object]&quot;，最后的结果就是 &ldquo;[object Object]&quot;。</p>
+<p><code>{ }+[ ]</code>：看上去应该和上面一样。</p>
+<p>但是{ }除了表示一个对象之外，也可以表示一个空的bock。在 [ ] + { }中，[ ]被解析为数组，因此后续的+被解析为加法运算符，而{ }就解析为对象。</p>
+<p>但在{ } + [ ]中，{ }被解析为空的bock，随后的+被解析为正号运算符。即实际上成了：{∥empty block}+[ ]，即对一个空数组执行正号运算，实际上就是把数组转型为数字。首先调用.valueOf()，返回数组自身，不是primitive value,因此继续调用 [ ].toString()，返回空字符串。空字符串转型为数字，返回0，即最后的结果。</p>
+
+</article>
+
+
+
+<p>
+   
+ <a href="https://zishu.me/tags/js">#js</a>
+  
+</p>
+
+
+
+
+<div style="padding:30px 0;"></div>
+<div id="tcomment"></div>
+<script src="https://cdn.staticfile.org/twikoo/1.6.22/twikoo.all.min.js"></script>
+<link rel="stylesheet" href="/css/twikoo.css">
+<script>
+  twikoo.init({
+    envId: 'https:\/\/twikoo.zishu.me\/.netlify\/functions\/twikoo',
+    el: '#tcomment',
+    lang: 'zh-CN',
+    includeReply: true,
+  })
+</script>
+
+
+</content>
+</main>
+
+<footer class="footer">
+  <span class="footer_item"> </span>
+
+  <small class="footer_copyright">
+    <div>© 2020 - <span id="year"></span> Powered by 子舒</div>
+    <div>
+      网站已经运行 <span id="days">0</span>  · 
+      本站总访问量 <span id="busuanzi_value_site_pv">~</span> 次
+    </div>
+    <div class="gotop">▲</div>
+  </small>
+</footer>
+
+<script>
+  var s0 = '2020-06-14';
+  s1 = new Date(s0.replace(/-/g, "/"));
+  s2 = new Date();
+  var days = s2.getTime() - s1.getTime();
+
+  var date = new Date;
+  var year = date.getFullYear();
+  document.getElementById('year').innerHTML = year;
+
+  var BootDate = new Date("2020-06-14");
+  function ShowRunTime(id) {
+    var NowDate = new Date();
+    var RunDateM = parseInt(NowDate - BootDate);
+    var RunDays = Math.floor(RunDateM / (24 * 3600 * 1000));
+    var RunHours = Math.floor(RunDateM % (24 * 3600 * 1000) / (3600 * 1000));
+    var RunMinutes = Math.floor(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) / (60 * 1000));
+    var RunSeconds = Math.round(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) % (60 * 1000) / 1000);
+    var days = RunDays + "天" + RunHours + "时" + RunMinutes + "分" + RunSeconds + "秒";
+    document.getElementById(id).innerHTML = days;
+  }
+  ShowRunTime('days');
+  setInterval("ShowRunTime('days')", 1000);
+</script>
+<script src="/js/simplebox.min.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/gh/emaction/frontend.dist@1.0.9/bundle.js"></script>
+
+</body>
+
+</html>

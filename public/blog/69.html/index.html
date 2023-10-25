@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="generator" content="Hugo 0.118.2">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="toTop" content="true">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="author" content="" />
+<meta property="og:url" content="https://zishu.me/blog/69.html/" />
+<link rel="canonical" href="https://zishu.me/blog/69.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="shortcut" href="https://imgurl.zishu.me/favicon.ico" /><link rel="alternate" type="application/atom+xml" href="https://zishu.meindex.xml" title="子舒的博客">
+<script type="application/ld+json">
+{
+"@context" : "http://schema.org",
+"@type" : "BlogPosting",
+"mainEntityOfPage": {
+"@type": "WebPage",
+"@id": "https:\/\/zishu.me"
+},
+"articleSection" : "blog",
+"name" : "css 中 fixed 定位属性和动画的冲突问题及解决方法",
+"headline" : "css 中 fixed 定位属性和动画的冲突问题及解决方法",
+"description" : "1.问题 css 中使用动画属性会和同标签下的fixed属性冲突，导致定位失效，那么该如何解决他呢？ 2.分析 简单说一下问题产生的背景，昨天夜里我想给我的博客页面做一个简单的动画，浏览器刷新的时候从下往上渐现的",
+"inLanguage" : "en-US",
+"author" : "子舒",
+"creator" : "子舒",
+"publisher": "子舒",
+"accountablePerson" : "子舒",
+"copyrightHolder" : "子舒",
+"copyrightYear" : "2021",
+"datePublished": "2021-05-27 00:00:00 \u002b0000 UTC",
+"dateModified" : "2021-05-27 00:00:00 \u002b0000 UTC",
+"url" : "https:\/\/zishu.me\/blog\/69.html\/",
+"keywords" : [ "css", ]
+}
+</script><title>css 中 fixed 定位属性和动画的冲突问题及解决方法 - 子舒</title>
+<meta property="og:title" content="css 中 fixed 定位属性和动画的冲突问题及解决方法" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="1.问题 css 中使用动画属性会和同标签下的fixed属性冲突，导致定位失效，那么该如何解决他呢？ 2.分析 简单说一下问题产生的背景，昨天夜里我想给我的博客页面做一个简单的动画，浏览器刷新的时候从下往上渐现的" />
+<meta name="description" content="1.问题 css 中使用动画属性会和同标签下的fixed属性冲突，导致定位失效，那么该如何解决他呢？ 2.分析 简单说一下问题产生的背景，昨天夜里我想给我的博客页面做一个简单的动画，浏览器刷新的时候从下往上渐现的" />
+<meta property="og:locale" content="zh-CN" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
+
+
+<link href="https://fonts.googleapis.com" rel="preconnect" />
+<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/css/index.css">
+<link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
+<script src="/js/jquery3.6.0.min.js"></script>
+</head>
+
+<body>
+  <header>
+    <a href="/" class="title">
+      <h2>zishu.me 子舒的博客</h2>
+    </a>
+    <nav>
+      
+      <a href="/">首页</a>
+      
+      <a href="/blog">归档</a>
+      
+      <a href="/categories/%e9%9a%8f%e7%ac%94/">随笔</a>
+      
+      <a href="/categories/%e6%8a%80%e6%9c%af/">技术</a>
+      
+      <a href="/categories/%e5%91%a8%e5%88%8a/">周刊</a>
+      
+      <a href="/message/">留言</a>
+      
+      <a href="/about/">关于</a>
+      
+    </nav>
+  </header>
+
+  <main class="wrapper">
+    <content>
+
+<emoji-reaction></emoji-reaction>
+<header class="header">
+  <h1 class="header-title">css 中 fixed 定位属性和动画的冲突问题及解决方法</h1>
+  
+  
+  <div class="post-meta">
+    发布于 <i>
+      <time datetime=" 2021-05-27 00:00:00 UTC">2021-05-27</time>
+    </i> / 
+    本文总阅读量 <span id="busuanzi_value_page_pv">~</span> 次
+  </div>
+  
+  
+</header>
+
+
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1问题">1.问题</a></li>
+    <li><a href="#2分析">2.分析</a></li>
+    <li><a href="#3方法">3.方法</a></li>
+  </ul>
+</nav>
+
+
+<article class="post-content markdown-body">
+  
+  <h2 id="1问题">1.问题</h2>
+<blockquote>
+<p>css 中使用动画属性会和同标签下的fixed属性冲突，导致定位失效，那么该如何解决他呢？</p>
+</blockquote>
+<h2 id="2分析">2.分析</h2>
+<p>简单说一下问题产生的背景，昨天夜里我想给我的博客页面做一个简单的动画，浏览器刷新的时候从下往上渐现的效果，代码如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="c">/* index-container类名是页面的主体部分 */</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nc">index-container</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">opacity</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">animation-name</span><span class="p">:</span> <span class="n">index</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">animation-duration</span><span class="p">:</span> <span class="mf">0.7</span><span class="kt">s</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">animation-fill-mode</span><span class="p">:</span> <span class="kc">forwards</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">/* 一个简单的动画实现 */</span>
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="k">keyframes</span> <span class="nt">index</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">0</span><span class="o">%</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">transform</span><span class="p">:</span> <span class="nb">translateY</span><span class="p">(</span><span class="mi">100</span><span class="kt">px</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="k">opacity</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">100</span><span class="o">%</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">transform</span><span class="p">:</span> <span class="nb">translateY</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="k">opacity</span><span class="p">:</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>运行之后发现，动画可以很好的显示，但是当我翻阅文章详情的时候发现，目录固定失效了。</p>
+<p>按照原来的设置是当页面往下滑动的时候，目录会紧贴浏览器的顶部，方便跳转和查看目录，但是现在它已经不能紧贴了。看一下浏览器设置，属性确实生效了，但是页面并没有显示我们想要的结果。</p>
+<p><img src="https://imgurl.zishu.me/images/2021/05/27/7441ad513b49f05c6caadeb0eb862636.png" alt=""></p>
+<p>之前我写目录固定事件的时候用的是 <code>scroll</code> 事件，然后昨天写动画，绑定的 <code>onload</code> 事件，我初步判断是两个 window 冲突了，导致第二个失效，所以我就改了一种写法，用 <code>addEventListener</code> 事件监听执行他们，但最终无论怎么写，目录固定始终不能生效。</p>
+<p>昨天熬得太晚了，就没管它放在那了，今天一早我就去张鑫旭的网站查了一下，果然有这么一个问题。</p>
+<p>参考文章：<a href="https://www.zhangxinxu.com/wordpress/2015/05/css3-transform-affect/">https://www.zhangxinxu.com/wordpress/2015/05/css3-transform-affect/</a></p>
+<p>但是文章只是介绍了问题产生的原因，并没有明确给出一个好的解决办法。</p>
+<h2 id="3方法">3.方法</h2>
+<p>虽然没有明确的方法，但是给了我一个思路，因为动画中的一些属性，比如 <code>scale</code>、<code>translate</code> 等，会造车容器的宽高重新计算，而 fixed 属性则依赖于规定的一个像素值，所以当执行动画的时候，页面的高度发生了变化，所以 fixed 不能安心的执行自己的任务了。</p>
+<p>原因找到了，方法自然而然就出来了，看图（图很丑，手画的，能理解意思就行）</p>
+<p><img src="https://imgurl.zishu.me/images/2021/05/27/910fa54dfb26b804cbee9fe688e1e944.png" alt=""></p>
+<p>这是我最开始的布局，我将动画绑定给 <code>红色框</code> 的容器了，而目录就在红色框内，所以失效。</p>
+<p>现在我重新布局一下，</p>
+<p><img src="https://imgurl.zishu.me/images/2021/05/27/e9d5bddc6dc232c127596937e5ba67da.png" alt=""></p>
+<p>目录依旧处于侧边，但是我将他和通常的侧边栏分开成两个容器了，现在我把动画绑定给 <code>主体部分</code> 和 <code>侧边栏</code> ，这样目录就和绑定动画的标签分开了。</p>
+<p>再到页面测试，发现没有任何问题，动画效果和目录固定互不影响。</p>
+<p>很快乐，又可以愉快地折腾了！</p>
+
+</article>
+
+
+
+<p>
+   
+ <a href="https://zishu.me/tags/css">#css</a>
+  
+</p>
+
+
+
+
+<div style="padding:30px 0;"></div>
+<div id="tcomment"></div>
+<script src="https://cdn.staticfile.org/twikoo/1.6.22/twikoo.all.min.js"></script>
+<link rel="stylesheet" href="/css/twikoo.css">
+<script>
+  twikoo.init({
+    envId: 'https:\/\/twikoo.zishu.me\/.netlify\/functions\/twikoo',
+    el: '#tcomment',
+    lang: 'zh-CN',
+    includeReply: true,
+  })
+</script>
+
+
+</content>
+</main>
+
+<footer class="footer">
+  <span class="footer_item"> </span>
+
+  <small class="footer_copyright">
+    <div>© 2020 - <span id="year"></span> Powered by 子舒</div>
+    <div>
+      网站已经运行 <span id="days">0</span>  · 
+      本站总访问量 <span id="busuanzi_value_site_pv">~</span> 次
+    </div>
+    <div class="gotop">▲</div>
+  </small>
+</footer>
+
+<script>
+  var s0 = '2020-06-14';
+  s1 = new Date(s0.replace(/-/g, "/"));
+  s2 = new Date();
+  var days = s2.getTime() - s1.getTime();
+
+  var date = new Date;
+  var year = date.getFullYear();
+  document.getElementById('year').innerHTML = year;
+
+  var BootDate = new Date("2020-06-14");
+  function ShowRunTime(id) {
+    var NowDate = new Date();
+    var RunDateM = parseInt(NowDate - BootDate);
+    var RunDays = Math.floor(RunDateM / (24 * 3600 * 1000));
+    var RunHours = Math.floor(RunDateM % (24 * 3600 * 1000) / (3600 * 1000));
+    var RunMinutes = Math.floor(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) / (60 * 1000));
+    var RunSeconds = Math.round(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) % (60 * 1000) / 1000);
+    var days = RunDays + "天" + RunHours + "时" + RunMinutes + "分" + RunSeconds + "秒";
+    document.getElementById(id).innerHTML = days;
+  }
+  ShowRunTime('days');
+  setInterval("ShowRunTime('days')", 1000);
+</script>
+<script src="/js/simplebox.min.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/gh/emaction/frontend.dist@1.0.9/bundle.js"></script>
+
+</body>
+
+</html>

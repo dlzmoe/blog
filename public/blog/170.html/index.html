@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="generator" content="Hugo 0.118.2">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="toTop" content="true">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="author" content="" />
+<meta property="og:url" content="https://zishu.me/blog/170.html/" />
+<link rel="canonical" href="https://zishu.me/blog/170.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="shortcut" href="https://imgurl.zishu.me/favicon.ico" /><link rel="alternate" type="application/atom+xml" href="https://zishu.meindex.xml" title="子舒的博客">
+<script type="application/ld+json">
+{
+"@context" : "http://schema.org",
+"@type" : "BlogPosting",
+"mainEntityOfPage": {
+"@type": "WebPage",
+"@id": "https:\/\/zishu.me"
+},
+"articleSection" : "blog",
+"name" : "hugo 一键打包并上传 github",
+"headline" : "hugo 一键打包并上传 github",
+"description" : "分享一个 hugo 一键打包并上传 github 的方法，前提是你之前上传过 GitHub 仓库。 采用 window 支持的 sh可执行文件，在根目录新建一个 hugo.sh 文件，里面放上一些命令。 hugo # cd public time=$(date \u0026#34;\u002b%Y-%m-%d %H:%M:%S\u0026#34;) echo $time git add . git commit -m \u0026#34;自动执行构建脚本 🎓$time\u0026",
+"inLanguage" : "en-US",
+"author" : "子舒",
+"creator" : "子舒",
+"publisher": "子舒",
+"accountablePerson" : "子舒",
+"copyrightHolder" : "子舒",
+"copyrightYear" : "2022",
+"datePublished": "2022-10-14 00:00:00 \u002b0000 UTC",
+"dateModified" : "2022-10-14 00:00:00 \u002b0000 UTC",
+"url" : "https:\/\/zishu.me\/blog\/170.html\/",
+"keywords" : [ "博客", ]
+}
+</script><title>hugo 一键打包并上传 github - 子舒</title>
+<meta property="og:title" content="hugo 一键打包并上传 github" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="分享一个 hugo 一键打包并上传 github 的方法，前提是你之前上传过 GitHub 仓库。 采用 window 支持的 sh可执行文件，在根目录新建一个 hugo.sh 文件，里面放上一些命令。 hugo # cd public time=$(date &amp;#34;&#43;%Y-%m-%d %H:%M:%S&amp;#34;) echo $time git add . git commit -m &amp;#34;自动执行构建脚本 🎓$time&amp;" />
+<meta name="description" content="分享一个 hugo 一键打包并上传 github 的方法，前提是你之前上传过 GitHub 仓库。 采用 window 支持的 sh可执行文件，在根目录新建一个 hugo.sh 文件，里面放上一些命令。 hugo # cd public time=$(date &amp;#34;&#43;%Y-%m-%d %H:%M:%S&amp;#34;) echo $time git add . git commit -m &amp;#34;自动执行构建脚本 🎓$time&amp;" />
+<meta property="og:locale" content="zh-CN" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
+
+
+<link href="https://fonts.googleapis.com" rel="preconnect" />
+<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/css/index.css">
+<link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
+<script src="/js/jquery3.6.0.min.js"></script>
+</head>
+
+<body>
+  <header>
+    <a href="/" class="title">
+      <h2>zishu.me 子舒的博客</h2>
+    </a>
+    <nav>
+      
+      <a href="/">首页</a>
+      
+      <a href="/blog">归档</a>
+      
+      <a href="/categories/%e9%9a%8f%e7%ac%94/">随笔</a>
+      
+      <a href="/categories/%e6%8a%80%e6%9c%af/">技术</a>
+      
+      <a href="/categories/%e5%91%a8%e5%88%8a/">周刊</a>
+      
+      <a href="/message/">留言</a>
+      
+      <a href="/about/">关于</a>
+      
+    </nav>
+  </header>
+
+  <main class="wrapper">
+    <content>
+
+<emoji-reaction></emoji-reaction>
+<header class="header">
+  <h1 class="header-title">hugo 一键打包并上传 github</h1>
+  
+  
+  <div class="post-meta">
+    发布于 <i>
+      <time datetime=" 2022-10-14 00:00:00 UTC">2022-10-14</time>
+    </i> / 
+    本文总阅读量 <span id="busuanzi_value_page_pv">~</span> 次
+  </div>
+  
+  
+</header>
+
+
+<nav id="TableOfContents"></nav>
+
+
+<article class="post-content markdown-body">
+  
+  <p>分享一个 hugo 一键打包并上传 github 的方法，前提是你之前上传过 GitHub 仓库。</p>
+<p>采用 window 支持的 sh可执行文件，在根目录新建一个 <code>hugo.sh</code> 文件，里面放上一些命令。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">hugo
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># cd public</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">time</span><span class="o">=</span><span class="k">$(</span>date <span class="s2">&#34;+%Y-%m-%d %H:%M:%S&#34;</span><span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="nv">$time</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">git add .
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;自动执行构建脚本 🎓</span><span class="nv">$time</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">git push
+</span></span><span class="line"><span class="cl"><span class="nb">exit</span>
+</span></span></code></pre></div><p>可以在文件夹双击运行 <code>hugo.sh</code>，也可以在终端输入命令。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">.<span class="se">\h</span>ugo.sh
+</span></span></code></pre></div><p>省去了我输入繁琐的 Git 上传指令，并且自动生成当前系统时间作为 commit。</p>
+<p><strong>其他</strong></p>
+<p>这里我上传的是整体的 hugo 目录，如果你只想上传生成的 <code>/public</code> ，在中间加入 <code>cd public</code>。</p>
+
+</article>
+
+
+
+<p>
+   
+ <a href="https://zishu.me/tags/%E5%8D%9A%E5%AE%A2">#博客</a>
+  
+</p>
+
+
+
+
+<div style="padding:30px 0;"></div>
+<div id="tcomment"></div>
+<script src="https://cdn.staticfile.org/twikoo/1.6.22/twikoo.all.min.js"></script>
+<link rel="stylesheet" href="/css/twikoo.css">
+<script>
+  twikoo.init({
+    envId: 'https:\/\/twikoo.zishu.me\/.netlify\/functions\/twikoo',
+    el: '#tcomment',
+    lang: 'zh-CN',
+    includeReply: true,
+  })
+</script>
+
+
+</content>
+</main>
+
+<footer class="footer">
+  <span class="footer_item"> </span>
+
+  <small class="footer_copyright">
+    <div>© 2020 - <span id="year"></span> Powered by 子舒</div>
+    <div>
+      网站已经运行 <span id="days">0</span>  · 
+      本站总访问量 <span id="busuanzi_value_site_pv">~</span> 次
+    </div>
+    <div class="gotop">▲</div>
+  </small>
+</footer>
+
+<script>
+  var s0 = '2020-06-14';
+  s1 = new Date(s0.replace(/-/g, "/"));
+  s2 = new Date();
+  var days = s2.getTime() - s1.getTime();
+
+  var date = new Date;
+  var year = date.getFullYear();
+  document.getElementById('year').innerHTML = year;
+
+  var BootDate = new Date("2020-06-14");
+  function ShowRunTime(id) {
+    var NowDate = new Date();
+    var RunDateM = parseInt(NowDate - BootDate);
+    var RunDays = Math.floor(RunDateM / (24 * 3600 * 1000));
+    var RunHours = Math.floor(RunDateM % (24 * 3600 * 1000) / (3600 * 1000));
+    var RunMinutes = Math.floor(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) / (60 * 1000));
+    var RunSeconds = Math.round(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) % (60 * 1000) / 1000);
+    var days = RunDays + "天" + RunHours + "时" + RunMinutes + "分" + RunSeconds + "秒";
+    document.getElementById(id).innerHTML = days;
+  }
+  ShowRunTime('days');
+  setInterval("ShowRunTime('days')", 1000);
+</script>
+<script src="/js/simplebox.min.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/gh/emaction/frontend.dist@1.0.9/bundle.js"></script>
+
+</body>
+
+</html>

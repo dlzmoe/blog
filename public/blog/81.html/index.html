@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="generator" content="Hugo 0.118.2">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="toTop" content="true">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="author" content="" />
+<meta property="og:url" content="https://zishu.me/blog/81.html/" />
+<link rel="canonical" href="https://zishu.me/blog/81.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="shortcut" href="https://imgurl.zishu.me/favicon.ico" /><link rel="alternate" type="application/atom+xml" href="https://zishu.meindex.xml" title="子舒的博客">
+<script type="application/ld+json">
+{
+"@context" : "http://schema.org",
+"@type" : "BlogPosting",
+"mainEntityOfPage": {
+"@type": "WebPage",
+"@id": "https:\/\/zishu.me"
+},
+"articleSection" : "blog",
+"name" : "js奇怪的知识--console.table",
+"headline" : "js奇怪的知识--console.table",
+"description" : "这个属性对我来说还真有些陌生，无意中发现的，查询过 MDN 之后听得挺有意思的，就记录一下。 根据字面意思就是“将数据以表格的形式显示”。这个方法需要一个必须参数 data，data 必须是一个数组或者是一个对象；",
+"inLanguage" : "en-US",
+"author" : "子舒",
+"creator" : "子舒",
+"publisher": "子舒",
+"accountablePerson" : "子舒",
+"copyrightHolder" : "子舒",
+"copyrightYear" : "2021",
+"datePublished": "2021-11-04 00:00:00 \u002b0000 UTC",
+"dateModified" : "2021-11-04 00:00:00 \u002b0000 UTC",
+"url" : "https:\/\/zishu.me\/blog\/81.html\/",
+"keywords" : [ "js", ]
+}
+</script><title>js奇怪的知识--console.table - 子舒</title>
+<meta property="og:title" content="js奇怪的知识--console.table" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="这个属性对我来说还真有些陌生，无意中发现的，查询过 MDN 之后听得挺有意思的，就记录一下。 根据字面意思就是“将数据以表格的形式显示”。这个方法需要一个必须参数 data，data 必须是一个数组或者是一个对象；" />
+<meta name="description" content="这个属性对我来说还真有些陌生，无意中发现的，查询过 MDN 之后听得挺有意思的，就记录一下。 根据字面意思就是“将数据以表格的形式显示”。这个方法需要一个必须参数 data，data 必须是一个数组或者是一个对象；" />
+<meta property="og:locale" content="zh-CN" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
+
+
+<link href="https://fonts.googleapis.com" rel="preconnect" />
+<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/css/index.css">
+<link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
+<script src="/js/jquery3.6.0.min.js"></script>
+</head>
+
+<body>
+  <header>
+    <a href="/" class="title">
+      <h2>zishu.me 子舒的博客</h2>
+    </a>
+    <nav>
+      
+      <a href="/">首页</a>
+      
+      <a href="/blog">归档</a>
+      
+      <a href="/categories/%e9%9a%8f%e7%ac%94/">随笔</a>
+      
+      <a href="/categories/%e6%8a%80%e6%9c%af/">技术</a>
+      
+      <a href="/categories/%e5%91%a8%e5%88%8a/">周刊</a>
+      
+      <a href="/message/">留言</a>
+      
+      <a href="/about/">关于</a>
+      
+    </nav>
+  </header>
+
+  <main class="wrapper">
+    <content>
+
+<emoji-reaction></emoji-reaction>
+<header class="header">
+  <h1 class="header-title">js奇怪的知识--console.table</h1>
+  
+  
+  <div class="post-meta">
+    发布于 <i>
+      <time datetime=" 2021-11-04 00:00:00 UTC">2021-11-04</time>
+    </i> / 
+    本文总阅读量 <span id="busuanzi_value_page_pv">~</span> 次
+  </div>
+  
+  
+</header>
+
+
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1直接输出">1.直接输出</a></li>
+        <li><a href="#2定义对象进行输出">2.定义对象进行输出</a></li>
+        <li><a href="#3consoletable-的应用场景">3.console.table() 的应用场景</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+<article class="post-content markdown-body">
+  
+  <p>这个属性对我来说还真有些陌生，无意中发现的，查询过 MDN 之后听得挺有意思的，就记录一下。</p>
+<p>根据字面意思就是“将数据以表格的形式显示”。这个方法需要一个必须参数 data，data 必须是一个数组或者是一个对象；还可以使用一个可选参数 columns。</p>
+<p>表格的第一列是 index。如果数据 data 是一个数组，那么这一列的单元格的值就是数组的索引。 如果数据是一个对象，那么它们的值就是各对象的属性名称。 注意（在 FireFox 中）console.table 被限制为只显示1000行（第一行是被标记的索引）。</p>
+<h3 id="1直接输出">1.直接输出</h3>
+<p>直接进行尝试，在控制台输出 console.table</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">table</span><span class="p">([</span><span class="s2">&#34;双十一&#34;</span><span class="p">,</span> <span class="s2">&#34;双十二&#34;</span><span class="p">,</span> <span class="s2">&#34;双十三&#34;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">PS</span> <span class="nx">E</span><span class="o">:</span><span class="err">\</span><span class="nx">demo</span><span class="o">&gt;</span> <span class="nx">node</span> <span class="mf">1.</span><span class="nx">js</span>
+</span></span><span class="line"><span class="cl"><span class="err">┌─────────┬──────────┐</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span> <span class="p">(</span><span class="nx">index</span><span class="p">)</span> <span class="err">│</span>  <span class="nx">Values</span>  <span class="err">│</span>
+</span></span><span class="line"><span class="cl"><span class="err">├─────────┼──────────┤</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>    <span class="mi">1</span>    <span class="err">│</span> <span class="s1">&#39;双十二&#39;</span> <span class="err">│</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>    <span class="mi">2</span>    <span class="err">│</span> <span class="s1">&#39;双十三&#39;</span> <span class="err">│</span>
+</span></span><span class="line"><span class="cl"><span class="err">└─────────┴──────────┘</span>
+</span></span></code></pre></div><p>复制下来怪怪的，直接上个图，就是下面这个样子。</p>
+<p><img src="https://imgurl.zishu.me/images/2021/11/04/5b865e6a38851240419ceb0984e6557e.png" alt=""></p>
+<hr>
+<h3 id="2定义对象进行输出">2.定义对象进行输出</h3>
+<p>同样也可以定义一个对象然后输出</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">Fun</span><span class="p">(</span><span class="nx">title</span><span class="p">,</span> <span class="nx">date</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="nx">title</span>
+</span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">date</span> <span class="o">=</span> <span class="nx">date</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">one</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Fun</span><span class="p">(</span><span class="s2">&#34;双十一&#34;</span><span class="p">,</span> <span class="s2">&#34;11.11&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">two</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Fun</span><span class="p">(</span><span class="s2">&#34;双十二&#34;</span><span class="p">,</span> <span class="s2">&#34;12.12&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">three</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Fun</span><span class="p">(</span><span class="s2">&#34;双十三&#34;</span><span class="p">,</span> <span class="s2">&#34;你是傻子吗，没有13月&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">table</span><span class="p">([</span><span class="nx">one</span><span class="p">,</span> <span class="nx">two</span><span class="p">,</span> <span class="nx">three</span><span class="p">],</span> <span class="p">[</span><span class="s2">&#34;title&#34;</span><span class="p">,</span> <span class="s2">&#34;date&#34;</span><span class="p">])</span>
+</span></span></code></pre></div><p>打印出来，就是下面这个样子。</p>
+<p><img src="https://imgurl.zishu.me/images/2021/11/04/ed587c8b3373abe1fca2c9cdc6dd50dd.png" alt=""></p>
+<h3 id="3consoletable-的应用场景">3.console.table() 的应用场景</h3>
+<p>前面是在通过在编辑器中使用 node.js 输出数据，看看在浏览器中输出会不会不一样的效果。</p>
+<p><img src="https://imgurl.zishu.me/images/2021/11/04/092caebd508948e18d29468739d17e18.png" alt=""></p>
+<p>可以看到成功输出数据，并且点击表头时，可以按照不同顺序进行排序，这么一看&hellip;.嗯，还挺有用的（假笑）</p>
+<p>应用场景大概就是可以对打印的数据进行更直观的观看，在某些情况下有利于调试代码，以后看看是否能用得上这种方法。</p>
+
+</article>
+
+
+
+<p>
+   
+ <a href="https://zishu.me/tags/js">#js</a>
+  
+</p>
+
+
+
+
+<div style="padding:30px 0;"></div>
+<div id="tcomment"></div>
+<script src="https://cdn.staticfile.org/twikoo/1.6.22/twikoo.all.min.js"></script>
+<link rel="stylesheet" href="/css/twikoo.css">
+<script>
+  twikoo.init({
+    envId: 'https:\/\/twikoo.zishu.me\/.netlify\/functions\/twikoo',
+    el: '#tcomment',
+    lang: 'zh-CN',
+    includeReply: true,
+  })
+</script>
+
+
+</content>
+</main>
+
+<footer class="footer">
+  <span class="footer_item"> </span>
+
+  <small class="footer_copyright">
+    <div>© 2020 - <span id="year"></span> Powered by 子舒</div>
+    <div>
+      网站已经运行 <span id="days">0</span>  · 
+      本站总访问量 <span id="busuanzi_value_site_pv">~</span> 次
+    </div>
+    <div class="gotop">▲</div>
+  </small>
+</footer>
+
+<script>
+  var s0 = '2020-06-14';
+  s1 = new Date(s0.replace(/-/g, "/"));
+  s2 = new Date();
+  var days = s2.getTime() - s1.getTime();
+
+  var date = new Date;
+  var year = date.getFullYear();
+  document.getElementById('year').innerHTML = year;
+
+  var BootDate = new Date("2020-06-14");
+  function ShowRunTime(id) {
+    var NowDate = new Date();
+    var RunDateM = parseInt(NowDate - BootDate);
+    var RunDays = Math.floor(RunDateM / (24 * 3600 * 1000));
+    var RunHours = Math.floor(RunDateM % (24 * 3600 * 1000) / (3600 * 1000));
+    var RunMinutes = Math.floor(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) / (60 * 1000));
+    var RunSeconds = Math.round(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) % (60 * 1000) / 1000);
+    var days = RunDays + "天" + RunHours + "时" + RunMinutes + "分" + RunSeconds + "秒";
+    document.getElementById(id).innerHTML = days;
+  }
+  ShowRunTime('days');
+  setInterval("ShowRunTime('days')", 1000);
+</script>
+<script src="/js/simplebox.min.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/gh/emaction/frontend.dist@1.0.9/bundle.js"></script>
+
+</body>
+
+</html>
