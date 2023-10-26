@@ -1,6 +1,6 @@
 ---
 slug: weekly-7
-title: 子舒周刊-7 | 一个Notion风格的编辑器
+title: 子舒周刊 -7 | 一个 Notion 风格的编辑器
 date: 2023-04-02
 categories:
   - 周刊
@@ -16,7 +16,7 @@ tags:
 
 [https://www.blocknotejs.org/](https://www.blocknotejs.org/)
 
-基于react的编辑器，notion风格非常优雅。
+基于 react 的编辑器，notion 风格非常优雅。
 
 ![](https://lovezsh.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fe9c3c581-5e5e-411b-a268-591ceaa9512f%2FUntitled.png?table=block&amp;id=7aaa8b7a-67b8-4ac1-82d7-3536be9c9e4a&amp;spaceId=a9c4a6f2-bae6-4ad1-9cee-1d02d7bf4f2f&amp;width=2000&amp;userId=&amp;cache=v2)
 
@@ -24,7 +24,7 @@ tags:
 
 [https://quilljs.com/](https://quilljs.com/)
 
-一款简简洁美观的编辑器，目前tg旗下的网站 [https://telegra.ph/](https://telegra.ph/) 正在使用该编辑器。
+一款简简洁美观的编辑器，目前 tg 旗下的网站 [https://telegra.ph/](https://telegra.ph/) 正在使用该编辑器。
 
 ![](https://lovezsh.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F729fa48c-1d9c-4382-94c3-2138f2f51b86%2FUntitled.png?table=block&amp;id=cf919abb-55b2-4ad9-8aaf-8e03ec8bdd55&amp;spaceId=a9c4a6f2-bae6-4ad1-9cee-1d02d7bf4f2f&amp;width=2000&amp;userId=&amp;cache=v2)
 

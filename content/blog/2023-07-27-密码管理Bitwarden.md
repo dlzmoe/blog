@@ -18,7 +18,7 @@ Bitwarden 是一款自由且开源的密码管理服务，用户可在加密的�
 
 https://bitwarden.com/
 
-而Vaultwarden 是一个使用 Rust 编写的非官方 Bitwarden 服务器实现，提供了不错的 web 管理界面，并与 Bitwarden 兼容。
+而 Vaultwarden 是一个使用 Rust 编写的非官方 Bitwarden 服务器实现，提供了不错的 web 管理界面，并与 Bitwarden 兼容。
 
 ![](https://imgurl.zishu.me/images/2023/64c2607587a9a.png)
 

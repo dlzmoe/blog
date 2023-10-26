@@ -1,6 +1,6 @@
 ---
 slug: weekly-4
-title: 子舒周刊-4 | chatGPT3.5API发布
+title: 子舒周刊 -4 | chatGPT3.5API 发布
 date: 2023-03-12
 categories:
   - 周刊
@@ -8,7 +8,7 @@ tags:
   - 周刊
 ---
 
-基于chat3.5 api的网站，测试过速度很快，不需要翻墙。
+基于 chat3.5 api 的网站，测试过速度很快，不需要翻墙。
 
 https://freechatgpt.lol/
 https://chatgpt.ddiu.io/
@@ -20,7 +20,7 @@ https://freegpt.cc/
 
 https://minhaskamal.github.io/DownGit/#/home
 
-可以单独下载GitHub仓库中某个文件夹，输入对应的url地址，在一些特定的场景下非常好用。
+可以单独下载 GitHub 仓库中某个文件夹，输入对应的 url 地址，在一些特定的场景下非常好用。
 
 
 
@@ -28,7 +28,7 @@ https://minhaskamal.github.io/DownGit/#/home
 
 https://www.getfvid.com/zh/twitter
 
-功能如名，只要复制推文对应的url地址即可下载视频，可以选择清晰度。
+功能如名，只要复制推文对应的 url 地址即可下载视频，可以选择清晰度。
 
 
 
@@ -49,12 +49,12 @@ https://uiverse.io/
 ### 5. 周报生成器
 https://weeklyreport.avemaria.fun/zh
 
-一个基于chatGPT3的开源项目，简单描述工作内容，帮你生成完整周报。效果不错，疲于写各种日报周报的小伙伴的福音。
+一个基于 chatGPT3 的开源项目，简单描述工作内容，帮你生成完整周报。效果不错，疲于写各种日报周报的小伙伴的福音。
 
 
 
 ## Github
 
-https://github.com/XIU2/CloudflareSpeedTest cloudflare自选节点测速，可以选择直连较快稳定的ip。
+https://github.com/XIU2/CloudflareSpeedTest cloudflare 自选节点测速，可以选择直连较快稳定的 ip。
 https://github.com/mubaidr/vue-chrome-extension-boilerplate 使用 Vue.js + Webpack 搭建的 Chrome 扩展模板，支持热更新，开发起来更方便快捷。
 https://github.com/SortableJS/Sortable 适用于现代浏览器和触摸设备的可重新拖拽列表，不需要 jQuery 或框架。 （继续更新…）

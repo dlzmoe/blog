@@ -1,6 +1,6 @@
 ---
 slug: weekly-5
-title: 子舒周刊-5 | 使用css写出精致的UI小组件
+title: 子舒周刊 -5 | 使用 css 写出精致的 UI 小组件
 date: 2023-03-19
 categories:
   - 周刊
@@ -21,14 +21,14 @@ https://www.handsome-css.com/
 ### 2. identicon 生成器
 http://identicon.net/
 
-生成sha256头像，identicon 生成器是一个免费的在线工具，用于生成 identicons 图像。
+生成 sha256 头像，identicon 生成器是一个免费的在线工具，用于生成 identicons 图像。
 
 ![](https://user-images.githubusercontent.com/65840178/223012773-2a102a5d-5dd1-4d3d-b2c6-ad07d2e9a30c.png)
 
 ### 3. openai-translator 划词翻译
 https://github.com/yetone/openai-translator
 
-一个基于openai的翻译插件，需要绑定自己的key，在浏览器实现划词翻译功能，试用了一下，质量和效果还是很不错的。
+一个基于 openai 的翻译插件，需要绑定自己的 key，在浏览器实现划词翻译功能，试用了一下，质量和效果还是很不错的。
 
 ### 4. lew-ui
 https://lew.kamtao.com/
@@ -58,4 +58,4 @@ https://github.com/replicate/scribble-diffusion
 ## 文章
 
 https://babyyoung.gitbook.io/english-level-up-tips/ 英语进阶指南，高效学习英语。
-https://vue-js.com/learn-vue/start/ Vue源码系列，适合入门研究源码。
+https://vue-js.com/learn-vue/start/ Vue 源码系列，适合入门研究源码。

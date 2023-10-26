@@ -1,6 +1,6 @@
 ---
 slug: weekly-12
-title: 子舒周刊-12 | 提升chatGPT使用体验
+title: 子舒周刊 -12 | 提升 chatGPT 使用体验
 date: 2023-05-05
 categories:
   - 周刊
@@ -12,9 +12,9 @@ tags:
 
 https://github.com/xcanwin/KeepChatGPT
 
-非常好用的一款油猴脚本，提升使用chatGPT时的体验。
+非常好用的一款油猴脚本，提升使用 chatGPT 时的体验。
 
-- 这是一款ChatGPT畅聊插件，让你不再遇到网络报错，不再需要刷新网页
+- 这是一款 ChatGPT 畅聊插件，让你不再遇到网络报错，不再需要刷新网页
 - 解决了报错：NetworkError when attempting to fetch resource.
 - 解决了报错：Something went wrong. If this issue persists please contact us through our help center at help.openai.com.
 - 解决了报错：Conversation not found
@@ -32,7 +32,7 @@ https://github.com/xcanwin/KeepChatGPT
 
 https://github.com/mubaidr/vue-chrome-extension-boilerplate
 
-基于 Vue.js + Webpack 的 Chrome 扩展模板，开发chrome扩展非常方便，并且可以自动打包压压缩。
+基于 Vue.js + Webpack 的 Chrome 扩展模板，开发 chrome 扩展非常方便，并且可以自动打包压压缩。
 
 ## 3.STDF 组件库
 

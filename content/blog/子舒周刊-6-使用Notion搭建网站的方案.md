@@ -1,6 +1,6 @@
 ---
 slug: weekly-6
-title: 子舒周刊-6 | 使用Notion搭建网站的方案
+title: 子舒周刊 -6 | 使用 Notion 搭建网站的方案
 date: 2023-03-26
 categories:
   - 周刊
@@ -14,7 +14,7 @@ tags:
 
 [https://github.com/tangly1024/NotionNext](https://github.com/tangly1024/NotionNext)
 
-一个使用 NextJS + Notion API 实现的，部署在 Vercel 上的静态博客系统。为Notion和所有创作者设计。
+一个使用 NextJS + Notion API 实现的，部署在 Vercel 上的静态博客系统。为 Notion 和所有创作者设计。
 
 ![](https://user-images.githubusercontent.com/65840178/224586403-2e39885c-17df-4cb2-bd12-7b4cde787db0.png)
 
@@ -46,11 +46,11 @@ tags:
 
 [https://aitxt.io/](https://aitxt.io/)
 
-基于chatGPT开发的工具箱，小红书、日报、周报、OKR、邮件、餐厅点评、节日祝福、甩锅等 Ai 文案助手，效果不错。
+基于 chatGPT 开发的工具箱，小红书、日报、周报、OKR、邮件、餐厅点评、节日祝福、甩锅等 Ai 文案助手，效果不错。
 
 ![](https://lovezsh.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fa4500c88-accb-4ae9-b1e3-712f570411eb%2FUntitled.png?table=block&amp;id=380886f6-ace7-4ce9-b196-a16aafc25ccb&amp;spaceId=a9c4a6f2-bae6-4ad1-9cee-1d02d7bf4f2f&amp;width=2000&amp;userId=&amp;cache=v2)
 
 ## 推荐
 
 1.  [https://www.misalignmentmuseum.com/](https://www.misalignmentmuseum.com/) 错位博物馆
-2.  Misalignment Museum 想象一个 AGI 已经摧毁了大部分人类的后世界末日世界，然后意识到这很糟糕，创建了这个博物馆作为对剩余人类的纪念和道歉。这是一个艺术装置，目的是增加对通用人工智能 (AGI) 及其破坏和善的力量的了解。我们的目标是创造一个空间来反思技术本身并批判性地思考人工智能及其影响。我们的希望是激发和建立支持，以制定和制定我们可以采取的风险缓解措施，以确保随着AI 的不断发展和AGI 的出现，我们拥有一个积极的未来。
+2.  Misalignment Museum 想象一个 AGI 已经摧毁了大部分人类的后世界末日世界，然后意识到这很糟糕，创建了这个博物馆作为对剩余人类的纪念和道歉。这是一个艺术装置，目的是增加对通用人工智能 (AGI) 及其破坏和善的力量的了解。我们的目标是创造一个空间来反思技术本身并批判性地思考人工智能及其影响。我们的希望是激发和建立支持，以制定和制定我们可以采取的风险缓解措施，以确保随着 AI 的不断发展和 AGI 的出现，我们拥有一个积极的未来。
