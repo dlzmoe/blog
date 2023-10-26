@@ -8,6 +8,8 @@ tags:
   - 周刊
 ---
 
+*每周四发布，分享有趣的软件，程序，文章等。 [周刊列表](/categories/周刊/)*
+
 ## 1.Github Desktop 汉化
 https://github.com/robotze/GithubDesktopZhTool
 https://desktop.github.com/

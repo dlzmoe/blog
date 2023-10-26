@@ -8,6 +8,8 @@ tags:
   - 周刊
 ---
 
+*每周四发布，分享有趣的软件，程序，文章等。 [周刊列表](/categories/周刊/)*
+
 基于 chat3.5 api 的网站，测试过速度很快，不需要翻墙。
 
 https://freechatgpt.lol/

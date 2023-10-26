@@ -8,6 +8,8 @@ tags:
   - 周刊
 ---
 
+*每周四发布，分享有趣的软件，程序，文章等。 [周刊列表](/categories/周刊/)*
+
 ![](https://img.zburu.com/i/20230326/d5c32b7965bb7d8169fc474a55e2315.34x05tgzayw0.webp)
 
 ## 网站
