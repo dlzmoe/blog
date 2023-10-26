@@ -34,26 +34,6 @@ $(function () {
 
 })
 
-$("#searchTerm").focus();
-
-// 黑夜模式
-function themedark() {
-  var themedark = localStorage.getItem('themedark');
-  if (themedark == 'dark') {
-    $('html').addClass('dark');
-  }
-  $('#theme-toggle').click(function () {
-    $('html').toggleClass('dark');
-    if ($('.dark').length > 0) {
-      localStorage.setItem('themedark', 'dark');
-    } else {
-      localStorage.setItem('themedark', 'light');
-    }
-
-  })
-}
-themedark();
-
 // 显示目录
 function TableOfContents(){
   if($('#TableOfContents').html() != ''){
@@ -61,3 +41,5 @@ function TableOfContents(){
   }
 }
 TableOfContents();
+
+console.clear();
