@@ -13,7 +13,7 @@ title: 实验室
 
 **周刊**
 
-**1. DecoHack周刊**  
+**1. DecoHack 周刊**  
 https://decohack.zhubai.love/
 
 为独立创造者提供独立见解，帮助你发现新产品方向，启动和完善你的项目。
@@ -33,7 +33,7 @@ https://github.com/ascoders/weekly
 
 前端界的好文精读，每周更新。
 
-**5. 科技爱好者周刊-阮一峰**  
+**5. 科技爱好者周刊 - 阮一峰**  
 https://github.com/ruanyf/weekly
 
 记录每周值得分享的科技内容，周五发布。
@@ -52,7 +52,7 @@ https://dex.zhubai.love/
 **月刊**
 
 hellogithub - https://hellogithub.com/  
-每月28号发布
+每月 28 号发布
 
 ---
 
@@ -62,11 +62,11 @@ hellogithub - https://hellogithub.com/
 https://fyfy.fm/
 
 听见科技与人文的声音
-一档由开发者 @枫影JustinYan 和设计师 @自力hzlzh 主持的播客节目。
+一档由开发者 @枫影 JustinYan 和设计师 @自力 hzlzh 主持的播客节目。
 </details>
 
 https://github.com/98zi/HugoFast  
-利用 GitHub 本身提供的Api，将hugo博客管理面板化。
+利用 GitHub 本身提供的 Api，将 hugo 博客管理面板化。
 
 https://github.com/98zi/chrome-plugin-memos  
 Memos 的 chrome 插件，集成到浏览器扩展中，个人感觉比较方便，后续将会集成更多的功能。

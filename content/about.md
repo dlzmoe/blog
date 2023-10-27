@@ -5,8 +5,6 @@ title: 关于
 
 <!-- ![GitHub followers](https://img.shields.io/github/followers/98zi) -->
 
-RSS: <a href="https://zishu.me/index.xml" target="_blank">https://zishu.me/index.xml</a>
-
 <div align="center"><img style="width:120px;border:none" src="https://imgurl.zishu.me/author.png"></div>
 
 欢迎来到我的个人网站，记录了一些个人心得和笔记，并且分享有趣的生活。
@@ -17,7 +15,7 @@ RSS: <a href="https://zishu.me/index.xml" target="_blank">https://zishu.me/index
 const author = {
   name: '子舒',
   age: 24,
-  tags: ['前端程序员', '独立博客作者', '骑行爱好者', '摄影爱好者', 'INFJ人格'],
+  tags: ['前端程序员', '独立博客作者', '骑行爱好者', '摄影爱好者', 'INFJ 人格'],
   adress: '杭州',
   email: 'anghunk@gmail.com',
   github: 'https://github.com/98zi',
@@ -44,4 +42,4 @@ const author = {
 
 ### 3.版权声明
 
-网站文章所有版权如无特殊说明，均归本人所有，允许转载，标明出处即可。
+本站文章所有版权均归本人所有，禁止转载。
