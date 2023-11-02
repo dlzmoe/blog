@@ -11,7 +11,7 @@ tags:
 
 
 
-Github：https://github.com/lydiahallie/javascript-questions
+Github: https://github.com/lydiahallie/javascript-questions
 
 相当不错的一个 Github 仓库，`javascript questions` ，作者每周都会发布一些有关 javascript 的题目，虽然不难但是考察细节，刷了一会，其实一些很简单的问题，结果因为细节思考不到位直接出错。
 

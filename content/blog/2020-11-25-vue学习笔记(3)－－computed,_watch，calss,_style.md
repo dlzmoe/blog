@@ -1,6 +1,6 @@
 ---
 slug: 29
-title: vue学习笔记(3)－－computed, watch，calss, style
+title: vue 学习笔记 (3)－－computed, watch，calss, style
 date: 2020-11-25
 categories: 
   - 技术
@@ -13,7 +13,7 @@ tags:
 
 
 
-## 一、计算属性computed
+## 一、计算属性 computed
 
 ### 1.例子
 
@@ -79,7 +79,7 @@ tags:
 
 ### 3.计算属性和侦听属性
 
-vue还有一种方式来观测vue实例上的数据变动：**侦听属性－－watch**
+vue 还有一种方式来观测 vue 实例上的数据变动：**侦听属性－－watch**
 
 ```html
 <div id="app">
@@ -131,7 +131,7 @@ vue还有一种方式来观测vue实例上的数据变动：**侦听属性－－
 
 很简单快速的就得到了我们想要的函数表达式
 
-### 4.计算属性的setter
+### 4.计算属性的 setter
 
 ```js
 computed: {
@@ -153,7 +153,7 @@ computed: {
 现在在控制台输入`vm.fullName = 'John Doe'`，页面会响应，并且`setter`会被调用，`vm.firstname`和`vm.lastname`也会相应地被更新
 
 
-## 二、绑定class和style
+## 二、绑定 class 和 style
 
 ### 1.对象语法
 
@@ -163,7 +163,7 @@ computed: {
 <div v-bind:class="{active: ok}"></div>
 ```
 
-可以通过控制`ok`的布尔值来动态的控制class
+可以通过控制`ok`的布尔值来动态的控制 class
 
 还可以创建多个字段，并且不影响普通的`className`的存在
 
@@ -253,7 +253,7 @@ Vue.component('my-component', {
 <my-component class="baz boo"></my-component>
 ```
 
-html将会被渲染成：
+html 将会被渲染成：
 
 ```html
 <p class="foo bar baz boo">Hi</p>
@@ -271,7 +271,7 @@ html将会被渲染成：
 <p class="foo bar active">Hi</p>
 ```
 
-### 4.绑定内联样式style
+### 4.绑定内联样式 style
 
 `v-bind:style`的对象语法十分直观——看着非常像 CSS，但其实是一个 JavaScript 对象。CSS property 名可以用`驼峰式`或`带引号的短横线`来命名
 
@@ -309,4 +309,4 @@ data: {
 
 **自动添加前缀**
 
-当`v-bind:style`需要使用浏览器前缀的时候，如：`-webkit-`等，vue会自动侦测并帮生成相应的前缀
+当`v-bind:style`需要使用浏览器前缀的时候，如：`-webkit-`等，vue 会自动侦测并帮生成相应的前缀

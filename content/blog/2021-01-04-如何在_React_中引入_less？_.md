@@ -12,7 +12,7 @@ tags:
 
 
 
-本文主要写如何在 React 中引入 less 。因为 less 和 css 非常像，因此很容易学习。而且 less 仅对 css 语言增加了少许方便的扩展，这就是 less 如此易学的原因之一。
+本文主要写如何在 React 中引入 less。因为 less 和 css 非常像，因此很容易学习。而且 less 仅对 css 语言增加了少许方便的扩展，这就是 less 如此易学的原因之一。
 
 
 
