@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+    <link rel="stylesheet" href='css/gists.css' />
+
+    <title>css 中 fixed 定位属性和动画的冲突问题及解决方法 - 子舒的博客</title>
+    
+    <link rel="icon" type="image/x-icon" href='https://imgurl.zishu.me/favicon.ico'>
+    
+    <meta name="theme-color" content="#1e2327">
+
+    <meta name="description"
+    content="1.问题 css 中使用动画属性会和同标签下的fixed属性冲突，导致定位失效，那么该如何解决他呢？
+2.分析 简单说一下问题产生的背景，昨天夜里我想给我的博客页面做一个简单的动画，浏览器刷新的时候从下往上渐现的效果，代码如下：
+/* index-container类名是页面的主体部分 */ .index-container { opacity: 0; animation-name: index; animation-duration: 0." />
+    <meta name="keywords"
+        content='blog, minimal, technical' />
+    <meta name="robots" content="noodp" />
+    <link rel="canonical" href="/blog/69.html/" />
+    
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="css 中 fixed 定位属性和动画的冲突问题及解决方法 - 子舒的博客" />
+    <meta name="twitter:description"
+        content="1.问题 css 中使用动画属性会和同标签下的fixed属性冲突，导致定位失效，那么该如何解决他呢？
+2.分析 简单说一下问题产生的背景，昨天夜里我想给我的博客页面做一个简单的动画，浏览器刷新的时候从下往上渐现的效果，代码如下：
+/* index-container类名是页面的主体部分 */ .index-container { opacity: 0; animation-name: index; animation-duration: 0." />
+    <meta name="twitter:site" content="" />
+    <meta name="twitter:creator" content="" />
+    <meta name="twitter:image"
+        content="">
+    
+    
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="css 中 fixed 定位属性和动画的冲突问题及解决方法 - 子舒的博客">
+    <meta property="og:description"
+        content="1.问题 css 中使用动画属性会和同标签下的fixed属性冲突，导致定位失效，那么该如何解决他呢？
+2.分析 简单说一下问题产生的背景，昨天夜里我想给我的博客页面做一个简单的动画，浏览器刷新的时候从下往上渐现的效果，代码如下：
+/* index-container类名是页面的主体部分 */ .index-container { opacity: 0; animation-name: index; animation-duration: 0." />
+    <meta property="og:url" content="/blog/69.html/" />
+    <meta property="og:site_name" content="css 中 fixed 定位属性和动画的冲突问题及解决方法" />
+    <meta property="og:image"
+        content="">
+    <meta property="og:image:width" content="2048">
+    <meta property="og:image:height" content="1024">
+    
+    <meta property="article:published_time" content="2021-05-27 00:00:00 &#43;0000 UTC" />
+    
+    
+    
+    
+    
+    
+    
+
+    <script src="/js/jquery3.6.0.min.js"></script>
+</head>
+
+<body>
+  
+<main>
+  
+
+
+
+
+
+<div class="container-xl">
+  <div class="d-flex flex-sm-row flex-column">
+    <div class="p-2 pt-0 col-sm-3">
+      <div class="d-flex flex-column sticky-top ">
+        <div class="d-flex flex-sm-column ">
+          <div class="pt-3 pt-md-2 pb-2 order-sm-1 order-2">
+            <p class="fs-4 fw-bold p-0 m-0">子舒</p>
+            <p class="fs-5 text-dark-emphasis"></p>
+          </div>
+
+          <div class="pt-2 pe-2 col-3 col-sm-12 order-sm-2 order-1">
+            
+                <img width="250" class="img-thumbnail rounded-pill border bg-white" src="https://imgurl.zishu.me/author.png">
+         
+            
+          </div>
+        </div>
+        <div class="mt-3 fs-6 text-dark-emphasis">不如吃茶去</div>
+        <div class="pt-3">
+          <ul class="list-unstyled">
+            
+            <li>
+              <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
+                <path fill-rule="evenodd"
+                  d="M1.75 2A1.75 1.75 0 000 3.75v.736a.75.75 0 000 .027v7.737C0 13.216.784 14 1.75 14h12.5A1.75 1.75 0 0016 12.25v-8.5A1.75 1.75 0 0014.25 2H1.75zM14.5 4.07v-.32a.25.25 0 00-.25-.25H1.75a.25.25 0 00-.25.25v.32L8 7.88l6.5-3.81zm-13 1.74v6.441c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V5.809L8.38 9.397a.75.75 0 01-.76 0L1.5 5.809z">
+                </path>
+              </svg>
+              <span class="m-1">
+                <a class="text-dark-emphasis link-underline link-underline-opacity-0 link-underline-opacity-100-hover link-offset-2-hover" href="mailto:anghunk@gmail.com">anghunk@gmail.com</a>
+              </span>
+            </li>
+            
+          </ul>
+        </div>
+        <div class="pt-3 pb-4">
+          
+            <a style="margin: 0 10px 10px 0;" href="https://github.com/98zi"><img alt="@github" width="32" height="32" src="images/github.png"></a>
+          
+          
+          
+            <a style="margin: 0 10px 10px 0;" href="index.xml"><img alt="@rss" width="32" height="32" src="images/rss.png"></a>
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="p-2 pt-0 col-sm-9">
+      <ul class="nav nav-underline sticky-top d-flex pt-2 mb-md-4 bg-white border-bottom">
+        <li class="nav-item px-md-1">
+          <a class="nav-link  text-dark-emphasis " href="">
+            <svg height="16" viewBox="0 0 16 16" version="1.1" width="16">
+              <path class="me-1"fill-rule="evenodd"
+                d="m11.294.984 3.722 3.722a1.75 1.75 0 0 1-.504 2.826l-1.327.613a3.089 3.089 0 0 0-1.707 2.084l-.584 2.454c-.317 1.332-1.972 1.8-2.94.832L5.75 11.311 1.78 15.28a.749.749 0 1 1-1.06-1.06l3.969-3.97-2.204-2.204c-.968-.968-.5-2.623.832-2.94l2.454-.584a3.08 3.08 0 0 0 2.084-1.707l.613-1.327a1.75 1.75 0 0 1 2.826-.504ZM6.283 9.723l2.732 2.731a.25.25 0 0 0 .42-.119l.584-2.454a4.586 4.586 0 0 1 2.537-3.098l1.328-.613a.25.25 0 0 0 .072-.404l-3.722-3.722a.25.25 0 0 0-.404.072l-.613 1.328a4.584 4.584 0 0 1-3.098 2.537l-2.454.584a.25.25 0 0 0-.119.42l2.731 2.732Z">
+              </path>
+            </svg>
+            <span class="m-1">Pinned</span>
+            <span class="badge fw-normal bg-secondary bg-opacity-25 text-opacity-50 rounded-pill text-dark-emphasis">0</span>
+          </a>
+        </li>
+        <li class="nav-item px-md-1">
+          <a class='nav-link   text-dark active ' href="/blog/">
+            <svg height="16" viewBox="0 0 16 16" version="1.1" width="16">
+                  <path fill-rule="evenodd"
+                    d="M0 1.75A.75.75 0 01.75 1h4.253c1.227 0 2.317.59 3 1.501A3.744 3.744 0 0111.006 1h4.245a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75h-4.507a2.25 2.25 0 00-1.591.659l-.622.621a.75.75 0 01-1.06 0l-.622-.621A2.25 2.25 0 005.258 13H.75a.75.75 0 01-.75-.75V1.75zm8.755 3a2.25 2.25 0 012.25-2.25H14.5v9h-3.757c-.71 0-1.4.201-1.992.572l.004-7.322zm-1.504 7.324l.004-5.073-.002-2.253A2.25 2.25 0 005.003 2.5H1.5v9h3.757a3.75 3.75 0 011.994.574z">
+                  </path>
+                </svg>
+            <span class="m-1">Blog</span>
+            <span class="badge fw-normal bg-secondary bg-opacity-25 text-opacity-50 rounded-pill text-dark-emphasis">201</span>
+          </a>
+        </li>
+        <li class="nav-item px-md-1">
+          <a class='nav-link  text-dark-emphasis ' href="/tags/">
+            <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
+              <path fill-rule="evenodd" d="M2.5 7.775V2.75a.25.25 0 01.25-.25h5.025a.25.25 0 01.177.073l6.25 6.25a.25.25 0 010 .354l-5.025 5.025a.25.25 0 01-.354 0l-6.25-6.25a.25.25 0 01-.073-.177zm-1.5 0V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.75 1.75 0 011 7.775zM6 5a1 1 0 100 2 1 1 0 000-2z">
+            </path>
+            </svg>
+            <span class="m-1">Tags</span>
+            <span class="badge fw-normal bg-secondary bg-opacity-25 text-opacity-50 rounded-pill text-dark-emphasis">94</span>
+          </a>
+        </li>
+      </ul>
+
+      
+      
+<div class="d-flex flex-column border rounded mt-4 mt-md-0">
+  <div class="border-bottom bg-light markdown-sticky-top">
+    <div class="d-flex flex-row align-items-center">
+      <div class="btn-group" role="group">
+        <button type="button" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
+          <svg aria-hidden="true" viewBox="0 0 16 16" height="16" width="16" >
+            <path fill-rule="evenodd" d="M2 4a1 1 0 100-2 1 1 0 000 2zm3.75-1.5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zM3 8a1 1 0 11-2 0 1 1 0 012 0zm-1 6a1 1 0 100-2 1 1 0 000 2z"></path>
+          </svg>
+        </button>
+        <ul class="dropdown-menu" id="toc-list">
+          <li><h6 class="dropdown-header">Table of Content</h6></li>
+        </ul>
+      </div>
+      <div class="flex-fill text-secondary fs-7">
+        <relative-time datetime="Thu, 27 May 2021 00:00:00 &#43;0000" ></relative-time>
+        | css 中 fixed 定位属性和动画的冲突问题及解决方法
+      </div>
+      <div class="pe-2 d-none d-md-block">
+        
+          
+            <a class="badge text-bg-secondary text-dark fw-normal bg-opacity-25 pb-1 link-underline link-underline-opacity-0 link-underline-opacity-100-hover" href="/tags/css"> css</a>
+          
+        
+      </div>
+    </div>
+  </div>
+  <div class="pt-4 px-2 pb-3">
+    <article class="markdown-body container-lg"><h2 id="1问题"><a class="anchor" href="#1问题">1.问题</a></h2>
+<blockquote>
+<p>css 中使用动画属性会和同标签下的fixed属性冲突，导致定位失效，那么该如何解决他呢？</p>
+</blockquote>
+<h2 id="2分析"><a class="anchor" href="#2分析">2.分析</a></h2>
+<p>简单说一下问题产生的背景，昨天夜里我想给我的博客页面做一个简单的动画，浏览器刷新的时候从下往上渐现的效果，代码如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span><span style="color:#75715e">/* index-container类名是页面的主体部分 */</span>
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">index-container</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">opacity</span>: <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">animation-name</span>: index;
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">animation-duration</span>: <span style="color:#ae81ff">0.7</span><span style="color:#66d9ef">s</span>;
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">animation-fill-mode</span>: <span style="color:#66d9ef">forwards</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/* 一个简单的动画实现 */</span>
+</span></span><span style="display:flex;"><span>@<span style="color:#66d9ef">keyframes</span> <span style="color:#f92672">index</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">0</span><span style="color:#f92672">%</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">transform</span>: translateY(<span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">opacity</span>: <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">100</span><span style="color:#f92672">%</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">transform</span>: translateY(<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">opacity</span>: <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>运行之后发现，动画可以很好的显示，但是当我翻阅文章详情的时候发现，目录固定失效了。</p>
+<p>按照原来的设置是当页面往下滑动的时候，目录会紧贴浏览器的顶部，方便跳转和查看目录，但是现在它已经不能紧贴了。看一下浏览器设置，属性确实生效了，但是页面并没有显示我们想要的结果。</p>
+<p><img src="https://imgurl.zishu.me/images/2021/05/27/7441ad513b49f05c6caadeb0eb862636.png" alt=""></p>
+<p>之前我写目录固定事件的时候用的是 <code>scroll</code> 事件，然后昨天写动画，绑定的 <code>onload</code> 事件，我初步判断是两个 window 冲突了，导致第二个失效，所以我就改了一种写法，用 <code>addEventListener</code> 事件监听执行他们，但最终无论怎么写，目录固定始终不能生效。</p>
+<p>昨天熬得太晚了，就没管它放在那了，今天一早我就去张鑫旭的网站查了一下，果然有这么一个问题。</p>
+<p>参考文章：<a href="https://www.zhangxinxu.com/wordpress/2015/05/css3-transform-affect/">https://www.zhangxinxu.com/wordpress/2015/05/css3-transform-affect/</a></p>
+<p>但是文章只是介绍了问题产生的原因，并没有明确给出一个好的解决办法。</p>
+<h2 id="3方法"><a class="anchor" href="#3方法">3.方法</a></h2>
+<p>虽然没有明确的方法，但是给了我一个思路，因为动画中的一些属性，比如 <code>scale</code>、<code>translate</code> 等，会造车容器的宽高重新计算，而 fixed 属性则依赖于规定的一个像素值，所以当执行动画的时候，页面的高度发生了变化，所以 fixed 不能安心的执行自己的任务了。</p>
+<p>原因找到了，方法自然而然就出来了，看图（图很丑，手画的，能理解意思就行）</p>
+<p><img src="https://imgurl.zishu.me/images/2021/05/27/910fa54dfb26b804cbee9fe688e1e944.png" alt=""></p>
+<p>这是我最开始的布局，我将动画绑定给 <code>红色框</code> 的容器了，而目录就在红色框内，所以失效。</p>
+<p>现在我重新布局一下，</p>
+<p><img src="https://imgurl.zishu.me/images/2021/05/27/e9d5bddc6dc232c127596937e5ba67da.png" alt=""></p>
+<p>目录依旧处于侧边，但是我将他和通常的侧边栏分开成两个容器了，现在我把动画绑定给 <code>主体部分</code> 和 <code>侧边栏</code> ，这样目录就和绑定动画的标签分开了。</p>
+<p>再到页面测试，发现没有任何问题，动画效果和目录固定互不影响。</p>
+<p>很快乐，又可以愉快地折腾了！</p>
+
+</article>
+  </div>
+</div>
+
+      
+    </div>
+  </div>
+</div>
+</main>
+
+  <div class="container-xl">
+  <div class="pt-6 text-secondary border-top ">
+    <div>© 2020 - <span id="year"></span> Powered by 子舒</div>
+    <div>
+      网站已经运行 <span id="days">0</span>  · 
+      本站总访问量 <span id="busuanzi_value_site_pv">~</span> 次
+    </div>
+  </div>
+</div>
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/gh/emaction/frontend.dist@1.0.11/bundle.js"></script>
+<script>
+  var s0 = '2020-06-14';
+  s1 = new Date(s0.replace(/-/g, "/"));
+  s2 = new Date();
+  var days = s2.getTime() - s1.getTime();
+
+  var date = new Date;
+  var year = date.getFullYear();
+  document.getElementById('year').innerHTML = year;
+
+  var BootDate = new Date("2020-06-14");
+  function ShowRunTime(id) {
+    var NowDate = new Date();
+    var RunDateM = parseInt(NowDate - BootDate);
+    var RunDays = Math.floor(RunDateM / (24 * 3600 * 1000));
+    var RunHours = Math.floor(RunDateM % (24 * 3600 * 1000) / (3600 * 1000));
+    var RunMinutes = Math.floor(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) / (60 * 1000));
+    var RunSeconds = Math.round(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) % (60 * 1000) / 1000);
+    var days = RunDays + "天" + RunHours + "时" + RunMinutes + "分" + RunSeconds + "秒";
+    document.getElementById(id).innerHTML = days;
+  }
+  ShowRunTime('days');
+  setInterval("ShowRunTime('days')", 1000);
+</script>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script type="application/javascript" src="js/gists.js"></script>
+
+</html>
