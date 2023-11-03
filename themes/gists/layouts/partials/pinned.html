@@ -1,0 +1,45 @@
+{{ define "pinned" }}
+{{ $section := where .Site.RegularPages "Params.pin" true  }}
+  <ol class="d-flex flex-wrap mt-4 ps-0">
+    {{ range (first 6 $section) }}
+      <li class="col-12 col-md-6 col-lg-6 d-flex">
+        <div class="border rounded bg-transparent d-flex flex-column p-3 pb-0 me-3 mb-3 w-100">
+          <div class="fs-6 fw-medium">
+            <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-repo mr-1 color-fg-muted">
+              <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.714 1.7.75.75 0 1 1-1.072 1.05A2.495 2.495 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.708A2.486 2.486 0 0 1 4.5 9h8ZM5 12.25a.25.25 0 0 1 .25-.25h3.5a.25.25 0 0 1 .25.25v3.25a.25.25 0 0 1-.4.2l-1.45-1.087a.249.249 0 0 0-.3 0L5.4 15.7a.25.25 0 0 1-.4-.2Z"></path>
+          </svg>
+            <a class="p-1 link-primary link-underline link-underline-opacity-0 link-underline-opacity-100-hover link-offset-2-hover" href="{{ .Permalink }}">
+              <span title="{{ .Title }}">{{ .Title }}</span>
+            </a>
+          </div>
+
+          <div class="text-secondary mt-1 fs-6 flex-fill">
+            <p class="fw-light">{{ .Summary | safeHTML }}</p>
+          </div>
+
+          <div class="mb-2">
+            
+            <span class="text-body-tertiary fs-7">
+              <svg height="16"width="16" >
+                <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Zm7-3.25v2.992l2.028.812a.75.75 0 0 1-.557 1.392l-2.5-1A.751.751 0 0 1 7 8.25v-3.5a.75.75 0 0 1 1.5 0Z"></path>
+              </svg>
+              <relative-time class="ps-1" datetime="{{ .PublishDate.Format " Mon, 02 Jan 2006 15:04:05 -0700" }}" 
+                title="{{ .PublishDate.Format " Mon, 02 Jan 2006 15:04:05 -0700" }}">
+                {{ .PublishDate.Format "Mon, 02 Jan 2006 15:04:05 -0700" }}
+              </relative-time>
+            </span>
+            <span class="ps-4" >
+              {{ with .Params.tags }}
+                {{ range $tag := (first 5 .) }}
+                  <a class="badge text-bg-secondary text-dark fw-normal bg-opacity-25 pb-1 link-underline link-underline-opacity-0 link-underline-opacity-100-hover" href="{{ relURL (print "tags/" $tag) }}/"> {{$tag}}</a>
+                {{ end }}
+              {{ end }}
+            </span>
+          </div>
+
+          
+        </div>
+      </li>
+    {{ end }}
+  </ol>
+{{ end }}

@@ -1,0 +1,60 @@
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+    <link rel="stylesheet" href='{{ "css/gists.css" | absURL }}' />
+
+    <title>{{ if .IsHome }}{{ else }}{{ .Title }} - {{ end }}{{ .Site.Title }}</title>
+    {{ if .Site.Params.favicon }}
+    <link rel="icon" type="image/x-icon" href='https://imgurl.zishu.me/favicon.ico'>
+    {{ else }}
+    <link rel="icon" type="image/x-icon" href='https://imgurl.zishu.me/favicon.ico'>
+    {{ end }}
+    <meta name="theme-color" content="#1e2327">
+
+    <meta name="description"
+    content="{{ if .IsHome }}{{ .Site.Params.tagline }}{{ else }}{{ .Summary | plainify }}{{ end }}" />
+    <meta name="keywords"
+        content='{{ with .Params.Keywords }}{{ delimit . ", " }}{{ else }}{{ $.Site.Params.Keywords }}{{ end }}' />
+    <meta name="robots" content="noodp" />
+    <link rel="canonical" href="{{ .Permalink }}" />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="{{ if .IsHome }}{{ else }}{{ .Title }} - {{ end }}{{ .Site.Title }}" />
+    <meta name="twitter:description"
+        content="{{ if .IsHome }}{{ $.Site.Params.description }}{{ else }}{{ .Summary | plainify }}{{ end }}" />
+    <meta name="twitter:site" content="{{ $.Site.BaseURL }}" />
+    <meta name="twitter:creator" content="{{ .Params.Author }}" />
+    <meta name="twitter:image"
+        content="{{ if .IsHome }}{{ $.Site.Params.avatar | absURL }}{{ else }}{{ .Params.Cover | absURL }}{{ end }}">
+    
+    <!-- OG data -->
+    <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}" />
+    <meta property="og:title" content="{{ if .IsHome }}{{ else }}{{ .Title }} - {{ end }}{{ .Site.Title }}">
+    <meta property="og:description"
+        content="{{ if .IsHome }}{{ $.Site.Params.description }}{{ else }}{{ .Summary | plainify }}{{ end }}" />
+    <meta property="og:url" content="{{ .Permalink }}" />
+    <meta property="og:site_name" content="{{ .Title }}" />
+    <meta property="og:image"
+        content="{{ if .IsHome }}{{ $.Site.Params.avatar | absURL }}{{ else }}{{ .Params.Cover | absURL }}{{ end }}">
+    <meta property="og:image:width" content="2048">
+    <meta property="og:image:height" content="1024">
+    {{ if isset .Params "date" }}
+    <meta property="article:published_time" content="{{ time .Date }}" />
+    {{ end }}
+    
+    <!-- RSS -->
+    {{ with .OutputFormats.Get "RSS" }}
+    <link href="{{ .RelPermalink }}" rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}" />
+    {{ end }}
+    
+    <!-- JSON Feed -->
+    {{ with .OutputFormats.Get "json" }}
+    <link href="{{ .RelPermalink }}" rel="alternate" type="application/json" title="{{ $.Site.Title }}" />
+    {{ end }}
+
+    <script src="{{ .Site.Params.staticPrefix }}{{ "js/jquery3.6.0.min.js" | relURL }}"></script>
+</head>
