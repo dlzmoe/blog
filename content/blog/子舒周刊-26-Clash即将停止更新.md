@@ -1,7 +1,7 @@
 ---
 slug: weekly-26
-title: 子舒周刊 -26 | 
-date: 2023-11-09
+title: 子舒周刊 -26 | Clash 即将停止更新
+date: 2023-11-05
 categories:
   - 周刊
 tags:
@@ -9,6 +9,10 @@ tags:
 ---
 
 *每周四发布，尽量不停更，分享有趣的软件，程序，文章等。 [周刊列表](/categories/周刊/)*
+
+![](https://imgurl.zishu.me/images/ffb7a901f304e7532c799881928b558_z8lb0v_.webp)
+
+*江畔渔火对愁眠。*
 
 ---
 

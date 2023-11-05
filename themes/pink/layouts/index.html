@@ -1,0 +1,31 @@
+{{ partial "header.html" . }}
+
+<ul class="blog-posts">
+  {{ $pages := .Site.RegularPages }}
+  {{ $paginator := .Paginate ($pages) }}
+  {{ range $paginator.Pages }}
+  {{ $title := .Title }}
+  {{ $summary := .Summary }}
+
+  <li>
+    <a href="{{ .RelPermalink }}" class="title">{{ .Title }}</a>
+    <div class="summary">
+      <p>{{ .Summary }}</p>
+    </div>
+    <div class="date">
+      <time datetime="{{ .Date.Format " 2006-01-02 15:04:05 MST" }}">{{ .Date.Format "2006-01-02"}}</time>
+      {{ if .Params.tags }}
+      {{ range .Params.tags }} {{ $href := print (absURL "/tags/") (urlize .) }}
+      <a href="{{ $href }}">#{{ . }}</a>
+      {{ end }}
+      {{ end }}
+    </div>
+  </li>
+
+  {{ end }}
+</ul>
+
+
+{{ partial "pagination.html" . }}
+
+{{ partial "footer.html" . }}
