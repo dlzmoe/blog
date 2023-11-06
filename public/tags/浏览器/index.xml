@@ -5,7 +5,7 @@
     <link>/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/</link>
     <description>Recent content in 浏览器 on 子舒的博客</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-US</language>
+    <language>en</language>
     <lastBuildDate>Wed, 26 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>如何使用谷歌插件为网站注入代码</title>
@@ -13,10 +13,46 @@
       <pubDate>Wed, 26 Jan 2022 00:00:00 +0000</pubDate>
       
       <guid>/blog/100.html/</guid>
-      <description>在浏览网站时，受限于网站的缺陷，我们通常都会写一些脚本和插件来进行扩展，常规方法有油猴和谷歌插件两种，油猴也是一种插件，使用起来很方便，今天要讲的是如何通过谷歌插件进行注入。
-按照结构生成下面几个文件
-|chrome-plugin |---manifest.json |---script.js |---favicon.ico 在 manifest.json 中写入代码，这是一个入口文件，声明了插件的基本信息。
-default_icon 是插件的图标 matches 是使用的网站，在该域名下的网站才会生效。注意后面要加上 /* js 是引入的文件 // manifest.</description>
+      <description>&lt;p&gt;在浏览网站时，受限于网站的缺陷，我们通常都会写一些脚本和插件来进行扩展，常规方法有油猴和谷歌插件两种，油猴也是一种插件，使用起来很方便，今天要讲的是如何通过谷歌插件进行注入。&lt;/p&gt;
+&lt;p&gt;按照结构生成下面几个文件&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;|chrome-plugin
+|---manifest.json
+|---script.js
+|---favicon.ico
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;在 &lt;code&gt;manifest.json&lt;/code&gt; 中写入代码，这是一个入口文件，声明了插件的基本信息。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;default_icon&lt;/code&gt; 是插件的图标&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;matches&lt;/code&gt; 是使用的网站，在该域名下的网站才会生效。注意后面要加上 &lt;code&gt;/*&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;js&lt;/code&gt; 是引入的文件&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// manifest.json
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Welcome&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;#34;manifest_version&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;#34;version&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;1.0&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;#34;description&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;扩展插件&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;#34;browser_action&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;#34;default_icon&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;favicon.ico&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;#34;content_scripts&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nt&#34;&gt;&amp;#34;matches&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;https://github.com/*&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nt&#34;&gt;&amp;#34;js&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;script.js&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;然后在 &lt;code&gt;script.js&lt;/code&gt; 中随便插入一段代码即可。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// script.js
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;console&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;hello, world!&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这样一个基本的插件就构成了，下一步就是上传。但是如果在打包生成 &lt;code&gt;crx&lt;/code&gt; 文件后，上传 &lt;code&gt;crx&lt;/code&gt; 文件会报错，显示危险，因为没有上架到谷歌商店。所以我们不用打包，直接加载本地文件。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://imgurl.zishu.me/images/2022/01/26/dcd25af801e900a58a07b9b9a06c162d.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;然后选择写好的文件夹&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://imgurl.zishu.me/images/2022/01/26/e433070c769840d226fae27052fc275c.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;点击确定上传即可，这样一个插件上传的步骤就完成了。我们可以学习相关技术，写上一些自己需要的功能，这也是 Chrome 浏览器这么受欢迎的原因之一，集成了大量的插件。&lt;/p&gt;
+&lt;p&gt;如果你想上传到商店出售或者免费分享，都是需要注册开发者账号的。缴纳5美元费用之后就可以上传了，审核过后就可以在商店列表看到你的插件。&lt;/p&gt;
+</description>
     </item>
     
     <item>
@@ -25,11 +61,35 @@ default_icon 是插件的图标 matches 是使用的网站，在该域名下的�
       <pubDate>Thu, 18 Mar 2021 00:00:00 +0000</pubDate>
       
       <guid>/blog/56.html/</guid>
-      <description>IE10不支持箭头函数，写js的时候慎用。
-IE10下对js的语法要求严格，正常参数后如果没有多余的代码，写个,会报错，如果加了删掉就OK，Chrome下不会产生影响。
-zoom属性能不用，尽量别用。我在Chrome使用zoom进行大小调整，放到IE10运行，整个页面都错位了，找半天才想起来之前给一个容器设置了zoom: 1.1;，真是让人头大。
-IE10下img标签自带白边，在默认样式里面设置border: none;即可。
-img { border: none; } IE10能兼容大部分的html5新标签，唯独不能兼容 main。</description>
+      <description>&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;IE10不支持箭头函数，写js的时候慎用。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;IE10下对js的语法要求严格，正常参数后如果没有多余的代码，写个&lt;code&gt;,&lt;/code&gt;会报错，如果加了删掉就OK，Chrome下不会产生影响。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;zoom属性能不用，尽量别用。我在Chrome使用zoom进行大小调整，放到IE10运行，整个页面都错位了，找半天才想起来之前给一个容器设置了&lt;code&gt;zoom: 1.1;&lt;/code&gt;，真是让人头大。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;IE10下&lt;code&gt;img&lt;/code&gt;标签自带白边，在默认样式里面设置&lt;code&gt;border: none;&lt;/code&gt;即可。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-css&#34; data-lang=&#34;css&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;img&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;border&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;none&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;IE10能兼容大部分的html5新标签，唯独不能兼容 &lt;code&gt;main&lt;/code&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;box-shadow 阴影属性其实IE10是支持的，但是需要注意语法问题，在普通浏览器color可以用&lt;code&gt;rgba&lt;/code&gt;,&lt;code&gt;#&lt;/code&gt;等写法，但是在IE10下，只能通过&lt;code&gt;#000000&lt;/code&gt;写法，&lt;code&gt;#&lt;/code&gt;和六位的颜色标记，不可以简写，否则不生效。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;IE10不兼容es6新语法。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+</description>
     </item>
     
     <item>
@@ -38,9 +98,39 @@ img { border: none; } IE10能兼容大部分的html5新标签，唯独不能兼�
       <pubDate>Fri, 26 Feb 2021 00:00:00 +0000</pubDate>
       
       <guid>/blog/52.html/</guid>
-      <description>最近正在面试，遇到了很多有意思的东西，比如今天，在面试前先做了一套面试题，其中有这么一道题，觉得挺有意思，之前也没见过，就打算记录下来：
-&amp;lt;!-- chrome浏览器12px字体大小以下无法显示，均显示为12px，应该怎么解决。 --&amp;gt; 我确实有点蒙，在之前写代码的时候，没有遇到过这样的情况，不过既然这样问了，就得想出解决的办法。
-首先我想到之前的一个问题，0.5px 的边框该如何实现，通过 scale(0.5) 可以实现，这是 css3 新属性。</description>
+      <description>&lt;p&gt;最近正在面试，遇到了很多有意思的东西，比如今天，在面试前先做了一套面试题，其中有这么一道题，觉得挺有意思，之前也没见过，就打算记录下来：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;&amp;lt;!-- chrome浏览器12px字体大小以下无法显示，均显示为12px，应该怎么解决。 --&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;我确实有点蒙，在之前写代码的时候，没有遇到过这样的情况，不过既然这样问了，就得想出解决的办法。&lt;/p&gt;
+&lt;p&gt;首先我想到之前的一个问题，0.5px 的边框该如何实现，通过 scale(0.5) 可以实现，这是 css3 新属性。&lt;/p&gt;
+&lt;p&gt;所以当时我就写了通过 &lt;code&gt;transform:scale()&lt;/code&gt; 可以实现。不过后续在面试的中，面试官也没有提及这些问题。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;回到家之后，吃完饭坐在电脑旁，正准备逛一逛 github ，突然想起来了这么一个问题，就自己测试了一遍：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;div&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;style&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;font-size: 13px;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    测试
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;div&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;div&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;style&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;font-size: 12px;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    测试
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;div&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;div&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;style&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;font-size: 11px;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    测试
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;div&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://imgurl.zishu.me/images/2021/02/26/d3c345e515d6a29d9ff49f78382ac95b.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;竟然真的存在这样的问题，Chrome 12px 以下的字体无法正常显示，均显示为12px。&lt;/p&gt;
+&lt;p&gt;然后我用 scale 设置了一下属性，&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;div&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;style&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;font-size: 13px;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    测试
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;div&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;div&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;style&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;font-size: 12px;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    测试
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;div&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;div&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;style&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;font-size: 11px;transform: scale(0.5);&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    测试
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;div&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://imgurl.zishu.me/images/2021/02/26/9e5f13c26524aae53acbc9bd5edd57f9.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;字体确实可以再次缩小到自己想到的程度，但是存在一些弊端，所有带有长度的属性均被缩小，比如图中的div的长度，本来默认是 &lt;code&gt;100%&lt;/code&gt; ，但是显示只有原来的一半了。&lt;/p&gt;
+&lt;p&gt;虽然存在这么个问题，但是按照我自己的预估，平时我们浏览的网站基本没有低于12px大小的字体吧！反正我是没有遇到过，我估计面试题也是想考验我们对一些生僻知识的处理吧，不过也不算生僻，前有0.5px，后有12px，其实都大同小异。&lt;/p&gt;
+&lt;p&gt;在遇到这个问题的时候，确实可以通过 &lt;code&gt;scale()&lt;/code&gt; 处理一下，然后在认真设置其他属性，尽量避免更多的弊端。&lt;/p&gt;
+</description>
     </item>
     
     <item>
@@ -49,9 +139,37 @@ img { border: none; } IE10能兼容大部分的html5新标签，唯独不能兼�
       <pubDate>Fri, 11 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>/blog/8.html/</guid>
-      <description>我在写博客的时候，想给博客网页添加自己喜欢的音乐，这样我在写作和阅读的时候，心情也会比较愉悦，这个时候，我们就需要用到audio这个标签。
-&amp;lt;audio src=&amp;#34;&amp;#34;&amp;gt;&amp;lt;/audio&amp;gt; 同时 audio 标签还带有很多实用的属性，常用的有以下几个：
-src &amp;ndash; 这个就不说了，懂的都懂 autoplay &amp;ndash; 如果出现该属性，音频在就绪后马上播放 controls &amp;ndash; 网页中显示音频控件 loop &amp;ndash; 循环播放 muted &amp;ndash; 默认静音 但是我在设置 autoplay 的时候发现，chrome 对自动播放深恶痛绝，直接从根源上限制了这个属性的开启，意思是说，这个属性直接禁用，在打开网页没有交互的情况下，不允许自动播放。</description>
+      <description>&lt;p&gt;我在写博客的时候，想给博客网页添加自己喜欢的音乐，这样我在写作和阅读的时候，心情也会比较愉悦，这个时候，我们就需要用到&lt;code&gt;audio&lt;/code&gt;这个标签。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;audio&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;audio&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;同时 audio 标签还带有很多实用的属性，常用的有以下几个：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;src &amp;ndash; 这个就不说了，懂的都懂&lt;/li&gt;
+&lt;li&gt;autoplay &amp;ndash; 如果出现该属性，音频在就绪后马上播放&lt;/li&gt;
+&lt;li&gt;controls &amp;ndash; 网页中显示音频控件&lt;/li&gt;
+&lt;li&gt;loop &amp;ndash; 循环播放&lt;/li&gt;
+&lt;li&gt;muted &amp;ndash; 默认静音&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;但是我在设置 autoplay 的时候发现，chrome 对自动播放深恶痛绝，直接从根源上限制了这个属性的开启，意思是说，这个属性直接禁用，在打开网页没有交互的情况下，不允许自动播放。&lt;/p&gt;
+&lt;p&gt;但仔细想一想，这个做法其实是对用户比较有利的。假设用户使用的时候宽带流量，直接自动播放视频、音频，就会对用户造成损失。甚至一些广告会自动播放，这就直接影响到了用户的体验。所以，对于 chrome 的做法我还是比较赞同的。&lt;/p&gt;
+&lt;p&gt;回过头一想，不对啊，我的目的是解决这个问题，不是夸赞谷歌的。我想给自己的个人博客添加喜欢的音乐，所以我找了一个不算办法的办法。我直接在模拟一个事件，当鼠标点击网页任意处的时候，自动触发 autoplay 的音频效果，直接上代码。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;script&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;toggleSound&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;music&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;document&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;getElementById&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;vd&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;          
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;c1&#34;&gt;//获取ID  
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;  &lt;span class=&#34;nx&#34;&gt;console&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;music&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nx&#34;&gt;console&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;music&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;paused&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;music&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;paused&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;//判读是否播放  
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;nx&#34;&gt;music&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;paused&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nx&#34;&gt;music&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;play&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;//没有就播放 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;  &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;  
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;setInterval&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;toggleSound()&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;script&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这样处理过之后，插入音频，任意点击网页某个地方，都会触发播放效果，但凡事有利有弊，这样做的话，一旦开启播放，将无法启用暂停功能，也就是说会一直播放下去&lt;/p&gt;
+&lt;p&gt;如果是像我这样写个人博客，这个弊端倒是影响不大，我在这里记录一下这个方法。&lt;/p&gt;
+</description>
     </item>
     
   </channel>

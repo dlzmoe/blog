@@ -1,287 +1,686 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html>
+
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
+<meta name="viewport" content="width=device-width,minimum-scale=1">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
-    <link rel="stylesheet" href='css/gists.css' />
 
-    <title>揭秘箭头函数 - 子舒的博客</title>
-    
-    <link rel="icon" type="image/x-icon" href='https://imgurl.zishu.me/favicon.ico'>
-    
-    <meta name="theme-color" content="#1e2327">
 
-    <meta name="description"
-    content="英文地址: https://javascript.plainenglish.io/demystifying-javascript-arrow-functions-7b2a0908a2b3
-通过掘金翻译计划活动进行翻译
-箭头函数是函数表达式的替代方法，但在语法上有所不同，不能在所有情况下使用。如果您还没有阅读 JavaScript 中的函数表达式，我建议您在继续阅读之前先阅读这篇文章。
-现在，让我们试着从语法、执行、作用域和提升以及代码示例方面来理解箭头函数。
-1. 语法 const arrowFunctionSyntax = () =&amp;gt; { console." />
-    <meta name="keywords"
-        content='blog, minimal, technical' />
-    <meta name="robots" content="noodp" />
-    <link rel="canonical" href="/blog/82.html/" />
-    
-    
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="揭秘箭头函数 - 子舒的博客" />
-    <meta name="twitter:description"
-        content="英文地址: https://javascript.plainenglish.io/demystifying-javascript-arrow-functions-7b2a0908a2b3
-通过掘金翻译计划活动进行翻译
-箭头函数是函数表达式的替代方法，但在语法上有所不同，不能在所有情况下使用。如果您还没有阅读 JavaScript 中的函数表达式，我建议您在继续阅读之前先阅读这篇文章。
-现在，让我们试着从语法、执行、作用域和提升以及代码示例方面来理解箭头函数。
-1. 语法 const arrowFunctionSyntax = () =&amp;gt; { console." />
-    <meta name="twitter:site" content="" />
-    <meta name="twitter:creator" content="" />
-    <meta name="twitter:image"
-        content="">
-    
-    
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content="揭秘箭头函数 - 子舒的博客">
-    <meta property="og:description"
-        content="英文地址: https://javascript.plainenglish.io/demystifying-javascript-arrow-functions-7b2a0908a2b3
-通过掘金翻译计划活动进行翻译
-箭头函数是函数表达式的替代方法，但在语法上有所不同，不能在所有情况下使用。如果您还没有阅读 JavaScript 中的函数表达式，我建议您在继续阅读之前先阅读这篇文章。
-现在，让我们试着从语法、执行、作用域和提升以及代码示例方面来理解箭头函数。
-1. 语法 const arrowFunctionSyntax = () =&amp;gt; { console." />
-    <meta property="og:url" content="/blog/82.html/" />
-    <meta property="og:site_name" content="揭秘箭头函数" />
-    <meta property="og:image"
-        content="">
-    <meta property="og:image:width" content="2048">
-    <meta property="og:image:height" content="1024">
-    
-    <meta property="article:published_time" content="2021-11-05 00:00:00 &#43;0000 UTC" />
-    
-    
-    
-    
-    
-    
-    
+<title>揭秘箭头函数 | 子舒的博客</title>
+<link rel="canonical" href="/blog/82.html/">
+<meta name="description" content="英文地址: https://javascript.plainenglish.io/demystifying-javascript-arrow-functions-7b2a0908a2b3 通过掘金翻译计划活动进行翻译 箭头函数是函数表达式的替代方法，但在语法上有所不同，不能在所有情况下使用。如果您还没有阅读 JavaScript 中的函数" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="揭秘箭头函数 | 子舒的博客" />
+<meta property="og:url" content="/blog/82.html/" />
+<meta property="og:description" content="英文地址: https://javascript.plainenglish.io/demystifying-javascript-arrow-functions-7b2a0908a2b3 通过掘金翻译计划活动进行翻译 箭头函数是函数表达式的替代方法，但在语法上有所不同，不能在所有情况下使用。如果您还没有阅读 JavaScript 中的函数" />
 
-    <script src="/js/jquery3.6.0.min.js"></script>
+
+
+
+
+
+<link rel="stylesheet" href="/lib/icofont/icofont.min.css" />
+<link rel="stylesheet" href="/css/syntax.css" />
+<link rel="stylesheet" href="/css/style.css" />
+<link rel="shortcut icon" href="https://imgurl.zishu.me/favicon.ico" type="image/x-icon" />
+<script src="/js/jquery3.6.0.min.js"></script>
+
 </head>
 
 <body>
-  
-<main>
-  
+    <header class="header-wrapper">
+    <div class="header">
+        <a class="site-title" href="">子舒的博客</a>
 
-
-
-
-
-<div class="container-xl">
-  <div class="d-flex flex-sm-row flex-column">
-    <div class="p-2 pt-0 col-sm-3">
-      <div class="d-flex flex-column sticky-top ">
-        <div class="d-flex flex-sm-column ">
-          <div class="pt-3 pt-md-2 pb-2 order-sm-1 order-2">
-            <p class="fs-4 fw-bold p-0 m-0">子舒</p>
-            <p class="fs-5 text-dark-emphasis"></p>
-          </div>
-
-          <div class="pt-2 pe-2 col-3 col-sm-12 order-sm-2 order-1">
+        <nav class="menu">
             
-                <img width="250" class="img-thumbnail rounded-pill border bg-white" src="https://imgurl.zishu.me/author.png">
-         
+                <div class="menu-item">
+                    
+                        <a href="/blog/">归档</a>
+                    
+                </div>
             
-          </div>
-        </div>
-        <div class="mt-3 fs-6 text-dark-emphasis">不如吃茶去</div>
-        <div class="pt-3">
-          <ul class="list-unstyled">
+                <div class="menu-item">
+                    
+                        <a>分类↓</a>
+                        <nav class="sub-menu">
+                            
+                            <div class="menu-item"><a href="/categories/%E5%91%A8%E5%88%8A/">周刊</a></div>
+                            
+                            <div class="menu-item"><a href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></div>
+                            
+                            <div class="menu-item"><a href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a></div>
+                            
+                        </nav>
+                    
+                </div>
             
-            <li>
-              <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
-                <path fill-rule="evenodd"
-                  d="M1.75 2A1.75 1.75 0 000 3.75v.736a.75.75 0 000 .027v7.737C0 13.216.784 14 1.75 14h12.5A1.75 1.75 0 0016 12.25v-8.5A1.75 1.75 0 0014.25 2H1.75zM14.5 4.07v-.32a.25.25 0 00-.25-.25H1.75a.25.25 0 00-.25.25v.32L8 7.88l6.5-3.81zm-13 1.74v6.441c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V5.809L8.38 9.397a.75.75 0 01-.76 0L1.5 5.809z">
-                </path>
-              </svg>
-              <span class="m-1">
-                <a class="text-dark-emphasis link-underline link-underline-opacity-0 link-underline-opacity-100-hover link-offset-2-hover" href="mailto:anghunk@gmail.com">anghunk@gmail.com</a>
-              </span>
-            </li>
+                <div class="menu-item">
+                    
+                        <a href="/message/">留言</a>
+                    
+                </div>
             
-          </ul>
-        </div>
-        <div class="pt-3 pb-4">
-          
-            <a style="margin: 0 10px 10px 0;" href="https://github.com/98zi"><img alt="@github" width="32" height="32" src="images/github.png"></a>
-          
-          
-          
-            <a style="margin: 0 10px 10px 0;" href="index.xml"><img alt="@rss" width="32" height="32" src="images/rss.png"></a>
-          
-        </div>
-      </div>
+                <div class="menu-item">
+                    
+                        <a href="/about/">关于我</a>
+                    
+                </div>
+            
+        </nav>
     </div>
+</header>
 
-    <div class="p-2 pt-0 col-sm-9">
-      <ul class="nav nav-underline sticky-top d-flex pt-2 mb-md-4 bg-white border-bottom">
-        <li class="nav-item px-md-1">
-          <a class="nav-link  text-dark-emphasis " href="">
-            <svg height="16" viewBox="0 0 16 16" version="1.1" width="16">
-              <path class="me-1"fill-rule="evenodd"
-                d="m11.294.984 3.722 3.722a1.75 1.75 0 0 1-.504 2.826l-1.327.613a3.089 3.089 0 0 0-1.707 2.084l-.584 2.454c-.317 1.332-1.972 1.8-2.94.832L5.75 11.311 1.78 15.28a.749.749 0 1 1-1.06-1.06l3.969-3.97-2.204-2.204c-.968-.968-.5-2.623.832-2.94l2.454-.584a3.08 3.08 0 0 0 2.084-1.707l.613-1.327a1.75 1.75 0 0 1 2.826-.504ZM6.283 9.723l2.732 2.731a.25.25 0 0 0 .42-.119l.584-2.454a4.586 4.586 0 0 1 2.537-3.098l1.328-.613a.25.25 0 0 0 .072-.404l-3.722-3.722a.25.25 0 0 0-.404.072l-.613 1.328a4.584 4.584 0 0 1-3.098 2.537l-2.454.584a.25.25 0 0 0-.119.42l2.731 2.732Z">
-              </path>
-            </svg>
-            <span class="m-1">Pinned</span>
-            <span class="badge fw-normal bg-secondary bg-opacity-25 text-opacity-50 rounded-pill text-dark-emphasis">0</span>
-          </a>
-        </li>
-        <li class="nav-item px-md-1">
-          <a class='nav-link   text-dark active ' href="/blog/">
-            <svg height="16" viewBox="0 0 16 16" version="1.1" width="16">
-                  <path fill-rule="evenodd"
-                    d="M0 1.75A.75.75 0 01.75 1h4.253c1.227 0 2.317.59 3 1.501A3.744 3.744 0 0111.006 1h4.245a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75h-4.507a2.25 2.25 0 00-1.591.659l-.622.621a.75.75 0 01-1.06 0l-.622-.621A2.25 2.25 0 005.258 13H.75a.75.75 0 01-.75-.75V1.75zm8.755 3a2.25 2.25 0 012.25-2.25H14.5v9h-3.757c-.71 0-1.4.201-1.992.572l.004-7.322zm-1.504 7.324l.004-5.073-.002-2.253A2.25 2.25 0 005.003 2.5H1.5v9h3.757a3.75 3.75 0 011.994.574z">
-                  </path>
-                </svg>
-            <span class="m-1">Blog</span>
-            <span class="badge fw-normal bg-secondary bg-opacity-25 text-opacity-50 rounded-pill text-dark-emphasis">201</span>
-          </a>
-        </li>
-        <li class="nav-item px-md-1">
-          <a class='nav-link  text-dark-emphasis ' href="/tags/">
-            <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
-              <path fill-rule="evenodd" d="M2.5 7.775V2.75a.25.25 0 01.25-.25h5.025a.25.25 0 01.177.073l6.25 6.25a.25.25 0 010 .354l-5.025 5.025a.25.25 0 01-.354 0l-6.25-6.25a.25.25 0 01-.073-.177zm-1.5 0V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.75 1.75 0 011 7.775zM6 5a1 1 0 100 2 1 1 0 000-2z">
-            </path>
-            </svg>
-            <span class="m-1">Tags</span>
-            <span class="badge fw-normal bg-secondary bg-opacity-25 text-opacity-50 rounded-pill text-dark-emphasis">94</span>
-          </a>
-        </li>
-      </ul>
+    <main class="main-wrapper">
+        <div class="main">
+            
 
-      
-      
-<div class="d-flex flex-column border rounded mt-4 mt-md-0">
-  <div class="border-bottom bg-light markdown-sticky-top">
-    <div class="d-flex flex-row align-items-center">
-      <div class="btn-group" role="group">
-        <button type="button" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
-          <svg aria-hidden="true" viewBox="0 0 16 16" height="16" width="16" >
-            <path fill-rule="evenodd" d="M2 4a1 1 0 100-2 1 1 0 000 2zm3.75-1.5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zM3 8a1 1 0 11-2 0 1 1 0 012 0zm-1 6a1 1 0 100-2 1 1 0 000 2z"></path>
-          </svg>
-        </button>
-        <ul class="dropdown-menu" id="toc-list">
-          <li><h6 class="dropdown-header">Table of Content</h6></li>
-        </ul>
-      </div>
-      <div class="flex-fill text-secondary fs-7">
-        <relative-time datetime="Fri, 05 Nov 2021 00:00:00 &#43;0000" ></relative-time>
-        | 揭秘箭头函数
-      </div>
-      <div class="pe-2 d-none d-md-block">
-        
-          
-            <a class="badge text-bg-secondary text-dark fw-normal bg-opacity-25 pb-1 link-underline link-underline-opacity-0 link-underline-opacity-100-hover" href="/tags/js"> js</a>
-          
-            <a class="badge text-bg-secondary text-dark fw-normal bg-opacity-25 pb-1 link-underline link-underline-opacity-0 link-underline-opacity-100-hover" href="/tags/%E7%BF%BB%E8%AF%91"> 翻译</a>
-          
-        
-      </div>
-    </div>
-  </div>
-  <div class="pt-4 px-2 pb-3">
-    <article class="markdown-body container-lg"><blockquote>
+<section class="single">
+	<h1 class="title">揭秘箭头函数</h1>
+	
+	<div class="tip">
+		发布于 <time datetime="2021-11-05 00:00:00 &#43;0000 UTC">2021 年 11 月 05 日</time>
+		· 本文总阅读量 <span id="busuanzi_value_page_pv">~</span> 次
+	</div>
+	
+
+	<div class="taxonomies">
+		
+		<div>
+			Categories:
+			
+			<a href="/%20categories/%E6%8A%80%E6%9C%AF">技术</a>
+			
+		</div>
+		
+
+		
+		<div>
+			Tags:
+			
+			<a href="/%20tags/js">js</a>
+			
+			<a href="/%20tags/%E7%BF%BB%E8%AF%91">翻译</a>
+			
+		</div>
+		
+	</div>
+
+	<hr />
+
+	<div class="content">
+		<blockquote>
 <p>英文地址: <a href="https://javascript.plainenglish.io/demystifying-javascript-arrow-functions-7b2a0908a2b3">https://javascript.plainenglish.io/demystifying-javascript-arrow-functions-7b2a0908a2b3</a><br>
 通过掘金翻译计划活动进行翻译</p>
 </blockquote>
 <p><img src="https://imgurl.zishu.me/images/2021/11/05/b48745e783a796580ccd10fa6b845c71.png" alt=""></p>
 <p>箭头函数是函数表达式的替代方法，但在语法上有所不同，不能在所有情况下使用。如果您还没有阅读 JavaScript 中的函数表达式，我建议您在继续阅读之前先阅读<a href="https://themallu.dev/demystifying-function-expressions">这篇文章</a>。</p>
 <p>现在，让我们试着从语法、执行、作用域和提升以及代码示例方面来理解箭头函数。</p>
-<h2 id="1-语法"><a class="anchor" href="#1-语法">1. 语法</a></h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">arrowFunctionSyntax</span> <span style="color:#f92672">=</span> () =&gt; {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Hi, I am an arrow function&#39;</span>);
-</span></span><span style="display:flex;"><span>};
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arrowFunctionSyntax</span>();
+<h2 id="1-语法">1. 语法 <a href="#1-%e8%af%ad%e6%b3%95" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">arrowFunctionSyntax</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Hi, I am an arrow function&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="nx">arrowFunctionSyntax</span><span class="p">();</span>
 </span></span></code></pre></div><p>在上面的代码示例中，我们可以看到箭头函数类似于函数表达式，因为它们被赋值为变量。 主要区别在于函数的编写方式。 以下是我们可以根据其语法从上述代码中得出的观察结果：</p>
 <ol>
 <li>它不包含 <strong>function</strong> 关键字。</li>
 <li>它没有 <strong>函数名</strong> ，这意味着这些是匿名函数。</li>
 <li>引入了箭头 <code>=&gt;</code> 符号。</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">arrowFunctionWithOneParam</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">number</span>) =&gt; <span style="color:#a6e22e">number</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">arrowFunctionWithMultipleParams</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">numberOne</span>, <span style="color:#a6e22e">numberTwo</span>) =&gt; {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">sum</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">numberOne</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">numberTwo</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">sum</span>;
-</span></span><span style="display:flex;"><span>};
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">arrowFunctionWithOneParam</span>(<span style="color:#ae81ff">5</span>));
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">arrowFunctionWithMultipleParams</span>(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>));
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">arrowFunctionWithOneParam</span> <span class="o">=</span> <span class="p">(</span><span class="nx">number</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">number</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">arrowFunctionWithMultipleParams</span> <span class="o">=</span> <span class="p">(</span><span class="nx">numberOne</span><span class="p">,</span> <span class="nx">numberTwo</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">sum</span> <span class="o">=</span> <span class="nx">numberOne</span> <span class="o">+</span> <span class="nx">numberTwo</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">sum</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">arrowFunctionWithOneParam</span><span class="p">(</span><span class="mi">5</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">arrowFunctionWithMultipleParams</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">));</span>
 </span></span></code></pre></div><p>如果我们同时观察 <code>arrowFunctionWithOneParam</code> 和 <code>arrowFunctionWithMultipleParams</code>，我们可以发现三者的不同&mdash;括号 <code>()</code>、块 <code>{}</code> 和 <code>return</code> 关键字的使用。 根据箭头函数的语法，如果函数只接受一个参数，可以忽略括号<code>()</code>。如果函数只包含一条语句，则可以忽略块<code>{}</code>，最后其实也可以忽略<code>return</code> ，如果函数只包含一个语句。</p>
-<h2 id="2-执行"><a class="anchor" href="#2-执行">2. 执行</a></h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">arrowFunctionExecution</span> <span style="color:#f92672">=</span> () =&gt; {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Hi, my execution is similar to normal function&#39;</span>);
-</span></span><span style="display:flex;"><span>};
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arrowFunctionExecution</span>();
+<h2 id="2-执行">2. 执行 <a href="#2-%e6%89%a7%e8%a1%8c" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">arrowFunctionExecution</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Hi, my execution is similar to normal function&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="nx">arrowFunctionExecution</span><span class="p">();</span>
 </span></span></code></pre></div><p>在执行箭头函数时，它们的执行方式与其他普通函数的执行方式相似。 当 JS 引擎执行 <code>arrowFunctionExecution()</code> 时，它会创建一个函数，执行上下文并被推送到调用堆栈。 一旦创建了执行上下文，它就会启动创建阶段。 在这个阶段，它将创建参数对象并在其本地内存堆中声明所有变量。</p>
 <p>与普通函数相比，主要区别在于 <code>this</code> 的声明。 箭头函数没有自己的 <code>this</code> 变量； <code>this</code> 在箭头函数中使用时会得到词法解析。 在创建阶段之后不久，执行阶段开始。 这时它开始执行语句 <code>console.log()</code> ，并将 <code>&quot;Hi, my execution is similar to normal function&quot;</code> 打印到控制台。</p>
-<h2 id="3-作用域"><a class="anchor" href="#3-作用域">3. 作用域</a></h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">arrowFunctionScope</span> <span style="color:#f92672">=</span> () =&gt; {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Hi, my scoping rules works similar to function expression&#39;</span>);
-</span></span><span style="display:flex;"><span>};
+<h2 id="3-作用域">3. 作用域 <a href="#3-%e4%bd%9c%e7%94%a8%e5%9f%9f" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">arrowFunctionScope</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Hi, my scoping rules works similar to function expression&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span></code></pre></div><p>这些函数遵循与其他函数表达式相同的作用域规则。这些函数有自己的作用域，函数内部声明的任何变量都不能在函数外部访问。 这些函数也不适用于 <code>call</code>、<code>apply</code> 和 <code>bind</code> 方法，这些方法通常依赖于作用域。 如果您还没有阅读过 JavaScript 中的作用域，我建议您阅读 <a href="https://themallu.dev/demystifying-scopes"><strong>这篇文章</strong></a>。</p>
-<h2 id="4-提升"><a class="anchor" href="#4-提升">4. 提升</a></h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">amIGoingToBeHoisted</span>();
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">amIGoingToBeHoisted</span> <span style="color:#f92672">=</span> () =&gt; {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;The answer is NO&#39;</span>);
-</span></span><span style="display:flex;"><span>};
+<h2 id="4-提升">4. 提升 <a href="#4-%e6%8f%90%e5%8d%87" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">amIGoingToBeHoisted</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">amIGoingToBeHoisted</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;The answer is NO&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span></code></pre></div><p>箭头函数没有被提升，因为它们也是函数表达式，其中函数被分配为变量的值。 当 JavaScript 引擎执行上述代码时，在创建阶段，声明语句 <code>var amIGoingToBeHoisted</code> 将被移到顶部并使用值 <code>undefined</code> 进行初始化，而将初始值留在后面。 在执行阶段，遇到语句<code>amIGoingToBeHoisted</code> 时会抛出类型错误，因为它的值是 undefined ，这不是提升后的函数类型。 要了解有关 JavaScript 提升的更多信息，我建议您阅读 <a href="https://themallu.dev/demystifying-hoisting"><strong>文章</strong></a>。</p>
 
-</article>
-  </div>
-</div>
+	</div>
 
-      
-    </div>
-  </div>
-</div>
-</main>
+	
+	<hr />
+	
 
-  <div class="container-xl">
-  <div class="pt-6 text-secondary border-top ">
-    <div>© 2020 - <span id="year"></span> Powered by 子舒</div>
-    <div>
-      网站已经运行 <span id="days">0</span>  · 
-      本站总访问量 <span id="busuanzi_value_site_pv">~</span> 次
-    </div>
-  </div>
-</div>
-<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<script type="module" src="https://cdn.jsdelivr.net/gh/emaction/frontend.dist@1.0.11/bundle.js"></script>
+<div style="padding:30px 0;"></div>
+<div id="tcomment"></div>
+<script src="https://cdn.staticfile.org/twikoo/1.6.22/twikoo.all.min.js"></script>
+<link rel="stylesheet" href="/css/twikoo.css">
 <script>
-  var s0 = '2020-06-14';
-  s1 = new Date(s0.replace(/-/g, "/"));
-  s2 = new Date();
-  var days = s2.getTime() - s1.getTime();
-
-  var date = new Date;
-  var year = date.getFullYear();
-  document.getElementById('year').innerHTML = year;
-
-  var BootDate = new Date("2020-06-14");
-  function ShowRunTime(id) {
-    var NowDate = new Date();
-    var RunDateM = parseInt(NowDate - BootDate);
-    var RunDays = Math.floor(RunDateM / (24 * 3600 * 1000));
-    var RunHours = Math.floor(RunDateM % (24 * 3600 * 1000) / (3600 * 1000));
-    var RunMinutes = Math.floor(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) / (60 * 1000));
-    var RunSeconds = Math.round(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) % (60 * 1000) / 1000);
-    var days = RunDays + "天" + RunHours + "时" + RunMinutes + "分" + RunSeconds + "秒";
-    document.getElementById(id).innerHTML = days;
-  }
-  ShowRunTime('days');
-  setInterval("ShowRunTime('days')", 1000);
+  twikoo.init({
+    envId: 'https:\/\/twikoo.zishu.me\/.netlify\/functions\/twikoo',
+    el: '#tcomment',
+    lang: 'zh-CN',
+    includeReply: true,
+  })
 </script>
-</body>
+	
+</section>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-<script type="application/javascript" src="js/gists.js"></script>
+
+        </div>
+        <div class="side">
+            
+            <div class="side-recent">
+    <h2 class="side-title">
+        <a href="/blog/">Recent Blog</a>
+    </h2>
+    <hr />
+
+    <ul>
+        
+            <li>
+                <a href="/blog/weekly-25.html/">子舒周刊 -25 | 拉曼恰的风车</a>
+            </li>
+        
+            <li>
+                <a href="/blog/weekly-24.html/">子舒周刊 -24 | 黄山风景</a>
+            </li>
+        
+            <li>
+                <a href="/blog/weekly-23.html/">子舒周刊 -23 | 粉色城堡</a>
+            </li>
+        
+            <li>
+                <a href="/blog/weekly-22.html/">子舒周刊 -22 | 可爱的猫</a>
+            </li>
+        
+            <li>
+                <a href="/blog/weekly-21.html/">子舒周刊 -21 | 湘湖度假</a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+            <div class="side-categories">
+    <h2>Categories</h2>
+    <hr />
+
+    <ul>
+        
+            <li>
+                <a href="/categories/%E5%91%A8%E5%88%8A">周刊(25)</a>
+            </li>
+        
+            <li>
+                <a href="/categories/%E6%8A%80%E6%9C%AF">技术(108)</a>
+            </li>
+        
+            <li>
+                <a href="/categories/%E9%9A%8F%E7%AC%94">随笔(68)</a>
+            </li>
+        
+    </ul>
+</div>
+
+            <div class="side-tags">
+    <h2>Tags</h2>
+    <hr />
+
+    <ul>
+        
+            <li>
+                <a href="/tags/ajax">ajax (5)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/ant-design">ant-design (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/aos">aos (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/axios">axios (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/bitwarden">bitwarden (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/canvas">canvas (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/chrome">chrome (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/cloudflare">cloudflare (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/css">css (8)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/docker">docker (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/docsify">docsify (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/es6">es6 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/github">github (2)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/github-actions">github-actions (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/gravatar">gravatar (2)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/hugo">hugo (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/hugofast">hugofast (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/ie">ie (3)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/jquery">jquery (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/js">js (22)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/jsdelivr">jsdelivr (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/markdown">markdown (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/memos">memos (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/npm">npm (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/nuxt">nuxt (2)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/php">php (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/python">python (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/react">react (12)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/rustdesk">rustdesk (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/sql">sql (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/typecho">typecho (4)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/v2ex">v2ex (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/vaultwarden">vaultwarden (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/vue">vue (9)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/webpack">webpack (2)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/win11">win11 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E4%B8%83%E6%97%A5%E8%B0%88">七日谈 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E4%B8%BB%E9%A2%98%E5%BC%80%E5%8F%91">主题开发 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E4%BF%A1%E6%81%AF%E8%8C%A7%E6%88%BF">信息茧房 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E5%87%BA%E8%A1%8C">出行 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E5%8D%9A%E5%AE%A2">博客 (15)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E5%8E%9F%E5%88%9B">原创 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E5%8E%A8%E6%88%BF">厨房 (2)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E5%91%A8%E5%88%8A">周刊 (25)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E5%9B%BE%E5%BA%8A">图床 (2)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E5%9B%BE%E7%89%87">图片 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E5%9C%B0%E7%90%86">地理 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E5%9D%9A%E6%9E%9C%E4%BA%91">坚果云 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E5%A4%87%E4%BB%BD">备份 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E5%AD%97%E4%BD%93">字体 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E5%AE%9D%E5%A1%94">宝塔 (4)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E5%AF%86%E7%A0%81%E7%AE%A1%E7%90%86">密码管理 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E5%B7%A5%E5%85%B7">工具 (2)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%80%9D%E6%BA%90%E7%AC%94%E8%AE%B0">思源笔记 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%80%BB%E7%BB%93">总结 (4)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%84%9F%E6%83%B3">感想 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%8A%A5%E9%94%99">报错 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%8B%86%E6%9C%BA">拆机 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%8E%98%E9%87%91">掘金 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%8F%92%E4%BB%B6">插件 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%90%9C%E7%B4%A2">搜索 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93">数据库 (3)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%96%B0%E5%86%A0">新冠 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%96%B0%E9%97%BB">新闻 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%97%85%E6%B8%B8">旅游 (5)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%97%A5%E8%AE%B0">日记 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%97%B6%E9%97%B4%E6%88%B3">时间戳 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%9C%88%E5%85%A8%E9%A3%9F">月全食 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8">服务器 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%9D%82%E8%B0%88">杂谈 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%A2%A6">梦 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%B2%B9%E7%8C%B4%E8%84%9A%E6%9C%AC">油猴脚本 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8">浏览器 (4)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E7%94%B5%E5%BD%B1">电影 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E7%9F%AD%E7%AF%87%E5%B0%8F%E8%AF%B4">短篇小说 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E7%AC%91%E8%AF%9D">笑话 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E7%AC%94%E8%AE%B0">笔记 (16)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E7%AC%94%E8%AE%B0%E6%9C%AC%E7%94%B5%E8%84%91">笔记本电脑 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E7%BB%84%E4%BB%B6">组件 (2)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E7%BC%96%E7%A8%8B">编程 (4)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E7%BD%91%E7%AB%99">网站 (2)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E7%BF%BB%E8%AF%91">翻译 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E8%84%9A%E6%9C%AC">脚本 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E8%AF%84%E8%AE%BA">评论 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E8%AF%B4%E8%AF%B4">说说 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E8%AF%BB%E4%B9%A6">读书 (3)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E8%B0%B7%E6%AD%8C%E6%8F%92%E4%BB%B6">谷歌插件 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E8%BD%AC%E8%BD%BD">转载 (3)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E9%82%AE%E7%AE%B1">邮箱 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E9%9A%8F%E6%83%B3%E5%BD%95">随想录 (10)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E9%9A%8F%E6%89%8B%E6%8B%8D">随手拍 (18)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E9%9A%8F%E7%AC%94">随笔 (17)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E9%9F%B3%E4%B9%90">音乐 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E9%AA%91%E8%A1%8C">骑行 (3)</a>
+            </li>
+        
+    </ul>
+</div>
+
+
+           
+            
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-语法">1. 语法</a></li>
+    <li><a href="#2-执行">2. 执行</a></li>
+    <li><a href="#3-作用域">3. 作用域</a></li>
+    <li><a href="#4-提升">4. 提升</a></li>
+  </ul>
+</nav>
+            
+        </div>
+    </main>
+    <footer class="footer">
+    <div class="footer-row">
+        
+        
+        
+        <a class="footer-item" href="/blog/index.xml" target="_blank">
+            Feed of Blog
+            <i class="icofont-rss"></i>
+        </a>
+        
+        
+
+        
+        
+        
+        
+    </div>
+
+    <div class="footer-row">© 2020 - <span id="year"></span> · Powered by 子舒</div>
+    <div class="footer-row">
+        网站已经运行 <span id="days">0</span> ·
+        本站总访问量 <span id="busuanzi_value_site_pv">~</span> 次
+    </div>
+</footer>
+
+<script>
+    var s0 = '2020-06-14';
+    s1 = new Date(s0.replace(/-/g, "/"));
+    s2 = new Date();
+    var days = s2.getTime() - s1.getTime();
+
+    var date = new Date;
+    var year = date.getFullYear();
+    document.getElementById('year').innerHTML = year;
+
+    var BootDate = new Date("2020-06-14");
+    function ShowRunTime(id) {
+        var NowDate = new Date();
+        var RunDateM = parseInt(NowDate - BootDate);
+        var RunDays = Math.floor(RunDateM / (24 * 3600 * 1000));
+        var RunHours = Math.floor(RunDateM % (24 * 3600 * 1000) / (3600 * 1000));
+        var RunMinutes = Math.floor(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) / (60 * 1000));
+        var RunSeconds = Math.round(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) % (60 * 1000) / 1000);
+        var days = RunDays + "天" + RunHours + "时" + RunMinutes + "分" + RunSeconds + "秒";
+        document.getElementById(id).innerHTML = days;
+    }
+    ShowRunTime('days');
+    setInterval("ShowRunTime('days')", 1000);
+</script>
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
 
 </html>

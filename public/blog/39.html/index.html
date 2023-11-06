@@ -1,443 +1,854 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html>
+
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
+<meta name="viewport" content="width=device-width,minimum-scale=1">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
-    <link rel="stylesheet" href='css/gists.css' />
 
-    <title>React 学习笔记（三） - 子舒的博客</title>
-    
-    <link rel="icon" type="image/x-icon" href='https://imgurl.zishu.me/favicon.ico'>
-    
-    <meta name="theme-color" content="#1e2327">
 
-    <meta name="description"
-    content="来源于：https://react.docschina.org/docs/forms.html
-一、表单 在 React 中，html 表单元素的工作方式和其他的 DOM 元素不太一样，因为表单内部通常会保持一些内部的 state，比如下面这个纯 html 表单只接受一个名称：" />
-    <meta name="keywords"
-        content='blog, minimal, technical' />
-    <meta name="robots" content="noodp" />
-    <link rel="canonical" href="/blog/39.html/" />
-    
-    
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="React 学习笔记（三） - 子舒的博客" />
-    <meta name="twitter:description"
-        content="来源于：https://react.docschina.org/docs/forms.html
-一、表单 在 React 中，html 表单元素的工作方式和其他的 DOM 元素不太一样，因为表单内部通常会保持一些内部的 state，比如下面这个纯 html 表单只接受一个名称：" />
-    <meta name="twitter:site" content="" />
-    <meta name="twitter:creator" content="" />
-    <meta name="twitter:image"
-        content="">
-    
-    
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content="React 学习笔记（三） - 子舒的博客">
-    <meta property="og:description"
-        content="来源于：https://react.docschina.org/docs/forms.html
-一、表单 在 React 中，html 表单元素的工作方式和其他的 DOM 元素不太一样，因为表单内部通常会保持一些内部的 state，比如下面这个纯 html 表单只接受一个名称：" />
-    <meta property="og:url" content="/blog/39.html/" />
-    <meta property="og:site_name" content="React 学习笔记（三）" />
-    <meta property="og:image"
-        content="">
-    <meta property="og:image:width" content="2048">
-    <meta property="og:image:height" content="1024">
-    
-    <meta property="article:published_time" content="2020-12-29 00:00:00 &#43;0000 UTC" />
-    
-    
-    
-    
-    
-    
-    
+<title>React 学习笔记（三） | 子舒的博客</title>
+<link rel="canonical" href="/blog/39.html/">
+<meta name="description" content="来源于：https://react.docschina.org/docs/forms.html 一、表单 🔗在 React 中，html 表单元素的工作方式和" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="React 学习笔记（三） | 子舒的博客" />
+<meta property="og:url" content="/blog/39.html/" />
+<meta property="og:description" content="来源于：https://react.docschina.org/docs/forms.html 一、表单 🔗在 React 中，html 表单元素的工作方式和" />
 
-    <script src="/js/jquery3.6.0.min.js"></script>
+
+
+
+
+
+<link rel="stylesheet" href="/lib/icofont/icofont.min.css" />
+<link rel="stylesheet" href="/css/syntax.css" />
+<link rel="stylesheet" href="/css/style.css" />
+<link rel="shortcut icon" href="https://imgurl.zishu.me/favicon.ico" type="image/x-icon" />
+<script src="/js/jquery3.6.0.min.js"></script>
+
 </head>
 
 <body>
-  
-<main>
-  
+    <header class="header-wrapper">
+    <div class="header">
+        <a class="site-title" href="">子舒的博客</a>
 
-
-
-
-
-<div class="container-xl">
-  <div class="d-flex flex-sm-row flex-column">
-    <div class="p-2 pt-0 col-sm-3">
-      <div class="d-flex flex-column sticky-top ">
-        <div class="d-flex flex-sm-column ">
-          <div class="pt-3 pt-md-2 pb-2 order-sm-1 order-2">
-            <p class="fs-4 fw-bold p-0 m-0">子舒</p>
-            <p class="fs-5 text-dark-emphasis"></p>
-          </div>
-
-          <div class="pt-2 pe-2 col-3 col-sm-12 order-sm-2 order-1">
+        <nav class="menu">
             
-                <img width="250" class="img-thumbnail rounded-pill border bg-white" src="https://imgurl.zishu.me/author.png">
-         
+                <div class="menu-item">
+                    
+                        <a href="/blog/">归档</a>
+                    
+                </div>
             
-          </div>
-        </div>
-        <div class="mt-3 fs-6 text-dark-emphasis">不如吃茶去</div>
-        <div class="pt-3">
-          <ul class="list-unstyled">
+                <div class="menu-item">
+                    
+                        <a>分类↓</a>
+                        <nav class="sub-menu">
+                            
+                            <div class="menu-item"><a href="/categories/%E5%91%A8%E5%88%8A/">周刊</a></div>
+                            
+                            <div class="menu-item"><a href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></div>
+                            
+                            <div class="menu-item"><a href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a></div>
+                            
+                        </nav>
+                    
+                </div>
             
-            <li>
-              <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
-                <path fill-rule="evenodd"
-                  d="M1.75 2A1.75 1.75 0 000 3.75v.736a.75.75 0 000 .027v7.737C0 13.216.784 14 1.75 14h12.5A1.75 1.75 0 0016 12.25v-8.5A1.75 1.75 0 0014.25 2H1.75zM14.5 4.07v-.32a.25.25 0 00-.25-.25H1.75a.25.25 0 00-.25.25v.32L8 7.88l6.5-3.81zm-13 1.74v6.441c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V5.809L8.38 9.397a.75.75 0 01-.76 0L1.5 5.809z">
-                </path>
-              </svg>
-              <span class="m-1">
-                <a class="text-dark-emphasis link-underline link-underline-opacity-0 link-underline-opacity-100-hover link-offset-2-hover" href="mailto:anghunk@gmail.com">anghunk@gmail.com</a>
-              </span>
-            </li>
+                <div class="menu-item">
+                    
+                        <a href="/message/">留言</a>
+                    
+                </div>
             
-          </ul>
-        </div>
-        <div class="pt-3 pb-4">
-          
-            <a style="margin: 0 10px 10px 0;" href="https://github.com/98zi"><img alt="@github" width="32" height="32" src="images/github.png"></a>
-          
-          
-          
-            <a style="margin: 0 10px 10px 0;" href="index.xml"><img alt="@rss" width="32" height="32" src="images/rss.png"></a>
-          
-        </div>
-      </div>
+                <div class="menu-item">
+                    
+                        <a href="/about/">关于我</a>
+                    
+                </div>
+            
+        </nav>
     </div>
+</header>
 
-    <div class="p-2 pt-0 col-sm-9">
-      <ul class="nav nav-underline sticky-top d-flex pt-2 mb-md-4 bg-white border-bottom">
-        <li class="nav-item px-md-1">
-          <a class="nav-link  text-dark-emphasis " href="">
-            <svg height="16" viewBox="0 0 16 16" version="1.1" width="16">
-              <path class="me-1"fill-rule="evenodd"
-                d="m11.294.984 3.722 3.722a1.75 1.75 0 0 1-.504 2.826l-1.327.613a3.089 3.089 0 0 0-1.707 2.084l-.584 2.454c-.317 1.332-1.972 1.8-2.94.832L5.75 11.311 1.78 15.28a.749.749 0 1 1-1.06-1.06l3.969-3.97-2.204-2.204c-.968-.968-.5-2.623.832-2.94l2.454-.584a3.08 3.08 0 0 0 2.084-1.707l.613-1.327a1.75 1.75 0 0 1 2.826-.504ZM6.283 9.723l2.732 2.731a.25.25 0 0 0 .42-.119l.584-2.454a4.586 4.586 0 0 1 2.537-3.098l1.328-.613a.25.25 0 0 0 .072-.404l-3.722-3.722a.25.25 0 0 0-.404.072l-.613 1.328a4.584 4.584 0 0 1-3.098 2.537l-2.454.584a.25.25 0 0 0-.119.42l2.731 2.732Z">
-              </path>
-            </svg>
-            <span class="m-1">Pinned</span>
-            <span class="badge fw-normal bg-secondary bg-opacity-25 text-opacity-50 rounded-pill text-dark-emphasis">0</span>
-          </a>
-        </li>
-        <li class="nav-item px-md-1">
-          <a class='nav-link   text-dark active ' href="/blog/">
-            <svg height="16" viewBox="0 0 16 16" version="1.1" width="16">
-                  <path fill-rule="evenodd"
-                    d="M0 1.75A.75.75 0 01.75 1h4.253c1.227 0 2.317.59 3 1.501A3.744 3.744 0 0111.006 1h4.245a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75h-4.507a2.25 2.25 0 00-1.591.659l-.622.621a.75.75 0 01-1.06 0l-.622-.621A2.25 2.25 0 005.258 13H.75a.75.75 0 01-.75-.75V1.75zm8.755 3a2.25 2.25 0 012.25-2.25H14.5v9h-3.757c-.71 0-1.4.201-1.992.572l.004-7.322zm-1.504 7.324l.004-5.073-.002-2.253A2.25 2.25 0 005.003 2.5H1.5v9h3.757a3.75 3.75 0 011.994.574z">
-                  </path>
-                </svg>
-            <span class="m-1">Blog</span>
-            <span class="badge fw-normal bg-secondary bg-opacity-25 text-opacity-50 rounded-pill text-dark-emphasis">201</span>
-          </a>
-        </li>
-        <li class="nav-item px-md-1">
-          <a class='nav-link  text-dark-emphasis ' href="/tags/">
-            <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
-              <path fill-rule="evenodd" d="M2.5 7.775V2.75a.25.25 0 01.25-.25h5.025a.25.25 0 01.177.073l6.25 6.25a.25.25 0 010 .354l-5.025 5.025a.25.25 0 01-.354 0l-6.25-6.25a.25.25 0 01-.073-.177zm-1.5 0V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.75 1.75 0 011 7.775zM6 5a1 1 0 100 2 1 1 0 000-2z">
-            </path>
-            </svg>
-            <span class="m-1">Tags</span>
-            <span class="badge fw-normal bg-secondary bg-opacity-25 text-opacity-50 rounded-pill text-dark-emphasis">94</span>
-          </a>
-        </li>
-      </ul>
+    <main class="main-wrapper">
+        <div class="main">
+            
 
-      
-      
-<div class="d-flex flex-column border rounded mt-4 mt-md-0">
-  <div class="border-bottom bg-light markdown-sticky-top">
-    <div class="d-flex flex-row align-items-center">
-      <div class="btn-group" role="group">
-        <button type="button" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
-          <svg aria-hidden="true" viewBox="0 0 16 16" height="16" width="16" >
-            <path fill-rule="evenodd" d="M2 4a1 1 0 100-2 1 1 0 000 2zm3.75-1.5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zM3 8a1 1 0 11-2 0 1 1 0 012 0zm-1 6a1 1 0 100-2 1 1 0 000 2z"></path>
-          </svg>
-        </button>
-        <ul class="dropdown-menu" id="toc-list">
-          <li><h6 class="dropdown-header">Table of Content</h6></li>
-        </ul>
-      </div>
-      <div class="flex-fill text-secondary fs-7">
-        <relative-time datetime="Tue, 29 Dec 2020 00:00:00 &#43;0000" ></relative-time>
-        | React 学习笔记（三）
-      </div>
-      <div class="pe-2 d-none d-md-block">
-        
-          
-            <a class="badge text-bg-secondary text-dark fw-normal bg-opacity-25 pb-1 link-underline link-underline-opacity-0 link-underline-opacity-100-hover" href="/tags/%E7%AC%94%E8%AE%B0"> 笔记</a>
-          
-            <a class="badge text-bg-secondary text-dark fw-normal bg-opacity-25 pb-1 link-underline link-underline-opacity-0 link-underline-opacity-100-hover" href="/tags/react"> react</a>
-          
-        
-      </div>
-    </div>
-  </div>
-  <div class="pt-4 px-2 pb-3">
-    <article class="markdown-body container-lg"><p>来源于：<a href="https://react.docschina.org/docs/forms.html">https://react.docschina.org/docs/forms.html</a></p>
-<h2 id="一表单"><a class="anchor" href="#一表单">一、表单</a></h2>
-<p>在 React 中，html 表单元素的工作方式和其他的 DOM 元素不太一样，因为表单内部通常会保持一些内部的 <code>state</code>，比如下面这个纯 html 表单只接受一个名称：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">form</span>&gt;
-</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">label</span>&gt;
-</span></span><span style="display:flex;"><span>    名字:
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;name&#34;</span> /&gt;
-</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">label</span>&gt;
-</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;提交&#34;</span> /&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">form</span>&gt;
+<section class="single">
+	<h1 class="title">React 学习笔记（三）</h1>
+	
+	<div class="tip">
+		发布于 <time datetime="2020-12-29 00:00:00 &#43;0000 UTC">2020 年 12 月 29 日</time>
+		· 本文总阅读量 <span id="busuanzi_value_page_pv">~</span> 次
+	</div>
+	
+
+	<div class="taxonomies">
+		
+		<div>
+			Categories:
+			
+			<a href="/%20categories/%E6%8A%80%E6%9C%AF">技术</a>
+			
+		</div>
+		
+
+		
+		<div>
+			Tags:
+			
+			<a href="/%20tags/%E7%AC%94%E8%AE%B0">笔记</a>
+			
+			<a href="/%20tags/react">react</a>
+			
+		</div>
+		
+	</div>
+
+	<hr />
+
+	<div class="content">
+		<p>来源于：<a href="https://react.docschina.org/docs/forms.html">https://react.docschina.org/docs/forms.html</a></p>
+<h2 id="一表单">一、表单 <a href="#%e4%b8%80%e8%a1%a8%e5%8d%95" class="anchor">🔗</a></h2><p>在 React 中，html 表单元素的工作方式和其他的 DOM 元素不太一样，因为表单内部通常会保持一些内部的 <code>state</code>，比如下面这个纯 html 表单只接受一个名称：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">form</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">label</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    名字:
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;name&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;submit&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;提交&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
 </span></span></code></pre></div><p>这个表单具有默认的 html 表单行为，即在用户提交表单之后自动刷新页面。如果你在 React 中执行相同的代码，它仍然有效。</p>
 <p>但大多数情况下，使用 JavaScript 函数可以很方便的处理表单的提交，同时还可以访问用户填写的表单数据。实现这种效果的标准方式是使用“受控组件”。</p>
-<h3 id="受控组件"><a class="anchor" href="#受控组件">受控组件</a></h3>
-<p>在 html 中，表单元素比如<code>&lt;input&gt;</code>，<code>&lt;textarea&gt;</code>，<code>&lt;select&gt;</code>，这些表单元素通常自己维护 <code>state</code>，并根据用户输入进行更新。而在 React 中，可变状态（mutable state）通常保存在组件的 state 属性中，并且只能通过使用 <code>setState()</code> 来更新。</p>
+<h3 id="受控组件">受控组件 <a href="#%e5%8f%97%e6%8e%a7%e7%bb%84%e4%bb%b6" class="anchor">🔗</a></h3><p>在 html 中，表单元素比如<code>&lt;input&gt;</code>，<code>&lt;textarea&gt;</code>，<code>&lt;select&gt;</code>，这些表单元素通常自己维护 <code>state</code>，并根据用户输入进行更新。而在 React 中，可变状态（mutable state）通常保存在组件的 state 属性中，并且只能通过使用 <code>setState()</code> 来更新。</p>
 <p>我们可以把两者结合起来，使 React 的 state 成为“唯一数据源”。渲染表单的 React 组件还控制着用户输入过程中表单发生的操作。被 React 以这种方式控制取值的表单输入元素就叫做“受控组件”。</p>
 <p>例如，如果我们想让前一个示例在提交时打印出名称，我们可以将表单写为受控组件：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">NameForm</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">Component</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">props</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">super</span>(<span style="color:#a6e22e">props</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> {<span style="color:#a6e22e">value</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;&#39;</span>};
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">handleChange</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">handleChange</span>.<span style="color:#a6e22e">bind</span>(<span style="color:#66d9ef">this</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">handleSubmit</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">handleSubmit</span>.<span style="color:#a6e22e">bind</span>(<span style="color:#66d9ef">this</span>);
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">handleChange</span>(<span style="color:#a6e22e">event</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">setState</span>({<span style="color:#a6e22e">value</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">value</span>});
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">handleSubmit</span>(<span style="color:#a6e22e">event</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">alert</span>(<span style="color:#e6db74">&#39;提交的名字：&#39;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">value</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">preventDefault</span>();
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">render</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> (
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">form</span> <span style="color:#a6e22e">onSubmit</span><span style="color:#f92672">=</span>{<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">handleSubmit</span>}<span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">label</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">名字</span><span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">value</span>} <span style="color:#a6e22e">onChange</span><span style="color:#f92672">=</span>{<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">handleChange</span>} <span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/label&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;提交&#34;</span> <span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/form&gt;</span>
-</span></span><span style="display:flex;"><span>    );
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">NameForm</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span><span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">handleSubmit</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleSubmit</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">handleChange</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span><span class="nx">value</span><span class="o">:</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">handleSubmit</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;提交的名字：&#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="o">&lt;</span><span class="nx">form</span> <span class="nx">onSubmit</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleSubmit</span><span class="p">}</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="nx">label</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">名字</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">          <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&#34;text&#34;</span> <span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">value</span><span class="p">}</span> <span class="nx">onChange</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span><span class="p">}</span> <span class="o">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="err">/label&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&#34;submit&#34;</span> <span class="nx">value</span><span class="o">=</span><span class="s2">&#34;提交&#34;</span> <span class="o">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="o">&lt;</span><span class="err">/form&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>由于在表单元素上设置了 <code>value</code> 属性，因此显示的值将始终为 <code>this.state.value</code>，这使得 React 的 state 成为唯一数据源。由于 <code>handlechange</code> 在每次按键时都会执行并更新 React 的 state，因此显示的值将随着用户输入而更新。</p>
 <p>对于受控组件来说，输入的值始终由 React 的 state 驱动。你也可以将 value 传递给其他 UI 元素，或者通过其他事件处理函数重置，但这意味着你需要编写更多的代码。</p>
-<h3 id="textarea-标签"><a class="anchor" href="#textarea-标签">textarea 标签</a></h3>
-<p>在 html 中，<code>&lt;textarea&gt;</code> 元素通过其子元素定义其文本：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">textarea</span>&gt;
-</span></span><span style="display:flex;"><span>  测试！
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">textarea</span>&gt;
+<h3 id="textarea-标签">textarea 标签 <a href="#textarea-%e6%a0%87%e7%ad%be" class="anchor">🔗</a></h3><p>在 html 中，<code>&lt;textarea&gt;</code> 元素通过其子元素定义其文本：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">textarea</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  测试！
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">textarea</span><span class="p">&gt;</span>
 </span></span></code></pre></div><p>而在 React 中，<code>&lt;textarea&gt;</code> 使用 <code>value</code> 属性代替。这样，可以使得使用 <code>&lt;textarea&gt;</code> 的表单和使用单行 input 的表单非常类似：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">EssayForm</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">Component</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">props</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">super</span>(<span style="color:#a6e22e">props</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> {
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">value</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;请撰写一篇关于你喜欢的 DOM 元素的文章。&#39;</span>
-</span></span><span style="display:flex;"><span>    };
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">handleChange</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">handleChange</span>.<span style="color:#a6e22e">bind</span>(<span style="color:#66d9ef">this</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">handleSubmit</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">handleSubmit</span>.<span style="color:#a6e22e">bind</span>(<span style="color:#66d9ef">this</span>);
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">handleChange</span>(<span style="color:#a6e22e">event</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">setState</span>({<span style="color:#a6e22e">value</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">value</span>});
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">handleSubmit</span>(<span style="color:#a6e22e">event</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">alert</span>(<span style="color:#e6db74">&#39;提交的文章：&#39;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">value</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">preventDefault</span>();
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">render</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> (
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">form</span> <span style="color:#a6e22e">onSubmit</span><span style="color:#f92672">=</span>{<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">handleSubmit</span>}<span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">label</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">文章</span><span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">textarea</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">value</span>} <span style="color:#a6e22e">onChange</span><span style="color:#f92672">=</span>{<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">handleChange</span>} <span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/label&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;提交&#34;</span> <span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/form&gt;</span>
-</span></span><span style="display:flex;"><span>    );
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">EssayForm</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;请撰写一篇关于你喜欢的 DOM 元素的文章。&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">handleSubmit</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleSubmit</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">handleChange</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span><span class="nx">value</span><span class="o">:</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">handleSubmit</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;提交的文章：&#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="o">&lt;</span><span class="nx">form</span> <span class="nx">onSubmit</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleSubmit</span><span class="p">}</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="nx">label</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">文章</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">          <span class="o">&lt;</span><span class="nx">textarea</span> <span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">value</span><span class="p">}</span> <span class="nx">onChange</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span><span class="p">}</span> <span class="o">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="err">/label&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&#34;submit&#34;</span> <span class="nx">value</span><span class="o">=</span><span class="s2">&#34;提交&#34;</span> <span class="o">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="o">&lt;</span><span class="err">/form&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>请注意，<code>this.state.value</code> 初始化于构造函数中，因此文本区域默认有初值。</p>
-<h3 id="select-标签"><a class="anchor" href="#select-标签">select 标签</a></h3>
-<p>在 HTML 中，<code>&lt;select&gt;</code> 创建下拉列表标签。例如，如下 html 创建了水果相关的下拉列表：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">select</span>&gt;
-</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;grapefruit&#34;</span>&gt;葡萄柚&lt;/<span style="color:#f92672">option</span>&gt;
-</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;lime&#34;</span>&gt;酸橙&lt;/<span style="color:#f92672">option</span>&gt;
-</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">selected</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;coconut&#34;</span>&gt;椰子&lt;/<span style="color:#f92672">option</span>&gt;
-</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;mango&#34;</span>&gt;芒果&lt;/<span style="color:#f92672">option</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">select</span>&gt;
+<h3 id="select-标签">select 标签 <a href="#select-%e6%a0%87%e7%ad%be" class="anchor">🔗</a></h3><p>在 HTML 中，<code>&lt;select&gt;</code> 创建下拉列表标签。例如，如下 html 创建了水果相关的下拉列表：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">select</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">option</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;grapefruit&#34;</span><span class="p">&gt;</span>葡萄柚<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">option</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;lime&#34;</span><span class="p">&gt;</span>酸橙<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">option</span> <span class="na">selected</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;coconut&#34;</span><span class="p">&gt;</span>椰子<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">option</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;mango&#34;</span><span class="p">&gt;</span>芒果<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">select</span><span class="p">&gt;</span>
 </span></span></code></pre></div><p>请注意，由于 <code>selected</code> 属性的缘故，椰子选项默认被选中。React 并不会使用 <code>selected</code> 属性，而是在根 <code>select</code> 标签上使用 <code>value</code> 属性。这在受控组件中更便捷，因为您只需要在根标签中更新它。例如：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FlavorForm</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">Component</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">props</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">super</span>(<span style="color:#a6e22e">props</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> {<span style="color:#a6e22e">value</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;coconut&#39;</span>};
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">handleChange</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">handleChange</span>.<span style="color:#a6e22e">bind</span>(<span style="color:#66d9ef">this</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">handleSubmit</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">handleSubmit</span>.<span style="color:#a6e22e">bind</span>(<span style="color:#66d9ef">this</span>);
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">handleChange</span>(<span style="color:#a6e22e">event</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">setState</span>({<span style="color:#a6e22e">value</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">value</span>});
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">handleSubmit</span>(<span style="color:#a6e22e">event</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">alert</span>(<span style="color:#e6db74">&#39;你喜欢的风味是：&#39;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">value</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">preventDefault</span>();
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">render</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> (
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">form</span> <span style="color:#a6e22e">onSubmit</span><span style="color:#f92672">=</span>{<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">handleSubmit</span>}<span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">label</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">选择你喜欢的风味</span><span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">select</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">value</span>} <span style="color:#a6e22e">onChange</span><span style="color:#f92672">=</span>{<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">handleChange</span>}<span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;grapefruit&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">葡萄柚</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/option&gt;</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;lime&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">酸橙</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/option&gt;</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;coconut&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">椰子</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/option&gt;</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;mango&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">芒果</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/option&gt;</span>
-</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/select&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/label&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;提交&#34;</span> <span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/form&gt;</span>
-</span></span><span style="display:flex;"><span>    );
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">FlavorForm</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span><span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;coconut&#39;</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">handleSubmit</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleSubmit</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">handleChange</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span><span class="nx">value</span><span class="o">:</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">handleSubmit</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;你喜欢的风味是：&#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="o">&lt;</span><span class="nx">form</span> <span class="nx">onSubmit</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleSubmit</span><span class="p">}</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="nx">label</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">选择你喜欢的风味</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">          <span class="o">&lt;</span><span class="nx">select</span> <span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">value</span><span class="p">}</span> <span class="nx">onChange</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span><span class="p">}</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="o">&lt;</span><span class="nx">option</span> <span class="nx">value</span><span class="o">=</span><span class="s2">&#34;grapefruit&#34;</span><span class="o">&gt;</span><span class="nx">葡萄柚</span><span class="o">&lt;</span><span class="err">/option&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="o">&lt;</span><span class="nx">option</span> <span class="nx">value</span><span class="o">=</span><span class="s2">&#34;lime&#34;</span><span class="o">&gt;</span><span class="nx">酸橙</span><span class="o">&lt;</span><span class="err">/option&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="o">&lt;</span><span class="nx">option</span> <span class="nx">value</span><span class="o">=</span><span class="s2">&#34;coconut&#34;</span><span class="o">&gt;</span><span class="nx">椰子</span><span class="o">&lt;</span><span class="err">/option&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="o">&lt;</span><span class="nx">option</span> <span class="nx">value</span><span class="o">=</span><span class="s2">&#34;mango&#34;</span><span class="o">&gt;</span><span class="nx">芒果</span><span class="o">&lt;</span><span class="err">/option&gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="o">&lt;</span><span class="err">/select&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="err">/label&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&#34;submit&#34;</span> <span class="nx">value</span><span class="o">=</span><span class="s2">&#34;提交&#34;</span> <span class="o">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="o">&lt;</span><span class="err">/form&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>总的来说，这使得 <code>&lt;input type=&quot;text&quot;&gt;</code>, <code>&lt;textarea&gt;</code> 和 <code>&lt;select&gt;</code> 之类的标签都非常相似—它们都接受一个 value 属性，你可以使用它来实现受控组件。</p>
 <blockquote>
 <p>注意：你可以将数组传递到 value 属性中，以支持在 select 标签中选择多个选项：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">select</span> <span style="color:#a6e22e">multiple</span><span style="color:#f92672">=</span><span style="color:#e6db74">{true}</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">{[&#39;B&#39;,</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">C</span><span style="color:#960050;background-color:#1e0010">&#39;]}</span>&gt;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">select</span> <span class="na">multiple</span><span class="o">=</span><span class="s">{true}</span> <span class="na">value</span><span class="o">=</span><span class="s">{[&#39;B&#39;,</span> <span class="err">&#39;</span><span class="na">C</span><span class="err">&#39;]}</span><span class="p">&gt;</span>
 </span></span></code></pre></div></blockquote>
-<h3 id="文件-input-标签"><a class="anchor" href="#文件-input-标签">文件 input 标签</a></h3>
-<p>在 HTML 中，<code>&lt;input type=&quot;file&quot;&gt;</code> 允许用户从存储设备中选择一个或多个文件，将其上传到服务器，或通过使用 JavaScript 的 <code>File API</code> 进行控制。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;file&#34;</span> /&gt;
+<h3 id="文件-input-标签">文件 input 标签 <a href="#%e6%96%87%e4%bb%b6-input-%e6%a0%87%e7%ad%be" class="anchor">🔗</a></h3><p>在 HTML 中，<code>&lt;input type=&quot;file&quot;&gt;</code> 允许用户从存储设备中选择一个或多个文件，将其上传到服务器，或通过使用 JavaScript 的 <code>File API</code> 进行控制。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;file&#34;</span> <span class="p">/&gt;</span>
 </span></span></code></pre></div><p>因为它的 value 只读，所以它是 React 中的一个非受控组件。</p>
-<h3 id="处理多个输入"><a class="anchor" href="#处理多个输入">处理多个输入</a></h3>
-<p>当需要处理多个 <code>input</code> 元素时，我们可以给每个元素添加 <code>name</code> 属性，并让处理函数根据 <code>event.target.name</code> 的值选择要执行的操作。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Reservation</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">Component</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">props</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">super</span>(<span style="color:#a6e22e">props</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> {
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">isGoing</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">numberOfGuests</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>
-</span></span><span style="display:flex;"><span>    };
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">handleInputChange</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">handleInputChange</span>.<span style="color:#a6e22e">bind</span>(<span style="color:#66d9ef">this</span>);
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">handleInputChange</span>(<span style="color:#a6e22e">event</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">target</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">target</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;isGoing&#39;</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">checked</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">value</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">name</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">setState</span>({
-</span></span><span style="display:flex;"><span>      [<span style="color:#a6e22e">name</span>]<span style="color:#f92672">:</span> <span style="color:#a6e22e">value</span>
-</span></span><span style="display:flex;"><span>    });
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">render</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> (
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">form</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">label</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">参与</span><span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">input</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;isGoing&#34;</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;checkbox&#34;</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">checked</span><span style="color:#f92672">=</span>{<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">isGoing</span>}
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">onChange</span><span style="color:#f92672">=</span>{<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">handleInputChange</span>} <span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/label&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">br</span> <span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">label</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">来宾人数</span><span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">input</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;numberOfGuests&#34;</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;number&#34;</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">numberOfGuests</span>}
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">onChange</span><span style="color:#f92672">=</span>{<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">handleInputChange</span>} <span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/label&gt;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/form&gt;</span>
-</span></span><span style="display:flex;"><span>    );
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
+<h3 id="处理多个输入">处理多个输入 <a href="#%e5%a4%84%e7%90%86%e5%a4%9a%e4%b8%aa%e8%be%93%e5%85%a5" class="anchor">🔗</a></h3><p>当需要处理多个 <code>input</code> 元素时，我们可以给每个元素添加 <code>name</code> 属性，并让处理函数根据 <code>event.target.name</code> 的值选择要执行的操作。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">Reservation</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">isGoing</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">numberOfGuests</span><span class="o">:</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">handleInputChange</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleInputChange</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">handleInputChange</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">target</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">target</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="s1">&#39;isGoing&#39;</span> <span class="o">?</span> <span class="nx">target</span><span class="p">.</span><span class="nx">checked</span> <span class="o">:</span> <span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">name</span> <span class="o">=</span> <span class="nx">target</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">      <span class="p">[</span><span class="nx">name</span><span class="p">]</span><span class="o">:</span> <span class="nx">value</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="o">&lt;</span><span class="nx">form</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="nx">label</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">参与</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">          <span class="o">&lt;</span><span class="nx">input</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">name</span><span class="o">=</span><span class="s2">&#34;isGoing&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">type</span><span class="o">=</span><span class="s2">&#34;checkbox&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">checked</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">isGoing</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">onChange</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleInputChange</span><span class="p">}</span> <span class="o">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="err">/label&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="nx">br</span> <span class="o">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="nx">label</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">来宾人数</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">          <span class="o">&lt;</span><span class="nx">input</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">name</span><span class="o">=</span><span class="s2">&#34;numberOfGuests&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">type</span><span class="o">=</span><span class="s2">&#34;number&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">numberOfGuests</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">onChange</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleInputChange</span><span class="p">}</span> <span class="o">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="err">/label&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="o">&lt;</span><span class="err">/form&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>这里使用了 ES6 <code>计算属性名称</code>的语法更新给定输入名称对应的 state 值：</p>
 <p>例如：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">setState</span>({
-</span></span><span style="display:flex;"><span>  [<span style="color:#a6e22e">name</span>]<span style="color:#f92672">:</span> <span style="color:#a6e22e">value</span>
-</span></span><span style="display:flex;"><span>});
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nx">name</span><span class="p">]</span><span class="o">:</span> <span class="nx">value</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
 </span></span></code></pre></div><p>等同于 es5：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">partialState</span> <span style="color:#f92672">=</span> {};
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">partialState</span>[<span style="color:#a6e22e">name</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">value</span>;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">setState</span>(<span style="color:#a6e22e">partialState</span>);
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">partialState</span> <span class="o">=</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl"><span class="nx">partialState</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">(</span><span class="nx">partialState</span><span class="p">);</span>
 </span></span></code></pre></div><p>另外，由于 <code>setState()</code> 自动将部分 state 合并到当前 state, 只需调用它更改部分 state 即可。</p>
-<h3 id="受控输入空值"><a class="anchor" href="#受控输入空值">受控输入空值</a></h3>
-<p>在受控组件上指定 value 的 prop 会阻止用户更改输入。如果你指定了 <code>value</code>，但输入仍可编辑，则可能是你意外地将 <code>value</code> 设置为 <code>undefined</code> 或 <code>null</code>。</p>
+<h3 id="受控输入空值">受控输入空值 <a href="#%e5%8f%97%e6%8e%a7%e8%be%93%e5%85%a5%e7%a9%ba%e5%80%bc" class="anchor">🔗</a></h3><p>在受控组件上指定 value 的 prop 会阻止用户更改输入。如果你指定了 <code>value</code>，但输入仍可编辑，则可能是你意外地将 <code>value</code> 设置为 <code>undefined</code> 或 <code>null</code>。</p>
 <p>下面的代码演示了这一点。（输入最初被锁定，但在短时间延迟后变为可编辑。）</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">ReactDOM</span>.<span style="color:#a6e22e">render</span>(<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">input</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;hi&#34;</span> <span style="color:#f92672">/&gt;</span>, <span style="color:#a6e22e">mountNode</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">setTimeout</span>(<span style="color:#66d9ef">function</span>() {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ReactDOM</span>.<span style="color:#a6e22e">render</span>(<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">input</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#66d9ef">null</span>} <span style="color:#f92672">/&gt;</span>, <span style="color:#a6e22e">mountNode</span>);
-</span></span><span style="display:flex;"><span>}, <span style="color:#ae81ff">1000</span>);
-</span></span></code></pre></div><h3 id="受控组件的替代品"><a class="anchor" href="#受控组件的替代品">受控组件的替代品</a></h3>
-<p>有时使用受控组件会很麻烦，因为你需要为数据变化的每种方式都编写事件处理函数，并通过一个 React 组件传递所有的输入 state。当你将之前的代码库转换为 React 或将 React 应用程序与非 React 库集成时，这可能会令人厌烦。在这些情况下，你可能希望使用非受控组件，这是实现输入表单的另一种方式。</p>
-<h3 id="成熟的解决方案"><a class="anchor" href="#成熟的解决方案">成熟的解决方案</a></h3>
-<p>如果你想寻找包含验证、追踪访问字段以及处理表单提交的完整解决方案，使用 Formik 是不错的选择。然而，它也是建立在受控组件和管理 state 的基础之上 —— 所以不要忽视学习它们。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">input</span> <span class="nx">value</span><span class="o">=</span><span class="s2">&#34;hi&#34;</span> <span class="o">/&gt;</span><span class="p">,</span> <span class="nx">mountNode</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">input</span> <span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="kc">null</span><span class="p">}</span> <span class="o">/&gt;</span><span class="p">,</span> <span class="nx">mountNode</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
+</span></span></code></pre></div><h3 id="受控组件的替代品">受控组件的替代品 <a href="#%e5%8f%97%e6%8e%a7%e7%bb%84%e4%bb%b6%e7%9a%84%e6%9b%bf%e4%bb%a3%e5%93%81" class="anchor">🔗</a></h3><p>有时使用受控组件会很麻烦，因为你需要为数据变化的每种方式都编写事件处理函数，并通过一个 React 组件传递所有的输入 state。当你将之前的代码库转换为 React 或将 React 应用程序与非 React 库集成时，这可能会令人厌烦。在这些情况下，你可能希望使用非受控组件，这是实现输入表单的另一种方式。</p>
+<h3 id="成熟的解决方案">成熟的解决方案 <a href="#%e6%88%90%e7%86%9f%e7%9a%84%e8%a7%a3%e5%86%b3%e6%96%b9%e6%a1%88" class="anchor">🔗</a></h3><p>如果你想寻找包含验证、追踪访问字段以及处理表单提交的完整解决方案，使用 Formik 是不错的选择。然而，它也是建立在受控组件和管理 state 的基础之上 —— 所以不要忽视学习它们。</p>
 
-</article>
-  </div>
-</div>
+	</div>
 
-      
-    </div>
-  </div>
-</div>
-</main>
+	
+	<hr />
+	
 
-  <div class="container-xl">
-  <div class="pt-6 text-secondary border-top ">
-    <div>© 2020 - <span id="year"></span> Powered by 子舒</div>
-    <div>
-      网站已经运行 <span id="days">0</span>  · 
-      本站总访问量 <span id="busuanzi_value_site_pv">~</span> 次
-    </div>
-  </div>
-</div>
-<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<script type="module" src="https://cdn.jsdelivr.net/gh/emaction/frontend.dist@1.0.11/bundle.js"></script>
+<div style="padding:30px 0;"></div>
+<div id="tcomment"></div>
+<script src="https://cdn.staticfile.org/twikoo/1.6.22/twikoo.all.min.js"></script>
+<link rel="stylesheet" href="/css/twikoo.css">
 <script>
-  var s0 = '2020-06-14';
-  s1 = new Date(s0.replace(/-/g, "/"));
-  s2 = new Date();
-  var days = s2.getTime() - s1.getTime();
-
-  var date = new Date;
-  var year = date.getFullYear();
-  document.getElementById('year').innerHTML = year;
-
-  var BootDate = new Date("2020-06-14");
-  function ShowRunTime(id) {
-    var NowDate = new Date();
-    var RunDateM = parseInt(NowDate - BootDate);
-    var RunDays = Math.floor(RunDateM / (24 * 3600 * 1000));
-    var RunHours = Math.floor(RunDateM % (24 * 3600 * 1000) / (3600 * 1000));
-    var RunMinutes = Math.floor(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) / (60 * 1000));
-    var RunSeconds = Math.round(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) % (60 * 1000) / 1000);
-    var days = RunDays + "天" + RunHours + "时" + RunMinutes + "分" + RunSeconds + "秒";
-    document.getElementById(id).innerHTML = days;
-  }
-  ShowRunTime('days');
-  setInterval("ShowRunTime('days')", 1000);
+  twikoo.init({
+    envId: 'https:\/\/twikoo.zishu.me\/.netlify\/functions\/twikoo',
+    el: '#tcomment',
+    lang: 'zh-CN',
+    includeReply: true,
+  })
 </script>
-</body>
+	
+</section>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-<script type="application/javascript" src="js/gists.js"></script>
+
+        </div>
+        <div class="side">
+            
+            <div class="side-recent">
+    <h2 class="side-title">
+        <a href="/blog/">Recent Blog</a>
+    </h2>
+    <hr />
+
+    <ul>
+        
+            <li>
+                <a href="/blog/weekly-25.html/">子舒周刊 -25 | 拉曼恰的风车</a>
+            </li>
+        
+            <li>
+                <a href="/blog/weekly-24.html/">子舒周刊 -24 | 黄山风景</a>
+            </li>
+        
+            <li>
+                <a href="/blog/weekly-23.html/">子舒周刊 -23 | 粉色城堡</a>
+            </li>
+        
+            <li>
+                <a href="/blog/weekly-22.html/">子舒周刊 -22 | 可爱的猫</a>
+            </li>
+        
+            <li>
+                <a href="/blog/weekly-21.html/">子舒周刊 -21 | 湘湖度假</a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+            <div class="side-categories">
+    <h2>Categories</h2>
+    <hr />
+
+    <ul>
+        
+            <li>
+                <a href="/categories/%E5%91%A8%E5%88%8A">周刊(25)</a>
+            </li>
+        
+            <li>
+                <a href="/categories/%E6%8A%80%E6%9C%AF">技术(108)</a>
+            </li>
+        
+            <li>
+                <a href="/categories/%E9%9A%8F%E7%AC%94">随笔(68)</a>
+            </li>
+        
+    </ul>
+</div>
+
+            <div class="side-tags">
+    <h2>Tags</h2>
+    <hr />
+
+    <ul>
+        
+            <li>
+                <a href="/tags/ajax">ajax (5)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/ant-design">ant-design (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/aos">aos (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/axios">axios (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/bitwarden">bitwarden (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/canvas">canvas (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/chrome">chrome (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/cloudflare">cloudflare (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/css">css (8)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/docker">docker (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/docsify">docsify (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/es6">es6 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/github">github (2)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/github-actions">github-actions (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/gravatar">gravatar (2)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/hugo">hugo (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/hugofast">hugofast (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/ie">ie (3)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/jquery">jquery (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/js">js (22)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/jsdelivr">jsdelivr (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/markdown">markdown (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/memos">memos (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/npm">npm (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/nuxt">nuxt (2)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/php">php (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/python">python (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/react">react (12)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/rustdesk">rustdesk (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/sql">sql (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/typecho">typecho (4)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/v2ex">v2ex (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/vaultwarden">vaultwarden (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/vue">vue (9)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/webpack">webpack (2)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/win11">win11 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E4%B8%83%E6%97%A5%E8%B0%88">七日谈 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E4%B8%BB%E9%A2%98%E5%BC%80%E5%8F%91">主题开发 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E4%BF%A1%E6%81%AF%E8%8C%A7%E6%88%BF">信息茧房 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E5%87%BA%E8%A1%8C">出行 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E5%8D%9A%E5%AE%A2">博客 (15)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E5%8E%9F%E5%88%9B">原创 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E5%8E%A8%E6%88%BF">厨房 (2)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E5%91%A8%E5%88%8A">周刊 (25)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E5%9B%BE%E5%BA%8A">图床 (2)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E5%9B%BE%E7%89%87">图片 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E5%9C%B0%E7%90%86">地理 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E5%9D%9A%E6%9E%9C%E4%BA%91">坚果云 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E5%A4%87%E4%BB%BD">备份 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E5%AD%97%E4%BD%93">字体 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E5%AE%9D%E5%A1%94">宝塔 (4)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E5%AF%86%E7%A0%81%E7%AE%A1%E7%90%86">密码管理 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E5%B7%A5%E5%85%B7">工具 (2)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%80%9D%E6%BA%90%E7%AC%94%E8%AE%B0">思源笔记 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%80%BB%E7%BB%93">总结 (4)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%84%9F%E6%83%B3">感想 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%8A%A5%E9%94%99">报错 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%8B%86%E6%9C%BA">拆机 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%8E%98%E9%87%91">掘金 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%8F%92%E4%BB%B6">插件 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%90%9C%E7%B4%A2">搜索 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93">数据库 (3)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%96%B0%E5%86%A0">新冠 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%96%B0%E9%97%BB">新闻 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%97%85%E6%B8%B8">旅游 (5)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%97%A5%E8%AE%B0">日记 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%97%B6%E9%97%B4%E6%88%B3">时间戳 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%9C%88%E5%85%A8%E9%A3%9F">月全食 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8">服务器 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%9D%82%E8%B0%88">杂谈 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%A2%A6">梦 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%B2%B9%E7%8C%B4%E8%84%9A%E6%9C%AC">油猴脚本 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8">浏览器 (4)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E7%94%B5%E5%BD%B1">电影 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E7%9F%AD%E7%AF%87%E5%B0%8F%E8%AF%B4">短篇小说 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E7%AC%91%E8%AF%9D">笑话 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E7%AC%94%E8%AE%B0">笔记 (16)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E7%AC%94%E8%AE%B0%E6%9C%AC%E7%94%B5%E8%84%91">笔记本电脑 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E7%BB%84%E4%BB%B6">组件 (2)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E7%BC%96%E7%A8%8B">编程 (4)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E7%BD%91%E7%AB%99">网站 (2)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E7%BF%BB%E8%AF%91">翻译 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E8%84%9A%E6%9C%AC">脚本 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E8%AF%84%E8%AE%BA">评论 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E8%AF%B4%E8%AF%B4">说说 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E8%AF%BB%E4%B9%A6">读书 (3)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E8%B0%B7%E6%AD%8C%E6%8F%92%E4%BB%B6">谷歌插件 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E8%BD%AC%E8%BD%BD">转载 (3)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E9%82%AE%E7%AE%B1">邮箱 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E9%9A%8F%E6%83%B3%E5%BD%95">随想录 (10)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E9%9A%8F%E6%89%8B%E6%8B%8D">随手拍 (18)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E9%9A%8F%E7%AC%94">随笔 (17)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E9%9F%B3%E4%B9%90">音乐 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E9%AA%91%E8%A1%8C">骑行 (3)</a>
+            </li>
+        
+    </ul>
+</div>
+
+
+           
+            
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一表单">一、表单</a>
+      <ul>
+        <li><a href="#受控组件">受控组件</a></li>
+        <li><a href="#textarea-标签">textarea 标签</a></li>
+        <li><a href="#select-标签">select 标签</a></li>
+        <li><a href="#文件-input-标签">文件 input 标签</a></li>
+        <li><a href="#处理多个输入">处理多个输入</a></li>
+        <li><a href="#受控输入空值">受控输入空值</a></li>
+        <li><a href="#受控组件的替代品">受控组件的替代品</a></li>
+        <li><a href="#成熟的解决方案">成熟的解决方案</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+            
+        </div>
+    </main>
+    <footer class="footer">
+    <div class="footer-row">
+        
+        
+        
+        <a class="footer-item" href="/blog/index.xml" target="_blank">
+            Feed of Blog
+            <i class="icofont-rss"></i>
+        </a>
+        
+        
+
+        
+        
+        
+        
+    </div>
+
+    <div class="footer-row">© 2020 - <span id="year"></span> · Powered by 子舒</div>
+    <div class="footer-row">
+        网站已经运行 <span id="days">0</span> ·
+        本站总访问量 <span id="busuanzi_value_site_pv">~</span> 次
+    </div>
+</footer>
+
+<script>
+    var s0 = '2020-06-14';
+    s1 = new Date(s0.replace(/-/g, "/"));
+    s2 = new Date();
+    var days = s2.getTime() - s1.getTime();
+
+    var date = new Date;
+    var year = date.getFullYear();
+    document.getElementById('year').innerHTML = year;
+
+    var BootDate = new Date("2020-06-14");
+    function ShowRunTime(id) {
+        var NowDate = new Date();
+        var RunDateM = parseInt(NowDate - BootDate);
+        var RunDays = Math.floor(RunDateM / (24 * 3600 * 1000));
+        var RunHours = Math.floor(RunDateM % (24 * 3600 * 1000) / (3600 * 1000));
+        var RunMinutes = Math.floor(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) / (60 * 1000));
+        var RunSeconds = Math.round(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) % (60 * 1000) / 1000);
+        var days = RunDays + "天" + RunHours + "时" + RunMinutes + "分" + RunSeconds + "秒";
+        document.getElementById(id).innerHTML = days;
+    }
+    ShowRunTime('days');
+    setInterval("ShowRunTime('days')", 1000);
+</script>
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
 
 </html>

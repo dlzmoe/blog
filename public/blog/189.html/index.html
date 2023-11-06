@@ -1,348 +1,760 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html>
+
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
+<meta name="viewport" content="width=device-width,minimum-scale=1">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
-    <link rel="stylesheet" href='css/gists.css' />
 
-    <title>用原生js给网站写个搜索功能 - 子舒的博客</title>
-    
-    <link rel="icon" type="image/x-icon" href='https://imgurl.zishu.me/favicon.ico'>
-    
-    <meta name="theme-color" content="#1e2327">
 
-    <meta name="description"
-    content="本文也算是一篇教程，可以给 hugo 网站加个搜索功能，并且实现热更新，体验感更好。
-如果是其他程序，只需要按照特定的模板生成以下格式的文件即可，主要代码从 第2部分 开始，第一章节写的是如何用 hugo 输出文章列表 json 文件。" />
-    <meta name="keywords"
-        content='blog, minimal, technical' />
-    <meta name="robots" content="noodp" />
-    <link rel="canonical" href="/blog/189.html/" />
-    
-    
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="用原生js给网站写个搜索功能 - 子舒的博客" />
-    <meta name="twitter:description"
-        content="本文也算是一篇教程，可以给 hugo 网站加个搜索功能，并且实现热更新，体验感更好。
-如果是其他程序，只需要按照特定的模板生成以下格式的文件即可，主要代码从 第2部分 开始，第一章节写的是如何用 hugo 输出文章列表 json 文件。" />
-    <meta name="twitter:site" content="" />
-    <meta name="twitter:creator" content="" />
-    <meta name="twitter:image"
-        content="">
-    
-    
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content="用原生js给网站写个搜索功能 - 子舒的博客">
-    <meta property="og:description"
-        content="本文也算是一篇教程，可以给 hugo 网站加个搜索功能，并且实现热更新，体验感更好。
-如果是其他程序，只需要按照特定的模板生成以下格式的文件即可，主要代码从 第2部分 开始，第一章节写的是如何用 hugo 输出文章列表 json 文件。" />
-    <meta property="og:url" content="/blog/189.html/" />
-    <meta property="og:site_name" content="用原生js给网站写个搜索功能" />
-    <meta property="og:image"
-        content="">
-    <meta property="og:image:width" content="2048">
-    <meta property="og:image:height" content="1024">
-    
-    <meta property="article:published_time" content="2023-03-17 00:00:00 &#43;0000 UTC" />
-    
-    
-    
-    
-    
-    
-    
+<title>用原生js给网站写个搜索功能 | 子舒的博客</title>
+<link rel="canonical" href="/blog/189.html/">
+<meta name="description" content="本文也算是一篇教程，可以给 hugo 网站加个搜索功能，并且实现热更新，体验感更好。 如果是其他程序，只需要按照特定的模板生成以下格式的文件即可，主要代" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="用原生js给网站写个搜索功能 | 子舒的博客" />
+<meta property="og:url" content="/blog/189.html/" />
+<meta property="og:description" content="本文也算是一篇教程，可以给 hugo 网站加个搜索功能，并且实现热更新，体验感更好。 如果是其他程序，只需要按照特定的模板生成以下格式的文件即可，主要代" />
 
-    <script src="/js/jquery3.6.0.min.js"></script>
+
+
+
+
+
+<link rel="stylesheet" href="/lib/icofont/icofont.min.css" />
+<link rel="stylesheet" href="/css/syntax.css" />
+<link rel="stylesheet" href="/css/style.css" />
+<link rel="shortcut icon" href="https://imgurl.zishu.me/favicon.ico" type="image/x-icon" />
+<script src="/js/jquery3.6.0.min.js"></script>
+
 </head>
 
 <body>
-  
-<main>
-  
+    <header class="header-wrapper">
+    <div class="header">
+        <a class="site-title" href="">子舒的博客</a>
 
-
-
-
-
-<div class="container-xl">
-  <div class="d-flex flex-sm-row flex-column">
-    <div class="p-2 pt-0 col-sm-3">
-      <div class="d-flex flex-column sticky-top ">
-        <div class="d-flex flex-sm-column ">
-          <div class="pt-3 pt-md-2 pb-2 order-sm-1 order-2">
-            <p class="fs-4 fw-bold p-0 m-0">子舒</p>
-            <p class="fs-5 text-dark-emphasis"></p>
-          </div>
-
-          <div class="pt-2 pe-2 col-3 col-sm-12 order-sm-2 order-1">
+        <nav class="menu">
             
-                <img width="250" class="img-thumbnail rounded-pill border bg-white" src="https://imgurl.zishu.me/author.png">
-         
+                <div class="menu-item">
+                    
+                        <a href="/blog/">归档</a>
+                    
+                </div>
             
-          </div>
-        </div>
-        <div class="mt-3 fs-6 text-dark-emphasis">不如吃茶去</div>
-        <div class="pt-3">
-          <ul class="list-unstyled">
+                <div class="menu-item">
+                    
+                        <a>分类↓</a>
+                        <nav class="sub-menu">
+                            
+                            <div class="menu-item"><a href="/categories/%E5%91%A8%E5%88%8A/">周刊</a></div>
+                            
+                            <div class="menu-item"><a href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></div>
+                            
+                            <div class="menu-item"><a href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a></div>
+                            
+                        </nav>
+                    
+                </div>
             
-            <li>
-              <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
-                <path fill-rule="evenodd"
-                  d="M1.75 2A1.75 1.75 0 000 3.75v.736a.75.75 0 000 .027v7.737C0 13.216.784 14 1.75 14h12.5A1.75 1.75 0 0016 12.25v-8.5A1.75 1.75 0 0014.25 2H1.75zM14.5 4.07v-.32a.25.25 0 00-.25-.25H1.75a.25.25 0 00-.25.25v.32L8 7.88l6.5-3.81zm-13 1.74v6.441c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V5.809L8.38 9.397a.75.75 0 01-.76 0L1.5 5.809z">
-                </path>
-              </svg>
-              <span class="m-1">
-                <a class="text-dark-emphasis link-underline link-underline-opacity-0 link-underline-opacity-100-hover link-offset-2-hover" href="mailto:anghunk@gmail.com">anghunk@gmail.com</a>
-              </span>
-            </li>
+                <div class="menu-item">
+                    
+                        <a href="/message/">留言</a>
+                    
+                </div>
             
-          </ul>
-        </div>
-        <div class="pt-3 pb-4">
-          
-            <a style="margin: 0 10px 10px 0;" href="https://github.com/98zi"><img alt="@github" width="32" height="32" src="images/github.png"></a>
-          
-          
-          
-            <a style="margin: 0 10px 10px 0;" href="index.xml"><img alt="@rss" width="32" height="32" src="images/rss.png"></a>
-          
-        </div>
-      </div>
+                <div class="menu-item">
+                    
+                        <a href="/about/">关于我</a>
+                    
+                </div>
+            
+        </nav>
     </div>
+</header>
 
-    <div class="p-2 pt-0 col-sm-9">
-      <ul class="nav nav-underline sticky-top d-flex pt-2 mb-md-4 bg-white border-bottom">
-        <li class="nav-item px-md-1">
-          <a class="nav-link  text-dark-emphasis " href="">
-            <svg height="16" viewBox="0 0 16 16" version="1.1" width="16">
-              <path class="me-1"fill-rule="evenodd"
-                d="m11.294.984 3.722 3.722a1.75 1.75 0 0 1-.504 2.826l-1.327.613a3.089 3.089 0 0 0-1.707 2.084l-.584 2.454c-.317 1.332-1.972 1.8-2.94.832L5.75 11.311 1.78 15.28a.749.749 0 1 1-1.06-1.06l3.969-3.97-2.204-2.204c-.968-.968-.5-2.623.832-2.94l2.454-.584a3.08 3.08 0 0 0 2.084-1.707l.613-1.327a1.75 1.75 0 0 1 2.826-.504ZM6.283 9.723l2.732 2.731a.25.25 0 0 0 .42-.119l.584-2.454a4.586 4.586 0 0 1 2.537-3.098l1.328-.613a.25.25 0 0 0 .072-.404l-3.722-3.722a.25.25 0 0 0-.404.072l-.613 1.328a4.584 4.584 0 0 1-3.098 2.537l-2.454.584a.25.25 0 0 0-.119.42l2.731 2.732Z">
-              </path>
-            </svg>
-            <span class="m-1">Pinned</span>
-            <span class="badge fw-normal bg-secondary bg-opacity-25 text-opacity-50 rounded-pill text-dark-emphasis">0</span>
-          </a>
-        </li>
-        <li class="nav-item px-md-1">
-          <a class='nav-link   text-dark active ' href="/blog/">
-            <svg height="16" viewBox="0 0 16 16" version="1.1" width="16">
-                  <path fill-rule="evenodd"
-                    d="M0 1.75A.75.75 0 01.75 1h4.253c1.227 0 2.317.59 3 1.501A3.744 3.744 0 0111.006 1h4.245a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75h-4.507a2.25 2.25 0 00-1.591.659l-.622.621a.75.75 0 01-1.06 0l-.622-.621A2.25 2.25 0 005.258 13H.75a.75.75 0 01-.75-.75V1.75zm8.755 3a2.25 2.25 0 012.25-2.25H14.5v9h-3.757c-.71 0-1.4.201-1.992.572l.004-7.322zm-1.504 7.324l.004-5.073-.002-2.253A2.25 2.25 0 005.003 2.5H1.5v9h3.757a3.75 3.75 0 011.994.574z">
-                  </path>
-                </svg>
-            <span class="m-1">Blog</span>
-            <span class="badge fw-normal bg-secondary bg-opacity-25 text-opacity-50 rounded-pill text-dark-emphasis">201</span>
-          </a>
-        </li>
-        <li class="nav-item px-md-1">
-          <a class='nav-link  text-dark-emphasis ' href="/tags/">
-            <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
-              <path fill-rule="evenodd" d="M2.5 7.775V2.75a.25.25 0 01.25-.25h5.025a.25.25 0 01.177.073l6.25 6.25a.25.25 0 010 .354l-5.025 5.025a.25.25 0 01-.354 0l-6.25-6.25a.25.25 0 01-.073-.177zm-1.5 0V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.75 1.75 0 011 7.775zM6 5a1 1 0 100 2 1 1 0 000-2z">
-            </path>
-            </svg>
-            <span class="m-1">Tags</span>
-            <span class="badge fw-normal bg-secondary bg-opacity-25 text-opacity-50 rounded-pill text-dark-emphasis">94</span>
-          </a>
-        </li>
-      </ul>
+    <main class="main-wrapper">
+        <div class="main">
+            
 
-      
-      
-<div class="d-flex flex-column border rounded mt-4 mt-md-0">
-  <div class="border-bottom bg-light markdown-sticky-top">
-    <div class="d-flex flex-row align-items-center">
-      <div class="btn-group" role="group">
-        <button type="button" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
-          <svg aria-hidden="true" viewBox="0 0 16 16" height="16" width="16" >
-            <path fill-rule="evenodd" d="M2 4a1 1 0 100-2 1 1 0 000 2zm3.75-1.5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zM3 8a1 1 0 11-2 0 1 1 0 012 0zm-1 6a1 1 0 100-2 1 1 0 000 2z"></path>
-          </svg>
-        </button>
-        <ul class="dropdown-menu" id="toc-list">
-          <li><h6 class="dropdown-header">Table of Content</h6></li>
-        </ul>
-      </div>
-      <div class="flex-fill text-secondary fs-7">
-        <relative-time datetime="Fri, 17 Mar 2023 00:00:00 &#43;0000" ></relative-time>
-        | 用原生js给网站写个搜索功能
-      </div>
-      <div class="pe-2 d-none d-md-block">
-        
-          
-            <a class="badge text-bg-secondary text-dark fw-normal bg-opacity-25 pb-1 link-underline link-underline-opacity-0 link-underline-opacity-100-hover" href="/tags/js"> js</a>
-          
-            <a class="badge text-bg-secondary text-dark fw-normal bg-opacity-25 pb-1 link-underline link-underline-opacity-0 link-underline-opacity-100-hover" href="/tags/%E7%BD%91%E7%AB%99"> 网站</a>
-          
-        
-      </div>
-    </div>
-  </div>
-  <div class="pt-4 px-2 pb-3">
-    <article class="markdown-body container-lg"><p>本文也算是一篇教程，可以给 hugo 网站加个搜索功能，并且实现热更新，体验感更好。</p>
+<section class="single">
+	<h1 class="title">用原生js给网站写个搜索功能</h1>
+	
+	<div class="tip">
+		发布于 <time datetime="2023-03-17 00:00:00 &#43;0000 UTC">2023 年 03 月 17 日</time>
+		· 本文总阅读量 <span id="busuanzi_value_page_pv">~</span> 次
+	</div>
+	
+
+	<div class="taxonomies">
+		
+		<div>
+			Categories:
+			
+			<a href="/%20categories/%E6%8A%80%E6%9C%AF">技术</a>
+			
+		</div>
+		
+
+		
+		<div>
+			Tags:
+			
+			<a href="/%20tags/js">js</a>
+			
+			<a href="/%20tags/%E7%BD%91%E7%AB%99">网站</a>
+			
+		</div>
+		
+	</div>
+
+	<hr />
+
+	<div class="content">
+		<p>本文也算是一篇教程，可以给 hugo 网站加个搜索功能，并且实现热更新，体验感更好。</p>
 <p>如果是其他程序，只需要按照特定的模板生成以下格式的文件即可，主要代码从 第2部分 开始，第一章节写的是如何用 hugo 输出文章列表 json 文件。</p>
 <p><code>title</code> 是文章标题，<code>permalink</code> 是文章链接。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>[{
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;permalink&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>}, {
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;permalink&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>}]
-</span></span></code></pre></div><h3 id="1-hugo模板生成文章列表json文件"><a class="anchor" href="#1-hugo模板生成文章列表json文件">1. hugo模板生成文章列表json文件</a></h3>
-<p>在 <code>layouts</code> 文件夹下新建 <code>index.json</code> 文件，模板内容如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">[{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;permalink&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;title&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">},</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;permalink&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;title&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}]</span>
+</span></span></code></pre></div><h3 id="1-hugo模板生成文章列表json文件">1. hugo模板生成文章列表json文件 <a href="#1-hugo%e6%a8%a1%e6%9d%bf%e7%94%9f%e6%88%90%e6%96%87%e7%ab%a0%e5%88%97%e8%a1%a8json%e6%96%87%e4%bb%b6" class="anchor">🔗</a></h3><p>在 <code>layouts</code> 文件夹下新建 <code>index.json</code> 文件，模板内容如下：</p>
 <p>其中第2行最后面的 <code>&quot;blog&quot;</code> 是你文章文件夹的名称。大部分是 posts 等等，这里是我个人的名称。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>{{- $.Scratch.Set &#34;posts&#34; slice -}}
-</span></span><span style="display:flex; background-color:#3c3d38"><span>{{- range where .Site.RegularPages &#34;Type&#34; &#34;blog&#34; -}}
-</span></span><span style="display:flex;"><span>    {{- $.Scratch.Add &#34;posts&#34; (dict &#34;title&#34; .Title &#34;permalink&#34; .Permalink) -}}
-</span></span><span style="display:flex;"><span>{{- end -}}
-</span></span><span style="display:flex;"><span>{{- $.Scratch.Get &#34;posts&#34; | jsonify -}}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">{{- $.Scratch.Set &#34;posts&#34; slice -}}
+</span></span><span class="line hl"><span class="cl">{{- range where .Site.RegularPages &#34;Type&#34; &#34;blog&#34; -}}
+</span></span><span class="line"><span class="cl">    {{- $.Scratch.Add &#34;posts&#34; (dict &#34;title&#34; .Title &#34;permalink&#34; .Permalink) -}}
+</span></span><span class="line"><span class="cl">{{- end -}}
+</span></span><span class="line"><span class="cl">{{- $.Scratch.Get &#34;posts&#34; | jsonify -}}
 </span></span></code></pre></div><p>按照这个模板，hugo本地预览可以打开 <code>http://localhost:1313/index.json</code> 查看，如果输出了一些数据如下图，说明你成功了。</p>
 <p><img src="https://imgurl.zishu.me/images/20230317/image.68g9ngwkar80.webp" alt="image"></p>
-<h3 id="2-js代码"><a class="anchor" href="#2-js代码">2. js代码</a></h3>
-<p>在 <code>/layouts/_default</code> 新建一个模板文件 <code>search.html</code>，大致的结构参考其他模板文件，然后写入我们需要的内容。</p>
+<h3 id="2-js代码">2. js代码 <a href="#2-js%e4%bb%a3%e7%a0%81" class="anchor">🔗</a></h3><p>在 <code>/layouts/_default</code> 新建一个模板文件 <code>search.html</code>，大致的结构参考其他模板文件，然后写入我们需要的内容。</p>
 <p>首先是一个简单的 html 结构，给input绑定一个事件。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">form</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;search&#34;</span>&gt; 
-</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;searchTerm&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;searchTerm&#34;</span> <span style="color:#a6e22e">autocomplete</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;off&#34;</span> <span style="color:#a6e22e">oninput</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;initiateSearch()&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">form</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;resultsContainer&#34;</span>&gt;请输入关键词进行搜索...&lt;/<span style="color:#f92672">div</span>&gt;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">form</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;search&#34;</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;searchTerm&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;searchTerm&#34;</span> <span class="na">autocomplete</span><span class="o">=</span><span class="s">&#34;off&#34;</span> <span class="na">oninput</span><span class="o">=</span><span class="s">&#34;initiateSearch()&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;resultsContainer&#34;</span><span class="p">&gt;</span>请输入关键词进行搜索...<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 </span></span></code></pre></div><p>然后通过一个 get 请求获取json文件，传入关键词参数，生成搜索列表。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">script</span>&gt;
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">search</span>(<span style="color:#a6e22e">jsonData</span>, <span style="color:#a6e22e">searchTerm</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">results</span> <span style="color:#f92672">=</span> [];
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">jsonData</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">property</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">jsonData</span>[<span style="color:#a6e22e">i</span>]) {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">jsonData</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">hasOwnProperty</span>(<span style="color:#a6e22e">property</span>) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">jsonData</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">property</span>].<span style="color:#a6e22e">toString</span>().<span style="color:#a6e22e">indexOf</span>(<span style="color:#a6e22e">searchTerm</span>) <span style="color:#f92672">&gt;</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) {
-</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">results</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">jsonData</span>[<span style="color:#a6e22e">i</span>]);
-</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>      }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">results</span>;
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">displayResults</span>(<span style="color:#a6e22e">searchResults</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">container</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;resultsContainer&#34;</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">container</span>.<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">searchResults</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>) {
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">searchResults</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">resultDiv</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#34;div&#34;</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">resultTitle</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#34;a&#34;</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">resultTitle</span>.<span style="color:#a6e22e">innerText</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">searchResults</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">title</span>;
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">resultTitle</span>.<span style="color:#a6e22e">setAttribute</span>(<span style="color:#e6db74">&#39;href&#39;</span>, <span style="color:#a6e22e">searchResults</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">permalink</span>)
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">resultDiv</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#a6e22e">resultTitle</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">container</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#a6e22e">resultDiv</span>);
-</span></span><span style="display:flex;"><span>      }
-</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">noResultsMessage</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#34;p&#34;</span>);
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">noResultsMessage</span>.<span style="color:#a6e22e">innerText</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;没有找到搜索结果。&#34;</span>;
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">container</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#a6e22e">noResultsMessage</span>);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">initiateSearch</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">searchTerm</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;searchTerm&#34;</span>).<span style="color:#a6e22e">value</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">xhr</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">xhr</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#39;GET&#39;</span>, <span style="color:#e6db74">&#39;/index.json&#39;</span>, <span style="color:#66d9ef">true</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">xhr</span>.<span style="color:#a6e22e">onreadystatechange</span> <span style="color:#f92672">=</span> () =&gt; {
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">xhr</span>.<span style="color:#a6e22e">readyState</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">xhr</span>.<span style="color:#a6e22e">status</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">200</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">jsonData</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">parse</span>(<span style="color:#a6e22e">xhr</span>.<span style="color:#a6e22e">responseText</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">searchResults</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">search</span>(<span style="color:#a6e22e">jsonData</span>, <span style="color:#a6e22e">searchTerm</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">displayResults</span>(<span style="color:#a6e22e">searchResults</span>);
-</span></span><span style="display:flex;"><span>      }
-</span></span><span style="display:flex;"><span>    };
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">xhr</span>.<span style="color:#a6e22e">send</span>();
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">script</span>&gt;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">function</span> <span class="nx">search</span><span class="p">(</span><span class="nx">jsonData</span><span class="p">,</span> <span class="nx">searchTerm</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">results</span> <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">jsonData</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">property</span> <span class="k">in</span> <span class="nx">jsonData</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">jsonData</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">property</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">jsonData</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">property</span><span class="p">].</span><span class="nx">toString</span><span class="p">().</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">searchTerm</span><span class="p">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">results</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">jsonData</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">          <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">results</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kd">function</span> <span class="nx">displayResults</span><span class="p">(</span><span class="nx">searchResults</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">container</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&#34;resultsContainer&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">container</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">searchResults</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">searchResults</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">let</span> <span class="nx">resultDiv</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&#34;div&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">let</span> <span class="nx">resultTitle</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&#34;a&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">resultTitle</span><span class="p">.</span><span class="nx">innerText</span> <span class="o">=</span> <span class="nx">searchResults</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">title</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">resultTitle</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">,</span> <span class="nx">searchResults</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">permalink</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">resultDiv</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">resultTitle</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">container</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">resultDiv</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kd">let</span> <span class="nx">noResultsMessage</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&#34;p&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">noResultsMessage</span><span class="p">.</span><span class="nx">innerText</span> <span class="o">=</span> <span class="s2">&#34;没有找到搜索结果。&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">container</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">noResultsMessage</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kd">function</span> <span class="nx">initiateSearch</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">searchTerm</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&#34;searchTerm&#34;</span><span class="p">).</span><span class="nx">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">xhr</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">xhr</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/index.json&#39;</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">xhr</span><span class="p">.</span><span class="nx">onreadystatechange</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="nx">xhr</span><span class="p">.</span><span class="nx">readyState</span> <span class="o">===</span> <span class="mi">4</span> <span class="o">&amp;&amp;</span> <span class="nx">xhr</span><span class="p">.</span><span class="nx">status</span> <span class="o">===</span> <span class="mi">200</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">let</span> <span class="nx">jsonData</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">xhr</span><span class="p">.</span><span class="nx">responseText</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">let</span> <span class="nx">searchResults</span> <span class="o">=</span> <span class="nx">search</span><span class="p">(</span><span class="nx">jsonData</span><span class="p">,</span> <span class="nx">searchTerm</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">displayResults</span><span class="p">(</span><span class="nx">searchResults</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">xhr</span><span class="p">.</span><span class="nx">send</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </span></span></code></pre></div><p>然后再在 <code>/content</code> 新建一个 <code>search.md</code> 文件调用该模板即可。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-md" data-lang="md"><span style="display:flex;"><span>---
-</span></span><span style="display:flex;"><span>slug: search
-</span></span><span style="display:flex;"><span>title: 搜索
-</span></span><span style="display:flex;"><span>layout: search
-</span></span><span style="display:flex;"><span>---
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-md" data-lang="md"><span class="line"><span class="cl">---
+</span></span><span class="line"><span class="cl">slug: search
+</span></span><span class="line"><span class="cl">title: 搜索
+</span></span><span class="line"><span class="cl">layout: search
+</span></span><span class="line"><span class="cl">---
 </span></span></code></pre></div><p>写了一个基础的样式，可以直接使用。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>.<span style="color:#a6e22e">search</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">%</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">display</span>: <span style="color:#66d9ef">flex</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">align-items</span>: <span style="color:#66d9ef">center</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">height</span>: <span style="color:#ae81ff">36</span><span style="color:#66d9ef">px</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">search</span> #searchTerm {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">%</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">height</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">%</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">outline</span>: <span style="color:#66d9ef">none</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">border</span>: <span style="color:#66d9ef">none</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">padding</span>: <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">15</span><span style="color:#66d9ef">px</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">box-shadow</span>: <span style="color:#ae81ff">1</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">2</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">10</span><span style="color:#66d9ef">px</span> rgba(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0.1</span>);
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>#resultsContainer {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">margin-top</span>: <span style="color:#ae81ff">20</span><span style="color:#66d9ef">px</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>#resultsContainer <span style="color:#f92672">div</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">margin-bottom</span>: <span style="color:#ae81ff">10</span><span style="color:#66d9ef">px</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">margin</span>: <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>#resultsContainer <span style="color:#f92672">div</span> <span style="color:#f92672">a</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">display</span>: <span style="color:#66d9ef">block</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">%</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">padding</span>: <span style="color:#ae81ff">6</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">10</span><span style="color:#66d9ef">px</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">transition</span>: <span style="color:#66d9ef">all</span> <span style="color:#ae81ff">0.1</span><span style="color:#66d9ef">s</span> <span style="color:#66d9ef">linear</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">border-radius</span>: <span style="color:#ae81ff">4</span><span style="color:#66d9ef">px</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>#resultsContainer <span style="color:#f92672">div</span> <span style="color:#f92672">a</span>:<span style="color:#a6e22e">hover</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">background</span>: <span style="color:#ae81ff">#f3f3f3</span>;
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="p">.</span><span class="nc">search</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">width</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">display</span><span class="p">:</span> <span class="kc">flex</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">align-items</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">height</span><span class="p">:</span> <span class="mi">36</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nc">search</span> <span class="p">#</span><span class="nn">searchTerm</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">width</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">height</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">outline</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">border</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">padding</span><span class="p">:</span> <span class="mi">0</span> <span class="mi">15</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">box-shadow</span><span class="p">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="mi">2</span><span class="kt">px</span> <span class="mi">10</span><span class="kt">px</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">#</span><span class="nn">resultsContainer</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">margin-top</span><span class="p">:</span> <span class="mi">20</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">#</span><span class="nn">resultsContainer</span> <span class="nt">div</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">margin-bottom</span><span class="p">:</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">margin</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">#</span><span class="nn">resultsContainer</span> <span class="nt">div</span> <span class="nt">a</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">display</span><span class="p">:</span> <span class="kc">block</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">width</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">padding</span><span class="p">:</span> <span class="mi">6</span><span class="kt">px</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">transition</span><span class="p">:</span> <span class="kc">all</span> <span class="mf">0.1</span><span class="kt">s</span> <span class="kc">linear</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">border-radius</span><span class="p">:</span> <span class="mi">4</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">#</span><span class="nn">resultsContainer</span> <span class="nt">div</span> <span class="nt">a</span><span class="p">:</span><span class="nd">hover</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">background</span><span class="p">:</span> <span class="mh">#f3f3f3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div>
-</article>
-  </div>
-</div>
+	</div>
 
-      
-    </div>
-  </div>
-</div>
-</main>
+	
+	<hr />
+	
 
-  <div class="container-xl">
-  <div class="pt-6 text-secondary border-top ">
-    <div>© 2020 - <span id="year"></span> Powered by 子舒</div>
-    <div>
-      网站已经运行 <span id="days">0</span>  · 
-      本站总访问量 <span id="busuanzi_value_site_pv">~</span> 次
-    </div>
-  </div>
-</div>
-<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<script type="module" src="https://cdn.jsdelivr.net/gh/emaction/frontend.dist@1.0.11/bundle.js"></script>
+<div style="padding:30px 0;"></div>
+<div id="tcomment"></div>
+<script src="https://cdn.staticfile.org/twikoo/1.6.22/twikoo.all.min.js"></script>
+<link rel="stylesheet" href="/css/twikoo.css">
 <script>
-  var s0 = '2020-06-14';
-  s1 = new Date(s0.replace(/-/g, "/"));
-  s2 = new Date();
-  var days = s2.getTime() - s1.getTime();
-
-  var date = new Date;
-  var year = date.getFullYear();
-  document.getElementById('year').innerHTML = year;
-
-  var BootDate = new Date("2020-06-14");
-  function ShowRunTime(id) {
-    var NowDate = new Date();
-    var RunDateM = parseInt(NowDate - BootDate);
-    var RunDays = Math.floor(RunDateM / (24 * 3600 * 1000));
-    var RunHours = Math.floor(RunDateM % (24 * 3600 * 1000) / (3600 * 1000));
-    var RunMinutes = Math.floor(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) / (60 * 1000));
-    var RunSeconds = Math.round(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) % (60 * 1000) / 1000);
-    var days = RunDays + "天" + RunHours + "时" + RunMinutes + "分" + RunSeconds + "秒";
-    document.getElementById(id).innerHTML = days;
-  }
-  ShowRunTime('days');
-  setInterval("ShowRunTime('days')", 1000);
+  twikoo.init({
+    envId: 'https:\/\/twikoo.zishu.me\/.netlify\/functions\/twikoo',
+    el: '#tcomment',
+    lang: 'zh-CN',
+    includeReply: true,
+  })
 </script>
-</body>
+	
+</section>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-<script type="application/javascript" src="js/gists.js"></script>
+
+        </div>
+        <div class="side">
+            
+            <div class="side-recent">
+    <h2 class="side-title">
+        <a href="/blog/">Recent Blog</a>
+    </h2>
+    <hr />
+
+    <ul>
+        
+            <li>
+                <a href="/blog/weekly-25.html/">子舒周刊 -25 | 拉曼恰的风车</a>
+            </li>
+        
+            <li>
+                <a href="/blog/weekly-24.html/">子舒周刊 -24 | 黄山风景</a>
+            </li>
+        
+            <li>
+                <a href="/blog/weekly-23.html/">子舒周刊 -23 | 粉色城堡</a>
+            </li>
+        
+            <li>
+                <a href="/blog/weekly-22.html/">子舒周刊 -22 | 可爱的猫</a>
+            </li>
+        
+            <li>
+                <a href="/blog/weekly-21.html/">子舒周刊 -21 | 湘湖度假</a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+            <div class="side-categories">
+    <h2>Categories</h2>
+    <hr />
+
+    <ul>
+        
+            <li>
+                <a href="/categories/%E5%91%A8%E5%88%8A">周刊(25)</a>
+            </li>
+        
+            <li>
+                <a href="/categories/%E6%8A%80%E6%9C%AF">技术(108)</a>
+            </li>
+        
+            <li>
+                <a href="/categories/%E9%9A%8F%E7%AC%94">随笔(68)</a>
+            </li>
+        
+    </ul>
+</div>
+
+            <div class="side-tags">
+    <h2>Tags</h2>
+    <hr />
+
+    <ul>
+        
+            <li>
+                <a href="/tags/ajax">ajax (5)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/ant-design">ant-design (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/aos">aos (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/axios">axios (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/bitwarden">bitwarden (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/canvas">canvas (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/chrome">chrome (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/cloudflare">cloudflare (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/css">css (8)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/docker">docker (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/docsify">docsify (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/es6">es6 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/github">github (2)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/github-actions">github-actions (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/gravatar">gravatar (2)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/hugo">hugo (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/hugofast">hugofast (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/ie">ie (3)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/jquery">jquery (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/js">js (22)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/jsdelivr">jsdelivr (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/markdown">markdown (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/memos">memos (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/npm">npm (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/nuxt">nuxt (2)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/php">php (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/python">python (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/react">react (12)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/rustdesk">rustdesk (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/sql">sql (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/typecho">typecho (4)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/v2ex">v2ex (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/vaultwarden">vaultwarden (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/vue">vue (9)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/webpack">webpack (2)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/win11">win11 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E4%B8%83%E6%97%A5%E8%B0%88">七日谈 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E4%B8%BB%E9%A2%98%E5%BC%80%E5%8F%91">主题开发 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E4%BF%A1%E6%81%AF%E8%8C%A7%E6%88%BF">信息茧房 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E5%87%BA%E8%A1%8C">出行 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E5%8D%9A%E5%AE%A2">博客 (15)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E5%8E%9F%E5%88%9B">原创 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E5%8E%A8%E6%88%BF">厨房 (2)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E5%91%A8%E5%88%8A">周刊 (25)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E5%9B%BE%E5%BA%8A">图床 (2)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E5%9B%BE%E7%89%87">图片 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E5%9C%B0%E7%90%86">地理 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E5%9D%9A%E6%9E%9C%E4%BA%91">坚果云 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E5%A4%87%E4%BB%BD">备份 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E5%AD%97%E4%BD%93">字体 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E5%AE%9D%E5%A1%94">宝塔 (4)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E5%AF%86%E7%A0%81%E7%AE%A1%E7%90%86">密码管理 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E5%B7%A5%E5%85%B7">工具 (2)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%80%9D%E6%BA%90%E7%AC%94%E8%AE%B0">思源笔记 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%80%BB%E7%BB%93">总结 (4)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%84%9F%E6%83%B3">感想 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%8A%A5%E9%94%99">报错 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%8B%86%E6%9C%BA">拆机 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%8E%98%E9%87%91">掘金 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%8F%92%E4%BB%B6">插件 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%90%9C%E7%B4%A2">搜索 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93">数据库 (3)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%96%B0%E5%86%A0">新冠 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%96%B0%E9%97%BB">新闻 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%97%85%E6%B8%B8">旅游 (5)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%97%A5%E8%AE%B0">日记 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%97%B6%E9%97%B4%E6%88%B3">时间戳 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%9C%88%E5%85%A8%E9%A3%9F">月全食 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8">服务器 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%9D%82%E8%B0%88">杂谈 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%A2%A6">梦 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%B2%B9%E7%8C%B4%E8%84%9A%E6%9C%AC">油猴脚本 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8">浏览器 (4)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E7%94%B5%E5%BD%B1">电影 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E7%9F%AD%E7%AF%87%E5%B0%8F%E8%AF%B4">短篇小说 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E7%AC%91%E8%AF%9D">笑话 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E7%AC%94%E8%AE%B0">笔记 (16)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E7%AC%94%E8%AE%B0%E6%9C%AC%E7%94%B5%E8%84%91">笔记本电脑 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E7%BB%84%E4%BB%B6">组件 (2)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E7%BC%96%E7%A8%8B">编程 (4)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E7%BD%91%E7%AB%99">网站 (2)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E7%BF%BB%E8%AF%91">翻译 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E8%84%9A%E6%9C%AC">脚本 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E8%AF%84%E8%AE%BA">评论 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E8%AF%B4%E8%AF%B4">说说 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E8%AF%BB%E4%B9%A6">读书 (3)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E8%B0%B7%E6%AD%8C%E6%8F%92%E4%BB%B6">谷歌插件 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E8%BD%AC%E8%BD%BD">转载 (3)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E9%82%AE%E7%AE%B1">邮箱 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E9%9A%8F%E6%83%B3%E5%BD%95">随想录 (10)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E9%9A%8F%E6%89%8B%E6%8B%8D">随手拍 (18)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E9%9A%8F%E7%AC%94">随笔 (17)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E9%9F%B3%E4%B9%90">音乐 (1)</a>
+            </li>
+        
+            <li>
+                <a href="/tags/%E9%AA%91%E8%A1%8C">骑行 (3)</a>
+            </li>
+        
+    </ul>
+</div>
+
+
+           
+            
+                <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1-hugo模板生成文章列表json文件">1. hugo模板生成文章列表json文件</a></li>
+        <li><a href="#2-js代码">2. js代码</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+            
+        </div>
+    </main>
+    <footer class="footer">
+    <div class="footer-row">
+        
+        
+        
+        <a class="footer-item" href="/blog/index.xml" target="_blank">
+            Feed of Blog
+            <i class="icofont-rss"></i>
+        </a>
+        
+        
+
+        
+        
+        
+        
+    </div>
+
+    <div class="footer-row">© 2020 - <span id="year"></span> · Powered by 子舒</div>
+    <div class="footer-row">
+        网站已经运行 <span id="days">0</span> ·
+        本站总访问量 <span id="busuanzi_value_site_pv">~</span> 次
+    </div>
+</footer>
+
+<script>
+    var s0 = '2020-06-14';
+    s1 = new Date(s0.replace(/-/g, "/"));
+    s2 = new Date();
+    var days = s2.getTime() - s1.getTime();
+
+    var date = new Date;
+    var year = date.getFullYear();
+    document.getElementById('year').innerHTML = year;
+
+    var BootDate = new Date("2020-06-14");
+    function ShowRunTime(id) {
+        var NowDate = new Date();
+        var RunDateM = parseInt(NowDate - BootDate);
+        var RunDays = Math.floor(RunDateM / (24 * 3600 * 1000));
+        var RunHours = Math.floor(RunDateM % (24 * 3600 * 1000) / (3600 * 1000));
+        var RunMinutes = Math.floor(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) / (60 * 1000));
+        var RunSeconds = Math.round(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) % (60 * 1000) / 1000);
+        var days = RunDays + "天" + RunHours + "时" + RunMinutes + "分" + RunSeconds + "秒";
+        document.getElementById(id).innerHTML = days;
+    }
+    ShowRunTime('days');
+    setInterval("ShowRunTime('days')", 1000);
+</script>
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
 
 </html>
