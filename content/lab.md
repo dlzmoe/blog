@@ -5,9 +5,6 @@ title: 实验室
 
 记录我订阅的周刊，质量不错，内容挺有意思。如果你有推荐，欢迎在评论区分享。
 
-<details>
-<summary>展开查看订阅的周刊</summary>
-
 (以下排名不分先后，仅以记录的先后顺序。)
 
 
@@ -63,19 +60,6 @@ https://fyfy.fm/
 
 听见科技与人文的声音
 一档由开发者 @枫影 JustinYan 和设计师 @自力 hzlzh 主持的播客节目。
-</details>
-
-https://github.com/98zi/HugoFast  
-利用 GitHub 本身提供的 Api，将 hugo 博客管理面板化。
-
-https://github.com/98zi/chrome-plugin-memos  
-Memos 的 chrome 插件，集成到浏览器扩展中，个人感觉比较方便，后续将会集成更多的功能。
-
-https://weekly.zishu.me/  
-周刊。
-
-https://han.ge/  
-一个导航站。
 
 ---
 

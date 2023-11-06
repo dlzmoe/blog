@@ -1,0 +1,36 @@
+{{ partial "header.html" . }}
+<main>
+  <emoji-reaction></emoji-reaction>
+  <h3 class="posts-item-note" aria-label="Recent Posts">Recent Posts</h3>
+  <small>
+    <div>
+      {{ range .Site.Taxonomies.tags }}
+      <a href="{{ .Page.Permalink }}">#{{ .Page.Title }}</a>
+      {{ end }}
+    </div>
+  </small>
+
+  <ul class="blog-posts">
+    {{ $pages := .Site.RegularPages }}
+    {{ $paginator := .Paginate ($pages) }}
+    {{ range $paginator.Pages }}
+    {{ $title := .Title }}
+    {{ $summary := .Summary }}
+
+    <li>
+      <span><i>
+          <time datetime="{{ .Date.Format " 2006-01-02 15:04:05 MST" }}">{{ .Date.Format "2006-01-02"}}</time>
+        </i></span>
+      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+      <!-- <div class="entry-content">
+      <p>{{ .Summary }}</p>
+    </div> -->
+    </li>
+
+    {{ end }}
+  </ul>
+
+  {{ partial "pagination.html" . }}
+
+</main>
+{{ partial "footer.html" . }}
