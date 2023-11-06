@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+{{ partial "head.html" . }}
+
+<body>
+
+  <header>
+    <a href="/" class="header-title">子舒的博客</a>
+    <nav class="post-meta">
+      {{ range .Site.Params.socials }}
+      <a href="{{ .link }}">{{ .name }}</a>
+      {{ end }}
+
+      <a href="/index.xml" target="_blank">RSS</a>
+    </nav>
+  </header>
+
+  <main>
+    <ul class="blog-posts">
+      {{ $pages := .Site.RegularPages }}
+      {{ $paginator := .Paginate ($pages) }}
+      {{ range $paginator.Pages }}
+      {{ $title := .Title }}
+      {{ $summary := .Summary }}
+
+      <li>
+        <span><i>
+            <time datetime="{{ .Date.Format " 2006-01-02 15:04:05 MST" }}">{{ .Date.Format "2006-01-02"}}</time>
+          </i></span>
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        <!-- <div class="entry-content">
+      <p>{{ .Summary }}</p>
+    </div> -->
+      </li>
+
+      {{ end }}
+    </ul>
+
+    {{ partial "pagination.html" . }}
+
+  </main>
+  {{ partial "footer.html" . }}

@@ -1,0 +1,37 @@
+{{ partial "header.html" . }}
+<main>
+  <header class="header">
+    <h1 class="header-title">{{ .Title }}</h1>
+  
+    {{ if in .Site.Params.mainSections .Type }}
+    {{ if .Date }}
+    <div class="post-meta">
+      发布于 <time datetime="{{ .Date.Format " 2006-01-02 15:04:05 MST" }}">{{ .Date.Format "2006-01-02"}}</time>
+    </div>
+    {{ end }}
+    {{ end }}
+  </header>
+
+  <!-- {{ if in .Site.Params.mainSections .Type }}
+  {{ .TableOfContents }}
+  {{ end }} -->
+
+  <article class="post-content markdown-body">
+    {{ .Site.Params.postHeaderContent | safeHTML }}
+    {{ .Content }}
+  </article>
+  <emoji-reaction></emoji-reaction>
+  <!-- Post Tags -->
+  {{ if .Params.tags }}
+  <p>
+    {{ range .Params.tags }} {{ $href := print (absURL "/tags/") (urlize .) }}
+    <a href="{{ $href }}">#{{ . }}</a>
+    {{ end }}
+  </p>
+  {{ end }}
+</main>
+{{ if in .Site.Params.mainSections .Type }}
+{{ partial "comment.html" . }}
+{{ end }}
+
+{{ partial "footer.html" . }}
