@@ -1,118 +1,116 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en-us">
 <head>
-    <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,minimum-scale=1">
-
-
-
-
-<title>js奇怪的知识--console.table | 子舒的博客</title>
-<link rel="canonical" href="/blog/81.html/">
-<meta name="description" content="这个属性对我来说还真有些陌生，无意中发现的，查询过 MDN 之后听得挺有意思的，就记录一下。 根据字面意思就是“将数据以表格的形式显示”。这个方法需要" />
+<meta charset="utf-8" />
+<meta name="generator" content="Hugo 0.118.2">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="toTop" content="true">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="author" content="" />
+<meta property="og:url" content="https://zishu.me/blog/81.html/" />
+<link rel="canonical" href="https://zishu.me/blog/81.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="shortcut" href="https://imgurl.zishu.me/favicon.ico" /><link rel="alternate" type="application/atom+xml" href="https://zishu.meindex.xml" title="子舒的博客">
+<script type="application/ld+json">
+{
+"@context" : "http://schema.org",
+"@type" : "BlogPosting",
+"mainEntityOfPage": {
+"@type": "WebPage",
+"@id": "https:\/\/zishu.me"
+},
+"articleSection" : "blog",
+"name" : "js奇怪的知识--console.table",
+"headline" : "js奇怪的知识--console.table",
+"description" : "这个属性对我来说还真有些陌生，无意中发现的，查询过 MDN 之后听得挺有意思的，就记录一下。 根据字面意思就是“将数据以表格的形式显示”。这个方法需要一个必须参数 data，data 必须是一个数组或者是一个对象；",
+"inLanguage" : "en-US",
+"author" : "子舒",
+"creator" : "子舒",
+"publisher": "子舒",
+"accountablePerson" : "子舒",
+"copyrightHolder" : "子舒",
+"copyrightYear" : "2021",
+"datePublished": "2021-11-04 00:00:00 \u002b0000 UTC",
+"dateModified" : "2021-11-04 00:00:00 \u002b0000 UTC",
+"url" : "https:\/\/zishu.me\/blog\/81.html\/",
+"keywords" : [ "js", ]
+}
+</script><title>js奇怪的知识--console.table - 子舒</title>
+<meta property="og:title" content="js奇怪的知识--console.table" />
 <meta property="og:type" content="article" />
-<meta property="og:title" content="js奇怪的知识--console.table | 子舒的博客" />
-<meta property="og:url" content="/blog/81.html/" />
-<meta property="og:description" content="这个属性对我来说还真有些陌生，无意中发现的，查询过 MDN 之后听得挺有意思的，就记录一下。 根据字面意思就是“将数据以表格的形式显示”。这个方法需要" />
+<meta property="og:description" content="这个属性对我来说还真有些陌生，无意中发现的，查询过 MDN 之后听得挺有意思的，就记录一下。 根据字面意思就是“将数据以表格的形式显示”。这个方法需要一个必须参数 data，data 必须是一个数组或者是一个对象；" />
+<meta name="description" content="这个属性对我来说还真有些陌生，无意中发现的，查询过 MDN 之后听得挺有意思的，就记录一下。 根据字面意思就是“将数据以表格的形式显示”。这个方法需要一个必须参数 data，data 必须是一个数组或者是一个对象；" />
+<meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
 
 
-
-
-
-
-<link rel="stylesheet" href="/lib/icofont/icofont.min.css" />
-<link rel="stylesheet" href="/css/syntax.css" />
-<link rel="stylesheet" href="/css/style.css" />
-<link rel="shortcut icon" href="https://imgurl.zishu.me/favicon.ico" type="image/x-icon" />
+<link href="https://fonts.googleapis.com" rel="preconnect" />
+<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/css/index.css">
+<link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
 <script src="/js/jquery3.6.0.min.js"></script>
-
 </head>
 
 <body>
-    <header class="header-wrapper">
-    <div class="header">
-        <a class="site-title" href="">子舒的博客</a>
+  <header>
+    <a href="/" class="title">
+      <h2>子舒的博客</h2>
+    </a>
+    <nav>
+      
+      <a href="/">首页</a>
+      
+      <a href="/blog/">归档</a>
+      
+      <a href="/categories/%e5%91%a8%e5%88%8a/">周刊</a>
+      
+      <a href="/lab/">实验室</a>
+      
+      <a href="/message/">留言</a>
+      
+      <a href="/about/">关于</a>
+      
 
-        <nav class="menu">
-            
-                <div class="menu-item">
-                    
-                        <a href="/blog/">归档</a>
-                    
-                </div>
-            
-                <div class="menu-item">
-                    
-                        <a>分类↓</a>
-                        <nav class="sub-menu">
-                            
-                            <div class="menu-item"><a href="/categories/%E5%91%A8%E5%88%8A/">周刊</a></div>
-                            
-                            <div class="menu-item"><a href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></div>
-                            
-                            <div class="menu-item"><a href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a></div>
-                            
-                        </nav>
-                    
-                </div>
-            
-                <div class="menu-item">
-                    
-                        <a href="/message/">留言</a>
-                    
-                </div>
-            
-                <div class="menu-item">
-                    
-                        <a href="/about/">关于我</a>
-                    
-                </div>
-            
-        </nav>
+      <a href="/index.xml" target="_blank">RSS</a>
+    </nav>
+  </header>
+<main>
+  <header class="header">
+    <h1 class="header-title">js奇怪的知识--console.table</h1>
+  
+    
+    
+    <div class="post-meta">
+      发布于 <i>
+        <time datetime=" 2021-11-04 00:00:00 UTC">2021-11-04</time>
+      </i> /
+      本文总阅读量 <span id="busuanzi_value_page_pv">~</span> 次
     </div>
-</header>
+    
+    
+  </header>
 
-    <main class="main-wrapper">
-        <div class="main">
-            
+  
+  <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1直接输出">1.直接输出</a></li>
+        <li><a href="#2定义对象进行输出">2.定义对象进行输出</a></li>
+        <li><a href="#3consoletable-的应用场景">3.console.table() 的应用场景</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  
 
-<section class="single">
-	<h1 class="title">js奇怪的知识--console.table</h1>
-	
-	<div class="tip">
-		发布于 <time datetime="2021-11-04 00:00:00 &#43;0000 UTC">2021 年 11 月 04 日</time>
-		· 本文总阅读量 <span id="busuanzi_value_page_pv">~</span> 次
-	</div>
-	
-
-	<div class="taxonomies">
-		
-		<div>
-			Categories:
-			
-			<a href="/%20categories/%E6%8A%80%E6%9C%AF">技术</a>
-			
-		</div>
-		
-
-		
-		<div>
-			Tags:
-			
-			<a href="/%20tags/js">js</a>
-			
-		</div>
-		
-	</div>
-
-	<hr />
-
-	<div class="content">
-		<p>这个属性对我来说还真有些陌生，无意中发现的，查询过 MDN 之后听得挺有意思的，就记录一下。</p>
+  <article class="post-content markdown-body">
+    
+    <p>这个属性对我来说还真有些陌生，无意中发现的，查询过 MDN 之后听得挺有意思的，就记录一下。</p>
 <p>根据字面意思就是“将数据以表格的形式显示”。这个方法需要一个必须参数 data，data 必须是一个数组或者是一个对象；还可以使用一个可选参数 columns。</p>
 <p>表格的第一列是 index。如果数据 data 是一个数组，那么这一列的单元格的值就是数组的索引。 如果数据是一个对象，那么它们的值就是各对象的属性名称。 注意（在 FireFox 中）console.table 被限制为只显示1000行（第一行是被标记的索引）。</p>
-<h3 id="1直接输出">1.直接输出 <a href="#1%e7%9b%b4%e6%8e%a5%e8%be%93%e5%87%ba" class="anchor">🔗</a></h3><p>直接进行尝试，在控制台输出 console.table</p>
+<h3 id="1直接输出">1.直接输出</h3>
+<p>直接进行尝试，在控制台输出 console.table</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">table</span><span class="p">([</span><span class="s2">&#34;双十一&#34;</span><span class="p">,</span> <span class="s2">&#34;双十二&#34;</span><span class="p">,</span> <span class="s2">&#34;双十三&#34;</span><span class="p">]);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nx">PS</span> <span class="nx">E</span><span class="o">:</span><span class="err">\</span><span class="nx">demo</span><span class="o">&gt;</span> <span class="nx">node</span> <span class="mf">1.</span><span class="nx">js</span>
@@ -125,7 +123,8 @@
 </span></span></code></pre></div><p>复制下来怪怪的，直接上个图，就是下面这个样子。</p>
 <p><img src="https://imgurl.zishu.me/images/2021/11/04/5b865e6a38851240419ceb0984e6557e.png" alt=""></p>
 <hr>
-<h3 id="2定义对象进行输出">2.定义对象进行输出 <a href="#2%e5%ae%9a%e4%b9%89%e5%af%b9%e8%b1%a1%e8%bf%9b%e8%a1%8c%e8%be%93%e5%87%ba" class="anchor">🔗</a></h3><p>同样也可以定义一个对象然后输出</p>
+<h3 id="2定义对象进行输出">2.定义对象进行输出</h3>
+<p>同样也可以定义一个对象然后输出</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">Fun</span><span class="p">(</span><span class="nx">title</span><span class="p">,</span> <span class="nx">date</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="nx">title</span>
 </span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">date</span> <span class="o">=</span> <span class="nx">date</span>
@@ -138,20 +137,26 @@
 </span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">table</span><span class="p">([</span><span class="nx">one</span><span class="p">,</span> <span class="nx">two</span><span class="p">,</span> <span class="nx">three</span><span class="p">],</span> <span class="p">[</span><span class="s2">&#34;title&#34;</span><span class="p">,</span> <span class="s2">&#34;date&#34;</span><span class="p">])</span>
 </span></span></code></pre></div><p>打印出来，就是下面这个样子。</p>
 <p><img src="https://imgurl.zishu.me/images/2021/11/04/ed587c8b3373abe1fca2c9cdc6dd50dd.png" alt=""></p>
-<h3 id="3consoletable-的应用场景">3.console.table() 的应用场景 <a href="#3consoletable-%e7%9a%84%e5%ba%94%e7%94%a8%e5%9c%ba%e6%99%af" class="anchor">🔗</a></h3><p>前面是在通过在编辑器中使用 node.js 输出数据，看看在浏览器中输出会不会不一样的效果。</p>
+<h3 id="3consoletable-的应用场景">3.console.table() 的应用场景</h3>
+<p>前面是在通过在编辑器中使用 node.js 输出数据，看看在浏览器中输出会不会不一样的效果。</p>
 <p><img src="https://imgurl.zishu.me/images/2021/11/04/092caebd508948e18d29468739d17e18.png" alt=""></p>
 <p>可以看到成功输出数据，并且点击表头时，可以按照不同顺序进行排序，这么一看&hellip;.嗯，还挺有用的（假笑）</p>
 <p>应用场景大概就是可以对打印的数据进行更直观的观看，在某些情况下有利于调试代码，以后看看是否能用得上这种方法。</p>
 
-	</div>
+  </article>
+  <emoji-reaction></emoji-reaction>
+  
+  
+  <p>
+     
+    <a href="https://zishu.me/tags/js">#js</a>
+    
+  </p>
+  
+</main>
 
-	
-	<hr />
-	
-
-<div style="padding:30px 0;"></div>
 <div id="tcomment"></div>
-<script src="https://cdn.staticfile.org/twikoo/1.6.22/twikoo.all.min.js"></script>
+<script src="https://cdn.staticfile.org/twikoo/1.6.20/twikoo.all.min.js"></script>
 <link rel="stylesheet" href="/css/twikoo.css">
 <script>
   twikoo.init({
@@ -161,519 +166,54 @@
     includeReply: true,
   })
 </script>
-	
-</section>
 
 
-        </div>
-        <div class="side">
-            
-            <div class="side-recent">
-    <h2 class="side-title">
-        <a href="/blog/">Recent Blog</a>
-    </h2>
-    <hr />
-
-    <ul>
-        
-            <li>
-                <a href="/blog/weekly-25.html/">子舒周刊 -25 | 拉曼恰的风车</a>
-            </li>
-        
-            <li>
-                <a href="/blog/weekly-24.html/">子舒周刊 -24 | 黄山风景</a>
-            </li>
-        
-            <li>
-                <a href="/blog/weekly-23.html/">子舒周刊 -23 | 粉色城堡</a>
-            </li>
-        
-            <li>
-                <a href="/blog/weekly-22.html/">子舒周刊 -22 | 可爱的猫</a>
-            </li>
-        
-            <li>
-                <a href="/blog/weekly-21.html/">子舒周刊 -21 | 湘湖度假</a>
-            </li>
-        
-    </ul>
-</div>
-
-            
-            <div class="side-categories">
-    <h2>Categories</h2>
-    <hr />
-
-    <ul>
-        
-            <li>
-                <a href="/categories/%E5%91%A8%E5%88%8A">周刊(25)</a>
-            </li>
-        
-            <li>
-                <a href="/categories/%E6%8A%80%E6%9C%AF">技术(108)</a>
-            </li>
-        
-            <li>
-                <a href="/categories/%E9%9A%8F%E7%AC%94">随笔(68)</a>
-            </li>
-        
-    </ul>
-</div>
-
-            <div class="side-tags">
-    <h2>Tags</h2>
-    <hr />
-
-    <ul>
-        
-            <li>
-                <a href="/tags/ajax">ajax (5)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/ant-design">ant-design (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/aos">aos (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/axios">axios (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/bitwarden">bitwarden (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/canvas">canvas (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/chrome">chrome (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/cloudflare">cloudflare (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/css">css (8)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/docker">docker (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/docsify">docsify (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/es6">es6 (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/github">github (2)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/github-actions">github-actions (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/gravatar">gravatar (2)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/hugo">hugo (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/hugofast">hugofast (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/ie">ie (3)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/jquery">jquery (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/js">js (22)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/jsdelivr">jsdelivr (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/markdown">markdown (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/memos">memos (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/npm">npm (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/nuxt">nuxt (2)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/php">php (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/python">python (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/react">react (12)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/rustdesk">rustdesk (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/sql">sql (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/typecho">typecho (4)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/v2ex">v2ex (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/vaultwarden">vaultwarden (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/vue">vue (9)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/webpack">webpack (2)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/win11">win11 (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E4%B8%83%E6%97%A5%E8%B0%88">七日谈 (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E4%B8%BB%E9%A2%98%E5%BC%80%E5%8F%91">主题开发 (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E4%BF%A1%E6%81%AF%E8%8C%A7%E6%88%BF">信息茧房 (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E5%87%BA%E8%A1%8C">出行 (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E5%8D%9A%E5%AE%A2">博客 (15)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E5%8E%9F%E5%88%9B">原创 (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E5%8E%A8%E6%88%BF">厨房 (2)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E5%91%A8%E5%88%8A">周刊 (25)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E5%9B%BE%E5%BA%8A">图床 (2)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E5%9B%BE%E7%89%87">图片 (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E5%9C%B0%E7%90%86">地理 (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E5%9D%9A%E6%9E%9C%E4%BA%91">坚果云 (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E5%A4%87%E4%BB%BD">备份 (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E5%AD%97%E4%BD%93">字体 (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E5%AE%9D%E5%A1%94">宝塔 (4)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E5%AF%86%E7%A0%81%E7%AE%A1%E7%90%86">密码管理 (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E5%B7%A5%E5%85%B7">工具 (2)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E6%80%9D%E6%BA%90%E7%AC%94%E8%AE%B0">思源笔记 (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E6%80%BB%E7%BB%93">总结 (4)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E6%84%9F%E6%83%B3">感想 (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E6%8A%A5%E9%94%99">报错 (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E6%8B%86%E6%9C%BA">拆机 (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E6%8E%98%E9%87%91">掘金 (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E6%8F%92%E4%BB%B6">插件 (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E6%90%9C%E7%B4%A2">搜索 (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93">数据库 (3)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E6%96%B0%E5%86%A0">新冠 (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E6%96%B0%E9%97%BB">新闻 (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E6%97%85%E6%B8%B8">旅游 (5)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E6%97%A5%E8%AE%B0">日记 (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E6%97%B6%E9%97%B4%E6%88%B3">时间戳 (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E6%9C%88%E5%85%A8%E9%A3%9F">月全食 (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8">服务器 (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E6%9D%82%E8%B0%88">杂谈 (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E6%A2%A6">梦 (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E6%B2%B9%E7%8C%B4%E8%84%9A%E6%9C%AC">油猴脚本 (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8">浏览器 (4)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E7%94%B5%E5%BD%B1">电影 (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E7%9F%AD%E7%AF%87%E5%B0%8F%E8%AF%B4">短篇小说 (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E7%AC%91%E8%AF%9D">笑话 (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E7%AC%94%E8%AE%B0">笔记 (16)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E7%AC%94%E8%AE%B0%E6%9C%AC%E7%94%B5%E8%84%91">笔记本电脑 (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E7%BB%84%E4%BB%B6">组件 (2)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E7%BC%96%E7%A8%8B">编程 (4)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E7%BD%91%E7%AB%99">网站 (2)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E7%BF%BB%E8%AF%91">翻译 (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E8%84%9A%E6%9C%AC">脚本 (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E8%AF%84%E8%AE%BA">评论 (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E8%AF%B4%E8%AF%B4">说说 (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E8%AF%BB%E4%B9%A6">读书 (3)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E8%B0%B7%E6%AD%8C%E6%8F%92%E4%BB%B6">谷歌插件 (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E8%BD%AC%E8%BD%BD">转载 (3)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E9%82%AE%E7%AE%B1">邮箱 (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E9%9A%8F%E6%83%B3%E5%BD%95">随想录 (10)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E9%9A%8F%E6%89%8B%E6%8B%8D">随手拍 (18)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E9%9A%8F%E7%AC%94">随笔 (17)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E9%9F%B3%E4%B9%90">音乐 (1)</a>
-            </li>
-        
-            <li>
-                <a href="/tags/%E9%AA%91%E8%A1%8C">骑行 (3)</a>
-            </li>
-        
-    </ul>
-</div>
 
 
-           
-            
-                <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#1直接输出">1.直接输出</a></li>
-        <li><a href="#2定义对象进行输出">2.定义对象进行输出</a></li>
-        <li><a href="#3consoletable-的应用场景">3.console.table() 的应用场景</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-            
-        </div>
-    </main>
-    <footer class="footer">
-    <div class="footer-row">
-        
-        
-        
-        <a class="footer-item" href="/blog/index.xml" target="_blank">
-            Feed of Blog
-            <i class="icofont-rss"></i>
-        </a>
-        
-        
 
-        
-        
-        
-        
+
+<footer class="footer">
+  <span class="footer_item"> </span>
+
+  <small class="footer_copyright">
+    <div>© 2020 - <span id="year"></span> Powered by 子舒</div>
+    <div>
+      网站已经运行 <span id="days">0</span> ·
+      本站总访问量 <span id="busuanzi_value_site_pv">~</span> 次
     </div>
-
-    <div class="footer-row">© 2020 - <span id="year"></span> · Powered by 子舒</div>
-    <div class="footer-row">
-        网站已经运行 <span id="days">0</span> ·
-        本站总访问量 <span id="busuanzi_value_site_pv">~</span> 次
-    </div>
+    <div class="gotop">▲</div>
+  </small>
 </footer>
 
 <script>
-    var s0 = '2020-06-14';
-    s1 = new Date(s0.replace(/-/g, "/"));
-    s2 = new Date();
-    var days = s2.getTime() - s1.getTime();
+  var s0 = '2020-06-14';
+  s1 = new Date(s0.replace(/-/g, "/"));
+  s2 = new Date();
+  var days = s2.getTime() - s1.getTime();
 
-    var date = new Date;
-    var year = date.getFullYear();
-    document.getElementById('year').innerHTML = year;
+  var date = new Date;
+  var year = date.getFullYear();
+  document.getElementById('year').innerHTML = year;
 
-    var BootDate = new Date("2020-06-14");
-    function ShowRunTime(id) {
-        var NowDate = new Date();
-        var RunDateM = parseInt(NowDate - BootDate);
-        var RunDays = Math.floor(RunDateM / (24 * 3600 * 1000));
-        var RunHours = Math.floor(RunDateM % (24 * 3600 * 1000) / (3600 * 1000));
-        var RunMinutes = Math.floor(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) / (60 * 1000));
-        var RunSeconds = Math.round(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) % (60 * 1000) / 1000);
-        var days = RunDays + "天" + RunHours + "时" + RunMinutes + "分" + RunSeconds + "秒";
-        document.getElementById(id).innerHTML = days;
-    }
-    ShowRunTime('days');
-    setInterval("ShowRunTime('days')", 1000);
+  var BootDate = new Date("2020-06-14");
+  function ShowRunTime(id) {
+    var NowDate = new Date();
+    var RunDateM = parseInt(NowDate - BootDate);
+    var RunDays = Math.floor(RunDateM / (24 * 3600 * 1000));
+    var RunHours = Math.floor(RunDateM % (24 * 3600 * 1000) / (3600 * 1000));
+    var RunMinutes = Math.floor(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) / (60 * 1000));
+    var RunSeconds = Math.round(RunDateM % (24 * 3600 * 1000) % (3600 * 1000) % (60 * 1000) / 1000);
+    var days = RunDays + "天" + RunHours + "时" + RunMinutes + "分" + RunSeconds + "秒";
+    document.getElementById(id).innerHTML = days;
+  }
+  ShowRunTime('days');
+  setInterval("ShowRunTime('days')", 1000);
 </script>
+<script src="/js/simplebox.min.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
 <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
+<script type="module" src="https://cdn.jsdelivr.net/gh/emaction/frontend.dist@1.0.9/bundle.js"></script>
 
 </body>
 

@@ -2,35 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>RustDesk on 子舒的博客</title>
-    <link>/tags/rustdesk/</link>
+    <link>https://zishu.me/tags/rustdesk/</link>
     <description>Recent content in RustDesk on 子舒的博客</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
-    <lastBuildDate>Sat, 02 Sep 2023 00:00:00 +0000</lastBuildDate><atom:link href="/tags/rustdesk/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language>
+    <lastBuildDate>Sat, 02 Sep 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://zishu.me/tags/rustdesk/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>远程工具 RustDesk 安装流程</title>
-      <link>/blog/206.html/</link>
+      <link>https://zishu.me/blog/206.html/</link>
       <pubDate>Sat, 02 Sep 2023 00:00:00 +0000</pubDate>
       
-      <guid>/blog/206.html/</guid>
-      <description>&lt;p&gt;RustDesk 是一款功能齐全的远程桌面应用，支持 Windows、macOS、Linux、iOS、Android、Web 等多个平台。支持 VP8 / VP9 / AV1 软件编解码器和 H264 / H265 硬件编解码器。完全掌控数据，轻松自建。P2P 连接，端到端加密。在 Windows 上可以非管理员不安装运行，根据需要在本地或远程提升权限。&lt;/p&gt;
-&lt;p&gt;下面是在 linux 服务器上部署中继服务器的脚本。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;docker 拉取镜像&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker image pull rustdesk/rustdesk-server
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;运行 hbbs&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 服务器IP &amp;gt;&amp;gt; 替换为你当前终端的ip&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker run -d --name hbbs -p 21115:21115 -p 21116:21116 -p 21116:21116/udp -p 21118:21118 -v &lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;pwd&lt;/span&gt;&lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;:/root -it --net&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;host --rm rustdesk/rustdesk-server hbbs -r 服务器IP
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 如果–net=host运行正常，-p选项就不起作用了, 可以去掉。&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo docker run --name hbbs  -v /docker/rustdesk:/root -it -d --net&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;host --restart&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;always rustdesk/rustdesk-server hbbs -r 服务器IP
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;运行 hbbr&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker run -d --name hbbr -p 21117:21117 -p 21119:21119 -v &lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;pwd&lt;/span&gt;&lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;:/root -it --net&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;host --rm rustdesk/rustdesk-server hbbr
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 如果–net=host运行正常，-p选项就不起作用了, 可以去掉。&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo docker run --name hbbr -v /docker/rustdesk:/root -it -d --net&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;host --restart&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;always rustdesk/rustdesk-server hbbr
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;使用 &lt;code&gt;docker ps&lt;/code&gt; 命令查看服务是否正常运行。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;windows&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://imgurl.zishu.me/images/image.5tsp4rfbz8k0.jpg&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&amp;ldquo;ID 服务器&amp;rdquo; 和 &amp;ldquo;中继服务器&amp;rdquo; 都填写服务器 ip，不需要加端口，但是在服务器防火墙要记得放行端口号。&lt;/p&gt;
-</description>
+      <guid>https://zishu.me/blog/206.html/</guid>
+      <description>RustDesk 是一款功能齐全的远程桌面应用，支持 Windows、macOS、Linux、iOS、Android、Web 等多个平台。支持 VP8 / VP9 / AV1 软件编解码器和 H264 / H265 硬件编解码器。完全掌控数据，轻松自建。P2P 连接</description>
     </item>
     
   </channel>

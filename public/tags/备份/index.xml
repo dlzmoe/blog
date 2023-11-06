@@ -2,85 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>备份 on 子舒的博客</title>
-    <link>/tags/%E5%A4%87%E4%BB%BD/</link>
+    <link>https://zishu.me/tags/%E5%A4%87%E4%BB%BD/</link>
     <description>Recent content in 备份 on 子舒的博客</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
-    <lastBuildDate>Wed, 25 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="/tags/%E5%A4%87%E4%BB%BD/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://zishu.me/tags/%E5%A4%87%E4%BB%BD/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>宝塔自动备份网站到邮箱教程</title>
-      <link>/blog/130.html/</link>
+      <link>https://zishu.me/blog/130.html/</link>
       <pubDate>Wed, 25 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>/blog/130.html/</guid>
-      <description>&lt;h3 id=&#34;前言&#34;&gt;前言 &lt;a href=&#34;#%e5%89%8d%e8%a8%80&#34; class=&#34;anchor&#34;&gt;🔗&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;网站经常备份好处就是遇到问题以后可以迅速的恢复，不那么被动，防止信息丢失，操作性很大。虽然搭建一个网站非常容易，但为了应对网络上各种各样的意外情况，避免自己的网站付诸东流，做好网站备份是非常有必要的。&lt;/p&gt;
-&lt;p&gt;现在邮箱接收都支持附件文件，将网站文件和数据库文件备份到我们自己的邮箱也是一种很好地备份方式，也防止备份文件丢失。&lt;/p&gt;
-&lt;p&gt;邮箱接收附件文件大小，取决于使用的邮箱服务。一般来说个人博客网站源文件，数据库文件不大，常见邮箱服务都是可以使用的。&lt;/p&gt;
-&lt;p&gt;下面开始教程，宝塔安装教程可去&lt;a href=&#34;https://bt.cn/new/product.html&#34;&gt;宝塔官网&lt;/a&gt;查看安装教程。&lt;/p&gt;
-&lt;p&gt;系统环境：CentOS 7.9.2009 x86_64（其他系统可参考方式，命令安装自行解决）&lt;/p&gt;
-&lt;p&gt;宝塔面板：7.9.0&lt;/p&gt;
-&lt;h3 id=&#34;安装mailx&#34;&gt;安装mailx &lt;a href=&#34;#%e5%ae%89%e8%a3%85mailx&#34; class=&#34;anchor&#34;&gt;🔗&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;浏览器登录进入宝塔面板，左侧-》&lt;strong&gt;终端&lt;/strong&gt;。首次使用宝塔终端，需要登录服务器，填写root用户密码后登录。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://img.emoao.com/post-img/2022-05-13/53c6eca1cfb4eef40e63c916a59fa44b.webp&#34; alt=&#34;13-1.webp&#34;&gt;&lt;/p&gt;
-&lt;p&gt;在终端中输入以下mailx安装命令，回车安装。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;yum install -y mailx
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://img.emoao.com/post-img/2022-05-13/30bec003dc2046e71c18494c305b21cc.webp&#34; alt=&#34;13-2.webp&#34;&gt;&lt;/p&gt;
-&lt;h3 id=&#34;编辑配置文件&#34;&gt;编辑配置文件 &lt;a href=&#34;#%e7%bc%96%e8%be%91%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6&#34; class=&#34;anchor&#34;&gt;🔗&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;安装完成后，编辑邮箱服务的相关配置文件。
-在终端输入以下命令，然后回车进入编辑文件界面。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;vim /etc/mail.rc
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://img.emoao.com/post-img/2022-05-13/56989b03520d4abd7823fe5283d2b519.webp&#34; alt=&#34;13-3.webp&#34;&gt;&lt;/p&gt;
-&lt;p&gt;使用键盘上下键，找到大约69行位置，按‘i’键输入，添加以下配置。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;from&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;发件人@qq.com &lt;span class=&#34;c1&#34;&gt;#发送邮件后显示的邮件发送方 需要修改&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;smtp&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;smtps://smtp.qq.com:465 &lt;span class=&#34;c1&#34;&gt;#SMTP服务器的网址及端口 需要修改&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; smtp-auth-user&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;发件人@qq.com &lt;span class=&#34;c1&#34;&gt;#发送邮箱 需要修改&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; smtp-auth-password&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;邮箱密码/SMTP授权码 &lt;span class=&#34;c1&#34;&gt;#设置的邮箱密码，SMTP授权密码 需要修改&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; smtp-auth&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;login &lt;span class=&#34;c1&#34;&gt;#动作、登录 无需修改&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; ssl-verify&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;ignore &lt;span class=&#34;c1&#34;&gt;#ssl验证忽略 无需修改&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; nss-config-dir&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/etc/pki/nssdb &lt;span class=&#34;c1&#34;&gt;#证书存放目录 无需修改&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;请将配置按要求修改为自己所使用的邮箱服务配置。服务器需要开启465端口。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://img.emoao.com/post-img/2022-05-13/e7c11a400bb3d30c2a81293f732d84fe.webp&#34; alt=&#34;13-4.webp&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://img.emoao.com/post-img/2022-05-13/acde4506e7a574d1baf6588f7f5b178d.webp&#34; alt=&#34;13-5.webp&#34;&gt;&lt;/p&gt;
-&lt;p&gt;配置修改完成后，按Esc键，输入&lt;code&gt;:wq&lt;/code&gt;回车保存退出编辑界面。&lt;/p&gt;
-&lt;h3 id=&#34;测试发送邮件&#34;&gt;测试发送邮件 &lt;a href=&#34;#%e6%b5%8b%e8%af%95%e5%8f%91%e9%80%81%e9%82%ae%e4%bb%b6&#34; class=&#34;anchor&#34;&gt;🔗&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;在终端输入发送测试邮件命令，需要修改收件人邮箱，回车执行。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;这是一封测试邮件&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; mail -s &lt;span class=&#34;s2&#34;&gt;&amp;#34;邮件主题&amp;#34;&lt;/span&gt; 收件人@qq.com
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://img.emoao.com/post-img/2022-05-13/e5192c7240feebf85e2f8dc5e4858e5e.webp&#34; alt=&#34;13-6.webp&#34;&gt;&lt;/p&gt;
-&lt;p&gt;查看邮箱是否收到测试邮件。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://img.emoao.com/post-img/2022-05-13/47dcafa9c8b6307406aec0f12712872b.webp&#34; alt=&#34;13-7.webp&#34;&gt;&lt;/p&gt;
-&lt;p&gt;如果发现终端报以下错误（但没有影响收件），没有错误请跳过。&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;Error in certificate: Peer&#39;s certificate issuer has been marked as not trusted by the.&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://img.emoao.com/post-img/2022-05-13/8db1d9c84d292df3841c535ef8ad724b.webp&#34; alt=&#34;13-8.webp&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;Ctrl+C&lt;/code&gt;结束命令后，修改邮箱服务配置文件，将&lt;code&gt;set ssl-verify=ignore&lt;/code&gt;修改为&lt;code&gt;set ssl-verify=strict&lt;/code&gt;后保存退出（编辑方法同上）。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://img.emoao.com/post-img/2022-05-13/c12d5ffecf4e6e48061bdc495d7570ff.webp&#34; alt=&#34;13-9.webp&#34;&gt;&lt;/p&gt;
-&lt;p&gt;修改完成后在终端输入以下命令。&lt;/p&gt;
-&lt;p&gt;获取邮件服务器证书&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt;   -n &lt;span class=&#34;s2&#34;&gt;&amp;#34; &amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;  openssl s_client -connect smtp.qq.com:465 &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sed -ne  &lt;span class=&#34;s1&#34;&gt;&amp;#39;/-BEGIN CERTIFICATE-/,/-END CERTIFIICATE-/p&amp;#39;&lt;/span&gt;  &amp;gt;  /etc/pki/nssdb/qq.crt
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;把证书添加到受信任表&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;certutil    -A    -n   &lt;span class=&#34;s1&#34;&gt;&amp;#39;yeah&amp;#39;&lt;/span&gt;    -t    &lt;span class=&#34;s2&#34;&gt;&amp;#34;P,P,P&amp;#34;&lt;/span&gt;    -d    /etc/pki/nssdb    -i    /etc/pki/nssdb/qq.crt
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;注：如果是163或者其他邮箱服务器请将&lt;code&gt;smtp.qq.com&lt;/code&gt;改为&lt;code&gt;smtp.163.com&lt;/code&gt;，&lt;code&gt;qq.crt&lt;/code&gt;改为&lt;code&gt;163.crt&lt;/code&gt; 以此类推。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;命令执行完成后，重新执行发送测试邮件命令，不在报错。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://img.emoao.com/post-img/2022-05-13/3252062ac53690690f832dd73d0863aa.webp&#34; alt=&#34;13-10.webp&#34;&gt;&lt;/p&gt;
-&lt;h3 id=&#34;宝塔定时任务&#34;&gt;宝塔定时任务 &lt;a href=&#34;#%e5%ae%9d%e5%a1%94%e5%ae%9a%e6%97%b6%e4%bb%bb%e5%8a%a1&#34; class=&#34;anchor&#34;&gt;🔗&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;左侧-》&lt;strong&gt;计划任务&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;首先按自己需求（计划任务执行时间，保留文件数量等）添加网站和数据库源文件备份任务。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://img.emoao.com/post-img/2022-05-13/4968cb73cd43ee6ece060bb011feef8d.webp&#34; alt=&#34;13-11.webp&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;然后添加&lt;/strong&gt;&lt;code&gt;shell&lt;/code&gt;脚本任务，在脚本内容中添加以下脚本命令，修改收件人为自己的邮箱。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#!/bin/bash
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; /www/backup/site
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; file in &lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;ls *&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;do&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nv&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; -a &lt;/span&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;file&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;done&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;主人，今天的网站备份又到了哦，请注意查收！&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; mail -s &lt;span class=&#34;s2&#34;&gt;&amp;#34;网站备份&amp;#34;&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$str&lt;/span&gt; 2502393029@qq.com
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://img.emoao.com/post-img/2022-05-13/89e2ce5cfc848ae5688021f650415776.webp&#34; alt=&#34;13-12.webp&#34;&gt;&lt;/p&gt;
-&lt;p&gt;执行时间可按需求，晚于网站，数据库备份任务执行时间。&lt;/p&gt;
-&lt;p&gt;数据库备份和网站备份一样需要再添加一次计划任务，将&lt;code&gt;cd /www/backup/site &lt;/code&gt;修改为&lt;code&gt;cd /www/backup/database&lt;/code&gt;数据库备份文件所在目录即可，参考改一下邮件主题，和内容信息。&lt;/p&gt;
-&lt;p&gt;计划任务添加完成后，可先执行网站，数据库源文件备份任务，再执行网站，数据库邮箱&lt;code&gt;shell&lt;/code&gt;脚本备份任务，然后前往邮箱查看文件是否收到，文件过大，邮件会有延迟。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://img.emoao.com/post-img/2022-05-13/deb9c05584f5bc00013188daa3e758b0.webp&#34; alt=&#34;13-13.webp&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://img.emoao.com/post-img/2022-05-13/1564dc76c2f6b94299a153d25d9d15d9.webp&#34; alt=&#34;13-14.webp&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;注：如果有报错或收不到邮件情况，请仔细检查命令，配置文件是否有误，或者查看脚本执行日志进行排查。&lt;/strong&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;转载自梦繁星博客: &lt;a href=&#34;https://blog.emoao.com/13.html&#34;&gt;https://blog.emoao.com/13.html&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;如果问题请在评论区留言。&lt;/p&gt;
-</description>
+      <guid>https://zishu.me/blog/130.html/</guid>
+      <description>前言 网站经常备份好处就是遇到问题以后可以迅速的恢复，不那么被动，防止信息丢失，操作性很大。虽然搭建一个网站非常容易，但为了应对网络上各种各样的意外情况，避免自己的网站付诸东流，做好网站备份是非常有必要</description>
     </item>
     
   </channel>
