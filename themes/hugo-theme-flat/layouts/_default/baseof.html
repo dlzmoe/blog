@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {{ partial "head.html" . }}
+</head>
+
+<body>
+    {{ partial "header.html" . }}
+    <main class="main-wrapper">
+        <div class="main">
+            {{ block "main" . }}{{ end }}
+        </div>
+        <div class="side">
+            {{ range .Site.Sections }}
+            {{ partial "side-recent.html" . }}
+            {{ end }}
+            {{ partial "side-categories.html" . }}
+            {{ partial "side-tags.html" . }}
+
+           
+            {{ if in .Site.Params.mainSections .Type }}
+                {{ .TableOfContents }}
+            {{ end }}
+        </div>
+    </main>
+    {{ partial "footer.html" . }}
+</body>
+
+</html>
