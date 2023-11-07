@@ -2,7 +2,7 @@
 <main>
   <div class="header">
     <h1 class="header-title">{{ .Title }}</h1>
-  
+
     {{ if in .Site.Params.mainSections .Type }}
     {{ if .Date }}
     <div class="post-meta">
@@ -29,9 +29,11 @@
     {{ end }}
   </p>
   {{ end }}
+
+  {{ if in .Site.Params.mainSections .Type }}
+  {{ partial "comment.html" . }}
+  {{ end }}
+
 </main>
-{{ if in .Site.Params.mainSections .Type }}
-{{ partial "comment.html" . }}
-{{ end }}
 
 {{ partial "footer.html" . }}
