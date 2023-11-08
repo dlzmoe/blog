@@ -1,6 +1,6 @@
 ---
 slug: weekly-5
-title: 子舒周刊 -5 | 使用 css 写出精致的 UI 小组件
+title: 周刊#5 | 使用 css 写出精致的 UI 小组件
 date: 2023-03-19
 categories:
   - 周刊

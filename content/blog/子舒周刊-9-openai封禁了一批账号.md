@@ -1,6 +1,6 @@
 ---
 slug: weekly-9
-title: 子舒周刊 -9 | openai 封禁了一批账号
+title: 周刊#9 | openai 封禁了一批账号
 date: 2023-04-15
 categories:
   - 周刊

@@ -1,6 +1,6 @@
 ---
 slug: weekly-4
-title: 子舒周刊 -4 | chatGPT3.5API 发布
+title: 周刊#4 | chatGPT3.5API 发布
 date: 2023-03-12
 categories:
   - 周刊

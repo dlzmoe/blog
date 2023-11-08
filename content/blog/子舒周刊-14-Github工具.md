@@ -1,6 +1,6 @@
 ---
 slug: weekly-14
-title: 子舒周刊 -14 | Github 工具
+title: 周刊#14 | Github 工具
 date: 2023-05-19
 categories:
   - 周刊

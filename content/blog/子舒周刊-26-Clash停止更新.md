@@ -1,6 +1,6 @@
 ---
 slug: weekly-26
-title: 子舒周刊 -26 | Clash 停止更新
+title: 周刊#26 | Clash 停止更新
 date: 2023-11-09
 categories:
   - 周刊

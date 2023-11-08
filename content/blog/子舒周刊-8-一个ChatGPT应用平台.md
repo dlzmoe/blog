@@ -1,6 +1,6 @@
 ---
 slug: weekly-8
-title: 子舒周刊 -8 | 一个 ChatGPT 应用平台
+title: 周刊#8 | 一个 ChatGPT 应用平台
 date: 2023-04-08
 categories:
   - 周刊

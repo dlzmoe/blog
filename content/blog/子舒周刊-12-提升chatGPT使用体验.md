@@ -1,6 +1,6 @@
 ---
 slug: weekly-12
-title: 子舒周刊 -12 | 提升 chatGPT 使用体验
+title: 周刊#12 | 提升 chatGPT 使用体验
 date: 2023-05-05
 categories:
   - 周刊

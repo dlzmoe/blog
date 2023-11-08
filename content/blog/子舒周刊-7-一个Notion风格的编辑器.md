@@ -1,6 +1,6 @@
 ---
 slug: weekly-7
-title: 子舒周刊 -7 | 一个 Notion 风格的编辑器
+title: 周刊#7 | 一个 Notion 风格的编辑器
 date: 2023-04-02
 categories:
   - 周刊
