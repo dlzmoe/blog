@@ -150,3 +150,24 @@ https://meta.appinn.net/t/topic/47711/18
 ```
 
 </details>
+
+
+## 5.rubick - uTools 的开源替代品
+
+https://github.com/rubickCenter/rubick
+
+虽然我已经购买了 uTools 的永久会员，但还是觉得 rubick 非常棒，试用了一下很符合前端的使用习惯，可以自己本地开发插件。
+
+<div class="nolist">
+
+- [x] 基于 electron 的开源工具箱，自由集成丰富插件。
+- [x] 基于 npm 包模式的插件管理，安装插件和安装 npm 包一样简单
+- [x] 支持 webdav 多端数据同步，真正的数据安全同步
+- [x] 独一无二的系统插件模式，让插件成为 rubick 的一部分
+- [x] 支持快速启动本地 app、文件、文件夹
+- [x] 支持企业化内网部署
+- [x] 支持多语言
+
+</div>
+
+![](https://camo.githubusercontent.com/1857703c574326d1a1b331a9307b75bcc370584ae339aeca2616279ca5464e72/68747470733a2f2f706963312e7a68696d672e636f6d2f38302f76322d37306331303566663766623165393535666336376666613561353536343039325f373230772e676966)
