@@ -28,13 +28,13 @@ https://jvns.ca/blog/2023/11/01/confusing-git-terminology/
 
 作者举例了很多有关 git 指令奇怪的术语。
 
-## 3.GitHub 恢复旧的 feed 流推送
+## 3.GitHub 如何恢复旧的 feed 流推送？
 
 https://github.com/wangrongding/github-old-feed
 
 一个油猴脚本，将 GitHub 首页的推送信息进行优化，显示效果也是非常不错的。
 
-## 4.知乎评论时间精确到秒
+## 4.知乎评论时间精确到秒 - 油猴脚本
 
 https://meta.appinn.net/t/topic/47711/18
 
@@ -171,3 +171,7 @@ https://github.com/rubickCenter/rubick
 </div>
 
 ![](https://camo.githubusercontent.com/1857703c574326d1a1b331a9307b75bcc370584ae339aeca2616279ca5464e72/68747470733a2f2f706963312e7a68696d672e636f6d2f38302f76322d37306331303566663766623165393535666336376666613561353536343039325f373230772e676966)
+
+## 6.OpenAI 发布会
+
+11 月 6 日，OpenAI 官方发布会上公布最新的模型 GPT-4 Turbo 发布，功能非常强大，并且开启了 GPT 4 的内测，小部分 GPT 3.5 用户可以体验到 GPT 4 的快感，预计很快就可以开放到所有 GPT 3.5 用户。
