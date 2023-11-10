@@ -5,10 +5,6 @@ title: 关于
 
 <!-- ![GitHub followers](https://img.shields.io/github/followers/98zi) -->
 
-<div align="center"><img style="width:120px;border:none" src="https://imgurl.zishu.me/author.png"></div>
-
-欢迎来到我的个人网站，记录了一些个人心得和笔记，并且分享有趣的生活。
-
 ### 1.个人介绍
 
 ```js
@@ -25,8 +21,6 @@ const author = {
 ```
 
 ![](https://raw.githubusercontent.com/98zi/98zi/main/github-user-contribution.svg)
-
-本博客使用主题 https://github.com/98zi/hugo-theme-syria
 
 我的 [骑行之路](/riding/)，[计划单](/plan/)。
 
