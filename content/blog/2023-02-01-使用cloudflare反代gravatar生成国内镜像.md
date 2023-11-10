@@ -19,21 +19,21 @@ cloudflare 有一个非常好用的功能---Workers，可以在无服务器的�
 
 **1.登陆后，在主页点击左侧的 `Workers`，然后点击`创建服务`。**
 
-![](https://imgurl.zishu.me/images/20230201/1675253358798.5h6helivsl00.webp)
+![](https://imgurl.zishu.me/images/old/20230201/1675253358798.5h6helivsl00.webp)
 
 
 **2.服务名称随意填写，然后点击右下角创建。**
 
-![](https://imgurl.zishu.me/images/20230201/1675253485344.451pp9l8u920.webp)
+![](https://imgurl.zishu.me/images/old/20230201/1675253485344.451pp9l8u920.webp)
 
 
 **3.点击右上角快速编辑**
 
-![](https://imgurl.zishu.me/images/20230201/image.2ple8r24vra.webp)
+![](https://imgurl.zishu.me/images/old/20230201/image.2ple8r24vra.webp)
 
 **4.在左侧编辑器中输入下列的代码**
 
-![](https://imgurl.zishu.me/images/20230201/image.7hrwxy8aok00.webp)
+![](https://imgurl.zishu.me/images/old/20230201/image.7hrwxy8aok00.webp)
 
 ## 2.代码
 
@@ -182,7 +182,7 @@ async function device_status (user_agent_info) {
 
 ## 3.自定义域名
 
-![](https://imgurl.zishu.me/images/20230201/1675254069096.51n0e9vl53g0.webp)
+![](https://imgurl.zishu.me/images/old/20230201/1675254069096.51n0e9vl53g0.webp)
 
 在触发器中可以找到自定义域名选项，输入已经绑定 cloudflare 的域名，再次赞美 cloudflare，如果事前绑定好了域名，在这里可以直接输入二级域名，cloudflare 会自动解析，全部都是自动化的。
 

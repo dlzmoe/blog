@@ -25,11 +25,11 @@ Cusdis 是一个界面清爽、注重隐私的轻量级 (~5kb gzip) 评论系统
 
 进入它，然后点击 `setting`。
 
-![](https://imgurl.zishu.me/images/2021/09/16/68aa68c985a8a9560645c60a98adad6f.png)
+![](https://imgurl.zishu.me/images/old/2021/09/16/68aa68c985a8a9560645c60a98adad6f.png)
 
 `Embed Code` 会提供几行代码以及一些 api,复制他们。
 
-![](https://imgurl.zishu.me/images/2021/09/16/059b79361e36b23f0c4ee59f2d69a990.png)
+![](https://imgurl.zishu.me/images/old/2021/09/16/059b79361e36b23f0c4ee59f2d69a990.png)
 
 `data-app-id` 是注册时自动生成的，注意保密，每个人都不一样。
 
@@ -69,11 +69,11 @@ Cusdis 是一个界面清爽、注重隐私的轻量级 (~5kb gzip) 评论系统
 
 先勾选这个 Email Notification，然后点击下方的 Advanced Notification Settings (高级通知设置)
 
-![](https://imgurl.zishu.me/images/2021/09/16/75641c05cbe66afcbb4ffdfb79bb464e.png)
+![](https://imgurl.zishu.me/images/old/2021/09/16/75641c05cbe66afcbb4ffdfb79bb464e.png)
 
 就可以进入设置，输入自己的邮箱。
 
-![](https://imgurl.zishu.me/images/2021/09/16/a3d47cb11f1662d3894da79ead79d852.png)
+![](https://imgurl.zishu.me/images/old/2021/09/16/a3d47cb11f1662d3894da79ead79d852.png)
 
 ## 3. 中文化
 

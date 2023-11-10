@@ -20,7 +20,7 @@ https://bitwarden.com/
 
 而 Vaultwarden 是一个使用 Rust 编写的非官方 Bitwarden 服务器实现，提供了不错的 web 管理界面，并与 Bitwarden 兼容。
 
-![](https://imgurl.zishu.me/images/2023/64c2607587a9a.png)
+![](https://imgurl.zishu.me/images/old/2023/64c2607587a9a.png)
 
 ### 2.部署
 
@@ -60,7 +60,7 @@ docker run -d --name bitwardenrs \
 
 通过 ChatGPT 我将这段代码转化成了`docker-compose.yml` 文件，可以更方便的部署安装。
 
-![](https://imgurl.zishu.me/images/2023/64c261e24fc4a.png)
+![](https://imgurl.zishu.me/images/old/2023/64c261e24fc4a.png)
 
 ```yml
 version: '3'
