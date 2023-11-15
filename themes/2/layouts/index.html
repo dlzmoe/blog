@@ -1,11 +1,18 @@
 {{ partial "header.html" . }}
 
+{{ $articleCount := len .Site.RegularPages }}
+{{ $totalWordCount := 0 }}
+{{ range .Site.Pages }}
+{{ $totalWordCount = add $totalWordCount .WordCount }}
+{{ end }}
+
 <body>
   <div class="aboutme">
     <div class="container">
       <div class="img"><img src="https://imgurl.zishu.me/author.png" alt="author"></div>
       <div class="info">
         <p>欢迎来到我的个人网站，记录了一些个人心得和笔记。 --- 子舒</p>
+        <p>已经写了 {{ $articleCount }} 篇文章，共 {{ $totalWordCount }} 字。</p>
         <a href="/index.xml" class="rss" target="_blank">订阅 RSS</a>
       </div>
     </div>
@@ -28,7 +35,7 @@
       </li>
       {{ end }}
     </ul>
-    
+
     <div class="readmore"><a href="/blog/">查看全部文章</a></div>
     <!-- {{ partial "pagination.html" . }} -->
 
