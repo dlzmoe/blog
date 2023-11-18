@@ -22,7 +22,7 @@ const author = {
 
 ![](https://raw.githubusercontent.com/98zi/98zi/main/github-user-contribution.svg)
 
-本站使用主题：https://github.com/98zi/hugo-theme-meteor
+本站使用主题：[https://github.com/98zi/hugo-theme-meteor](https://github.com/98zi/hugo-theme-meteor)
 
 我的 [骑行之路](/riding/)，[计划单](/plan/)。
 
