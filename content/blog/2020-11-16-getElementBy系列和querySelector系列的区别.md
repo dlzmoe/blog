@@ -8,9 +8,6 @@ tags:
   - 笔记
 ---
 
-
-
-
 `querySelector`和`querySelectorAll`的用法和`getElementBy`大致一样，获取的时候带上符号，getElementBy 获取的是元素的`动态集合`，querySelector 获取的是元素的`静态集合`。
 
 

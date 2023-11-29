@@ -10,7 +10,7 @@ tags:
 
 分享一个 hugo 一键打包并上传 github 的方法，前提是你之前上传过 GitHub 仓库。
 
-采用 window 支持的 sh可执行文件，在根目录新建一个 `hugo.sh` 文件，里面放上一些命令。
+采用 window 支持的 sh 可执行文件，在根目录新建一个 `hugo.sh` 文件，里面放上一些命令。
 
 ```shell
 hugo

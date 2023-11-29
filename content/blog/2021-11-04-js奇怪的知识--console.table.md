@@ -1,6 +1,6 @@
 ---
 slug: 81
-title: js奇怪的知识--console.table
+title: js 奇怪的知识--console.table
 date: 2021-11-04
 categories: 
   - 技术
@@ -16,7 +16,7 @@ tags:
 
 根据字面意思就是“将数据以表格的形式显示”。这个方法需要一个必须参数 data，data 必须是一个数组或者是一个对象；还可以使用一个可选参数 columns。
 
-表格的第一列是 index。如果数据 data 是一个数组，那么这一列的单元格的值就是数组的索引。 如果数据是一个对象，那么它们的值就是各对象的属性名称。 注意（在 FireFox 中）console.table 被限制为只显示1000行（第一行是被标记的索引）。
+表格的第一列是 index。如果数据 data 是一个数组，那么这一列的单元格的值就是数组的索引。如果数据是一个对象，那么它们的值就是各对象的属性名称。注意（在 FireFox 中）console.table 被限制为只显示 1000 行（第一行是被标记的索引）。
 
 ### 1.直接输出
 
@@ -51,7 +51,7 @@ function Fun(title, date) {
 
 const one = new Fun("双十一", "11.11")
 const two = new Fun("双十二", "12.12")
-const three = new Fun("双十三", "你是傻子吗，没有13月")
+const three = new Fun("双十三", "你是傻子吗，没有 13 月")
 
 console.table([one, two, three], ["title", "date"])
 ```
