@@ -32,9 +32,9 @@ const author = {
 
 有时候就会遇到一些文章写的不错的博主，于是就记录在这里了。
 
-[涛叔](https://taoshu.in)
+[涛叔](https://taoshu.in/)
 [江卮可乐](https://emo.ijann.com/)
-[东东博客](http://blog.shutwin.com)
+[东东博客](https://shutwin.com/)
 [Leon Fong](https://www.leonfong.me/)
 [卢涛南博客](https://lutaonan.com/)
 
