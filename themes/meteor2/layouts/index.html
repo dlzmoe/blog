@@ -1,29 +1,25 @@
 {{ partial "header.html" . }}
+<main>
+  <ul class="blog-posts home-posts">
+    {{ $pages := .Site.RegularPages }}
+    {{ $paginator := .Paginate ($pages) }}
+    {{ range $paginator.Pages }}
+    {{ $title := .Title }}
+    {{ $summary := .Summary }}
+    <li>
+      <span>
+        <time datetime="{{ .Date.Format " 2006-01-02 15:04:05 MST" }}">{{ .Date.Format "2006.01.02"}}</time>
+      </span>
+      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+      <div class="entry-content">
+        <p>{{ .Summary }}</p>
+      </div>
+    </li>
+    {{ end }}
+  </ul>
 
+  <div class="readmore"><a href="/blog/">查看全部文章</a></div>
+  <!-- {{ partial "pagination.html" . }} -->
 
-<body>
-
-  <main>
-    <ul class="blog-posts home-posts">
-      {{ $pages := .Site.RegularPages }}
-      {{ $paginator := .Paginate ($pages) }}
-      {{ range $paginator.Pages }}
-      {{ $title := .Title }}
-      {{ $summary := .Summary }}
-      <li>
-        <span>
-          <time datetime="{{ .Date.Format " 2006-01-02 15:04:05 MST" }}">{{ .Date.Format "2006.01.02"}}</time>
-        </span>
-        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-        <div class="entry-content">
-          <p>{{ .Summary }}</p>
-        </div>
-      </li>
-      {{ end }}
-    </ul>
-
-    <div class="readmore"><a href="/blog/">查看全部文章</a></div>
-    <!-- {{ partial "pagination.html" . }} -->
-
-  </main>
-  {{ partial "footer.html" . }}
+</main>
+{{ partial "footer.html" . }}
