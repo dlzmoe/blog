@@ -1,6 +1,5 @@
 $(function () {
   $('.postbody img').addClass('slb');
-  $('.postbody a').attr('target', '_blank');
   $('.slb').simplebox({
     fadeSpeed: 100
   });
