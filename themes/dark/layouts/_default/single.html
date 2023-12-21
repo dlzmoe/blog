@@ -1,0 +1,61 @@
+{{ partial "header.html" . }}
+<div class="index">
+  <div class="wrapper">
+    <h1 class="right">{{ .Title }}</h1>
+    <h2 class="left">Introduction</h2>
+  </div>
+</div>
+<section class="posts wrapper">
+  <article class="post">
+    <header>
+      <div class="feature"><span>Featured</span></div>
+      <h1 id="posttitle">{{ .Title }}</h1>
+
+      {{ if in .Site.Params.mainSections .Type }}
+
+      <span>
+        <a href="/">子舒</a>
+        <time datetime="{{ .Date.Format " 2006-01-02 15:04:05 MST" }}">{{ .Date.Format
+          "2006-01-02"}}</time>
+      </span>
+      <span>
+        <!-- Post Tags -->
+        {{ if .Params.tags }}
+        {{ range .Params.tags }}
+        {{ . }}
+        {{ end }}
+        {{ end }}
+      </span>
+      {{ end }}
+
+    </header>
+
+    <section class="postbody">
+      <!-- {{ if in .Site.Params.mainSections .Type }}
+      {{ .TableOfContents }}
+      {{ end }} -->
+
+      {{ .Site.Params.postHeaderContent | safeHTML }}
+      {{ .Content }}
+    </section>
+
+    {{ if in .Site.Params.mainSections .Type }}
+    {{ partial "author.html" . }}
+    {{ partial "comment.html" . }}
+    <script>
+      $(window).on("scroll", function () {
+        if ($(window).scrollTop() >= 100) {
+          $(".index").addClass("is-active");
+          $('.profile').addClass('hide');
+        } else {
+          $(".index").removeClass("is-active")
+          $('.profile').removeClass('hide');
+        }
+      });
+    </script>
+    {{ end }}
+
+  </article>
+</section>
+
+{{ partial "footer.html" . }}
