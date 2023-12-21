@@ -1,7 +1,6 @@
 ---
 slug: plan
 title: 计划单
-layout: plan
 ---
 
 以半年为期计划，在前一周期为下一周期制定。

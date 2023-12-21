@@ -1,33 +1,41 @@
-{{ partial "header.html" . }}
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+{{ partial "head.html" . }}
 
-<main class="site-main section-inner">
-  <div class="header">
-    <h1 class="header-title">{{ .Title }}</h1>
-  </div>
+<body>
+  {{ partial "header.html" . }}
 
-  {{ range (where .Data.Pages "Type" "in" site.Params.mainSections).GroupByDate "2006" -}}
-  <h2 class="archive-title">{{ .Key }}</h2>
-  <ul>
-    {{ range .Pages }}
+  <main class="site-main section-inner">
+    <div class="header">
+      <h1 class="header-title">{{ .Title }}</h1>
+    </div>
 
-    <li class="post">
-      <time datetime="{{ .Date.Format "2006-01-02 15:04:05 MST" }}">{{ .Date.Format "2006-01-02"}}</time>
-      <a href="{{ .RelPermalink }}">
-        <span>{{ .Title }}</span>
-        <span class="category">
-          {{ range $key, $value := .Params.categories -}}
-          {{- if $key }}, {{ end }}
-          {{ . }}
-          {{- end }}
-        </span>
-      </a>
-    </li>
+
+    {{ range (where .Data.Pages "Type" "in" site.Params.mainSections).GroupByDate "2006" -}}
+    <div class="posts-group">
+      <div class="post-year" id="{{ .Key }}">{{ .Key }}</div>
+      <ul class="posts-list">
+
+        {{ range .Pages }}
+        <li class="post-item">
+          <a href="{{ .RelPermalink }}">
+            <span class="post-title">{{ .Title }}</span>
+            <span class="post-day" datetime="{{ .Date.Format " 2006-01-02 15:04:05 MST" }}">{{ .Date.Format
+              "01.02"}}</span>
+          </a>
+          <!-- <div class="entry-content">
+          <p>{{ .Summary }}</p>
+        </div> -->
+        </li>
+        {{ end }}
+
+      </ul>
+    </div>
 
     {{ end }}
-  </ul>
+  </main>
 
-  {{ end }}
+  {{ partial "footer.html" . }}
+</body>
 
-</main>
-
-{{ partial "footer.html" . }}
+</html>
