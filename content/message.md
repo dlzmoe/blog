@@ -1,6 +1,6 @@
 ---
 slug: message
-title: 留言板
+title: Message
 layout: message
 ---
 

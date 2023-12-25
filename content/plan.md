@@ -1,5 +1,5 @@
 ---
-slug: plan
+slug: Plan
 title: 计划单
 ---
 
