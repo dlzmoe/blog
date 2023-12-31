@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+{{ partial "head.html" . }}
+
+<body class="list" id="top">
+  {{ partial "header.html" . }}
+
+  <main class="main">
+
+    <article class="first-entry home-info">
+      <header class="entry-header">
+        <h1>[~]$ hey, I'm zishu 👋</h1>
+      </header>
+      <div class="entry-content">
+        <p>
+          同时将周刊一起发布到了本网站，督促自己多扩展眼界，获取更新的知识，不管是技术类型还是娱乐，让自己的容量不断 +1.
+        </p>
+        <p>
+          前端程序员，独立博客作者，骑行爱好者，摄影爱好者，INFJ 人格。
+        </p>
+        <p>
+          喜欢折腾技术，研究各种奇怪的程序和网站，做了一些开源的东西。
+        </p>
+        <p>
+          已经有 <span id="busuanzi_value_site_pv">...</span> 位小伙伴逛过本站。
+        </p>
+      </div>
+    </article>
+
+
+    {{ $pages := .Site.RegularPages }}
+    {{ $paginator := .Paginate ($pages) }}
+    {{ range $paginator.Pages }}
+    {{ $title := .Title }}
+    {{ $summary := .Summary }}
+    <article class="post-entry">
+      <header class="entry-header">
+        <h2 class="entry-hint-parent">{{ .Title }}</h2>
+      </header>
+      <div class="entry-content">
+        <p>{{ .Summary }}</p>
+      </div>
+      <footer class="entry-footer">
+        <time datetime="{{ .Date.Format " 2006-01-02 15:04:05 MST" }}">{{ .Date.Format "2006-01-02"}}</time>
+        <span class="category">
+          {{ range $key, $value := .Params.categories -}}
+          {{- if $key }}, {{ end }}
+          {{ . }}
+          {{- end }}
+        </span>
+      </footer>
+      <a class="entry-link" href="{{ .RelPermalink }}"></a>
+    </article>
+
+    {{ end }}
+    {{ partial "pagination.html" . }}
+  </main>
+
+  {{ partial "footer.html" . }}
+</body>
+
+</html>
