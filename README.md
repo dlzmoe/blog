@@ -1,5 +1,3 @@
-<div style="text-align:center">
-
 ## hugo-blog
 
 ![GitHub license](https://img.shields.io/github/license/98zi/hugo-blog) 
@@ -10,8 +8,6 @@
 ![GitHub followers](https://img.shields.io/github/followers/98zi)
 
 [源码](https://github.com/98zi/hugo-blog) | [在线预览](https://zishu.me)
-
-</div>
 
 使用 hugo 框架构建，在 GitHub 托管代码，Netlify 部署，CloudFlare 解析域名。
 
