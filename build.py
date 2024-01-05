@@ -20,9 +20,7 @@ if __name__ == "__main__":
         filepath = urllib.parse.quote(name)
         oldTitle = name.split('.html')[0]
         url   = 'https://zishu.me/blog/' + oldTitle
-        title = '第 ' + oldTitle.split('-')[0] + ' 期 - ' + oldTitle.split('-')[1]
         readmeMd= '* [{}]({})\n'.format(title, url)
-        num = int(oldTitle.split('-')[0])
         if index < 5 :
           modified = fetch_ci_time('/content/blog/' + filepath)
 
