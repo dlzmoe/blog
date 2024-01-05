@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+{{ partial "head.html" . }}
+
+<body>
+
+  {{ partial "header.html" . }}
+  <main>
+    <div class="post-single box">
+      {{ if in .Site.Params.mainSections .Type }}
+      <div class="break">
+        <a href="">Home</a> /
+        <span>
+          {{ with .Params.categories }}
+          {{ range $index, $element := . }}
+          {{ if $index }}, {{ end }}
+          <a href="{{ "categories/" | relLangURL }}{{ $element | urlize }}">{{ $element }}</a>
+          {{ end }}
+          {{ end }}
+        </span>
+      </div>
+      {{ end }}
+
+      <div class="header">
+        <h1 class="header-title">{{ .Title }}</h1>
+        {{ if in .Site.Params.mainSections .Type }}
+        <div class="post-info">
+          发布于 <time datetime="{{ .Date.Format " 2006-01-02 15:04:05 MST" }}">{{ .Date.Format "2006-01-02"}}</time>
+        </div>
+        {{ end }}
+      </div>
+      <article class="post-content">
+        {{ .Site.Params.postHeaderContent | safeHTML }}
+        {{ .Content }}
+      </article>
+
+      {{ if in .Site.Params.mainSections .Type }}
+      {{ else }}
+      {{ partial "footer.html" . }}
+      {{ end }}
+    </div>
+
+
+    {{ if in .Site.Params.mainSections .Type }}
+    <div class="box">
+    {{ partial "comment.html" . }}
+    {{ partial "footer.html" . }}
+    </div>
+    {{ end }}
+
+
+  </main>
+
+</body>
+
+</html>

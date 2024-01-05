@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+{{ partial "head.html" . }}
+
+<body>
+  {{ partial "header.html" . }}
+
+  <main class="box">
+
+    <div class="header">
+      <h1 class="header-title">{{ .Title }}</h1>
+      <p>List of articles written on this website in a timeline view.</p>
+    </div>
+
+    {{ range (where .Data.Pages "Type" "in" site.Params.mainSections).GroupByDate "2006" -}}
+    <div class="archive-year">
+      <h2 id="#{{ .Key }}">{{ .Key }}</h2>
+      <ul>
+        {{ range .Pages }}
+        <li>
+          <time datetime="{{ .Date.Format " 2006-01-02 15:04:05 MST" }}">{{ .Date.Format "2006-01-02"}}</time>
+          <a class="entry-link" href="{{ .RelPermalink }}">{{ .Title }}</a>
+        </li>
+        {{ end }}
+      </ul>
+    </div>
+
+    {{ end }}
+    {{ partial "footer.html" . }}
+  </main>
+
+</body>
+
+</html>
