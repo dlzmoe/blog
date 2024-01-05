@@ -20,11 +20,11 @@ if __name__ == "__main__":
         filepath = urllib.parse.quote(name)
         oldTitle = name.split('.html')[0]
         url   = 'https://zishu.me/blog/' + oldTitle
-        readmeMd= '* [{}]({})\n'.format(title, url)
+        readmeMd= '* [{}]({})\n'.format(url)
         if index < 5 :
           modified = fetch_ci_time('/content/blog/' + filepath)
 
-          recentMd= '* [{}]({}) - {}\n'.format(title, url, modified)
+          recentMd= '* [{}]({}) - {}\n'.format(url, modified)
         readmefile.write(readmeMd)
 
   readmefile.close()
