@@ -1,8 +1,10 @@
 ## hugo-blog
 
 ![](https://img.shields.io/github/last-commit/98zi/hugo-blog)
-![](https://img.shields.io/github/package-json/v/98zi/hugo-blog)
-[![](https://img.shields.io/github/license/98zi/hugo-blog)](https://github.com/98zi/hugo-blog/blob/main/LICENSE)
+![](https://img.shields.io/github/commit-activity/t/98zi/hugo-blog)
+![](https://img.shields.io/github/forks/98zi/hugo-blog?style=flat)
+![](https://img.shields.io/github/stars/98zi/hugo-blog?style=flat)
+![](https://img.shields.io/github/license/98zi/hugo-blog)
 
 - 源码查看：https://github.com/98zi/hugo-blog
 - 在线预览：https://zishu.me
