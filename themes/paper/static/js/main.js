@@ -14,6 +14,9 @@ $(function () {
     }, 500)
   })
 
+  if ($('.toc').html() == '' || $('#TableOfContents').html() == '') {
+    $('.toc').hide();
+  }
 
   $('.zimgbox').each(function () {
     $(this).click(function () {

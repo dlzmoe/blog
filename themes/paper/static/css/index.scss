@@ -640,13 +640,6 @@ pre:hover .copy-code {
   font-size: 12px
 }
 
-.post-content a,
-.toc a:hover {
-  box-shadow: 0 1px;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone
-}
-
 .post-content a code {
   margin: auto 0;
   border-radius: 0;
@@ -828,10 +821,46 @@ pre:hover .copy-code {
   font-weight: 400
 }
 
-.toc {}
+.toc {
+  position: absolute;
+  height: 100%;
+  border-right: 1px solid var(--border);
+  left: -324px;
+  top: 48px;
+  width: 300px;
 
-.dark .toc {
-  background: var(--entry)
+  details {
+    position: sticky;
+    top: 24px;
+    border: unset;
+    background: unset;
+    border-radius: unset;
+    width: 100%;
+    margin: 0 2px 40px;
+
+    #TableOfContents {
+      margin-top: 10px;
+      padding: 0 20px;
+
+      ul,
+      ol {
+        margin: 0;
+        padding: 0;
+      }
+    }
+
+    li {
+      list-style: none;
+      font-size: .95rem;
+      margin: 0;
+      padding-bottom: 5px;
+
+      a {
+        box-shadow: none;
+        color: #333;
+      }
+    }
+  }
 }
 
 .toc details summary {
@@ -2166,22 +2195,7 @@ mark {
     border: 5px solid var(--code-bg)
   }
 
-  .post-content a::after {
-    content: "("attr(href)")"
-  }
 
-  .post-content a {
-    box-shadow: unset;
-    padding: 4px 0;
-    box-shadow: 0 -1px 0 var(--primary)inset;
-    -webkit-print-color-adjust: exact
-  }
-
-  .post-content a::after {
-    padding: 4px 0;
-    box-shadow: 0 -1px #fff none;
-    -webkit-print-color-adjust: exact
-  }
 
   h1,
   h2,
@@ -2236,6 +2250,16 @@ iframe {
   opacity: 0.6;
 }
 
+.post-content a {
+  color: #0969da;
+  box-shadow: none;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 .content {
   &>* {
     margin: 20px 0;
@@ -2248,24 +2272,6 @@ iframe {
   }
 }
 
-#TableOfContents {
-  font-size: 16px;
-
-  &>ul {
-    margin: 20px 2px 20px;
-    border: 1px solid var(--border);
-    background: var(--code-bg);
-    border-radius: var(--radius);
-    padding: .4em;
-    padding-left: 30px;
-  }
-
-  a {
-    color: #000;
-    text-decoration: none;
-    box-shadow: none;
-  }
-}
 
 
 .highlight {
@@ -2554,4 +2560,18 @@ pre code {
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+@media(max-width:1460px) {
+  .toc {
+    position: static;
+    width: 100%;
+    border: 1px solid var(--border);
+    padding: 10px 0;
+    border-radius: 5px;
+
+    details {
+      margin: 0;
+    }
+  }
 }
