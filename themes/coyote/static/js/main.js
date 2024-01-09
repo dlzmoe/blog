@@ -1,12 +1,12 @@
 $(function () {
-  $('.content iframe').wrap('<div class="iframe"></div>');
+  $('.post__content iframe').wrap('<div class="iframe"></div>');
   $('nav a').each(function () {
     if ($(this).attr('href') == window.location.pathname) {
       $(this).addClass('active');
     }
   })
 
-  $('.content img').addClass('zimgbox');
+  $('.post__content img').addClass('zimgbox');
   $('body').append('<div id="zimgbox-wrap" style="display:none"><img src></div>');
   $(".top-link").click(function () {
     $("html,body").animate({
