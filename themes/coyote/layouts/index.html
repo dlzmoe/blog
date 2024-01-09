@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+{{ partial "head.html" . }}
+
+<body class="list">
+  {{ partial "header.html" . }}
+
+  <div class="container">
+    <main class="main">
+      <section class="profile"></section>
+
+      <!-- <article class="first-entry home-info">
+        <header class="entry-header">
+          <h1>[~]$ hey, I'm zishu 👋</h1>
+        </header>
+        <div class="entry-content">
+          <p>
+            欢迎来到我的博客，已经有 <span id="busuanzi_value_site_pv">...</span> 位小伙伴逛过本站。
+          </p>
+          <p>查看 <a href="/blog/">文章归档</a>。</p>
+        </div>
+      </article> -->
+
+      <section class="article-list">
+        {{ $pages := .Site.RegularPages }}
+        {{ $paginator := .Paginate ($pages) }}
+        {{ range $paginator.Pages }}
+        {{ $title := .Title }}
+        {{ $summary := .Summary }}
+        {{ $image := .Params.image }} <!-- 获取图像属性 -->
+
+        <article class="article">
+          <a class="article__inner" href="{{ .RelPermalink }}">
+            {{ if $image }}
+            <div class="article__header">
+              <img class="article__image" src="{{ $image }}">
+            </div>
+            {{ else }}
+            <div class="article__header">
+              <!-- <img class="article__image" src="https://picsum.photos/1920/1080"> -->
+            </div>
+            {{ end }}
+
+            <div class="article__text">
+              <h3 class="article__title">{{ .Title }}</h3>
+            </div>
+          </a>
+          <footer class="article__footer">
+            <time datetime="{{ .Date.Format " 2006-01-02 15:04:05 MST" }}">{{ .Date.Format "2006/01/02"}}</time>
+          </footer>
+        </article>
+
+        {{ end }}
+      </section>
+
+      {{ partial "pagination.html" . }}
+    </main>
+
+    {{ partial "footer.html" . }}
+  </div>
+</body>
+
+</html>

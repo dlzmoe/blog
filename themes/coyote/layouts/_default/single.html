@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+{{ partial "head.html" . }}
+
+<body>
+
+  {{ partial "header.html" . }}
+  <div class="container">
+    <main class="main">
+      <div class="post">
+
+        
+        {{ $image := .Params.image }} <!-- 获取图像属性 -->
+        {{ if $image }}
+        <div class="article__header">
+          <div class="post__header">
+            <img class="post__image" src="{{ $image }}">
+          </div>
+        </div>
+        {{ else }}
+        <!-- <div class="article__header">
+          <div class="post__header">
+            <img class="post__image" src="{{ $image }}">
+          </div>
+        </div> -->
+        {{ end }}
+
+        
+
+        <div class="post__tags">
+          {{ range .Params.tags }}
+          <a class="post__tag" href="{{ " /tags/" | relLangURL }}{{ . | urlize }}">{{ . }}</a>
+          {{ end }}
+        </div>
+
+        <div class="post__content">
+          {{ if in .Site.Params.mainSections .Type }}
+          <span datetime="{{ .Date.Format " 2006-01-02 15:04:05 MST" }}">{{ .Date.Format "2006-01-02"}}</span>
+          {{ end }}
+          <h1 id="title">{{ .Title }}</h1>
+
+
+          {{ if in .Site.Params.mainSections .Type }}
+          <div class="toc">
+            <details open>
+              <summary><span class="details">Table of Contents</span></summary>
+              {{ .TableOfContents }}
+            </details>
+          </div>
+          {{ end }}
+
+          <div>
+            <article>
+              {{ .Site.Params.postHeaderContent | safeHTML }}
+              {{ .Content }}
+            </article>
+          </div>
+
+
+        </div>
+
+        {{ if in .Site.Params.mainSections .Type }}
+        {{ partial "comment.html" . }}
+        {{ end }}
+      </div>
+    </main>
+
+    {{ partial "footer.html" . }}
+  </div>
+</body>
+
+</html>
