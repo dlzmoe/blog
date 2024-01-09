@@ -20,10 +20,17 @@
           {{ range .Pages }}
           <article class="article">
             <a class="article__inner" href="{{ .RelPermalink }}">
+              {{ $image := .Params.image }} <!-- 获取图像属性 -->
+              {{ if $image }}
               <div class="article__header">
-                {{ $image := .Params.image }} <!-- 获取图像属性 -->
-                <img class="article__image" src="{{ $image }}"> <!-- 应用图像属性 -->
+                <img class="article__image" src="{{ $image }}">
               </div>
+              {{ else }}
+              <div class="article__header">
+                <!-- <img class="article__image" src="https://picsum.photos/1920/1080"> -->
+              </div>
+              {{ end }}
+  
               <div class="article__text">
                 <h3 class="article__title">{{ .Title }}</h3>
               </div>
