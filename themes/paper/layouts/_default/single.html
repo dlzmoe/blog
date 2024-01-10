@@ -8,35 +8,33 @@
   <main class="main">
     <div class="post-single">
 
-      <article class="content post-content">
-
-        <div class="header">
-          <h1 class="header-title">{{ .Title }}</h1>
-          {{ if in .Site.Params.mainSections .Type }}
-          <div class="post-info">
-            <span datetime="{{ .Date.Format " 2006-01-02 15:04:05 MST" }}">{{ .Date.Format "2006-01-02"}}</span>
-          </div>
-          {{ end }}
-        </div>
-
+      <div class="header">
+        <h1 class="header-title">{{ .Title }}</h1>
         {{ if in .Site.Params.mainSections .Type }}
-        <div class="toc">
-          <details open>
-            <summary><span class="details">Table of Contents</span></summary>
-            {{ .TableOfContents }}
-          </details>
-          
+        <div class="post-info">
+          <span datetime="{{ .Date.Format " 2006-01-02 15:04:05 MST" }}">{{ .Date.Format "2006-01-02"}}</span>
         </div>
         {{ end }}
+      </div>
 
+      {{ if in .Site.Params.mainSections .Type }}
+      <div class="toc">
+        <details open>
+          <summary><span class="details">Table of Contents</span></summary>
+          {{ .TableOfContents }}
+        </details>
+      </div>
+      {{ end }}
+
+      <article class="content post-content">
         {{ .Site.Params.postHeaderContent | safeHTML }}
         {{ .Content }}
-
       </article>
 
       {{ if in .Site.Params.mainSections .Type }}
       {{ partial "comment.html" . }}
       {{ end }}
+
     </div>
   </main>
 

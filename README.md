@@ -17,6 +17,8 @@
 
 ## 使用
 
+### 1.安装博客
+
 将代码 clone 到本地，把 `/content/` 目录下的文章清除，并且修改 `config.yml` 配置。
 
 **提前在本地安装好 hugo 环境，具体流程查阅官方文档。**
@@ -28,10 +30,21 @@ hugo serve
 hugo
 ```
 
-**自动生成md文件，存放文章目录。**
+### 2.生成文章目录
+
+**自动生成 md 文件，存放文章目录。**
 
 ```
 py github-toc.py
+```
+
+### 3.设置不想在首页显示的分类
+
+设置不想在首页显示的分类，`7` 表示过滤完还显示 7 条，如果不写的话，可能会设置的数量。
+
+```html
+<!-- /layouts/index.html -->
+{{ if and (not (in .Params.categories "weekly")) (lt $count 7) }}
 ```
 
 ## LICENSE
