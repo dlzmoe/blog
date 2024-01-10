@@ -34,7 +34,7 @@ def process_md_files(folder_path):
 
     # 获取当前工作目录并将输出文本写入到toc.md文件，以倒序方式
     current_directory = os.getcwd()
-    output_file_path = os.path.join(current_directory, 'toc.md')
+    output_file_path = os.path.join(current_directory, 'github-toc.md')
     with open(output_file_path, 'w', encoding='utf-8') as output_file:
         # 添加标题
         output_file.write("## 文章归档目录\n\n")
