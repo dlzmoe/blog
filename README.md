@@ -31,7 +31,7 @@ hugo
 **自动生成md文件，存放文章目录。**
 
 ```
-py toc.md
+py github-toc.py
 ```
 
 ## LICENSE
