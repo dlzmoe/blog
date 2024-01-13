@@ -36,7 +36,8 @@ const author = {
 [江卮可乐](https://emo.ijann.com/) // 
 [东东博客](https://shutwin.com/) // 
 [Leon Fong](https://www.leonfong.me/) // 
-[卢涛南博客](https://lutaonan.com/)
+[卢涛南博客](https://lutaonan.com/) //
+[Airing 的博客](https://ursb.me)  
 
 
 ### 3.版权声明
