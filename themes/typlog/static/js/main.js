@@ -18,6 +18,17 @@ $(function () {
     $('.toc').hide();
   }
 
+  $(".toggle-button-cover input").click(function () {
+    if ($(".toggle-button-cover input").prop("checked")) {
+      $('.twikoo').hide();
+      $('.giscus').show();
+    } else {
+      $('.twikoo').show();
+      $('.giscus').hide();
+    }
+  });
+
+
   $('.zimgbox').each(function () {
     $(this).click(function () {
       console.log('1');
