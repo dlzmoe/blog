@@ -20,11 +20,11 @@ $(function () {
 
   $(".toggle-button-cover input").click(function () {
     if ($(".toggle-button-cover input").prop("checked")) {
-      $('.twikoo').hide();
-      $('.giscus').show();
-    } else {
       $('.twikoo').show();
       $('.giscus').hide();
+    } else {
+      $('.twikoo').hide();
+      $('.giscus').show();
     }
   });
 
