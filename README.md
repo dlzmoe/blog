@@ -14,7 +14,7 @@
 
 使用 Hugo 框架构建，在 GitHub 托管代码，Netlify 部署，CloudFlare 解析域名。
 
-评论使用的第三方程序 [twikoo](https://twikoo.js.org/)，依然部署在 Netlify 上。
+评论使用 [giscus](https://giscus.app/)，基于 discussions 构建而成。
 
 文章数据保留版权，其他代码开源，可直接使用。
 

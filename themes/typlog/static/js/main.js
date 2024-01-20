@@ -18,15 +18,15 @@ $(function () {
     $('.toc').hide();
   }
 
-  $(".toggle-button-cover input").click(function () {
-    if ($(".toggle-button-cover input").prop("checked")) {
-      $('.twikoo').show();
-      $('.giscus').hide();
-    } else {
-      $('.twikoo').hide();
-      $('.giscus').show();
-    }
-  });
+  // $(".toggle-button-cover input").click(function () {
+  //   if ($(".toggle-button-cover input").prop("checked")) {
+  //     $('.twikoo').show();
+  //     $('.giscus').hide();
+  //   } else {
+  //     $('.twikoo').hide();
+  //     $('.giscus').show();
+  //   }
+  // });
 
 
   $('.zimgbox').each(function () {
