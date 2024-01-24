@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8" />
+<meta name="generator" content="Hugo 0.121.2">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="toTop" content="true">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="author" content="" />
+<meta property="og:url" content="https://zishu.me/blog/217.html/" />
+<link rel="canonical" href="https://zishu.me/blog/217.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="shortcut" href="https://imgurl.zishu.me/favicon.ico" /><link rel="alternate" type="application/atom+xml" href="https://zishu.me/index.xml" title="子舒的博客">
+<script type="application/ld+json">
+{
+"@context" : "http://schema.org",
+"@type" : "BlogPosting",
+"mainEntityOfPage": {
+"@type": "WebPage",
+"@id": "https:\/\/zishu.me\/"
+},
+"articleSection" : "blog",
+"name" : "分析 VScode 中 Live Server 插件",
+"headline" : "分析 VScode 中 Live Server 插件",
+"description" : "在 VScode 中运行 Live Server 插件时，会默认给网页添加一串 js 代码，用于实现浏览器的实时重新加载（live reloading）功能，通过W",
+"inLanguage" : "en-US",
+"author" : "zishu",
+"creator" : "zishu",
+"publisher": "zishu",
+"accountablePerson" : "zishu",
+"copyrightHolder" : "zishu",
+"copyrightYear" : "2024",
+"datePublished": "2024-01-23 00:00:00 \u002b0000 UTC",
+"dateModified" : "2024-01-23 00:00:00 \u002b0000 UTC",
+"url" : "https:\/\/zishu.me\/blog\/217.html\/",
+"keywords" : [ "vscode","插件", ]
+}
+</script><title>分析 VScode 中 Live Server 插件 - 子舒的博客</title>
+<meta property="og:title" content="分析 VScode 中 Live Server 插件" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="在 VScode 中运行 Live Server 插件时，会默认给网页添加一串 js 代码，用于实现浏览器的实时重新加载（live reloading）功能，通过W" />
+<meta name="description" content="在 VScode 中运行 Live Server 插件时，会默认给网页添加一串 js 代码，用于实现浏览器的实时重新加载（live reloading）功能，通过W" />
+<meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Titillium+Web&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/base.css">
+<link href="https://cdn.zishu.me/css/github-markdown.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/index.css">
+<link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
+<script src="/js/jquery3.6.0.min.js"></script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BGB227HN9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-BGB227HN9X');
+</script>
+</head>
+
+<body>
+
+  <div class="body">
+  
+
+  <aside class="side">
+    <div class="inner">
+      <a class="side_logo" href="/"><img src="https://imgurl.zishu.me/author.webp" width="120" height="120"></a>
+      <h1 class="side_title"><a class="h-card" rel="me" href="/">子舒的博客</a></h1>
+      <h2 class="side_subtitle">个人博客｜周刊分享</h2>
+      <div class="side_subscribe">
+        <a href="/subscribe/" class="js-subscribe">Subscribe</a>
+      </div>
+      <ul class="side_links">
+        
+        <li><a href="/categories/%e6%8a%80%e6%9c%af/">技术分享</a></li>
+        
+        <li><a href="/categories/%e9%9a%8f%e7%ac%94/">随笔文章</a></li>
+        
+        <li><a href="/categories/weekly/">奇趣周刊</a></li>
+        
+        <li><a href="/message/">留言板</a></li>
+        
+        <li><a href="/about/">关于我</a></li>
+        
+        <li><a href="https://anghunk.notion.site/155935c878aa4210b71c9052b7f726ff?v=762fadfb010a415ea3644a201e3131cb"
+            target="_blank">gallery</a></li>
+      </ul>
+      <nav class="side_social">
+        <a href="mailto:anghunk@gmail.com" target="_blank" aria-label="Email"><i class="icon icon-mail" aria-hidden="true"></i></a>
+        <a href="https://github.com/98zi" target="_blank" rel="me" aria-label="GitHub" title="GitHub">
+          <i class="icon icon-github" aria-hidden="true"></i>
+        </a>
+        <a href="https://twitter.com/zishu520" target="_blank" rel="me" aria-label="Twitter" title="Twitter">
+          <i class="icon icon-twitter" aria-hidden="true"></i>
+        </a>
+      </nav>
+
+      <footer class="footer">
+        <p>© 2020 - 2024
+          
+        </p>
+      </footer>
+    </div>
+  </aside>
+  <main class="main">
+    <div class="inner main_mark">
+
+      <div class="header">
+        
+        <div class="entry-meta">
+          <time class="dt-published" datetime=" 2024-01-23 00:00:00 UTC">2024-01-23</time>
+          </div>
+        
+        <h1 class="header-title">分析 VScode 中 Live Server 插件</h1>
+      </div>
+
+      
+      <div class="toc">
+        <nav id="TableOfContents"></nav>
+      </div>
+      
+
+      <article class="post-content">
+        
+        <p>在 VScode 中运行 Live Server 插件时，会默认给网页添加一串 js 代码，用于实现浏览器的实时重新加载（live reloading）功能，通过WebSocket与服务器进行通信。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="s1">&#39;WebSocket&#39;</span> <span class="k">in</span> <span class="nb">window</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nx">refreshCSS</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kd">var</span> <span class="nx">sheets</span> <span class="o">=</span> <span class="p">[].</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s2">&#34;link&#34;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">      <span class="kd">var</span> <span class="nx">head</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s2">&#34;head&#34;</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">      <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">sheets</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">elem</span> <span class="o">=</span> <span class="nx">sheets</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">parent</span> <span class="o">=</span> <span class="nx">elem</span><span class="p">.</span><span class="nx">parentElement</span> <span class="o">||</span> <span class="nx">head</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">parent</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="nx">elem</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">rel</span> <span class="o">=</span> <span class="nx">elem</span><span class="p">.</span><span class="nx">rel</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">elem</span><span class="p">.</span><span class="nx">href</span> <span class="o">&amp;&amp;</span> <span class="k">typeof</span> <span class="nx">rel</span> <span class="o">!=</span> <span class="s2">&#34;string&#34;</span> <span class="o">||</span> <span class="nx">rel</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">rel</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&#34;stylesheet&#34;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="nx">elem</span><span class="p">.</span><span class="nx">href</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/(&amp;|\?)_cacheOverride=\d+/</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">elem</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="nx">url</span> <span class="o">+</span> <span class="p">(</span><span class="nx">url</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;?&#39;</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">?</span> <span class="s1">&#39;&amp;&#39;</span> <span class="o">:</span> <span class="s1">&#39;?&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_cacheOverride=&#39;</span> <span class="o">+</span> <span class="p">(</span><span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">valueOf</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">parent</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">elem</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">protocol</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">protocol</span> <span class="o">===</span> <span class="s1">&#39;http:&#39;</span> <span class="o">?</span> <span class="s1">&#39;ws://&#39;</span> <span class="o">:</span> <span class="s1">&#39;wss://&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">address</span> <span class="o">=</span> <span class="nx">protocol</span> <span class="o">+</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">host</span> <span class="o">+</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">pathname</span> <span class="o">+</span> <span class="s1">&#39;/ws&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">socket</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebSocket</span><span class="p">(</span><span class="nx">address</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">socket</span><span class="p">.</span><span class="nx">onmessage</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="nx">msg</span><span class="p">.</span><span class="nx">data</span> <span class="o">==</span> <span class="s1">&#39;reload&#39;</span><span class="p">)</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">reload</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">      <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">msg</span><span class="p">.</span><span class="nx">data</span> <span class="o">==</span> <span class="s1">&#39;refreshcss&#39;</span><span class="p">)</span> <span class="nx">refreshCSS</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">sessionStorage</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">sessionStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">&#39;IsThisFirstTime_Log_From_LiveServer&#39;</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Live reload enabled.&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">sessionStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s1">&#39;IsThisFirstTime_Log_From_LiveServer&#39;</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;Upgrade your browser. This Browser is NOT supported WebSocket for Live - Reloading.&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><strong>1.首先判断浏览器是否支持 WebSocket</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="s1">&#39;WebSocket&#39;</span> <span class="k">in</span> <span class="nb">window</span><span class="p">)</span>
+</span></span></code></pre></div><p>这个条件语句检查浏览器是否支持 WebSocket。如果支持，就执行后续的代码块，否则输出错误信息并停止执行。</p>
+<p><strong>2.定义refreshCSS函数</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">refreshCSS</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><p>这个函数用于刷新页面上的css。它会遍历页面上所有的 <code>&lt;link&gt;</code> 标签，移除它们，然后再次添加，触发css的重新加载。</p>
+<p><strong>3.构建WebSocket连接</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">protocol</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">protocol</span> <span class="o">===</span> <span class="s1">&#39;http:&#39;</span> <span class="o">?</span> <span class="s1">&#39;ws://&#39;</span> <span class="o">:</span> <span class="s1">&#39;wss://&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">address</span> <span class="o">=</span> <span class="nx">protocol</span> <span class="o">+</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">host</span> <span class="o">+</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">pathname</span> <span class="o">+</span> <span class="s1">&#39;/ws&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">socket</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebSocket</span><span class="p">(</span><span class="nx">address</span><span class="p">);</span>
+</span></span></code></pre></div><p>这部分代码根据当前页面的协议（HTTP或HTTPS）构建WebSocket的连接地址，然后创建一个WebSocket对象，连接到这个地址。</p>
+<p><strong>4.WebSocket消息处理</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">socket</span><span class="p">.</span><span class="nx">onmessage</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">msg</span><span class="p">.</span><span class="nx">data</span> <span class="o">==</span> <span class="s1">&#39;reload&#39;</span><span class="p">)</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">reload</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">msg</span><span class="p">.</span><span class="nx">data</span> <span class="o">==</span> <span class="s1">&#39;refreshcss&#39;</span><span class="p">)</span> <span class="nx">refreshCSS</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p>当WebSocket接收到消息时，会执行这个回调函数。如果消息是 &lsquo;reload&rsquo;，则刷新整个页面；如果消息是 &lsquo;refreshcss&rsquo;，则调用refreshCSS函数刷新CSS。</p>
+<p><strong>5.检测是否执行成功</strong></p>
+<p>通过判断 <code>sessionStorage &amp;&amp; !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')</code> 属性监测前面的代码是否运行成功，并返回一定的提示，这里可以在前端用于进行标记，并且只会在WebSocket链接成功时返回，如果时更新数据不会重复运行。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">sessionStorage</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">sessionStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">&#39;IsThisFirstTime_Log_From_LiveServer&#39;</span><span class="p">))</span>
+</span></span></code></pre></div>
+      </article>
+
+      
+      <div style="padding:20px 0"></div>
+
+<div class="giscus"></div>
+<script 
+  src="https://giscus.app/client.js" 
+  data-repo="98zi/hugo-blog" 
+  data-repo-id="R_kgDOJkJvtw"
+  data-category="Announcements" 
+  data-category-id="DIC_kwDOJkJvt84CX9d6" 
+  data-mapping="url" 
+  data-strict="0"
+  data-reactions-enabled="1" 
+  data-emit-metadata="1" 
+  data-input-position="top" 
+  data-theme="light_tritanopia"
+  data-lang="zh-CN" 
+  data-loading="lazy" 
+  crossorigin="anonymous" 
+  async>
+</script>
+
+      
+
+    </div>
+  </main>
+
+  
+</div>
+
+
+
+<script src="/js/confetti.browser.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</body>
+
+</html>

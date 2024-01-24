@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8" />
+<meta name="generator" content="Hugo 0.121.2">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="toTop" content="true">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="author" content="" />
+<meta property="og:url" content="https://zishu.me/blog/58.html/" />
+<link rel="canonical" href="https://zishu.me/blog/58.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="shortcut" href="https://imgurl.zishu.me/favicon.ico" /><link rel="alternate" type="application/atom+xml" href="https://zishu.me/index.xml" title="子舒的博客">
+<script type="application/ld+json">
+{
+"@context" : "http://schema.org",
+"@type" : "BlogPosting",
+"mainEntityOfPage": {
+"@type": "WebPage",
+"@id": "https:\/\/zishu.me\/"
+},
+"articleSection" : "blog",
+"name" : "ajax 和 js 事件的执行顺序",
+"headline" : "ajax 和 js 事件的执行顺序",
+"description" : "有一个需求，滚轮滚动到相应位置的时候执行当前的动画，这个动画在footer里面，而网页的主体通过ajax进行渲染，我在 js",
+"inLanguage" : "en-US",
+"author" : "zishu",
+"creator" : "zishu",
+"publisher": "zishu",
+"accountablePerson" : "zishu",
+"copyrightHolder" : "zishu",
+"copyrightYear" : "2021",
+"datePublished": "2021-03-23 00:00:00 \u002b0000 UTC",
+"dateModified" : "2021-03-23 00:00:00 \u002b0000 UTC",
+"url" : "https:\/\/zishu.me\/blog\/58.html\/",
+"keywords" : [ "ajax", ]
+}
+</script><title>ajax 和 js 事件的执行顺序 - 子舒的博客</title>
+<meta property="og:title" content="ajax 和 js 事件的执行顺序" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="有一个需求，滚轮滚动到相应位置的时候执行当前的动画，这个动画在footer里面，而网页的主体通过ajax进行渲染，我在 js" />
+<meta name="description" content="有一个需求，滚轮滚动到相应位置的时候执行当前的动画，这个动画在footer里面，而网页的主体通过ajax进行渲染，我在 js" />
+<meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Titillium+Web&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/base.css">
+<link href="https://cdn.zishu.me/css/github-markdown.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/index.css">
+<link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
+<script src="/js/jquery3.6.0.min.js"></script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BGB227HN9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-BGB227HN9X');
+</script>
+</head>
+
+<body>
+
+  <div class="body">
+  
+
+  <aside class="side">
+    <div class="inner">
+      <a class="side_logo" href="/"><img src="https://imgurl.zishu.me/author.webp" width="120" height="120"></a>
+      <h1 class="side_title"><a class="h-card" rel="me" href="/">子舒的博客</a></h1>
+      <h2 class="side_subtitle">个人博客｜周刊分享</h2>
+      <div class="side_subscribe">
+        <a href="/subscribe/" class="js-subscribe">Subscribe</a>
+      </div>
+      <ul class="side_links">
+        
+        <li><a href="/categories/%e6%8a%80%e6%9c%af/">技术分享</a></li>
+        
+        <li><a href="/categories/%e9%9a%8f%e7%ac%94/">随笔文章</a></li>
+        
+        <li><a href="/categories/weekly/">奇趣周刊</a></li>
+        
+        <li><a href="/message/">留言板</a></li>
+        
+        <li><a href="/about/">关于我</a></li>
+        
+        <li><a href="https://anghunk.notion.site/155935c878aa4210b71c9052b7f726ff?v=762fadfb010a415ea3644a201e3131cb"
+            target="_blank">gallery</a></li>
+      </ul>
+      <nav class="side_social">
+        <a href="mailto:anghunk@gmail.com" target="_blank" aria-label="Email"><i class="icon icon-mail" aria-hidden="true"></i></a>
+        <a href="https://github.com/98zi" target="_blank" rel="me" aria-label="GitHub" title="GitHub">
+          <i class="icon icon-github" aria-hidden="true"></i>
+        </a>
+        <a href="https://twitter.com/zishu520" target="_blank" rel="me" aria-label="Twitter" title="Twitter">
+          <i class="icon icon-twitter" aria-hidden="true"></i>
+        </a>
+      </nav>
+
+      <footer class="footer">
+        <p>© 2020 - 2024
+          
+        </p>
+      </footer>
+    </div>
+  </aside>
+  <main class="main">
+    <div class="inner main_mark">
+
+      <div class="header">
+        
+        <div class="entry-meta">
+          <time class="dt-published" datetime=" 2021-03-23 00:00:00 UTC">2021-03-23</time>
+          </div>
+        
+        <h1 class="header-title">ajax 和 js 事件的执行顺序</h1>
+      </div>
+
+      
+      <div class="toc">
+        <nav id="TableOfContents"></nav>
+      </div>
+      
+
+      <article class="post-content">
+        
+        <p>有一个需求，滚轮滚动到相应位置的时候执行当前的动画，这个动画在<code>footer</code>里面，而网页的主体通过<code>ajax</code>进行渲染，我在 js 里面调用 ajax 渲染数据，然后再获取主体的高度，滚动到该高度的时候执行动画。</p>
+<p>本地测试了一下没什么问题，该有的效果都有了。放在服务器上测试发现无论怎么写，都是先获取主体的高度，然后才进行数据的渲染。那么必然高度是一个极小的值，不符合我想要的属性。</p>
+<p>我大致想了两种解决办法，均以失败告终，本地是 ajax 先执行，服务器是 js 先执行。</p>
+<ol>
+<li>让获取高度的事件时间延时 500ms，发现最后获取不到事件了；</li>
+<li>将该事件写在 ajax 的 success 回调里面，结果是只有打开网页第一次能够成功，然后不管刷新多少次均无效，事件被屏蔽，所以方法二也被废除；</li>
+</ol>
+<p>最后我想到了，ajax 不就是一种异步方法，我将其改为同步不就行，先让 ajax 执行完在执行 js 事件。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">async</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span></code></pre></div><p>我在 ajax 里面写了<code>async</code>这个方法，<code>false</code> 意思是将其默认为同步获取数据，很好，回到服务器打开控制台，发现是先渲染了数据，才获取了主体的高度，问题得以解决。</p>
+<blockquote>
+<p>当然这样做有弊端的，如果接口出问题，ajax 渲染失败，那么整个网页的 js 都将执行不了。不过我想真到了数据都渲染不出的地方，访问网页就没有意义了，所以最后我采用了这种方法。</p>
+</blockquote>
+
+      </article>
+
+      
+      <div style="padding:20px 0"></div>
+
+<div class="giscus"></div>
+<script 
+  src="https://giscus.app/client.js" 
+  data-repo="98zi/hugo-blog" 
+  data-repo-id="R_kgDOJkJvtw"
+  data-category="Announcements" 
+  data-category-id="DIC_kwDOJkJvt84CX9d6" 
+  data-mapping="url" 
+  data-strict="0"
+  data-reactions-enabled="1" 
+  data-emit-metadata="1" 
+  data-input-position="top" 
+  data-theme="light_tritanopia"
+  data-lang="zh-CN" 
+  data-loading="lazy" 
+  crossorigin="anonymous" 
+  async>
+</script>
+
+      
+
+    </div>
+  </main>
+
+  
+</div>
+
+
+
+<script src="/js/confetti.browser.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</body>
+
+</html>

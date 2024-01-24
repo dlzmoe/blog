@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8" />
+<meta name="generator" content="Hugo 0.121.2">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="toTop" content="true">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="author" content="" />
+<meta property="og:url" content="https://zishu.me/blog/103.html/" />
+<link rel="canonical" href="https://zishu.me/blog/103.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="shortcut" href="https://imgurl.zishu.me/favicon.ico" /><link rel="alternate" type="application/atom+xml" href="https://zishu.me/index.xml" title="子舒的博客">
+<script type="application/ld+json">
+{
+"@context" : "http://schema.org",
+"@type" : "BlogPosting",
+"mainEntityOfPage": {
+"@type": "WebPage",
+"@id": "https:\/\/zishu.me\/"
+},
+"articleSection" : "blog",
+"name" : "【笔记】使用 php 写接口文件调用数据",
+"headline" : "【笔记】使用 php 写接口文件调用数据",
+"description" : "如何使用 php 写一个接口，然后将数据以 json 文件格式调用。 \u0026lt;?php header(\u0026#39;Content-Type:application\/json; charset=utf-8\u0026#39;); header(\u0026#34;Access-Control-Allow-Origin:*\u0026#34;); $servername = \u0026#34;localhost\u0026#34;; $username = \u0026#34;数据库账号\u0026#34;; $password = \u0026#34;数据库",
+"inLanguage" : "en-US",
+"author" : "zishu",
+"creator" : "zishu",
+"publisher": "zishu",
+"accountablePerson" : "zishu",
+"copyrightHolder" : "zishu",
+"copyrightYear" : "2022",
+"datePublished": "2022-02-22 00:00:00 \u002b0000 UTC",
+"dateModified" : "2022-02-22 00:00:00 \u002b0000 UTC",
+"url" : "https:\/\/zishu.me\/blog\/103.html\/",
+"keywords" : [ "笔记","数据库","php", ]
+}
+</script><title>【笔记】使用 php 写接口文件调用数据 - 子舒的博客</title>
+<meta property="og:title" content="【笔记】使用 php 写接口文件调用数据" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="如何使用 php 写一个接口，然后将数据以 json 文件格式调用。 &amp;lt;?php header(&amp;#39;Content-Type:application/json; charset=utf-8&amp;#39;); header(&amp;#34;Access-Control-Allow-Origin:*&amp;#34;); $servername = &amp;#34;localhost&amp;#34;; $username = &amp;#34;数据库账号&amp;#34;; $password = &amp;#34;数据库" />
+<meta name="description" content="如何使用 php 写一个接口，然后将数据以 json 文件格式调用。 &amp;lt;?php header(&amp;#39;Content-Type:application/json; charset=utf-8&amp;#39;); header(&amp;#34;Access-Control-Allow-Origin:*&amp;#34;); $servername = &amp;#34;localhost&amp;#34;; $username = &amp;#34;数据库账号&amp;#34;; $password = &amp;#34;数据库" />
+<meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Titillium+Web&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/base.css">
+<link href="https://cdn.zishu.me/css/github-markdown.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/index.css">
+<link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
+<script src="/js/jquery3.6.0.min.js"></script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BGB227HN9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-BGB227HN9X');
+</script>
+</head>
+
+<body>
+
+  <div class="body">
+  
+
+  <aside class="side">
+    <div class="inner">
+      <a class="side_logo" href="/"><img src="https://imgurl.zishu.me/author.webp" width="120" height="120"></a>
+      <h1 class="side_title"><a class="h-card" rel="me" href="/">子舒的博客</a></h1>
+      <h2 class="side_subtitle">个人博客｜周刊分享</h2>
+      <div class="side_subscribe">
+        <a href="/subscribe/" class="js-subscribe">Subscribe</a>
+      </div>
+      <ul class="side_links">
+        
+        <li><a href="/categories/%e6%8a%80%e6%9c%af/">技术分享</a></li>
+        
+        <li><a href="/categories/%e9%9a%8f%e7%ac%94/">随笔文章</a></li>
+        
+        <li><a href="/categories/weekly/">奇趣周刊</a></li>
+        
+        <li><a href="/message/">留言板</a></li>
+        
+        <li><a href="/about/">关于我</a></li>
+        
+        <li><a href="https://anghunk.notion.site/155935c878aa4210b71c9052b7f726ff?v=762fadfb010a415ea3644a201e3131cb"
+            target="_blank">gallery</a></li>
+      </ul>
+      <nav class="side_social">
+        <a href="mailto:anghunk@gmail.com" target="_blank" aria-label="Email"><i class="icon icon-mail" aria-hidden="true"></i></a>
+        <a href="https://github.com/98zi" target="_blank" rel="me" aria-label="GitHub" title="GitHub">
+          <i class="icon icon-github" aria-hidden="true"></i>
+        </a>
+        <a href="https://twitter.com/zishu520" target="_blank" rel="me" aria-label="Twitter" title="Twitter">
+          <i class="icon icon-twitter" aria-hidden="true"></i>
+        </a>
+      </nav>
+
+      <footer class="footer">
+        <p>© 2020 - 2024
+          
+        </p>
+      </footer>
+    </div>
+  </aside>
+  <main class="main">
+    <div class="inner main_mark">
+
+      <div class="header">
+        
+        <div class="entry-meta">
+          <time class="dt-published" datetime=" 2022-02-22 00:00:00 UTC">2022-02-22</time>
+          </div>
+        
+        <h1 class="header-title">【笔记】使用 php 写接口文件调用数据</h1>
+      </div>
+
+      
+      <div class="toc">
+        <nav id="TableOfContents"></nav>
+      </div>
+      
+
+      <article class="post-content">
+        
+        <p>如何使用 php 写一个接口，然后将数据以 json 文件格式调用。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">header</span><span class="p">(</span><span class="s1">&#39;Content-Type:application/json; charset=utf-8&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">header</span><span class="p">(</span><span class="s2">&#34;Access-Control-Allow-Origin:*&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$servername</span> <span class="o">=</span> <span class="s2">&#34;localhost&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$username</span> <span class="o">=</span> <span class="s2">&#34;数据库账号&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$password</span> <span class="o">=</span> <span class="s2">&#34;数据库密码&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$dbname</span> <span class="o">=</span> <span class="s2">&#34;数据库名称&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 创建连接
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$conn</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">mysqli</span><span class="p">(</span><span class="nv">$servername</span><span class="p">,</span> <span class="nv">$username</span><span class="p">,</span> <span class="nv">$password</span><span class="p">,</span> <span class="nv">$dbname</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="c1">// 检测连接
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span> <span class="p">(</span><span class="nv">$conn</span><span class="o">-&gt;</span><span class="na">connect_error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">die</span><span class="p">(</span><span class="s2">&#34;连接失败：&#34;</span> <span class="o">.</span> <span class="nv">$conn</span><span class="o">-&gt;</span><span class="na">connect_error</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$sql</span> <span class="o">=</span> <span class="s2">&#34;select slug,title,created,text from typecho_contents&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$result</span> <span class="o">=</span> <span class="nv">$conn</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="nv">$sql</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nv">$result</span><span class="o">-&gt;</span><span class="na">num_rows</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 输出数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">while</span><span class="p">(</span><span class="nv">$row</span> <span class="o">=</span> <span class="nv">$result</span><span class="o">-&gt;</span><span class="na">fetch_assoc</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">    <span class="nv">$data</span><span class="p">[]</span><span class="o">=</span><span class="nv">$row</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="nv">$json</span> <span class="o">=</span> <span class="nx">json_encode</span><span class="p">(</span><span class="nv">$data</span><span class="p">,</span><span class="nx">JSON_UNESCAPED_UNICODE</span><span class="o">|</span><span class="nx">JSON_PRETTY_PRINT</span><span class="p">);</span><span class="c1">//把数据转换为 JSON 数据。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    
+</span></span><span class="line"><span class="cl">    <span class="k">exit</span><span class="p">(</span><span class="nv">$json</span><span class="p">)</span> <span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">echo</span> <span class="s2">&#34;未查询到结果！&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$conn</span><span class="o">-&gt;</span><span class="na">close</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span></code></pre></div><hr>
+<p>根据某个条件排序，将 32 行的 sql 语句改为下面的，意为根据 <code>created</code> 进行排序。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$sql</span> <span class="o">=</span> <span class="s2">&#34;select slug,title,created,text from typecho_contents order by created desc&#34;</span><span class="p">;</span>
+</span></span></code></pre></div>
+      </article>
+
+      
+      <div style="padding:20px 0"></div>
+
+<div class="giscus"></div>
+<script 
+  src="https://giscus.app/client.js" 
+  data-repo="98zi/hugo-blog" 
+  data-repo-id="R_kgDOJkJvtw"
+  data-category="Announcements" 
+  data-category-id="DIC_kwDOJkJvt84CX9d6" 
+  data-mapping="url" 
+  data-strict="0"
+  data-reactions-enabled="1" 
+  data-emit-metadata="1" 
+  data-input-position="top" 
+  data-theme="light_tritanopia"
+  data-lang="zh-CN" 
+  data-loading="lazy" 
+  crossorigin="anonymous" 
+  async>
+</script>
+
+      
+
+    </div>
+  </main>
+
+  
+</div>
+
+
+
+<script src="/js/confetti.browser.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</body>
+
+</html>

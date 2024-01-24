@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8" />
+<meta name="generator" content="Hugo 0.121.2">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="toTop" content="true">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="author" content="" />
+<meta property="og:url" content="https://zishu.me/blog/182.html/" />
+<link rel="canonical" href="https://zishu.me/blog/182.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="shortcut" href="https://imgurl.zishu.me/favicon.ico" /><link rel="alternate" type="application/atom+xml" href="https://zishu.me/index.xml" title="子舒的博客">
+<script type="application/ld+json">
+{
+"@context" : "http://schema.org",
+"@type" : "BlogPosting",
+"mainEntityOfPage": {
+"@type": "WebPage",
+"@id": "https:\/\/zishu.me\/"
+},
+"articleSection" : "blog",
+"name" : "使用 cloudflare 反代 gravatar 生成镜像",
+"headline" : "使用 cloudflare 反代 gravatar 生成镜像",
+"description" : "1.介绍 cloudflare 有一个非常好用的功能\u0026mdash;Workers，可以在无服务器的状态下运行一些程序，包括常见的反向代理等。 所",
+"inLanguage" : "en-US",
+"author" : "zishu",
+"creator" : "zishu",
+"publisher": "zishu",
+"accountablePerson" : "zishu",
+"copyrightHolder" : "zishu",
+"copyrightYear" : "2023",
+"datePublished": "2023-02-01 00:00:00 \u002b0000 UTC",
+"dateModified" : "2023-02-01 00:00:00 \u002b0000 UTC",
+"url" : "https:\/\/zishu.me\/blog\/182.html\/",
+"keywords" : [ "cloudflare","gravatar", ]
+}
+</script><title>使用 cloudflare 反代 gravatar 生成镜像 - 子舒的博客</title>
+<meta property="og:title" content="使用 cloudflare 反代 gravatar 生成镜像" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="1.介绍 cloudflare 有一个非常好用的功能&amp;mdash;Workers，可以在无服务器的状态下运行一些程序，包括常见的反向代理等。 所" />
+<meta name="description" content="1.介绍 cloudflare 有一个非常好用的功能&amp;mdash;Workers，可以在无服务器的状态下运行一些程序，包括常见的反向代理等。 所" />
+<meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Titillium+Web&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/base.css">
+<link href="https://cdn.zishu.me/css/github-markdown.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/index.css">
+<link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
+<script src="/js/jquery3.6.0.min.js"></script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BGB227HN9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-BGB227HN9X');
+</script>
+</head>
+
+<body>
+
+  <div class="body">
+  
+
+  <aside class="side">
+    <div class="inner">
+      <a class="side_logo" href="/"><img src="https://imgurl.zishu.me/author.webp" width="120" height="120"></a>
+      <h1 class="side_title"><a class="h-card" rel="me" href="/">子舒的博客</a></h1>
+      <h2 class="side_subtitle">个人博客｜周刊分享</h2>
+      <div class="side_subscribe">
+        <a href="/subscribe/" class="js-subscribe">Subscribe</a>
+      </div>
+      <ul class="side_links">
+        
+        <li><a href="/categories/%e6%8a%80%e6%9c%af/">技术分享</a></li>
+        
+        <li><a href="/categories/%e9%9a%8f%e7%ac%94/">随笔文章</a></li>
+        
+        <li><a href="/categories/weekly/">奇趣周刊</a></li>
+        
+        <li><a href="/message/">留言板</a></li>
+        
+        <li><a href="/about/">关于我</a></li>
+        
+        <li><a href="https://anghunk.notion.site/155935c878aa4210b71c9052b7f726ff?v=762fadfb010a415ea3644a201e3131cb"
+            target="_blank">gallery</a></li>
+      </ul>
+      <nav class="side_social">
+        <a href="mailto:anghunk@gmail.com" target="_blank" aria-label="Email"><i class="icon icon-mail" aria-hidden="true"></i></a>
+        <a href="https://github.com/98zi" target="_blank" rel="me" aria-label="GitHub" title="GitHub">
+          <i class="icon icon-github" aria-hidden="true"></i>
+        </a>
+        <a href="https://twitter.com/zishu520" target="_blank" rel="me" aria-label="Twitter" title="Twitter">
+          <i class="icon icon-twitter" aria-hidden="true"></i>
+        </a>
+      </nav>
+
+      <footer class="footer">
+        <p>© 2020 - 2024
+          
+        </p>
+      </footer>
+    </div>
+  </aside>
+  <main class="main">
+    <div class="inner main_mark">
+
+      <div class="header">
+        
+        <div class="entry-meta">
+          <time class="dt-published" datetime=" 2023-02-01 00:00:00 UTC">2023-02-01</time>
+          </div>
+        
+        <h1 class="header-title">使用 cloudflare 反代 gravatar 生成镜像</h1>
+      </div>
+
+      
+      <div class="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1介绍">1.介绍</a></li>
+    <li><a href="#2代码">2.代码</a></li>
+    <li><a href="#3自定义域名">3.自定义域名</a></li>
+  </ul>
+</nav>
+      </div>
+      
+
+      <article class="post-content">
+        
+        <h2 id="1介绍">1.介绍</h2>
+<p>cloudflare 有一个非常好用的功能&mdash;Workers，可以在无服务器的状态下运行一些程序，包括常见的反向代理等。</p>
+<p>所以我利用这一功能实现对 gravatar 反代，达到国内访问加速的目的。</p>
+<p>话不多说，开始流程操作，分享我的部署过程。</p>
+<p><strong>1.登陆后，在主页点击左侧的 <code>Workers</code>，然后点击<code>创建服务</code>。</strong></p>
+<p><img src="https://imgurl.zishu.me/images/old/20230201/1675253358798.5h6helivsl00.webp" alt=""></p>
+<p><strong>2.服务名称随意填写，然后点击右下角创建。</strong></p>
+<p><img src="https://imgurl.zishu.me/images/old/20230201/1675253485344.451pp9l8u920.webp" alt=""></p>
+<p><strong>3.点击右上角快速编辑</strong></p>
+<p><img src="https://imgurl.zishu.me/images/old/20230201/image.2ple8r24vra.webp" alt=""></p>
+<p><strong>4.在左侧编辑器中输入下列的代码</strong></p>
+<p><img src="https://imgurl.zishu.me/images/old/20230201/image.7hrwxy8aok00.webp" alt=""></p>
+<h2 id="2代码">2.代码</h2>
+<details>
+<summary>点击展开代码</summary>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// 替换成你想镜像的站点
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">upstream</span> <span class="o">=</span> <span class="s1">&#39;gravatar.com&#39;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="c1">// 如果那个站点有专门的移动适配站点，否则保持和上面一致
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">upstream_mobile</span> <span class="o">=</span> <span class="s1">&#39;gravatar.com&#39;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="c1">// 你希望禁止哪些国家访问
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">blocked_region</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="c1">// 禁止自访问
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">blocked_ip_address</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="c1">// 替换成你想镜像的站点
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">replace_dict</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;$upstream&#39;</span><span class="o">:</span> <span class="s1">&#39;$custom_domain&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;//gravatar.com&#39;</span><span class="o">:</span> <span class="s1">&#39;&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="c1">//以下内容都不用动
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;fetch&#39;</span><span class="p">,</span> <span class="nx">event</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">event</span><span class="p">.</span><span class="nx">respondWith</span><span class="p">(</span><span class="nx">fetchAndApply</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">request</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="kr">async</span> <span class="kd">function</span> <span class="nx">fetchAndApply</span><span class="p">(</span><span class="nx">request</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">region</span> <span class="o">=</span> <span class="nx">request</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;cf-ipcountry&#39;</span><span class="p">).</span><span class="nx">toUpperCase</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">ip_address</span> <span class="o">=</span> <span class="nx">request</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;cf-connecting-ip&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">user_agent</span> <span class="o">=</span> <span class="nx">request</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;user-agent&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">response</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">url</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">URL</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">url_host</span> <span class="o">=</span> <span class="nx">url</span><span class="p">.</span><span class="nx">host</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">url</span><span class="p">.</span><span class="nx">protocol</span> <span class="o">==</span> <span class="s1">&#39;http:&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">url</span><span class="p">.</span><span class="nx">protocol</span> <span class="o">=</span> <span class="s1">&#39;https:&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">response</span> <span class="o">=</span> <span class="nx">Response</span><span class="p">.</span><span class="nx">redirect</span><span class="p">(</span><span class="nx">url</span><span class="p">.</span><span class="nx">href</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">response</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="kr">await</span> <span class="nx">device_status</span><span class="p">(</span><span class="nx">user_agent</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">upstream_domain</span> <span class="o">=</span> <span class="nx">upstream</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">upstream_domain</span> <span class="o">=</span> <span class="nx">upstream_mobile</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="nx">url</span><span class="p">.</span><span class="nx">host</span> <span class="o">=</span> <span class="nx">upstream_domain</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">blocked_region</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="nx">region</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">response</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Response</span><span class="p">(</span><span class="s1">&#39;Access denied: WorkersProxy is not available in your region yet.&#39;</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">status</span><span class="o">:</span> <span class="mi">403</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">blocked_ip_address</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="nx">ip_address</span><span class="p">)){</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">response</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Response</span><span class="p">(</span><span class="s1">&#39;Access denied: Your IP address is blocked by WorkersProxy.&#39;</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">status</span><span class="o">:</span> <span class="mi">403</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">let</span> <span class="nx">method</span> <span class="o">=</span> <span class="nx">request</span><span class="p">.</span><span class="nx">method</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">let</span> <span class="nx">request_headers</span> <span class="o">=</span> <span class="nx">request</span><span class="p">.</span><span class="nx">headers</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">let</span> <span class="nx">new_request_headers</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">(</span><span class="nx">request_headers</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="nx">new_request_headers</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;Host&#39;</span><span class="p">,</span> <span class="nx">upstream_domain</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">new_request_headers</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;Referer&#39;</span><span class="p">,</span> <span class="nx">url</span><span class="p">.</span><span class="nx">href</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="kd">let</span> <span class="nx">original_response</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">.</span><span class="nx">href</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">method</span><span class="o">:</span> <span class="nx">method</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">headers</span><span class="o">:</span> <span class="nx">new_request_headers</span>
+</span></span><span class="line"><span class="cl">        <span class="p">})</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="kd">let</span> <span class="nx">original_response_clone</span> <span class="o">=</span> <span class="nx">original_response</span><span class="p">.</span><span class="nx">clone</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">let</span> <span class="nx">original_text</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">let</span> <span class="nx">response_headers</span> <span class="o">=</span> <span class="nx">original_response</span><span class="p">.</span><span class="nx">headers</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">let</span> <span class="nx">new_response_headers</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">(</span><span class="nx">response_headers</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">let</span> <span class="nx">status</span> <span class="o">=</span> <span class="nx">original_response</span><span class="p">.</span><span class="nx">status</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="nx">new_response_headers</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;access-control-allow-origin&#39;</span><span class="p">,</span> <span class="s1">&#39;*&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">new_response_headers</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;access-control-allow-credentials&#39;</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">new_response_headers</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="s1">&#39;content-security-policy&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">new_response_headers</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="s1">&#39;content-security-policy-report-only&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">new_response_headers</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="s1">&#39;clear-site-data&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="kr">const</span> <span class="nx">content_type</span> <span class="o">=</span> <span class="nx">new_response_headers</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;content-type&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">content_type</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="s1">&#39;text/html&#39;</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">content_type</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="s1">&#39;UTF-8&#39;</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">original_text</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">replace_response_text</span><span class="p">(</span><span class="nx">original_response_clone</span><span class="p">,</span> <span class="nx">upstream_domain</span><span class="p">,</span> <span class="nx">url_host</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">original_text</span> <span class="o">=</span> <span class="nx">original_response_clone</span><span class="p">.</span><span class="nx">body</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="nx">response</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Response</span><span class="p">(</span><span class="nx">original_text</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">status</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">headers</span><span class="o">:</span> <span class="nx">new_response_headers</span>
+</span></span><span class="line"><span class="cl">        <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">response</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="kr">async</span> <span class="kd">function</span> <span class="nx">replace_response_text</span><span class="p">(</span><span class="nx">response</span><span class="p">,</span> <span class="nx">upstream_domain</span><span class="p">,</span> <span class="nx">host_name</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">text</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">response</span><span class="p">.</span><span class="nx">text</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">j</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="k">in</span> <span class="nx">replace_dict</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">j</span> <span class="o">=</span> <span class="nx">replace_dict</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">i</span> <span class="o">==</span> <span class="s1">&#39;$upstream&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">i</span> <span class="o">=</span> <span class="nx">upstream_domain</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">i</span> <span class="o">==</span> <span class="s1">&#39;$custom_domain&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">i</span> <span class="o">=</span> <span class="nx">host_name</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">j</span> <span class="o">==</span> <span class="s1">&#39;$upstream&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">j</span> <span class="o">=</span> <span class="nx">upstream_domain</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">j</span> <span class="o">==</span> <span class="s1">&#39;$custom_domain&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">j</span> <span class="o">=</span> <span class="nx">host_name</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="kd">let</span> <span class="nx">re</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">text</span> <span class="o">=</span> <span class="nx">text</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="nx">re</span><span class="p">,</span> <span class="nx">j</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">text</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="kr">async</span> <span class="kd">function</span> <span class="nx">device_status</span> <span class="p">(</span><span class="nx">user_agent_info</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">agents</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;Android&#34;</span><span class="p">,</span> <span class="s2">&#34;iPhone&#34;</span><span class="p">,</span> <span class="s2">&#34;SymbianOS&#34;</span><span class="p">,</span> <span class="s2">&#34;Windows Phone&#34;</span><span class="p">,</span> <span class="s2">&#34;iPad&#34;</span><span class="p">,</span> <span class="s2">&#34;iPod&#34;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">flag</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">v</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">v</span> <span class="o">&lt;</span> <span class="nx">agents</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">v</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span> <span class="k">if</span> <span class="p">(</span><span class="nx">user_agent_info</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">agents</span><span class="p">[</span><span class="nx">v</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">flag</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">flag</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div></details>
+<p>然后点击<code>保存并部署</code>，就可以成功反代 gravatar 镜像了。</p>
+<p>然后照葫芦画瓢，可以通过这种方式反代任何网站，访问起来大致无压力，延迟 100+ms 左右。</p>
+<h2 id="3自定义域名">3.自定义域名</h2>
+<p><img src="https://imgurl.zishu.me/images/old/20230201/1675254069096.51n0e9vl53g0.webp" alt=""></p>
+<p>在触发器中可以找到自定义域名选项，输入已经绑定 cloudflare 的域名，再次赞美 cloudflare，如果事前绑定好了域名，在这里可以直接输入二级域名，cloudflare 会自动解析，全部都是自动化的。</p>
+<p>在主页左侧的 <code>网站</code> 绑定域名。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 分享我的免费镜像。</span>
+</span></span><span class="line"><span class="cl">https://gravatar.zsh.im/avatar
+</span></span></code></pre></div>
+      </article>
+
+      
+      <div style="padding:20px 0"></div>
+
+<div class="giscus"></div>
+<script 
+  src="https://giscus.app/client.js" 
+  data-repo="98zi/hugo-blog" 
+  data-repo-id="R_kgDOJkJvtw"
+  data-category="Announcements" 
+  data-category-id="DIC_kwDOJkJvt84CX9d6" 
+  data-mapping="url" 
+  data-strict="0"
+  data-reactions-enabled="1" 
+  data-emit-metadata="1" 
+  data-input-position="top" 
+  data-theme="light_tritanopia"
+  data-lang="zh-CN" 
+  data-loading="lazy" 
+  crossorigin="anonymous" 
+  async>
+</script>
+
+      
+
+    </div>
+  </main>
+
+  
+</div>
+
+
+
+<script src="/js/confetti.browser.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</body>
+
+</html>
