@@ -18,17 +18,6 @@ $(function () {
     $('.toc').hide();
   }
 
-  // $(".toggle-button-cover input").click(function () {
-  //   if ($(".toggle-button-cover input").prop("checked")) {
-  //     $('.twikoo').show();
-  //     $('.giscus').hide();
-  //   } else {
-  //     $('.twikoo').hide();
-  //     $('.giscus').show();
-  //   }
-  // });
-
-
   $('.zimgbox').each(function () {
     $(this).click(function () {
       console.log('1');
@@ -45,6 +34,7 @@ $(function () {
     $('#zimgbox-wrap img').removeClass('zimgbox-act');
     $('#zimgbox-wrap img').attr('src', '');
   })
+
 })
 
 var duration = 15 * 1000;
