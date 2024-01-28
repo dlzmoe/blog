@@ -6,14 +6,15 @@
     <description>Recent content in memos on 子舒的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 09 Jan 2023 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://zishu.me/tags/memos/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 09 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://zishu.me/tags/memos/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>利用 memos 生成的在线动态列表</title>
       <link>https://zishu.me/blog/181.html/</link>
       <pubDate>Mon, 09 Jan 2023 00:00:00 +0000</pubDate>
+      
       <guid>https://zishu.me/blog/181.html/</guid>
       <description>memos 是一个具有知识管理和社交功能的开源自托管备忘录中心。 Github 地址：https://github.com/usememos/memos 可以用它本身提供的 api，然后结合静态博客，做成一个在线的动态列表，类似于朋友圈功能。 接口 url 有固定的格式，openId 是每个用户自动生成的。 其次我又写了两个方法，一个是时间戳转成正常时间格式，一个是利用正则删去内容中多余的标签。 将下面代码复制到你想显示的页面编辑，只需修改 openId，提供了一个基础的样式，如果有其他优化方案，欢迎指出。 由于接口中带了用户密钥，建议完成代码后将 js 加密再引入，不然可能会有一定的安全风险。 推荐网址：https://tool.lu/js/ &amp;lt;!-- 结构和 css --&amp;gt; &amp;lt;div class=&amp;#34;sslist&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; &amp;lt;style&amp;gt; .sslist-item { padding: 10px 10px 20px; margin-bottom: 20px; border-radius: 2px; background: #f3f3f3; box-shadow: 1px 2px 4px rgba(0, 0, 0, .2); transition: all 0.2s linear; animation: up 1s forwards; transform: translateY(20px); opacity: 0; } @keyframes up { 0% { transform: translateY(20px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } } .sslist-item:hover { background: #eee; } .sslist-item .sslist-date { opacity: 0.6; margin: 0; font-size: 15px; margin-bottom: 5px; } &amp;lt;/style&amp;gt; // 调用接口的 js 方法 function memosShow() { var memosStr = &amp;#34;&amp;#34;; var openId = &amp;#34;xxx&amp;#34;; $.ajax({ url: &amp;#34;https://memos.zburu.com/api/memo?openId=&amp;#34; + openId + &amp;#34;&amp;amp;tag=说说&amp;#34;, type: &amp;#34;get&amp;#34;, dataType: &amp;#34;json&amp;#34;, success: function (data) { // 生成数组 const sslist = data.data; for (let i = 0; i &amp;lt; sslist.length; i++) { const element = sslist[i]; // 把时间戳转为正常时间格式 2023-01-9 13:17:12 var date = new Date(element.createdTs * 1000); Y = date.getFullYear() + &amp;#34;-&amp;#34;; M = (date.getMonth() + 1 &amp;lt; 10 ? &amp;#34;0&amp;#34; + (date.getMonth() + 1) : date.getMonth() + 1) + &amp;#34;-&amp;#34;; D = (date.getDate() &amp;lt; 10 ? &amp;#34;0&amp;#34; + date.getDate() : date.getDate()) + &amp;#34; &amp;#34;; h = date.getHours() + &amp;#34;:&amp;#34;; m = date.getMinutes() + &amp;#34;:&amp;#34;; s = date.getSeconds(); const createdTsNew = Y + M + D + h + m + s; sslist[i].createdTs = createdTsNew; // 利用js正则删去内容前的标签字符 const contentNew = element.content.slice(4); sslist[i].content = contentNew; } $.each(data.data, function (i, item) { list = &amp;#34;&amp;lt;div class=&amp;#39;sslist-item&amp;#39;&amp;gt;&amp;#34; + &amp;#34;&amp;lt;p class=&amp;#39;sslist-date&amp;#39;&amp;gt;&amp;#34; + item.createdTs + &amp;#34;&amp;lt;/p&amp;gt;&amp;#34; + item.content + &amp;#34;&amp;lt;/div&amp;gt;&amp;#34;; memosStr += list; }), $(&amp;#34;.sslist&amp;#34;).html(memosStr); }, error: function () { console.log(&amp;#34;error&amp;#34;); } }); } memosShow();</description>
     </item>
+    
   </channel>
 </rss>
