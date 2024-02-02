@@ -3,7 +3,7 @@ slug: about
 title: About
 ---
 
-<!-- ![GitHub followers](https://img.shields.io/github/followers/98zi) -->
+![GitHub followers](https://img.shields.io/github/followers/98zi)
 
 ### 1.个人介绍
 
@@ -21,8 +21,6 @@ const author = {
 ```
 
 ![](https://raw.githubusercontent.com/98zi/98zi/main/github-user-contribution.svg)
-
-~~本站使用主题：https://github.com/98zi/hugo-theme-meteor~~
 
 我的 [骑行之路](/riding/)，[计划单](/plan/)。
 

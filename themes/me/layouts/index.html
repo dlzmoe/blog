@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+{{ partial "head.html" . }}
+
+<body class="win">
+  {{ partial "header.html" . }}
+
+  <main class="main">
+
+    {{ $articleCount := len .Site.RegularPages }}
+    {{ $totalWordCount := 0 }}
+    {{ range .Site.Pages }}
+    {{ $totalWordCount = add $totalWordCount .WordCount }}
+    {{ end }}
+
+    <article class="inner main_mark">
+      <p>
+        欢迎来到我的博客，已经有 <span id="busuanzi_value_site_pv">...</span> 位小伙伴逛过本站，写了 {{ $articleCount }} 篇文章，共 {{
+        $totalWordCount }} 字。
+      </p>
+      <p>查看 <a href="/blog/">文章归档</a>，<a href="/categories/weekly/">查看周刊</a>。</p>
+    </article>
+
+    <div class="inner main_mark">
+      {{ $pages := .Site.RegularPages }}
+      {{ $paginator := .Paginate ($pages) }}
+      {{ $count := 0 }}
+
+      {{ range $paginator.Pages }}
+      {{ $title := .Title }}
+      {{ $summary := .Summary }}
+
+      {{ if and (not (in .Params.categories "weekly")) (lt $count 7) }}
+      {{ $count = add $count 1 }}
+
+      <div class="item Article Text">
+        <div class="item-meta">
+          <time class="js-time" datetime="{{ .Date.Format " 2006-01-02 15:04:05 MST" }}">{{ .Date.Format
+            "2006-01-02"}}</time>
+        </div>
+        <a class="item-main" href="{{ .RelPermalink }}">
+          <h3>{{ .Title }}</h3>
+        </a>
+      </div>
+
+      {{ end }}
+      {{ end }}
+    </div>
+    
+    <div class="inner main_mark">
+      {{ partial "pagination.html" . }}
+    </div>
+   
+  </main>
+
+  {{ partial "footer.html" . }}
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+{{ partial "head.html" . }}
+
+<body class="list">
+  {{ partial "header.html" . }}
+
+  <main class="main">
+
+    <div class="header inner main_mark">
+      <h1 class="header-title">{{ .Title }}</h1>
+      <p>List of articles written on this website in a timeline view.</p>
+    </div>
+
+    {{ range (where .Data.Pages "Type" "in" site.Params.mainSections).GroupByDate "2006" -}}
+    <div class="inner main_mark">
+      <!-- <h2 class="archive-year-header" id="{{ .Key }}">{{ .Key }}</h2> -->
+ 
+        {{ range .Pages }}
+        <div class="item Article Text">
+          <div class="item-meta">
+            <time class="js-time" datetime="{{ .Date.Format " 2006-01-02 15:04:05 MST" }}">{{ .Date.Format
+              "2006-01-02"}}</time>
+          </div>
+          <a class="item-main" href="{{ .RelPermalink }}">
+            <h3>{{ .Title }}</h3>
+          </a>
+        </div>
+        {{ end }}
+
+    </div>
+    
+    {{ end }}
+  </main>
+
+  {{ partial "footer.html" . }}
+</body>
+
+</html>
