@@ -6,63 +6,78 @@
     <description>Recent content in css on 子舒的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 12 May 2022 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://zishu.me/tags/css/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 12 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://zishu.me/tags/css/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>分享一款自用的 v2ex 主题样式</title>
       <link>https://zishu.me/blog/128.html/</link>
       <pubDate>Thu, 12 May 2022 00:00:00 +0000</pubDate>
+      
       <guid>https://zishu.me/blog/128.html/</guid>
       <description>起因是因为觉得 v2ex 网站主题略有拥挤，阅读体验不好，而正好网站支持自定义 css，所以就在参考其他人的基础上，修改了一套比较美观的样式。 本来是自用的，但是看到有人发帖分享主题，我也索性将它分享出来了。 v2ex 帖子：https://www.v2ex.com/t/851735 Github 仓库：https://github.com/98zi/v2ex_theme 不想看文档可以直接用下面的链接。 /* 通过 jsd 加速 github 文件 */ @import &amp;#34;https://cdn.jsdelivr.net/gh/98zi/v2ex_theme/v2ex_theme.min.css&amp;#34;; /* 放在我自己服务器上的链接 */ @import &amp;#34;https://cdn.zburu.com/list/v2ex_theme.css&amp;#34;;</description>
     </item>
+    
     <item>
       <title>css 中 fixed 定位属性和动画的冲突问题及解决方法</title>
       <link>https://zishu.me/blog/69.html/</link>
       <pubDate>Thu, 27 May 2021 00:00:00 +0000</pubDate>
+      
       <guid>https://zishu.me/blog/69.html/</guid>
       <description>1.问题 css 中使用动画属性会和同标签下的 fixed 属性冲突，导致定位失效，那么该如何解决他呢？ 2.分析 简单说一下问题产生的背景，昨天夜里我想给我的博客页面做一个简单的动画，浏览器刷新的时候从下往上渐现的效果，代码如下： /* index-container 类名是页面的主体部分 */ .index-container { opacity: 0; animation-name: index; animation-duration: 0.7s; animation-fill-mode: forwards; } /* 一个简单的动画实现 */ @keyframes index { 0% { transform: translateY(100px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } } 运行之后发现，动画可以很好的显示，但是当我翻阅文章详情的时候发现，目录固定失效了。 按照原来的设置是当页面往下滑动的时候，目录会紧贴浏览器的顶部，方便跳转和查看目录，但是现在它已经不能紧贴了。看一下浏览器设置，属性确实生效了，但是页面并没有显示我们想要的结果。 之前我写目录固定事件的时候用的是 scroll 事件，然后昨天写动画，绑定的 onload 事件，我初步判断是两个 window 冲突了，导致第二个失效，所以我就改了一种写法，用 addEventListener 事件监听执行他们，但最终无论怎么写，目录固定始终不能生效。 昨天熬得太晚了，就没管它放在那了，今天一早我就去张鑫旭的网站查了一下，果然有这么一个问题。 参考文章：https://www.zhangxinxu.com/wordpress/2015/05/css3-transform-affect/ 但是文章只是介绍了问题产生的原因，并没有明确给出一个好的解决办法。 3.方法 虽然没有明确的方法，但是给了我一个思路，因为动画中的一些属性，比如 scale、translate 等，会造车容器的宽高重新计算，而 fixed 属性则依赖于规定的一个像素值，所以当执行动画的时候，页面的高度发生了变化，所以 fixed 不能安心的执行自己的任务了。 原因找到了，方法自然而然就出来了，看图（图很丑，手画的，能理解意思就行） 这是我最开始的布局，我将动画绑定给 红色框 的容器了，而目录就在红色框内，所以失效。 现在我重新布局一下， 目录依旧处于侧边，但是我将他和通常的侧边栏分开成两个容器了，现在我把动画绑定给 主体部分 和 侧边栏 ，这样目录就和绑定动画的标签分开了。 再到页面测试，发现没有任何问题，动画效果和目录固定互不影响。 很快乐，又可以愉快地折腾了！</description>
     </item>
+    
     <item>
       <title>网站引入 iframe 视频，如何实现高度自适应？</title>
       <link>https://zishu.me/blog/66.html/</link>
       <pubDate>Sun, 09 May 2021 00:00:00 +0000</pubDate>
+      
       <guid>https://zishu.me/blog/66.html/</guid>
       <description>我想很多小伙伴在写博客的时候都能遇到一个令人头疼的问题，某一篇文章想用 iframe 引入一个外链视频，但是大小总是有问题，宽度可以固定到 100% ，但是高度比如用实际高度来表示，比如 100px, 200px，诸如此类。 但是问题来了，在不同的页面宽度下，视频的高度是一致的，就会导致一个很麻烦的问题， 看下面两个图， pc 端 移动端 很明显，在 pc 端正常显示的视频，放到移动端高度就错位了，很不美观。 解决这个问题，可以同媒体查询，但是显然费时费力，还不那么完美。 其实很简单，只需要不到 10 行代码即可完美实现。 引入 jq，（一般网站默认都有这个文件） 加上一段 js 代码，最好放在网站底部， &amp;lt;/body&amp;gt; 前即可。 $(&amp;#39;iframe&amp;#39;).wrap(&amp;#39;&amp;lt;p class=&amp;#34;iframe&amp;#34;&amp;gt;&amp;lt;/p&amp;gt;&amp;#39;) 在 css 文件的底部加上： .iframe{ position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; } .iframe iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; } 这个时候再访问带有 iframe 视频的网页，不管宽度如何变化，高度可以随视频自适应。 例如这个网页，可以看一下效果：https://imhan.cn/posts/20210507.html</description>
     </item>
+    
     <item>
       <title>IE10 下`,`符号不能留白</title>
       <link>https://zishu.me/blog/54.html/</link>
       <pubDate>Tue, 16 Mar 2021 00:00:00 +0000</pubDate>
+      
       <guid>https://zishu.me/blog/54.html/</guid>
       <description>$(&amp;#34;#test&amp;#34;).click(function () { $(&amp;#39;html,body&amp;#39;).animate({ &amp;#39;scrollTop&amp;#39;: &amp;#39;0&amp;#39; }, 500,) }) 这行代码使用的是 jquery 的写法，一个 500 毫秒的动画，这样写在 Chrome 浏览器等没问题，可以正常运行。 但是今天在写项目的过程中，要求代码兼容到 IE10，没办法，被迫在 IE 浏览器下运行，结果发现这行代码会报错。这是怎么回事呢？ 简单分析一下，这有点类似 js 中定时器的写法，setimeout，两个参数，分别代表指定的时间，和定时时间。 而 animate 是动画的属性，这个时间共花费 500 毫秒执行完毕。但是这个不是重点，为什么会报错呢？ 这时候我注意到 500 后面的,，我突然想到一种可能，先把,删掉。果然不出我所料。控制台不会报错了。 我猜测，这是由 IE 的机制引起的，浏览器识别到,的时候，会自动默认后面跟有语句，但是如果空着不写，与浏览器预期的后果不同，就会产生报错。可能 IE 内核要求也比较严格吧。</description>
     </item>
+    
     <item>
       <title>怎么让 css3 里面的动画属性看起来更流畅？</title>
       <link>https://zishu.me/blog/53.html/</link>
       <pubDate>Sun, 14 Mar 2021 00:00:00 +0000</pubDate>
+      
       <guid>https://zishu.me/blog/53.html/</guid>
       <description>ps：先说点题外话，因为工作的原因很久没更新博客了，最近也是告一段落，处理一了一些事情之后可以安心坐下来，把我的博客重新整理一下。 今天要讲的是 css3 的一个新属性 animation，也算是一个回顾吧，我只是将平时如何使用，以及一些技巧分享出来。如果想学习更基础的内容，可以点击链接：https://www.runoob.com/css3/css3-animations.html，网上类似的教程还是蛮多的。 这篇文章并不细讲动画的基础属性，而是稍微扩展一个话题：怎么让 css3 里面的动画属性看起来更流畅？ 当然在讲之前还是要简单介绍一下 animation 基本属性。 animation 属性 animation 属性有下面几个值： @keyframes | 动画本身（最重要的） animation-name | 动画的名称 animation-duration | 动画所经历的时间 animation-fill-mode | 当属性为 forwards 时，动画停留在最后一帧 动画主要可以用于一些官网特效，或者自适应的布局。 如何写一个最基本的动画 动画就是由一个状态到另一个状态的过程，比如从左到右的一个移动过程。 首先要先了解各个属性具体的作用是什么，就拿从白到黑举个例子吧，首先写一个 @keyframes 的动画过程。 @keyframes leftright { 0% { transform: translateX(0); } 100% { transform: translateX(100px); } } 这段代码的意思就是有一个名为 leftright 的动画，将容器从左到右移动了 100px。 然后我们进一步补全这个动画。 &amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;title&amp;gt;动画&amp;lt;/title&amp;gt; &amp;lt;style&amp;gt; .demo { width: 100px; height: 100px; background: #000; animation-name: leftright; animation-duration: 1s; } @keyframes leftright { 0% { transform: translateX(0); } 100% { transform: translateX(100px); } } &amp;lt;/style&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;div class=&amp;#34;demo&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt; 然后我们到浏览器跑一下这个页面试试看，可以看到一个黑色的方块从左右移动了 100px 的距离，总计 1 秒完成。 但是这个动画结束的很突兀，容器突然回到原地，这是为什么呢？因为我们没有保留最后一帧，这需要一个属性，最上面我们讲过了。 .demo { width: 100px; height: 100px; background: #fff; animation-name: leftright; /* 将动画的名称绑定到该标签 */ animation-duration: 1s; /* 给动画的过程设一个时长 */ animation-fill-mode: forwards; /* 动画停留在最后一帧 */ } 运行一下，可以看到动画最后停住了。 让动画拥有一个惯性 我们仔细观察这个动画，发现他整个过程不拖泥带水，很迅速的完成了，但是我发现一个问题，整个过程不流畅圆滑，很死板，从左到右，一点也不圆滑。 分析一下，因为缺少了一个日常生活的习惯动画，那就是惯性，这个属性可不存在啊，没法直接设置，只能通过动画本身的属性来进行调整，继续看这一段代码。 @keyframes leftright { 0% { transform: translateX(0); } 100% { transform: translateX(100px); } } 0%代表开始，100%代表结束，他们指的是一个时间节点，在这个时间点动画要运行到他们指定的位置。 所以我们可以添加一个新的时间节点，50%，我们让当时间过了一半的时候，方块运行到 120px 的位置，然后再折回来。 下面是完整的代码，可以复制到本地，自己运行一下试试看。 &amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;title&amp;gt;动画&amp;lt;/title&amp;gt; &amp;lt;style&amp;gt; .demo { width: 100px; height: 100px; background: #000; animation-name: leftright; animation-duration: 1s; animation-fill-mode: forwards; } @keyframes leftright { 0% { transform: translateX(0); } 50% { transform: translateX(120px); } 100% { transform: translateX(100px); } } &amp;lt;/style&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;div class=&amp;#34;demo&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt; 修改完之后，到浏览器看一下效果。 是不是流畅了很多，有了一种惯性的感觉，这一点在工作中如何遇到写动画的需求就很关键了，怎么让用户的体验更强，是一门技巧。 虽说这都是一些基础的东西，但是我觉得体验感上去了，网站的回头率才会更高。打一个比方，去某个商城网站购物，整个页面看起来很舒服，特效细节很流畅，是不是就增加了购物的欲望。虽然这么说很浅薄，但是真的会有一些心里作用。 如何用好动画特效，是一门学问，将 css 玩出花样来，可不是那么简单的。</description>
     </item>
+    
     <item>
       <title>chrome 浏览器无法显示 12px 以下的字体</title>
       <link>https://zishu.me/blog/52.html/</link>
       <pubDate>Fri, 26 Feb 2021 00:00:00 +0000</pubDate>
+      
       <guid>https://zishu.me/blog/52.html/</guid>
       <description>最近正在面试，遇到了很多有意思的东西，比如今天，在面试前先做了一套面试题，其中有这么一道题，觉得挺有意思，之前也没见过，就打算记录下来： &amp;lt;!-- chrome 浏览器 12px 字体大小以下无法显示，均显示为 12px，应该怎么解决。 --&amp;gt; 我确实有点蒙，在之前写代码的时候，没有遇到过这样的情况，不过既然这样问了，就得想出解决的办法。 首先我想到之前的一个问题，0.5px 的边框该如何实现，通过 scale(0.5) 可以实现，这是 css3 新属性。 所以当时我就写了通过 transform:scale() 可以实现。不过后续在面试的中，面试官也没有提及这些问题。 回到家之后，吃完饭坐在电脑旁，正准备逛一逛 github，突然想起来了这么一个问题，就自己测试了一遍： &amp;lt;div style=&amp;#34;font-size: 13px;&amp;#34;&amp;gt; 测试 &amp;lt;/div&amp;gt; &amp;lt;div style=&amp;#34;font-size: 12px;&amp;#34;&amp;gt; 测试 &amp;lt;/div&amp;gt; &amp;lt;div style=&amp;#34;font-size: 11px;&amp;#34;&amp;gt; 测试 &amp;lt;/div&amp;gt; 竟然真的存在这样的问题，Chrome 12px 以下的字体无法正常显示，均显示为 12px。 然后我用 scale 设置了一下属性， &amp;lt;div style=&amp;#34;font-size: 13px;&amp;#34;&amp;gt; 测试 &amp;lt;/div&amp;gt; &amp;lt;div style=&amp;#34;font-size: 12px;&amp;#34;&amp;gt; 测试 &amp;lt;/div&amp;gt; &amp;lt;div style=&amp;#34;font-size: 11px;transform: scale(0.5);&amp;#34;&amp;gt; 测试 &amp;lt;/div&amp;gt; 字体确实可以再次缩小到自己想到的程度，但是存在一些弊端，所有带有长度的属性均被缩小，比如图中的 div 的长度，本来默认是 100% ，但是显示只有原来的一半了。 虽然存在这么个问题，但是按照我自己的预估，平时我们浏览的网站基本没有低于 12px 大小的字体吧！反正我是没有遇到过，我估计面试题也是想考验我们对一些生僻知识的处理吧，不过也不算生僻，前有 0.5px，后有 12px，其实都大同小异。 在遇到这个问题的时候，确实可以通过 scale() 处理一下，然后在认真设置其他属性，尽量避免更多的弊端。</description>
     </item>
+    
     <item>
       <title>掘金个人主页头像旋转效果</title>
       <link>https://zishu.me/blog/49.html/</link>
       <pubDate>Wed, 03 Feb 2021 00:00:00 +0000</pubDate>
+      
       <guid>https://zishu.me/blog/49.html/</guid>
       <description>在浏览掘金社区的时候，发现一个很有意思的小彩蛋，在个人主页将鼠标悬浮在头像上，会不停的加速旋转，我感觉挺有意思，f12 看看这个样式怎么写的，发现用到了 css3 的相关技术。 下面是具体代码，img 是头像元素，直接写在 hover 中即可。 img:hover { transform: rotate(666turn); transition-delay: 1s; transition-property: all; transition-duration: 59s; transition-timing-function: cubic-bezier(.34,0,.84,1); } ps：今天是 2021 年 2 月 4 号，农历腊月二十三，传统的小年，祝朋友们小年愉快。不知不觉，快过年了。</description>
     </item>
+    
     <item>
       <title>文字溢出隐藏以及和 flex 冲突的问题</title>
       <link>https://zishu.me/blog/6.html/</link>
       <pubDate>Mon, 03 Aug 2020 00:00:00 +0000</pubDate>
+      
       <guid>https://zishu.me/blog/6.html/</guid>
       <description>在某些段落中，页面要求文字只显示一行，但是width固定，而文字过长，就会出现一个需求，超过长度限制的文字被隐藏且显示省略号，css 支持这样的属性。 单行文本溢出隐藏 div{ overflow: hidden; white-space: nowrap; text-overflow: ellipsis; } 多行文本溢出隐藏 div { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; } 简单的几行代码就可以达到我们的要求。 但是有一个我们需要注意的地方！！ flex 布局是前端写代码经常使用的一种布局方式，简单便捷且有效，但是在使用 flex 布局的元素中不能同时使用文字溢出隐藏，也就是两者不能同时出现在同一标签中。 这里，我们也有对应的解决办法。 只要保证 flex 布局和隐藏的样式不在同级元素中就可以，所以在文字外部多包裹一层标签。 可以采用下面这段代码的写法； &amp;lt;p&amp;gt; &amp;lt;!-- 我们在这一层的标签进行flex布局 --&amp;gt; &amp;lt;span&amp;gt; &amp;lt;!-- 这一层的标签我们引入文字过长隐藏的样式 --&amp;gt; &amp;lt;!-- 文本 --&amp;gt; &amp;lt;/span&amp;gt; &amp;lt;/p&amp;gt;</description>
     </item>
+    
   </channel>
 </rss>
