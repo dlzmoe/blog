@@ -3,7 +3,7 @@ slug: about
 title: About
 ---
 
-![GitHub followers](https://img.shields.io/github/followers/98zi)
+<!-- ![GitHub followers](https://img.shields.io/github/followers/98zi) -->
 
 ### 1.个人介绍
 
