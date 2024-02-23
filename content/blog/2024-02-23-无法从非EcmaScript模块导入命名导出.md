@@ -12,6 +12,7 @@ tags:
 在 vue 中引入 markdown-it 模块时遇到一个问题，dev 运行时报出以下错误，无法从非 EcmaScript 模块导入命名导出。
 
 ```shell
+# shell
  error  in ./node_modules/markdown-it/lib/common/utils.mjs
 Can't import the named export 'P' from non EcmaScript module (only default export is available)
  error  in ./node_modules/markdown-it/lib/index.mjs
