@@ -2,7 +2,7 @@
 <html lang="en-us">
 <head>
 <meta charset="utf-8" />
-<meta name="generator" content="Hugo 0.121.2">
+<meta name="generator" content="Hugo 0.122.0">
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="toTop" content="true">
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -22,7 +22,7 @@
 "articleSection" : "blog",
 "name" : "ajax 和 js 事件的执行顺序",
 "headline" : "ajax 和 js 事件的执行顺序",
-"description" : "有一个需求，滚",
+"description" : "有一个需求，滚轮滚动到相应位置的时候执行当前的动画，这个动画在footer里面，而网页的主体通过ajax进行渲染，我在 js 里面调用 ajax 渲染数据，然后再获取主体的高度，滚动到该高度的时候执行动画。 本地测试了一下没什么问题，该有的效果都有了。放在服务器上测试发现无论怎么写，都是先获取主体的高度，然后才进行数据的渲染。那么必然高度是一个极小的值，不符合我想要的属性。 我大致想了两种解决办法，均以失败告终，本地是 ajax 先执行，服务器是 js 先执行。 让获取高度的事件时间延时 500ms，发现最后获取不到事件了； 将该事件写在 ajax 的 success 回调里面，结果是只有打开网页第一次能够成功，然后不管刷新多少次均无效，事件被屏蔽，所以方法二也被废除； 最后我想到了，ajax 不就是一种异步方法，我将其改为同步不就行，先让 ajax 执行完在执行 js 事件。 async: false, 我在 ajax 里面写了async这个方法，false 意思是将其默认为同步获取数据，很好，回到服务器打开控制台，发现是先渲染了数据，才获取了主体的高度，问题得以解决。 当然这样做有弊端的，如果接口出问题，ajax 渲染失败，那么整个网页的 js 都将执行不了。不过我想真到了数据都渲染不出的地方，访问网页就没有意义了，所以最后我采用了这种方法。",
 "inLanguage" : "en-US",
 "author" : "子舒",
 "creator" : "子舒",
@@ -38,8 +38,8 @@
 </script><title>ajax 和 js 事件的执行顺序 - 子舒的博客</title>
 <meta property="og:title" content="ajax 和 js 事件的执行顺序" />
 <meta property="og:type" content="article" />
-<meta property="og:description" content="有一个需求，滚" />
-<meta name="description" content="有一个需求，滚" />
+<meta property="og:description" content="有一个需求，滚轮滚动到相应位置的时候执行当前的动画，这个动画在footer里面，而网页的主体通过ajax进行渲染，我在 js 里面调用 ajax 渲染数据，然后再获取主体的高度，滚动到该高度的时候执行动画。 本地测试了一下没什么问题，该有的效果都有了。放在服务器上测试发现无论怎么写，都是先获取主体的高度，然后才进行数据的渲染。那么必然高度是一个极小的值，不符合我想要的属性。 我大致想了两种解决办法，均以失败告终，本地是 ajax 先执行，服务器是 js 先执行。 让获取高度的事件时间延时 500ms，发现最后获取不到事件了； 将该事件写在 ajax 的 success 回调里面，结果是只有打开网页第一次能够成功，然后不管刷新多少次均无效，事件被屏蔽，所以方法二也被废除； 最后我想到了，ajax 不就是一种异步方法，我将其改为同步不就行，先让 ajax 执行完在执行 js 事件。 async: false, 我在 ajax 里面写了async这个方法，false 意思是将其默认为同步获取数据，很好，回到服务器打开控制台，发现是先渲染了数据，才获取了主体的高度，问题得以解决。 当然这样做有弊端的，如果接口出问题，ajax 渲染失败，那么整个网页的 js 都将执行不了。不过我想真到了数据都渲染不出的地方，访问网页就没有意义了，所以最后我采用了这种方法。" />
+<meta name="description" content="有一个需求，滚轮滚动到相应位置的时候执行当前的动画，这个动画在footer里面，而网页的主体通过ajax进行渲染，我在 js 里面调用 ajax 渲染数据，然后再获取主体的高度，滚动到该高度的时候执行动画。 本地测试了一下没什么问题，该有的效果都有了。放在服务器上测试发现无论怎么写，都是先获取主体的高度，然后才进行数据的渲染。那么必然高度是一个极小的值，不符合我想要的属性。 我大致想了两种解决办法，均以失败告终，本地是 ajax 先执行，服务器是 js 先执行。 让获取高度的事件时间延时 500ms，发现最后获取不到事件了； 将该事件写在 ajax 的 success 回调里面，结果是只有打开网页第一次能够成功，然后不管刷新多少次均无效，事件被屏蔽，所以方法二也被废除； 最后我想到了，ajax 不就是一种异步方法，我将其改为同步不就行，先让 ajax 执行完在执行 js 事件。 async: false, 我在 ajax 里面写了async这个方法，false 意思是将其默认为同步获取数据，很好，回到服务器打开控制台，发现是先渲染了数据，才获取了主体的高度，问题得以解决。 当然这样做有弊端的，如果接口出问题，ajax 渲染失败，那么整个网页的 js 都将执行不了。不过我想真到了数据都渲染不出的地方，访问网页就没有意义了，所以最后我采用了这种方法。" />
 <meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">

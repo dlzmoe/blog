@@ -9,7 +9,11 @@ tags:
   - js
 ---
 
-在 vue 中引入 markdown-it 模块时遇到一个问题，dev 运行时报出以下错误，无法从非 EcmaScript 模块导入命名导出。
+https://github.com/markdown-it/markdown-it
+
+markdown-it 是一个基于 vue 的解析 markdown 语法的库。
+
+在 vue 中引入 markdown-it 模块时遇到一个问题，dev 开发运行时报出以下错误，无法从非 EcmaScript 模块导入命名导出。
 
 ```shell
 # shell
