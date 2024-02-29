@@ -20,7 +20,6 @@ $(function () {
 
   $('.zimgbox').each(function () {
     $(this).click(function () {
-      console.log('1');
       var $url = $(this).attr('src');
       $('html').css('overflow-y', 'hidden');
       $('#zimgbox-wrap').css('display', 'flex');
