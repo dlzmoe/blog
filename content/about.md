@@ -10,7 +10,7 @@ title: 关于
 ```js
 const author = {
   name: '子舒',
-  age: 24,
+  productionDate: 1998,
   tags: ['前端程序员', '独立博客作者', '骑行爱好者', '摄影爱好者', 'INFJ 人格'],
   adress: '杭州',
   email: 'anghunk@gmail.com',
