@@ -1,6 +1,6 @@
 ---
 slug: about
-title: About
+title: 关于
 ---
 
 <!-- ![GitHub followers](https://img.shields.io/github/followers/98zi) -->

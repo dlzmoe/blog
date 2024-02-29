@@ -1,6 +1,6 @@
 ---
 slug: subscribe
-title: subscribe
+title: 订阅
 ---
 
 - 网站 rss: https://zishu.me/index.xml

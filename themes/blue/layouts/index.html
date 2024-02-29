@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+{{ partial "head.html" . }}
+
+<body>
+  {{ partial "header.html" . }}
+
+  {{ $articleCount := len .Site.RegularPages }}
+  {{ $totalWordCount := 0 }}
+  {{ range .Site.Pages }}
+  {{ $totalWordCount = add $totalWordCount .WordCount }}
+  {{ end }}
+
+
+
+  <main class="main">
+
+    <article class="aboutme">
+      <p>
+        欢迎来到我的博客，已经有 <span id="busuanzi_value_site_pv">...</span> 位小伙伴逛过本站，写了 {{ $articleCount }} 篇文章，共 {{
+        $totalWordCount }} 字。
+      </p>
+    </article>
+
+    <ul class="list">
+      {{ $pages := .Site.RegularPages }}
+      {{ $paginator := .Paginate ($pages) }}
+      {{ $count := 0 }}
+
+      {{ range $paginator.Pages }}
+      {{ $title := .Title }}
+      {{ $summary := .Summary }}
+
+      {{ if and (not (in .Params.categories "无")) (lt $count 15) }}
+      {{ $count = add $count 1 }}
+
+      <li>
+        <time class="js-time" datetime="{{ .Date.Format " 2006-01-02 15:04:05 MST" }}">
+          {{ .Date.Format "2006-01-02"}}
+        </time>
+        <a class="item-main" href="{{ .RelPermalink }}">{{ .Title }}</a>
+      </li>
+
+      {{ end }}
+      {{ end }}
+    </ul>
+
+    <div class="inner">
+      {{ partial "pagination.html" . }}
+    </div>
+
+  </main>
+
+  {{ partial "footer.html" . }}
+</body>
+
+</html>

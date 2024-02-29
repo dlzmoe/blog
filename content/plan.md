@@ -1,6 +1,6 @@
 ---
 slug: plan
-title: Plan
+title: 计划
 ---
 
 给自己制定一些小计划。

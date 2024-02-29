@@ -1,6 +1,6 @@
 ---
 slug: riding
-title: Riding
+title: 骑行
 ---
 
 坐骑：~~捷安特 atx620~~ 迪卡侬 rc 120.
