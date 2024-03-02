@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>数据库 on 子舒的博客</title>
-    <link>https://zishu.me/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+    <link>http://localhost:1313/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
     <description>Recent content in 数据库 on 子舒的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 22 Feb 2022 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://zishu.me/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【笔记】使用 php 写接口文件调用数据</title>
-      <link>https://zishu.me/blog/103.html/</link>
+      <link>http://localhost:1313/blog/103.html/</link>
       <pubDate>Tue, 22 Feb 2022 00:00:00 +0000</pubDate>
-      <guid>https://zishu.me/blog/103.html/</guid>
+      <guid>http://localhost:1313/blog/103.html/</guid>
       <description>如何使用 php 写一个接口，然后将数据以 json 文件格式调用。 &amp;lt;?php header(&amp;#39;Content-Type:application/json; charset=utf-8&amp;#39;); header(&amp;#34;Access-Control-Allow-Origin:*&amp;#34;); $servername = &amp;#34;localhost&amp;#34;; $username = &amp;#34;数据库账号&amp;#34;; $password = &amp;#34;数据库密码&amp;#34;; $dbname = &amp;#34;数据库名称&amp;#34;; // 创建连接 $conn = new mysqli($servername, $username, $password, $dbname); // 检测连接 if ($conn-&amp;gt;connect_error) { die(&amp;#34;连接失败：&amp;#34; . $conn-&amp;gt;connect_error); } $sql = &amp;#34;select slug,title,created,text from typecho_contents&amp;#34;; $result = $conn-&amp;gt;query($sql); if ($result-&amp;gt;num_rows &amp;gt; 0) { // 输出数据 while($row = $result-&amp;gt;fetch_assoc()) { $data[]=$row; } $json = json_encode($data,JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);//把数据转换为 JSON 数据。 exit($json) ; } else { echo &amp;#34;未查询到结果！&amp;#34;; } $conn-&amp;gt;close(); ?&amp;gt; 根据某个条件排序，将 32 行的 sql 语句改为下面的，意为根据 created 进行排序。 $sql = &amp;#34;select slug,title,created,text from typecho_contents order by created desc&amp;#34;;</description>
     </item>
     <item>
       <title>将数据库中的图片信息导出并调用</title>
-      <link>https://zishu.me/blog/73.html/</link>
+      <link>http://localhost:1313/blog/73.html/</link>
       <pubDate>Fri, 09 Jul 2021 00:00:00 +0000</pubDate>
-      <guid>https://zishu.me/blog/73.html/</guid>
+      <guid>http://localhost:1313/blog/73.html/</guid>
       <description>接口链接：http://121.196.166.173/img/img.php 展示 demo：http://121.196.166.173/img 前言 为了写博客以及其他的一些用途，我使用服务器搭建了一个连接 github 仓库的上传网页，并且在数据库中记录上传的信息，比如缩略名、时间戳和图片链接。分别对应 GitHub 仓库中的图片，但是后期我发现在 GitHub 查看图片非常别扭，因此我打算写一个可展示图片的网页，把 GitHub 仓库中的图片通过链接展示出来，当然我们不可能一张张复制，还好有数据库。 看一下具体内容 写一个接口 很好，拥有我们需要的字段。事不宜迟，直接开动，下面是完成的接口代码。 &amp;lt;?php header(&amp;#39;Content-Type:application/json; charset=utf-8&amp;#39;); header(&amp;#34;Access-Control-Allow-Origin:*&amp;#34;); $servername = &amp;#34;localhost&amp;#34;; $username = &amp;#34;imgbed&amp;#34;; $password = &amp;#34;imgbed&amp;#34;; $dbname = &amp;#34;imgbed&amp;#34;; // 创建连接 $conn = new mysqli($servername, $username, $password, $dbname); // 检测连接 if ($conn-&amp;gt;connect_error) { die(&amp;#34;连接失败：&amp;#34; . $conn-&amp;gt;connect_error); } // imgmd5 名称转 md5 // imguploadtime 上传时间戳 // imgurl 链接 // 上传 ip $sql = &amp;#34;select imgmd5,imguploadtime,imgurl,imguploadip from remote_imgs &amp;#34;; $result = $conn-&amp;gt;query($sql); if ($result-&amp;gt;num_rows &amp;gt; 0) { // 输出数据 while($row = $result-&amp;gt;fetch_assoc()) { $data[]=$row; } $json = json_encode($data,JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);//把数据转换为 JSON 数据。 exit($json) ; } else { echo &amp;#34;未查询到结果！&amp;#34;; } $conn-&amp;gt;close(); ?&amp;gt; 分别将缩略名，时间戳，图片链接，和上传 ip 通过 json 格式导出，非常完美。接口链接：http://121.196.166.173/img/img.php 使用 ajax 进行调用 然后只需要在前端将接口调用，然后简单写一个页面即可，下面是 html 代码，，通过 ajax 调用。 &amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html lang=&amp;#34;en&amp;#34;&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;UTF-8&amp;#34;&amp;gt; &amp;lt;meta http-equiv=&amp;#34;X-UA-Compatible&amp;#34; content=&amp;#34;IE=edge&amp;#34;&amp;gt; &amp;lt;meta name=&amp;#34;viewport&amp;#34; content=&amp;#34;width=device-width, initial-scale=1.0&amp;#34;&amp;gt; &amp;lt;title&amp;gt;图床&amp;lt;/title&amp;gt; &amp;lt;style&amp;gt; .container { max-width: 1000px; margin: 40px auto; display: flex; flex-wrap: wrap; justify-content: space-between; } .item { width:300px; /* height: 300px; */ overflow: hidden; border: 2px solid #bbb; margin-bottom: 24px; } .item a{ display: block; width: 300px; /* height: 300px; */ overflow: hidden; } .item img{ max-width: 300px; max-height: 300px; } &amp;lt;/style&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;div class=&amp;#34;container&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; &amp;lt;script src=&amp;#34;https://cdn.zburu.com/list/jquery3.6.0.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script&amp;gt; var str = &amp;#39;&amp;#39;; $.ajax({ url: &amp;#39;http://121.196.166.173/img/img.php&amp;#39;, type: &amp;#39;get&amp;#39;, dataType: &amp;#39;json&amp;#39;, async: false, success: function (data) { $.each(data, function (i, item) { console.log(item) list = &amp;#34;&amp;lt;div class=&amp;#39;item&amp;#39;&amp;gt;&amp;lt;p&amp;gt;缩略名：&amp;#34; + item.imgmd5 + &amp;#34;&amp;lt;/p&amp;gt;&amp;#34; + &amp;#34;&amp;lt;p&amp;gt;时间戳：&amp;#34; + item.imguploadtime + &amp;#34;&amp;lt;/p&amp;gt;&amp;#34; + &amp;#34;&amp;lt;a target=&amp;#39;_blank&amp;#39; href=&amp;#39;&amp;#34;+ item.imgurl +&amp;#34;&amp;#39;&amp;gt;&amp;lt;img src=&amp;#39;&amp;#34; + item.imgurl + &amp;#34;&amp;#39;&amp;gt;&amp;lt;/a&amp;gt;&amp;#34; + &amp;#34;&amp;lt;p&amp;gt;上传 ip：&amp;#34; + item.imguploadip + &amp;#34;&amp;lt;/p&amp;gt;&amp;lt;/div&amp;gt;&amp;#34; str += list; }), $(&amp;#34;.container&amp;#34;).html(str); console.log(&amp;#39;数据请求成功&amp;#39;) }, error: function () { console.log(&amp;#39;数据请求失败&amp;#39;) } }); &amp;lt;/script&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt; 最后我把这个页面传到我的服务器当中，可以看一下效果 http://121.196.166.173/img 时间仓促，我也没使用更好的 ui 进行优化，只是大致写一下这个过程，待到以后具体使用时，我会对这个展示图片的页面进一步优化。</description>
     </item>
     <item>
       <title>Oracle 数据库安装教程（超详细）</title>
-      <link>https://zishu.me/blog/68.html/</link>
+      <link>http://localhost:1313/blog/68.html/</link>
       <pubDate>Thu, 13 May 2021 00:00:00 +0000</pubDate>
-      <guid>https://zishu.me/blog/68.html/</guid>
+      <guid>http://localhost:1313/blog/68.html/</guid>
       <description>转载自：https://www.moeor.com/26.html 前言 本教程讲解 Oracle Database Express Edition (XE) Release 11.2.0.2.0 (11gR2) 版本的下载安装教程！ 该版本是一个便携式安装版本，直接安装，就可以了，非常方便。 由于官网的更新，找不到以前那种提供客户端服务端的安装了，所以这里不再讲解！ 准备 访问 Oracle 官网下载该版本数据库。下载时需要登录账号，可百度搜索共享的 Oracle 账号！ 下载地址：https://www.oracle.com/database/technologies/xe-prior-releases.html 选择适合自己的系统版本，本文以 Win10 为例。建议使用下载工具或者科学上网，下载更快！ 安装 Oracle 下载后解压缩，双击打开文件夹中的“setup.exe&amp;quot; 安装程序，等待程序启动，进入安装程序。 开始安装，单击“下一步” 选择“我接受本许可协议中的条款”，然后单击“下一步”。 这一步是选择安装位置，由于文件程序比较大，建议安装 D 盘。新建一个 Oracle 文件夹，点击“浏览”，选择文件夹，注意查看目标文件夹，文件路径，然后单击“下一步”。 设置数据库的登录口令，即数据库密码，建议简单一点，比如：root，然后单击“下一步”。 单击“安装”，开始安装。 安装过程比较慢，耐心等待安装完成！ 安装完成后，单击“完成”，即 Oracle 11gR2 已经安装完成了。 安装完成会在桌面新建一个图标，打开可以通过以 web 形式访问数据库。 双击打开，可能会弹出以下错误提示，这个是没有影响的，安装完成后重启一点电脑就可以了！ 验证数据库 选择桌面生成的图标 鼠标右键打开文件所在位置，弹出文件夹，往上翻，在文件夹中找到 bin 文件夹。 双击，进入 bin 文件夹，往下翻，找到 sqlplus.exe 程序。 双击运行。 输入用户名：system（统一默认都是 system），回车 输入口令：（刚才安装时设置的口令），口令输入是不显示的，直接回车就行了。 若出现“连接到：Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production”语句时，则安装成功！</description>
     </item>
   </channel>

@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Github on 子舒的博客</title>
-    <link>https://zishu.me/tags/github/</link>
+    <link>http://localhost:1313/tags/github/</link>
     <description>Recent content in Github on 子舒的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 09 Mar 2023 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://zishu.me/tags/github/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/github/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>GitHub 生成一个新的 ssh 密钥</title>
-      <link>https://zishu.me/blog/187.html/</link>
+      <link>http://localhost:1313/blog/187.html/</link>
       <pubDate>Thu, 09 Mar 2023 00:00:00 +0000</pubDate>
-      <guid>https://zishu.me/blog/187.html/</guid>
+      <guid>http://localhost:1313/blog/187.html/</guid>
       <description>要在 GitHub 上生成新的 SSH 密钥，请按照以下步骤操作： 打开终端或命令提示符。 输入以下命令：将&amp;quot;your_email@example.com&amp;quot;替换为您在 GitHub 上注册的电子邮件地址。 ssh-keygen -t rsa -b 4096 -C &amp;#34;your_email@example.com&amp;#34; 稍后您将被提示输入文件保存位置和密码短语。您可以保持所有默认设置，只需一直按 Enter 键即可。 然后输入以下命令：eval &amp;ldquo;$(ssh-agent -s)&amp;rdquo; 然后输入以下命令以将新密钥添加到 ssh-agent 中：ssh-add ~/.ssh/id_rsa 最后，请在 GitHub 上添加您的公共密钥。转到 GitHub 设置并单击&amp;quot;SSH and GPG keys &amp;ldquo;(&amp;ldquo;SSH 和 GPG 密钥&amp;rdquo;）。 单击“新密钥”按钮。 在“标题”字段中输入一个描述性标题，以便您可以识别此密钥。 在“密钥”字段中，将“~/.ssh/id_rsa.pub”文件中的内容复制并粘贴到文本框中。 单击“添加 SSH 密钥”按钮以保存您的新密钥。 现在，您已经成功为 GitHub 生成了一个新的 SSH 密钥！ 来自 chatGPT 的教程，记录一下。</description>
     </item>
     <item>
       <title>安装一个基于 Github 的静态图床程序</title>
-      <link>https://zishu.me/blog/172.html/</link>
+      <link>http://localhost:1313/blog/172.html/</link>
       <pubDate>Sat, 22 Oct 2022 00:00:00 +0000</pubDate>
-      <guid>https://zishu.me/blog/172.html/</guid>
+      <guid>http://localhost:1313/blog/172.html/</guid>
       <description>demo: https://img.zburu.com/ 今天分享一下如何使用 Github 作为图床，首先就要推荐这个工具 picx。 Github 仓库：https://github.com/XPoet/picx 本文的图片全部使用该工具上传，然后通过 Staticaly 进行 cdn 加速（这个在上传的时候自动生成链接。） 可以设置自动压缩、转码成 webp 格式。 基于 GitHub API 开发的具有 CDN 加速功能的图床管理工具。无需下载与安装，网页端在线使用！免费！稳定！便捷！极速！ 看了一下源码，vue 写的，全部都是纯静态化加上本地存储，所以说没有后端。 也就是说我们也可以部署在自己域名下，不使用开发者提供的域名，虽然这么做没什么区别，但还是折腾一下吧。 我会在最后提供一个打包好的链接（直接打包源码，不做任何修改），下载后自行上传到域名空间下即可使用。 说明文档：https://picx-docs.xpoet.cn/tutorial/get-start.html 这是官方说明，试用了一下，效果很棒。图床如何使用文档中标注的很清晰，我就不赘述了，本文只介绍如何编译打包，面向群友。 过程很简单，需要提前准备好 node 环境。 1.下载源码 直接去 https://github.com/XPoet/picx，然后 Download Zip。 2.执行命令 下载后解压来到这个页面，然后在空白处鼠标右键，打开终端。 如果你已经有 node 环境了，直接执行下面命令就可以，如果没有，先去安装一下 node 环境，这里就假设环境安装好了。（https://nodejs.org/zh-cn/）。 下面这两种方式都可以，没有区别。 # 安装依赖 # 这个过程因为网速问题可能比较慢 npm install #or yarn 依赖安装之后，就开始构建。 # 构建 npm run build # or yarn build 构建完成之后就会生成一个 dist 文件夹，这就是打包好后的文件，里面有一个 index.html 和其他静态资源。 3.我应该上传到哪里？ 这个时候只需要将他们上传到你想要访问的域名目录下即可。 比如我使用的是 hugo 博客程序，先在 content 下新建一个文件夹，命名为 img，（你可以起任何名字，注意不要和其他文件名冲突即可。） 然后把 dist 文件夹下的所有文件全部复制到 /content/img/ 文件夹下。 这样在执行 hugo 命令后会打包到 public 文件夹下，然后直接访问 https://zburu.com/img 就可以打宝图床。 或者你自己上传到任何你想放的空间下都可以，没有限制~~ 图床如何使用对着文档琢磨即可，上面写的很详细。 https://picx-docs.xpoet.cn/tutorial/get-start.html 4.其他问题 如果后面开发者更新图床版本，可以从第一步重新操作，下载、构建、上传。 如果有其他问题，请在评论区留言~~</description>
     </item>
   </channel>
