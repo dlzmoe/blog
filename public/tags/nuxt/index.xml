@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Nuxt on 子舒的博客</title>
-    <link>http://localhost:1313/tags/nuxt/</link>
+    <link>https://zishu.me/tags/nuxt/</link>
     <description>Recent content in Nuxt on 子舒的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 01 Apr 2022 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/nuxt/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://zishu.me/tags/nuxt/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>在 nuxt 中实现图片放大预览功能</title>
-      <link>http://localhost:1313/blog/112.html/</link>
+      <link>https://zishu.me/blog/112.html/</link>
       <pubDate>Fri, 01 Apr 2022 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/blog/112.html/</guid>
+      <guid>https://zishu.me/blog/112.html/</guid>
       <description>v-viewer 基于 vue 的一个插件，可以实现图片放大，缩小，旋转，拖拽，预览等各种功能，效果还是很棒的。这是我在 Github 摸鱼时发现的一个仓库，感觉很有用，就分享一下使用过程。 Github: https://github.com/mirari/v-viewer 1.安装 npm install v-viewer 2.用法 在 plugins 中新建 viewer.js 文件。 // /plugins/viewer.js import Vue from &amp;#39;vue&amp;#39;; import Viewer from &amp;#39;v-viewer&amp;#39; import &amp;#39;viewerjs/dist/viewer.css&amp;#39; Vue.use(Viewer) Viewer.setDefaults({ Options: { &amp;#39;inline&amp;#39;: true, &amp;#39;button&amp;#39;: true, &amp;#39;navbar&amp;#39;: true, &amp;#39;title&amp;#39;: true, &amp;#39;toolbar&amp;#39;: true, &amp;#39;tooltip&amp;#39;: true, &amp;#39;movable&amp;#39;: true, &amp;#39;zoomable&amp;#39;: true, &amp;#39;rotatable&amp;#39;: true, &amp;#39;scalable&amp;#39;: true, &amp;#39;transition&amp;#39;: true, &amp;#39;fullscreen&amp;#39;: true, &amp;#39;keyboard&amp;#39;: true, &amp;#39;url&amp;#39;: &amp;#39;data-source&amp;#39; } }) 然后再 nuxt.config.js 中引入。 // nuxt.config.js plugins: [ // ... { src: &amp;#39;@/plugins/viewer&amp;#39;, ssr: false } ], 最后在使用的页面中引入。 &amp;lt;div class=&amp;#34;markdown-body-box&amp;#34; v-viewer v-highlight&amp;gt; &amp;lt;!-- 页面内容 --&amp;gt; &amp;lt;/div&amp;gt; 在任意页面中引入，可以是一个小组件页面，也可以是根页面，取决于你想在哪里引入这个功能，只要将class, v-viewer, v-highlight 这三个参数引入即可。</description>
     </item>
     <item>
       <title>Nuxt 项目中如何引入百度统计？</title>
-      <link>http://localhost:1313/blog/96.html/</link>
+      <link>https://zishu.me/blog/96.html/</link>
       <pubDate>Mon, 17 Jan 2022 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/blog/96.html/</guid>
+      <guid>https://zishu.me/blog/96.html/</guid>
       <description>在部署一个网站之后，我们最关心的事情无异于是访问量，以及对它的分析。国内的百度统计是一个不错的选择，基本的功能都是免费的。 只需要在 head 中引入一串 javascript 代码即可。 &amp;lt;!-- &amp;lt;script&amp;gt; var _hmt = _hmt || []; (function() { var hm = document.createElement(&amp;#34;script&amp;#34;); hm.src = &amp;#34;https://hm.baidu.com/hm.js?xxxxxxxxxxxxxxxxxxx&amp;#34;; var s = document.getElementsByTagName(&amp;#34;script&amp;#34;)[0]; s.parentNode.insertBefore(hm, s); })(); &amp;lt;/script&amp;gt; --&amp;gt; 上面是百度提供的统计代码，需要放在 &amp;lt;head&amp;gt;&amp;lt;/head&amp;gt;中。 但是在 nuxt 中，没有传统的 &amp;lt;head&amp;gt;&amp;lt;/head&amp;gt; 。所以要对他进行一些处理。 1. 首先在根目录下 /plugins 新建一个文件 baidu.js // /plugins/baidu.js export default ({app: {router}, store}) =&amp;gt; { /* 每次路由变更时进行 pv 统计 */ router.afterEach((to, from) =&amp;gt; { /* 告诉增加一个 PV */ try { window._hmt = window._hmt || [] window._hmt.push([&amp;#39;_trackPageview&amp;#39;, to.fullPath]) } catch (e) { } }) } 2. 配置 nuxt.config.js 文件 在 plugins中： plugins: [ { src: &amp;#39;~/plugins/baidu&amp;#39; } ], 在 head中： head: { // ... link: [ // ... ], script: [ { src: &amp;#39;https://hm.baidu.com/hm.js?xxxxxxxxxxxxxxxxxxx&amp;#39; } ] }, 在 script 中写入百度统计提供的 url 即可，按照对应的字符。</description>
     </item>
   </channel>
