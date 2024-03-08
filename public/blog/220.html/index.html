@@ -120,7 +120,7 @@
 <p><strong>原因分析</strong></p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="k">this</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="nx">res</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">this</span><span class="p">.</span><span class="nx">b</span> <span class="o">=</span> <span class="nx">res</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
-</span></span></code></pre></div><p>同时给两个变量 a 和 b 赋值时，修改 a 的内容，打印 b 结果是一样的，因为这里的赋值是属于引用传递的，把 <a href="http://res.data">res.data</a> 这个地址赋给 a 和 b，当修改 a 时，res.data 会同步变动，导致 b 也发生了改变。</p>
+</span></span></code></pre></div><p>同时给两个变量 a 和 b 赋值时，修改 a 的内容，打印 b 结果是一样的，因为这里的赋值是属于引用传递的，把 <code>res.data</code> 这个地址赋给 a 和 b，当修改 a 时，res.data 会同步变动，导致 b 也发生了改变。</p>
 <p>这种赋值方式也被称为浅拷贝，当我们把一个对象赋值给一个新的变量时，赋的其实是该对象的在栈中的地址，而不是堆中的数据。也就是两个对象指向的是同一个存储空间，无论哪个对象发生改变，其实都是改变的存储空间的内容，因此，两个对象是联动的。</p>
 <p><strong>解决方案</strong></p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="k">this</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">res</span><span class="p">.</span><span class="nx">data</span><span class="p">));</span>
