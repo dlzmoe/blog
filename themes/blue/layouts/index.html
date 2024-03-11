@@ -17,9 +17,19 @@
 
     <article class="aboutme">
       <p>
-        欢迎来到我的博客，已经有 <span id="busuanzi_value_site_pv">...</span> 位小伙伴逛过本站，写了 {{ $articleCount }} 篇文章，共 {{
+        欢迎来到我的博客，本站已经运行了 <span id="days"></span> 天，有 <span id="busuanzi_value_site_pv">...</span> 位小伙伴逛过，写了 {{ $articleCount }} 篇文章，共 {{
         $totalWordCount }} 字。
       </p>
+
+      <script>
+        const time = "{{ .Site.Params.buildDate }}";
+        var now = new Date();
+        var end = new Date(time);
+        var diff = Math.abs(now - end);
+        var days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+        $('#days').html(days);
+      </script>
+      
     </article>
 
     <ul class="list">
