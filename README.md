@@ -39,7 +39,7 @@ hugo
 自动生成 md 文件，存放文章目录。
 
 ```
-py github-toc.py
+py toc.py
 ```
 
 ### 3.设置不想在首页显示的分类
