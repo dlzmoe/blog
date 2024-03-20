@@ -2,7 +2,7 @@ import os
 import re
 
 def extract_slug(file_content):
-    # 使用正则表达式提取Front Matter中的slug
+    # 使用正则表达式提取 Front Matter 中的 slug
     match = re.search(r'^---\nslug: (\d+)', file_content, re.MULTILINE)
     if match:
         slug = match.group(1)
@@ -11,13 +11,13 @@ def extract_slug(file_content):
         return None
 
 def process_md_files(folder_path):
-    # 获取文件夹下的所有Markdown文件
+    # 获取文件夹下的所有 Markdown 文件
     md_files = [f for f in os.listdir(folder_path) if f.endswith('.md')]
 
     # 用于存储输出的文本
     output_text = []
 
-    # 遍历每个Markdown文件并提取slug信息
+    # 遍历每个 Markdown 文件并提取 slug 信息
     for md_file in md_files:
         # 过滤掉文件名的 .md 后缀
         file_name = os.path.splitext(md_file)[0]
@@ -33,7 +33,7 @@ def process_md_files(folder_path):
             # output_text.append(f'- [{file_name}](https://zishu.me/blog/{slug}.html/)')
             output_text.append(f'- [{file_name}](./content/blog/{file_name}.md)')
 
-    # 获取当前工作目录并将输出文本写入到toc.md文件，以倒序方式
+    # 获取当前工作目录并将输出文本写入到 toc.md 文件，以倒序方式
     current_directory = os.getcwd()
     output_file_path = os.path.join(current_directory, 'toc.md')
     with open(output_file_path, 'w', encoding='utf-8') as output_file:
