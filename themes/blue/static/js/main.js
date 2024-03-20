@@ -34,11 +34,6 @@ $(function () {
     $('#zimgbox-wrap img').attr('src', '');
   })
 
-  // $('.highlight>pre>code').each(function(){
-  //   const datalang = $(this).attr('data-lang');
-  //   $(this).parents('.chroma').before(`<span class="tag">${datalang}</span>`);
-  // })
-
   function TimeDifference() {
     const time = $('.entry-meta time').html();
     var now = new Date(); // 获取当前时间
