@@ -40,4 +40,19 @@ $(function () {
   //   $(this).parents('.chroma').before(`<span class="tag">${datalang}</span>`);
   // })
 
+  $.ajax({
+    type: 'get',
+    url: '/xhs.json',
+    dataType: 'json',
+    success: function success(data) {
+      console.log();
+      var list = data.channel.item
+      var str = '';
+      for (var i = 0; i < list.length; i++) {
+        str += `${list[i].description.text}`;
+      }
+      $('#xhs').html(str);
+    }
+  })
+
 })
