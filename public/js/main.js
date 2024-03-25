@@ -6,8 +6,7 @@ $(function () {
     }
   })
 
-  $('.post-content img').addClass('zimgbox');
-  $('body').append('<div id="zimgbox-wrap" style="display:none"><img src></div>');
+  
   $(".top-link").click(function () {
     $("html,body").animate({
       scrollTop: 0
@@ -49,10 +48,13 @@ $(function () {
       var list = data.channel.item
       var str = '';
       for (var i = 0; i < list.length; i++) {
-        str += `${list[i].description.text}`;
+        str += `<li>${list[i].description.text}</li>`;
       }
       $('#xhs').html(str);
     }
   })
 
+  $('.post-content img').addClass('zimgbox');
+  $('body').append('<div id="zimgbox-wrap" style="display:none"><img src></div>');
+  
 })

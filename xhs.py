@@ -4,7 +4,8 @@ import xml.etree.ElementTree as ET
 import json
 
 # 获取 XML 链接数据
-xml_url = 'https://rss-worker.anghunk.workers.dev/rss/xiaohongshu/user/61d5b929000000001000ae07'
+xml_url = 'https://rss-worker.zishu.me/rss/xiaohongshu/user/61d5b929000000001000ae07'
+# xml_url = 'https://rss-worker.zishu.me/rss/telegram/channel/brccq'
 response = requests.get(xml_url)
 xml_data = response.text
 
