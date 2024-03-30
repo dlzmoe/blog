@@ -1,4 +1,7 @@
-## hugo-blog
+<h1 align="center"> 子舒的博客 </h1>
+<p align="center">分享生活和笔记！</p>
+<p align="center">博客主题：<a href="./themes/">plant</a>（来自开源软件 plant）</p>
+<p align="center">在线预览：<a href="https://zishu.me" target="_blank">https://zishu.me</a></p>
 
 ![](https://img.shields.io/github/last-commit/98zi/hugo-blog)
 ![](https://img.shields.io/github/commit-activity/t/98zi/hugo-blog)
@@ -6,11 +9,9 @@
 ![](https://img.shields.io/github/stars/98zi/hugo-blog?style=flat)
 ![](https://img.shields.io/github/license/98zi/hugo-blog)
 
-欢迎加入我的 discord 社区！https://discord.gg/pxt853eEWM
+> 欢迎加入我的 discord 社区！https://discord.gg/pxt853eEWM
 
----
-
-在线预览：https://zishu.me
+## 1.仓库介绍
 
 使用 Hugo 框架构建，在 GitHub 托管代码，Netlify 部署，CloudFlare 解析域名。
 
@@ -18,38 +19,55 @@
 
 文章数据保留版权，其他代码开源，可直接使用。
 
-## 使用
+* [content](./content/)：博客内容本身
+* [themes](./themes/)：博客主题文件夹，多主题
 
-### 1.安装博客
+## 2.运行本项目
+
+这是一个基于 Hugo 开源静态博客程序生成的项目，在运行本项目前，需要在你电脑中安装 Go 和 [Hugo](https://gohugo.io/documentation/) 环境。
 
 将代码 clone 到本地，把 `/content/` 目录下的文章清除，并且修改 `config.yml` 配置。
 
-提前在本地安装好 hugo 环境，具体流程查阅官方文档。
-
 ```shell
+# 下载项目源码
 git clone https://github.com/98zi/hugo-blog.git
-cd hugo-blog
+# 本地运行
 hugo serve
+# 打包构建
 hugo
 ```
 
-### 2.生成文章目录
+可以通过 Netlify 部署上传到 GitHub 仓库的代码。
 
-自动生成 md 文件，存放文章目录。
+## 3.插件
 
-```
-py toc.py
-```
+1. 自动生成 md 文件，备份文章目录。
 
-### 3.设置不想在首页显示的分类
+    ```shell
+    py toc.py
+    ```
 
-设置不想在首页显示的分类，`7` 表示过滤完还显示 7 条，如果不写的话，可能会设置的数量。
+2. 设置不想在首页显示的分类
 
-```html
-<!-- /layouts/index.html -->
-{{ if and (not (in .Params.categories "weekly")) (lt $count 7) }}
-```
+    在 `index.html` 中：
+    - `7` 表示过滤完还显示 7 条，如果不写的话，可能会设置的数量；
+    - `weekly` 表示要过滤的分类。
 
-## LICENSE
+    ```html
+    <!-- /layouts/index.html -->
+    {{ if and (not (in .Params.categories "weekly")) (lt $count 7) }}
+    ```
+
+## 4.联系我
+
+如对博客内容，排版等有疑问或者建议，欢迎邮件和我联系。
+
+邮箱：anghunk@gmail.com
+
+## 5.Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=98zi/hugo-blog&type=Date)](https://star-history.com/#98zi/hugo-blog&Date)
+
+## 6.LICENSE
 
 开源协议：[Apache-2.0 license](./LICENSE)
