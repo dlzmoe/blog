@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+{{ partial "head.html" . }}
+
+{{ $articleCount := len .Site.RegularPages }}
+{{ $totalWordCount := 0 }}
+{{ range .Site.Pages }}
+{{ $totalWordCount = add $totalWordCount .WordCount }}
+{{ end }}
+
+<body>
+  <div class="wrapper">
+    <main class="main">
+      <div class="top">
+
+        <a href="./"><img src="{{ .Site.Params.Logo }}" width="72" height="72" class="avatar" border="0"></a>
+
+        <div class="site-info">
+          <div class="site-title">zishu.me</div>
+          <div class="site-about">
+            <p>欢迎来到我的博客，本站已经运行了 <span id="days"></span> 天，有 <span id="busuanzi_value_site_pv">...</span> 位小伙伴逛过，写了 {{
+              $articleCount }} 篇文章，共 {{ $totalWordCount }} 字。</p>
+          </div>
+        </div>
+      </div>
+
+      {{ partial "header.html" . }}
+
+      <script>
+        const time = "{{ .Site.Params.buildDate }}";
+        var now = new Date();
+        var end = new Date(time);
+        var diff = Math.abs(now - end);
+        var days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+        $('#days').html(days);
+      </script>
+
+      <div class="items">
+
+        {{ $pages := .Site.RegularPages }}
+        {{ $paginator := .Paginate ($pages) }}
+        {{ $count := 0 }}
+
+        {{ range $paginator.Pages }}
+        {{ $title := .Title }}
+        {{ $summary := .Summary }}
+
+        {{ if and (not (in .Params.categories "gallery")) (lt $count 12) }}
+        {{ $count = add $count 1 }}
+
+
+        <div class="item">
+          <div class="item-main">
+            <a href="{{ .RelPermalink }}">
+              <div class="item-title"><img
+                  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAACXBIWXMAAAsTAAALEwEAmpwYAAABJElEQVRoge3YMU7DMBjF8X8qqwxI3cqAEAvKCeglujFyAneDqRdh7EHKDcoSnyALykCHioFKHVgIQ5pIgAQYor4Gvt9kRZH9XuxkCBjzvyXvL2SZL2MnCQEmk9mHuXbhzaJZ5svT4WH0JMVqIyvRLPjT8DVViQR+H76mKJG0Fb5WrDatzfWZ0ah6SEn10p7vZNG2hBCAaqddHT5NL5WZooUQ8N6XDqrw/ZcbdaZvS9OrZhd6Rwd34jjx8nzajHvCHK2wAmpWQM0KqFkBNSugZgXUrICaFVCzAmpWQK3zBRzAYJADY3GUGLNm5ADW65Sn4loWJ9bD/QUwB7YFAIYnZ6o80Y6f5ywfq7EdIYU/dYS6/xm9XfRhMf36zj3ltr/ZjTEd9QotrVtOfoB6OAAAAABJRU5ErkJggg=="
+                  class="pixelated mostFollowedWindow__tdImg" alt="icon" width="15">{{ .Title }}</div>
+              <div class="item-info">
+                <div class="item-date" datetime="{{ .Date.Format " 2006-01-02T15:04:05Z" }}">{{ .Date.Format
+                  "2006-01-02"}}</div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        {{ end }}
+        {{ end }}
+      </div>
+
+      {{ partial "pagination.html" . }}
+
+
+      {{ partial "footer.html" . }}
+    </main>
+  </div>
+</body>
+
+</html>
