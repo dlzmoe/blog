@@ -1,13 +1,13 @@
 <h1 align="center"> 子舒的博客 </h1>
 <p align="center">分享生活和笔记！</p>
-<p align="center">博客主题：<a href="./themes/">plant</a>（来自开源软件 plant）</p>
+<p align="center">博客主题：<a href="./themes/">planet</a>（来自开源软件 planet）</p>
 <p align="center">在线预览：<a href="https://zishu.me" target="_blank">https://zishu.me</a></p>
 
-![](https://img.shields.io/github/last-commit/98zi/hugo-blog)
-![](https://img.shields.io/github/commit-activity/t/98zi/hugo-blog)
-![](https://img.shields.io/github/forks/98zi/hugo-blog?style=flat)
-![](https://img.shields.io/github/stars/98zi/hugo-blog?style=flat)
-![](https://img.shields.io/github/license/98zi/hugo-blog)
+![](https://img.shields.io/github/last-commit/98zi/blog)
+![](https://img.shields.io/github/commit-activity/t/98zi/blog)
+![](https://img.shields.io/github/forks/98zi/blog?style=flat)
+![](https://img.shields.io/github/stars/98zi/blog?style=flat)
+![](https://img.shields.io/github/license/98zi/blog)
 
 > 欢迎加入我的 discord 社区！https://discord.gg/pxt853eEWM
 
@@ -30,7 +30,7 @@
 
 ```shell
 # 下载项目源码
-git clone https://github.com/98zi/hugo-blog.git
+git clone https://github.com/98zi/blog.git
 # 本地运行
 hugo serve
 # 打包构建
@@ -66,7 +66,7 @@ hugo
 
 ## 5.Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=98zi/hugo-blog&type=Date)](https://star-history.com/#98zi/hugo-blog&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=98zi/blog&type=Date)](https://star-history.com/#98zi/blog&Date)
 
 ## 6.LICENSE
 
