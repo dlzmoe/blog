@@ -3,16 +3,15 @@
 <p align="center">博客主题：<a href="./themes/">win95</a> - 在线预览：<a href="https://zishu.me" target="_blank">https://zishu.me</a> </p>
 
 <p align="center">
-
-![](https://img.shields.io/github/last-commit/98zi/blog)
-![](https://img.shields.io/github/commit-activity/t/98zi/blog)
-![](https://img.shields.io/github/forks/98zi/blog?style=flat)
-![](https://img.shields.io/github/stars/98zi/blog?style=flat)
-![](https://img.shields.io/github/license/98zi/blog)
-
+<img src="https://img.shields.io/github/last-commit/98zi/blog">
+<img src="https://img.shields.io/github/commit-activity/t/98zi/blog">
+<img src="https://img.shields.io/github/forks/98zi/blog?style=flat">
+<img src="https://img.shields.io/github/stars/98zi/blog?style=flat">
+<img src="https://img.shields.io/github/license/98zi/blog">
 </p>
 
 > 欢迎加入我的 discord 社区！https://discord.gg/pxt853eEWM
+
 
 ## 1.介绍
 
@@ -45,6 +44,7 @@ hugo
 
 可以通过 Netlify 部署上传到 GitHub 仓库的代码。
 
+
 ## 3.插件脚本
 
 **1. 自动生成 md 文件，备份文章目录。**
@@ -64,15 +64,18 @@ py toc.py
 {{ if and (not (in .Params.categories "weekly")) (lt $count 7) }}
 ```
 
+
 ## 4.联系我
 
 如对博客内容，排版等有疑问、建议或者其他问题，欢迎给我邮件 (anghunk@gmail.com) 或者在评论区留言 (https://zishu.me/message/)。
 
 邮箱：
 
+
 ## 5.Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=98zi/blog&type=Date)](https://star-history.com/#98zi/blog&Date)
+
 
 ## 6.LICENSE
 
