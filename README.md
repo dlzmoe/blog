@@ -67,7 +67,7 @@ py toc.py
 
 ## 4.联系我
 
-如对博客内容，排版等有疑问、建议或者其他问题，欢迎给我邮件 (anghunk@gmail.com) 或者在评论区留言 (https://zishu.me/message/)。
+如对博客内容，排版等有疑问、建议或者其他问题，欢迎给我邮件 (anghunk@gmail.com) 或者在评论区留言 ([https://zishu.me/message/](https://zishu.me/message/))。
 
 邮箱：
 
