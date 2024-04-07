@@ -30,8 +30,8 @@ def process_md_files(folder_path):
 
         # 将格式化的文本添加到输出列表中
         if slug is not None:
-            # output_text.append(f'- [{file_name}](https://zishu.me/blog/{slug}.html/)')
-            output_text.append(f'- [{file_name}](./content/blog/{file_name}.md)')
+            # output_text.append(f'- [https://zishu.me/blog/{slug}.html](https://zishu.me/blog/{slug}.html/)')
+            output_text.append(f'- [{file_name}](./content/blog/{file_name}.md) --- [https://zishu.me/blog/{slug}.html](https://zishu.me/blog/{slug}.html/)')
 
     # 获取当前工作目录并将输出文本写入到 toc.md 文件，以倒序方式
     current_directory = os.getcwd()
