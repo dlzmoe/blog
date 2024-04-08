@@ -22,7 +22,7 @@
 "articleSection" : "blog",
 "name" : "利用 memos 生成的在线动态列表",
 "headline" : "利用 memos 生成的在线动态列表",
-"description" : "memos 是一个具有知识管理和社交功能的开源自托管备忘录中心。 Github 地址：https:\/\/github.com\/usememos\/memos 可以用它本身提供的 api，然后结合静态博客，做成一个在线的动态列表，类似于朋友圈功能。 接口 url 有固定的格式，openId 是每个用户自动生成的。 其次我又写了两个方法，一个是时间戳转成正常时间格式，一个是利用正则删去内容中多余的标签。 将下面代码复制到你想显示的页面编辑，只需修改 openId，提供了一个基础的样式，如果有其他优化方案，欢迎指出。 由于接口中带了用户密钥，建议完成代码后将 js 加密再引入，不然可能会有一定的安全风险。 推荐网址：https:\/\/tool.lu\/js\/ \u0026lt;!-- 结构和 css --\u0026gt; \u0026lt;div class=\u0026#34;sslist\u0026#34;\u0026gt;\u0026lt;\/div\u0026gt; \u0026lt;style\u0026gt; .sslist-item { padding: 10px 10px 20px; margin-bottom: 20px; border-radius: 2px; background: #f3f3f3; box-shadow: 1px 2px 4px rgba(0, 0, 0, .2); transition: all 0.2s linear; animation: up 1s forwards; transform: translateY(20px); opacity: 0; } @keyframes up { 0% { transform: translateY(20px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } } .sslist-item:hover { background: #eee; } .sslist-item .sslist-date { opacity: 0.6; margin: 0; font-size: 15px; margin-bottom: 5px; } \u0026lt;\/style\u0026gt; \/\/ 调用接口的 js 方法 function memosShow() { var memosStr = \u0026#34;\u0026#34;; var openId = \u0026#34;xxx\u0026#34;; $.ajax({ url: \u0026#34;https:\/\/memos.zburu.com\/api\/memo?openId=\u0026#34; \u002b openId \u002b \u0026#34;\u0026amp;tag=说说\u0026#34;, type: \u0026#34;get\u0026#34;, dataType: \u0026#34;json\u0026#34;, success: function (data) { \/\/ 生成数组 const sslist = data.data; for (let i = 0; i \u0026lt; sslist.length; i\u002b\u002b) { const element = sslist[i]; \/\/ 把时间戳转为正常时间格式 2023-01-9 13:17:12 var date = new Date(element.createdTs * 1000); Y = date.getFullYear() \u002b \u0026#34;-\u0026#34;; M = (date.getMonth() \u002b 1 \u0026lt; 10 ? \u0026#34;0\u0026#34; \u002b (date.getMonth() \u002b 1) : date.getMonth() \u002b 1) \u002b \u0026#34;-\u0026#34;; D = (date.getDate() \u0026lt; 10 ? \u0026#34;0\u0026#34; \u002b date.getDate() : date.getDate()) \u002b \u0026#34; \u0026#34;; h = date.getHours() \u002b \u0026#34;:\u0026#34;; m = date.getMinutes() \u002b \u0026#34;:\u0026#34;; s = date.getSeconds(); const createdTsNew = Y \u002b M \u002b D \u002b h \u002b m \u002b s; sslist[i].createdTs = createdTsNew; \/\/ 利用js正则删去内容前的标签字符 const contentNew = element.content.slice(4); sslist[i].content = contentNew; } $.each(data.data, function (i, item) { list = \u0026#34;\u0026lt;div class=\u0026#39;sslist-item\u0026#39;\u0026gt;\u0026#34; \u002b \u0026#34;\u0026lt;p class=\u0026#39;sslist-date\u0026#39;\u0026gt;\u0026#34; \u002b item.createdTs \u002b \u0026#34;\u0026lt;\/p\u0026gt;\u0026#34; \u002b item.content \u002b \u0026#34;\u0026lt;\/div\u0026gt;\u0026#34;; memosStr \u002b= list; }), $(\u0026#34;.sslist\u0026#34;).html(memosStr); }, error: function () { console.log(\u0026#34;error\u0026#34;); } }); } memosShow();",
+"description" : "memos 是一个具有知识管理和社交功能的开源自托管备忘录中心。 Github 地址：https:\/\/github.com\/usememos\/memos 可以用它本身提供的 api，然后结",
 "inLanguage" : "en-US",
 "author" : "子舒",
 "creator" : "子舒",
@@ -38,8 +38,8 @@
 </script><title>利用 memos 生成的在线动态列表 - 子舒的博客</title>
 <meta property="og:title" content="利用 memos 生成的在线动态列表" />
 <meta property="og:type" content="article" />
-<meta property="og:description" content="memos 是一个具有知识管理和社交功能的开源自托管备忘录中心。 Github 地址：https://github.com/usememos/memos 可以用它本身提供的 api，然后结合静态博客，做成一个在线的动态列表，类似于朋友圈功能。 接口 url 有固定的格式，openId 是每个用户自动生成的。 其次我又写了两个方法，一个是时间戳转成正常时间格式，一个是利用正则删去内容中多余的标签。 将下面代码复制到你想显示的页面编辑，只需修改 openId，提供了一个基础的样式，如果有其他优化方案，欢迎指出。 由于接口中带了用户密钥，建议完成代码后将 js 加密再引入，不然可能会有一定的安全风险。 推荐网址：https://tool.lu/js/ &amp;lt;!-- 结构和 css --&amp;gt; &amp;lt;div class=&amp;#34;sslist&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; &amp;lt;style&amp;gt; .sslist-item { padding: 10px 10px 20px; margin-bottom: 20px; border-radius: 2px; background: #f3f3f3; box-shadow: 1px 2px 4px rgba(0, 0, 0, .2); transition: all 0.2s linear; animation: up 1s forwards; transform: translateY(20px); opacity: 0; } @keyframes up { 0% { transform: translateY(20px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } } .sslist-item:hover { background: #eee; } .sslist-item .sslist-date { opacity: 0.6; margin: 0; font-size: 15px; margin-bottom: 5px; } &amp;lt;/style&amp;gt; // 调用接口的 js 方法 function memosShow() { var memosStr = &amp;#34;&amp;#34;; var openId = &amp;#34;xxx&amp;#34;; $.ajax({ url: &amp;#34;https://memos.zburu.com/api/memo?openId=&amp;#34; &#43; openId &#43; &amp;#34;&amp;amp;tag=说说&amp;#34;, type: &amp;#34;get&amp;#34;, dataType: &amp;#34;json&amp;#34;, success: function (data) { // 生成数组 const sslist = data.data; for (let i = 0; i &amp;lt; sslist.length; i&#43;&#43;) { const element = sslist[i]; // 把时间戳转为正常时间格式 2023-01-9 13:17:12 var date = new Date(element.createdTs * 1000); Y = date.getFullYear() &#43; &amp;#34;-&amp;#34;; M = (date.getMonth() &#43; 1 &amp;lt; 10 ? &amp;#34;0&amp;#34; &#43; (date.getMonth() &#43; 1) : date.getMonth() &#43; 1) &#43; &amp;#34;-&amp;#34;; D = (date.getDate() &amp;lt; 10 ? &amp;#34;0&amp;#34; &#43; date.getDate() : date.getDate()) &#43; &amp;#34; &amp;#34;; h = date.getHours() &#43; &amp;#34;:&amp;#34;; m = date.getMinutes() &#43; &amp;#34;:&amp;#34;; s = date.getSeconds(); const createdTsNew = Y &#43; M &#43; D &#43; h &#43; m &#43; s; sslist[i].createdTs = createdTsNew; // 利用js正则删去内容前的标签字符 const contentNew = element.content.slice(4); sslist[i].content = contentNew; } $.each(data.data, function (i, item) { list = &amp;#34;&amp;lt;div class=&amp;#39;sslist-item&amp;#39;&amp;gt;&amp;#34; &#43; &amp;#34;&amp;lt;p class=&amp;#39;sslist-date&amp;#39;&amp;gt;&amp;#34; &#43; item.createdTs &#43; &amp;#34;&amp;lt;/p&amp;gt;&amp;#34; &#43; item.content &#43; &amp;#34;&amp;lt;/div&amp;gt;&amp;#34;; memosStr &#43;= list; }), $(&amp;#34;.sslist&amp;#34;).html(memosStr); }, error: function () { console.log(&amp;#34;error&amp;#34;); } }); } memosShow();" />
-<meta name="description" content="memos 是一个具有知识管理和社交功能的开源自托管备忘录中心。 Github 地址：https://github.com/usememos/memos 可以用它本身提供的 api，然后结合静态博客，做成一个在线的动态列表，类似于朋友圈功能。 接口 url 有固定的格式，openId 是每个用户自动生成的。 其次我又写了两个方法，一个是时间戳转成正常时间格式，一个是利用正则删去内容中多余的标签。 将下面代码复制到你想显示的页面编辑，只需修改 openId，提供了一个基础的样式，如果有其他优化方案，欢迎指出。 由于接口中带了用户密钥，建议完成代码后将 js 加密再引入，不然可能会有一定的安全风险。 推荐网址：https://tool.lu/js/ &amp;lt;!-- 结构和 css --&amp;gt; &amp;lt;div class=&amp;#34;sslist&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; &amp;lt;style&amp;gt; .sslist-item { padding: 10px 10px 20px; margin-bottom: 20px; border-radius: 2px; background: #f3f3f3; box-shadow: 1px 2px 4px rgba(0, 0, 0, .2); transition: all 0.2s linear; animation: up 1s forwards; transform: translateY(20px); opacity: 0; } @keyframes up { 0% { transform: translateY(20px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } } .sslist-item:hover { background: #eee; } .sslist-item .sslist-date { opacity: 0.6; margin: 0; font-size: 15px; margin-bottom: 5px; } &amp;lt;/style&amp;gt; // 调用接口的 js 方法 function memosShow() { var memosStr = &amp;#34;&amp;#34;; var openId = &amp;#34;xxx&amp;#34;; $.ajax({ url: &amp;#34;https://memos.zburu.com/api/memo?openId=&amp;#34; &#43; openId &#43; &amp;#34;&amp;amp;tag=说说&amp;#34;, type: &amp;#34;get&amp;#34;, dataType: &amp;#34;json&amp;#34;, success: function (data) { // 生成数组 const sslist = data.data; for (let i = 0; i &amp;lt; sslist.length; i&#43;&#43;) { const element = sslist[i]; // 把时间戳转为正常时间格式 2023-01-9 13:17:12 var date = new Date(element.createdTs * 1000); Y = date.getFullYear() &#43; &amp;#34;-&amp;#34;; M = (date.getMonth() &#43; 1 &amp;lt; 10 ? &amp;#34;0&amp;#34; &#43; (date.getMonth() &#43; 1) : date.getMonth() &#43; 1) &#43; &amp;#34;-&amp;#34;; D = (date.getDate() &amp;lt; 10 ? &amp;#34;0&amp;#34; &#43; date.getDate() : date.getDate()) &#43; &amp;#34; &amp;#34;; h = date.getHours() &#43; &amp;#34;:&amp;#34;; m = date.getMinutes() &#43; &amp;#34;:&amp;#34;; s = date.getSeconds(); const createdTsNew = Y &#43; M &#43; D &#43; h &#43; m &#43; s; sslist[i].createdTs = createdTsNew; // 利用js正则删去内容前的标签字符 const contentNew = element.content.slice(4); sslist[i].content = contentNew; } $.each(data.data, function (i, item) { list = &amp;#34;&amp;lt;div class=&amp;#39;sslist-item&amp;#39;&amp;gt;&amp;#34; &#43; &amp;#34;&amp;lt;p class=&amp;#39;sslist-date&amp;#39;&amp;gt;&amp;#34; &#43; item.createdTs &#43; &amp;#34;&amp;lt;/p&amp;gt;&amp;#34; &#43; item.content &#43; &amp;#34;&amp;lt;/div&amp;gt;&amp;#34;; memosStr &#43;= list; }), $(&amp;#34;.sslist&amp;#34;).html(memosStr); }, error: function () { console.log(&amp;#34;error&amp;#34;); } }); } memosShow();" />
+<meta property="og:description" content="memos 是一个具有知识管理和社交功能的开源自托管备忘录中心。 Github 地址：https://github.com/usememos/memos 可以用它本身提供的 api，然后结" />
+<meta name="description" content="memos 是一个具有知识管理和社交功能的开源自托管备忘录中心。 Github 地址：https://github.com/usememos/memos 可以用它本身提供的 api，然后结" />
 <meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,54 +62,64 @@
 
 <body>
   <div class="wrapper">
-    <main class="main">
-      <div class="nav-container">
-  <div class="nav">
-    
-    <a class="nav-item" href="/">首页</a>
-    
-    <a class="nav-item" href="/categories/%e6%8a%80%e6%9c%af/">技术</a>
-    
-    <a class="nav-item" href="/categories/%e9%9a%8f%e7%ac%94/">随笔</a>
-    
-    <a class="nav-item" href="/categories/weekly/">周刊</a>
-    
-    <a class="nav-item" href="/message/">留言</a>
-    
-    <a class="nav-item" href="/about/">关于</a>
-    
-    <a class="nav-item"
+    <nav class="navigation">
+  <section class="container"><a class="navigation-brand" href="/">主页</a>
+    <ul class="navigation-list" id="navigation-list">
+      
+      <li class="navigation-item navigation-menu"><a class="navigation-link" href="/categories/%e6%8a%80%e6%9c%af/">技术</a></li>
+      
+      <li class="navigation-item navigation-menu"><a class="navigation-link" href="/categories/%e9%9a%8f%e7%ac%94/">随笔</a></li>
+      
+      <li class="navigation-item navigation-menu"><a class="navigation-link" href="/categories/weekly/">周刊</a></li>
+      
+      <li class="navigation-item navigation-menu"><a class="navigation-link" href="/message/">留言</a></li>
+      
+      <li class="navigation-item navigation-menu"><a class="navigation-link" href="/about/">关于</a></li>
+      
+      <li class="navigation-item navigation-menu"><a class="navigation-link"
       href="https://anghunk.notion.site/155935c878aa4210b71c9052b7f726ff?v=762fadfb010a415ea3644a201e3131cb"
-      target="_blank">gallery</a>
+      target="_blank">gallery</a></li>
+      <li class="navigation-item menu-separator"><span>|</span></li>
+      <li class="navigation-item navigation-social"><a class="navigation-link"
+          href="https://github.com/98zi"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+            viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" class="feather feather-github">
+            <path
+              d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37.0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44.0 0020 4.77 5.07 5.07.0 0019.91 1S18.73.65 16 2.48a13.38 13.38.0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07.0 005 4.77 5.44 5.44.0 003.5 8.55c0 5.42 3.3 6.61 6.44 7A3.37 3.37.0 009 18.13V22">
+            </path>
+          </svg></a></li>
+      <li class="navigation-item navigation-social"><a class="navigation-link"
+          href="https://twitter.com/anghunk1"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+            viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" class="feather feather-twitter">
+            <path
+              d="M23 3a10.9 10.9.0 01-3.14 1.53 4.48 4.48.0 00-7.86 3v1A10.66 10.66.0 013 4s-4 9 5 13a11.64 11.64.0 01-7 2c9 5 20 0 20-11.5a4.5 4.5.0 00-.08-.83A7.72 7.72.0 0023 3z">
+            </path>
+          </svg></a></li>
 
-    <a href="/index.xml" target="_blank"><img src="/images/rss.svg" alt="RSS" class="social-icon" width="1em"></a>
-    <a href="https://twitter.com/zishu520" target="_blank"><img src="/images/twitter.svg" alt="twitter.com/zishu520"
-        class="social-icon" width="1em"></a>
-    <a href="https://github.com/98zi" target="_blank"><img src="/images/github.svg" alt="github.com/98zi"
-        class="social-icon" width="1em"></a>
+    </ul>
+  </section>
+</nav>
+    <main id="content">
+      <div class="home">
+        <h1 class="blog-title">利用 memos 生成的在线动态列表</h1>
 
-  </div>
-</div>
-
-      <h1>利用 memos 生成的在线动态列表</h1>
-
-      
-      <div class="date">
-        <time datetime=" 2023-01-09 00:00:00 UTC"> 2023-01-09</time>
-      </div>
-      <div class="expired-tips" style="display: none;"></div>
-      
-
-
-      
-      <div class="toc">
-        <nav id="TableOfContents"></nav>
-      </div>
-      
-
-      <article class="post-content">
         
-        <p>memos 是一个具有知识管理和社交功能的开源自托管备忘录中心。</p>
+        <div class="date">
+          <time> 2023-01-09</time>
+        </div>
+        <div class="expired-tips" style="display: none;"></div>
+        
+
+        
+        <div class="toc">
+          <nav id="TableOfContents"></nav>
+        </div>
+        
+
+        <article class="post-content">
+          
+          <p>memos 是一个具有知识管理和社交功能的开源自托管备忘录中心。</p>
 <p>Github 地址：<a href="https://github.com/usememos/memos">https://github.com/usememos/memos</a></p>
 <p>可以用它本身提供的 api，然后结合静态博客，做成一个在线的动态列表，类似于朋友圈功能。</p>
 <p>接口 url 有固定的格式，openId 是每个用户自动生成的。</p>
@@ -210,10 +220,10 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="nx">memosShow</span><span class="p">();</span>
 </span></span></code></pre></div>
-      </article>
+        </article>
 
-      
-      <div style="padding:20px 0"></div>
+        
+        <div style="padding:20px 0"></div>
 
 <div class="giscus"></div>
 <script 
@@ -234,9 +244,9 @@
   async>
 </script>
 
-      
+        
 
-
+      </div>
       <footer class="footer">
   <p>© 2020 - 2024
     Powered by

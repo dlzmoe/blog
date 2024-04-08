@@ -22,7 +22,7 @@
 "articleSection" : "blog",
 "name" : "hugo 如何使用 Cusdis ?",
 "headline" : "hugo 如何使用 Cusdis ?",
-"description" : "Cusdis 是一个界面清爽、注重隐私的轻量级 (~5kb gzip) 评论系统，可以很方便地与 React、Vue 或其他博客系统结合，并且还提供了一个后台来管理所有的评论。 由于 Cusdis 自称是 Disqus 的替代方案，因此它还支持一键从 Disqus 导入、支持邮件通知等功能。 官方地址：https:\/\/cusdis.com\/ 他通常是用于静态博客的一个第三方评论系统，但是官方文档没有提供如何在 hugo 中使用的参数，我也是报错了多次才琢磨出来。 1. 本地部署 根据提示，注册账号，然后 Add website ，建立一个仓库。 进入它，然后点击 setting。 Embed Code 会提供几行代码以及一些 api，复制他们。 data-app-id 是注册时自动生成的，注意保密，每个人都不一样。 \u0026lt;div id=\u0026#34;cusdis_thread\u0026#34; data-host=\u0026#34;https:\/\/cusdis.com\u0026#34; data-app-id=\u0026#34;xxxxxxxxx\u0026#34; data-page-id=\u0026#34;{{ PAGE_ID }}\u0026#34; data-page-url=\u0026#34;{{ PAGE_URL }}\u0026#34; data-page-title=\u0026#34;{{ PAGE_TITLE }}\u0026#34; \u0026gt;\u0026lt;\/div\u0026gt; \u0026lt;script async defer src=\u0026#34;https:\/\/cusdis.com\/js\/cusdis.es.js\u0026#34;\u0026gt;\u0026lt;\/script\u0026gt; 将这些代码复制到本地主题的 comments.html 文件内（就是评论的那个模块，每个主题或许都不一样，注意分辨）。 这个时候如果你 hugo server 基本都会报错，因为没有修改 {{ PAGE_ID }} 等内容，这不是 hugo 官方提供的参数，按照我下面的格式，将 id, url, title 重写一下即可。 \u0026lt;div id=\u0026#34;cusdis_thread\u0026#34; data-host=\u0026#34;https:\/\/cusdis.com\u0026#34; data-app-id=\u0026#34;c1d43485-e8a7-4895-972e-247eddaf242d\u0026#34; data-page-id=\u0026#34;{{ .RelPermalink }}\u0026#34; data-page-url=\u0026#34;{{ .RelPermalink }}\u0026#34; data-page-title=\u0026#34;{{ .Title }}\u0026#34; \u0026gt;\u0026lt;\/div\u0026gt; \u0026lt;script async defer src=\u0026#34;https:\/\/cusdis.com\/js\/cusdis.es.js\u0026#34;\u0026gt;\u0026lt;\/script\u0026gt; 保存重新 hugo server 即可。 这样做的好处是当你接受一条评论信息后，审核列表可以清楚地标明来自哪一篇文章。通常大多数博客都提供了这么一个功能。 2. 邮箱提醒 除了必备的评论功能，Cusdis 还提供了一个非常快速的邮箱提醒功能，不需要绑定密匙，直接输入自己的邮箱即可。 先勾选这个 Email Notification，然后点击下方的 Advanced Notification Settings (高级通知设置) 就可以进入设置，输入自己的邮箱。 3. 中文化 默认的评论和提示文字均为英文，对我们很不友好，这里提供一个不错的解决方案，在引入 Cusdis 之后，顺便复制引入下面这段代码。 \u0026lt;script\u0026gt; window.CUSDIS_LOCALE = { \u0026#34;powered_by\u0026#34;: \u0026#34;评论由 Cusdis 提供\u0026#34;, \u0026#34;post_comment\u0026#34;: \u0026#34;发送\u0026#34;, \u0026#34;loading\u0026#34;: \u0026#34;加载中\u0026#34;, \u0026#34;email\u0026#34;: \u0026#34;邮箱地址 (可选)\u0026#34;, \u0026#34;nickname\u0026#34;: \u0026#34;昵称\u0026#34;, \u0026#34;reply_placeholder\u0026#34;: \u0026#34;回复内容...\u0026#34;, \u0026#34;reply_btn\u0026#34;: \u0026#34;回复\u0026#34;, \u0026#34;sending\u0026#34;: \u0026#34;发送中...\u0026#34;, \u0026#34;mod_badge\u0026#34;: \u0026#34;管理员\u0026#34;, \u0026#34;content_is_required\u0026#34;: \u0026#34;内容不能为空\u0026#34;, \u0026#34;nickname_is_required\u0026#34;: \u0026#34;昵称不能为空\u0026#34;, \u0026#34;comment_has_been_sent\u0026#34;: \u0026#34;评论已发送，管理员审核通过后会展示\u0026#34; } \u0026lt;\/script\u0026gt; 。。。",
+"description" : "Cusdis 是一个界面清爽、注重隐私的轻量级 (~5kb gzip) 评论系统，可以很方便地与 React、Vue 或其他博客系统结合，并且还提供了一个后台来管理所有的评论。 由于 Cusdis 自称是 Disqus 的替代方",
 "inLanguage" : "en-US",
 "author" : "子舒",
 "creator" : "子舒",
@@ -38,8 +38,8 @@
 </script><title>hugo 如何使用 Cusdis ? - 子舒的博客</title>
 <meta property="og:title" content="hugo 如何使用 Cusdis ?" />
 <meta property="og:type" content="article" />
-<meta property="og:description" content="Cusdis 是一个界面清爽、注重隐私的轻量级 (~5kb gzip) 评论系统，可以很方便地与 React、Vue 或其他博客系统结合，并且还提供了一个后台来管理所有的评论。 由于 Cusdis 自称是 Disqus 的替代方案，因此它还支持一键从 Disqus 导入、支持邮件通知等功能。 官方地址：https://cusdis.com/ 他通常是用于静态博客的一个第三方评论系统，但是官方文档没有提供如何在 hugo 中使用的参数，我也是报错了多次才琢磨出来。 1. 本地部署 根据提示，注册账号，然后 Add website ，建立一个仓库。 进入它，然后点击 setting。 Embed Code 会提供几行代码以及一些 api，复制他们。 data-app-id 是注册时自动生成的，注意保密，每个人都不一样。 &amp;lt;div id=&amp;#34;cusdis_thread&amp;#34; data-host=&amp;#34;https://cusdis.com&amp;#34; data-app-id=&amp;#34;xxxxxxxxx&amp;#34; data-page-id=&amp;#34;{{ PAGE_ID }}&amp;#34; data-page-url=&amp;#34;{{ PAGE_URL }}&amp;#34; data-page-title=&amp;#34;{{ PAGE_TITLE }}&amp;#34; &amp;gt;&amp;lt;/div&amp;gt; &amp;lt;script async defer src=&amp;#34;https://cusdis.com/js/cusdis.es.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; 将这些代码复制到本地主题的 comments.html 文件内（就是评论的那个模块，每个主题或许都不一样，注意分辨）。 这个时候如果你 hugo server 基本都会报错，因为没有修改 {{ PAGE_ID }} 等内容，这不是 hugo 官方提供的参数，按照我下面的格式，将 id, url, title 重写一下即可。 &amp;lt;div id=&amp;#34;cusdis_thread&amp;#34; data-host=&amp;#34;https://cusdis.com&amp;#34; data-app-id=&amp;#34;c1d43485-e8a7-4895-972e-247eddaf242d&amp;#34; data-page-id=&amp;#34;{{ .RelPermalink }}&amp;#34; data-page-url=&amp;#34;{{ .RelPermalink }}&amp;#34; data-page-title=&amp;#34;{{ .Title }}&amp;#34; &amp;gt;&amp;lt;/div&amp;gt; &amp;lt;script async defer src=&amp;#34;https://cusdis.com/js/cusdis.es.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; 保存重新 hugo server 即可。 这样做的好处是当你接受一条评论信息后，审核列表可以清楚地标明来自哪一篇文章。通常大多数博客都提供了这么一个功能。 2. 邮箱提醒 除了必备的评论功能，Cusdis 还提供了一个非常快速的邮箱提醒功能，不需要绑定密匙，直接输入自己的邮箱即可。 先勾选这个 Email Notification，然后点击下方的 Advanced Notification Settings (高级通知设置) 就可以进入设置，输入自己的邮箱。 3. 中文化 默认的评论和提示文字均为英文，对我们很不友好，这里提供一个不错的解决方案，在引入 Cusdis 之后，顺便复制引入下面这段代码。 &amp;lt;script&amp;gt; window.CUSDIS_LOCALE = { &amp;#34;powered_by&amp;#34;: &amp;#34;评论由 Cusdis 提供&amp;#34;, &amp;#34;post_comment&amp;#34;: &amp;#34;发送&amp;#34;, &amp;#34;loading&amp;#34;: &amp;#34;加载中&amp;#34;, &amp;#34;email&amp;#34;: &amp;#34;邮箱地址 (可选)&amp;#34;, &amp;#34;nickname&amp;#34;: &amp;#34;昵称&amp;#34;, &amp;#34;reply_placeholder&amp;#34;: &amp;#34;回复内容...&amp;#34;, &amp;#34;reply_btn&amp;#34;: &amp;#34;回复&amp;#34;, &amp;#34;sending&amp;#34;: &amp;#34;发送中...&amp;#34;, &amp;#34;mod_badge&amp;#34;: &amp;#34;管理员&amp;#34;, &amp;#34;content_is_required&amp;#34;: &amp;#34;内容不能为空&amp;#34;, &amp;#34;nickname_is_required&amp;#34;: &amp;#34;昵称不能为空&amp;#34;, &amp;#34;comment_has_been_sent&amp;#34;: &amp;#34;评论已发送，管理员审核通过后会展示&amp;#34; } &amp;lt;/script&amp;gt; 。。。" />
-<meta name="description" content="Cusdis 是一个界面清爽、注重隐私的轻量级 (~5kb gzip) 评论系统，可以很方便地与 React、Vue 或其他博客系统结合，并且还提供了一个后台来管理所有的评论。 由于 Cusdis 自称是 Disqus 的替代方案，因此它还支持一键从 Disqus 导入、支持邮件通知等功能。 官方地址：https://cusdis.com/ 他通常是用于静态博客的一个第三方评论系统，但是官方文档没有提供如何在 hugo 中使用的参数，我也是报错了多次才琢磨出来。 1. 本地部署 根据提示，注册账号，然后 Add website ，建立一个仓库。 进入它，然后点击 setting。 Embed Code 会提供几行代码以及一些 api，复制他们。 data-app-id 是注册时自动生成的，注意保密，每个人都不一样。 &amp;lt;div id=&amp;#34;cusdis_thread&amp;#34; data-host=&amp;#34;https://cusdis.com&amp;#34; data-app-id=&amp;#34;xxxxxxxxx&amp;#34; data-page-id=&amp;#34;{{ PAGE_ID }}&amp;#34; data-page-url=&amp;#34;{{ PAGE_URL }}&amp;#34; data-page-title=&amp;#34;{{ PAGE_TITLE }}&amp;#34; &amp;gt;&amp;lt;/div&amp;gt; &amp;lt;script async defer src=&amp;#34;https://cusdis.com/js/cusdis.es.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; 将这些代码复制到本地主题的 comments.html 文件内（就是评论的那个模块，每个主题或许都不一样，注意分辨）。 这个时候如果你 hugo server 基本都会报错，因为没有修改 {{ PAGE_ID }} 等内容，这不是 hugo 官方提供的参数，按照我下面的格式，将 id, url, title 重写一下即可。 &amp;lt;div id=&amp;#34;cusdis_thread&amp;#34; data-host=&amp;#34;https://cusdis.com&amp;#34; data-app-id=&amp;#34;c1d43485-e8a7-4895-972e-247eddaf242d&amp;#34; data-page-id=&amp;#34;{{ .RelPermalink }}&amp;#34; data-page-url=&amp;#34;{{ .RelPermalink }}&amp;#34; data-page-title=&amp;#34;{{ .Title }}&amp;#34; &amp;gt;&amp;lt;/div&amp;gt; &amp;lt;script async defer src=&amp;#34;https://cusdis.com/js/cusdis.es.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; 保存重新 hugo server 即可。 这样做的好处是当你接受一条评论信息后，审核列表可以清楚地标明来自哪一篇文章。通常大多数博客都提供了这么一个功能。 2. 邮箱提醒 除了必备的评论功能，Cusdis 还提供了一个非常快速的邮箱提醒功能，不需要绑定密匙，直接输入自己的邮箱即可。 先勾选这个 Email Notification，然后点击下方的 Advanced Notification Settings (高级通知设置) 就可以进入设置，输入自己的邮箱。 3. 中文化 默认的评论和提示文字均为英文，对我们很不友好，这里提供一个不错的解决方案，在引入 Cusdis 之后，顺便复制引入下面这段代码。 &amp;lt;script&amp;gt; window.CUSDIS_LOCALE = { &amp;#34;powered_by&amp;#34;: &amp;#34;评论由 Cusdis 提供&amp;#34;, &amp;#34;post_comment&amp;#34;: &amp;#34;发送&amp;#34;, &amp;#34;loading&amp;#34;: &amp;#34;加载中&amp;#34;, &amp;#34;email&amp;#34;: &amp;#34;邮箱地址 (可选)&amp;#34;, &amp;#34;nickname&amp;#34;: &amp;#34;昵称&amp;#34;, &amp;#34;reply_placeholder&amp;#34;: &amp;#34;回复内容...&amp;#34;, &amp;#34;reply_btn&amp;#34;: &amp;#34;回复&amp;#34;, &amp;#34;sending&amp;#34;: &amp;#34;发送中...&amp;#34;, &amp;#34;mod_badge&amp;#34;: &amp;#34;管理员&amp;#34;, &amp;#34;content_is_required&amp;#34;: &amp;#34;内容不能为空&amp;#34;, &amp;#34;nickname_is_required&amp;#34;: &amp;#34;昵称不能为空&amp;#34;, &amp;#34;comment_has_been_sent&amp;#34;: &amp;#34;评论已发送，管理员审核通过后会展示&amp;#34; } &amp;lt;/script&amp;gt; 。。。" />
+<meta property="og:description" content="Cusdis 是一个界面清爽、注重隐私的轻量级 (~5kb gzip) 评论系统，可以很方便地与 React、Vue 或其他博客系统结合，并且还提供了一个后台来管理所有的评论。 由于 Cusdis 自称是 Disqus 的替代方" />
+<meta name="description" content="Cusdis 是一个界面清爽、注重隐私的轻量级 (~5kb gzip) 评论系统，可以很方便地与 React、Vue 或其他博客系统结合，并且还提供了一个后台来管理所有的评论。 由于 Cusdis 自称是 Disqus 的替代方" />
 <meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,60 +62,70 @@
 
 <body>
   <div class="wrapper">
-    <main class="main">
-      <div class="nav-container">
-  <div class="nav">
-    
-    <a class="nav-item" href="/">首页</a>
-    
-    <a class="nav-item" href="/categories/%e6%8a%80%e6%9c%af/">技术</a>
-    
-    <a class="nav-item" href="/categories/%e9%9a%8f%e7%ac%94/">随笔</a>
-    
-    <a class="nav-item" href="/categories/weekly/">周刊</a>
-    
-    <a class="nav-item" href="/message/">留言</a>
-    
-    <a class="nav-item" href="/about/">关于</a>
-    
-    <a class="nav-item"
+    <nav class="navigation">
+  <section class="container"><a class="navigation-brand" href="/">主页</a>
+    <ul class="navigation-list" id="navigation-list">
+      
+      <li class="navigation-item navigation-menu"><a class="navigation-link" href="/categories/%e6%8a%80%e6%9c%af/">技术</a></li>
+      
+      <li class="navigation-item navigation-menu"><a class="navigation-link" href="/categories/%e9%9a%8f%e7%ac%94/">随笔</a></li>
+      
+      <li class="navigation-item navigation-menu"><a class="navigation-link" href="/categories/weekly/">周刊</a></li>
+      
+      <li class="navigation-item navigation-menu"><a class="navigation-link" href="/message/">留言</a></li>
+      
+      <li class="navigation-item navigation-menu"><a class="navigation-link" href="/about/">关于</a></li>
+      
+      <li class="navigation-item navigation-menu"><a class="navigation-link"
       href="https://anghunk.notion.site/155935c878aa4210b71c9052b7f726ff?v=762fadfb010a415ea3644a201e3131cb"
-      target="_blank">gallery</a>
+      target="_blank">gallery</a></li>
+      <li class="navigation-item menu-separator"><span>|</span></li>
+      <li class="navigation-item navigation-social"><a class="navigation-link"
+          href="https://github.com/98zi"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+            viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" class="feather feather-github">
+            <path
+              d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37.0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44.0 0020 4.77 5.07 5.07.0 0019.91 1S18.73.65 16 2.48a13.38 13.38.0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07.0 005 4.77 5.44 5.44.0 003.5 8.55c0 5.42 3.3 6.61 6.44 7A3.37 3.37.0 009 18.13V22">
+            </path>
+          </svg></a></li>
+      <li class="navigation-item navigation-social"><a class="navigation-link"
+          href="https://twitter.com/anghunk1"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+            viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" class="feather feather-twitter">
+            <path
+              d="M23 3a10.9 10.9.0 01-3.14 1.53 4.48 4.48.0 00-7.86 3v1A10.66 10.66.0 013 4s-4 9 5 13a11.64 11.64.0 01-7 2c9 5 20 0 20-11.5a4.5 4.5.0 00-.08-.83A7.72 7.72.0 0023 3z">
+            </path>
+          </svg></a></li>
 
-    <a href="/index.xml" target="_blank"><img src="/images/rss.svg" alt="RSS" class="social-icon" width="1em"></a>
-    <a href="https://twitter.com/zishu520" target="_blank"><img src="/images/twitter.svg" alt="twitter.com/zishu520"
-        class="social-icon" width="1em"></a>
-    <a href="https://github.com/98zi" target="_blank"><img src="/images/github.svg" alt="github.com/98zi"
-        class="social-icon" width="1em"></a>
+    </ul>
+  </section>
+</nav>
+    <main id="content">
+      <div class="home">
+        <h1 class="blog-title">hugo 如何使用 Cusdis ?</h1>
 
-  </div>
-</div>
+        
+        <div class="date">
+          <time> 2021-09-16</time>
+        </div>
+        <div class="expired-tips" style="display: none;"></div>
+        
 
-      <h1>hugo 如何使用 Cusdis ?</h1>
-
-      
-      <div class="date">
-        <time datetime=" 2021-09-16 00:00:00 UTC"> 2021-09-16</time>
-      </div>
-      <div class="expired-tips" style="display: none;"></div>
-      
-
-
-      
-      <div class="toc">
-        <nav id="TableOfContents">
+        
+        <div class="toc">
+          <nav id="TableOfContents">
   <ul>
     <li><a href="#1-本地部署">1. 本地部署</a></li>
     <li><a href="#2-邮箱提醒">2. 邮箱提醒</a></li>
     <li><a href="#3-中文化">3. 中文化</a></li>
   </ul>
 </nav>
-      </div>
-      
-
-      <article class="post-content">
+        </div>
         
-        <p>Cusdis 是一个界面清爽、注重隐私的轻量级 (~5kb gzip) 评论系统，可以很方便地与 React、Vue 或其他博客系统结合，并且还提供了一个后台来管理所有的评论。</p>
+
+        <article class="post-content">
+          
+          <p>Cusdis 是一个界面清爽、注重隐私的轻量级 (~5kb gzip) 评论系统，可以很方便地与 React、Vue 或其他博客系统结合，并且还提供了一个后台来管理所有的评论。</p>
 <p>由于 Cusdis 自称是 Disqus 的替代方案，因此它还支持一键从 Disqus 导入、支持邮件通知等功能。</p>
 <p>官方地址：<a href="https://cusdis.com/">https://cusdis.com/</a></p>
 <p>他通常是用于静态博客的一个第三方评论系统，但是官方文档没有提供如何在 hugo 中使用的参数，我也是报错了多次才琢磨出来。</p>
@@ -174,10 +184,10 @@
 </span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </span></span></code></pre></div><p>。。。</p>
 
-      </article>
+        </article>
 
-      
-      <div style="padding:20px 0"></div>
+        
+        <div style="padding:20px 0"></div>
 
 <div class="giscus"></div>
 <script 
@@ -198,9 +208,9 @@
   async>
 </script>
 
-      
+        
 
-
+      </div>
       <footer class="footer">
   <p>© 2020 - 2024
     Powered by

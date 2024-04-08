@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="zh"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用原生 js 给网站写个搜索功能</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Ladder@本文也算是一篇教程，可以给 hugo 网站加个搜索功能，并且实现热更新，体验感更好。
+如果是其他程序，只需要按照特定的模板生成以下格式的文件即可，主要代码从 第 2 部分 开始，第一章节写的是如何用 hugo 输出文章列表 json 文件。
+title 是文章标题，permalink 是文章链接。
+[{ &#34;permalink&#34;: &#34;&#34;, &#34;title&#34;: &#34;&#34; }, { &#34;permalink&#34;: &#34;&#34;, &#34;title&#34;: &#34;&#34; }] 1. hugo 模板生成文章列表 json 文件 在 layouts 文件夹下新建 index.json 文件，模板内容如下：
+其中第 2 行最后面的 &quot;blog&quot; 是你文章文件夹的名称。大部分是 posts 等等，这里是我个人的名称。
+{{- $.Scratch.Set &#34;posts&#34; slice -}} {{- range where .Site.RegularPages &#34;Type&#34; &#34;blog&#34; -}} {{- $.Scratch.Add &#34;posts&#34; (dict &#34;title&#34; .Title &#34;permalink&#34; .Permalink) -}} {{- end -}} {{- $.Scratch.Get &#34;posts&#34; | jsonify -}} 按照这个模板，hugo 本地预览可以打开 http://localhost:1313/index.">
+    <meta name="author" content="Hugo Ladder">
+    <link rel="canonical" href="http://localhost:1313/blog/189/">
+        <meta name="google-site-verification" content="xxx">
+
+    <link rel="alternate" type="application/rss+xml" href="http://localhost:1313//index.xml" title="LADDER">
+
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-xxx"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-xxx', { 'anonymize_ip': false });
+}
+</script>
+
+
+
+<script async defer data-website-id="xxx" src="https://umami-ochre-nu.vercel.app/hugo-ladder.js"></script>
+
+    <meta property="og:title" content="用原生 js 给网站写个搜索功能" />
+<meta property="og:description" content="本文也算是一篇教程，可以给 hugo 网站加个搜索功能，并且实现热更新，体验感更好。
+如果是其他程序，只需要按照特定的模板生成以下格式的文件即可，主要代码从 第 2 部分 开始，第一章节写的是如何用 hugo 输出文章列表 json 文件。
+title 是文章标题，permalink 是文章链接。
+[{ &#34;permalink&#34;: &#34;&#34;, &#34;title&#34;: &#34;&#34; }, { &#34;permalink&#34;: &#34;&#34;, &#34;title&#34;: &#34;&#34; }] 1. hugo 模板生成文章列表 json 文件 在 layouts 文件夹下新建 index.json 文件，模板内容如下：
+其中第 2 行最后面的 &quot;blog&quot; 是你文章文件夹的名称。大部分是 posts 等等，这里是我个人的名称。
+{{- $.Scratch.Set &#34;posts&#34; slice -}} {{- range where .Site.RegularPages &#34;Type&#34; &#34;blog&#34; -}} {{- $.Scratch.Add &#34;posts&#34; (dict &#34;title&#34; .Title &#34;permalink&#34; .Permalink) -}} {{- end -}} {{- $.Scratch.Get &#34;posts&#34; | jsonify -}} 按照这个模板，hugo 本地预览可以打开 http://localhost:1313/index." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/blog/189/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2023-03-17T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-03-17T00:00:00+00:00" />
+
+
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="用原生 js 给网站写个搜索功能"/>
+<meta name="twitter:description" content="本文也算是一篇教程，可以给 hugo 网站加个搜索功能，并且实现热更新，体验感更好。
+如果是其他程序，只需要按照特定的模板生成以下格式的文件即可，主要代码从 第 2 部分 开始，第一章节写的是如何用 hugo 输出文章列表 json 文件。
+title 是文章标题，permalink 是文章链接。
+[{ &#34;permalink&#34;: &#34;&#34;, &#34;title&#34;: &#34;&#34; }, { &#34;permalink&#34;: &#34;&#34;, &#34;title&#34;: &#34;&#34; }] 1. hugo 模板生成文章列表 json 文件 在 layouts 文件夹下新建 index.json 文件，模板内容如下：
+其中第 2 行最后面的 &quot;blog&quot; 是你文章文件夹的名称。大部分是 posts 等等，这里是我个人的名称。
+{{- $.Scratch.Set &#34;posts&#34; slice -}} {{- range where .Site.RegularPages &#34;Type&#34; &#34;blog&#34; -}} {{- $.Scratch.Add &#34;posts&#34; (dict &#34;title&#34; .Title &#34;permalink&#34; .Permalink) -}} {{- end -}} {{- $.Scratch.Get &#34;posts&#34; | jsonify -}} 按照这个模板，hugo 本地预览可以打开 http://localhost:1313/index."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Blogs",
+      "item": "http://localhost:1313/blog/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "用原生 js 给网站写个搜索功能",
+      "item": "http://localhost:1313/blog/189/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "用原生 js 给网站写个搜索功能",
+  "name": "用原生 js 给网站写个搜索功能",
+  "description": "本文也算是一篇教程，可以给 hugo 网站加个搜索功能，并且实现热更新，体验感更好。\n如果是其他程序，只需要按照特定的模板生成以下格式的文件即可，主要代码从 第 2 部分 开始，第一章节写的是如何用 hugo 输出文章列表 json 文件。\ntitle 是文章标题，permalink 是文章链接。\n[{ \u0026#34;permalink\u0026#34;: \u0026#34;\u0026#34;, \u0026#34;title\u0026#34;: \u0026#34;\u0026#34; }, { \u0026#34;permalink\u0026#34;: \u0026#34;\u0026#34;, \u0026#34;title\u0026#34;: \u0026#34;\u0026#34; }] 1. hugo 模板生成文章列表 json 文件 在 layouts 文件夹下新建 index.json 文件，模板内容如下：\n其中第 2 行最后面的 \u0026quot;blog\u0026quot; 是你文章文件夹的名称。大部分是 posts 等等，这里是我个人的名称。\n{{- $.Scratch.Set \u0026#34;posts\u0026#34; slice -}} {{- range where .Site.RegularPages \u0026#34;Type\u0026#34; \u0026#34;blog\u0026#34; -}} {{- $.Scratch.Add \u0026#34;posts\u0026#34; (dict \u0026#34;title\u0026#34; .Title \u0026#34;permalink\u0026#34; .Permalink) -}} {{- end -}} {{- $.Scratch.Get \u0026#34;posts\u0026#34; | jsonify -}} 按照这个模板，hugo 本地预览可以打开 http://localhost:1313/index.",
+  "keywords": [
+    "js", "网站"
+  ],
+  "articleBody": "本文也算是一篇教程，可以给 hugo 网站加个搜索功能，并且实现热更新，体验感更好。\n如果是其他程序，只需要按照特定的模板生成以下格式的文件即可，主要代码从 第 2 部分 开始，第一章节写的是如何用 hugo 输出文章列表 json 文件。\ntitle 是文章标题，permalink 是文章链接。\n[{ \"permalink\": \"\", \"title\": \"\" }, { \"permalink\": \"\", \"title\": \"\" }] 1. hugo 模板生成文章列表 json 文件 在 layouts 文件夹下新建 index.json 文件，模板内容如下：\n其中第 2 行最后面的 \"blog\" 是你文章文件夹的名称。大部分是 posts 等等，这里是我个人的名称。\n{{- $.Scratch.Set \"posts\" slice -}} {{- range where .Site.RegularPages \"Type\" \"blog\" -}} {{- $.Scratch.Add \"posts\" (dict \"title\" .Title \"permalink\" .Permalink) -}} {{- end -}} {{- $.Scratch.Get \"posts\" | jsonify -}} 按照这个模板，hugo 本地预览可以打开 http://localhost:1313/index.json 查看，如果输出了一些数据如下图，说明你成功了。\n2. js 代码 在 /layouts/_default 新建一个模板文件 search.html，大致的结构参考其他模板文件，然后写入我们需要的内容。\n首先是一个简单的 html 结构，给 input 绑定一个事件。\n\u003cform class=\"search\"\u003e \u003cinput type=\"text\" id=\"searchTerm\" name=\"searchTerm\" autocomplete=\"off\" oninput=\"initiateSearch()\"\u003e \u003c/form\u003e \u003cdiv id=\"resultsContainer\"\u003e请输入关键词进行搜索...\u003c/div\u003e 然后通过一个 get 请求获取 json 文件，传入关键词参数，生成搜索列表。\n\u003cscript\u003e function search(jsonData, searchTerm) { let results = []; for (let i = 0; i \u003c jsonData.length; i++) { for (let property in jsonData[i]) { if (jsonData[i].hasOwnProperty(property) \u0026\u0026 jsonData[i][property].toString().indexOf(searchTerm) \u003e -1) { results.push(jsonData[i]); break; } } } return results; } function displayResults(searchResults) { let container = document.getElementById(\"resultsContainer\"); container.innerHTML = \"\"; if (searchResults.length \u003e 0) { for (let i = 0; i \u003c searchResults.length; i++) { let resultDiv = document.createElement(\"div\"); let resultTitle = document.createElement(\"a\"); resultTitle.innerText = searchResults[i].title; resultTitle.setAttribute('href', searchResults[i].permalink) resultDiv.appendChild(resultTitle); container.appendChild(resultDiv); } } else { let noResultsMessage = document.createElement(\"p\"); noResultsMessage.innerText = \"没有找到搜索结果。\"; container.appendChild(noResultsMessage); } } function initiateSearch() { let searchTerm = document.getElementById(\"searchTerm\").value; let xhr = new XMLHttpRequest(); xhr.open('GET', '/index.json', true); xhr.onreadystatechange = () =\u003e { if (xhr.readyState === 4 \u0026\u0026 xhr.status === 200) { let jsonData = JSON.parse(xhr.responseText); let searchResults = search(jsonData, searchTerm); displayResults(searchResults); } }; xhr.send(); } \u003c/script\u003e 然后再在 /content 新建一个 search.md 文件调用该模板即可。\n--- slug: search title: 搜索 layout: search --- 写了一个基础的样式，可以直接使用。\n.search { width: 100%; display: flex; align-items: center; height: 36px; } .search #searchTerm { width: 100%; height: 100%; outline: none; border: none; padding: 0 15px; box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.1); } #resultsContainer { margin-top: 20px; } #resultsContainer div { margin-bottom: 10px; margin: 0; } #resultsContainer div a { display: block; width: 100%; padding: 6px 10px; transition: all 0.1s linear; border-radius: 4px; } #resultsContainer div a:hover { background: #f3f3f3; } ",
+  "wordCount" : "330",
+  "inLanguage": "zh",
+  "datePublished": "2023-03-17T00:00:00Z",
+  "dateModified": "2023-03-17T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Hugo Ladder"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http://localhost:1313/blog/189/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "LADDER",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http://localhost:1313/favicon.ico"
+    }
+  }
+}
+</script>
+    <link rel="icon" href="/images/avatar.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/avatar.png">
+
+<link rel="manifest" href="/images/avatar.png">
+    
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css" />
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.css" media="screen">
+    
+
+
+    
+    <link rel="stylesheet" href="/scss/highlight/github-dark.min.min.66034289ee9a113219a2c4aae0a8bd2095ab255c832a42efcf5863f10814e7a1.css" />
+
+    
+    <script src="/js/highlight.min.min.c607d6febd16934a82eb61d3a896ed9d869f54373cc63ce95864ed5488fe3128.js"></script>
+    <script>hljs.highlightAll();</script>
+
+    <script>(()=>{var t=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,e=localStorage.getItem("theme");t&&e===null&&(localStorage.setItem("theme","dark"),document.documentElement.setAttribute("data-dark-mode","")),t&&e==="dark"&&document.documentElement.setAttribute("data-dark-mode",""),e==="dark"&&document.documentElement.setAttribute("data-dark-mode","")})()</script>
+    </head>
+<body>
+      <main class="wrapper"><nav class="navigation">
+    <section class="container">
+        <a class="navigation-brand" href="/">
+            HOME
+        </a>
+        <input type="checkbox" id="menu-toggle" />
+        <label class="menu-button float-right" for="menu-toggle">
+            <span></span><span></span><span></span>
+        </label>
+        
+        <ul class="navigation-list" id="navigation-list">
+            
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/blog">文章</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/tags">分类</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/archives">历史文章</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/guestbook">留言板</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="https://umami-ochre-nu.vercel.app/share/R1lHz7QY/hugo-ladder-exampleSite">网站统计</a>
+            </li>
+            
+            
+
+            <li class="navigation-item menu-separator">
+                <span>|</span>
+            </li>
+
+            
+            
+            <li class="navigation-item navigation-social">
+                <a class="navigation-link" href="https://github.com/guangzhengli/hugo-theme-ladder"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+            </li>
+            
+            <li class="navigation-item navigation-social">
+                <a class="navigation-link" href="https://umami-ochre-nu.vercel.app/share/R1lHz7QY/hugo-ladder-exampleSite"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg></a>
+            </li>
+            
+            
+
+            <li class="navigation-item navigation-dark">
+                <button id="mode" type="button" aria-label="toggle user light or dark theme">
+                    <span class="toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span>
+                    <span class="toggle-light"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></span>
+                </button>
+            </li>
+
+            
+            
+            
+            
+            
+            
+            
+            <li class="navigation-item navigation-language">
+                <a href="http://localhost:1313/en/">EN</a>
+            </li>
+            
+            
+            
+            
+        </ul>
+        
+    </section>
+</nav>
+<div id="content">
+<article class="blog-single">
+  <header class="blog-title">
+    <h1>用原生 js 给网站写个搜索功能</h1>
+  </header>
+
+  <p>
+  <small>
+    2023年3月17日&nbsp;· 330 字&nbsp;· 2 分钟</small>
+
+  <small>
+      
+      ·
+      
+      
+      <a href="http://localhost:1313/tags/js/">Js</a>
+      
+      <a href="http://localhost:1313/tags/%E7%BD%91%E7%AB%99/">网站</a>
+      
+    </small>
+  
+<p>
+
+  <div class="blog-toc">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1-hugo-模板生成文章列表-json-文件">1. hugo 模板生成文章列表 json 文件</a></li>
+        <li><a href="#2-js-代码">2. js 代码</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+
+  <section class="blog-content"><p>本文也算是一篇教程，可以给 hugo 网站加个搜索功能，并且实现热更新，体验感更好。</p>
+<p>如果是其他程序，只需要按照特定的模板生成以下格式的文件即可，主要代码从 第 2 部分 开始，第一章节写的是如何用 hugo 输出文章列表 json 文件。</p>
+<p><code>title</code> 是文章标题，<code>permalink</code> 是文章链接。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>[{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;permalink&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>}, {
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;permalink&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>}]
+</span></span></code></pre></div><h3 id="1-hugo-模板生成文章列表-json-文件">1. hugo 模板生成文章列表 json 文件</h3>
+<p>在 <code>layouts</code> 文件夹下新建 <code>index.json</code> 文件，模板内容如下：</p>
+<p>其中第 2 行最后面的 <code>&quot;blog&quot;</code> 是你文章文件夹的名称。大部分是 posts 等等，这里是我个人的名称。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>{{- $.Scratch.Set &#34;posts&#34; slice -}}
+</span></span><span style="display:flex; background-color:#3c3d38"><span>{{- range where .Site.RegularPages &#34;Type&#34; &#34;blog&#34; -}}
+</span></span><span style="display:flex;"><span>    {{- $.Scratch.Add &#34;posts&#34; (dict &#34;title&#34; .Title &#34;permalink&#34; .Permalink) -}}
+</span></span><span style="display:flex;"><span>{{- end -}}
+</span></span><span style="display:flex;"><span>{{- $.Scratch.Get &#34;posts&#34; | jsonify -}}
+</span></span></code></pre></div><p>按照这个模板，hugo 本地预览可以打开 <code>http://localhost:1313/index.json</code> 查看，如果输出了一些数据如下图，说明你成功了。</p>
+<p><img alt="image" src="https://imgurl.zishu.me/images/old/20230317/image.68g9ngwkar80.webp"></p>
+<h3 id="2-js-代码">2. js 代码</h3>
+<p>在 <code>/layouts/_default</code> 新建一个模板文件 <code>search.html</code>，大致的结构参考其他模板文件，然后写入我们需要的内容。</p>
+<p>首先是一个简单的 html 结构，给 input 绑定一个事件。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">form</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;search&#34;</span>&gt; 
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;searchTerm&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;searchTerm&#34;</span> <span style="color:#a6e22e">autocomplete</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;off&#34;</span> <span style="color:#a6e22e">oninput</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;initiateSearch()&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">form</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;resultsContainer&#34;</span>&gt;请输入关键词进行搜索...&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span></code></pre></div><p>然后通过一个 get 请求获取 json 文件，传入关键词参数，生成搜索列表。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">search</span>(<span style="color:#a6e22e">jsonData</span>, <span style="color:#a6e22e">searchTerm</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">results</span> <span style="color:#f92672">=</span> [];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">jsonData</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">property</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">jsonData</span>[<span style="color:#a6e22e">i</span>]) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">jsonData</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">hasOwnProperty</span>(<span style="color:#a6e22e">property</span>) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">jsonData</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">property</span>].<span style="color:#a6e22e">toString</span>().<span style="color:#a6e22e">indexOf</span>(<span style="color:#a6e22e">searchTerm</span>) <span style="color:#f92672">&gt;</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">results</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">jsonData</span>[<span style="color:#a6e22e">i</span>]);
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">results</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">displayResults</span>(<span style="color:#a6e22e">searchResults</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">container</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;resultsContainer&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">container</span>.<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">searchResults</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">searchResults</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">resultDiv</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#34;div&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">resultTitle</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#34;a&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">resultTitle</span>.<span style="color:#a6e22e">innerText</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">searchResults</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">title</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">resultTitle</span>.<span style="color:#a6e22e">setAttribute</span>(<span style="color:#e6db74">&#39;href&#39;</span>, <span style="color:#a6e22e">searchResults</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">permalink</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">resultDiv</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#a6e22e">resultTitle</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">container</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#a6e22e">resultDiv</span>);
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">noResultsMessage</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#34;p&#34;</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">noResultsMessage</span>.<span style="color:#a6e22e">innerText</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;没有找到搜索结果。&#34;</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">container</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#a6e22e">noResultsMessage</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">initiateSearch</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">searchTerm</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;searchTerm&#34;</span>).<span style="color:#a6e22e">value</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">xhr</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">xhr</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#39;GET&#39;</span>, <span style="color:#e6db74">&#39;/index.json&#39;</span>, <span style="color:#66d9ef">true</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">xhr</span>.<span style="color:#a6e22e">onreadystatechange</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">xhr</span>.<span style="color:#a6e22e">readyState</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">xhr</span>.<span style="color:#a6e22e">status</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">200</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">jsonData</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">parse</span>(<span style="color:#a6e22e">xhr</span>.<span style="color:#a6e22e">responseText</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">searchResults</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">search</span>(<span style="color:#a6e22e">jsonData</span>, <span style="color:#a6e22e">searchTerm</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">displayResults</span>(<span style="color:#a6e22e">searchResults</span>);
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">xhr</span>.<span style="color:#a6e22e">send</span>();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span></code></pre></div><p>然后再在 <code>/content</code> 新建一个 <code>search.md</code> 文件调用该模板即可。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-md" data-lang="md"><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span>slug: search
+</span></span><span style="display:flex;"><span>title: 搜索
+</span></span><span style="display:flex;"><span>layout: search
+</span></span><span style="display:flex;"><span>---
+</span></span></code></pre></div><p>写了一个基础的样式，可以直接使用。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>.<span style="color:#a6e22e">search</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">%</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">display</span>: <span style="color:#66d9ef">flex</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">align-items</span>: <span style="color:#66d9ef">center</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">height</span>: <span style="color:#ae81ff">36</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">search</span> #searchTerm {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">%</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">height</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">%</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">outline</span>: <span style="color:#66d9ef">none</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">border</span>: <span style="color:#66d9ef">none</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">padding</span>: <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">15</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">box-shadow</span>: <span style="color:#ae81ff">1</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">2</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">10</span><span style="color:#66d9ef">px</span> rgba(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0.1</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>#resultsContainer {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">margin-top</span>: <span style="color:#ae81ff">20</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>#resultsContainer <span style="color:#f92672">div</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">margin-bottom</span>: <span style="color:#ae81ff">10</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">margin</span>: <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>#resultsContainer <span style="color:#f92672">div</span> <span style="color:#f92672">a</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">display</span>: <span style="color:#66d9ef">block</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">%</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">padding</span>: <span style="color:#ae81ff">6</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">10</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">transition</span>: <span style="color:#66d9ef">all</span> <span style="color:#ae81ff">0.1</span><span style="color:#66d9ef">s</span> <span style="color:#66d9ef">linear</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">border-radius</span>: <span style="color:#ae81ff">4</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>#resultsContainer <span style="color:#f92672">div</span> <span style="color:#f92672">a</span>:<span style="color:#a6e22e">hover</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">background</span>: <span style="color:#ae81ff">#f3f3f3</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section>
+
+  
+  
+  <div class="paginator">
+    
+    <a class="prev" href="http://localhost:1313/blog/weekly-5/">
+      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M9.94496 9C9.28897 9.61644 7.63215 10.997 6.04814 11.7966C5.98257 11.8297 5.98456 11.9753 6.05061 12.0063C7.05496 12.4779 8.92941 13.9264 9.94496 15M6.44444 11.9667C8.86549 12.0608 14 12 16 11" stroke="currentColor" stroke-linecap="round"/>
+      </svg>
+      <span>奇趣周刊 Vol.5</span></a>
+    
+    
+    <a class="next" href="http://localhost:1313/blog/weekly-4/"><span>奇趣周刊 Vol.4</span>
+      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M12.055 9C12.711 9.61644 14.3679 10.997 15.9519 11.7966C16.0174 11.8297 16.0154 11.9753 15.9494 12.0063C14.945 12.4779 13.0706 13.9264 12.055 15M15.5556 11.9667C13.1345 12.0608 8 12 6 11" stroke="currentColor" stroke-linecap="round"/>
+      </svg>
+    </a>
+    
+  </div>
+  
+
+  
+
+
+  
+  
+<div class="comments">
+  <script>
+      const getTheme = window.localStorage && window.localStorage.getItem("theme");
+      let theme = getTheme === 'dark' ? 'dark' : 'light';
+      let s = document.createElement('script');
+      s.src = 'https://giscus.app/client.js';
+      s.setAttribute('data-repo', 'username\/reponame');
+      s.setAttribute('data-repo-id', 'R_xxx');
+      s.setAttribute('data-category', 'Announcements');
+      s.setAttribute('data-category-id', 'DIC_xxx');
+      s.setAttribute('data-mapping', 'pathname');
+      s.setAttribute('data-strict', '0');
+      s.setAttribute('data-reactions-enabled', '1');
+      s.setAttribute('data-emit-metadata', '0');
+      s.setAttribute('data-input-position', 'top');
+      s.setAttribute('data-theme', theme);
+      s.setAttribute('data-lang', 'zh');
+      s.setAttribute('data-loading', 'lazy');
+      s.setAttribute('crossorigin', 'anonymous');
+      s.setAttribute('async', '');
+      document.querySelector('div.comments').innerHTML = '';
+      document.querySelector('div.comments').appendChild(s);
+  </script>
+</div>
+
+</article>
+
+
+        </div><footer class="footer">
+  <p>&copy; 2024 <a href="http://localhost:1313/">LADDER</a>
+    Powered by
+    <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>
+    <a href="https://github.com/guangzhengli/hugo-theme-ladder" rel="noopener" target="_blank">Ladder</a>
+️  </p>
+</footer>
+
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10.5376 22.7916C11.0152 22.7207 22.5795 21.1781 22.0978 10.4211C22.0536 9.43274 21.9303 8.53367 21.7387 7.71865M10.5376 22.7916C16.876 22.3728 20.0969 19.8899 21.5383 16.9142M10.5376 22.7916C9.7707 22.9055 8.97982 22.8964 8.19743 22.7725M21.7387 7.71865C21.4988 6.69828 21.1518 5.80967 20.7188 5.04257M21.7387 7.71865C22.6022 10.1105 23.0542 13.7848 21.5383 16.9142M20.7188 5.04257C17.1684 -1.24629 7.83127 0.632493 4.27577 5.04257C2.88063 6.77451 -0.0433281 11.1668 1.38159 16.6571C2.27481 20.0988 5.17269 22.2936 8.19743 22.7725M20.7188 5.04257C22.0697 6.9404 24.0299 11.3848 22.3541 15.4153M21.5383 16.9142C21.8737 16.4251 22.1428 15.9235 22.3541 15.4153M8.19743 22.7725C12.1971 23.4683 20.6281 22.971 22.3541 15.4153M14 10.945C13.3836 10.289 12.003 8.63215 11.2034 7.04814C11.1703 6.98257 11.0247 6.98456 10.9937 7.05061C10.5221 8.05496 9.07362 9.92941 8 10.945M11.0333 7.44444C10.9392 9.86549 11 15 12 17" stroke="currentColor" stroke-linecap="round"/>
+    </svg>
+</a>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+</script>
+
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'Copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'Copied';
+            setTimeout(() => {
+                copybutton.innerHTML = 'Copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+        codeblock.parentNode.appendChild(copybutton);
+    });
+</script></main>
+    </body><script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.0.6/medium-zoom.min.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S+Yti0U7QtuZvQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script>
+      const images = Array.from(document.querySelectorAll(".blog-content img"));
+      images.forEach(img => {
+          mediumZoom(img, {
+              margin: 10,  
+              scrollOffset: 40,  
+              container: null,  
+              template: null,  
+              background: 'rgba(0, 0, 0, 0.5)'
+          });
+      });
+  </script>
+
+  
+  <script src="/main.min.6bb26b69159420159c74dc9e097b06a578ed2b68c701466a91a44a9632d851bd0af167a1b30012387b4c512b48ad9ad4d3394e04d77ae38d57e1920fe4ed34fe.js" integrity="sha512-a7JraRWUIBWcdNyeCXsGpXjtK2jHAUZqkaRKljLYUb0K8WehswASOHtMUStIrZrU0zlOBNd6441X4ZIP5O00/g==" crossorigin="anonymous" defer></script></html>

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="zh"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React 脚手架项目打包时的路径问题</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Ladder@create-react-app 脚手架指令可以生成 React 项目，在项目完成之后执行打包命令 npm run build，文件夹内生成 build文件夹，就是打包后的文件，在浏览器运行 index.html 发现页面空白，打开控制台有报错，css 和 js 文件的引用路径有问题。
+浏览 index.html 代码可以发现：
+&lt;!-- index.html --&gt; &lt;!doctype html&gt; &lt;html lang=&#34;zh&#34;&gt; &lt;head&gt; &lt;meta charset=&#34;utf-8&#34; /&gt; &lt;meta name=&#34;viewport&#34; content=&#34;width=device-width,initial-scale=1&#34; /&gt; &lt;meta name=&#34;theme-color&#34; content=&#34;#000000&#34; /&gt; &lt;meta name=&#34;description&#34; content=&#34;Web site created using create-react-app&#34; /&gt; &lt;title&gt;React App&lt;/title&gt; &lt;link href=&#34;/static/css/main.3394d54e.chunk.css&#34; rel=&#34;stylesheet&#34;&gt; &lt;/head&gt; &lt;body&gt;&lt;noscript&gt;You need to enable JavaScript to run this app.&lt;/noscript&gt; &lt;div id=&#34;root&#34;&gt;&lt;/div&gt; &lt;script&gt;!function (e) { function r(r) { for (var n, l, f = r[0], i = r[1], a = r[2], c = 0, s = []; c &lt; f.">
+    <meta name="author" content="Hugo Ladder">
+    <link rel="canonical" href="http://localhost:1313/blog/42/">
+        <meta name="google-site-verification" content="xxx">
+
+    <link rel="alternate" type="application/rss+xml" href="http://localhost:1313//index.xml" title="LADDER">
+
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-xxx"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-xxx', { 'anonymize_ip': false });
+}
+</script>
+
+
+
+<script async defer data-website-id="xxx" src="https://umami-ochre-nu.vercel.app/hugo-ladder.js"></script>
+
+    <meta property="og:title" content="React 脚手架项目打包时的路径问题" />
+<meta property="og:description" content="create-react-app 脚手架指令可以生成 React 项目，在项目完成之后执行打包命令 npm run build，文件夹内生成 build文件夹，就是打包后的文件，在浏览器运行 index.html 发现页面空白，打开控制台有报错，css 和 js 文件的引用路径有问题。
+浏览 index.html 代码可以发现：
+&lt;!-- index.html --&gt; &lt;!doctype html&gt; &lt;html lang=&#34;zh&#34;&gt; &lt;head&gt; &lt;meta charset=&#34;utf-8&#34; /&gt; &lt;meta name=&#34;viewport&#34; content=&#34;width=device-width,initial-scale=1&#34; /&gt; &lt;meta name=&#34;theme-color&#34; content=&#34;#000000&#34; /&gt; &lt;meta name=&#34;description&#34; content=&#34;Web site created using create-react-app&#34; /&gt; &lt;title&gt;React App&lt;/title&gt; &lt;link href=&#34;/static/css/main.3394d54e.chunk.css&#34; rel=&#34;stylesheet&#34;&gt; &lt;/head&gt; &lt;body&gt;&lt;noscript&gt;You need to enable JavaScript to run this app.&lt;/noscript&gt; &lt;div id=&#34;root&#34;&gt;&lt;/div&gt; &lt;script&gt;!function (e) { function r(r) { for (var n, l, f = r[0], i = r[1], a = r[2], c = 0, s = []; c &lt; f." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/blog/42/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2021-01-05T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-01-05T00:00:00+00:00" />
+
+
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="React 脚手架项目打包时的路径问题"/>
+<meta name="twitter:description" content="create-react-app 脚手架指令可以生成 React 项目，在项目完成之后执行打包命令 npm run build，文件夹内生成 build文件夹，就是打包后的文件，在浏览器运行 index.html 发现页面空白，打开控制台有报错，css 和 js 文件的引用路径有问题。
+浏览 index.html 代码可以发现：
+&lt;!-- index.html --&gt; &lt;!doctype html&gt; &lt;html lang=&#34;zh&#34;&gt; &lt;head&gt; &lt;meta charset=&#34;utf-8&#34; /&gt; &lt;meta name=&#34;viewport&#34; content=&#34;width=device-width,initial-scale=1&#34; /&gt; &lt;meta name=&#34;theme-color&#34; content=&#34;#000000&#34; /&gt; &lt;meta name=&#34;description&#34; content=&#34;Web site created using create-react-app&#34; /&gt; &lt;title&gt;React App&lt;/title&gt; &lt;link href=&#34;/static/css/main.3394d54e.chunk.css&#34; rel=&#34;stylesheet&#34;&gt; &lt;/head&gt; &lt;body&gt;&lt;noscript&gt;You need to enable JavaScript to run this app.&lt;/noscript&gt; &lt;div id=&#34;root&#34;&gt;&lt;/div&gt; &lt;script&gt;!function (e) { function r(r) { for (var n, l, f = r[0], i = r[1], a = r[2], c = 0, s = []; c &lt; f."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Blogs",
+      "item": "http://localhost:1313/blog/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "React 脚手架项目打包时的路径问题",
+      "item": "http://localhost:1313/blog/42/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "React 脚手架项目打包时的路径问题",
+  "name": "React 脚手架项目打包时的路径问题",
+  "description": "create-react-app 脚手架指令可以生成 React 项目，在项目完成之后执行打包命令 npm run build，文件夹内生成 build文件夹，就是打包后的文件，在浏览器运行 index.html 发现页面空白，打开控制台有报错，css 和 js 文件的引用路径有问题。\n浏览 index.html 代码可以发现：\n\u0026lt;!-- index.html --\u0026gt; \u0026lt;!doctype html\u0026gt; \u0026lt;html lang=\u0026#34;zh\u0026#34;\u0026gt; \u0026lt;head\u0026gt; \u0026lt;meta charset=\u0026#34;utf-8\u0026#34; /\u0026gt; \u0026lt;meta name=\u0026#34;viewport\u0026#34; content=\u0026#34;width=device-width,initial-scale=1\u0026#34; /\u0026gt; \u0026lt;meta name=\u0026#34;theme-color\u0026#34; content=\u0026#34;#000000\u0026#34; /\u0026gt; \u0026lt;meta name=\u0026#34;description\u0026#34; content=\u0026#34;Web site created using create-react-app\u0026#34; /\u0026gt; \u0026lt;title\u0026gt;React App\u0026lt;/title\u0026gt; \u0026lt;link href=\u0026#34;/static/css/main.3394d54e.chunk.css\u0026#34; rel=\u0026#34;stylesheet\u0026#34;\u0026gt; \u0026lt;/head\u0026gt; \u0026lt;body\u0026gt;\u0026lt;noscript\u0026gt;You need to enable JavaScript to run this app.\u0026lt;/noscript\u0026gt; \u0026lt;div id=\u0026#34;root\u0026#34;\u0026gt;\u0026lt;/div\u0026gt; \u0026lt;script\u0026gt;!function (e) { function r(r) { for (var n, l, f = r[0], i = r[1], a = r[2], c = 0, s = []; c \u0026lt; f.",
+  "keywords": [
+    "react"
+  ],
+  "articleBody": "create-react-app 脚手架指令可以生成 React 项目，在项目完成之后执行打包命令 npm run build，文件夹内生成 build文件夹，就是打包后的文件，在浏览器运行 index.html 发现页面空白，打开控制台有报错，css 和 js 文件的引用路径有问题。\n浏览 index.html 代码可以发现：\n\u003c!doctype html\u003e \u003chtml lang=\"zh\"\u003e \u003chead\u003e \u003cmeta charset=\"utf-8\" /\u003e \u003cmeta name=\"viewport\" content=\"width=device-width,initial-scale=1\" /\u003e \u003cmeta name=\"theme-color\" content=\"#000000\" /\u003e \u003cmeta name=\"description\" content=\"Web site created using create-react-app\" /\u003e \u003ctitle\u003eReact App\u003c/title\u003e \u003clink href=\"/static/css/main.3394d54e.chunk.css\" rel=\"stylesheet\"\u003e \u003c/head\u003e \u003cbody\u003e\u003cnoscript\u003eYou need to enable JavaScript to run this app.\u003c/noscript\u003e \u003cdiv id=\"root\"\u003e\u003c/div\u003e \u003cscript\u003e!function (e) { function r(r) { for (var n, l, f = r[0], i = r[1], a = r[2], c = 0, s = []; c \u003c f.length; c++)l = f[c], Object.prototype.hasOwnProperty.call(o, l) \u0026\u0026 o[l] \u0026\u0026 s.push(o[l][0]), o[l] = 0; for (n in i) Object.prototype.hasOwnProperty.call(i, n) \u0026\u0026 (e[n] = i[n]); for (p \u0026\u0026 p(r); s.length;)s.shift()(); return u.push.apply(u, a || []), t() } function t() { for (var e, r = 0; r \u003c u.length; r++) { for (var t = u[r], n = !0, f = 1; f \u003c t.length; f++) { var i = t[f]; 0 !== o[i] \u0026\u0026 (n = !1) } n \u0026\u0026 (u.splice(r--, 1), e = l(l.s = t[0])) } return e } var n = {}, o = { 1: 0 }, u = []; function l(r) { if (n[r]) return n[r].exports; var t = n[r] = { i: r, l: !1, exports: {} }; return e[r].call(t.exports, t, t.exports, l), t.l = !0, t.exports } l.m = e, l.c = n, l.d = function (e, r, t) { l.o(e, r) || Object.defineProperty(e, r, { enumerable: !0, get: t }) }, l.r = function (e) { \"undefined\" != typeof Symbol \u0026\u0026 Symbol.toStringTag \u0026\u0026 Object.defineProperty(e, Symbol.toStringTag, { value: \"Module\" }), Object.defineProperty(e, \"__esModule\", { value: !0 }) }, l.t = function (e, r) { if (1 \u0026 r \u0026\u0026 (e = l(e)), 8 \u0026 r) return e; if (4 \u0026 r \u0026\u0026 \"object\" == typeof e \u0026\u0026 e \u0026\u0026 e.__esModule) return e; var t = Object.create(null); if (l.r(t), Object.defineProperty(t, \"default\", { enumerable: !0, value: e }), 2 \u0026 r \u0026\u0026 \"string\" != typeof e) for (var n in e) l.d(t, n, function (r) { return e[r] }.bind(null, n)); return t }, l.n = function (e) { var r = e \u0026\u0026 e.__esModule ? function () { return e.default } : function () { return e }; return l.d(r, \"a\", r), r }, l.o = function (e, r) { return Object.prototype.hasOwnProperty.call(e, r) }, l.p = \"./\"; var f = this.webpackJsonpdemo = this.webpackJsonpdemo || [], i = f.push.bind(f); f.push = r, f = f.slice(); for (var a = 0; a \u003c f.length; a++)r(f[a]); var p = i; t() }([])\u003c/script\u003e \u003cscript src=\"/static/js/2.1902eda2.chunk.js\"\u003e\u003c/script\u003e \u003cscript src=\"/static/js/main.cbf35db7.chunk.js\"\u003e\u003c/script\u003e \u003c/body\u003e \u003c/html\u003e 发现 css 和 js 文件都是用绝对路径引用的，这是 webpack 打包一贯拥有的问题，将 /static 改成 ./static ，再运行，页面没有问题成功显示。\n但是在写实际项目的时候手动修改相对路径，不但麻烦，而且容易引起其他问题。因此直接在项目的 package.json 配置文件进行修改，添加 \"homepage\": \".\"\n// package.json { \"name\": \"demo\", \"version\": \"0.1.0\", \"private\": true, \"homepage\": \".\", // 添加这一行 \"dependencies\": { \"@babel/core\": \"7.12.3\", ... 然后再执行 npm run build ，运行打包后的文件，没有任何问题。\n",
+  "wordCount" : "464",
+  "inLanguage": "zh",
+  "datePublished": "2021-01-05T00:00:00Z",
+  "dateModified": "2021-01-05T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Hugo Ladder"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http://localhost:1313/blog/42/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "LADDER",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http://localhost:1313/favicon.ico"
+    }
+  }
+}
+</script>
+    <link rel="icon" href="/images/avatar.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/avatar.png">
+
+<link rel="manifest" href="/images/avatar.png">
+    
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css" />
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.css" media="screen">
+    
+
+
+    
+    <link rel="stylesheet" href="/scss/highlight/github-dark.min.min.66034289ee9a113219a2c4aae0a8bd2095ab255c832a42efcf5863f10814e7a1.css" />
+
+    
+    <script src="/js/highlight.min.min.c607d6febd16934a82eb61d3a896ed9d869f54373cc63ce95864ed5488fe3128.js"></script>
+    <script>hljs.highlightAll();</script>
+
+    <script>(()=>{var t=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,e=localStorage.getItem("theme");t&&e===null&&(localStorage.setItem("theme","dark"),document.documentElement.setAttribute("data-dark-mode","")),t&&e==="dark"&&document.documentElement.setAttribute("data-dark-mode",""),e==="dark"&&document.documentElement.setAttribute("data-dark-mode","")})()</script>
+    </head>
+<body>
+      <main class="wrapper"><nav class="navigation">
+    <section class="container">
+        <a class="navigation-brand" href="/">
+            HOME
+        </a>
+        <input type="checkbox" id="menu-toggle" />
+        <label class="menu-button float-right" for="menu-toggle">
+            <span></span><span></span><span></span>
+        </label>
+        
+        <ul class="navigation-list" id="navigation-list">
+            
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/blog">文章</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/tags">分类</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/archives">历史文章</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/guestbook">留言板</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="https://umami-ochre-nu.vercel.app/share/R1lHz7QY/hugo-ladder-exampleSite">网站统计</a>
+            </li>
+            
+            
+
+            <li class="navigation-item menu-separator">
+                <span>|</span>
+            </li>
+
+            
+            
+            <li class="navigation-item navigation-social">
+                <a class="navigation-link" href="https://github.com/guangzhengli/hugo-theme-ladder"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+            </li>
+            
+            <li class="navigation-item navigation-social">
+                <a class="navigation-link" href="https://umami-ochre-nu.vercel.app/share/R1lHz7QY/hugo-ladder-exampleSite"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg></a>
+            </li>
+            
+            
+
+            <li class="navigation-item navigation-dark">
+                <button id="mode" type="button" aria-label="toggle user light or dark theme">
+                    <span class="toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span>
+                    <span class="toggle-light"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></span>
+                </button>
+            </li>
+
+            
+            
+            
+            
+            
+            
+            
+            <li class="navigation-item navigation-language">
+                <a href="http://localhost:1313/en/">EN</a>
+            </li>
+            
+            
+            
+            
+        </ul>
+        
+    </section>
+</nav>
+<div id="content">
+<article class="blog-single">
+  <header class="blog-title">
+    <h1>React 脚手架项目打包时的路径问题</h1>
+  </header>
+
+  <p>
+  <small>
+    2021年1月5日&nbsp;· 464 字&nbsp;· 3 分钟</small>
+
+  <small>
+      
+      ·
+      
+      
+      <a href="http://localhost:1313/tags/react/">React</a>
+      
+    </small>
+  
+<p>
+
+  <div class="blog-toc">
+    <nav id="TableOfContents"></nav>
+  </div>
+
+  <section class="blog-content"><p><code>create-react-app</code> 脚手架指令可以生成 React 项目，在项目完成之后执行打包命令 <code>npm run build</code>，文件夹内生成 <code>build</code>文件夹，就是打包后的文件，在浏览器运行 <code>index.html</code> 发现页面空白，打开控制台有报错，css 和 js 文件的引用路径有问题。</p>
+<p>浏览 <code>index.html</code> 代码可以发现：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- index.html --&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!doctype html&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span> <span style="color:#a6e22e">lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;zh&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span> /&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;viewport&#34;</span> <span style="color:#a6e22e">content</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;width=device-width,initial-scale=1&#34;</span> /&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;theme-color&#34;</span> <span style="color:#a6e22e">content</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;#000000&#34;</span> /&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;description&#34;</span> <span style="color:#a6e22e">content</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Web site created using create-react-app&#34;</span> /&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">title</span>&gt;React App&lt;/<span style="color:#f92672">title</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/static/css/main.3394d54e.chunk.css&#34;</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stylesheet&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">body</span>&gt;&lt;<span style="color:#f92672">noscript</span>&gt;You need to enable JavaScript to run this app.&lt;/<span style="color:#f92672">noscript</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;root&#34;</span>&gt;&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span>&gt;<span style="color:#f92672">!</span><span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">e</span>) { <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">r</span>(<span style="color:#a6e22e">r</span>) { <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">n</span>, <span style="color:#a6e22e">l</span>, <span style="color:#a6e22e">f</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">r</span>[<span style="color:#ae81ff">0</span>], <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">r</span>[<span style="color:#ae81ff">1</span>], <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">r</span>[<span style="color:#ae81ff">2</span>], <span style="color:#a6e22e">c</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">s</span> <span style="color:#f92672">=</span> []; <span style="color:#a6e22e">c</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">c</span><span style="color:#f92672">++</span>)<span style="color:#a6e22e">l</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">f</span>[<span style="color:#a6e22e">c</span>], Object.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">hasOwnProperty</span>.<span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">o</span>, <span style="color:#a6e22e">l</span>) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">o</span>[<span style="color:#a6e22e">l</span>] <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">o</span>[<span style="color:#a6e22e">l</span>][<span style="color:#ae81ff">0</span>]), <span style="color:#a6e22e">o</span>[<span style="color:#a6e22e">l</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#66d9ef">for</span> (<span style="color:#a6e22e">n</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">i</span>) Object.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">hasOwnProperty</span>.<span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">n</span>) <span style="color:#f92672">&amp;&amp;</span> (<span style="color:#a6e22e">e</span>[<span style="color:#a6e22e">n</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">i</span>[<span style="color:#a6e22e">n</span>]); <span style="color:#66d9ef">for</span> (<span style="color:#a6e22e">p</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">p</span>(<span style="color:#a6e22e">r</span>); <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">length</span>;)<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">shift</span>()(); <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">u</span>.<span style="color:#a6e22e">push</span>.<span style="color:#a6e22e">apply</span>(<span style="color:#a6e22e">u</span>, <span style="color:#a6e22e">a</span> <span style="color:#f92672">||</span> []), <span style="color:#a6e22e">t</span>() } <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">t</span>() { <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">e</span>, <span style="color:#a6e22e">r</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">r</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">u</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">r</span><span style="color:#f92672">++</span>) { <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">t</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">u</span>[<span style="color:#a6e22e">r</span>], <span style="color:#a6e22e">n</span> <span style="color:#f92672">=</span> <span style="color:#f92672">!</span><span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">f</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">f</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">f</span><span style="color:#f92672">++</span>) { <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">t</span>[<span style="color:#a6e22e">f</span>]; <span style="color:#ae81ff">0</span> <span style="color:#f92672">!==</span> <span style="color:#a6e22e">o</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">&amp;&amp;</span> (<span style="color:#a6e22e">n</span> <span style="color:#f92672">=</span> <span style="color:#f92672">!</span><span style="color:#ae81ff">1</span>) } <span style="color:#a6e22e">n</span> <span style="color:#f92672">&amp;&amp;</span> (<span style="color:#a6e22e">u</span>.<span style="color:#a6e22e">splice</span>(<span style="color:#a6e22e">r</span><span style="color:#f92672">--</span>, <span style="color:#ae81ff">1</span>), <span style="color:#a6e22e">e</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">l</span>(<span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">s</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">t</span>[<span style="color:#ae81ff">0</span>])) } <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">e</span> } <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">n</span> <span style="color:#f92672">=</span> {}, <span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span> }, <span style="color:#a6e22e">u</span> <span style="color:#f92672">=</span> []; <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">l</span>(<span style="color:#a6e22e">r</span>) { <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">n</span>[<span style="color:#a6e22e">r</span>]) <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">n</span>[<span style="color:#a6e22e">r</span>].<span style="color:#a6e22e">exports</span>; <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">t</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">n</span>[<span style="color:#a6e22e">r</span>] <span style="color:#f92672">=</span> { <span style="color:#a6e22e">i</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">r</span>, <span style="color:#a6e22e">l</span><span style="color:#f92672">:</span> <span style="color:#f92672">!</span><span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">exports</span><span style="color:#f92672">:</span> {} }; <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">e</span>[<span style="color:#a6e22e">r</span>].<span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">exports</span>, <span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">exports</span>, <span style="color:#a6e22e">l</span>), <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">l</span> <span style="color:#f92672">=</span> <span style="color:#f92672">!</span><span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">exports</span> } <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">m</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span>, <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">c</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">n</span>, <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">d</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">e</span>, <span style="color:#a6e22e">r</span>, <span style="color:#a6e22e">t</span>) { <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">o</span>(<span style="color:#a6e22e">e</span>, <span style="color:#a6e22e">r</span>) <span style="color:#f92672">||</span> Object.<span style="color:#a6e22e">defineProperty</span>(<span style="color:#a6e22e">e</span>, <span style="color:#a6e22e">r</span>, { <span style="color:#a6e22e">enumerable</span><span style="color:#f92672">:</span> <span style="color:#f92672">!</span><span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">get</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">t</span> }) }, <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">r</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">e</span>) { <span style="color:#e6db74">&#34;undefined&#34;</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">Symbol</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">Symbol</span>.<span style="color:#a6e22e">toStringTag</span> <span style="color:#f92672">&amp;&amp;</span> Object.<span style="color:#a6e22e">defineProperty</span>(<span style="color:#a6e22e">e</span>, <span style="color:#a6e22e">Symbol</span>.<span style="color:#a6e22e">toStringTag</span>, { <span style="color:#a6e22e">value</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Module&#34;</span> }), Object.<span style="color:#a6e22e">defineProperty</span>(<span style="color:#a6e22e">e</span>, <span style="color:#e6db74">&#34;__esModule&#34;</span>, { <span style="color:#a6e22e">value</span><span style="color:#f92672">:</span> <span style="color:#f92672">!</span><span style="color:#ae81ff">0</span> }) }, <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">t</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">e</span>, <span style="color:#a6e22e">r</span>) { <span style="color:#66d9ef">if</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">&amp;</span> <span style="color:#a6e22e">r</span> <span style="color:#f92672">&amp;&amp;</span> (<span style="color:#a6e22e">e</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">l</span>(<span style="color:#a6e22e">e</span>)), <span style="color:#ae81ff">8</span> <span style="color:#f92672">&amp;</span> <span style="color:#a6e22e">r</span>) <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">e</span>; <span style="color:#66d9ef">if</span> (<span style="color:#ae81ff">4</span> <span style="color:#f92672">&amp;</span> <span style="color:#a6e22e">r</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#e6db74">&#34;object&#34;</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">e</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">e</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">__esModule</span>) <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">e</span>; <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">t</span> <span style="color:#f92672">=</span> Object.<span style="color:#a6e22e">create</span>(<span style="color:#66d9ef">null</span>); <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">r</span>(<span style="color:#a6e22e">t</span>), Object.<span style="color:#a6e22e">defineProperty</span>(<span style="color:#a6e22e">t</span>, <span style="color:#e6db74">&#34;default&#34;</span>, { <span style="color:#a6e22e">enumerable</span><span style="color:#f92672">:</span> <span style="color:#f92672">!</span><span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">value</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">e</span> }), <span style="color:#ae81ff">2</span> <span style="color:#f92672">&amp;</span> <span style="color:#a6e22e">r</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#e6db74">&#34;string&#34;</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">e</span>) <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">n</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">e</span>) <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">d</span>(<span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">n</span>, <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">r</span>) { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">e</span>[<span style="color:#a6e22e">r</span>] }.<span style="color:#a6e22e">bind</span>(<span style="color:#66d9ef">null</span>, <span style="color:#a6e22e">n</span>)); <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">t</span> }, <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">n</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">e</span>) { <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">r</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">__esModule</span> <span style="color:#f92672">?</span> <span style="color:#66d9ef">function</span> () { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">e</span>.<span style="color:#66d9ef">default</span> } <span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span> () { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">e</span> }; <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">d</span>(<span style="color:#a6e22e">r</span>, <span style="color:#e6db74">&#34;a&#34;</span>, <span style="color:#a6e22e">r</span>), <span style="color:#a6e22e">r</span> }, <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">e</span>, <span style="color:#a6e22e">r</span>) { <span style="color:#66d9ef">return</span> Object.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">hasOwnProperty</span>.<span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">e</span>, <span style="color:#a6e22e">r</span>) }, <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;./&#34;</span>; <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">f</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">webpackJsonpdemo</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">webpackJsonpdemo</span> <span style="color:#f92672">||</span> [], <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">push</span>.<span style="color:#a6e22e">bind</span>(<span style="color:#a6e22e">f</span>); <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">push</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">r</span>, <span style="color:#a6e22e">f</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">slice</span>(); <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">a</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">a</span><span style="color:#f92672">++</span>)<span style="color:#a6e22e">r</span>(<span style="color:#a6e22e">f</span>[<span style="color:#a6e22e">a</span>]); <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">i</span>; <span style="color:#a6e22e">t</span>() }([])&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/static/js/2.1902eda2.chunk.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/static/js/main.cbf35db7.chunk.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
+</span></span></code></pre></div><p>发现 css 和 js 文件都是用绝对路径引用的，这是 webpack 打包一贯拥有的问题，将 <code>/static</code> 改成 <code>./static</code> ，再运行，页面没有问题成功显示。</p>
+<p>但是在写实际项目的时候手动修改相对路径，不但麻烦，而且容易引起其他问题。因此直接在项目的 <code>package.json</code> 配置文件进行修改，添加 <code>&quot;homepage&quot;: &quot;.&quot;</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#75715e">// package.json
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;demo&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;version&#34;</span>: <span style="color:#e6db74">&#34;0.1.0&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;private&#34;</span>: <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;homepage&#34;</span>: <span style="color:#e6db74">&#34;.&#34;</span>,  <span style="color:#75715e">// 添加这一行
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#f92672">&#34;dependencies&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;@babel/core&#34;</span>: <span style="color:#e6db74">&#34;7.12.3&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#960050;background-color:#1e0010">...</span>
+</span></span></code></pre></div><p>然后再执行 <code>npm run build</code> ，运行打包后的文件，没有任何问题。</p>
+</section>
+
+  
+  
+  <div class="paginator">
+    
+    <a class="prev" href="http://localhost:1313/blog/43/">
+      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M9.94496 9C9.28897 9.61644 7.63215 10.997 6.04814 11.7966C5.98257 11.8297 5.98456 11.9753 6.05061 12.0063C7.05496 12.4779 8.92941 13.9264 9.94496 15M6.44444 11.9667C8.86549 12.0608 14 12 16 11" stroke="currentColor" stroke-linecap="round"/>
+      </svg>
+      <span>使用 React 与 Vue 创建同一款 App，差别究竟有多大？</span></a>
+    
+    
+    <a class="next" href="http://localhost:1313/blog/41/"><span>如何在 React 中引入 less？</span>
+      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M12.055 9C12.711 9.61644 14.3679 10.997 15.9519 11.7966C16.0174 11.8297 16.0154 11.9753 15.9494 12.0063C14.945 12.4779 13.0706 13.9264 12.055 15M15.5556 11.9667C13.1345 12.0608 8 12 6 11" stroke="currentColor" stroke-linecap="round"/>
+      </svg>
+    </a>
+    
+  </div>
+  
+
+  
+
+
+  
+  
+<div class="comments">
+  <script>
+      const getTheme = window.localStorage && window.localStorage.getItem("theme");
+      let theme = getTheme === 'dark' ? 'dark' : 'light';
+      let s = document.createElement('script');
+      s.src = 'https://giscus.app/client.js';
+      s.setAttribute('data-repo', 'username\/reponame');
+      s.setAttribute('data-repo-id', 'R_xxx');
+      s.setAttribute('data-category', 'Announcements');
+      s.setAttribute('data-category-id', 'DIC_xxx');
+      s.setAttribute('data-mapping', 'pathname');
+      s.setAttribute('data-strict', '0');
+      s.setAttribute('data-reactions-enabled', '1');
+      s.setAttribute('data-emit-metadata', '0');
+      s.setAttribute('data-input-position', 'top');
+      s.setAttribute('data-theme', theme);
+      s.setAttribute('data-lang', 'zh');
+      s.setAttribute('data-loading', 'lazy');
+      s.setAttribute('crossorigin', 'anonymous');
+      s.setAttribute('async', '');
+      document.querySelector('div.comments').innerHTML = '';
+      document.querySelector('div.comments').appendChild(s);
+  </script>
+</div>
+
+</article>
+
+
+        </div><footer class="footer">
+  <p>&copy; 2024 <a href="http://localhost:1313/">LADDER</a>
+    Powered by
+    <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>
+    <a href="https://github.com/guangzhengli/hugo-theme-ladder" rel="noopener" target="_blank">Ladder</a>
+️  </p>
+</footer>
+
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10.5376 22.7916C11.0152 22.7207 22.5795 21.1781 22.0978 10.4211C22.0536 9.43274 21.9303 8.53367 21.7387 7.71865M10.5376 22.7916C16.876 22.3728 20.0969 19.8899 21.5383 16.9142M10.5376 22.7916C9.7707 22.9055 8.97982 22.8964 8.19743 22.7725M21.7387 7.71865C21.4988 6.69828 21.1518 5.80967 20.7188 5.04257M21.7387 7.71865C22.6022 10.1105 23.0542 13.7848 21.5383 16.9142M20.7188 5.04257C17.1684 -1.24629 7.83127 0.632493 4.27577 5.04257C2.88063 6.77451 -0.0433281 11.1668 1.38159 16.6571C2.27481 20.0988 5.17269 22.2936 8.19743 22.7725M20.7188 5.04257C22.0697 6.9404 24.0299 11.3848 22.3541 15.4153M21.5383 16.9142C21.8737 16.4251 22.1428 15.9235 22.3541 15.4153M8.19743 22.7725C12.1971 23.4683 20.6281 22.971 22.3541 15.4153M14 10.945C13.3836 10.289 12.003 8.63215 11.2034 7.04814C11.1703 6.98257 11.0247 6.98456 10.9937 7.05061C10.5221 8.05496 9.07362 9.92941 8 10.945M11.0333 7.44444C10.9392 9.86549 11 15 12 17" stroke="currentColor" stroke-linecap="round"/>
+    </svg>
+</a>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+</script>
+
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'Copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'Copied';
+            setTimeout(() => {
+                copybutton.innerHTML = 'Copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+        codeblock.parentNode.appendChild(copybutton);
+    });
+</script></main>
+    </body><script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.0.6/medium-zoom.min.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S+Yti0U7QtuZvQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script>
+      const images = Array.from(document.querySelectorAll(".blog-content img"));
+      images.forEach(img => {
+          mediumZoom(img, {
+              margin: 10,  
+              scrollOffset: 40,  
+              container: null,  
+              template: null,  
+              background: 'rgba(0, 0, 0, 0.5)'
+          });
+      });
+  </script>
+
+  
+  <script src="/main.min.6bb26b69159420159c74dc9e097b06a578ed2b68c701466a91a44a9632d851bd0af167a1b30012387b4c512b48ad9ad4d3394e04d77ae38d57e1920fe4ed34fe.js" integrity="sha512-a7JraRWUIBWcdNyeCXsGpXjtK2jHAUZqkaRKljLYUb0K8WehswASOHtMUStIrZrU0zlOBNd6441X4ZIP5O00/g==" crossorigin="anonymous" defer></script></html>

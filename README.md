@@ -1,6 +1,6 @@
 <h1 align="center"> 子舒的博客 </h1>
 <p align="center">分享生活和笔记！</p>
-<p align="center">博客主题：<a href="./themes/">win95</a> - 在线预览：<a href="https://zishu.me" target="_blank">https://zishu.me</a> </p>
+<p align="center">博客主题：<a href="./themes/">ladder</a> - 在线预览：<a href="https://zishu.me" target="_blank">https://zishu.me</a> </p>
 
 <p align="center">
 <img src="https://img.shields.io/github/last-commit/98zi/blog">
@@ -24,7 +24,7 @@
 * [/content](./content/)：博客文章数据
 * [/themes](./themes/)：博客主题文件夹，多主题
 
-![1712026089528](https://imgurl.zishu.me/2024/04/1712026089528.webp)
+<!-- ![1712026089528](https://imgurl.zishu.me/2024/04/1712026089528.webp) -->
 
 
 ## 2.运行博客

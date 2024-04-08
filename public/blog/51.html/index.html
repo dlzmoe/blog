@@ -22,7 +22,7 @@
 "articleSection" : "blog",
 "name" : "使用宝塔面板安装 autoPicCdn 图床工具",
 "headline" : "使用宝塔面板安装 autoPicCdn 图床工具",
-"description" : "很多小伙伴在做个人网站或者博客时，总能用到各种各样的图床工具，毕竟在写文章的时候需要插入一些图片，我也不例外，来盘点一下之前用的工具， 最开始是找一些免费的图床网站，比如 sm.ms 等，但是后来为了安全性和稳定性考虑放弃了这种。 然后是在 github，gitee 仓库存储的（缺点就是 github 访问速度有些尴尬，gitee 其实挺好的，但时用起来怪怪的） 阿里云 oss 储存桶（挺好使的，搭配 picgo 软件，一年也才 9.9，但是链接很尴尬，直接下载，无法右键访问图片，搜过了解决办法，嫌太麻烦就搁置了，至今在那放着） 后来在自己的服务器建一个网站，把图片放进去，使用的时候直接引用链接（缺点就是上传太麻烦，然后就是图片太占内存了，影响服务器的性能） 然后就是今天的重头戏，autoPicCdn，一款开源软件 也是基于 github 实现图床功能，后来才知道可以用 jsdelivr 给资源进行加速，autoPicCdn 就是基于这样的功能实现。 今天就讲讲用宝塔面板配置 autoPicCdn 的流程吧！ 准备工作 进入 github 仓库下载资源到本地。 https:\/\/github.com\/yumusb\/autoPicCdn 在 github 建立一个新的仓库，自由命名，我的是 shuxhan\/pic-cdn，简单易懂 去这个页面 https:\/\/github.com\/settings\/tokens生成一个有写权限的 token（repo：Full control of private repositories 和 write:packages 前打勾，然后点击确定，会生成一个 token 码，记住它，最好复制到你的记事本，不然一刷新网页就不会再显示了 然后解压。 上传到服务器 先利用自己的域名添加一个新的站点，比如我使用的是 img.shuxhan.com ，然后建立数据库。 站点建立成功后，进入目录将默认生成的文件删除，然后点击上传，找到刚才解压的文件，点击上传即可。 配置文件 找到目录中的 up.php 配置文件， 将下面两个地方配置好，具体的内容在代码里。 \/\/必选项 define(\u0026#34;TYPE\u0026#34;,\u0026#34;GITHUB\u0026#34;);\/\/选择 github \/\/define(\u0026#34;TYPE\u0026#34;,\u0026#34;GITEE\u0026#34;);\/\/选择 gitee，如果使用 gitee，需要手动建立 master 分支，可以看这里 https:\/\/gitee.com\/help\/articles\/4122 define(\u0026#34;USER\u0026#34;,\u0026#34;shuxhan\u0026#34;);\/\/你的 GitHub\/Gitee 的用户名 define(\u0026#34;REPO\u0026#34;,\u0026#34;pic-cdn\u0026#34;);\/\/必须是上面用户名下的 公开仓库 define(\u0026#34;MAIL\u0026#34;,\u0026#34;shuxhan@163.com\u0026#34;);\/\/邮箱无所谓，随便写 define(\u0026#34;TOKEN\u0026#34;,\u0026#34;971b0a96ff5af545d5fe081f829cf5542007e70b\u0026#34;); \/\/ Github 去这个页面 https:\/\/github.com\/settings\/tokens生成一个有写权限的token（repo：Full control of private repositories 和 write:packages 前打勾） \/\/ gitee 去往这个页面 https:\/\/gitee.com\/personal_access_tokens \/\/数据库配置文件 \/\/请确保把当前目录下的 pic.sql 导入到你的数据库 $database = array( \u0026#39;dbname\u0026#39; =\u0026gt; \u0026#39;img\u0026#39;,\/\/你的数据库名字 \u0026#39;host\u0026#39; =\u0026gt; \u0026#39;localhost\u0026#39;, \u0026#39;port\u0026#39; =\u0026gt; 3306, \u0026#39;user\u0026#39; =\u0026gt; \u0026#39;img\u0026#39;,\/\/你的数据库用户名 \u0026#39;pass\u0026#39; =\u0026gt; \u0026#39;img\u0026#39;,\/\/你的数据库用户名对应的密码 ); 然后最重要的一步是，将目录下的 pic.sql 导入刚才建立并链接的数据库，先右键复制 pic.sql 文件，然后进入路径 点击粘贴即可。 测试访问 打开你的浏览器，输入绑定的站点 然后随便截个图，然后拖动到上传窗口，显示上传成功，下面是图片的廉价，复制 markdown 可以在写文章的时候使用辣！ 通过 jsdelivr 加速，结果非常令人满意，以后就决定使用 github \u002b jsdelivr \u002b autoPicCdn 来做图床工具啦！",
+"description" : "很多小伙伴在做个人网站或者博客时，总能用到各种各样的图床工具，毕竟在写文章的时候需要插入一些图片，我也不例外，来盘点一下之前用的工具， 最开始是找一些免费的图床网",
 "inLanguage" : "en-US",
 "author" : "子舒",
 "creator" : "子舒",
@@ -38,8 +38,8 @@
 </script><title>使用宝塔面板安装 autoPicCdn 图床工具 - 子舒的博客</title>
 <meta property="og:title" content="使用宝塔面板安装 autoPicCdn 图床工具" />
 <meta property="og:type" content="article" />
-<meta property="og:description" content="很多小伙伴在做个人网站或者博客时，总能用到各种各样的图床工具，毕竟在写文章的时候需要插入一些图片，我也不例外，来盘点一下之前用的工具， 最开始是找一些免费的图床网站，比如 sm.ms 等，但是后来为了安全性和稳定性考虑放弃了这种。 然后是在 github，gitee 仓库存储的（缺点就是 github 访问速度有些尴尬，gitee 其实挺好的，但时用起来怪怪的） 阿里云 oss 储存桶（挺好使的，搭配 picgo 软件，一年也才 9.9，但是链接很尴尬，直接下载，无法右键访问图片，搜过了解决办法，嫌太麻烦就搁置了，至今在那放着） 后来在自己的服务器建一个网站，把图片放进去，使用的时候直接引用链接（缺点就是上传太麻烦，然后就是图片太占内存了，影响服务器的性能） 然后就是今天的重头戏，autoPicCdn，一款开源软件 也是基于 github 实现图床功能，后来才知道可以用 jsdelivr 给资源进行加速，autoPicCdn 就是基于这样的功能实现。 今天就讲讲用宝塔面板配置 autoPicCdn 的流程吧！ 准备工作 进入 github 仓库下载资源到本地。 https://github.com/yumusb/autoPicCdn 在 github 建立一个新的仓库，自由命名，我的是 shuxhan/pic-cdn，简单易懂 去这个页面 https://github.com/settings/tokens生成一个有写权限的 token（repo：Full control of private repositories 和 write:packages 前打勾，然后点击确定，会生成一个 token 码，记住它，最好复制到你的记事本，不然一刷新网页就不会再显示了 然后解压。 上传到服务器 先利用自己的域名添加一个新的站点，比如我使用的是 img.shuxhan.com ，然后建立数据库。 站点建立成功后，进入目录将默认生成的文件删除，然后点击上传，找到刚才解压的文件，点击上传即可。 配置文件 找到目录中的 up.php 配置文件， 将下面两个地方配置好，具体的内容在代码里。 //必选项 define(&amp;#34;TYPE&amp;#34;,&amp;#34;GITHUB&amp;#34;);//选择 github //define(&amp;#34;TYPE&amp;#34;,&amp;#34;GITEE&amp;#34;);//选择 gitee，如果使用 gitee，需要手动建立 master 分支，可以看这里 https://gitee.com/help/articles/4122 define(&amp;#34;USER&amp;#34;,&amp;#34;shuxhan&amp;#34;);//你的 GitHub/Gitee 的用户名 define(&amp;#34;REPO&amp;#34;,&amp;#34;pic-cdn&amp;#34;);//必须是上面用户名下的 公开仓库 define(&amp;#34;MAIL&amp;#34;,&amp;#34;shuxhan@163.com&amp;#34;);//邮箱无所谓，随便写 define(&amp;#34;TOKEN&amp;#34;,&amp;#34;971b0a96ff5af545d5fe081f829cf5542007e70b&amp;#34;); // Github 去这个页面 https://github.com/settings/tokens生成一个有写权限的token（repo：Full control of private repositories 和 write:packages 前打勾） // gitee 去往这个页面 https://gitee.com/personal_access_tokens //数据库配置文件 //请确保把当前目录下的 pic.sql 导入到你的数据库 $database = array( &amp;#39;dbname&amp;#39; =&amp;gt; &amp;#39;img&amp;#39;,//你的数据库名字 &amp;#39;host&amp;#39; =&amp;gt; &amp;#39;localhost&amp;#39;, &amp;#39;port&amp;#39; =&amp;gt; 3306, &amp;#39;user&amp;#39; =&amp;gt; &amp;#39;img&amp;#39;,//你的数据库用户名 &amp;#39;pass&amp;#39; =&amp;gt; &amp;#39;img&amp;#39;,//你的数据库用户名对应的密码 ); 然后最重要的一步是，将目录下的 pic.sql 导入刚才建立并链接的数据库，先右键复制 pic.sql 文件，然后进入路径 点击粘贴即可。 测试访问 打开你的浏览器，输入绑定的站点 然后随便截个图，然后拖动到上传窗口，显示上传成功，下面是图片的廉价，复制 markdown 可以在写文章的时候使用辣！ 通过 jsdelivr 加速，结果非常令人满意，以后就决定使用 github &#43; jsdelivr &#43; autoPicCdn 来做图床工具啦！" />
-<meta name="description" content="很多小伙伴在做个人网站或者博客时，总能用到各种各样的图床工具，毕竟在写文章的时候需要插入一些图片，我也不例外，来盘点一下之前用的工具， 最开始是找一些免费的图床网站，比如 sm.ms 等，但是后来为了安全性和稳定性考虑放弃了这种。 然后是在 github，gitee 仓库存储的（缺点就是 github 访问速度有些尴尬，gitee 其实挺好的，但时用起来怪怪的） 阿里云 oss 储存桶（挺好使的，搭配 picgo 软件，一年也才 9.9，但是链接很尴尬，直接下载，无法右键访问图片，搜过了解决办法，嫌太麻烦就搁置了，至今在那放着） 后来在自己的服务器建一个网站，把图片放进去，使用的时候直接引用链接（缺点就是上传太麻烦，然后就是图片太占内存了，影响服务器的性能） 然后就是今天的重头戏，autoPicCdn，一款开源软件 也是基于 github 实现图床功能，后来才知道可以用 jsdelivr 给资源进行加速，autoPicCdn 就是基于这样的功能实现。 今天就讲讲用宝塔面板配置 autoPicCdn 的流程吧！ 准备工作 进入 github 仓库下载资源到本地。 https://github.com/yumusb/autoPicCdn 在 github 建立一个新的仓库，自由命名，我的是 shuxhan/pic-cdn，简单易懂 去这个页面 https://github.com/settings/tokens生成一个有写权限的 token（repo：Full control of private repositories 和 write:packages 前打勾，然后点击确定，会生成一个 token 码，记住它，最好复制到你的记事本，不然一刷新网页就不会再显示了 然后解压。 上传到服务器 先利用自己的域名添加一个新的站点，比如我使用的是 img.shuxhan.com ，然后建立数据库。 站点建立成功后，进入目录将默认生成的文件删除，然后点击上传，找到刚才解压的文件，点击上传即可。 配置文件 找到目录中的 up.php 配置文件， 将下面两个地方配置好，具体的内容在代码里。 //必选项 define(&amp;#34;TYPE&amp;#34;,&amp;#34;GITHUB&amp;#34;);//选择 github //define(&amp;#34;TYPE&amp;#34;,&amp;#34;GITEE&amp;#34;);//选择 gitee，如果使用 gitee，需要手动建立 master 分支，可以看这里 https://gitee.com/help/articles/4122 define(&amp;#34;USER&amp;#34;,&amp;#34;shuxhan&amp;#34;);//你的 GitHub/Gitee 的用户名 define(&amp;#34;REPO&amp;#34;,&amp;#34;pic-cdn&amp;#34;);//必须是上面用户名下的 公开仓库 define(&amp;#34;MAIL&amp;#34;,&amp;#34;shuxhan@163.com&amp;#34;);//邮箱无所谓，随便写 define(&amp;#34;TOKEN&amp;#34;,&amp;#34;971b0a96ff5af545d5fe081f829cf5542007e70b&amp;#34;); // Github 去这个页面 https://github.com/settings/tokens生成一个有写权限的token（repo：Full control of private repositories 和 write:packages 前打勾） // gitee 去往这个页面 https://gitee.com/personal_access_tokens //数据库配置文件 //请确保把当前目录下的 pic.sql 导入到你的数据库 $database = array( &amp;#39;dbname&amp;#39; =&amp;gt; &amp;#39;img&amp;#39;,//你的数据库名字 &amp;#39;host&amp;#39; =&amp;gt; &amp;#39;localhost&amp;#39;, &amp;#39;port&amp;#39; =&amp;gt; 3306, &amp;#39;user&amp;#39; =&amp;gt; &amp;#39;img&amp;#39;,//你的数据库用户名 &amp;#39;pass&amp;#39; =&amp;gt; &amp;#39;img&amp;#39;,//你的数据库用户名对应的密码 ); 然后最重要的一步是，将目录下的 pic.sql 导入刚才建立并链接的数据库，先右键复制 pic.sql 文件，然后进入路径 点击粘贴即可。 测试访问 打开你的浏览器，输入绑定的站点 然后随便截个图，然后拖动到上传窗口，显示上传成功，下面是图片的廉价，复制 markdown 可以在写文章的时候使用辣！ 通过 jsdelivr 加速，结果非常令人满意，以后就决定使用 github &#43; jsdelivr &#43; autoPicCdn 来做图床工具啦！" />
+<meta property="og:description" content="很多小伙伴在做个人网站或者博客时，总能用到各种各样的图床工具，毕竟在写文章的时候需要插入一些图片，我也不例外，来盘点一下之前用的工具， 最开始是找一些免费的图床网" />
+<meta name="description" content="很多小伙伴在做个人网站或者博客时，总能用到各种各样的图床工具，毕竟在写文章的时候需要插入一些图片，我也不例外，来盘点一下之前用的工具， 最开始是找一些免费的图床网" />
 <meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,48 +62,58 @@
 
 <body>
   <div class="wrapper">
-    <main class="main">
-      <div class="nav-container">
-  <div class="nav">
-    
-    <a class="nav-item" href="/">首页</a>
-    
-    <a class="nav-item" href="/categories/%e6%8a%80%e6%9c%af/">技术</a>
-    
-    <a class="nav-item" href="/categories/%e9%9a%8f%e7%ac%94/">随笔</a>
-    
-    <a class="nav-item" href="/categories/weekly/">周刊</a>
-    
-    <a class="nav-item" href="/message/">留言</a>
-    
-    <a class="nav-item" href="/about/">关于</a>
-    
-    <a class="nav-item"
+    <nav class="navigation">
+  <section class="container"><a class="navigation-brand" href="/">主页</a>
+    <ul class="navigation-list" id="navigation-list">
+      
+      <li class="navigation-item navigation-menu"><a class="navigation-link" href="/categories/%e6%8a%80%e6%9c%af/">技术</a></li>
+      
+      <li class="navigation-item navigation-menu"><a class="navigation-link" href="/categories/%e9%9a%8f%e7%ac%94/">随笔</a></li>
+      
+      <li class="navigation-item navigation-menu"><a class="navigation-link" href="/categories/weekly/">周刊</a></li>
+      
+      <li class="navigation-item navigation-menu"><a class="navigation-link" href="/message/">留言</a></li>
+      
+      <li class="navigation-item navigation-menu"><a class="navigation-link" href="/about/">关于</a></li>
+      
+      <li class="navigation-item navigation-menu"><a class="navigation-link"
       href="https://anghunk.notion.site/155935c878aa4210b71c9052b7f726ff?v=762fadfb010a415ea3644a201e3131cb"
-      target="_blank">gallery</a>
+      target="_blank">gallery</a></li>
+      <li class="navigation-item menu-separator"><span>|</span></li>
+      <li class="navigation-item navigation-social"><a class="navigation-link"
+          href="https://github.com/98zi"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+            viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" class="feather feather-github">
+            <path
+              d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37.0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44.0 0020 4.77 5.07 5.07.0 0019.91 1S18.73.65 16 2.48a13.38 13.38.0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07.0 005 4.77 5.44 5.44.0 003.5 8.55c0 5.42 3.3 6.61 6.44 7A3.37 3.37.0 009 18.13V22">
+            </path>
+          </svg></a></li>
+      <li class="navigation-item navigation-social"><a class="navigation-link"
+          href="https://twitter.com/anghunk1"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+            viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" class="feather feather-twitter">
+            <path
+              d="M23 3a10.9 10.9.0 01-3.14 1.53 4.48 4.48.0 00-7.86 3v1A10.66 10.66.0 013 4s-4 9 5 13a11.64 11.64.0 01-7 2c9 5 20 0 20-11.5a4.5 4.5.0 00-.08-.83A7.72 7.72.0 0023 3z">
+            </path>
+          </svg></a></li>
 
-    <a href="/index.xml" target="_blank"><img src="/images/rss.svg" alt="RSS" class="social-icon" width="1em"></a>
-    <a href="https://twitter.com/zishu520" target="_blank"><img src="/images/twitter.svg" alt="twitter.com/zishu520"
-        class="social-icon" width="1em"></a>
-    <a href="https://github.com/98zi" target="_blank"><img src="/images/github.svg" alt="github.com/98zi"
-        class="social-icon" width="1em"></a>
+    </ul>
+  </section>
+</nav>
+    <main id="content">
+      <div class="home">
+        <h1 class="blog-title">使用宝塔面板安装 autoPicCdn 图床工具</h1>
 
-  </div>
-</div>
+        
+        <div class="date">
+          <time> 2021-02-25</time>
+        </div>
+        <div class="expired-tips" style="display: none;"></div>
+        
 
-      <h1>使用宝塔面板安装 autoPicCdn 图床工具</h1>
-
-      
-      <div class="date">
-        <time datetime=" 2021-02-25 00:00:00 UTC"> 2021-02-25</time>
-      </div>
-      <div class="expired-tips" style="display: none;"></div>
-      
-
-
-      
-      <div class="toc">
-        <nav id="TableOfContents">
+        
+        <div class="toc">
+          <nav id="TableOfContents">
   <ul>
     <li>
       <ul>
@@ -115,12 +125,12 @@
     </li>
   </ul>
 </nav>
-      </div>
-      
-
-      <article class="post-content">
+        </div>
         
-        <p>很多小伙伴在做个人网站或者博客时，总能用到各种各样的图床工具，毕竟在写文章的时候需要插入一些图片，我也不例外，来盘点一下之前用的工具，</p>
+
+        <article class="post-content">
+          
+          <p>很多小伙伴在做个人网站或者博客时，总能用到各种各样的图床工具，毕竟在写文章的时候需要插入一些图片，我也不例外，来盘点一下之前用的工具，</p>
 <ol>
 <li>最开始是找一些免费的图床网站，比如 sm.ms 等，但是后来为了安全性和稳定性考虑放弃了这种。</li>
 <li>然后是在 github，gitee 仓库存储的（缺点就是 github 访问速度有些尴尬，gitee 其实挺好的，但时用起来怪怪的）</li>
@@ -180,10 +190,10 @@
 <p><img src="https://imgurl.zishu.me/images/old/2021/02/25/908c287c823d4ceb7752e9071cde6737.png" alt=""></p>
 <p>通过 jsdelivr 加速，结果非常令人满意，以后就决定使用 github + jsdelivr + autoPicCdn 来做图床工具啦！</p>
 
-      </article>
+        </article>
 
-      
-      <div style="padding:20px 0"></div>
+        
+        <div style="padding:20px 0"></div>
 
 <div class="giscus"></div>
 <script 
@@ -204,9 +214,9 @@
   async>
 </script>
 
-      
+        
 
-
+      </div>
       <footer class="footer">
   <p>© 2020 - 2024
     Powered by

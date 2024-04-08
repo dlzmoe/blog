@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="zh"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue 学习笔记 (1)－－什么是 vue?</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Ladder@一、什么是 vue? 练习时使用，最新版本
+&lt;script src=&#34;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&#34;&gt;&lt;/script&gt; 生产时使用，明确版本号的版本，避免造成不可预见的问题
+&lt;script src=&#34;https://cdn.jsdelivr.net/npm/vue@2.6.12&#34;&gt;&lt;/script&gt; hello world
+&lt;div id=&#34;app&#34;&gt; {{message}} &lt;/div&gt; &lt;script&gt; var app = new Vue({ el: &#34;#app&#34;, data: { message: &#39;hello,world&#39; } }) &lt;/script&gt; 1.v-指令 v-bind－－绑定属性 &lt;div id=&#34;app-2&#34;&gt; &lt;span v-bind:title=&#34;message&#34;&gt; 鼠标悬停几秒钟查看此处动态绑定的提示信息！ &lt;/span&gt; &lt;/div&gt; &lt;script&gt; var app = new Vue({ el: &#39;#app&#39;, data: { message: &#39;页面加载于 &#39; &#43; new Date().toLocaleString() } }) &lt;/script&gt; v-bind是 vue 特有的提供的属性，他会在 dom 上应用一个响应式的操作
+打开 console，输入app.message = &quot;hello&quot;，页面会改变内容只显示hello
+又或者输入app.message = false，内容会直接不显示
+vue 官网例子：">
+    <meta name="author" content="Hugo Ladder">
+    <link rel="canonical" href="http://localhost:1313/blog/27/">
+        <meta name="google-site-verification" content="xxx">
+
+    <link rel="alternate" type="application/rss+xml" href="http://localhost:1313//index.xml" title="LADDER">
+
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-xxx"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-xxx', { 'anonymize_ip': false });
+}
+</script>
+
+
+
+<script async defer data-website-id="xxx" src="https://umami-ochre-nu.vercel.app/hugo-ladder.js"></script>
+
+    <meta property="og:title" content="vue 学习笔记 (1)－－什么是 vue?" />
+<meta property="og:description" content="一、什么是 vue? 练习时使用，最新版本
+&lt;script src=&#34;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&#34;&gt;&lt;/script&gt; 生产时使用，明确版本号的版本，避免造成不可预见的问题
+&lt;script src=&#34;https://cdn.jsdelivr.net/npm/vue@2.6.12&#34;&gt;&lt;/script&gt; hello world
+&lt;div id=&#34;app&#34;&gt; {{message}} &lt;/div&gt; &lt;script&gt; var app = new Vue({ el: &#34;#app&#34;, data: { message: &#39;hello,world&#39; } }) &lt;/script&gt; 1.v-指令 v-bind－－绑定属性 &lt;div id=&#34;app-2&#34;&gt; &lt;span v-bind:title=&#34;message&#34;&gt; 鼠标悬停几秒钟查看此处动态绑定的提示信息！ &lt;/span&gt; &lt;/div&gt; &lt;script&gt; var app = new Vue({ el: &#39;#app&#39;, data: { message: &#39;页面加载于 &#39; &#43; new Date().toLocaleString() } }) &lt;/script&gt; v-bind是 vue 特有的提供的属性，他会在 dom 上应用一个响应式的操作
+打开 console，输入app.message = &quot;hello&quot;，页面会改变内容只显示hello
+又或者输入app.message = false，内容会直接不显示
+vue 官网例子：" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/blog/27/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2020-11-23T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-11-23T00:00:00+00:00" />
+
+
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="vue 学习笔记 (1)－－什么是 vue?"/>
+<meta name="twitter:description" content="一、什么是 vue? 练习时使用，最新版本
+&lt;script src=&#34;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&#34;&gt;&lt;/script&gt; 生产时使用，明确版本号的版本，避免造成不可预见的问题
+&lt;script src=&#34;https://cdn.jsdelivr.net/npm/vue@2.6.12&#34;&gt;&lt;/script&gt; hello world
+&lt;div id=&#34;app&#34;&gt; {{message}} &lt;/div&gt; &lt;script&gt; var app = new Vue({ el: &#34;#app&#34;, data: { message: &#39;hello,world&#39; } }) &lt;/script&gt; 1.v-指令 v-bind－－绑定属性 &lt;div id=&#34;app-2&#34;&gt; &lt;span v-bind:title=&#34;message&#34;&gt; 鼠标悬停几秒钟查看此处动态绑定的提示信息！ &lt;/span&gt; &lt;/div&gt; &lt;script&gt; var app = new Vue({ el: &#39;#app&#39;, data: { message: &#39;页面加载于 &#39; &#43; new Date().toLocaleString() } }) &lt;/script&gt; v-bind是 vue 特有的提供的属性，他会在 dom 上应用一个响应式的操作
+打开 console，输入app.message = &quot;hello&quot;，页面会改变内容只显示hello
+又或者输入app.message = false，内容会直接不显示
+vue 官网例子："/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Blogs",
+      "item": "http://localhost:1313/blog/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "vue 学习笔记 (1)－－什么是 vue?",
+      "item": "http://localhost:1313/blog/27/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "vue 学习笔记 (1)－－什么是 vue?",
+  "name": "vue 学习笔记 (1)－－什么是 vue?",
+  "description": "一、什么是 vue? 练习时使用，最新版本\n\u0026lt;script src=\u0026#34;https://cdn.jsdelivr.net/npm/vue/dist/vue.js\u0026#34;\u0026gt;\u0026lt;/script\u0026gt; 生产时使用，明确版本号的版本，避免造成不可预见的问题\n\u0026lt;script src=\u0026#34;https://cdn.jsdelivr.net/npm/vue@2.6.12\u0026#34;\u0026gt;\u0026lt;/script\u0026gt; hello world\n\u0026lt;div id=\u0026#34;app\u0026#34;\u0026gt; {{message}} \u0026lt;/div\u0026gt; \u0026lt;script\u0026gt; var app = new Vue({ el: \u0026#34;#app\u0026#34;, data: { message: \u0026#39;hello,world\u0026#39; } }) \u0026lt;/script\u0026gt; 1.v-指令 v-bind－－绑定属性 \u0026lt;div id=\u0026#34;app-2\u0026#34;\u0026gt; \u0026lt;span v-bind:title=\u0026#34;message\u0026#34;\u0026gt; 鼠标悬停几秒钟查看此处动态绑定的提示信息！ \u0026lt;/span\u0026gt; \u0026lt;/div\u0026gt; \u0026lt;script\u0026gt; var app = new Vue({ el: \u0026#39;#app\u0026#39;, data: { message: \u0026#39;页面加载于 \u0026#39; + new Date().toLocaleString() } }) \u0026lt;/script\u0026gt; v-bind是 vue 特有的提供的属性，他会在 dom 上应用一个响应式的操作\n打开 console，输入app.message = \u0026quot;hello\u0026quot;，页面会改变内容只显示hello\n又或者输入app.message = false，内容会直接不显示\nvue 官网例子：",
+  "keywords": [
+    "vue", "笔记"
+  ],
+  "articleBody": "一、什么是 vue? 练习时使用，最新版本\n\u003cscript src=\"https://cdn.jsdelivr.net/npm/vue/dist/vue.js\"\u003e\u003c/script\u003e 生产时使用，明确版本号的版本，避免造成不可预见的问题\n\u003cscript src=\"https://cdn.jsdelivr.net/npm/vue@2.6.12\"\u003e\u003c/script\u003e hello world\n\u003cdiv id=\"app\"\u003e {{message}} \u003c/div\u003e \u003cscript\u003e var app = new Vue({ el: \"#app\", data: { message: 'hello,world' } }) \u003c/script\u003e 1.v-指令 v-bind－－绑定属性 \u003cdiv id=\"app-2\"\u003e \u003cspan v-bind:title=\"message\"\u003e 鼠标悬停几秒钟查看此处动态绑定的提示信息！ \u003c/span\u003e \u003c/div\u003e \u003cscript\u003e var app = new Vue({ el: '#app', data: { message: '页面加载于 ' + new Date().toLocaleString() } }) \u003c/script\u003e v-bind是 vue 特有的提供的属性，他会在 dom 上应用一个响应式的操作\n打开 console，输入app.message = \"hello\"，页面会改变内容只显示hello\n又或者输入app.message = false，内容会直接不显示\nvue 官网例子：\n\u003cimg v-bind:src=\"imageSrc\"\u003e \u003cbutton v-bind:[key]=\"value\"\u003e\u003c/button\u003e \u003cimg :src=\"imageSrc\"\u003e \u003cbutton :[key]=\"value\"\u003e\u003c/button\u003e \u003cimg :src=\"'/path/to/images/' + fileName\"\u003e \u003cdiv :class=\"{ red: isRed }\"\u003e\u003c/div\u003e \u003cdiv :class=\"[classA, classB]\"\u003e\u003c/div\u003e \u003cdiv :class=\"[classA, { classB: isB, classC: isC }]\"\u003e \u003cdiv :style=\"{ fontSize: size + 'px' }\"\u003e\u003c/div\u003e \u003cdiv :style=\"[styleObjectA, styleObjectB]\"\u003e\u003c/div\u003e \u003cdiv v-bind=\"{ id: someProp, 'other-attr': otherProp }\"\u003e\u003c/div\u003e \u003cdiv v-bind:text-content.prop=\"text\"\u003e\u003c/div\u003e \u003cmy-component :prop=\"someThing\"\u003e\u003c/my-component\u003e \u003cchild-component v-bind=\"$props\"\u003e\u003c/child-component\u003e \u003csvg\u003e\u003ca :xlink:special=\"foo\"\u003e\u003c/a\u003e\u003c/svg\u003e v-if－－控制元素的显示隐藏 刚才写了，通过app.message = false，可以让message代表的内容处于隐藏状态，但是控制的只能是通过v-for引入的内容，无法直接让元素隐藏\n其实，vue 中还有一个专门控制元素显示隐藏的指令－－v-if\n\u003cdiv id=\"app\"\u003e \u003cspan v-if=\"show\"\u003e {{message}} \u003c/span\u003e \u003c/div\u003e \u003cscript\u003e var app = new Vue({ el: \"#app\", data: { message: 'hello,world', show: true } }) \u003c/script\u003e 给元素绑定一个指令v-if = \"show\"，然后在 data 中控制show的布尔值，true 显示，false 隐藏\n同时还有这个功能的指令v-show，根据表达式之真假值，切换元素的display CSS property，也是通过绑定的布尔值来显示隐藏\n但是v-if和v-show有些区别\n(1) v-if 是控制元素是否渲染最终控制元素的显示隐藏，适用于切换频率低的情况 (2) v-show 不管显示隐藏都渲染，然后通过布尔值绑定display: none属性，适用于切换频率高的情况\n注意：v-show不支持元素，也不支持v-else\n搭配用法\nv-else和v-else-if\n可以通过使用v-else达到v-if的效果，必须和v-if搭配使用，比如：\n\u003cdiv v-if=\"1\u003e2\"\u003e hello \u003c/div\u003e \u003cdiv v-else\u003e hi \u003c/div\u003e 如果v-if不成立，执行v-else，也就是显示 v-else 里面的内容\n是不是有点 javascript 里面if函数的感觉了\nv-else-if用法大致一样，必须和v-if和v-else搭配使用\nv-for－－遍历数组并显示到页面上 v-for算是 vue 的核心指令之一了把，主要是渲染一个项目列表的\n\u003cdiv id=\"app\"\u003e \u003cdiv v-for=\"item in list\"\u003e{{item.message}}\u003c/div\u003e \u003c/div\u003e \u003cscript\u003e var app = new Vue({ el: \"#app\", data: { list: [ {message: 'html'}, {message: 'css'} ] } }) \u003c/script\u003e 可以直接把列表数据循环输出\n并且在控制台中通过push()还能添加新的列表项\napp.list.push({message: \"js\"}) vue 对数据操作，就是这么神奇\n不推荐v-for和v-if同时使用，因为v-for拥有更高的优先级\nv-on－－绑定事件监听器 即绑定事件，通过v-on给 div 绑定了一个点击事件，注意，在reverseMessage方法中，我们更新了应用的状态，但是吗诶呀触碰到 dom，直接通过 vue 来进行处理，编写代码时只需要关注逻辑层即可\nv-on:click=\"messagenone\"，然后在methods里面写上事件方法\n\u003cdiv id=\"app\"\u003e \u003cdiv v-on:click=\"messagenone\" id=\"demo\"\u003e{{message}}\u003c/div\u003e \u003c/div\u003e \u003cscript\u003e var app = new Vue({ el: \"#app\", data: { message: 'hello,wolrd' }, methods: { messagenone: function() { var demo = document.getElementById('demo'); demo.innerHTML = '' } } }) \u003c/script\u003e v-model－－数据的双向绑定 vue 还提供了v-model指令，它能轻松实现表单输入和应用状态之间的双向绑定\n可使用场景：标签 input, select, textarea 和 components\n\u003cdiv id=\"app\"\u003e \u003cdiv\u003e{{message}}\u003c/div\u003e \u003cinput type=\"text\" v-model=\"message\"\u003e \u003c/div\u003e \u003cscript\u003e var app = new Vue({ el: \"#app\", data: { message: 'hello,wolrd' } }) \u003c/script\u003e v-text 更新元素的内容 \u003cdiv id=\"app\"\u003e \u003cdiv v-text=\"message\"\u003e\u003c/div\u003e \u003cdiv\u003e{{message}}\u003c/div\u003e \u003c/div\u003e \u003cscript\u003e var vm = new Vue({ el: '#app', data: { message: 'hello,wolrd' } }) \u003c/script\u003e 上面的 div 和下面的 div 内容跟随一致变化\nv-html－－更新元素的 innerHTML 不建议使用，在网站上动态渲染 html 是非常危险的，容易导致XXS 攻击，不能用在用户提交的内容上，如果必须使用 v-html，可以考虑通过使用组件来代替\nv-pre 跳过绑定的元素和他的子元素的编译，直接显示原始内容\n跳过没有指令的节点不进行编译，直接显示内容，会加快页面的响应\nv-cloak 在编译没有编译完成之前，模板处于的状态\n\u003cstyle\u003ev-cloak] { display: none; }\u003c/style\u003e \u003cdiv v-cloak\u003e {{message}} \u003c/div\u003e \u003cscript\u003e var vm = new Vue({ el: '#app', data: { message: 'hello,wolrd' } }) \u003c/script\u003e 上述代码表示的含义是，如果网络不好，{{message}}模板代表的hello,world还没有编译成功，此时{{message}}处于隐藏状态，当编译完成，页面直接显示hello,world\nv-once－－一次性渲染 绑定该指令的元素及其子元素只会进行一次渲染，之后页面的第二次渲染会将其视为静态资源并跳过，可以用来优化性能\n\u003cdiv id=\"app\"\u003e \u003cspan v-once\u003e{{message}}\u003c/span\u003e \u003c/div\u003e \u003cscript\u003e var vm = new Vue({ el: '#app', data: { message: 'hello,wolrd', } }) \u003c/script\u003e 使用场景：表单提交。可防止用户在请求未及时响应时，多次提交~\n2.组件化构建应用 组件化也是 vue 的核心机制之一，它允许我们使用小型，可复用的组件来构建大型应用\n在 vue 里，一个组件本质上是一个拥有预定义选项的一个 vue 实例。在 vue 中注册组件很简单\n// 定义名为 todo-item 的新组件 Vue.component('todo-item', { template: '这是个待办项' }) var app = new Vue(...) 现在可以用它构建另一个组件模板\n\u003col\u003e \u003ctodo-item\u003e\u003c/todo-item\u003e \u003c/ol\u003e 但是这样会为每个待办项渲染同样的文本，这看起来并不炫酷。我们应该能从父作用域将数据传到子组件才对。让我们来修改一下组件的定义，使之能够接受一个props\nVue.component('todo-item', { // todo-item 组件现在接受一个 // \"props\"，类似于一个自定义 attribute。 // 这个 props 名为 todo。 props: ['todo'], template: '{{ todo.text }}' }) 现在，我们可以使用v-bind指令将待办项传到循环输出的每个组件中\n现在我们为每个 todo-item 提供 todo 对象 todo 对象是变量，即其内容可以是动态的，我们也需要为每个组件提供一个key\n\u003cdiv id=\"app-7\"\u003e \u003col\u003e \u003ctodo-item v-for=\"item in groceryList\" v-bind:todo=\"item\" v-bind:key=\"item.id\" \u003e\u003c/todo-item\u003e \u003c/ol\u003e \u003c/div\u003e Vue.component('todo-item', { props: ['todo'], template: '{{ todo.text }}' }) var app7 = new Vue({ el: '#app-7', data: { groceryList: [ { id: 0, text: '蔬菜' }, { id: 1, text: '奶酪' }, { id: 2, text: '随便其它什么人吃的东西' } ] } }) 尽管这只是一个刻意设计的例子，但是我们已经设法将应用分割成了两个更小的单元。子单元通过prop接口与父单元进行了良好的解耦。我们现在可以进一步改进 组件，提供更为复杂的模板和逻辑，而不会影响到父单元\n在一个大型应用中，有必要将整个应用程序划分为组件，以使开发更易管理\n\u003cdiv id=\"app\"\u003e \u003capp-nav\u003e\u003c/app-nav\u003e \u003capp-view\u003e \u003capp-sidebar\u003e\u003c/app-sidebar\u003e \u003capp-content\u003e\u003c/app-content\u003e \u003c/app-view\u003e \u003c/div\u003e ",
+  "wordCount" : "575",
+  "inLanguage": "zh",
+  "datePublished": "2020-11-23T00:00:00Z",
+  "dateModified": "2020-11-23T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Hugo Ladder"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http://localhost:1313/blog/27/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "LADDER",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http://localhost:1313/favicon.ico"
+    }
+  }
+}
+</script>
+    <link rel="icon" href="/images/avatar.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/avatar.png">
+
+<link rel="manifest" href="/images/avatar.png">
+    
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css" />
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.css" media="screen">
+    
+
+
+    
+    <link rel="stylesheet" href="/scss/highlight/github-dark.min.min.66034289ee9a113219a2c4aae0a8bd2095ab255c832a42efcf5863f10814e7a1.css" />
+
+    
+    <script src="/js/highlight.min.min.c607d6febd16934a82eb61d3a896ed9d869f54373cc63ce95864ed5488fe3128.js"></script>
+    <script>hljs.highlightAll();</script>
+
+    <script>(()=>{var t=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,e=localStorage.getItem("theme");t&&e===null&&(localStorage.setItem("theme","dark"),document.documentElement.setAttribute("data-dark-mode","")),t&&e==="dark"&&document.documentElement.setAttribute("data-dark-mode",""),e==="dark"&&document.documentElement.setAttribute("data-dark-mode","")})()</script>
+    </head>
+<body>
+      <main class="wrapper"><nav class="navigation">
+    <section class="container">
+        <a class="navigation-brand" href="/">
+            HOME
+        </a>
+        <input type="checkbox" id="menu-toggle" />
+        <label class="menu-button float-right" for="menu-toggle">
+            <span></span><span></span><span></span>
+        </label>
+        
+        <ul class="navigation-list" id="navigation-list">
+            
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/blog">文章</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/tags">分类</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/archives">历史文章</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/guestbook">留言板</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="https://umami-ochre-nu.vercel.app/share/R1lHz7QY/hugo-ladder-exampleSite">网站统计</a>
+            </li>
+            
+            
+
+            <li class="navigation-item menu-separator">
+                <span>|</span>
+            </li>
+
+            
+            
+            <li class="navigation-item navigation-social">
+                <a class="navigation-link" href="https://github.com/guangzhengli/hugo-theme-ladder"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+            </li>
+            
+            <li class="navigation-item navigation-social">
+                <a class="navigation-link" href="https://umami-ochre-nu.vercel.app/share/R1lHz7QY/hugo-ladder-exampleSite"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg></a>
+            </li>
+            
+            
+
+            <li class="navigation-item navigation-dark">
+                <button id="mode" type="button" aria-label="toggle user light or dark theme">
+                    <span class="toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span>
+                    <span class="toggle-light"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></span>
+                </button>
+            </li>
+
+            
+            
+            
+            
+            
+            
+            
+            <li class="navigation-item navigation-language">
+                <a href="http://localhost:1313/en/">EN</a>
+            </li>
+            
+            
+            
+            
+        </ul>
+        
+    </section>
+</nav>
+<div id="content">
+<article class="blog-single">
+  <header class="blog-title">
+    <h1>vue 学习笔记 (1)－－什么是 vue?</h1>
+  </header>
+
+  <p>
+  <small>
+    2020年11月23日&nbsp;· 575 字&nbsp;· 3 分钟</small>
+
+  <small>
+      
+      ·
+      
+      
+      <a href="http://localhost:1313/tags/vue/">Vue</a>
+      
+      <a href="http://localhost:1313/tags/%E7%AC%94%E8%AE%B0/">笔记</a>
+      
+    </small>
+  
+<p>
+
+  <div class="blog-toc">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一什么是-vue">一、什么是 vue?</a>
+      <ul>
+        <li><a href="#1v-指令">1.v-指令</a></li>
+        <li><a href="#2组件化构建应用">2.组件化构建应用</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+
+  <section class="blog-content"><h2 id="一什么是-vue">一、什么是 vue?</h2>
+<p>练习时使用，最新版本</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span></code></pre></div><p>生产时使用，明确版本号的版本，避免造成不可预见的问题</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://cdn.jsdelivr.net/npm/vue@2.6.12&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span></code></pre></div><p><strong>hello world</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;app&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    {{message}}
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">app</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;#app&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">message</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;hello,world&#39;</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    })
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span></code></pre></div><h3 id="1v-指令">1.v-指令</h3>
+<ol>
+<li>v-bind－－绑定属性</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;app-2&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">v-bind:title</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;message&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    鼠标悬停几秒钟查看此处动态绑定的提示信息！
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">app</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;#app&#39;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">message</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;页面加载于 &#39;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">new</span> Date().<span style="color:#a6e22e">toLocaleString</span>()
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>})
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span></code></pre></div><p><code>v-bind</code>是 vue 特有的提供的属性，他会在 dom 上应用一个响应式的操作</p>
+<p>打开 console，输入<code>app.message = &quot;hello&quot;</code>，页面会改变内容只显示<code>hello</code></p>
+<p>又或者输入<code>app.message = false</code>，内容会直接不显示</p>
+<p>vue 官网例子：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- 绑定一个 attribute --&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">v-bind:src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;imageSrc&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- 动态 attribute 名 (2.6.0+) --&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">v-bind:</span><span style="color:#960050;background-color:#1e0010">[</span><span style="color:#a6e22e">key</span><span style="color:#960050;background-color:#1e0010">]=&#34;</span><span style="color:#a6e22e">value</span><span style="color:#960050;background-color:#1e0010">&#34;</span>&gt;&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- 缩写 --&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">:src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;imageSrc&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- 动态 attribute 名缩写 (2.6.0+) --&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">:</span><span style="color:#960050;background-color:#1e0010">[</span><span style="color:#a6e22e">key</span><span style="color:#960050;background-color:#1e0010">]=&#34;</span><span style="color:#a6e22e">value</span><span style="color:#960050;background-color:#1e0010">&#34;</span>&gt;&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- 内联字符串拼接 --&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">:src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#39;/path/to/images/&#39; + fileName&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- class 绑定 --&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">:class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{ red: isRed }&#34;</span>&gt;&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">:class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;[classA, classB]&#34;</span>&gt;&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">:class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;[classA, { classB: isB, classC: isC }]&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- style 绑定 --&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">:style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{ fontSize: size + &#39;px&#39; }&#34;</span>&gt;&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">:style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;[styleObjectA, styleObjectB]&#34;</span>&gt;&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- 绑定一个全是 attribute 的对象 --&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">v-bind</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{ id: someProp, &#39;other-attr&#39;: otherProp }&#34;</span>&gt;&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- 通过 prop 修饰符绑定 DOM attribute --&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">v-bind:text-content</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">prop</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span>&gt;&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- prop 绑定。“prop”必须在 my-component 中声明。--&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">my-component</span> <span style="color:#a6e22e">:prop</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;someThing&#34;</span>&gt;&lt;/<span style="color:#f92672">my-component</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- 通过 $props 将父组件的 props 一起传给子组件 --&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">child-component</span> <span style="color:#a6e22e">v-bind</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;$props&#34;</span>&gt;&lt;/<span style="color:#f92672">child-component</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- XLink --&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">svg</span>&gt;&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">:xlink:special</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;foo&#34;</span>&gt;&lt;/<span style="color:#f92672">a</span>&gt;&lt;/<span style="color:#f92672">svg</span>&gt;
+</span></span></code></pre></div><hr>
+<ol start="2">
+<li>v-if－－控制元素的显示隐藏</li>
+</ol>
+<p>刚才写了，通过<code>app.message = false</code>，可以让<code>message</code>代表的内容处于隐藏状态，但是控制的只能是通过<code>v-for</code>引入的内容，无法直接让元素隐藏</p>
+<p>其实，vue 中还有一个专门控制元素显示隐藏的指令－－<code>v-if</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;app&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">v-if</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;show&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    {{message}}
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">app</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;#app&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">message</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;hello,world&#39;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">show</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  })
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span></code></pre></div><p>给元素绑定一个指令<code>v-if = &quot;show&quot;</code>，然后在 data 中控制<code>show</code>的布尔值，true 显示，false 隐藏</p>
+<p>同时还有这个功能的指令<code>v-show</code>，根据表达式之真假值，切换元素的<code>display</code> CSS property，也是通过绑定的布尔值来显示隐藏</p>
+<p><strong>但是<code>v-if</code>和<code>v-show</code>有些区别</strong></p>
+<p>(1) v-if 是控制元素是否渲染最终控制元素的显示隐藏，适用于切换频率低的情况
+(2) v-show 不管显示隐藏都渲染，然后通过布尔值绑定<code>display: none</code>属性，适用于切换频率高的情况</p>
+<blockquote>
+<p>注意：<code>v-show</code>不支持<code>&lt;tempalte&gt;</code>元素，也不支持<code>v-else</code></p>
+</blockquote>
+<p><strong>搭配用法</strong></p>
+<p><code>v-else</code>和<code>v-else-if</code></p>
+<p>可以通过使用<code>v-else</code>达到<code>v-if</code>的效果，必须和<code>v-if</code>搭配使用，比如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">v-if</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;1&gt;2&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>  hello
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">v-else</span>&gt;
+</span></span><span style="display:flex;"><span>  hi
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span></code></pre></div><p>如果<code>v-if</code>不成立，执行<code>v-else</code>，也就是显示 v-else 里面的内容</p>
+<p>是不是有点 javascript 里面<code>if函数</code>的感觉了</p>
+<p><code>v-else-if</code>用法大致一样，必须和<code>v-if</code>和<code>v-else</code>搭配使用</p>
+<hr>
+<ol start="3">
+<li>v-for－－遍历数组并显示到页面上</li>
+</ol>
+<p><code>v-for</code>算是 vue 的核心指令之一了把，主要是渲染一个项目列表的</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;app&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">v-for</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;item in list&#34;</span>&gt;{{item.message}}&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">app</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;#app&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">list</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>        {<span style="color:#a6e22e">message</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;html&#39;</span>},
+</span></span><span style="display:flex;"><span>        {<span style="color:#a6e22e">message</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;css&#39;</span>}
+</span></span><span style="display:flex;"><span>      ]
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  })
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span></code></pre></div><p>可以直接把列表数据循环输出</p>
+<p>并且在控制台中通过<code>push()</code>还能添加新的列表项</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">list</span>.<span style="color:#a6e22e">push</span>({<span style="color:#a6e22e">message</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;js&#34;</span>})
+</span></span></code></pre></div><p>vue 对数据操作，就是这么神奇</p>
+<p><strong>不推荐<code>v-for</code>和<code>v-if</code>同时使用，因为<code>v-for</code>拥有更高的优先级</strong></p>
+<hr>
+<ol>
+<li>v-on－－绑定事件监听器</li>
+</ol>
+<p>即绑定事件，通过<code>v-on</code>给 div 绑定了一个点击事件，注意，在<code>reverseMessage</code>方法中，我们更新了应用的状态，但是吗诶呀触碰到 dom，直接通过 vue 来进行处理，编写代码时只需要关注逻辑层即可</p>
+<p><code>v-on:click=&quot;messagenone&quot;</code>，然后在<code>methods</code>里面写上事件方法</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;app&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">v-on:click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;messagenone&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;demo&#34;</span>&gt;{{message}}&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">app</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;#app&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">message</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;hello,wolrd&#39;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">messagenone</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">demo</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;demo&#39;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">demo</span>.<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  })
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span></code></pre></div><hr>
+<ol start="5">
+<li>v-model－－数据的双向绑定</li>
+</ol>
+<p>vue 还提供了<code>v-model</code>指令，它能轻松实现表单输入和应用状态之间的双向绑定</p>
+<p><strong>可使用场景：标签 input, select, textarea 和 components</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;app&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">div</span>&gt;{{message}}&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">v-model</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;message&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">app</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;#app&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">message</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;hello,wolrd&#39;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  })
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span></code></pre></div><hr>
+<ol start="6">
+<li>v-text 更新元素的内容</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;app&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">v-text</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;message&#34;</span>&gt;&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span>&gt;{{message}}&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">vm</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;#app&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">message</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;hello,wolrd&#39;</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    })
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span></code></pre></div><p>上面的 div 和下面的 div 内容跟随一致变化</p>
+<hr>
+<ol start="7">
+<li>v-html－－更新元素的 innerHTML</li>
+</ol>
+<p><!-- raw HTML omitted -->不建议使用，在网站上动态渲染 html 是非常危险的，容易导致<code>XXS 攻击</code>，不能用在用户提交的内容上，如果必须使用 v-html，可以考虑通过使用组件来代替<!-- raw HTML omitted --></p>
+<hr>
+<ol start="8">
+<li>v-pre</li>
+</ol>
+<p>跳过绑定的元素和他的子元素的编译，直接显示原始内容</p>
+<p>跳过没有指令的节点不进行编译，直接显示内容，会加快页面的响应</p>
+<hr>
+<ol start="9">
+<li>v-cloak</li>
+</ol>
+<p>在编译没有编译完成之前，模板处于的状态</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">style</span>&gt;<span style="color:#f92672">v-cloak</span><span style="color:#f92672">]</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">display</span>: <span style="color:#66d9ef">none</span>;
+</span></span><span style="display:flex;"><span>}&lt;/<span style="color:#f92672">style</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">v-cloak</span>&gt;
+</span></span><span style="display:flex;"><span>  {{message}}
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">vm</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;#app&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    	<span style="color:#a6e22e">message</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;hello,wolrd&#39;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  })
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span></code></pre></div><p>上述代码表示的含义是，如果网络不好，<code>{{message}}</code>模板代表的<code>hello,world</code>还没有编译成功，此时<code>{{message}}</code>处于隐藏状态，当编译完成，页面直接显示<code>hello,world</code></p>
+<hr>
+<ol start="10">
+<li>v-once－－一次性渲染</li>
+</ol>
+<p>绑定该指令的元素及其子元素只会进行一次渲染，之后页面的第二次渲染会将其视为静态资源并跳过，可以用来优化性能</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;app&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">v-once</span>&gt;{{message}}&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">vm</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;#app&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">message</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;hello,wolrd&#39;</span>,
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    })
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span></code></pre></div><p>使用场景：表单提交。可防止用户在请求未及时响应时，多次提交~</p>
+<h3 id="2组件化构建应用">2.组件化构建应用</h3>
+<p>组件化也是 vue 的核心机制之一，它允许我们使用小型，可复用的组件来构建大型应用</p>
+<p><img alt="vue-learn-3.png" src="https://i.loli.net/2020/11/28/UDzxwoIJLq9u6nG.png"></p>
+<p>在 vue 里，一个组件本质上是一个拥有预定义选项的一个 vue 实例。在 vue 中注册组件很简单</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// 定义名为 todo-item 的新组件
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">component</span>(<span style="color:#e6db74">&#39;todo-item&#39;</span>, {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">template</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;&lt;li&gt;这是个待办项&lt;/li&gt;&#39;</span>
+</span></span><span style="display:flex;"><span>})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">app</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>(...)
+</span></span></code></pre></div><p>现在可以用它构建另一个组件模板</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">ol</span>&gt;
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">&lt;!-- 创建一个 todo-item 组件的实例 --&gt;</span>
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">todo-item</span>&gt;&lt;/<span style="color:#f92672">todo-item</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">ol</span>&gt;
+</span></span></code></pre></div><p>但是这样会为每个待办项渲染同样的文本，这看起来并不炫酷。我们应该能从父作用域将数据传到子组件才对。让我们来修改一下组件的定义，使之能够接受一个<code>props</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">component</span>(<span style="color:#e6db74">&#39;todo-item&#39;</span>, {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// todo-item 组件现在接受一个
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">// &#34;props&#34;，类似于一个自定义 attribute。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">// 这个 props 名为 todo。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">props</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#39;todo&#39;</span>],
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">template</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;&lt;li&gt;{{ todo.text }}&lt;/li&gt;&#39;</span>
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><p>现在，我们可以使用<code>v-bind</code>指令将待办项传到循环输出的每个组件中</p>
+<p>现在我们为每个 todo-item 提供 todo 对象 todo 对象是变量，即其内容可以是动态的，我们也需要为每个组件提供一个<code>key</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;app-7&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">ol</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">todo-item</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">v-for</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;item in groceryList&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">v-bind:todo</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;item&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">v-bind:key</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;item.id&#34;</span>
+</span></span><span style="display:flex;"><span>    &gt;&lt;/<span style="color:#f92672">todo-item</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">ol</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">component</span>(<span style="color:#e6db74">&#39;todo-item&#39;</span>, {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">props</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#39;todo&#39;</span>],
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">template</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;&lt;li&gt;{{ todo.text }}&lt;/li&gt;&#39;</span>
+</span></span><span style="display:flex;"><span>})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">app7</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">el</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;#app-7&#39;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">groceryList</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>      { <span style="color:#a6e22e">id</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;蔬菜&#39;</span> },
+</span></span><span style="display:flex;"><span>      { <span style="color:#a6e22e">id</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;奶酪&#39;</span> },
+</span></span><span style="display:flex;"><span>      { <span style="color:#a6e22e">id</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>, <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;随便其它什么人吃的东西&#39;</span> }
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><p>尽管这只是一个刻意设计的例子，但是我们已经设法将应用分割成了两个更小的单元。子单元通过<code>prop</code>接口与父单元进行了良好的解耦。我们现在可以进一步改进 <!-- raw HTML omitted --> 组件，提供更为复杂的模板和逻辑，而不会影响到父单元</p>
+<p>在一个大型应用中，有必要将整个应用程序划分为组件，以使开发更易管理</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;app&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">app-nav</span>&gt;&lt;/<span style="color:#f92672">app-nav</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">app-view</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">app-sidebar</span>&gt;&lt;/<span style="color:#f92672">app-sidebar</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">app-content</span>&gt;&lt;/<span style="color:#f92672">app-content</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">app-view</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span></code></pre></div></section>
+
+  
+  
+  <div class="paginator">
+    
+    <a class="prev" href="http://localhost:1313/blog/28/">
+      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M9.94496 9C9.28897 9.61644 7.63215 10.997 6.04814 11.7966C5.98257 11.8297 5.98456 11.9753 6.05061 12.0063C7.05496 12.4779 8.92941 13.9264 9.94496 15M6.44444 11.9667C8.86549 12.0608 14 12 16 11" stroke="currentColor" stroke-linecap="round"/>
+      </svg>
+      <span>vue 学习笔记 (2)－－vue 实例和模板语法</span></a>
+    
+    
+    <a class="next" href="http://localhost:1313/blog/25/"><span>对象，类和接口之间的关系</span>
+      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M12.055 9C12.711 9.61644 14.3679 10.997 15.9519 11.7966C16.0174 11.8297 16.0154 11.9753 15.9494 12.0063C14.945 12.4779 13.0706 13.9264 12.055 15M15.5556 11.9667C13.1345 12.0608 8 12 6 11" stroke="currentColor" stroke-linecap="round"/>
+      </svg>
+    </a>
+    
+  </div>
+  
+
+  
+
+
+  
+  
+<div class="comments">
+  <script>
+      const getTheme = window.localStorage && window.localStorage.getItem("theme");
+      let theme = getTheme === 'dark' ? 'dark' : 'light';
+      let s = document.createElement('script');
+      s.src = 'https://giscus.app/client.js';
+      s.setAttribute('data-repo', 'username\/reponame');
+      s.setAttribute('data-repo-id', 'R_xxx');
+      s.setAttribute('data-category', 'Announcements');
+      s.setAttribute('data-category-id', 'DIC_xxx');
+      s.setAttribute('data-mapping', 'pathname');
+      s.setAttribute('data-strict', '0');
+      s.setAttribute('data-reactions-enabled', '1');
+      s.setAttribute('data-emit-metadata', '0');
+      s.setAttribute('data-input-position', 'top');
+      s.setAttribute('data-theme', theme);
+      s.setAttribute('data-lang', 'zh');
+      s.setAttribute('data-loading', 'lazy');
+      s.setAttribute('crossorigin', 'anonymous');
+      s.setAttribute('async', '');
+      document.querySelector('div.comments').innerHTML = '';
+      document.querySelector('div.comments').appendChild(s);
+  </script>
+</div>
+
+</article>
+
+
+        </div><footer class="footer">
+  <p>&copy; 2024 <a href="http://localhost:1313/">LADDER</a>
+    Powered by
+    <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>
+    <a href="https://github.com/guangzhengli/hugo-theme-ladder" rel="noopener" target="_blank">Ladder</a>
+️  </p>
+</footer>
+
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10.5376 22.7916C11.0152 22.7207 22.5795 21.1781 22.0978 10.4211C22.0536 9.43274 21.9303 8.53367 21.7387 7.71865M10.5376 22.7916C16.876 22.3728 20.0969 19.8899 21.5383 16.9142M10.5376 22.7916C9.7707 22.9055 8.97982 22.8964 8.19743 22.7725M21.7387 7.71865C21.4988 6.69828 21.1518 5.80967 20.7188 5.04257M21.7387 7.71865C22.6022 10.1105 23.0542 13.7848 21.5383 16.9142M20.7188 5.04257C17.1684 -1.24629 7.83127 0.632493 4.27577 5.04257C2.88063 6.77451 -0.0433281 11.1668 1.38159 16.6571C2.27481 20.0988 5.17269 22.2936 8.19743 22.7725M20.7188 5.04257C22.0697 6.9404 24.0299 11.3848 22.3541 15.4153M21.5383 16.9142C21.8737 16.4251 22.1428 15.9235 22.3541 15.4153M8.19743 22.7725C12.1971 23.4683 20.6281 22.971 22.3541 15.4153M14 10.945C13.3836 10.289 12.003 8.63215 11.2034 7.04814C11.1703 6.98257 11.0247 6.98456 10.9937 7.05061C10.5221 8.05496 9.07362 9.92941 8 10.945M11.0333 7.44444C10.9392 9.86549 11 15 12 17" stroke="currentColor" stroke-linecap="round"/>
+    </svg>
+</a>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+</script>
+
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'Copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'Copied';
+            setTimeout(() => {
+                copybutton.innerHTML = 'Copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+        codeblock.parentNode.appendChild(copybutton);
+    });
+</script></main>
+    </body><script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.0.6/medium-zoom.min.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S+Yti0U7QtuZvQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script>
+      const images = Array.from(document.querySelectorAll(".blog-content img"));
+      images.forEach(img => {
+          mediumZoom(img, {
+              margin: 10,  
+              scrollOffset: 40,  
+              container: null,  
+              template: null,  
+              background: 'rgba(0, 0, 0, 0.5)'
+          });
+      });
+  </script>
+
+  
+  <script src="/main.min.6bb26b69159420159c74dc9e097b06a578ed2b68c701466a91a44a9632d851bd0af167a1b30012387b4c512b48ad9ad4d3394e04d77ae38d57e1920fe4ed34fe.js" integrity="sha512-a7JraRWUIBWcdNyeCXsGpXjtK2jHAUZqkaRKljLYUb0K8WehswASOHtMUStIrZrU0zlOBNd6441X4ZIP5O00/g==" crossorigin="anonymous" defer></script></html>

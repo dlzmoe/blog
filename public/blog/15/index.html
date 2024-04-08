@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="zh"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>面向对象编程</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Ladder@面向对象把构成问题的 transaction 分解成各个对象，而建立对象的目的也不是为了完成一个个步骤，而是为了描述某个事物在解决整个问题的过程中所发生的行为，意在写出通用代码，加强代码重用，屏蔽差异性。
+一、什么是面向对象编程 js 是基于原型的，基于面向对象编程
+面向对象就是把数据和对数据的操作方法放在一起，作为一个整体——对象。对同类对象抽象出其共性，形成类
+1.面向过程程序设计 将一个项目（或者一个事件）从头到尾按顺序，一步一步完成，先做什么，后做什么，一直到结束，也是我们人做事的方法。
+自上而下，先确定一个整体的框架，然后添砖加瓦，逐步实现想要得到的效果，适用于简单的系统，容易理解。但是难以应对复杂的系统，不易维护扩展，难以复用
+面向过程是分析解决问题的步骤，然后用函数把这些步骤一步一步的实现，然后在使用的时候一一调用则可。强调的是完成这件事儿的动作，更接近我们日常处理事情的思维。
+2.面向对象程序设计 将一个项目（或者一个事件）分成更小的项目，每一个部分负责一方面的功能，最后由这些部分组成一个整体，先设计组件，在完成拼装，适用于大型复杂的系统
+面向对象把构成问题的 transaction 分解成各个对象，而建立对象的目的也不是为了完成一个个步骤，而是为了描述某个事物在解决整个问题的过程中所发生的行为，意在写出通用代码，加强代码重用，屏蔽差异性。
+想要弄明白面向对象，需要先理解类和对象的概念
+《什么是类和对象？》
+二、创建对象的方法 1.创建字面量和实例 window.onload = function() { // 实例 var person = new Object(); person.name = &#39;小明&#39;; person.age = 22; person.year = function() { console.log(this.name &#43; &#39;今年&#39; &#43; this.age &#43; &#39;岁了！&#39;) }; person.year(); // 字面量 var student = { name: &#39;小明&#39;, age: 22, year: function () { console.log(this.name &#43; &#39;今年&#39; &#43; this.age &#43; &#39;岁了！&#39;) } } student.">
+    <meta name="author" content="Hugo Ladder">
+    <link rel="canonical" href="http://localhost:1313/blog/15/">
+        <meta name="google-site-verification" content="xxx">
+
+    <link rel="alternate" type="application/rss+xml" href="http://localhost:1313//index.xml" title="LADDER">
+
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-xxx"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-xxx', { 'anonymize_ip': false });
+}
+</script>
+
+
+
+<script async defer data-website-id="xxx" src="https://umami-ochre-nu.vercel.app/hugo-ladder.js"></script>
+
+    <meta property="og:title" content="面向对象编程" />
+<meta property="og:description" content="面向对象把构成问题的 transaction 分解成各个对象，而建立对象的目的也不是为了完成一个个步骤，而是为了描述某个事物在解决整个问题的过程中所发生的行为，意在写出通用代码，加强代码重用，屏蔽差异性。
+一、什么是面向对象编程 js 是基于原型的，基于面向对象编程
+面向对象就是把数据和对数据的操作方法放在一起，作为一个整体——对象。对同类对象抽象出其共性，形成类
+1.面向过程程序设计 将一个项目（或者一个事件）从头到尾按顺序，一步一步完成，先做什么，后做什么，一直到结束，也是我们人做事的方法。
+自上而下，先确定一个整体的框架，然后添砖加瓦，逐步实现想要得到的效果，适用于简单的系统，容易理解。但是难以应对复杂的系统，不易维护扩展，难以复用
+面向过程是分析解决问题的步骤，然后用函数把这些步骤一步一步的实现，然后在使用的时候一一调用则可。强调的是完成这件事儿的动作，更接近我们日常处理事情的思维。
+2.面向对象程序设计 将一个项目（或者一个事件）分成更小的项目，每一个部分负责一方面的功能，最后由这些部分组成一个整体，先设计组件，在完成拼装，适用于大型复杂的系统
+面向对象把构成问题的 transaction 分解成各个对象，而建立对象的目的也不是为了完成一个个步骤，而是为了描述某个事物在解决整个问题的过程中所发生的行为，意在写出通用代码，加强代码重用，屏蔽差异性。
+想要弄明白面向对象，需要先理解类和对象的概念
+《什么是类和对象？》
+二、创建对象的方法 1.创建字面量和实例 window.onload = function() { // 实例 var person = new Object(); person.name = &#39;小明&#39;; person.age = 22; person.year = function() { console.log(this.name &#43; &#39;今年&#39; &#43; this.age &#43; &#39;岁了！&#39;) }; person.year(); // 字面量 var student = { name: &#39;小明&#39;, age: 22, year: function () { console.log(this.name &#43; &#39;今年&#39; &#43; this.age &#43; &#39;岁了！&#39;) } } student." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/blog/15/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2020-11-12T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-11-12T00:00:00+00:00" />
+
+
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="面向对象编程"/>
+<meta name="twitter:description" content="面向对象把构成问题的 transaction 分解成各个对象，而建立对象的目的也不是为了完成一个个步骤，而是为了描述某个事物在解决整个问题的过程中所发生的行为，意在写出通用代码，加强代码重用，屏蔽差异性。
+一、什么是面向对象编程 js 是基于原型的，基于面向对象编程
+面向对象就是把数据和对数据的操作方法放在一起，作为一个整体——对象。对同类对象抽象出其共性，形成类
+1.面向过程程序设计 将一个项目（或者一个事件）从头到尾按顺序，一步一步完成，先做什么，后做什么，一直到结束，也是我们人做事的方法。
+自上而下，先确定一个整体的框架，然后添砖加瓦，逐步实现想要得到的效果，适用于简单的系统，容易理解。但是难以应对复杂的系统，不易维护扩展，难以复用
+面向过程是分析解决问题的步骤，然后用函数把这些步骤一步一步的实现，然后在使用的时候一一调用则可。强调的是完成这件事儿的动作，更接近我们日常处理事情的思维。
+2.面向对象程序设计 将一个项目（或者一个事件）分成更小的项目，每一个部分负责一方面的功能，最后由这些部分组成一个整体，先设计组件，在完成拼装，适用于大型复杂的系统
+面向对象把构成问题的 transaction 分解成各个对象，而建立对象的目的也不是为了完成一个个步骤，而是为了描述某个事物在解决整个问题的过程中所发生的行为，意在写出通用代码，加强代码重用，屏蔽差异性。
+想要弄明白面向对象，需要先理解类和对象的概念
+《什么是类和对象？》
+二、创建对象的方法 1.创建字面量和实例 window.onload = function() { // 实例 var person = new Object(); person.name = &#39;小明&#39;; person.age = 22; person.year = function() { console.log(this.name &#43; &#39;今年&#39; &#43; this.age &#43; &#39;岁了！&#39;) }; person.year(); // 字面量 var student = { name: &#39;小明&#39;, age: 22, year: function () { console.log(this.name &#43; &#39;今年&#39; &#43; this.age &#43; &#39;岁了！&#39;) } } student."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Blogs",
+      "item": "http://localhost:1313/blog/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "面向对象编程",
+      "item": "http://localhost:1313/blog/15/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "面向对象编程",
+  "name": "面向对象编程",
+  "description": "面向对象把构成问题的 transaction 分解成各个对象，而建立对象的目的也不是为了完成一个个步骤，而是为了描述某个事物在解决整个问题的过程中所发生的行为，意在写出通用代码，加强代码重用，屏蔽差异性。\n一、什么是面向对象编程 js 是基于原型的，基于面向对象编程\n面向对象就是把数据和对数据的操作方法放在一起，作为一个整体——对象。对同类对象抽象出其共性，形成类\n1.面向过程程序设计 将一个项目（或者一个事件）从头到尾按顺序，一步一步完成，先做什么，后做什么，一直到结束，也是我们人做事的方法。\n自上而下，先确定一个整体的框架，然后添砖加瓦，逐步实现想要得到的效果，适用于简单的系统，容易理解。但是难以应对复杂的系统，不易维护扩展，难以复用\n面向过程是分析解决问题的步骤，然后用函数把这些步骤一步一步的实现，然后在使用的时候一一调用则可。强调的是完成这件事儿的动作，更接近我们日常处理事情的思维。\n2.面向对象程序设计 将一个项目（或者一个事件）分成更小的项目，每一个部分负责一方面的功能，最后由这些部分组成一个整体，先设计组件，在完成拼装，适用于大型复杂的系统\n面向对象把构成问题的 transaction 分解成各个对象，而建立对象的目的也不是为了完成一个个步骤，而是为了描述某个事物在解决整个问题的过程中所发生的行为，意在写出通用代码，加强代码重用，屏蔽差异性。\n想要弄明白面向对象，需要先理解类和对象的概念\n《什么是类和对象？》\n二、创建对象的方法 1.创建字面量和实例 window.onload = function() { // 实例 var person = new Object(); person.name = \u0026#39;小明\u0026#39;; person.age = 22; person.year = function() { console.log(this.name + \u0026#39;今年\u0026#39; + this.age + \u0026#39;岁了！\u0026#39;) }; person.year(); // 字面量 var student = { name: \u0026#39;小明\u0026#39;, age: 22, year: function () { console.log(this.name + \u0026#39;今年\u0026#39; + this.age + \u0026#39;岁了！\u0026#39;) } } student.",
+  "keywords": [
+    "编程", "js"
+  ],
+  "articleBody": "面向对象把构成问题的 transaction 分解成各个对象，而建立对象的目的也不是为了完成一个个步骤，而是为了描述某个事物在解决整个问题的过程中所发生的行为，意在写出通用代码，加强代码重用，屏蔽差异性。\n一、什么是面向对象编程 js 是基于原型的，基于面向对象编程\n面向对象就是把数据和对数据的操作方法放在一起，作为一个整体——对象。对同类对象抽象出其共性，形成类\n1.面向过程程序设计 将一个项目（或者一个事件）从头到尾按顺序，一步一步完成，先做什么，后做什么，一直到结束，也是我们人做事的方法。\n自上而下，先确定一个整体的框架，然后添砖加瓦，逐步实现想要得到的效果，适用于简单的系统，容易理解。但是难以应对复杂的系统，不易维护扩展，难以复用\n面向过程是分析解决问题的步骤，然后用函数把这些步骤一步一步的实现，然后在使用的时候一一调用则可。强调的是完成这件事儿的动作，更接近我们日常处理事情的思维。\n2.面向对象程序设计 将一个项目（或者一个事件）分成更小的项目，每一个部分负责一方面的功能，最后由这些部分组成一个整体，先设计组件，在完成拼装，适用于大型复杂的系统\n面向对象把构成问题的 transaction 分解成各个对象，而建立对象的目的也不是为了完成一个个步骤，而是为了描述某个事物在解决整个问题的过程中所发生的行为，意在写出通用代码，加强代码重用，屏蔽差异性。\n想要弄明白面向对象，需要先理解类和对象的概念\n《什么是类和对象？》\n二、创建对象的方法 1.创建字面量和实例 window.onload = function() { // 实例 var person = new Object(); person.name = '小明'; person.age = 22; person.year = function() { console.log(this.name + '今年' + this.age + '岁了！') }; person.year(); // 字面量 var student = { name: '小明', age: 22, year: function () { console.log(this.name + '今年' + this.age + '岁了！') } } student.year(); } // 小明今年22岁了！ 两者输出的结果是一样的，控制台输出：\n缺点：重复实例化对象，代码冗余高\n2.工厂模式 window.onload = function() { function createObj(name, age) { var obj = new Object(); obj.name = name, obj.age = age, obj.year = function() { console.log(this.name + '今年' + this.age + '岁了！') } return obj; } var obj = createObj('小明', 22); obj.year(); } // 小明今年22岁了！ 优点：解决重复实例化对象的问题 缺点：无法识别对象的类型，因为所有的实例都指向一个原型\n3.构造函数 window.onload = function() { function Person(name, age) { this.name = name; this.age = age; this.year = function() { console.log(this.name + '今年' + this.age + '岁了！') } } var student = new Person('小明', 22); student.year(); } // 小明今年22岁了！ 优点：可以识别对象的类型 缺点：多个实例重复创建方法，无法共享\n4. 原型模式 window.onload = function() { function Par() {} Par.prototype = { constructor: 'Par', name: '小明', age: 22, year: function() { console.log(this.name + '今年' + this.age + '岁了！') } }; var son = new Par(); son.year(); } // 小明今年22岁了！ 缺点：所有实例共享他的属性和方法，不能传参和初始化属性值\n5.混合模式 (推荐使用) 是构造函数和原型模式混合的写法，拥有各自的优点，构造函数共享实例属性，原型模式共享方法和想要共享的属性，可以传参和初始化属性值\n先用构造函数定义对象的属性方法，然后用原型模式创建方法，使用的属性通过 prototype 获取，有一个 constructor 属性，可以指向要操作的函数对象（构造函数）\n比如constructor: Par，就代表下面这个原型方法指向Par()对象（构造函数）\nwindow.onload = function() { function Par(name, age) { this.name = name; this.age = age; } Par.prototype = { constructor: Par, year: function() { console.log(this.name + '今年' + this.age + '岁了！'); } }; var son = new Par('小明', 22) son.year(); } // 小明今年22岁了！ 三、原型，原型链 1.原型对象 函数对象都具有prototype属性，它指向函数的原型对象 (浏览器内存创建的对象)，原型对象都具有constructor属性，它指向prototype属性所在的函数对象 (构造函数) window.onload = function() { function Par(name, age) { this.name = name; this.age = age; } Par.prototype = { // constructor指向对象 constructor: Par, year: function() { console.log(this.name + '今年' + this.age + '岁了！'); } }; var son = new Par('小明', 22) son.year(); /*********************************************/ console.log(Par.prototype) console.log(Par.prototype.constructor) /*********************************************/ } 通过控制台可以看到\n构造函数的prototypr属性指向原型对象\n原型对象的construcyor属性指向构造函数\n当调用构造函数创建一个实例后，该实例会有一个隐藏属性__proto__ ，它指向构造函数的原型对象 console.log(son.__proto__ === Par.prototype) // true 所有的构造函数的 prototype 都是 object 类型 console.log(typeof Par.prototype) // object Function 的 prototype 是一个空函数，所有内置函数的__proto__属性都指向这个空函数 console.log(Math.__proto__) 如果构造函数实例和原型对象中同时定义了一个属性，在调用时，会屏蔽原型对象中的属性，如果想要访问原型对象中的属性值，需要通过delete方法将同名属性在实例（构造函数）中彻底删除 window.onload = function () { function Par(name) { this.name = name; } Par.prototype.name = \"张三\"; var son = new Par(\"李四\"); console.log(son.name); // 李四 console.log(son.__proto__.name); // 张三 // 使用 delete 删除实例的同名属性值 console.log(delete son.name); // true console.log(son.name); // 张三 } 通过hasOwnProperty(属性名)可以判断一个属性存在于构造函数中，还是原型对象中 true表示存在构造函数中；false表示存在原型对象中\nconsole.log(Par.hasOwnProperty(name)); // false 操作符in，可以判断一个属性是否存在（存在于构造函数和原型对象中皆可） window.onload = function () { function Par(name, age) { this.name = name; this.age = age; } Par.prototype = { constructor: Par, year: function() { console.log(this.name + this.age) } }; var son = new Par('xm', '22') son.year(); console.log('name' in Par); // true console.log('age' in Par); // false } 同样的两个属性，判断其是否存在于实例或者原型对象中，输出的结果不一样\n参考:《对象中是否有某一个属性 in》https://www.cnblogs.com/IwishIcould/p/12333739.html\n2.__proto__和 prototype 的区别 prototype属性只有函数对象上才有，而__proto__属性所有对象都有\nprototype是由函数对象指向原型对象，而__proto__是由实例指向函数对象的原型对象\n原型链，将父类型的实例作为子类型的原型对象，这种链式关系叫做原型链\n3.继承 原型链继承 优点：父类原型定义的属性和方法可以复用 缺点：子类实例没有自己的属性，不能向父类传递参数\nfunction test1() { function SuperType() { this.city = [ \"北京\", \"上海\", \"天津\" ]; this.property = true; } SuperType.prototype = { constructor : SuperType, // 保持构造函数和原型对象的完整性 age : 15, getSuperValue : function() { return this.property; } }; function SonType() { this.property = false; } // 重写子类的原型指向父类的实例：继承父类的原型 SubType.prototype = new SuperType(); SubType.prototype = { constructor : SubType, getSonType : function() { return this.property; } }; // 优点验证 let son = new SubType(); console.log(son.age); // 15 console.log(son.getSuperValue()); // false // 缺点验证 let instance1 = new SubType(); instance1.city.push(\"重庆\"); console.log(instance1.city); // [\"北京\", \"上海\", \"天津\", \"重庆\"] let instance2 = new SubType(); console.log(instance2.city); // [\"北京\", \"上海\", \"天津\", \"重庆\"] } // test1(); 构造函数继承 优点：子类实例有自己的属性，可以向父类传递参数，解决原型链继承的缺点 缺点：父类原型的属性和方法不可复用\nfunction test2() { function SuperType(name) { this.name = name; this.city = [ \"北京\", \"上海\", \"天津\" ] } SuperType.prototype = { constructor : SuperType, age : 18, showInfo : function() { return this.name; } }; function SubType() { // 父类调用 call() 或者 apply() 方法和子类共用同一个 this，实现子类实例属性的继承 SuperType.call(this, \"张三\"); } // 优点验证 let instance = new SubType(); instance.city.push(\"重庆\"); console.log(instance.city); // [\"北京\", \"上海\", \"天津\", \"重庆\"] let instance1 = new SubType(); console.log(instance1.city); // [\"北京\", \"上海\", \"天津\"] // 缺点验证 console.log(instance.age); // undefined instance.showInfo(); // son.showInfo is not a function } // test2(); 组合继承（推荐） 优点：原型的属性和方法可以复用，每个子类实例都有自己的属性 缺点：父类构造函数调用了两次，子类原型中的父类实例属性被子类实例覆盖\nfunction test3() { function SuperType(name) { this.name = name; this.city = [ \"北京\", \"上海\", \"天津\" ] } SuperType.prototype = { constructor : SuperType, showInfo : function() { console.log(this.name + \"今年\" + this.age + \"岁了\"); } }; function SubType(name, age) { // 1. 通过构造方法继承实现实例属性的继承 SuperType.call(this, name); this.age = age; } // 2. 通过原型链继承实现原型方法的继承 SubType.prototype = new SuperType(); // 优点验证 let instance = new SubType(\"张三\", 15); instance.showInfo(); // 张三今年 15 岁了 let instance1 = new SubType(); instance1.city.push(\"重庆\"); console.log(instance1.city); // [\"北京\", \"上海\", \"天津\", \"重庆\"] let instance2 = new SubType(); console.log(instance2.city); // [\"北京\", \"上海\", \"天津\"] } // test3(); 寄生组合继承（推荐） 优点：解决了组合继承的缺点，效率高 缺点：基本没有\nfunction test4() { function inheritPrototype(subType, superType) { // 1. 继承父类的原型 var prototype = Object.create(superType.prototype); // 2. 重写被污染的 construct prototype.constructor = subType; // 3. 重写子类的原型 subType.prototype = prototype; } function SuperType(name) { this.name = name; this.city = [ \"北京\", \"上海\", \"天津\" ]; } SuperType.prototype.sayName = function() { console.log(this.name); }; function SubType(name, age) { SuperType.call(this, name); this.age = age; } // 将父类原型指向子类 inheritPrototype(SubType, SuperType); SubType.prototype.sayAge = function() { console.log(this.age); } // 优点验证 let instance = new SubType(\"张三\", 15); instance.sayName(); // 张三 let instance1 = new SubType(); instance1.city.push(\"重庆\"); console.log(instance1.city); // [\"北京\", \"上海\", \"天津\", \"重庆\"] let instance2 = new SubType(); console.log(instance2.city); // [\"北京\", \"上海\", \"天津\"] } // test4(); 4.ES6 新方法－－class 新的关键字class在 es6 开始被引入到 javascript 中来，class的目的就是让定义类更简单\n用函数方法实现：\nfunction Person(name) { this.name = name; } Person.prototype.hello = function () { console.log('Hello, ' + this.name + '!'); } var son = new Person('xm') son.hello(); // Hello, xm! 用class来实现：\nclass Person { constructor(name) { this.name = name; } hello() { console.log('Hello, ' + this.name + '!'); } } var son = new person('xm') son.hello(); // Hello, xm! 可以在看到，在定义class中，直接包含了构造函数constructor属性，和原型对象上的函数hello()方法，省略掉了function关键字\n需要注意：原来的写法是，构造函数和原型对象分散开来写，现在用class可以直接把两者串在一个对象中，只有最后传参和调用方法时写法是一样的\nclass 继承\n用class定义对象的另一个巨大的好处是继承更方便了。想一想我们从Person派生一个PrimaryPerson需要编写的代码量。现在，原型继承的中间对象，原型对象的构造函数等等都不需要考虑了，直接通过extends来实现：\nclass PrimaryPerson extends Person { constructor(name, grade) { super(name); // 记得用 super 调用父类的构造方法！ this.grade = grade; } myGrade() { alert('I am at grade ' + this.grade); } } 注意PrimaryPerson的定义也是通过 class 关键字实现的，而extends则表示原型链对象来自Person，子类的构造函数可能会和父类的不太相同\n例如，PrimaryPerson需要name和grade两个参数，并且需要通过super(name)来调用父类的构造函数，否则父类的name属性无法正常初始化。\nPrimaryPerson已经自动获得了父类Person的hello方法，我们又在子类中定义了新的myGrade方法。\nES6 引入的class和原有的JavaScript原型继承有什么区别呢？\n实际上它们没有任何区别，class的作用就是让 JavaScript 引擎去实现原来需要我们自己编写的原型链代码。简而言之，用class的好处就是极大地简化了原型链代码。\n但是！\n目前并不是所有的浏览器都支持class，所以在选择的时候一定要慎重！\n",
+  "wordCount" : "944",
+  "inLanguage": "zh",
+  "datePublished": "2020-11-12T00:00:00Z",
+  "dateModified": "2020-11-12T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Hugo Ladder"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http://localhost:1313/blog/15/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "LADDER",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http://localhost:1313/favicon.ico"
+    }
+  }
+}
+</script>
+    <link rel="icon" href="/images/avatar.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/avatar.png">
+
+<link rel="manifest" href="/images/avatar.png">
+    
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css" />
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.css" media="screen">
+    
+
+
+    
+    <link rel="stylesheet" href="/scss/highlight/github-dark.min.min.66034289ee9a113219a2c4aae0a8bd2095ab255c832a42efcf5863f10814e7a1.css" />
+
+    
+    <script src="/js/highlight.min.min.c607d6febd16934a82eb61d3a896ed9d869f54373cc63ce95864ed5488fe3128.js"></script>
+    <script>hljs.highlightAll();</script>
+
+    <script>(()=>{var t=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,e=localStorage.getItem("theme");t&&e===null&&(localStorage.setItem("theme","dark"),document.documentElement.setAttribute("data-dark-mode","")),t&&e==="dark"&&document.documentElement.setAttribute("data-dark-mode",""),e==="dark"&&document.documentElement.setAttribute("data-dark-mode","")})()</script>
+    </head>
+<body>
+      <main class="wrapper"><nav class="navigation">
+    <section class="container">
+        <a class="navigation-brand" href="/">
+            HOME
+        </a>
+        <input type="checkbox" id="menu-toggle" />
+        <label class="menu-button float-right" for="menu-toggle">
+            <span></span><span></span><span></span>
+        </label>
+        
+        <ul class="navigation-list" id="navigation-list">
+            
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/blog">文章</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/tags">分类</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/archives">历史文章</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="/guestbook">留言板</a>
+            </li>
+            
+            <li class="navigation-item navigation-menu">
+                <a class="navigation-link" href="https://umami-ochre-nu.vercel.app/share/R1lHz7QY/hugo-ladder-exampleSite">网站统计</a>
+            </li>
+            
+            
+
+            <li class="navigation-item menu-separator">
+                <span>|</span>
+            </li>
+
+            
+            
+            <li class="navigation-item navigation-social">
+                <a class="navigation-link" href="https://github.com/guangzhengli/hugo-theme-ladder"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+            </li>
+            
+            <li class="navigation-item navigation-social">
+                <a class="navigation-link" href="https://umami-ochre-nu.vercel.app/share/R1lHz7QY/hugo-ladder-exampleSite"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg></a>
+            </li>
+            
+            
+
+            <li class="navigation-item navigation-dark">
+                <button id="mode" type="button" aria-label="toggle user light or dark theme">
+                    <span class="toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span>
+                    <span class="toggle-light"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></span>
+                </button>
+            </li>
+
+            
+            
+            
+            
+            
+            
+            
+            <li class="navigation-item navigation-language">
+                <a href="http://localhost:1313/en/">EN</a>
+            </li>
+            
+            
+            
+            
+        </ul>
+        
+    </section>
+</nav>
+<div id="content">
+<article class="blog-single">
+  <header class="blog-title">
+    <h1>面向对象编程</h1>
+  </header>
+
+  <p>
+  <small>
+    2020年11月12日&nbsp;· 944 字&nbsp;· 5 分钟</small>
+
+  <small>
+      
+      ·
+      
+      
+      <a href="http://localhost:1313/tags/%E7%BC%96%E7%A8%8B/">编程</a>
+      
+      <a href="http://localhost:1313/tags/js/">Js</a>
+      
+    </small>
+  
+<p>
+
+  <div class="blog-toc">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一什么是面向对象编程">一、什么是面向对象编程</a>
+      <ul>
+        <li><a href="#1面向过程程序设计">1.面向过程程序设计</a></li>
+        <li><a href="#2面向对象程序设计">2.面向对象程序设计</a></li>
+      </ul>
+    </li>
+    <li><a href="#二创建对象的方法">二、创建对象的方法</a>
+      <ul>
+        <li><a href="#1创建字面量和实例">1.创建字面量和实例</a></li>
+        <li><a href="#2工厂模式">2.工厂模式</a></li>
+        <li><a href="#3构造函数">3.构造函数</a></li>
+        <li><a href="#4-原型模式">4. 原型模式</a></li>
+        <li><a href="#5混合模式-推荐使用">5.混合模式 (推荐使用)</a></li>
+      </ul>
+    </li>
+    <li><a href="#三原型原型链">三、原型，原型链</a>
+      <ul>
+        <li><a href="#1原型对象">1.原型对象</a></li>
+        <li><a href="#2__proto__和-prototype-的区别">2.__proto__和 prototype 的区别</a></li>
+        <li><a href="#3继承">3.继承</a></li>
+        <li><a href="#4es6-新方法class">4.ES6 新方法－－class</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+
+  <section class="blog-content"><p>面向对象把构成问题的 transaction 分解成各个对象，而建立对象的目的也不是为了完成一个个步骤，而是为了描述某个事物在解决整个问题的过程中所发生的行为，意在写出通用代码，加强代码重用，屏蔽差异性。</p>
+<h2 id="一什么是面向对象编程">一、什么是面向对象编程</h2>
+<p>js 是<code>基于原型</code>的，基于<code>面向对象编程</code></p>
+<p>面向对象就是把数据和对数据的操作方法放在一起，作为一个整体——对象。对同类对象抽象出其共性，形成类</p>
+<h3 id="1面向过程程序设计">1.面向过程程序设计</h3>
+<p>将一个项目（或者一个事件）从头到尾按顺序，一步一步完成，先做什么，后做什么，一直到结束，也是我们人做事的方法。</p>
+<p>自上而下，先确定一个整体的框架，然后添砖加瓦，逐步实现想要得到的效果，适用于简单的系统，容易理解。但是难以应对复杂的系统，不易维护扩展，难以复用</p>
+<p>面向过程是分析解决问题的步骤，然后用函数把这些步骤一步一步的实现，然后在使用的时候一一调用则可。强调的是完成这件事儿的动作，更接近我们日常处理事情的思维。</p>
+<h3 id="2面向对象程序设计">2.面向对象程序设计</h3>
+<p>将一个项目（或者一个事件）分成更小的项目，每一个部分负责一方面的功能，最后由这些部分组成一个整体，先设计组件，在完成拼装，适用于大型复杂的系统</p>
+<p>面向对象把构成问题的 transaction 分解成各个对象，而建立对象的目的也不是为了完成一个个步骤，而是为了描述某个事物在解决整个问题的过程中所发生的行为，意在写出通用代码，加强代码重用，屏蔽差异性。</p>
+<p>想要弄明白面向对象，需要先理解类和对象的概念</p>
+<p><a href="../20201118-objects-interfaces-classes">《什么是类和对象？》</a></p>
+<h2 id="二创建对象的方法">二、创建对象的方法</h2>
+<h3 id="1创建字面量和实例">1.创建字面量和实例</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>window.<span style="color:#a6e22e">onload</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 实例
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">person</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Object();
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">person</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;小明&#39;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">person</span>.<span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">22</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">person</span>.<span style="color:#a6e22e">year</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;今年&#39;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">age</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;岁了！&#39;</span>)
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">person</span>.<span style="color:#a6e22e">year</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 字面量
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">student</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;小明&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">22</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">year</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span> () {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;今年&#39;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">age</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;岁了！&#39;</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">student</span>.<span style="color:#a6e22e">year</span>();
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 小明今年22岁了！
+</span></span></span></code></pre></div><p>两者输出的结果是一样的，控制台输出：</p>
+<blockquote>
+<p>缺点：重复实例化对象，代码冗余高</p>
+</blockquote>
+<h3 id="2工厂模式">2.工厂模式</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>window.<span style="color:#a6e22e">onload</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">createObj</span>(<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">age</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">obj</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Object();
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">age</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">year</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;今年&#39;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">age</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;岁了！&#39;</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">obj</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">obj</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createObj</span>(<span style="color:#e6db74">&#39;小明&#39;</span>, <span style="color:#ae81ff">22</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">year</span>();
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 小明今年22岁了！
+</span></span></span></code></pre></div><blockquote>
+<p>优点：解决重复实例化对象的问题
+缺点：无法识别对象的类型，因为所有的实例都指向一个原型</p>
+</blockquote>
+<h3 id="3构造函数">3.构造函数</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>window.<span style="color:#a6e22e">onload</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Person</span>(<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">age</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">age</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">year</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;今年&#39;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">age</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;岁了！&#39;</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">student</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Person</span>(<span style="color:#e6db74">&#39;小明&#39;</span>, <span style="color:#ae81ff">22</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">student</span>.<span style="color:#a6e22e">year</span>();
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 小明今年22岁了！
+</span></span></span></code></pre></div><blockquote>
+<p>优点：可以识别对象的类型
+缺点：多个实例重复创建方法，无法共享</p>
+</blockquote>
+<h3 id="4-原型模式">4. 原型模式</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>window.<span style="color:#a6e22e">onload</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Par</span>() {}
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Par</span>.<span style="color:#a6e22e">prototype</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">constructor</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Par&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;小明&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">22</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">year</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;今年&#39;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">age</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;岁了！&#39;</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">son</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Par</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">son</span>.<span style="color:#a6e22e">year</span>();
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 小明今年22岁了！
+</span></span></span></code></pre></div><blockquote>
+<p>缺点：所有实例共享他的属性和方法，不能传参和初始化属性值</p>
+</blockquote>
+<h3 id="5混合模式-推荐使用">5.混合模式 (推荐使用)</h3>
+<p>是构造函数和原型模式混合的写法，拥有各自的优点，构造函数共享实例属性，原型模式共享方法和想要共享的属性，可以传参和初始化属性值</p>
+<p>先用构造函数定义对象的属性方法，然后用原型模式创建方法，使用的属性通过 prototype 获取，有一个 constructor 属性，可以指向要操作的函数对象（构造函数）</p>
+<p>比如<code>constructor: Par</code>，就代表下面这个原型方法指向<code>Par()</code>对象（构造函数）</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>window.<span style="color:#a6e22e">onload</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Par</span>(<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">age</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">age</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Par</span>.<span style="color:#a6e22e">prototype</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">constructor</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Par</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">year</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;今年&#39;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">age</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;岁了！&#39;</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">son</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Par</span>(<span style="color:#e6db74">&#39;小明&#39;</span>, <span style="color:#ae81ff">22</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">son</span>.<span style="color:#a6e22e">year</span>();
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 小明今年22岁了！
+</span></span></span></code></pre></div><h2 id="三原型原型链">三、原型，原型链</h2>
+<h3 id="1原型对象">1.原型对象</h3>
+<ol>
+<li>函数对象都具有<code>prototype</code>属性，它指向函数的原型对象 (浏览器内存创建的对象)，原型对象都具有<code>constructor</code>属性，它指向<code>prototype</code>属性所在的函数对象 (构造函数)</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>window.<span style="color:#a6e22e">onload</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Par</span>(<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">age</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">age</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Par</span>.<span style="color:#a6e22e">prototype</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// constructor指向对象
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">constructor</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Par</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">year</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;今年&#39;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">age</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;岁了！&#39;</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">son</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Par</span>(<span style="color:#e6db74">&#39;小明&#39;</span>, <span style="color:#ae81ff">22</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">son</span>.<span style="color:#a6e22e">year</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*********************************************/</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">Par</span>.<span style="color:#a6e22e">prototype</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">Par</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">constructor</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*********************************************/</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>通过控制台可以看到</p>
+<p>构造函数的<code>prototypr</code>属性指向原型对象</p>
+<p>原型对象的<code>construcyor</code>属性指向构造函数</p>
+<ol>
+<li>当调用构造函数创建一个实例后，该实例会有一个隐藏属性<code>__proto__ </code>，它指向构造函数的原型对象</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">son</span>.<span style="color:#a6e22e">__proto__</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">Par</span>.<span style="color:#a6e22e">prototype</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// true
+</span></span></span></code></pre></div><ol start="3">
+<li>所有的构造函数的 prototype 都是 object 类型</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">Par</span>.<span style="color:#a6e22e">prototype</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// object
+</span></span></span></code></pre></div><ol start="4">
+<li>Function 的 prototype 是一个空函数，所有内置函数的__proto__属性都指向这个空函数</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Math.<span style="color:#a6e22e">__proto__</span>)
+</span></span></code></pre></div><ol>
+<li>如果构造函数实例和原型对象中同时定义了一个属性，在调用时，会屏蔽原型对象中的属性，如果想要访问原型对象中的属性值，需要通过<code>delete</code>方法将同名属性在实例（构造函数）中彻底删除</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>window.<span style="color:#a6e22e">onload</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Par</span>(<span style="color:#a6e22e">name</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Par</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;张三&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">son</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Par</span>(<span style="color:#e6db74">&#34;李四&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">son</span>.<span style="color:#a6e22e">name</span>); <span style="color:#75715e">// 李四
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">son</span>.<span style="color:#a6e22e">__proto__</span>.<span style="color:#a6e22e">name</span>); <span style="color:#75715e">// 张三
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 使用 delete 删除实例的同名属性值
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">delete</span> <span style="color:#a6e22e">son</span>.<span style="color:#a6e22e">name</span>);   <span style="color:#75715e">// true
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">son</span>.<span style="color:#a6e22e">name</span>); <span style="color:#75715e">// 张三
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><ol start="6">
+<li>通过<code>hasOwnProperty(属性名)</code>可以判断一个属性存在于构造函数中，还是原型对象中</li>
+</ol>
+<blockquote>
+<p><code>true</code>表示存在构造函数中；<code>false</code>表示存在原型对象中</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">Par</span>.<span style="color:#a6e22e">hasOwnProperty</span>(<span style="color:#a6e22e">name</span>));  <span style="color:#75715e">// false
+</span></span></span></code></pre></div><ol start="7">
+<li>操作符<code>in</code>，可以判断一个属性是否存在（存在于构造函数和原型对象中皆可）</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>window.<span style="color:#a6e22e">onload</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Par</span>(<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">age</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">age</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Par</span>.<span style="color:#a6e22e">prototype</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">constructor</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Par</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">year</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">age</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">son</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Par</span>(<span style="color:#e6db74">&#39;xm&#39;</span>, <span style="color:#e6db74">&#39;22&#39;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">son</span>.<span style="color:#a6e22e">year</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;name&#39;</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">Par</span>); <span style="color:#75715e">// true
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;age&#39;</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">Par</span>);  <span style="color:#75715e">// false
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>同样的两个属性，判断其是否存在于实例或者原型对象中，输出的结果不一样</p>
+<blockquote>
+<p>参考:《对象中是否有某一个属性 in》<a href="https://www.cnblogs.com/IwishIcould/p/12333739.html">https://www.cnblogs.com/IwishIcould/p/12333739.html</a></p>
+</blockquote>
+<h3 id="2__proto__和-prototype-的区别">2.__proto__和 prototype 的区别</h3>
+<ol>
+<li>
+<p><code>prototype</code>属性只有函数对象上才有，而<code>__proto__</code>属性所有对象都有</p>
+</li>
+<li>
+<p><code>prototype</code>是由函数对象指向原型对象，而<code>__proto__</code>是由实例指向函数对象的原型对象</p>
+</li>
+<li>
+<p>原型链，将父类型的实例作为子类型的原型对象，这种链式关系叫做<code>原型链</code></p>
+</li>
+</ol>
+<h3 id="3继承">3.继承</h3>
+<ol>
+<li>原型链继承</li>
+</ol>
+<blockquote>
+<p>优点：父类原型定义的属性和方法可以复用
+缺点：子类实例没有自己的属性，不能向父类传递参数</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">test1</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">SuperType</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">city</span> <span style="color:#f92672">=</span> [ <span style="color:#e6db74">&#34;北京&#34;</span>, <span style="color:#e6db74">&#34;上海&#34;</span>, <span style="color:#e6db74">&#34;天津&#34;</span> ];
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">property</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">SuperType</span>.<span style="color:#a6e22e">prototype</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">constructor</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">SuperType</span>,     <span style="color:#75715e">// 保持构造函数和原型对象的完整性
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">age</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">15</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">getSuperValue</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">property</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">SonType</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">property</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 重写子类的原型指向父类的实例：继承父类的原型
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">SubType</span>.<span style="color:#a6e22e">prototype</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">SuperType</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">SubType</span>.<span style="color:#a6e22e">prototype</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">constructor</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">SubType</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">getSonType</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">property</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 优点验证
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">son</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">SubType</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">son</span>.<span style="color:#a6e22e">age</span>); <span style="color:#75715e">// 15
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">son</span>.<span style="color:#a6e22e">getSuperValue</span>()); <span style="color:#75715e">// false
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 缺点验证
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">instance1</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">SubType</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">instance1</span>.<span style="color:#a6e22e">city</span>.<span style="color:#a6e22e">push</span>(<span style="color:#e6db74">&#34;重庆&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">instance1</span>.<span style="color:#a6e22e">city</span>); <span style="color:#75715e">// [&#34;北京&#34;, &#34;上海&#34;, &#34;天津&#34;, &#34;重庆&#34;]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">instance2</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">SubType</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">instance2</span>.<span style="color:#a6e22e">city</span>); <span style="color:#75715e">// [&#34;北京&#34;, &#34;上海&#34;, &#34;天津&#34;, &#34;重庆&#34;]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// test1();
+</span></span></span></code></pre></div><ol start="2">
+<li>构造函数继承</li>
+</ol>
+<blockquote>
+<p>优点：子类实例有自己的属性，可以向父类传递参数，解决原型链继承的缺点
+缺点：父类原型的属性和方法不可复用</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">test2</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">SuperType</span>(<span style="color:#a6e22e">name</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">city</span> <span style="color:#f92672">=</span> [ <span style="color:#e6db74">&#34;北京&#34;</span>, <span style="color:#e6db74">&#34;上海&#34;</span>, <span style="color:#e6db74">&#34;天津&#34;</span> ]
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">SuperType</span>.<span style="color:#a6e22e">prototype</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">constructor</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">SuperType</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">age</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">18</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">showInfo</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">SubType</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 父类调用 call() 或者 apply() 方法和子类共用同一个 this，实现子类实例属性的继承
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">SuperType</span>.<span style="color:#a6e22e">call</span>(<span style="color:#66d9ef">this</span>, <span style="color:#e6db74">&#34;张三&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 优点验证
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">instance</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">SubType</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">instance</span>.<span style="color:#a6e22e">city</span>.<span style="color:#a6e22e">push</span>(<span style="color:#e6db74">&#34;重庆&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">instance</span>.<span style="color:#a6e22e">city</span>); <span style="color:#75715e">// [&#34;北京&#34;, &#34;上海&#34;, &#34;天津&#34;, &#34;重庆&#34;]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">instance1</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">SubType</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">instance1</span>.<span style="color:#a6e22e">city</span>); <span style="color:#75715e">// [&#34;北京&#34;, &#34;上海&#34;, &#34;天津&#34;]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 缺点验证
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">instance</span>.<span style="color:#a6e22e">age</span>); <span style="color:#75715e">// undefined
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">instance</span>.<span style="color:#a6e22e">showInfo</span>(); <span style="color:#75715e">// son.showInfo is not a function
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// test2();
+</span></span></span></code></pre></div><ol start="3">
+<li>组合继承（推荐）</li>
+</ol>
+<blockquote>
+<p>优点：原型的属性和方法可以复用，每个子类实例都有自己的属性
+缺点：父类构造函数调用了两次，子类原型中的父类实例属性被子类实例覆盖</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">test3</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">SuperType</span>(<span style="color:#a6e22e">name</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">city</span> <span style="color:#f92672">=</span> [ <span style="color:#e6db74">&#34;北京&#34;</span>, <span style="color:#e6db74">&#34;上海&#34;</span>, <span style="color:#e6db74">&#34;天津&#34;</span> ]
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">SuperType</span>.<span style="color:#a6e22e">prototype</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">constructor</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">SuperType</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">showInfo</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;今年&#34;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">age</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;岁了&#34;</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">SubType</span>(<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">age</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 1. 通过构造方法继承实现实例属性的继承
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">SuperType</span>.<span style="color:#a6e22e">call</span>(<span style="color:#66d9ef">this</span>, <span style="color:#a6e22e">name</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">age</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 2. 通过原型链继承实现原型方法的继承
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">SubType</span>.<span style="color:#a6e22e">prototype</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">SuperType</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 优点验证
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">instance</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">SubType</span>(<span style="color:#e6db74">&#34;张三&#34;</span>, <span style="color:#ae81ff">15</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">instance</span>.<span style="color:#a6e22e">showInfo</span>(); <span style="color:#75715e">// 张三今年 15 岁了
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">instance1</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">SubType</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">instance1</span>.<span style="color:#a6e22e">city</span>.<span style="color:#a6e22e">push</span>(<span style="color:#e6db74">&#34;重庆&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">instance1</span>.<span style="color:#a6e22e">city</span>); <span style="color:#75715e">// [&#34;北京&#34;, &#34;上海&#34;, &#34;天津&#34;, &#34;重庆&#34;]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">instance2</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">SubType</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">instance2</span>.<span style="color:#a6e22e">city</span>); <span style="color:#75715e">// [&#34;北京&#34;, &#34;上海&#34;, &#34;天津&#34;]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// test3();
+</span></span></span></code></pre></div><ol start="4">
+<li>寄生组合继承（推荐）</li>
+</ol>
+<blockquote>
+<p>优点：解决了组合继承的缺点，效率高
+缺点：基本没有</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">test4</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">inheritPrototype</span>(<span style="color:#a6e22e">subType</span>, <span style="color:#a6e22e">superType</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 1. 继承父类的原型
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">prototype</span> <span style="color:#f92672">=</span> Object.<span style="color:#a6e22e">create</span>(<span style="color:#a6e22e">superType</span>.<span style="color:#a6e22e">prototype</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 2. 重写被污染的 construct
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">constructor</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">subType</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 3. 重写子类的原型
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">subType</span>.<span style="color:#a6e22e">prototype</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">prototype</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">SuperType</span>(<span style="color:#a6e22e">name</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">city</span> <span style="color:#f92672">=</span> [ <span style="color:#e6db74">&#34;北京&#34;</span>, <span style="color:#e6db74">&#34;上海&#34;</span>, <span style="color:#e6db74">&#34;天津&#34;</span> ];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">SuperType</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">sayName</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>);
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">SubType</span>(<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">age</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">SuperType</span>.<span style="color:#a6e22e">call</span>(<span style="color:#66d9ef">this</span>, <span style="color:#a6e22e">name</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">age</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 将父类原型指向子类
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">inheritPrototype</span>(<span style="color:#a6e22e">SubType</span>, <span style="color:#a6e22e">SuperType</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">SubType</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">sayAge</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">age</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 优点验证
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">instance</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">SubType</span>(<span style="color:#e6db74">&#34;张三&#34;</span>, <span style="color:#ae81ff">15</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">instance</span>.<span style="color:#a6e22e">sayName</span>(); <span style="color:#75715e">// 张三
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">instance1</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">SubType</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">instance1</span>.<span style="color:#a6e22e">city</span>.<span style="color:#a6e22e">push</span>(<span style="color:#e6db74">&#34;重庆&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">instance1</span>.<span style="color:#a6e22e">city</span>); <span style="color:#75715e">// [&#34;北京&#34;, &#34;上海&#34;, &#34;天津&#34;, &#34;重庆&#34;]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">instance2</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">SubType</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">instance2</span>.<span style="color:#a6e22e">city</span>); <span style="color:#75715e">// [&#34;北京&#34;, &#34;上海&#34;, &#34;天津&#34;]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// test4();
+</span></span></span></code></pre></div><h3 id="4es6-新方法class">4.ES6 新方法－－class</h3>
+<p>新的关键字<code>class</code>在 es6 开始被引入到 javascript 中来，<code>class</code>的目的就是让定义类更简单</p>
+<p>用函数方法实现：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Person</span>(<span style="color:#a6e22e">name</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Person</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">hello</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Hello, &#39;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;!&#39;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">son</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Person</span>(<span style="color:#e6db74">&#39;xm&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">son</span>.<span style="color:#a6e22e">hello</span>();    <span style="color:#75715e">// Hello, xm!
+</span></span></span></code></pre></div><p>用<code>class</code>来实现：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Person</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">name</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">hello</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Hello, &#39;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;!&#39;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">son</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">person</span>(<span style="color:#e6db74">&#39;xm&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">son</span>.<span style="color:#a6e22e">hello</span>();    <span style="color:#75715e">// Hello, xm!
+</span></span></span></code></pre></div><p>可以在看到，在定义<code>class</code>中，直接包含了构造函数<code>constructor</code>属性，和原型对象上的函数<code>hello()</code>方法，省略掉了<code>function</code>关键字</p>
+<p>需要注意：原来的写法是，构造函数和原型对象分散开来写，现在用<code>class</code>可以直接把两者串在一个对象中，只有最后传参和调用方法时写法是一样的</p>
+<p><strong>class 继承</strong></p>
+<p>用<code>class</code>定义对象的另一个巨大的好处是继承更方便了。想一想我们从<code>Person</code>派生一个<code>PrimaryPerson</code>需要编写的代码量。现在，原型继承的中间对象，原型对象的构造函数等等都不需要考虑了，直接通过<code>extends</code>来实现：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PrimaryPerson</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">Person</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">grade</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">super</span>(<span style="color:#a6e22e">name</span>); <span style="color:#75715e">// 记得用 super 调用父类的构造方法！
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">grade</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">grade</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">myGrade</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">alert</span>(<span style="color:#e6db74">&#39;I am at grade &#39;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">grade</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>注意<code>PrimaryPerson</code>的定义也是通过 class 关键字实现的，而<code>extends</code>则表示原型链对象来自<code>Person</code>，子类的构造函数可能会和父类的不太相同</p>
+<p>例如，<code>PrimaryPerson</code>需要<code>name</code>和<code>grade</code>两个参数，并且需要通过<code>super(name)</code>来调用父类的构造函数，否则父类的<code>name</code>属性无法正常初始化。</p>
+<p><code>PrimaryPerson</code>已经自动获得了父类<code>Person</code>的<code>hello方法</code>，我们又在子类中定义了新的<code>myGrade</code>方法。</p>
+<p>ES6 引入的<code>class</code>和原有的<code>JavaScript原型继承</code>有什么区别呢？</p>
+<p>实际上它们没有任何区别，<code>class</code>的作用就是让 JavaScript 引擎去实现原来需要我们自己编写的原型链代码。简而言之，用<code>class</code>的好处就是极大地简化了原型链代码。</p>
+<p>但是！</p>
+<p>目前并不是所有的浏览器都支持<code>class</code>，所以在选择的时候一定要慎重！</p>
+</section>
+
+  
+  
+  <div class="paginator">
+    
+    <a class="prev" href="http://localhost:1313/blog/16/">
+      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M9.94496 9C9.28897 9.61644 7.63215 10.997 6.04814 11.7966C5.98257 11.8297 5.98456 11.9753 6.05061 12.0063C7.05496 12.4779 8.92941 13.9264 9.94496 15M6.44444 11.9667C8.86549 12.0608 14 12 16 11" stroke="currentColor" stroke-linecap="round"/>
+      </svg>
+      <span>为什么 getTime() 返回 1970 年至今的毫秒？</span></a>
+    
+    
+    <a class="next" href="http://localhost:1313/blog/14/"><span>小张厨房日记（更新中...）</span>
+      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.77086 21.1546C11.0491 22.698 21.4339 21.7773 21.4339 16.3608V4.63375C21.4339 3.93962 21.3581 3.30535 21.1917 2.76787M3.77086 21.1546C1.9934 20.7777 0.973585 18.7264 1.08749 16.688C1.2668 13.479 1.15721 9.43135 1.00513 6.21507C0.87809 3.52811 3.12891 1.16316 5.51029 1.25008C9.76594 1.40542 15.377 1.20229 18.7912 1.00542C20.0864 0.930734 20.8406 1.63385 21.1917 2.76787M3.77086 21.1546C4.56586 21.4723 5.49168 21.7879 6.5 22.0658M21.1917 2.76787C23.1097 4.18217 23.13 12.4191 22.9004 16.3608C20.8478 24.0194 12.3061 23.6662 6.5 22.0658M21.1917 2.76787C21.7612 4.51192 22.7203 9.67216 22 16.3608C21.2797 23.0494 11.3665 22.9511 6.5 22.0658M12.055 9C12.711 9.61644 14.3679 10.997 15.9519 11.7966C16.0174 11.8297 16.0154 11.9753 15.9494 12.0063C14.945 12.4779 13.0706 13.9264 12.055 15M15.5556 11.9667C13.1345 12.0608 8 12 6 11" stroke="currentColor" stroke-linecap="round"/>
+      </svg>
+    </a>
+    
+  </div>
+  
+
+  
+
+
+  
+  
+<div class="comments">
+  <script>
+      const getTheme = window.localStorage && window.localStorage.getItem("theme");
+      let theme = getTheme === 'dark' ? 'dark' : 'light';
+      let s = document.createElement('script');
+      s.src = 'https://giscus.app/client.js';
+      s.setAttribute('data-repo', 'username\/reponame');
+      s.setAttribute('data-repo-id', 'R_xxx');
+      s.setAttribute('data-category', 'Announcements');
+      s.setAttribute('data-category-id', 'DIC_xxx');
+      s.setAttribute('data-mapping', 'pathname');
+      s.setAttribute('data-strict', '0');
+      s.setAttribute('data-reactions-enabled', '1');
+      s.setAttribute('data-emit-metadata', '0');
+      s.setAttribute('data-input-position', 'top');
+      s.setAttribute('data-theme', theme);
+      s.setAttribute('data-lang', 'zh');
+      s.setAttribute('data-loading', 'lazy');
+      s.setAttribute('crossorigin', 'anonymous');
+      s.setAttribute('async', '');
+      document.querySelector('div.comments').innerHTML = '';
+      document.querySelector('div.comments').appendChild(s);
+  </script>
+</div>
+
+</article>
+
+
+        </div><footer class="footer">
+  <p>&copy; 2024 <a href="http://localhost:1313/">LADDER</a>
+    Powered by
+    <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>
+    <a href="https://github.com/guangzhengli/hugo-theme-ladder" rel="noopener" target="_blank">Ladder</a>
+️  </p>
+</footer>
+
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10.5376 22.7916C11.0152 22.7207 22.5795 21.1781 22.0978 10.4211C22.0536 9.43274 21.9303 8.53367 21.7387 7.71865M10.5376 22.7916C16.876 22.3728 20.0969 19.8899 21.5383 16.9142M10.5376 22.7916C9.7707 22.9055 8.97982 22.8964 8.19743 22.7725M21.7387 7.71865C21.4988 6.69828 21.1518 5.80967 20.7188 5.04257M21.7387 7.71865C22.6022 10.1105 23.0542 13.7848 21.5383 16.9142M20.7188 5.04257C17.1684 -1.24629 7.83127 0.632493 4.27577 5.04257C2.88063 6.77451 -0.0433281 11.1668 1.38159 16.6571C2.27481 20.0988 5.17269 22.2936 8.19743 22.7725M20.7188 5.04257C22.0697 6.9404 24.0299 11.3848 22.3541 15.4153M21.5383 16.9142C21.8737 16.4251 22.1428 15.9235 22.3541 15.4153M8.19743 22.7725C12.1971 23.4683 20.6281 22.971 22.3541 15.4153M14 10.945C13.3836 10.289 12.003 8.63215 11.2034 7.04814C11.1703 6.98257 11.0247 6.98456 10.9937 7.05061C10.5221 8.05496 9.07362 9.92941 8 10.945M11.0333 7.44444C10.9392 9.86549 11 15 12 17" stroke="currentColor" stroke-linecap="round"/>
+    </svg>
+</a>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+</script>
+
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'Copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'Copied';
+            setTimeout(() => {
+                copybutton.innerHTML = 'Copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+        codeblock.parentNode.appendChild(copybutton);
+    });
+</script></main>
+    </body><script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.0.6/medium-zoom.min.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S+Yti0U7QtuZvQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script>
+      const images = Array.from(document.querySelectorAll(".blog-content img"));
+      images.forEach(img => {
+          mediumZoom(img, {
+              margin: 10,  
+              scrollOffset: 40,  
+              container: null,  
+              template: null,  
+              background: 'rgba(0, 0, 0, 0.5)'
+          });
+      });
+  </script>
+
+  
+  <script src="/main.min.6bb26b69159420159c74dc9e097b06a578ed2b68c701466a91a44a9632d851bd0af167a1b30012387b4c512b48ad9ad4d3394e04d77ae38d57e1920fe4ed34fe.js" integrity="sha512-a7JraRWUIBWcdNyeCXsGpXjtK2jHAUZqkaRKljLYUb0K8WehswASOHtMUStIrZrU0zlOBNd6441X4ZIP5O00/g==" crossorigin="anonymous" defer></script></html>

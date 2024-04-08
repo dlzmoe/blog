@@ -22,7 +22,7 @@
 "articleSection" : "blog",
 "name" : "Anghunk 主题如何在后台评论列表解析表情？",
 "headline" : "Anghunk 主题如何在后台评论列表解析表情？",
-"description" : "本文专为 Anghunk 主题开发文档而写。 https:\/\/github.com\/98zi\/Anghunk 方案是在梦繁星的协助下完成的。 介绍 Anghunk 评论携带很多精美的表情，但是正常情况下 Typecho 后台是没办法正常解析这些表情的。如下图； 但是，经过我解析表情之后，就可以变成下面这样，使用主题如果需要这种功能，可以按照我下面的步骤进行改造。 修改 打开 \/admin\/manage-comments.php 文件，在题头插入： \/* * 解析表情 *\/ function getparseBiaoQingComment($content) { $emopath=$_SERVER[\u0026#39;REQUEST_SCHEME\u0026#39;].\u0026#34;:\u0026#34;. DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR . $_SERVER[\u0026#39;HTTP_HOST\u0026#39;]; $emo = false; global $emo; if(!$emo) { $emo = json_decode(file_get_contents(dirname(dirname(dirname(__FILE__))).\u0026#39;\/zburu.com\/usr\/themes\/Anghunk\/libs\/OwO.json\u0026#39;), true); } foreach ($emo as $v) { if($v[\u0026#39;type\u0026#39;] == \u0026#39;image\u0026#39;) { foreach ($v[\u0026#39;container\u0026#39;] as $vv) { $emoaa=\u0026#34;::\u0026#34;.$v[\u0026#39;name\u0026#39;].\u0026#34;:\u0026#34;.$vv[\u0026#39;icon\u0026#39;].\u0026#34;::\u0026#34;; $content = str_replace($emoaa, \u0026#39; \u0026lt;img style=\u0026#34;max-height:40px;vertical-align:middle;\u0026#34; src=\u0026#34;\u0026#39;.$emopath.\u0026#39;\/usr\/themes\/Anghunk\/libs\/emotion\/\u0026#39;.$v[\u0026#39;name\u0026#39;].\u0026#39;\/\u0026#39;.$vv[\u0026#39;icon\u0026#39;] .\u0026#39;.png\u0026#34; alt=\u0026#34;\u0026#39;.$vv[\u0026#39;text\u0026#39;] .\u0026#39;\u0026#34;\u0026gt; \u0026#39;, $content); } } } return $content; } 注意我放置的位置，必须要要 \u0026lt;?php ... ?\u0026gt; 之间 **找到 第166行，修改一下，把标签中的代码替换为下方标注的。 ** \u0026lt;div class=\u0026#34;comment-content\u0026#34;\u0026gt; \u0026lt;!-- 解析输出带表情的评论 --\u0026gt; \u0026lt;?php $con=$comments-\u0026gt;content; echo getparseBiaoQingComment($con); ?\u0026gt; \u0026lt;\/div\u0026gt; 之后回到后台评论列表就可以看到评论成功被解析了，本方法仅适用于 Anghunk 主题。",
+"description" : "本文专为 Anghunk 主题开发文档而写。 https:\/\/github.com\/98zi\/Anghunk 方案是在梦繁星的协助下完成的。 介绍 Anghunk 评论携带很多精美的表情，但是正常情况下 Typecho 后台是没办法正常解析这些表情的。如下图； 但是，经过我解",
 "inLanguage" : "en-US",
 "author" : "子舒",
 "creator" : "子舒",
@@ -38,8 +38,8 @@
 </script><title>Anghunk 主题如何在后台评论列表解析表情？ - 子舒的博客</title>
 <meta property="og:title" content="Anghunk 主题如何在后台评论列表解析表情？" />
 <meta property="og:type" content="article" />
-<meta property="og:description" content="本文专为 Anghunk 主题开发文档而写。 https://github.com/98zi/Anghunk 方案是在梦繁星的协助下完成的。 介绍 Anghunk 评论携带很多精美的表情，但是正常情况下 Typecho 后台是没办法正常解析这些表情的。如下图； 但是，经过我解析表情之后，就可以变成下面这样，使用主题如果需要这种功能，可以按照我下面的步骤进行改造。 修改 打开 /admin/manage-comments.php 文件，在题头插入： /* * 解析表情 */ function getparseBiaoQingComment($content) { $emopath=$_SERVER[&amp;#39;REQUEST_SCHEME&amp;#39;].&amp;#34;:&amp;#34;. DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR . $_SERVER[&amp;#39;HTTP_HOST&amp;#39;]; $emo = false; global $emo; if(!$emo) { $emo = json_decode(file_get_contents(dirname(dirname(dirname(__FILE__))).&amp;#39;/zburu.com/usr/themes/Anghunk/libs/OwO.json&amp;#39;), true); } foreach ($emo as $v) { if($v[&amp;#39;type&amp;#39;] == &amp;#39;image&amp;#39;) { foreach ($v[&amp;#39;container&amp;#39;] as $vv) { $emoaa=&amp;#34;::&amp;#34;.$v[&amp;#39;name&amp;#39;].&amp;#34;:&amp;#34;.$vv[&amp;#39;icon&amp;#39;].&amp;#34;::&amp;#34;; $content = str_replace($emoaa, &amp;#39; &amp;lt;img style=&amp;#34;max-height:40px;vertical-align:middle;&amp;#34; src=&amp;#34;&amp;#39;.$emopath.&amp;#39;/usr/themes/Anghunk/libs/emotion/&amp;#39;.$v[&amp;#39;name&amp;#39;].&amp;#39;/&amp;#39;.$vv[&amp;#39;icon&amp;#39;] .&amp;#39;.png&amp;#34; alt=&amp;#34;&amp;#39;.$vv[&amp;#39;text&amp;#39;] .&amp;#39;&amp;#34;&amp;gt; &amp;#39;, $content); } } } return $content; } 注意我放置的位置，必须要要 &amp;lt;?php ... ?&amp;gt; 之间 **找到 第166行，修改一下，把标签中的代码替换为下方标注的。 ** &amp;lt;div class=&amp;#34;comment-content&amp;#34;&amp;gt; &amp;lt;!-- 解析输出带表情的评论 --&amp;gt; &amp;lt;?php $con=$comments-&amp;gt;content; echo getparseBiaoQingComment($con); ?&amp;gt; &amp;lt;/div&amp;gt; 之后回到后台评论列表就可以看到评论成功被解析了，本方法仅适用于 Anghunk 主题。" />
-<meta name="description" content="本文专为 Anghunk 主题开发文档而写。 https://github.com/98zi/Anghunk 方案是在梦繁星的协助下完成的。 介绍 Anghunk 评论携带很多精美的表情，但是正常情况下 Typecho 后台是没办法正常解析这些表情的。如下图； 但是，经过我解析表情之后，就可以变成下面这样，使用主题如果需要这种功能，可以按照我下面的步骤进行改造。 修改 打开 /admin/manage-comments.php 文件，在题头插入： /* * 解析表情 */ function getparseBiaoQingComment($content) { $emopath=$_SERVER[&amp;#39;REQUEST_SCHEME&amp;#39;].&amp;#34;:&amp;#34;. DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR . $_SERVER[&amp;#39;HTTP_HOST&amp;#39;]; $emo = false; global $emo; if(!$emo) { $emo = json_decode(file_get_contents(dirname(dirname(dirname(__FILE__))).&amp;#39;/zburu.com/usr/themes/Anghunk/libs/OwO.json&amp;#39;), true); } foreach ($emo as $v) { if($v[&amp;#39;type&amp;#39;] == &amp;#39;image&amp;#39;) { foreach ($v[&amp;#39;container&amp;#39;] as $vv) { $emoaa=&amp;#34;::&amp;#34;.$v[&amp;#39;name&amp;#39;].&amp;#34;:&amp;#34;.$vv[&amp;#39;icon&amp;#39;].&amp;#34;::&amp;#34;; $content = str_replace($emoaa, &amp;#39; &amp;lt;img style=&amp;#34;max-height:40px;vertical-align:middle;&amp;#34; src=&amp;#34;&amp;#39;.$emopath.&amp;#39;/usr/themes/Anghunk/libs/emotion/&amp;#39;.$v[&amp;#39;name&amp;#39;].&amp;#39;/&amp;#39;.$vv[&amp;#39;icon&amp;#39;] .&amp;#39;.png&amp;#34; alt=&amp;#34;&amp;#39;.$vv[&amp;#39;text&amp;#39;] .&amp;#39;&amp;#34;&amp;gt; &amp;#39;, $content); } } } return $content; } 注意我放置的位置，必须要要 &amp;lt;?php ... ?&amp;gt; 之间 **找到 第166行，修改一下，把标签中的代码替换为下方标注的。 ** &amp;lt;div class=&amp;#34;comment-content&amp;#34;&amp;gt; &amp;lt;!-- 解析输出带表情的评论 --&amp;gt; &amp;lt;?php $con=$comments-&amp;gt;content; echo getparseBiaoQingComment($con); ?&amp;gt; &amp;lt;/div&amp;gt; 之后回到后台评论列表就可以看到评论成功被解析了，本方法仅适用于 Anghunk 主题。" />
+<meta property="og:description" content="本文专为 Anghunk 主题开发文档而写。 https://github.com/98zi/Anghunk 方案是在梦繁星的协助下完成的。 介绍 Anghunk 评论携带很多精美的表情，但是正常情况下 Typecho 后台是没办法正常解析这些表情的。如下图； 但是，经过我解" />
+<meta name="description" content="本文专为 Anghunk 主题开发文档而写。 https://github.com/98zi/Anghunk 方案是在梦繁星的协助下完成的。 介绍 Anghunk 评论携带很多精美的表情，但是正常情况下 Typecho 后台是没办法正常解析这些表情的。如下图； 但是，经过我解" />
 <meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,48 +62,58 @@
 
 <body>
   <div class="wrapper">
-    <main class="main">
-      <div class="nav-container">
-  <div class="nav">
-    
-    <a class="nav-item" href="/">首页</a>
-    
-    <a class="nav-item" href="/categories/%e6%8a%80%e6%9c%af/">技术</a>
-    
-    <a class="nav-item" href="/categories/%e9%9a%8f%e7%ac%94/">随笔</a>
-    
-    <a class="nav-item" href="/categories/weekly/">周刊</a>
-    
-    <a class="nav-item" href="/message/">留言</a>
-    
-    <a class="nav-item" href="/about/">关于</a>
-    
-    <a class="nav-item"
+    <nav class="navigation">
+  <section class="container"><a class="navigation-brand" href="/">主页</a>
+    <ul class="navigation-list" id="navigation-list">
+      
+      <li class="navigation-item navigation-menu"><a class="navigation-link" href="/categories/%e6%8a%80%e6%9c%af/">技术</a></li>
+      
+      <li class="navigation-item navigation-menu"><a class="navigation-link" href="/categories/%e9%9a%8f%e7%ac%94/">随笔</a></li>
+      
+      <li class="navigation-item navigation-menu"><a class="navigation-link" href="/categories/weekly/">周刊</a></li>
+      
+      <li class="navigation-item navigation-menu"><a class="navigation-link" href="/message/">留言</a></li>
+      
+      <li class="navigation-item navigation-menu"><a class="navigation-link" href="/about/">关于</a></li>
+      
+      <li class="navigation-item navigation-menu"><a class="navigation-link"
       href="https://anghunk.notion.site/155935c878aa4210b71c9052b7f726ff?v=762fadfb010a415ea3644a201e3131cb"
-      target="_blank">gallery</a>
+      target="_blank">gallery</a></li>
+      <li class="navigation-item menu-separator"><span>|</span></li>
+      <li class="navigation-item navigation-social"><a class="navigation-link"
+          href="https://github.com/98zi"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+            viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" class="feather feather-github">
+            <path
+              d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37.0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44.0 0020 4.77 5.07 5.07.0 0019.91 1S18.73.65 16 2.48a13.38 13.38.0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07.0 005 4.77 5.44 5.44.0 003.5 8.55c0 5.42 3.3 6.61 6.44 7A3.37 3.37.0 009 18.13V22">
+            </path>
+          </svg></a></li>
+      <li class="navigation-item navigation-social"><a class="navigation-link"
+          href="https://twitter.com/anghunk1"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+            viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" class="feather feather-twitter">
+            <path
+              d="M23 3a10.9 10.9.0 01-3.14 1.53 4.48 4.48.0 00-7.86 3v1A10.66 10.66.0 013 4s-4 9 5 13a11.64 11.64.0 01-7 2c9 5 20 0 20-11.5a4.5 4.5.0 00-.08-.83A7.72 7.72.0 0023 3z">
+            </path>
+          </svg></a></li>
 
-    <a href="/index.xml" target="_blank"><img src="/images/rss.svg" alt="RSS" class="social-icon" width="1em"></a>
-    <a href="https://twitter.com/zishu520" target="_blank"><img src="/images/twitter.svg" alt="twitter.com/zishu520"
-        class="social-icon" width="1em"></a>
-    <a href="https://github.com/98zi" target="_blank"><img src="/images/github.svg" alt="github.com/98zi"
-        class="social-icon" width="1em"></a>
+    </ul>
+  </section>
+</nav>
+    <main id="content">
+      <div class="home">
+        <h1 class="blog-title">Anghunk 主题如何在后台评论列表解析表情？</h1>
 
-  </div>
-</div>
+        
+        <div class="date">
+          <time> 2022-07-30</time>
+        </div>
+        <div class="expired-tips" style="display: none;"></div>
+        
 
-      <h1>Anghunk 主题如何在后台评论列表解析表情？</h1>
-
-      
-      <div class="date">
-        <time datetime=" 2022-07-30 00:00:00 UTC"> 2022-07-30</time>
-      </div>
-      <div class="expired-tips" style="display: none;"></div>
-      
-
-
-      
-      <div class="toc">
-        <nav id="TableOfContents">
+        
+        <div class="toc">
+          <nav id="TableOfContents">
   <ul>
     <li>
       <ul>
@@ -113,12 +123,12 @@
     </li>
   </ul>
 </nav>
-      </div>
-      
-
-      <article class="post-content">
+        </div>
         
-        <blockquote>
+
+        <article class="post-content">
+          
+          <blockquote>
 <p>本文专为 Anghunk 主题开发文档而写。
 <a href="https://github.com/98zi/Anghunk">https://github.com/98zi/Anghunk</a></p>
 </blockquote>
@@ -161,10 +171,10 @@
 </span></span></span></code></pre></div><hr>
 <p>之后回到后台评论列表就可以看到评论成功被解析了，本方法仅适用于 Anghunk 主题。</p>
 
-      </article>
+        </article>
 
-      
-      <div style="padding:20px 0"></div>
+        
+        <div style="padding:20px 0"></div>
 
 <div class="giscus"></div>
 <script 
@@ -185,9 +195,9 @@
   async>
 </script>
 
-      
+        
 
-
+      </div>
       <footer class="footer">
   <p>© 2020 - 2024
     Powered by

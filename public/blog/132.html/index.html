@@ -22,7 +22,7 @@
 "articleSection" : "blog",
 "name" : "typecho 评论回复艾特评论人",
 "headline" : "typecho 评论回复艾特评论人",
-"description" : "typecho 在评论时默认是没有 @ 评论人的功能，可以用代码加一下。 在 functions.php 中： \/* * 评论回复时 @ 评论人 *\/ function get_comment_at($coid) { $db = Typecho_Db::get(); $prow = $db-\u0026gt;fetchRow($db-\u0026gt;select(\u0026#39;parent,status\u0026#39;)-\u0026gt;from(\u0026#39;table.comments\u0026#39;) -\u0026gt;where(\u0026#39;coid = ?\u0026#39;, $coid)); $mail = \u0026#34;\u0026#34;; $parent = @$prow[\u0026#39;parent\u0026#39;]; if ($parent != \u0026#34;0\u0026#34;) { $arow = $db-\u0026gt;fetchRow($db-\u0026gt;select(\u0026#39;author,status,mail\u0026#39;)-\u0026gt;from(\u0026#39;table.comments\u0026#39;) -\u0026gt;where(\u0026#39;coid = ?\u0026#39;, $parent)); @$author = @$arow[\u0026#39;author\u0026#39;]; $mail = @$arow[\u0026#39;mail\u0026#39;]; if(@$author \u0026amp;\u0026amp; $arow[\u0026#39;status\u0026#39;] == \u0026#34;approved\u0026#34;){ if (@$prow[\u0026#39;status\u0026#39;] == \u0026#34;waiting\u0026#34;){ echo \u0026#39;\u0026lt;p class=\u0026#34;commentReview\u0026#34;\u0026gt;（评论审核中）)\u0026lt;\/p\u0026gt;\u0026#39;; } echo \u0026#39;\u0026lt;a href=\u0026#34;#comment-\u0026#39; . $parent . \u0026#39;\u0026#34;\u0026gt;@\u0026#39; . $author . \u0026#39;\u0026lt;\/a\u0026gt;\u0026#39;; }else{ if (@$prow[\u0026#39;status\u0026#39;] == \u0026#34;waiting\u0026#34;){ echo \u0026#39;\u0026lt;p class=\u0026#34;commentReview\u0026#34;\u0026gt;（评论审核中）)\u0026lt;\/p\u0026gt;\u0026#39;; }else{ echo \u0026#39;\u0026#39;; } } } else { if (@$prow[\u0026#39;status\u0026#39;] == \u0026#34;waiting\u0026#34;){ echo \u0026#39;\u0026lt;p class=\u0026#34;commentReview\u0026#34;\u0026gt;（评论审核中）)\u0026lt;\/p\u0026gt;\u0026#39;; }else{ echo \u0026#39;\u0026#39;; } } } 然后在 comments.php 中输出评论内容代码的前面加上： \u0026lt;?php $parentMail = get_comment_at($comments-\u0026gt;coid)?\u0026gt;\u0026lt;?php echo $parentMail;?\u0026gt; ▼代码所示 ▼效果图 我的博客即将同步至腾讯云\u002b社区，邀请大家一同入驻：https:\/\/cloud.tencent.com\/developer\/support-plan?invite_code=17ctk6evsjk5b",
+"description" : "typecho 在评论时默认是没有 @ 评论人的功能，可以用代码加一下。 在 functions.php 中： \/* * 评论回复时 @ 评论人 *\/ function get_comment_at($coid) { $db = Typecho_Db::get(); $prow = $db-\u0026gt;fetchRow($db-\u0026gt;select(\u0026#39;parent,status\u0026#39;)-\u0026gt;from(\u0026#39;table.comments\u0026#39;) -\u0026gt;where(\u0026#39;coid = ?\u0026#39;, $coid)); $mail = \u0026#34;\u0026#34;; $parent = @$prow[\u0026#39;parent\u0026#39;]; if ($parent != \u0026#34;0\u0026#34;) { $arow = $db-\u0026gt;fetchRow($db-\u0026gt;select(\u0026#39;author,status,mail\u0026#39;)-\u0026gt;from(\u0026#39;table.comments\u0026#39;) -\u0026gt;where(\u0026#39;coid = ?\u0026#39;, $parent)); @$author = @$arow[\u0026#39;author\u0026#39;]; $mail = @$arow[\u0026#39;mail\u0026#39;];",
 "inLanguage" : "en-US",
 "author" : "子舒",
 "creator" : "子舒",
@@ -38,8 +38,8 @@
 </script><title>typecho 评论回复艾特评论人 - 子舒的博客</title>
 <meta property="og:title" content="typecho 评论回复艾特评论人" />
 <meta property="og:type" content="article" />
-<meta property="og:description" content="typecho 在评论时默认是没有 @ 评论人的功能，可以用代码加一下。 在 functions.php 中： /* * 评论回复时 @ 评论人 */ function get_comment_at($coid) { $db = Typecho_Db::get(); $prow = $db-&amp;gt;fetchRow($db-&amp;gt;select(&amp;#39;parent,status&amp;#39;)-&amp;gt;from(&amp;#39;table.comments&amp;#39;) -&amp;gt;where(&amp;#39;coid = ?&amp;#39;, $coid)); $mail = &amp;#34;&amp;#34;; $parent = @$prow[&amp;#39;parent&amp;#39;]; if ($parent != &amp;#34;0&amp;#34;) { $arow = $db-&amp;gt;fetchRow($db-&amp;gt;select(&amp;#39;author,status,mail&amp;#39;)-&amp;gt;from(&amp;#39;table.comments&amp;#39;) -&amp;gt;where(&amp;#39;coid = ?&amp;#39;, $parent)); @$author = @$arow[&amp;#39;author&amp;#39;]; $mail = @$arow[&amp;#39;mail&amp;#39;]; if(@$author &amp;amp;&amp;amp; $arow[&amp;#39;status&amp;#39;] == &amp;#34;approved&amp;#34;){ if (@$prow[&amp;#39;status&amp;#39;] == &amp;#34;waiting&amp;#34;){ echo &amp;#39;&amp;lt;p class=&amp;#34;commentReview&amp;#34;&amp;gt;（评论审核中）)&amp;lt;/p&amp;gt;&amp;#39;; } echo &amp;#39;&amp;lt;a href=&amp;#34;#comment-&amp;#39; . $parent . &amp;#39;&amp;#34;&amp;gt;@&amp;#39; . $author . &amp;#39;&amp;lt;/a&amp;gt;&amp;#39;; }else{ if (@$prow[&amp;#39;status&amp;#39;] == &amp;#34;waiting&amp;#34;){ echo &amp;#39;&amp;lt;p class=&amp;#34;commentReview&amp;#34;&amp;gt;（评论审核中）)&amp;lt;/p&amp;gt;&amp;#39;; }else{ echo &amp;#39;&amp;#39;; } } } else { if (@$prow[&amp;#39;status&amp;#39;] == &amp;#34;waiting&amp;#34;){ echo &amp;#39;&amp;lt;p class=&amp;#34;commentReview&amp;#34;&amp;gt;（评论审核中）)&amp;lt;/p&amp;gt;&amp;#39;; }else{ echo &amp;#39;&amp;#39;; } } } 然后在 comments.php 中输出评论内容代码的前面加上： &amp;lt;?php $parentMail = get_comment_at($comments-&amp;gt;coid)?&amp;gt;&amp;lt;?php echo $parentMail;?&amp;gt; ▼代码所示 ▼效果图 我的博客即将同步至腾讯云&#43;社区，邀请大家一同入驻：https://cloud.tencent.com/developer/support-plan?invite_code=17ctk6evsjk5b" />
-<meta name="description" content="typecho 在评论时默认是没有 @ 评论人的功能，可以用代码加一下。 在 functions.php 中： /* * 评论回复时 @ 评论人 */ function get_comment_at($coid) { $db = Typecho_Db::get(); $prow = $db-&amp;gt;fetchRow($db-&amp;gt;select(&amp;#39;parent,status&amp;#39;)-&amp;gt;from(&amp;#39;table.comments&amp;#39;) -&amp;gt;where(&amp;#39;coid = ?&amp;#39;, $coid)); $mail = &amp;#34;&amp;#34;; $parent = @$prow[&amp;#39;parent&amp;#39;]; if ($parent != &amp;#34;0&amp;#34;) { $arow = $db-&amp;gt;fetchRow($db-&amp;gt;select(&amp;#39;author,status,mail&amp;#39;)-&amp;gt;from(&amp;#39;table.comments&amp;#39;) -&amp;gt;where(&amp;#39;coid = ?&amp;#39;, $parent)); @$author = @$arow[&amp;#39;author&amp;#39;]; $mail = @$arow[&amp;#39;mail&amp;#39;]; if(@$author &amp;amp;&amp;amp; $arow[&amp;#39;status&amp;#39;] == &amp;#34;approved&amp;#34;){ if (@$prow[&amp;#39;status&amp;#39;] == &amp;#34;waiting&amp;#34;){ echo &amp;#39;&amp;lt;p class=&amp;#34;commentReview&amp;#34;&amp;gt;（评论审核中）)&amp;lt;/p&amp;gt;&amp;#39;; } echo &amp;#39;&amp;lt;a href=&amp;#34;#comment-&amp;#39; . $parent . &amp;#39;&amp;#34;&amp;gt;@&amp;#39; . $author . &amp;#39;&amp;lt;/a&amp;gt;&amp;#39;; }else{ if (@$prow[&amp;#39;status&amp;#39;] == &amp;#34;waiting&amp;#34;){ echo &amp;#39;&amp;lt;p class=&amp;#34;commentReview&amp;#34;&amp;gt;（评论审核中）)&amp;lt;/p&amp;gt;&amp;#39;; }else{ echo &amp;#39;&amp;#39;; } } } else { if (@$prow[&amp;#39;status&amp;#39;] == &amp;#34;waiting&amp;#34;){ echo &amp;#39;&amp;lt;p class=&amp;#34;commentReview&amp;#34;&amp;gt;（评论审核中）)&amp;lt;/p&amp;gt;&amp;#39;; }else{ echo &amp;#39;&amp;#39;; } } } 然后在 comments.php 中输出评论内容代码的前面加上： &amp;lt;?php $parentMail = get_comment_at($comments-&amp;gt;coid)?&amp;gt;&amp;lt;?php echo $parentMail;?&amp;gt; ▼代码所示 ▼效果图 我的博客即将同步至腾讯云&#43;社区，邀请大家一同入驻：https://cloud.tencent.com/developer/support-plan?invite_code=17ctk6evsjk5b" />
+<meta property="og:description" content="typecho 在评论时默认是没有 @ 评论人的功能，可以用代码加一下。 在 functions.php 中： /* * 评论回复时 @ 评论人 */ function get_comment_at($coid) { $db = Typecho_Db::get(); $prow = $db-&amp;gt;fetchRow($db-&amp;gt;select(&amp;#39;parent,status&amp;#39;)-&amp;gt;from(&amp;#39;table.comments&amp;#39;) -&amp;gt;where(&amp;#39;coid = ?&amp;#39;, $coid)); $mail = &amp;#34;&amp;#34;; $parent = @$prow[&amp;#39;parent&amp;#39;]; if ($parent != &amp;#34;0&amp;#34;) { $arow = $db-&amp;gt;fetchRow($db-&amp;gt;select(&amp;#39;author,status,mail&amp;#39;)-&amp;gt;from(&amp;#39;table.comments&amp;#39;) -&amp;gt;where(&amp;#39;coid = ?&amp;#39;, $parent)); @$author = @$arow[&amp;#39;author&amp;#39;]; $mail = @$arow[&amp;#39;mail&amp;#39;];" />
+<meta name="description" content="typecho 在评论时默认是没有 @ 评论人的功能，可以用代码加一下。 在 functions.php 中： /* * 评论回复时 @ 评论人 */ function get_comment_at($coid) { $db = Typecho_Db::get(); $prow = $db-&amp;gt;fetchRow($db-&amp;gt;select(&amp;#39;parent,status&amp;#39;)-&amp;gt;from(&amp;#39;table.comments&amp;#39;) -&amp;gt;where(&amp;#39;coid = ?&amp;#39;, $coid)); $mail = &amp;#34;&amp;#34;; $parent = @$prow[&amp;#39;parent&amp;#39;]; if ($parent != &amp;#34;0&amp;#34;) { $arow = $db-&amp;gt;fetchRow($db-&amp;gt;select(&amp;#39;author,status,mail&amp;#39;)-&amp;gt;from(&amp;#39;table.comments&amp;#39;) -&amp;gt;where(&amp;#39;coid = ?&amp;#39;, $parent)); @$author = @$arow[&amp;#39;author&amp;#39;]; $mail = @$arow[&amp;#39;mail&amp;#39;];" />
 <meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,54 +62,64 @@
 
 <body>
   <div class="wrapper">
-    <main class="main">
-      <div class="nav-container">
-  <div class="nav">
-    
-    <a class="nav-item" href="/">首页</a>
-    
-    <a class="nav-item" href="/categories/%e6%8a%80%e6%9c%af/">技术</a>
-    
-    <a class="nav-item" href="/categories/%e9%9a%8f%e7%ac%94/">随笔</a>
-    
-    <a class="nav-item" href="/categories/weekly/">周刊</a>
-    
-    <a class="nav-item" href="/message/">留言</a>
-    
-    <a class="nav-item" href="/about/">关于</a>
-    
-    <a class="nav-item"
+    <nav class="navigation">
+  <section class="container"><a class="navigation-brand" href="/">主页</a>
+    <ul class="navigation-list" id="navigation-list">
+      
+      <li class="navigation-item navigation-menu"><a class="navigation-link" href="/categories/%e6%8a%80%e6%9c%af/">技术</a></li>
+      
+      <li class="navigation-item navigation-menu"><a class="navigation-link" href="/categories/%e9%9a%8f%e7%ac%94/">随笔</a></li>
+      
+      <li class="navigation-item navigation-menu"><a class="navigation-link" href="/categories/weekly/">周刊</a></li>
+      
+      <li class="navigation-item navigation-menu"><a class="navigation-link" href="/message/">留言</a></li>
+      
+      <li class="navigation-item navigation-menu"><a class="navigation-link" href="/about/">关于</a></li>
+      
+      <li class="navigation-item navigation-menu"><a class="navigation-link"
       href="https://anghunk.notion.site/155935c878aa4210b71c9052b7f726ff?v=762fadfb010a415ea3644a201e3131cb"
-      target="_blank">gallery</a>
+      target="_blank">gallery</a></li>
+      <li class="navigation-item menu-separator"><span>|</span></li>
+      <li class="navigation-item navigation-social"><a class="navigation-link"
+          href="https://github.com/98zi"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+            viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" class="feather feather-github">
+            <path
+              d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37.0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44.0 0020 4.77 5.07 5.07.0 0019.91 1S18.73.65 16 2.48a13.38 13.38.0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07.0 005 4.77 5.44 5.44.0 003.5 8.55c0 5.42 3.3 6.61 6.44 7A3.37 3.37.0 009 18.13V22">
+            </path>
+          </svg></a></li>
+      <li class="navigation-item navigation-social"><a class="navigation-link"
+          href="https://twitter.com/anghunk1"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+            viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" class="feather feather-twitter">
+            <path
+              d="M23 3a10.9 10.9.0 01-3.14 1.53 4.48 4.48.0 00-7.86 3v1A10.66 10.66.0 013 4s-4 9 5 13a11.64 11.64.0 01-7 2c9 5 20 0 20-11.5a4.5 4.5.0 00-.08-.83A7.72 7.72.0 0023 3z">
+            </path>
+          </svg></a></li>
 
-    <a href="/index.xml" target="_blank"><img src="/images/rss.svg" alt="RSS" class="social-icon" width="1em"></a>
-    <a href="https://twitter.com/zishu520" target="_blank"><img src="/images/twitter.svg" alt="twitter.com/zishu520"
-        class="social-icon" width="1em"></a>
-    <a href="https://github.com/98zi" target="_blank"><img src="/images/github.svg" alt="github.com/98zi"
-        class="social-icon" width="1em"></a>
+    </ul>
+  </section>
+</nav>
+    <main id="content">
+      <div class="home">
+        <h1 class="blog-title">typecho 评论回复艾特评论人</h1>
 
-  </div>
-</div>
-
-      <h1>typecho 评论回复艾特评论人</h1>
-
-      
-      <div class="date">
-        <time datetime=" 2022-06-07 00:00:00 UTC"> 2022-06-07</time>
-      </div>
-      <div class="expired-tips" style="display: none;"></div>
-      
-
-
-      
-      <div class="toc">
-        <nav id="TableOfContents"></nav>
-      </div>
-      
-
-      <article class="post-content">
         
-        <p>typecho 在评论时默认是没有 <code>@</code>  评论人的功能，可以用代码加一下。</p>
+        <div class="date">
+          <time> 2022-06-07</time>
+        </div>
+        <div class="expired-tips" style="display: none;"></div>
+        
+
+        
+        <div class="toc">
+          <nav id="TableOfContents"></nav>
+        </div>
+        
+
+        <article class="post-content">
+          
+          <p>typecho 在评论时默认是没有 <code>@</code>  评论人的功能，可以用代码加一下。</p>
 <p>在 <code>functions.php</code> 中：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="cm">/*
 </span></span></span><span class="line"><span class="cl"><span class="cm">* 评论回复时 @ 评论人
@@ -156,10 +166,10 @@
 <hr>
 <p>我的博客即将同步至腾讯云+社区，邀请大家一同入驻：https://cloud.tencent.com/developer/support-plan?invite_code=17ctk6evsjk5b</p>
 
-      </article>
+        </article>
 
-      
-      <div style="padding:20px 0"></div>
+        
+        <div style="padding:20px 0"></div>
 
 <div class="giscus"></div>
 <script 
@@ -180,9 +190,9 @@
   async>
 </script>
 
-      
+        
 
-
+      </div>
       <footer class="footer">
   <p>© 2020 - 2024
     Powered by
