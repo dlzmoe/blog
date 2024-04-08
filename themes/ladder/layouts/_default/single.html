@@ -12,6 +12,13 @@
         {{ if in .Site.Params.mainSections .Type }}
         <div class="date">
           <time> {{ .Date.Format "2006-01-02"}}</time>
+          {{ if .Params.tags }}
+          <!-- <p> -->
+          {{ range .Params.tags }} {{ $href := print (absURL "/tags/") (urlize .) }}
+          / <a href="{{ $href }}">{{ . }}</a>
+          {{ end }}
+          <!-- </p> -->
+          {{ end }}
         </div>
         <div class="expired-tips" style="display: none;"></div>
         {{ end }}
