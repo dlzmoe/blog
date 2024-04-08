@@ -11,23 +11,23 @@
 
         <h1 class="blog-title">{{ .Title }}</h1>
         <p class="header-des">List of articles written on this website in a timeline view.</p>
+        <div class="featured">
+          {{ range (where .Data.Pages "Type" "in" site.Params.mainSections).GroupByDate "2006" -}}
+          <div class="featured-list">
+            <h3 id="{{ .Key }}">{{ .Key }}</h3>
 
-        {{ range (where .Data.Pages "Type" "in" site.Params.mainSections).GroupByDate "2006" -}}
-        <div class="featured-list">
-          <h3 id="{{ .Key }}">{{ .Key }}</h3>
+            {{ range .Pages }}
+            <article class="featured-single">
+              <h4><a href="{{ .RelPermalink }}">{{ .Title }}</a></h4>
+              <p><small>{{ .Date.Format "2006 年 01 月 02 日"}}</small></p>
+              <p></p>
+              <!-- <p>{{ .Summary }}</p> -->
+            </article>
+            {{ end }}
 
-          {{ range .Pages }}
-          <article class="featured-single">
-            <h4><a href="{{ .RelPermalink }}">{{ .Title }}</a></h4>
-            <p><small>{{ .Date.Format "2006 年 01 月 02 日"}}</small></p>
-            <p></p>
-            <!-- <p>{{ .Summary }}</p> -->
-          </article>
+          </div>
           {{ end }}
-
         </div>
-
-        {{ end }}
       </div>
       {{ partial "footer.html" . }}
     </main>
