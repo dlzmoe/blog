@@ -3,11 +3,11 @@
 <p align="center">博客主题：<a href="./themes/">ladder</a> - 在线预览：<a href="https://zishu.me" target="_blank">https://zishu.me</a> </p>
 
 <p align="center">
-<img src="https://img.shields.io/github/last-commit/anghunk/hugo-blog">
-<img src="https://img.shields.io/github/commit-activity/t/anghunk/hugo-blog">
-<img src="https://img.shields.io/github/forks/anghunk/hugo-blog?style=flat">
-<img src="https://img.shields.io/github/stars/anghunk/hugo-blog?style=flat">
-<img src="https://img.shields.io/github/license/anghunk/hugo-blog">
+<img src="https://img.shields.io/github/last-commit/dlzmoe/blog">
+<img src="https://img.shields.io/github/commit-activity/t/dlzmoe/blog">
+<img src="https://img.shields.io/github/forks/dlzmoe/blog?style=flat">
+<img src="https://img.shields.io/github/stars/dlzmoe/blog?style=flat">
+<img src="https://img.shields.io/github/license/dlzmoe/blog">
 </p>
 
 > 欢迎加入我的 discord 社区！https://discord.gg/pxt853eEWM
@@ -35,7 +35,7 @@
 
 ```shell
 # 下载项目源码
-git clone https://github.com/anghunk/hugo-blog.git
+git clone https://github.com/dlzmoe/blog.git
 # 本地运行
 hugo serve
 # 打包构建
@@ -74,7 +74,7 @@ py toc.py
 
 ## 5.Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=anghunk/hugo-blog&type=Date)](https://star-history.com/#anghunk/hugo-blog&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=dlzmoe/blog&type=Date)](https://star-history.com/#dlzmoe/blog&Date)
 
 
 ## 6.LICENSE
