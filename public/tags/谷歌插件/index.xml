@@ -13,7 +13,7 @@
       <link>https://zishu.me/blog/100.html/</link>
       <pubDate>Wed, 26 Jan 2022 00:00:00 +0000</pubDate>
       <guid>https://zishu.me/blog/100.html/</guid>
-      <description>在浏览网站时，受限于网站的缺陷，我们通常都会写一些脚本和插件来进行扩展，常规方法有油猴和谷歌插件两种，油猴也是一种插件，使用起来很方便，今天要讲的是如何通过谷歌</description>
+      <description>在浏览网站时，受限于网站的缺陷，我们通常都会写一些脚本和插件来进行扩展，常规方法有油猴和谷歌插件两种，油猴也是一种插件，使用起来很方便，今天要讲的是如何通过谷歌插件进行注入。 按照结构生成下面几个文件 |chrome-plugin |---manifest.json |---script.js |---favicon.ico 在 manifest.json 中写入代码，这是一个入口文件，声明了插件的基本信息。 default_icon 是插件的图标 matches 是使用的网站，在该域名下的网站才会生效。注意后面要加上 /* js 是引入的文件 // manifest.json { &amp;#34;name&amp;#34;: &amp;#34;Welcome&amp;#34;, &amp;#34;manifest_version&amp;#34;: 2, &amp;#34;version&amp;#34;: &amp;#34;1.0&amp;#34;, &amp;#34;description&amp;#34;: &amp;#34;扩展插件&amp;#34;, &amp;#34;browser_action&amp;#34;: { &amp;#34;default_icon&amp;#34;: &amp;#34;favicon.ico&amp;#34; }, &amp;#34;content_scripts&amp;#34;: [ { &amp;#34;matches&amp;#34;: [&amp;#34;https://github.com/*&amp;#34;], &amp;#34;js&amp;#34;: [script.js&amp;#34;] } ] } 然后在 script.js 中随便插入一段代码即可。 // script.js console.log(&amp;#39;hello, world!&amp;#39;) 这样一个基本的插件就构成了，下一步就是上传。但是如果在打包生成 crx 文件后，上传 crx 文件会报错，显示危险，因为没有上架到谷歌商店。所以我们不用打包，直接加载本地文件。 然后选择写好的文件夹 点击确定上传即可，这样一个插件上传的步骤就完成了。我们可以学习相关技术，写上一些自己需要的功能，这也是 Chrome 浏览器这么受欢迎的原因之一，集成了大量的插件。 如果你想上传到商店出售或者免费分享，都是需要注册开发者账号的。缴纳 5 美元费用之后就可以上传了，审核过后就可以在商店列表看到你的插件。</description>
     </item>
   </channel>
 </rss>
