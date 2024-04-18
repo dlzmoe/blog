@@ -1,5 +1,6 @@
 ## 文章归档目录
 
+- [2024-04-14-安徽宁国两日游](./content/blog/2024-04-14-安徽宁国两日游.md) --- [https://zishu.me/blog/225.html](https://zishu.me/blog/225.html/)
 - [2024-04-05-严州古城](./content/blog/2024-04-05-严州古城.md) --- [https://zishu.me/blog/224.html](https://zishu.me/blog/224.html/)
 - [2024-04-02-我的 chrome 扩展和油猴脚本总结](./content/blog/2024-04-02-我的chrome扩展和油猴脚本总结.md) --- [https://zishu.me/blog/223.html](https://zishu.me/blog/223.html/)
 - [2024-03-26-樱花飞舞的初春](./content/blog/2024-03-26-樱花飞舞的初春.md) --- [https://zishu.me/blog/222.html](https://zishu.me/blog/222.html/)
