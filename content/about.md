@@ -14,7 +14,7 @@ const author = {
   tags: ['前端程序员', '独立博客作者', '骑行爱好者', '摄影爱好者', 'INFJ 人格'],
   adress: '杭州',
   email: 'anghunk@gmail.com',
-  github: 'https://github.com/98zi',
+  github: 'https://github.com/dlzmoe',
   blog: 'https://zishu.me',
   introduce: '喜欢折腾技术，研究各种奇怪的程序和网站，做了一些开源的东西。'
 }
