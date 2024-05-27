@@ -11,7 +11,7 @@ title: 关于
 const author = {
   name: '子舒',
   create_date: 1998,
-  tags: ['前端程序员', '独立博客作者', '骑行爱好者', '摄影爱好者', 'INFJ 人格'],
+  tags: ['前端程序员', '独立博客作者', '骑行爱好者', '航拍爱好者', 'INFJ 人格'],
   adress: '杭州',
   email: 'anghunk@gmail.com',
   github: 'https://github.com/dlzmoe',

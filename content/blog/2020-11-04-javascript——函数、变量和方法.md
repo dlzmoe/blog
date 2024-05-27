@@ -1,7 +1,7 @@
 ---
 slug: 13
 title: javascript——函数、变量和方法
-date: 2020-11-04
+date: "2020-11-04"
 categories: 
   - 技术
 tags: 

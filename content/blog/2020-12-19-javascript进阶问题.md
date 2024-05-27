@@ -1,7 +1,7 @@
 ---
 slug: 36
 title: javascript 进阶问题
-date: 2020-12-19
+date: "2020-12-19"
 categories: 
   - 技术
 tags: 
