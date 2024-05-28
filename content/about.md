@@ -16,7 +16,7 @@ const author = {
   email: 'anghunk@gmail.com',
   github: 'https://github.com/dlzmoe',
   blog: 'https://zishu.me',
-  introduce: '喜欢折腾技术，研究各种奇怪的程序和网站，做了一些开源的东西。'
+  introduce: '喜欢折腾技术，研究各种奇怪的程序和网站，做了一些开源的东西，喜欢户外运动，热爱生活。'
 }
 ```
 
