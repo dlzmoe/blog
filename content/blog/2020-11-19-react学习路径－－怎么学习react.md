@@ -1,7 +1,7 @@
 ---
 slug: 23
 title: react 学习路径－－怎么学习 react？
-date: "2020-11-19"
+date: 2020-11-19
 categories: 
   - 技术
 tags: 

@@ -1,7 +1,7 @@
 ---
 slug: 19
 title: getElementBy 系列和 querySelector 系列的区别
-date: "2020-11-16"
+date: 2020-11-16
 categories: 
   - 技术
 tags: 

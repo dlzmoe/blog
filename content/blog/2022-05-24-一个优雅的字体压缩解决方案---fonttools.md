@@ -1,7 +1,7 @@
 ---
 slug: 106
 title: 一个优雅的字体压缩解决方案 fonttools
-date: "2022-05-24"
+date: 2022-05-24
 categories: 
   - 技术
 tags: 

@@ -1,7 +1,7 @@
 ---
 slug: 187
 title: GitHub 生成一个新的 ssh 密钥
-date: "2023-03-09"
+date: 2023-03-09
 categories: 
   - 技术
 tags: 

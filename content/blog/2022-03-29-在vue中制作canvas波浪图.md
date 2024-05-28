@@ -1,7 +1,7 @@
 ---
 slug: 111
 title: 在 vue 中制作 canvas 波浪图
-date: "2022-03-29"
+date: 2022-03-29
 categories: 
   - 技术
 tags: 
