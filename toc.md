@@ -1,9 +1,11 @@
 ## 文章归档目录
 
+- [2024-06-08-随手拍无题](./content/blog/2024-06-08-随手拍无题.md) --- [https://zishu.me/blog/229.html](https://zishu.me/blog/229.html/)
+- [2024-05-26-无人机航拍青山湖](./content/blog/2024-05-26-无人机航拍青山湖.md) --- [https://zishu.me/blog/228.html](https://zishu.me/blog/228.html/)
+- [2024-05-01-黄公望隐居地](./content/blog/2024-05-01-黄公望隐居地.md) --- [https://zishu.me/blog/227.html](https://zishu.me/blog/227.html/)
 - [2024-04-24-vue 中配置 env 文件](./content/blog/2024-04-24-vue中配置env文件.md) --- [https://zishu.me/blog/226.html](https://zishu.me/blog/226.html/)
 - [2024-04-14-安徽宁国两日游](./content/blog/2024-04-14-安徽宁国两日游.md) --- [https://zishu.me/blog/225.html](https://zishu.me/blog/225.html/)
 - [2024-04-05-严州古城](./content/blog/2024-04-05-严州古城.md) --- [https://zishu.me/blog/224.html](https://zishu.me/blog/224.html/)
-- [2024-04-02-我的 chrome 扩展和油猴脚本总结](./content/blog/2024-04-02-我的chrome扩展和油猴脚本总结.md) --- [https://zishu.me/blog/223.html](https://zishu.me/blog/223.html/)
 - [2024-03-26-樱花飞舞的初春](./content/blog/2024-03-26-樱花飞舞的初春.md) --- [https://zishu.me/blog/222.html](https://zishu.me/blog/222.html/)
 - [2024-03-22-骑行大莲花](./content/blog/2024-03-22-骑行大莲花.md) --- [https://zishu.me/blog/221.html](https://zishu.me/blog/221.html/)
 - [2024-03-01-值传递和引用传递](./content/blog/2024-03-01-值传递和引用传递.md) --- [https://zishu.me/blog/220.html](https://zishu.me/blog/220.html/)
