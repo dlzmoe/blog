@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8" />
+<meta name="generator" content="Hugo 0.123.6">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="toTop" content="true">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="author" content="子舒" />
+<meta property="og:url" content="https://zishu.me/blog/143.html/" />
+<link rel="canonical" href="https://zishu.me/blog/143.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="shortcut" href="https://imgurl.zishu.me/favicon.ico" /><link rel="alternate" type="application/atom+xml" href="https://zishu.me/index.xml" title="子舒的博客">
+<script type="application/ld+json">
+{
+"@context" : "http://schema.org",
+"@type" : "BlogPosting",
+"mainEntityOfPage": {
+"@type": "WebPage",
+"@id": "https:\/\/zishu.me\/"
+},
+"articleSection" : "blog",
+"name" : "掘金抽奖脚本",
+"headline" : "掘金抽奖脚本",
+"description" : "分享一个掘金抽奖的油猴脚本，可以一键签到，抽奖，梭哈。 攒多一点矿石，体验买彩票的感觉。 油猴脚本代码 \u0060\u0060\u0060js \/\/ ==UserScript== \/\/ @name 掘金抽奖 \/\/ @namespace http:\/\/tampermonkey.net\/ \/\/ @version 1.2.5 \/\/ @description 掘金抽奖 签到 免费抽奖 5 连抽 10 连抽 可视化抽奖 petite-vue \/\/ @author 无仙 \/\/ @match https:\/\/juejin.cn\/* \/\/ @icon https:\/\/lf3-cdn-tos.bytescm.com\/obj\/static\/xitu_juejin_web\/\/static\/favicons\/favicon-32x32.png \/\/ @require https:\/\/unpkg.com\/petite-vue \/\/ ==\/UserScript== (async function () { \u0026lsquo;use strict\u0026rsquo;; const { createApp } = PetiteVue; \/\/ 不会吧不会吧，不会还有人不知道 petite-vue 吧 const root = document.createElement(\u0026lsquo;div\u0026rsquo;); root.class = \u0026lsquo;wx_draw_wrap\u0026rsquo;; root.innerHTML = \u0060 \u0026lt;div v-show=\u0026quot;!popup\u0026quot; class=\u0026ldquo;wx_draw\u0026rdquo; @click=\u0026ldquo;open\u0026rdquo;\u0026gt;掘金抽奖 \u0026lt;div v-if=\u0026quot;popup\u0026quot; class=\u0026quot;wx_popup\u0026quot;\u0026gt; \u0026lt;div class=\u0026quot;wx_mask\u0026quot; @click=\u0026quot;popup = false\u0026quot;\u0026gt;\u0026lt;\/div\u0026gt; \u0026lt;div class=\u0026quot;wx_main\u0026quot;\u0026gt; \u0026lt;div class=\u0026quot;wx_header\u0026quot;\u0026gt; \u0026lt;div\u0026gt;掘金抽奖\u0026lt;\/div\u0026gt; \u0026lt;div class=\u0026quot;wx_score\u0026quot;\u0026gt;当前矿石：{{ score }}\u0026lt;\/div\u0026gt; \u0026lt;\/div\u0026gt; \u0026lt;div class=\u0026quot;wx_body\u0026quot;\u0026gt; \u0026lt;div class=\u0026quot;wx_options\u0026quot;\u0026gt; \u0026lt;div @click=\u0026quot;check_in\u0026quot; v-if=\u0026quot;check_status === -1 || check_status === false\u0026quot;\u0026gt;签到\u0026lt;\/div\u0026gt; \u0026lt;div @click=\u0026quot;get_free\u0026quot; v-else\u0026gt;签到成功\u0026lt;\/div\u0026gt; \u0026lt;div @click=\u0026quot;draw(5)\u0026quot;\u0026gt;5 连抽\u0026lt;\/div\u0026gt; \u0026lt;div @click=\u0026quot;draw(10)\u0026quot;\u0026gt;10 连抽\u0026lt;\/div\u0026gt; \u0026lt;div @click=\u0026quot;draw(undefined)\u0026quot;\u0026gt;梭哈抽奖\u0026lt;\/div\u0026gt; \u0026lt;\/div\u0026gt; \u0026lt;table cellpadding=\u0026quot;0\u0026quot; cellspacing=\u0026quot;0\u0026quot; border=\u0026quot;0\u0026quot; width=\u0026quot;100%\u0026quot;\u0026gt; \u0026lt;thead\u0026gt; \u0026lt;tr\u0026gt; \u0026lt;th\u0026gt;奖品图片\u0026lt;\/th\u0026gt; \u0026lt;th\u0026gt;奖品名称\u0026lt;\/th\u0026gt; \u0026lt;th\u0026gt;中奖次数\u0026lt;\/th\u0026gt; \u0026lt;\/tr\u0026gt; \u0026lt;\/thead\u0026gt; \u0026lt;tbody\u0026gt; \u0026lt;tr v-for=\u0026quot;item in award\u0026quot;\u0026gt; \u0026lt;td\u0026gt;\u0026lt;img :src=\u0026quot;item.lottery_image\u0026quot;\/\u0026gt;\u0026lt;\/td\u0026gt; \u0026lt;td\u0026gt;{{ item.lottery_name }}\u0026lt;\/td\u0026gt; \u0026lt;td\u0026gt;{{ item.times }}\u0026lt;\/td\u0026gt; \u0026lt;\/tr\u0026gt; \u0026lt;\/tbody\u0026gt; \u0026lt;\/table\u0026gt; \u0026lt;div class=\u0026quot;wx_loading\u0026quot; v-if=\u0026quot;loading\u0026quot;\u0026gt; \u0026lt;svg class=\u0026quot;circular\u0026quot; viewBox=\u0026quot;25 25 50 50\u0026quot;\u0026gt; \u0026lt;circle class=\u0026quot;path\u0026quot; cx=\u0026quot;50\u0026quot; cy=\u0026quot;50\u0026quot; r=\u0026quot;20\u0026quot; fill=\u0026quot;none\u0026quot; \/\u0026gt; \u0026lt;\/svg\u0026gt; \u0026lt;\/div\u0026gt; \u0026lt;\/div\u0026gt; \u0026lt;div class=\u0026quot;wx_footer\u0026quot;\u0026gt; \u0026lt;div class=\u0026quot;wx_confirm wx_btn\u0026quot; @click=\u0026quot;popup = false\u0026quot;\u0026gt;关闭\u0026lt;\/div\u0026gt; \u0026lt;\/div\u0026gt; \u0026lt;\/div\u0026gt; \u0026lt;\/div\u0026gt; \u0060; \/\/ 查询奖品列表 const res = await fetch(\u0026lsquo;https:\/\/api.juejin.cn\/growth_api\/v1\/lottery_config\/get\u0027, { headers: { cookie: document.cookie }, method: \u0026lsquo;GET\u0026rsquo;, credentials: \u0026lsquo;include\u0026rsquo; }).then((res) =\u0026gt; res.json()); const award = (res.data \u0026amp;\u0026amp; res.data.lottery ? res.data.lottery : []).map((item) =\u0026gt; ({ \u0026hellip;item, times: 0 })); const { free_count, point_cost } = res.data; \/\/ 剩余免费抽奖次数，单次抽奖消耗数 document.body.appendChild(root); \/\/ 插入 DOM \/\/ petite-vue init 初始化 createApp({ award, popup: false, loading: false, score: 0, free_count, check_status: -1, async open() { const res = await fetch(\u0027https:\/\/api.juejin.cn\/growth_api\/v1\/get_cur_point\u0027, { headers: { cookie: document.cookie }, method: \u0027GET\u0027, credentials: \u0027include\u0027 }).then((res) =\u0026gt; res.json()); this.score = res.data; \/\/ 当前分数 this.popup = true; (this.check_status === -1 || this.check_status === false) \u0026amp;\u0026amp; this.get_status(); }, async draw(times, is_not_free = true) { if (this.loading || times === 0) return; \/\/ const is_not_free = !(this.free_count \u0026amp;\u0026amp; times === 1); if (is_not_free \u0026amp;\u0026amp; this.score \u0026lt; point_cost * (times || 1)) return alert(\u0027分都不够想啥呢？\u0027); let i = 0; const drawFn = async () =\u0026gt; { if ((is_not_free \u0026amp;\u0026amp; this.score \u0026lt; point_cost) || i === times) { this.free_count = 0; this.loading = false; this.open(); console.log(\u0060${times ? times \u002b \u0027连抽\u0027 : \u0027梭哈\u0027}结束！\u0060); return; } const result = await fetch(\u0027https:\/\/api.juejin.cn\/growth_api\/v1\/lottery\/draw\u0027, { headers: { cookie: document.cookie }, method: \u0027POST\u0027, credentials: \u0027include\u0027 }).then((res) =\u0026gt; res.json()); if (result.err_no !== 0) { console.log(result.err_msg); this.loading = false; this.open(); return; } i\u002b\u002b; is_not_free \u0026amp;\u0026amp; (this.score -= point_cost); if (result.data.lottery_type === 1) this.score \u002b= 66; const item = this.award.find((item) =\u0026gt; item.lottery_id === result.data.lottery_id); item.times\u002b\u002b; console.log(\u0060抽到：${result.data.lottery_name}\u0060); drawFn(); }; console.log(\u0060开始${times ? times \u002b \u0027连抽\u0027 : \u0027梭哈\u0027}！\u0060); this.loading = true; this.award.forEach((item) =\u0026gt; { item.times = 0; }); try { drawFn(); } catch (error) { this.loading = false; console.error(error); } }, async check_in() { if (this.check_status) { this.get_free(); \/\/ 免费抽奖 return; } \/\/ 签到 const check_in = await fetch(\u0027https:\/\/api.juejin.cn\/growth_api\/v1\/check_in\u0027, { headers: { cookie: document.cookie }, method: \u0027POST\u0027, credentials: \u0027include\u0027 }).then((res) =\u0026gt; res.json()); if (check_in.err_no !== 0) { alert(\u0027签到失败！\u0027); this.check_status = false; return; } this.check_status = true; this.score = check_in.data.sum_point; this.get_free(); \/\/ 免费抽奖 }, async get_status() { \/\/ 查询签到状态 const today_status = await fetch(\u0027https:\/\/api.juejin.cn\/growth_api\/v1\/get_today_status\u0027, { headers: { cookie: document.cookie }, method: \u0027GET\u0027, credentials: \u0027include\u0027 }).then((res) =\u0026gt; res.json()); this.check_status = today_status.data; }, async get_free() { \/\/ 查询是否有免费抽奖次数 const res = await fetch(\u0027https:\/\/api.juejin.cn\/growth_api\/v1\/lottery_config\/get\u0027, { headers: { cookie: document.cookie }, method: \u0027GET\u0027, credentials: \u0027include\u0027 }).then((res) =\u0026gt; res.json()); this.free_count = res.data.free_count; if (res.data.free_count) { \/\/ 有免费抽奖次数 this.draw(res.data.free_count, false); } } }).mount(); \/\/ 处理样式 const style = .wx_draw_wrap { box-sizing: border-box; position: fixed; top: 50%; left: 0px; z-index: 888888; margin-top: -20px; } .wx_draw { box-sizing: border-box; position: fixed; top: 50%; left: 0px; z-index: 888888; width: 40px; height: 40px; line-height: 16px; font-size: 12px; padding: 4px; background-color: rgb(232, 243, 255); border: 1px solid rgb(232, 243, 255); color: rgb(30, 128, 255); text-align: center; overflow: hidden; cursor: pointer; } .wx_popup { position: fixed; left: 0; top: 0; right: 0; bottom: 0; z-index: 999999; } .wx_mask { width: 100%; height: 100%; background: rgba(0,0,0,0.5); } .wx_main { --width: 460px; position: absolute; left: 50%; top: 50%; width: var(--width); transform: translate(-50%, -50%); background: #fff; border-radius: 4px; } .wx_main .wx_header { height: 40px; line-height: 40px; font-size: 16px; padding: 0 16px; border-bottom: 1px solid #999; display: flex; align-items: center; justify-content: space-between; color: #000; font-weight: 400; } .wx_score { font-size: 12px; font-size: #00a100; } .wx_main .wx_body { padding: 16px; border-bottom: 1px solid #999; position: relative; } .wx_main .wx_options { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; } .wx_main .wx_options div { width: 80px; text-align: center; height: 24px; line-height: 24px; background-color: rgb(232, 243, 255); border: 1px solid #c9d4e3; color: rgb(30, 128, 255); cursor: pointer; border-radius: 2px; } .wx_main .wx_body p { margin: 0 0 8px; } .wx_body table { width: 100%; text-align: center; border-left: 1px solid #ccc; border-top: 1px solid #ccc; } .wx_body table th, .wx_body table td { border-right: 1px solid #ccc; border-bottom: 1px solid #ccc; line-height: 20px; } .wx_body table th { line-height: 28px; } .wx_main .wx_body img { vertical-align: middle; width: 40px; height: 40px; } .wx_main .wx_footer { padding: 12px 16px; text-align: right; } .wx_btn { display: inline-block; width: 48px; cursor: pointer; text-align: center; height: 20px; line-height: 20px; background-color: rgb(232, 243, 255); border: 1px solid #c9d4e3; color: rgb(30, 128, 255); border-radius: 2px; } .wx_loading { position: absolute; left: 0; top: 0; right: 0; bottom: 0; z-index: 9999999; background: rgba(0,0,0,0.65); } .wx_loading .circular { height: 42px; width: 42px; -webkit-animation: loading-rotate 2s linear infinite; animation: loading-rotate 2s linear infinite; position: absolute; left: 50%; top: 50%; margin-top: -21px; margin-left: -21px; } .wx_loading .path { -webkit-animation: loading-dash 1.5s ease-in-out infinite; animation: loading-dash 1.5s ease-in-out infinite; stroke-dasharray: 90, 150; stroke-dashoffset: 0; stroke-width: 2; stroke: #409eff; stroke-linecap: round; } @keyframes loading-rotate { 100% { -webkit-transform: rotate(360deg); transform: rotate(360deg); } } @keyframes loading-dash { 0% { stroke-dasharray: 1, 200; stroke-dashoffset: 0; } 50% { stroke-dasharray: 90, 150; stroke-dashoffset: -40px; } 100% { stroke-dasharray: 90, 150; stroke-dashoffset: -120px; } }; const styleEl = document.createElement(\u0026lsquo;style\u0026rsquo;); styleEl.textContent = style; document.head.appendChild(styleEl); })(); \u0026lt;\/details\u0026gt; \u0026lt;\/summary\u0026gt;",
+"inLanguage" : "en-US",
+"author" : "子舒",
+"creator" : "子舒",
+"publisher": "子舒",
+"accountablePerson" : "子舒",
+"copyrightHolder" : "子舒",
+"copyrightYear" : "2022",
+"datePublished": "2022-06-22 00:00:00 \u002b0000 UTC",
+"dateModified" : "2022-06-22 00:00:00 \u002b0000 UTC",
+"url" : "https:\/\/zishu.me\/blog\/143.html\/",
+"keywords" : [ "掘金","油猴脚本", ]
+}
+</script><title>掘金抽奖脚本 - 子舒的博客</title>
+<meta property="og:title" content="掘金抽奖脚本" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="分享一个掘金抽奖的油猴脚本，可以一键签到，抽奖，梭哈。 攒多一点矿石，体验买彩票的感觉。 油猴脚本代码 ```js // ==UserScript== // @name 掘金抽奖 // @namespace http://tampermonkey.net/ // @version 1.2.5 // @description 掘金抽奖 签到 免费抽奖 5 连抽 10 连抽 可视化抽奖 petite-vue // @author 无仙 // @match https://juejin.cn/* // @icon https://lf3-cdn-tos.bytescm.com/obj/static/xitu_juejin_web//static/favicons/favicon-32x32.png // @require https://unpkg.com/petite-vue // ==/UserScript== (async function () { &amp;lsquo;use strict&amp;rsquo;; const { createApp } = PetiteVue; // 不会吧不会吧，不会还有人不知道 petite-vue 吧 const root = document.createElement(&amp;lsquo;div&amp;rsquo;); root.class = &amp;lsquo;wx_draw_wrap&amp;rsquo;; root.innerHTML = ` &amp;lt;div v-show=&amp;quot;!popup&amp;quot; class=&amp;ldquo;wx_draw&amp;rdquo; @click=&amp;ldquo;open&amp;rdquo;&amp;gt;掘金抽奖 &amp;lt;div v-if=&amp;quot;popup&amp;quot; class=&amp;quot;wx_popup&amp;quot;&amp;gt; &amp;lt;div class=&amp;quot;wx_mask&amp;quot; @click=&amp;quot;popup = false&amp;quot;&amp;gt;&amp;lt;/div&amp;gt; &amp;lt;div class=&amp;quot;wx_main&amp;quot;&amp;gt; &amp;lt;div class=&amp;quot;wx_header&amp;quot;&amp;gt; &amp;lt;div&amp;gt;掘金抽奖&amp;lt;/div&amp;gt; &amp;lt;div class=&amp;quot;wx_score&amp;quot;&amp;gt;当前矿石：{{ score }}&amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;div class=&amp;quot;wx_body&amp;quot;&amp;gt; &amp;lt;div class=&amp;quot;wx_options&amp;quot;&amp;gt; &amp;lt;div @click=&amp;quot;check_in&amp;quot; v-if=&amp;quot;check_status === -1 || check_status === false&amp;quot;&amp;gt;签到&amp;lt;/div&amp;gt; &amp;lt;div @click=&amp;quot;get_free&amp;quot; v-else&amp;gt;签到成功&amp;lt;/div&amp;gt; &amp;lt;div @click=&amp;quot;draw(5)&amp;quot;&amp;gt;5 连抽&amp;lt;/div&amp;gt; &amp;lt;div @click=&amp;quot;draw(10)&amp;quot;&amp;gt;10 连抽&amp;lt;/div&amp;gt; &amp;lt;div @click=&amp;quot;draw(undefined)&amp;quot;&amp;gt;梭哈抽奖&amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;table cellpadding=&amp;quot;0&amp;quot; cellspacing=&amp;quot;0&amp;quot; border=&amp;quot;0&amp;quot; width=&amp;quot;100%&amp;quot;&amp;gt; &amp;lt;thead&amp;gt; &amp;lt;tr&amp;gt; &amp;lt;th&amp;gt;奖品图片&amp;lt;/th&amp;gt; &amp;lt;th&amp;gt;奖品名称&amp;lt;/th&amp;gt; &amp;lt;th&amp;gt;中奖次数&amp;lt;/th&amp;gt; &amp;lt;/tr&amp;gt; &amp;lt;/thead&amp;gt; &amp;lt;tbody&amp;gt; &amp;lt;tr v-for=&amp;quot;item in award&amp;quot;&amp;gt; &amp;lt;td&amp;gt;&amp;lt;img :src=&amp;quot;item.lottery_image&amp;quot;/&amp;gt;&amp;lt;/td&amp;gt; &amp;lt;td&amp;gt;{{ item.lottery_name }}&amp;lt;/td&amp;gt; &amp;lt;td&amp;gt;{{ item.times }}&amp;lt;/td&amp;gt; &amp;lt;/tr&amp;gt; &amp;lt;/tbody&amp;gt; &amp;lt;/table&amp;gt; &amp;lt;div class=&amp;quot;wx_loading&amp;quot; v-if=&amp;quot;loading&amp;quot;&amp;gt; &amp;lt;svg class=&amp;quot;circular&amp;quot; viewBox=&amp;quot;25 25 50 50&amp;quot;&amp;gt; &amp;lt;circle class=&amp;quot;path&amp;quot; cx=&amp;quot;50&amp;quot; cy=&amp;quot;50&amp;quot; r=&amp;quot;20&amp;quot; fill=&amp;quot;none&amp;quot; /&amp;gt; &amp;lt;/svg&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;div class=&amp;quot;wx_footer&amp;quot;&amp;gt; &amp;lt;div class=&amp;quot;wx_confirm wx_btn&amp;quot; @click=&amp;quot;popup = false&amp;quot;&amp;gt;关闭&amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; `; // 查询奖品列表 const res = await fetch(&amp;lsquo;https://api.juejin.cn/growth_api/v1/lottery_config/get&#39;, { headers: { cookie: document.cookie }, method: &amp;lsquo;GET&amp;rsquo;, credentials: &amp;lsquo;include&amp;rsquo; }).then((res) =&amp;gt; res.json()); const award = (res.data &amp;amp;&amp;amp; res.data.lottery ? res.data.lottery : []).map((item) =&amp;gt; ({ &amp;hellip;item, times: 0 })); const { free_count, point_cost } = res.data; // 剩余免费抽奖次数，单次抽奖消耗数 document.body.appendChild(root); // 插入 DOM // petite-vue init 初始化 createApp({ award, popup: false, loading: false, score: 0, free_count, check_status: -1, async open() { const res = await fetch(&#39;https://api.juejin.cn/growth_api/v1/get_cur_point&#39;, { headers: { cookie: document.cookie }, method: &#39;GET&#39;, credentials: &#39;include&#39; }).then((res) =&amp;gt; res.json()); this.score = res.data; // 当前分数 this.popup = true; (this.check_status === -1 || this.check_status === false) &amp;amp;&amp;amp; this.get_status(); }, async draw(times, is_not_free = true) { if (this.loading || times === 0) return; // const is_not_free = !(this.free_count &amp;amp;&amp;amp; times === 1); if (is_not_free &amp;amp;&amp;amp; this.score &amp;lt; point_cost * (times || 1)) return alert(&#39;分都不够想啥呢？&#39;); let i = 0; const drawFn = async () =&amp;gt; { if ((is_not_free &amp;amp;&amp;amp; this.score &amp;lt; point_cost) || i === times) { this.free_count = 0; this.loading = false; this.open(); console.log(`${times ? times &#43; &#39;连抽&#39; : &#39;梭哈&#39;}结束！`); return; } const result = await fetch(&#39;https://api.juejin.cn/growth_api/v1/lottery/draw&#39;, { headers: { cookie: document.cookie }, method: &#39;POST&#39;, credentials: &#39;include&#39; }).then((res) =&amp;gt; res.json()); if (result.err_no !== 0) { console.log(result.err_msg); this.loading = false; this.open(); return; } i&#43;&#43;; is_not_free &amp;amp;&amp;amp; (this.score -= point_cost); if (result.data.lottery_type === 1) this.score &#43;= 66; const item = this.award.find((item) =&amp;gt; item.lottery_id === result.data.lottery_id); item.times&#43;&#43;; console.log(`抽到：${result.data.lottery_name}`); drawFn(); }; console.log(`开始${times ? times &#43; &#39;连抽&#39; : &#39;梭哈&#39;}！`); this.loading = true; this.award.forEach((item) =&amp;gt; { item.times = 0; }); try { drawFn(); } catch (error) { this.loading = false; console.error(error); } }, async check_in() { if (this.check_status) { this.get_free(); // 免费抽奖 return; } // 签到 const check_in = await fetch(&#39;https://api.juejin.cn/growth_api/v1/check_in&#39;, { headers: { cookie: document.cookie }, method: &#39;POST&#39;, credentials: &#39;include&#39; }).then((res) =&amp;gt; res.json()); if (check_in.err_no !== 0) { alert(&#39;签到失败！&#39;); this.check_status = false; return; } this.check_status = true; this.score = check_in.data.sum_point; this.get_free(); // 免费抽奖 }, async get_status() { // 查询签到状态 const today_status = await fetch(&#39;https://api.juejin.cn/growth_api/v1/get_today_status&#39;, { headers: { cookie: document.cookie }, method: &#39;GET&#39;, credentials: &#39;include&#39; }).then((res) =&amp;gt; res.json()); this.check_status = today_status.data; }, async get_free() { // 查询是否有免费抽奖次数 const res = await fetch(&#39;https://api.juejin.cn/growth_api/v1/lottery_config/get&#39;, { headers: { cookie: document.cookie }, method: &#39;GET&#39;, credentials: &#39;include&#39; }).then((res) =&amp;gt; res.json()); this.free_count = res.data.free_count; if (res.data.free_count) { // 有免费抽奖次数 this.draw(res.data.free_count, false); } } }).mount(); // 处理样式 const style = .wx_draw_wrap { box-sizing: border-box; position: fixed; top: 50%; left: 0px; z-index: 888888; margin-top: -20px; } .wx_draw { box-sizing: border-box; position: fixed; top: 50%; left: 0px; z-index: 888888; width: 40px; height: 40px; line-height: 16px; font-size: 12px; padding: 4px; background-color: rgb(232, 243, 255); border: 1px solid rgb(232, 243, 255); color: rgb(30, 128, 255); text-align: center; overflow: hidden; cursor: pointer; } .wx_popup { position: fixed; left: 0; top: 0; right: 0; bottom: 0; z-index: 999999; } .wx_mask { width: 100%; height: 100%; background: rgba(0,0,0,0.5); } .wx_main { --width: 460px; position: absolute; left: 50%; top: 50%; width: var(--width); transform: translate(-50%, -50%); background: #fff; border-radius: 4px; } .wx_main .wx_header { height: 40px; line-height: 40px; font-size: 16px; padding: 0 16px; border-bottom: 1px solid #999; display: flex; align-items: center; justify-content: space-between; color: #000; font-weight: 400; } .wx_score { font-size: 12px; font-size: #00a100; } .wx_main .wx_body { padding: 16px; border-bottom: 1px solid #999; position: relative; } .wx_main .wx_options { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; } .wx_main .wx_options div { width: 80px; text-align: center; height: 24px; line-height: 24px; background-color: rgb(232, 243, 255); border: 1px solid #c9d4e3; color: rgb(30, 128, 255); cursor: pointer; border-radius: 2px; } .wx_main .wx_body p { margin: 0 0 8px; } .wx_body table { width: 100%; text-align: center; border-left: 1px solid #ccc; border-top: 1px solid #ccc; } .wx_body table th, .wx_body table td { border-right: 1px solid #ccc; border-bottom: 1px solid #ccc; line-height: 20px; } .wx_body table th { line-height: 28px; } .wx_main .wx_body img { vertical-align: middle; width: 40px; height: 40px; } .wx_main .wx_footer { padding: 12px 16px; text-align: right; } .wx_btn { display: inline-block; width: 48px; cursor: pointer; text-align: center; height: 20px; line-height: 20px; background-color: rgb(232, 243, 255); border: 1px solid #c9d4e3; color: rgb(30, 128, 255); border-radius: 2px; } .wx_loading { position: absolute; left: 0; top: 0; right: 0; bottom: 0; z-index: 9999999; background: rgba(0,0,0,0.65); } .wx_loading .circular { height: 42px; width: 42px; -webkit-animation: loading-rotate 2s linear infinite; animation: loading-rotate 2s linear infinite; position: absolute; left: 50%; top: 50%; margin-top: -21px; margin-left: -21px; } .wx_loading .path { -webkit-animation: loading-dash 1.5s ease-in-out infinite; animation: loading-dash 1.5s ease-in-out infinite; stroke-dasharray: 90, 150; stroke-dashoffset: 0; stroke-width: 2; stroke: #409eff; stroke-linecap: round; } @keyframes loading-rotate { 100% { -webkit-transform: rotate(360deg); transform: rotate(360deg); } } @keyframes loading-dash { 0% { stroke-dasharray: 1, 200; stroke-dashoffset: 0; } 50% { stroke-dasharray: 90, 150; stroke-dashoffset: -40px; } 100% { stroke-dasharray: 90, 150; stroke-dashoffset: -120px; } }; const styleEl = document.createElement(&amp;lsquo;style&amp;rsquo;); styleEl.textContent = style; document.head.appendChild(styleEl); })(); &amp;lt;/details&amp;gt; &amp;lt;/summary&amp;gt;" />
+<meta name="description" content="分享一个掘金抽奖的油猴脚本，可以一键签到，抽奖，梭哈。 攒多一点矿石，体验买彩票的感觉。 油猴脚本代码 ```js // ==UserScript== // @name 掘金抽奖 // @namespace http://tampermonkey.net/ // @version 1.2.5 // @description 掘金抽奖 签到 免费抽奖 5 连抽 10 连抽 可视化抽奖 petite-vue // @author 无仙 // @match https://juejin.cn/* // @icon https://lf3-cdn-tos.bytescm.com/obj/static/xitu_juejin_web//static/favicons/favicon-32x32.png // @require https://unpkg.com/petite-vue // ==/UserScript== (async function () { &amp;lsquo;use strict&amp;rsquo;; const { createApp } = PetiteVue; // 不会吧不会吧，不会还有人不知道 petite-vue 吧 const root = document.createElement(&amp;lsquo;div&amp;rsquo;); root.class = &amp;lsquo;wx_draw_wrap&amp;rsquo;; root.innerHTML = ` &amp;lt;div v-show=&amp;quot;!popup&amp;quot; class=&amp;ldquo;wx_draw&amp;rdquo; @click=&amp;ldquo;open&amp;rdquo;&amp;gt;掘金抽奖 &amp;lt;div v-if=&amp;quot;popup&amp;quot; class=&amp;quot;wx_popup&amp;quot;&amp;gt; &amp;lt;div class=&amp;quot;wx_mask&amp;quot; @click=&amp;quot;popup = false&amp;quot;&amp;gt;&amp;lt;/div&amp;gt; &amp;lt;div class=&amp;quot;wx_main&amp;quot;&amp;gt; &amp;lt;div class=&amp;quot;wx_header&amp;quot;&amp;gt; &amp;lt;div&amp;gt;掘金抽奖&amp;lt;/div&amp;gt; &amp;lt;div class=&amp;quot;wx_score&amp;quot;&amp;gt;当前矿石：{{ score }}&amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;div class=&amp;quot;wx_body&amp;quot;&amp;gt; &amp;lt;div class=&amp;quot;wx_options&amp;quot;&amp;gt; &amp;lt;div @click=&amp;quot;check_in&amp;quot; v-if=&amp;quot;check_status === -1 || check_status === false&amp;quot;&amp;gt;签到&amp;lt;/div&amp;gt; &amp;lt;div @click=&amp;quot;get_free&amp;quot; v-else&amp;gt;签到成功&amp;lt;/div&amp;gt; &amp;lt;div @click=&amp;quot;draw(5)&amp;quot;&amp;gt;5 连抽&amp;lt;/div&amp;gt; &amp;lt;div @click=&amp;quot;draw(10)&amp;quot;&amp;gt;10 连抽&amp;lt;/div&amp;gt; &amp;lt;div @click=&amp;quot;draw(undefined)&amp;quot;&amp;gt;梭哈抽奖&amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;table cellpadding=&amp;quot;0&amp;quot; cellspacing=&amp;quot;0&amp;quot; border=&amp;quot;0&amp;quot; width=&amp;quot;100%&amp;quot;&amp;gt; &amp;lt;thead&amp;gt; &amp;lt;tr&amp;gt; &amp;lt;th&amp;gt;奖品图片&amp;lt;/th&amp;gt; &amp;lt;th&amp;gt;奖品名称&amp;lt;/th&amp;gt; &amp;lt;th&amp;gt;中奖次数&amp;lt;/th&amp;gt; &amp;lt;/tr&amp;gt; &amp;lt;/thead&amp;gt; &amp;lt;tbody&amp;gt; &amp;lt;tr v-for=&amp;quot;item in award&amp;quot;&amp;gt; &amp;lt;td&amp;gt;&amp;lt;img :src=&amp;quot;item.lottery_image&amp;quot;/&amp;gt;&amp;lt;/td&amp;gt; &amp;lt;td&amp;gt;{{ item.lottery_name }}&amp;lt;/td&amp;gt; &amp;lt;td&amp;gt;{{ item.times }}&amp;lt;/td&amp;gt; &amp;lt;/tr&amp;gt; &amp;lt;/tbody&amp;gt; &amp;lt;/table&amp;gt; &amp;lt;div class=&amp;quot;wx_loading&amp;quot; v-if=&amp;quot;loading&amp;quot;&amp;gt; &amp;lt;svg class=&amp;quot;circular&amp;quot; viewBox=&amp;quot;25 25 50 50&amp;quot;&amp;gt; &amp;lt;circle class=&amp;quot;path&amp;quot; cx=&amp;quot;50&amp;quot; cy=&amp;quot;50&amp;quot; r=&amp;quot;20&amp;quot; fill=&amp;quot;none&amp;quot; /&amp;gt; &amp;lt;/svg&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;div class=&amp;quot;wx_footer&amp;quot;&amp;gt; &amp;lt;div class=&amp;quot;wx_confirm wx_btn&amp;quot; @click=&amp;quot;popup = false&amp;quot;&amp;gt;关闭&amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; `; // 查询奖品列表 const res = await fetch(&amp;lsquo;https://api.juejin.cn/growth_api/v1/lottery_config/get&#39;, { headers: { cookie: document.cookie }, method: &amp;lsquo;GET&amp;rsquo;, credentials: &amp;lsquo;include&amp;rsquo; }).then((res) =&amp;gt; res.json()); const award = (res.data &amp;amp;&amp;amp; res.data.lottery ? res.data.lottery : []).map((item) =&amp;gt; ({ &amp;hellip;item, times: 0 })); const { free_count, point_cost } = res.data; // 剩余免费抽奖次数，单次抽奖消耗数 document.body.appendChild(root); // 插入 DOM // petite-vue init 初始化 createApp({ award, popup: false, loading: false, score: 0, free_count, check_status: -1, async open() { const res = await fetch(&#39;https://api.juejin.cn/growth_api/v1/get_cur_point&#39;, { headers: { cookie: document.cookie }, method: &#39;GET&#39;, credentials: &#39;include&#39; }).then((res) =&amp;gt; res.json()); this.score = res.data; // 当前分数 this.popup = true; (this.check_status === -1 || this.check_status === false) &amp;amp;&amp;amp; this.get_status(); }, async draw(times, is_not_free = true) { if (this.loading || times === 0) return; // const is_not_free = !(this.free_count &amp;amp;&amp;amp; times === 1); if (is_not_free &amp;amp;&amp;amp; this.score &amp;lt; point_cost * (times || 1)) return alert(&#39;分都不够想啥呢？&#39;); let i = 0; const drawFn = async () =&amp;gt; { if ((is_not_free &amp;amp;&amp;amp; this.score &amp;lt; point_cost) || i === times) { this.free_count = 0; this.loading = false; this.open(); console.log(`${times ? times &#43; &#39;连抽&#39; : &#39;梭哈&#39;}结束！`); return; } const result = await fetch(&#39;https://api.juejin.cn/growth_api/v1/lottery/draw&#39;, { headers: { cookie: document.cookie }, method: &#39;POST&#39;, credentials: &#39;include&#39; }).then((res) =&amp;gt; res.json()); if (result.err_no !== 0) { console.log(result.err_msg); this.loading = false; this.open(); return; } i&#43;&#43;; is_not_free &amp;amp;&amp;amp; (this.score -= point_cost); if (result.data.lottery_type === 1) this.score &#43;= 66; const item = this.award.find((item) =&amp;gt; item.lottery_id === result.data.lottery_id); item.times&#43;&#43;; console.log(`抽到：${result.data.lottery_name}`); drawFn(); }; console.log(`开始${times ? times &#43; &#39;连抽&#39; : &#39;梭哈&#39;}！`); this.loading = true; this.award.forEach((item) =&amp;gt; { item.times = 0; }); try { drawFn(); } catch (error) { this.loading = false; console.error(error); } }, async check_in() { if (this.check_status) { this.get_free(); // 免费抽奖 return; } // 签到 const check_in = await fetch(&#39;https://api.juejin.cn/growth_api/v1/check_in&#39;, { headers: { cookie: document.cookie }, method: &#39;POST&#39;, credentials: &#39;include&#39; }).then((res) =&amp;gt; res.json()); if (check_in.err_no !== 0) { alert(&#39;签到失败！&#39;); this.check_status = false; return; } this.check_status = true; this.score = check_in.data.sum_point; this.get_free(); // 免费抽奖 }, async get_status() { // 查询签到状态 const today_status = await fetch(&#39;https://api.juejin.cn/growth_api/v1/get_today_status&#39;, { headers: { cookie: document.cookie }, method: &#39;GET&#39;, credentials: &#39;include&#39; }).then((res) =&amp;gt; res.json()); this.check_status = today_status.data; }, async get_free() { // 查询是否有免费抽奖次数 const res = await fetch(&#39;https://api.juejin.cn/growth_api/v1/lottery_config/get&#39;, { headers: { cookie: document.cookie }, method: &#39;GET&#39;, credentials: &#39;include&#39; }).then((res) =&amp;gt; res.json()); this.free_count = res.data.free_count; if (res.data.free_count) { // 有免费抽奖次数 this.draw(res.data.free_count, false); } } }).mount(); // 处理样式 const style = .wx_draw_wrap { box-sizing: border-box; position: fixed; top: 50%; left: 0px; z-index: 888888; margin-top: -20px; } .wx_draw { box-sizing: border-box; position: fixed; top: 50%; left: 0px; z-index: 888888; width: 40px; height: 40px; line-height: 16px; font-size: 12px; padding: 4px; background-color: rgb(232, 243, 255); border: 1px solid rgb(232, 243, 255); color: rgb(30, 128, 255); text-align: center; overflow: hidden; cursor: pointer; } .wx_popup { position: fixed; left: 0; top: 0; right: 0; bottom: 0; z-index: 999999; } .wx_mask { width: 100%; height: 100%; background: rgba(0,0,0,0.5); } .wx_main { --width: 460px; position: absolute; left: 50%; top: 50%; width: var(--width); transform: translate(-50%, -50%); background: #fff; border-radius: 4px; } .wx_main .wx_header { height: 40px; line-height: 40px; font-size: 16px; padding: 0 16px; border-bottom: 1px solid #999; display: flex; align-items: center; justify-content: space-between; color: #000; font-weight: 400; } .wx_score { font-size: 12px; font-size: #00a100; } .wx_main .wx_body { padding: 16px; border-bottom: 1px solid #999; position: relative; } .wx_main .wx_options { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; } .wx_main .wx_options div { width: 80px; text-align: center; height: 24px; line-height: 24px; background-color: rgb(232, 243, 255); border: 1px solid #c9d4e3; color: rgb(30, 128, 255); cursor: pointer; border-radius: 2px; } .wx_main .wx_body p { margin: 0 0 8px; } .wx_body table { width: 100%; text-align: center; border-left: 1px solid #ccc; border-top: 1px solid #ccc; } .wx_body table th, .wx_body table td { border-right: 1px solid #ccc; border-bottom: 1px solid #ccc; line-height: 20px; } .wx_body table th { line-height: 28px; } .wx_main .wx_body img { vertical-align: middle; width: 40px; height: 40px; } .wx_main .wx_footer { padding: 12px 16px; text-align: right; } .wx_btn { display: inline-block; width: 48px; cursor: pointer; text-align: center; height: 20px; line-height: 20px; background-color: rgb(232, 243, 255); border: 1px solid #c9d4e3; color: rgb(30, 128, 255); border-radius: 2px; } .wx_loading { position: absolute; left: 0; top: 0; right: 0; bottom: 0; z-index: 9999999; background: rgba(0,0,0,0.65); } .wx_loading .circular { height: 42px; width: 42px; -webkit-animation: loading-rotate 2s linear infinite; animation: loading-rotate 2s linear infinite; position: absolute; left: 50%; top: 50%; margin-top: -21px; margin-left: -21px; } .wx_loading .path { -webkit-animation: loading-dash 1.5s ease-in-out infinite; animation: loading-dash 1.5s ease-in-out infinite; stroke-dasharray: 90, 150; stroke-dashoffset: 0; stroke-width: 2; stroke: #409eff; stroke-linecap: round; } @keyframes loading-rotate { 100% { -webkit-transform: rotate(360deg); transform: rotate(360deg); } } @keyframes loading-dash { 0% { stroke-dasharray: 1, 200; stroke-dashoffset: 0; } 50% { stroke-dasharray: 90, 150; stroke-dashoffset: -40px; } 100% { stroke-dasharray: 90, 150; stroke-dashoffset: -120px; } }; const styleEl = document.createElement(&amp;lsquo;style&amp;rsquo;); styleEl.textContent = style; document.head.appendChild(styleEl); })(); &amp;lt;/details&amp;gt; &amp;lt;/summary&amp;gt;" />
+<meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Titillium+Web&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/base.css">
+
+<link rel="stylesheet" href="/css/index.css">
+<link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
+<script src="/js/jquery3.6.0.min.js"></script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BGB227HN9X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-BGB227HN9X');
+</script>
+</head>
+
+<body>
+  <div class="wrapper">
+    <nav class="navigation">
+  <section class="container"><a class="navigation-brand" href="/">子舒的博客</a>
+    <ul class="navigation-list" id="navigation-list">
+      
+      <li class="navigation-item navigation-menu"><a class="navigation-link" href="/categories/%e6%8a%80%e6%9c%af/">技术</a></li>
+      
+      <li class="navigation-item navigation-menu"><a class="navigation-link" href="/categories/%e9%9a%8f%e7%ac%94/">随笔</a></li>
+      
+      <li class="navigation-item navigation-menu"><a class="navigation-link" href="/categories/weekly/">周刊</a></li>
+      
+      <li class="navigation-item navigation-menu"><a class="navigation-link" href="/message/">留言</a></li>
+      
+      <li class="navigation-item navigation-menu"><a class="navigation-link" href="/about/">关于</a></li>
+      
+      
+      <li class="navigation-item menu-separator"><span>|</span></li>
+      <li class="navigation-item navigation-social"><a class="navigation-link" href="https://github.com/dlzmoe/blog"
+          target="_blank" title="github"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+            viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" class="feather feather-github">
+            <path
+              d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37.0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44.0 0020 4.77 5.07 5.07.0 0019.91 1S18.73.65 16 2.48a13.38 13.38.0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07.0 005 4.77 5.44 5.44.0 003.5 8.55c0 5.42 3.3 6.61 6.44 7A3.37 3.37.0 009 18.13V22">
+            </path>
+          </svg></a></li>
+      <li class="navigation-item navigation-social"><a class="navigation-link" href="https://twitter.com/anghunk1"
+          target="_blank" childrentwitter><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+            viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" class="feather feather-twitter">
+            <path
+              d="M23 3a10.9 10.9.0 01-3.14 1.53 4.48 4.48.0 00-7.86 3v1A10.66 10.66.0 013 4s-4 9 5 13a11.64 11.64.0 01-7 2c9 5 20 0 20-11.5a4.5 4.5.0 00-.08-.83A7.72 7.72.0 0023 3z">
+            </path>
+          </svg></a></li>
+
+    </ul>
+  </section>
+</nav>
+<meter id="isread" max="100" value="0"></meter>
+<script>
+  window.addEventListener('scroll', function () {
+    var scrolled = window.scrollY;
+    var totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var percentage = (scrolled / totalHeight) * 100;
+    $('#isread').attr('value', percentage)
+  });
+</script>
+    <main id="content">
+      <div class="home">
+        <h1 class="blog-title">掘金抽奖脚本</h1>
+
+        
+        <div class="date">
+          <time> 2022-06-22</time>
+          
+          
+           
+          / <a href="https://zishu.me/tags/%E6%8E%98%E9%87%91">掘金</a>
+           
+          / <a href="https://zishu.me/tags/%E6%B2%B9%E7%8C%B4%E8%84%9A%E6%9C%AC">油猴脚本</a>
+          
+          
+          
+        </div>
+        <div class="expired-tips" style="display: none;"></div>
+        
+
+        
+        <div class="toc">
+          <nav id="TableOfContents"></nav>
+        </div>
+        
+
+        <article class="post-content">
+          
+          <p>分享一个掘金抽奖的油猴脚本，可以一键签到，抽奖，梭哈。</p>
+<p>攒多一点矿石，体验买彩票的感觉。</p>
+<summary>油猴脚本代码<details>
+```js
+// ==UserScript==
+// @name         掘金抽奖
+// @namespace    http://tampermonkey.net/
+// @version      1.2.5
+// @description  掘金抽奖 签到 免费抽奖 5 连抽 10 连抽 可视化抽奖 petite-vue
+// @author       无仙
+// @match        https://juejin.cn/*
+// @icon         https://lf3-cdn-tos.bytescm.com/obj/static/xitu_juejin_web//static/favicons/favicon-32x32.png
+// @require      https://unpkg.com/petite-vue
+// ==/UserScript==
+<p>(async function () {
+&lsquo;use strict&rsquo;;</p>
+<p>const { createApp } = PetiteVue; // 不会吧不会吧，不会还有人不知道 petite-vue 吧</p>
+<p>const root = document.createElement(&lsquo;div&rsquo;);
+root.class = &lsquo;wx_draw_wrap&rsquo;;
+root.innerHTML = `
+&lt;div v-show=&quot;!popup&quot; class=&ldquo;wx_draw&rdquo; @click=&ldquo;open&rdquo;&gt;掘金抽奖</div></p>
+<pre><code>&lt;div v-if=&quot;popup&quot; class=&quot;wx_popup&quot;&gt;
+  &lt;div class=&quot;wx_mask&quot; @click=&quot;popup = false&quot;&gt;&lt;/div&gt;
+
+  &lt;div class=&quot;wx_main&quot;&gt;
+    &lt;div class=&quot;wx_header&quot;&gt;
+      &lt;div&gt;掘金抽奖&lt;/div&gt;
+      &lt;div class=&quot;wx_score&quot;&gt;当前矿石：{{ score }}&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;wx_body&quot;&gt;
+      &lt;div class=&quot;wx_options&quot;&gt;
+        &lt;div @click=&quot;check_in&quot; v-if=&quot;check_status === -1 || check_status === false&quot;&gt;签到&lt;/div&gt;
+        &lt;div @click=&quot;get_free&quot; v-else&gt;签到成功&lt;/div&gt;
+        &lt;div @click=&quot;draw(5)&quot;&gt;5 连抽&lt;/div&gt;
+        &lt;div @click=&quot;draw(10)&quot;&gt;10 连抽&lt;/div&gt;
+        &lt;div @click=&quot;draw(undefined)&quot;&gt;梭哈抽奖&lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot; width=&quot;100%&quot;&gt;
+        &lt;thead&gt;
+          &lt;tr&gt;
+            &lt;th&gt;奖品图片&lt;/th&gt;
+            &lt;th&gt;奖品名称&lt;/th&gt;
+            &lt;th&gt;中奖次数&lt;/th&gt;
+          &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+          &lt;tr v-for=&quot;item in award&quot;&gt;
+            &lt;td&gt;&lt;img :src=&quot;item.lottery_image&quot;/&gt;&lt;/td&gt;
+            &lt;td&gt;{{ item.lottery_name }}&lt;/td&gt;
+            &lt;td&gt;{{ item.times }}&lt;/td&gt;
+          &lt;/tr&gt;
+        &lt;/tbody&gt;
+      &lt;/table&gt;
+
+      &lt;div class=&quot;wx_loading&quot; v-if=&quot;loading&quot;&gt;
+        &lt;svg class=&quot;circular&quot; viewBox=&quot;25 25 50 50&quot;&gt;
+          &lt;circle class=&quot;path&quot; cx=&quot;50&quot; cy=&quot;50&quot; r=&quot;20&quot; fill=&quot;none&quot; /&gt;
+        &lt;/svg&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;wx_footer&quot;&gt;
+      &lt;div class=&quot;wx_confirm wx_btn&quot; @click=&quot;popup = false&quot;&gt;关闭&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<p>`;</p>
+<p>// 查询奖品列表
+const res = await fetch(&lsquo;<a href="https://api.juejin.cn/growth_api/v1/lottery_config/get'">https://api.juejin.cn/growth_api/v1/lottery_config/get'</a>, {
+headers: {
+cookie: document.cookie
+},
+method: &lsquo;GET&rsquo;,
+credentials: &lsquo;include&rsquo;
+}).then((res) =&gt; res.json());</p>
+<p>const award = (res.data &amp;&amp; res.data.lottery ? res.data.lottery : []).map((item) =&gt; ({ &hellip;item, times: 0 }));
+const { free_count, point_cost } = res.data; // 剩余免费抽奖次数，单次抽奖消耗数</p>
+<p>document.body.appendChild(root); // 插入 DOM</p>
+<p>// petite-vue init 初始化
+createApp({
+award,
+popup: false,
+loading: false,
+score: 0,
+free_count,
+check_status: -1,</p>
+<pre><code>async open() {
+  const res = await fetch('https://api.juejin.cn/growth_api/v1/get_cur_point', {
+    headers: {
+      cookie: document.cookie
+    },
+    method: 'GET',
+    credentials: 'include'
+  }).then((res) =&gt; res.json());
+
+  this.score = res.data; // 当前分数
+
+  this.popup = true;
+
+  (this.check_status === -1 || this.check_status === false) &amp;&amp; this.get_status();
+},
+async draw(times, is_not_free = true) {
+  if (this.loading || times === 0) return;
+
+  // const is_not_free = !(this.free_count &amp;&amp; times === 1);
+
+  if (is_not_free &amp;&amp; this.score &lt; point_cost * (times || 1)) return alert('分都不够想啥呢？');
+
+  let i = 0;
+  const drawFn = async () =&gt; {
+    if ((is_not_free &amp;&amp; this.score &lt; point_cost) || i === times) {
+      this.free_count = 0;
+      this.loading = false;
+      this.open();
+      console.log(`${times ? times + '连抽' : '梭哈'}结束！`);
+      return;
+    }
+
+    const result = await fetch('https://api.juejin.cn/growth_api/v1/lottery/draw', {
+      headers: {
+        cookie: document.cookie
+      },
+      method: 'POST',
+      credentials: 'include'
+    }).then((res) =&gt; res.json());
+
+    if (result.err_no !== 0) {
+      console.log(result.err_msg);
+      this.loading = false;
+      this.open();
+      return;
+    }
+
+    i++;
+    is_not_free &amp;&amp; (this.score -= point_cost);
+
+    if (result.data.lottery_type === 1) this.score += 66;
+
+    const item = this.award.find((item) =&gt; item.lottery_id === result.data.lottery_id);
+    item.times++;
+
+    console.log(`抽到：${result.data.lottery_name}`);
+    drawFn();
+  };
+
+  console.log(`开始${times ? times + '连抽' : '梭哈'}！`);
+  this.loading = true;
+  this.award.forEach((item) =&gt; {
+    item.times = 0;
+  });
+  try {
+    drawFn();
+  } catch (error) {
+    this.loading = false;
+    console.error(error);
+  }
+},
+async check_in() {
+  if (this.check_status) {
+    this.get_free(); // 免费抽奖
+    return;
+  }
+
+  // 签到
+  const check_in = await fetch('https://api.juejin.cn/growth_api/v1/check_in', {
+    headers: {
+      cookie: document.cookie
+    },
+    method: 'POST',
+    credentials: 'include'
+  }).then((res) =&gt; res.json());
+
+  if (check_in.err_no !== 0) {
+    alert('签到失败！');
+    this.check_status = false;
+    return;
+  }
+
+  this.check_status = true;
+  this.score = check_in.data.sum_point;
+  this.get_free(); // 免费抽奖
+},
+async get_status() {
+  // 查询签到状态
+  const today_status = await fetch('https://api.juejin.cn/growth_api/v1/get_today_status', {
+    headers: {
+      cookie: document.cookie
+    },
+    method: 'GET',
+    credentials: 'include'
+  }).then((res) =&gt; res.json());
+
+  this.check_status = today_status.data;
+},
+async get_free() {
+  // 查询是否有免费抽奖次数
+  const res = await fetch('https://api.juejin.cn/growth_api/v1/lottery_config/get', {
+    headers: {
+      cookie: document.cookie
+    },
+    method: 'GET',
+    credentials: 'include'
+  }).then((res) =&gt; res.json());
+
+  this.free_count = res.data.free_count;
+
+  if (res.data.free_count) {
+    // 有免费抽奖次数
+    this.draw(res.data.free_count, false);
+  }
+}
+</code></pre>
+<p>}).mount();</p>
+<p>// 处理样式
+const style = <code>.wx_draw_wrap { box-sizing: border-box; position: fixed; top: 50%; left: 0px; z-index: 888888; margin-top: -20px; } .wx_draw { box-sizing: border-box; position: fixed; top: 50%; left: 0px; z-index: 888888; width: 40px; height: 40px; line-height: 16px; font-size: 12px; padding: 4px; background-color: rgb(232, 243, 255); border: 1px solid rgb(232, 243, 255); color: rgb(30, 128, 255); text-align: center; overflow: hidden; cursor: pointer; } .wx_popup { position: fixed; left: 0; top: 0; right: 0; bottom: 0; z-index: 999999; } .wx_mask { width: 100%; height: 100%; background: rgba(0,0,0,0.5); } .wx_main { --width: 460px; position: absolute; left: 50%; top: 50%; width: var(--width); transform: translate(-50%, -50%); background: #fff; border-radius: 4px; } .wx_main .wx_header { height: 40px; line-height: 40px; font-size: 16px; padding: 0 16px; border-bottom: 1px solid #999; display: flex; align-items: center; justify-content: space-between; color: #000; font-weight: 400; } .wx_score { font-size: 12px; font-size: #00a100; } .wx_main .wx_body { padding: 16px; border-bottom: 1px solid #999; position: relative; } .wx_main .wx_options { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; } .wx_main .wx_options div { width: 80px; text-align: center; height: 24px; line-height: 24px; background-color: rgb(232, 243, 255); border: 1px solid #c9d4e3; color: rgb(30, 128, 255); cursor: pointer; border-radius: 2px; } .wx_main .wx_body p { margin: 0 0 8px; } .wx_body table { width: 100%; text-align: center; border-left: 1px solid #ccc; border-top: 1px solid #ccc; } .wx_body table th, .wx_body table td { border-right: 1px solid #ccc; border-bottom: 1px solid #ccc; line-height: 20px; } .wx_body table th { line-height: 28px; } .wx_main .wx_body img { vertical-align: middle; width: 40px; height: 40px; } .wx_main .wx_footer { padding: 12px 16px; text-align: right; } .wx_btn { display: inline-block; width: 48px; cursor: pointer; text-align: center; height: 20px; line-height: 20px; background-color: rgb(232, 243, 255); border: 1px solid #c9d4e3; color: rgb(30, 128, 255); border-radius: 2px; } .wx_loading { position: absolute; left: 0; top: 0; right: 0; bottom: 0; z-index: 9999999; background: rgba(0,0,0,0.65); } .wx_loading .circular { height: 42px; width: 42px; -webkit-animation: loading-rotate 2s linear infinite; animation: loading-rotate 2s linear infinite; position: absolute; left: 50%; top: 50%; margin-top: -21px; margin-left: -21px; } .wx_loading .path { -webkit-animation: loading-dash 1.5s ease-in-out infinite; animation: loading-dash 1.5s ease-in-out infinite; stroke-dasharray: 90, 150; stroke-dashoffset: 0; stroke-width: 2; stroke: #409eff; stroke-linecap: round; } @keyframes loading-rotate { 100% { -webkit-transform: rotate(360deg); transform: rotate(360deg); } } @keyframes loading-dash { 0% { stroke-dasharray: 1, 200; stroke-dashoffset: 0; } 50% { stroke-dasharray: 90, 150; stroke-dashoffset: -40px; } 100% { stroke-dasharray: 90, 150; stroke-dashoffset: -120px; } }</code>;</p>
+<p>const styleEl = document.createElement(&lsquo;style&rsquo;);
+styleEl.textContent = style;
+document.head.appendChild(styleEl);
+})();</p>
+<pre tabindex="0"><code>&lt;/details&gt;
+&lt;/summary&gt;
+</code></pre>
+        </article>
+
+        
+        <div style="padding:20px 0"></div>
+
+<div class="giscus"></div>
+<script 
+  src="https://giscus.app/client.js" 
+  data-repo="dlzmoe/blog" 
+  data-repo-id="R_kgDOJkJvtw"
+  data-category="Announcements" 
+  data-category-id="DIC_kwDOJkJvt84CX9d6" 
+  data-mapping="url" 
+  data-strict="0"
+  data-reactions-enabled="1" 
+  data-emit-metadata="1" 
+  data-input-position="top" 
+  data-theme="light_tritanopia"
+  data-lang="zh-CN" 
+  data-loading="lazy" 
+  crossorigin="anonymous" 
+  async>
+</script>
+
+        
+
+      </div>
+      <footer class="footer">
+  <p>© 2020 - 2024
+    Powered by
+    <a href="https://github.com/dlzmoe/blog" target="_blank">Github</a>
+    / <a href="/index.xml" target="_blank">RSS</a>
+    / <a href="https://stats.uptimerobot.com/j3MZLGvjPN" target="_blank">运行监控</a>
+    <a class="footer-notbyai" href="https://notbyai.fyi/" target="_blank">
+      <img style="height: 30px;" src="https://imgurl.zishu.me/notbyai.webp" alt="notbyai">
+    </a>
+  </p>
+</footer>
+<style>
+  .footer-notbyai {
+    margin-left: 10px;
+    text-decoration: none !important;
+  }
+
+  .footer-notbyai::after {
+    display: none;
+  }
+</style>
+
+<script src="/js/main.js"></script>
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    </main>
+  </div>
+</body>
+
+</html>
