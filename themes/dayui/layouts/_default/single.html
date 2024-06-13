@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+{{ partial "head.html" . }}
+
+<body>
+  <div class="wrapper">
+    {{ partial "header.html" . }}
+    <main id="content">
+      <div class="home">
+        <h1 class="blog-title">{{ .Title }}</h1>
+
+        {{ if in .Site.Params.mainSections .Type }}
+        <div class="date">
+          <time> {{ .Date.Format "2006-01-02"}}</time>
+          {{ if .Params.tags }}
+          <!-- <p> -->
+          {{ range .Params.tags }} {{ $href := print (absURL "/tags/") (urlize .) }}
+          / <a href="{{ $href }}">{{ . }}</a>
+          {{ end }}
+          <!-- </p> -->
+          {{ end }}
+        </div>
+        <div class="expired-tips" style="display: none;"></div>
+        {{ end }}
+
+        {{ if in .Site.Params.mainSections .Type }}
+        <div class="toc">
+          {{ .TableOfContents }}
+        </div>
+        {{ end }}
+
+        <article class="post-content">
+          {{ .Site.Params.postHeaderContent | safeHTML }}
+          {{ .Content }}
+        </article>
+
+        {{ if in .Site.Params.mainSections .Type }}
+        {{ partial "comment.html" . }}
+        {{ end }}
+
+      </div>
+      {{ partial "footer.html" . }}
+    </main>
+  </div>
+</body>
+
+</html>
