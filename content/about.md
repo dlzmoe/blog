@@ -3,8 +3,6 @@ slug: about
 title: 关于
 ---
 
-<!-- ![GitHub followers](https://img.shields.io/github/followers/98zi) -->
-
 ### 1.个人介绍
 
 ```js
@@ -41,10 +39,6 @@ const author = {
 [Jiang's Blog](https://jiangxueqiao.com/)
 
 
-### 3.旅行历程
+### 5.版权声明
 
-<iframe src="https://expin.site/2VKWUJ"></iframe>
-
-### 4.版权声明
-
-本站文章所有版权均归本人所有，允许转载，标注出处即可。
+本站文章所有版权均归本人所有，未经允许，不允许转载。
