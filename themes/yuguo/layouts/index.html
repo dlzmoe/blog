@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+{{ partial "head.html" . }}
+
+{{ $articleCount := len .Site.RegularPages }}
+{{ $totalWordCount := 0 }}
+{{ range .Site.Pages }}
+{{ $totalWordCount = add $totalWordCount .WordCount }}
+{{ end }}
+
+<body>
+  {{ partial "header.html" . }}
+
+  <section class="posts postindex wrapper">
+
+    <!-- <div class="info">
+          <div class="intro">
+            <p>欢迎来到我的博客，已经运行了 <span id="days"></span> 天，有 <span id="busuanzi_value_site_pv">...</span> 位小伙伴逛过，写了 {{
+              $articleCount }} 篇文章，共 {{ $totalWordCount }} 字。</p>
+            <p>本站 <a href="/index.xml">RSS 订阅</a>.</p>
+          </div>
+        </div>
+
+        <script>
+          const time = "{{ .Site.Params.buildDate }}";
+          var now = new Date();
+          var end = new Date(time);
+          var diff = Math.abs(now - end);
+          var days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+          $('#days').html(days);
+        </script> -->
+
+    <ul>
+
+
+      {{ $pages := .Site.RegularPages }}
+      {{ $paginator := .Paginate ($pages) }}
+      {{ $count := 0 }}
+
+      {{ range $paginator.Pages }}
+      {{ $title := .Title }}
+      {{ $summary := .Summary }}
+
+      {{ if and (not (in .Params.categories "gallery")) (lt $count 9999) }}
+      {{ $count = add $count 1 }}
+
+      <li class="post">
+        <time datetime="{{ .Date.Format " 2006-01-02"}}">{{ .Date.Format "2006-01-02"}}</time>
+        <a href="{{ .RelPermalink }}"><span>{{ .Title }}</span>
+
+          {{ with .Params.categories }}
+          {{ range . }}
+          <span class="category">{{ . }}</span>
+          {{ end }}
+          {{ end }}
+
+        </a>
+        <!-- <p>{{ .Summary }}</p> -->
+      </li>
+
+      {{ end }}
+      {{ end }}
+
+      {{ partial "pagination.html" . }}
+    </ul>
+
+    {{ partial "footer.html" . }}
+  </section>
+</body>
+
+</html>
