@@ -6,8 +6,8 @@ $(function () {
     }
   })
 
-  // $('.post-content img').addClass('zimgbox');
-  // $('body').append('<div id="zimgbox-wrap" style="display:none"><img src></div>');
+  $('.post-content img').addClass('zimgbox');
+  $('body').append('<div id="zimgbox-wrap" style="display:none"><img src></div>');
   $(".top-link").click(function () {
     $("html,body").animate({
       scrollTop: 0
