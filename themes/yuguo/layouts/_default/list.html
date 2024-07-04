@@ -9,30 +9,29 @@
 
     <h1 class="blog-title">{{ .Title }}</h1>
     <p class="header-des">List of articles written on this website in a timeline view.</p>
-    <div>
-      {{ range (where .Data.Pages "Type" "in" site.Params.mainSections).GroupByDate "2006" -}}
-      <ul>
-        <h3 id="{{ .Key }}">{{ .Key }}</h3>
 
-        {{ range .Pages }}
-        <li class="post">
-          <time datetime="{{ .Date.Format " 2006-01-02"}}">{{ .Date.Format "2006-01-02"}}</time>
-          <a href="{{ .RelPermalink }}"><span>{{ .Title }}</span>
+    {{ range (where .Data.Pages "Type" "in" site.Params.mainSections).GroupByDate "2006" -}}
+    <ul>
+      <h3 id="{{ .Key }}">{{ .Key }}</h3>
 
-            {{ with .Params.categories }}
-            {{ range . }}
-            <span class="category">{{ . }}</span>
-            {{ end }}
-            {{ end }}
+      {{ range .Pages }}
+      <li class="post">
+        <time datetime="{{ .Date.Format " 2006-01-02"}}">{{ .Date.Format "2006-01-02"}}</time>
+        <a href="{{ .RelPermalink }}"><span>{{ .Title }}</span>
 
-          </a>
-          <!-- <p>{{ .Summary }}</p> -->
-        </li>
-        {{ end }}
+          {{ with .Params.categories }}
+          {{ range . }}
+          <span class="category">{{ . }}</span>
+          {{ end }}
+          {{ end }}
 
-      </ul>
+        </a>
+        <!-- <p>{{ .Summary }}</p> -->
+      </li>
       {{ end }}
-    </div>
+
+    </ul>
+    {{ end }}
     {{ partial "footer.html" . }}
   </section>
 </body>

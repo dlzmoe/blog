@@ -20,7 +20,7 @@ const author = {
 
 ![](https://raw.githubusercontent.com/98zi/98zi/main/github-user-contribution.svg)
 
-我的 [骑行之路](/riding/)，[计划单](/plan/)。
+我的 [计划单](/plan/)。
 
 同时将周刊一起发布到了本网站，督促自己多扩展眼界，获取更新的知识，不管是技术类型还是娱乐，让自己的容量不断 +1.
 
