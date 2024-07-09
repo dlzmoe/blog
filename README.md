@@ -1,6 +1,6 @@
 <h1 align="center"> 子舒的博客 </h1>
 <p align="center">分享生活和笔记！</p>
-<p align="center">博客主题：<a href="./themes/">ladder</a> - 在线预览：<a href="https://zishu.me" target="_blank">https://zishu.me</a> </p>
+<p align="center"> 在线预览：<a href="https://zishu.me" target="_blank">https://zishu.me</a> </p>
 
 <p align="center">
 <img src="https://img.shields.io/github/last-commit/dlzmoe/blog">

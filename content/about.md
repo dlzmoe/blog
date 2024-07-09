@@ -36,8 +36,10 @@ const author = {
 [Leon Fong](https://www.leonfong.me/) // 
 [卢涛南博客](https://lutaonan.com/) // 
 [Airing 的博客](https://ursb.me) // 
-[Jiang's Blog](https://jiangxueqiao.com/)
+[Jiang's Blog](https://jiangxueqiao.com/) // 
+[余果的博客](https://yuguo.github.io/)
 
+本站主题来源于 `https://yuguo.github.io/`，非常喜欢的一位博主。
 
 ### 5.版权声明
 
