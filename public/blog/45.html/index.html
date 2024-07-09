@@ -867,35 +867,6 @@
 <p>这也一直是我的理念，在写博客的时候，我也很注重版权，引用别人写的文章的时候，我都会申请作者授权，标明出处。同时，对于我自己的文章，如果你想要引用转载，只需要标明出处即可。</p>
 <p>大部分做技术的人应该都是和我抱有一样的想法，喜欢分享，但是可不能张冠李戴，毕竟写文章也是耗费脑细胞的。并不指望能获得什么成绩，只是希望当有人看到你的文章时，解决了自己的问题，有一丝认可足以。</p>
 <p>版权一直是一件很重要的事情，很多年前我们还比较淡漠，但是这几年对版权的重视开始慢慢提升了，审查力度增加，这是一件好事。</p>
-<p><img src="https://imgurl.zishu.me/images/old/2021/05/30/03d6e938f29023b5b16032b73143b4fa.png" alt=""></p>
-<p>让它一直保持启动状态就可以，其他的不用动，以后就不用打开服务器终端输入指令了，直接在浏览器访问端口，就可以访问网页。</p>
-<p>如果为了更方便，做个反代处理即可。</p>
-</ul>
-<ul>
-  <li>Connecticut</li>
-  <li>Duke</li>
-  <li>Villanova</li>
-</ul>
-```
-<p>React 不会意识到应该保留 <code>&lt;li&gt;Duke&lt;/li&gt;</code> 和 <code>&lt;li&gt;Villanova&lt;/li&gt;</code>，而是会重建每一个子元素。这种情况会带来性能问题。</p>
-<p><strong>key</strong></p>
-<p>为了解决上述问题，React 支持 <code>key</code> 属性，当子元素拥有 key 时，React 使用 key 来匹配原有树上的子元素以及最新树上的子元素。以下例子在新增 <code>key</code> 之后使得之前的低效转换变得高效：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">li</span> <span class="na">key</span><span class="o">=</span><span class="s">&#34;1&#34;</span><span class="p">&gt;</span>Duke<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">li</span> <span class="na">key</span><span class="o">=</span><span class="s">&#34;2&#34;</span><span class="p">&gt;</span>Villanova<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">li</span> <span class="na">key</span><span class="o">=</span><span class="s">&#34;0&#34;</span><span class="p">&gt;</span>Connecticut<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">li</span> <span class="na">key</span><span class="o">=</span><span class="s">&#34;1&#34;</span><span class="p">&gt;</span>Duke<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">li</span> <span class="na">key</span><span class="o">=</span><span class="s">&#34;2&#34;</span><span class="p">&gt;</span>Villanova<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
-</span></span></code></pre></div><p>现在 React 知道只有带着 <code>'0'</code> key 的元素是新元素，带着 <code>'1'</code> 以及 <code>'2'</code> key 的元素仅仅移动了。</p>
-<p>现实场景中，产生一个 key 并不困难。你要展现的元素可能已经有了一个唯一 ID，于是 key 可以直接从你的数据中提取：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">li</span> <span class="na">key</span><span class="o">=</span><span class="s">{item.id}</span><span class="p">&gt;</span>{item.name}<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
-</span></span></code></pre></div><p>当以上情况不成立时，你可以新增一个 ID 字段到你的模型中，或者利用一部分内容作为哈希值来生成一个 key。这个 key 不需要全局唯一，但在列表中需要保持唯一。</p>
-<p>最后，你也可以使用元素在数组中的下标作为 key。这个策略在元素不进行重新排序时比较合适，如果有顺序修改，diff 就会变得慢。</p>
-<p>当基于下标的组件进行重新排序时，组件 state 可能会遇到一些问题。由于组件实例是基于它们的 key 来决定是否更新以及复用，如果 key 是一个下标，那么修改顺序时会修改当前的 key，导致非受控组件的 state（比如输入框）可能相互篡改导致无法预期的变动。</p>
 
     </article>
 

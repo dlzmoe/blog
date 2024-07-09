@@ -30,14 +30,14 @@ const author = {
 
 有时候就会遇到一些文章写的不错的博主，于是就记录在这里了。
 
+[余果的博客](https://yuguo.github.io/) // 
 [涛叔](https://taoshu.in/) // 
 [江卮可乐](https://emo.ijann.com/) // 
 [东东博客](https://shutwin.com/) // 
 [Leon Fong](https://www.leonfong.me/) // 
 [卢涛南博客](https://lutaonan.com/) // 
 [Airing 的博客](https://ursb.me) // 
-[Jiang's Blog](https://jiangxueqiao.com/) // 
-[余果的博客](https://yuguo.github.io/)
+[Jiang's Blog](https://jiangxueqiao.com/)
 
 本站主题来源于 `https://yuguo.github.io/`，非常喜欢的一位博主。
 
