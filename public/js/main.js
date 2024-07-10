@@ -35,7 +35,7 @@ $(function () {
   })
 
   function TimeDifference() {
-    const time = $('.date time').html();
+    const time = $('.meta time').html();
     var now = new Date(); // 获取当前时间
     var end = new Date(time); // 设置结束时间
     var diff = Math.abs(now - end); // 计算两个日期之间的差值，结果是毫秒数

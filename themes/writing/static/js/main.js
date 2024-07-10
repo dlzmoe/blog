@@ -35,7 +35,7 @@ $(function () {
   })
 
   function TimeDifference() {
-    const time = $('.date time').html();
+    const time = $('.meta time').html();
     var now = new Date(); // 获取当前时间
     var end = new Date(time); // 设置结束时间
     var diff = Math.abs(now - end); // 计算两个日期之间的差值，结果是毫秒数
@@ -48,4 +48,13 @@ $(function () {
     }
   }
   TimeDifference();
+
+  $(window).on("scroll", function () {
+    if ($(window).scrollTop() >= 50) {
+      $(".fixed").addClass("is-active")
+    } else {
+      $(".fixed").removeClass("is-active")
+    }
+  });
+  
 })

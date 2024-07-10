@@ -39,8 +39,6 @@ const author = {
 [Airing 的博客](https://ursb.me) // 
 [Jiang's Blog](https://jiangxueqiao.com/)
 
-本站主题来源于 `https://yuguo.github.io/`，非常喜欢的一位博主。
-
 ### 5.版权声明
 
 本站文章所有版权均归本人所有，未经允许，不允许转载。

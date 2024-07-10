@@ -42,11 +42,8 @@
 <meta name="description" content="typecho 在评论时默认是没有 @ 评论人的功能，可以用代码加一下。 在 functions.php 中： /* * 评论回复时 @ 评论人 */ function get_comment_at($coid) { $db = Typecho_Db::get(); $prow = $db-&amp;gt;fetchRow($db-&amp;gt;select(&amp;#39;parent,status&amp;#39;)-&amp;gt;from(&amp;#39;table.comments&amp;#39;) -&amp;gt;where(&amp;#39;coid = ?&amp;#39;, $coid)); $mail = &amp;#34;&amp;#34;; $parent = @$prow[&amp;#39;parent&amp;#39;]; if ($parent != &amp;#34;0&amp;#34;) { $arow = $db-&amp;gt;fetchRow($db-&amp;gt;select(&amp;#39;author,status,mail&amp;#39;)-&amp;gt;from(&amp;#39;table.comments&amp;#39;) -&amp;gt;where(&amp;#39;coid = ?&amp;#39;, $parent)); @$author = @$arow[&amp;#39;author&amp;#39;]; $mail = @$arow[&amp;#39;mail&amp;#39;]; if(@$author &amp;amp;&amp;amp; $arow[&amp;#39;status&amp;#39;] == &amp;#34;approved&amp;#34;){ if (@$prow[&amp;#39;status&amp;#39;] == &amp;#34;waiting&amp;#34;){ echo &amp;#39;&amp;lt;p class=&amp;#34;commentReview&amp;#34;" />
 <meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Titillium+Web&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/base.css">
 
+<link rel="stylesheet" href="/css/base.css">
 <link rel="stylesheet" href="/css/index.css">
 <link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
 <script src="/js/jquery3.6.0.min.js"></script>
@@ -61,14 +58,9 @@
 </head>
 
 <body>
-  <div class="fixed"></div>
-<header class="title">
-  <a href="/">子舒的博客</a>
-</header>
-<div id="nav" class="wrapper alwaysshow ">
-  <ul>
-    
-    <li><a href="/">首页</a></li>
+  <header class="header">
+  <a class="logo" href="/">子舒的博客</a>
+  <ul class="menu">
     
     <li><a href="/categories/%e6%8a%80%e6%9c%af/">技术</a></li>
     
@@ -82,744 +74,7 @@
     
     <li><a href="/index.xml" target="_blank">订阅</a></li>
   </ul>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="profile">
-	<img src="https://imgurl.zishu.me/images/1719541102495.webp#%20%e5%8d%9a%e4%b8%bb%e5%a4%b4%e5%83%8f" class="profileimage" alt="user">
-	<h4>子舒</h4>
-	<p>一个程序员，有一些爱好。<a href="/about">了解详情</a></p>
-  <p>欢迎来到我的博客，已经运行了 <span id="days"></span> 天，有 <span id="busuanzi_value_site_pv">...</span> 位小伙伴逛过，写了 256 篇文章，共 173624 字。</p>
-</div>
-
-<script>
-  const time = "2020-06-14";
-  var now = new Date();
-  var end = new Date(time);
-  var diff = Math.abs(now - end);
-  var days = Math.ceil(diff / (1000 * 60 * 60 * 24));
-  $('#days').html(days);
-</script>
+</header>
 
 <meter id="isread" max="100" value="0"></meter>
 <script>
@@ -830,35 +85,35 @@
     $('#isread').attr('value', percentage)
   });
 </script>
-  <section class="posts postindex wrapper">
+  <section class="inner">
 
-    <h1 class="blog-title">typecho 评论回复艾特评论人</h1>
+    <div class="box">
+      <h1 class="pd15">typecho 评论回复艾特评论人</h1>
+      
 
-    
-    <div class="date">
-      <time> 2022-06-07</time>
-      
-      
-       
-      / <a href="https://zishu.me/tags/%E5%8D%9A%E5%AE%A2">博客</a>
-       
-      / <a href="https://zishu.me/tags/typecho">typecho</a>
-      
-      
-      
-    </div>
-    <div class="expired-tips" style="display: none;"></div>
-    
+      <div class="meta pd15">
+        
+         
+        <a class="namenode" href="https://zishu.me/tags/%E5%8D%9A%E5%AE%A2">博客</a>
+         
+        <a class="namenode" href="https://zishu.me/tags/typecho">typecho</a>
+        
+        
+        <time> 2022-06-07</time>
+      </div>
 
-    
-    <div class="toc">
-      <nav id="TableOfContents"></nav>
-    </div>
-    
-
-    <article class="post-content">
+      <div class="expired-tips" style="display: none;"></div>
       
-      <p>typecho 在评论时默认是没有 <code>@</code>  评论人的功能，可以用代码加一下。</p>
+
+      
+      <div class="toc">
+        <nav id="TableOfContents"></nav>
+      </div>
+      
+
+      <article class="post-content content pd15">
+        
+        <p>typecho 在评论时默认是没有 <code>@</code>  评论人的功能，可以用代码加一下。</p>
 <p>在 <code>functions.php</code> 中：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="cm">/*
 </span></span></span><span class="line"><span class="cl"><span class="cm">* 评论回复时 @ 评论人
@@ -905,11 +160,10 @@
 <hr>
 <p>我的博客即将同步至腾讯云+社区，邀请大家一同入驻：https://cloud.tencent.com/developer/support-plan?invite_code=17ctk6evsjk5b</p>
 
-    </article>
+      </article>
 
-    
-    <div style="padding:20px 0"></div>
-
+      
+      <div style="padding:20px 0"></div>
 <div class="giscus"></div>
 <script 
   src="https://giscus.app/client.js" 
@@ -929,17 +183,19 @@
   async>
 </script>
 
-    
+      
 
-
-    
-
-<footer class="wrapper">
-  <div class="smallnav">
-    Copyright 2020-2024 zishu
-  </div>
+    </div>
+    <footer class="footer">
+  <p>© 2020 - 2024
+    Powered by
+    <a href="https://github.com/dlzmoe/blog" target="_blank">Github</a>
+    / <a href="/index.xml" target="_blank">RSS</a>
+    <a class="footer-notbyai" href="https://notbyai.fyi/" target="_blank">
+      <img style="height: 30px;" src="https://imgurl.zishu.me/notbyai.webp" alt="notbyai">
+    </a>
+  </p>
 </footer>
-
 <script src="/js/main.js"></script>
 <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
