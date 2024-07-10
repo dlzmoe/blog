@@ -14,9 +14,23 @@ const author = {
   email: 'anghunk@gmail.com',
   github: 'https://github.com/dlzmoe',
   blog: 'https://zishu.me',
-  introduce: '喜欢折腾技术，研究各种奇怪的程序和网站，做了一些开源的东西，喜欢户外运动，热爱生活。'
+  description: '喜欢折腾技术，研究各种奇怪的程序和网站，喜欢户外运动，热爱生活。'
 }
 ```
+
+<details>
+<summary>如果想要添加友链，可以使用以下信息 (click me)</summary>
+
+```shell
+title: 子舒的博客
+author: 子舒
+url: https://zishu.me
+avatar: https://imgurl.zishu.me/author.webp
+description: 喜欢折腾技术，研究各种奇怪的程序和网站，喜欢户外运动，热爱生活。
+```
+
+</details>
+
 
 ![](https://raw.githubusercontent.com/98zi/98zi/main/github-user-contribution.svg)
 
