@@ -22,7 +22,7 @@
 "articleSection" : "blog",
 "name" : "hugo 纯静态编写一个字数统计脚本",
 "headline" : "hugo 纯静态编写一个字数统计脚本",
-"description" : "早上起来的时候看到微信群中有博友分享自己的建站时间，聊着聊着说到总字数上面，这时我才发现我的网站没有统计的地方，索性就自己写一个吧，因为是静态博客，所以不涉及后端、服务器等，只用前端的方式来解决。 这里需要借助我之前的一篇文章，《用原生 js 给网",
+"description" : "早上起来的时候看到微信群中有博友分享自己的建站时间，聊着聊着说到总字数上面，这时我才发现我的网站没有",
 "inLanguage" : "en-US",
 "author" : "子舒",
 "creator" : "子舒",
@@ -38,8 +38,8 @@
 </script><title>hugo 纯静态编写一个字数统计脚本 - 子舒的博客</title>
 <meta property="og:title" content="hugo 纯静态编写一个字数统计脚本" />
 <meta property="og:type" content="article" />
-<meta property="og:description" content="早上起来的时候看到微信群中有博友分享自己的建站时间，聊着聊着说到总字数上面，这时我才发现我的网站没有统计的地方，索性就自己写一个吧，因为是静态博客，所以不涉及后端、服务器等，只用前端的方式来解决。 这里需要借助我之前的一篇文章，《用原生 js 给网" />
-<meta name="description" content="早上起来的时候看到微信群中有博友分享自己的建站时间，聊着聊着说到总字数上面，这时我才发现我的网站没有统计的地方，索性就自己写一个吧，因为是静态博客，所以不涉及后端、服务器等，只用前端的方式来解决。 这里需要借助我之前的一篇文章，《用原生 js 给网" />
+<meta property="og:description" content="早上起来的时候看到微信群中有博友分享自己的建站时间，聊着聊着说到总字数上面，这时我才发现我的网站没有" />
+<meta name="description" content="早上起来的时候看到微信群中有博友分享自己的建站时间，聊着聊着说到总字数上面，这时我才发现我的网站没有" />
 <meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
 
 
@@ -57,10 +57,26 @@
 </script>
 </head>
 
-<body>
-  <header class="header">
-  <a class="logo" href="/">子舒的博客</a>
-  <ul class="menu">
+<body id="container">
+  <meter id="isread" max="100" value="0"></meter>
+<script>
+  window.addEventListener('scroll', function () {
+    var scrolled = window.scrollY;
+    var totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var percentage = (scrolled / totalHeight) * 100;
+    $('#isread').attr('value', percentage)
+  });
+</script>
+
+
+<div id="head" class="site-index">
+  <a id="logo" href="/">
+    <img src="https://imgurl.zishu.me/author.webp">
+  </a>
+  <div id="site-title">
+    <a href="/">子舒的博客</a>
+  </div>
+  <ul id="menu">
     
     <li><a href="/categories/%e6%8a%80%e6%9c%af/">技术</a></li>
     
@@ -74,34 +90,21 @@
     
     <li><a href="/index.xml" target="_blank">订阅</a></li>
   </ul>
-</header>
-
-<meter id="isread" max="100" value="0"></meter>
-<script>
-  window.addEventListener('scroll', function () {
-    var scrolled = window.scrollY;
-    var totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-    var percentage = (scrolled / totalHeight) * 100;
-    $('#isread').attr('value', percentage)
-  });
-</script>
-  <section class="inner">
+</div>
+  <section id="body">
 
     <div class="box">
-      <h1 class="pd15">hugo 纯静态编写一个字数统计脚本</h1>
+      <h1 id="body-title">hugo 纯静态编写一个字数统计脚本</h1>
       
-
-      <div class="meta pd15">
-        
-         
-        <a class="namenode" href="https://zishu.me/tags/js">js</a>
-         
-        <a class="namenode" href="https://zishu.me/tags/%E5%8D%9A%E5%AE%A2">博客</a>
+      
+      <div class="index-post-meta">
+        <time> # 2023-05-13</time>
         
         
-        <time> 2023-05-13</time>
+        <span class="namenode">技术</span>
+        
+        
       </div>
-
       <div class="expired-tips" style="display: none;"></div>
       
 
@@ -111,7 +114,7 @@
       </div>
       
 
-      <article class="post-content content pd15">
+      <article class="inner-post-content inner-long">
         
         <p>早上起来的时候看到微信群中有博友分享自己的建站时间，聊着聊着说到总字数上面，这时我才发现我的网站没有统计的地方，索性就自己写一个吧，因为是静态博客，所以不涉及后端、服务器等，只用前端的方式来解决。</p>
 <p>这里需要借助我之前的一篇文章，<a href="/blog/189.html/">《用原生 js 给网站写个搜索功能》</a>，里面有提到如何生成一个文章列表 json 文件，这里我们会用到这个文件 <code>index.json</code>。</p>
@@ -175,16 +178,13 @@
       
 
     </div>
-    <footer class="footer">
-  <p>© 2020 - 2024
-    Powered by
+    <footer id="foot">
+  <p>© 2020 - 2024 Powered by
     <a href="https://github.com/dlzmoe/blog" target="_blank">Github</a>
     / <a href="/index.xml" target="_blank">RSS</a>
-    <a class="footer-notbyai" href="https://notbyai.fyi/" target="_blank">
-      <img style="height: 30px;" src="https://imgurl.zishu.me/notbyai.webp" alt="notbyai">
-    </a>
   </p>
 </footer>
+
 <script src="/js/main.js"></script>
 <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 

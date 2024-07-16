@@ -22,7 +22,7 @@
 "articleSection" : "blog",
 "name" : "事件监听函数，以及事件的捕获和冒泡机制",
 "headline" : "事件监听函数，以及事件的捕获和冒泡机制",
-"description" : "事件一般是用于浏览器和用户操作之间的交互，当用户执行某些特殊的操作时，浏览器给予反应，触发绑定的事件，事件流，事件发生时会在元素节点和根节点之间按照约定的顺序传播，事件经过的所有节点都会受到事件的影响，这个传播过程被称为 DOM 事件流 函数事件 事件",
+"description" : "事件一般是用于浏览器和用户操作之间的交互，当用户执行某些特殊的操作时，浏览器给予反应，触发绑定的事件",
 "inLanguage" : "en-US",
 "author" : "子舒",
 "creator" : "子舒",
@@ -38,8 +38,8 @@
 </script><title>事件监听函数，以及事件的捕获和冒泡机制 - 子舒的博客</title>
 <meta property="og:title" content="事件监听函数，以及事件的捕获和冒泡机制" />
 <meta property="og:type" content="article" />
-<meta property="og:description" content="事件一般是用于浏览器和用户操作之间的交互，当用户执行某些特殊的操作时，浏览器给予反应，触发绑定的事件，事件流，事件发生时会在元素节点和根节点之间按照约定的顺序传播，事件经过的所有节点都会受到事件的影响，这个传播过程被称为 DOM 事件流 函数事件 事件" />
-<meta name="description" content="事件一般是用于浏览器和用户操作之间的交互，当用户执行某些特殊的操作时，浏览器给予反应，触发绑定的事件，事件流，事件发生时会在元素节点和根节点之间按照约定的顺序传播，事件经过的所有节点都会受到事件的影响，这个传播过程被称为 DOM 事件流 函数事件 事件" />
+<meta property="og:description" content="事件一般是用于浏览器和用户操作之间的交互，当用户执行某些特殊的操作时，浏览器给予反应，触发绑定的事件" />
+<meta name="description" content="事件一般是用于浏览器和用户操作之间的交互，当用户执行某些特殊的操作时，浏览器给予反应，触发绑定的事件" />
 <meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
 
 
@@ -57,10 +57,26 @@
 </script>
 </head>
 
-<body>
-  <header class="header">
-  <a class="logo" href="/">子舒的博客</a>
-  <ul class="menu">
+<body id="container">
+  <meter id="isread" max="100" value="0"></meter>
+<script>
+  window.addEventListener('scroll', function () {
+    var scrolled = window.scrollY;
+    var totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var percentage = (scrolled / totalHeight) * 100;
+    $('#isread').attr('value', percentage)
+  });
+</script>
+
+
+<div id="head" class="site-index">
+  <a id="logo" href="/">
+    <img src="https://imgurl.zishu.me/author.webp">
+  </a>
+  <div id="site-title">
+    <a href="/">子舒的博客</a>
+  </div>
+  <ul id="menu">
     
     <li><a href="/categories/%e6%8a%80%e6%9c%af/">技术</a></li>
     
@@ -74,34 +90,21 @@
     
     <li><a href="/index.xml" target="_blank">订阅</a></li>
   </ul>
-</header>
-
-<meter id="isread" max="100" value="0"></meter>
-<script>
-  window.addEventListener('scroll', function () {
-    var scrolled = window.scrollY;
-    var totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-    var percentage = (scrolled / totalHeight) * 100;
-    $('#isread').attr('value', percentage)
-  });
-</script>
-  <section class="inner">
+</div>
+  <section id="body">
 
     <div class="box">
-      <h1 class="pd15">事件监听函数，以及事件的捕获和冒泡机制</h1>
+      <h1 id="body-title">事件监听函数，以及事件的捕获和冒泡机制</h1>
       
-
-      <div class="meta pd15">
-        
-         
-        <a class="namenode" href="https://zishu.me/tags/%E7%AC%94%E8%AE%B0">笔记</a>
-         
-        <a class="namenode" href="https://zishu.me/tags/js">js</a>
+      
+      <div class="index-post-meta">
+        <time> # 2020-11-17</time>
         
         
-        <time> 2020-11-17</time>
+        <span class="namenode">技术</span>
+        
+        
       </div>
-
       <div class="expired-tips" style="display: none;"></div>
       
 
@@ -122,7 +125,7 @@
       </div>
       
 
-      <article class="post-content content pd15">
+      <article class="inner-post-content inner-long">
         
         <p>事件一般是用于浏览器和用户操作之间的交互，当用户执行某些特殊的操作时，浏览器给予反应，触发绑定的事件，<code>事件流</code>，事件发生时会在元素节点和根节点之间按照约定的顺序传播，事件经过的所有节点都会受到事件的影响，这个传播过程被称为 DOM 事件流</p>
 <h2 id="函数事件">函数事件</h2>
@@ -348,16 +351,13 @@
       
 
     </div>
-    <footer class="footer">
-  <p>© 2020 - 2024
-    Powered by
+    <footer id="foot">
+  <p>© 2020 - 2024 Powered by
     <a href="https://github.com/dlzmoe/blog" target="_blank">Github</a>
     / <a href="/index.xml" target="_blank">RSS</a>
-    <a class="footer-notbyai" href="https://notbyai.fyi/" target="_blank">
-      <img style="height: 30px;" src="https://imgurl.zishu.me/notbyai.webp" alt="notbyai">
-    </a>
   </p>
 </footer>
+
 <script src="/js/main.js"></script>
 <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 

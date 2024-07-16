@@ -22,7 +22,7 @@
 "articleSection" : "blog",
 "name" : "增加了站内搜索功能",
 "headline" : "增加了站内搜索功能",
-"description" : "如题，我花了一个多小时，参照 nuxt 文档，把搜索功能给加上了，url 地址 \/search ，记录一下相关代码。 可以选择放在 components\/\u0026lt;Search \/\u0026gt; 里面，然后引入到 head 模板，也可以单独创建一个页面，我选择的是后者。 新建一个页面模板 \/pages\/search.vue 。 \u0026lt;template\u0026gt; \u0026lt;div\u0026gt; \u0026lt;HeaderMe \/\u0026gt; \u0026lt;div class=\u0026#34;wrapper\u0026#34;\u0026gt; \u0026lt;PageSidebar \/\u0026gt; \u0026lt;div class=\u0026#34;archive\u0026#34;\u0026gt; \u0026lt;h2\u0026gt;{{ article.attributes.title }}\u0026lt;\/h2\u0026gt; \u0026lt;div class=\u0026#34;article-content markdown-body\u0026#34; v-html=\u0026#34;article.html\u0026#34;\u0026gt;\u0026lt;\/div\u0026gt; \u0026lt;div class=\u0026#34;search\u0026#34;\u0026gt; \u0026lt;input v-model=\u0026#34;searchQuery\u0026#34; type=\u0026#34;search\u0026#34; autocomplete=\u0026#34;off\u0026#34; pla",
+"description" : "如题，我花了一个多小时，参照 nuxt 文档，把搜索功能给加上了，url 地址 \/search ，记录一下相关代码。 可以选择放在",
 "inLanguage" : "en-US",
 "author" : "子舒",
 "creator" : "子舒",
@@ -38,8 +38,8 @@
 </script><title>增加了站内搜索功能 - 子舒的博客</title>
 <meta property="og:title" content="增加了站内搜索功能" />
 <meta property="og:type" content="article" />
-<meta property="og:description" content="如题，我花了一个多小时，参照 nuxt 文档，把搜索功能给加上了，url 地址 /search ，记录一下相关代码。 可以选择放在 components/&amp;lt;Search /&amp;gt; 里面，然后引入到 head 模板，也可以单独创建一个页面，我选择的是后者。 新建一个页面模板 /pages/search.vue 。 &amp;lt;template&amp;gt; &amp;lt;div&amp;gt; &amp;lt;HeaderMe /&amp;gt; &amp;lt;div class=&amp;#34;wrapper&amp;#34;&amp;gt; &amp;lt;PageSidebar /&amp;gt; &amp;lt;div class=&amp;#34;archive&amp;#34;&amp;gt; &amp;lt;h2&amp;gt;{{ article.attributes.title }}&amp;lt;/h2&amp;gt; &amp;lt;div class=&amp;#34;article-content markdown-body&amp;#34; v-html=&amp;#34;article.html&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; &amp;lt;div class=&amp;#34;search&amp;#34;&amp;gt; &amp;lt;input v-model=&amp;#34;searchQuery&amp;#34; type=&amp;#34;search&amp;#34; autocomplete=&amp;#34;off&amp;#34; pla" />
-<meta name="description" content="如题，我花了一个多小时，参照 nuxt 文档，把搜索功能给加上了，url 地址 /search ，记录一下相关代码。 可以选择放在 components/&amp;lt;Search /&amp;gt; 里面，然后引入到 head 模板，也可以单独创建一个页面，我选择的是后者。 新建一个页面模板 /pages/search.vue 。 &amp;lt;template&amp;gt; &amp;lt;div&amp;gt; &amp;lt;HeaderMe /&amp;gt; &amp;lt;div class=&amp;#34;wrapper&amp;#34;&amp;gt; &amp;lt;PageSidebar /&amp;gt; &amp;lt;div class=&amp;#34;archive&amp;#34;&amp;gt; &amp;lt;h2&amp;gt;{{ article.attributes.title }}&amp;lt;/h2&amp;gt; &amp;lt;div class=&amp;#34;article-content markdown-body&amp;#34; v-html=&amp;#34;article.html&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; &amp;lt;div class=&amp;#34;search&amp;#34;&amp;gt; &amp;lt;input v-model=&amp;#34;searchQuery&amp;#34; type=&amp;#34;search&amp;#34; autocomplete=&amp;#34;off&amp;#34; pla" />
+<meta property="og:description" content="如题，我花了一个多小时，参照 nuxt 文档，把搜索功能给加上了，url 地址 /search ，记录一下相关代码。 可以选择放在" />
+<meta name="description" content="如题，我花了一个多小时，参照 nuxt 文档，把搜索功能给加上了，url 地址 /search ，记录一下相关代码。 可以选择放在" />
 <meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
 
 
@@ -57,10 +57,26 @@
 </script>
 </head>
 
-<body>
-  <header class="header">
-  <a class="logo" href="/">子舒的博客</a>
-  <ul class="menu">
+<body id="container">
+  <meter id="isread" max="100" value="0"></meter>
+<script>
+  window.addEventListener('scroll', function () {
+    var scrolled = window.scrollY;
+    var totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var percentage = (scrolled / totalHeight) * 100;
+    $('#isread').attr('value', percentage)
+  });
+</script>
+
+
+<div id="head" class="site-index">
+  <a id="logo" href="/">
+    <img src="https://imgurl.zishu.me/author.webp">
+  </a>
+  <div id="site-title">
+    <a href="/">子舒的博客</a>
+  </div>
+  <ul id="menu">
     
     <li><a href="/categories/%e6%8a%80%e6%9c%af/">技术</a></li>
     
@@ -74,34 +90,21 @@
     
     <li><a href="/index.xml" target="_blank">订阅</a></li>
   </ul>
-</header>
-
-<meter id="isread" max="100" value="0"></meter>
-<script>
-  window.addEventListener('scroll', function () {
-    var scrolled = window.scrollY;
-    var totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-    var percentage = (scrolled / totalHeight) * 100;
-    $('#isread').attr('value', percentage)
-  });
-</script>
-  <section class="inner">
+</div>
+  <section id="body">
 
     <div class="box">
-      <h1 class="pd15">增加了站内搜索功能</h1>
+      <h1 id="body-title">增加了站内搜索功能</h1>
       
-
-      <div class="meta pd15">
-        
-         
-        <a class="namenode" href="https://zishu.me/tags/%E5%8D%9A%E5%AE%A2">博客</a>
-         
-        <a class="namenode" href="https://zishu.me/tags/%E6%90%9C%E7%B4%A2">搜索</a>
+      
+      <div class="index-post-meta">
+        <time> # 2022-03-25</time>
         
         
-        <time> 2022-03-25</time>
+        <span class="namenode">技术</span>
+        
+        
       </div>
-
       <div class="expired-tips" style="display: none;"></div>
       
 
@@ -111,7 +114,7 @@
       </div>
       
 
-      <article class="post-content content pd15">
+      <article class="inner-post-content inner-long">
         
         <p>如题，我花了一个多小时，参照 nuxt 文档，把搜索功能给加上了，url 地址 <a href="/search/">/search</a> ，记录一下相关代码。</p>
 <p>可以选择放在 <code>components/&lt;Search /&gt;</code> 里面，然后引入到 head 模板，也可以单独创建一个页面，我选择的是后者。</p>
@@ -266,16 +269,13 @@ css 代码
       
 
     </div>
-    <footer class="footer">
-  <p>© 2020 - 2024
-    Powered by
+    <footer id="foot">
+  <p>© 2020 - 2024 Powered by
     <a href="https://github.com/dlzmoe/blog" target="_blank">Github</a>
     / <a href="/index.xml" target="_blank">RSS</a>
-    <a class="footer-notbyai" href="https://notbyai.fyi/" target="_blank">
-      <img style="height: 30px;" src="https://imgurl.zishu.me/notbyai.webp" alt="notbyai">
-    </a>
   </p>
 </footer>
+
 <script src="/js/main.js"></script>
 <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
