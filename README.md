@@ -1,6 +1,6 @@
 <h1 align="center"> 子舒的博客 </h1>
-<p align="center">分享生活和笔记！</p>
-<p align="center"> 在线预览：<a href="https://zishu.me" target="_blank">https://zishu.me</a> </p>
+<p align="center"> 分享生活和笔记！</p>
+<p align="center"> 在线访问：<a href="https://zishu.me" target="_blank">https://zishu.me</a> </p>
 
 <p align="center">
 <img src="https://img.shields.io/github/last-commit/dlzmoe/blog">
@@ -10,21 +10,18 @@
 <img src="https://img.shields.io/github/license/dlzmoe/blog">
 </p>
 
-> 欢迎加入我的 discord 社区！https://discord.gg/pxt853eEWM
-
+> 欢迎加入我的 discord 社区！https://discord.gg/Z5Q5FUff
 
 ## 1.介绍
 
 使用 Hugo 框架构建，在 GitHub 托管代码，Netlify 部署，CloudFlare 解析域名。
 
-评论使用 [giscus](https://giscus.app/)，基于 discussions 构建而成。
+评论使用 [giscus](https://giscus.app/)，基于 Discussions 构建而成。
 
 博客文章数据保留版权，其他代码开源，可直接使用。
 
 * [/content](./content/)：博客文章数据
 * [/themes](./themes/)：博客主题文件夹，多主题
-
-<!-- ![1712026089528](https://imgurl.zishu.me/2024/04/1712026089528.webp) -->
 
 
 ## 2.运行博客
