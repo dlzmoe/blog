@@ -6,12 +6,11 @@
   {{ partial "header.html" . }}
 
   <section id="body">
-    <h1 id="body-title">{{ .Title }}</h1>
-    <p class="header-des">List of articles written on this website in a timeline view.</p>
+    <h1 id="body-title">📓 {{ .Title }}</h1>
 
     {{ range (where .Data.Pages "Type" "in" site.Params.mainSections).GroupByDate "2006" -}}
     <div id="body-in">
-      <h3 id="{{ .Key }}">{{ .Key }}</h3>
+      <h3 class="posts-year" id="{{ .Key }}">{{ .Key }}</h3>
       {{ range .Pages }}
       
       <div class="index-post" onclick="javascript:window.location.href='{{ .RelPermalink }}'">
