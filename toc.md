@@ -1,5 +1,6 @@
 ## 文章归档目录
 
+- 2024-07-28-马家坞看日出【[GitHub 文件链接](./content/blog/2024-07-28-马家坞看日出.md) / [博客链接](https://zishu.me/blog/232.html/)】
 - 2024-07-20-杭州国家版本馆文润阁【[GitHub 文件链接](./content/blog/2024-07-20-杭州国家版本馆文润阁.md) / [博客链接](https://zishu.me/blog/231.html/)】
 - 2024-07-14-西溪湿地随手拍【[GitHub 文件链接](./content/blog/2024-07-14-西溪湿地随手拍.md) / [博客链接](https://zishu.me/blog/230.html/)】
 - 2024-06-08-随手拍无题【[GitHub 文件链接](./content/blog/2024-06-08-随手拍无题.md) / [博客链接](https://zishu.me/blog/229.html/)】
