@@ -8,15 +8,26 @@
 
     <div class="box">
       <h1 id="body-title">{{ .Title }}</h1>
-      
+
       {{ if in .Site.Params.mainSections .Type }}
       <div class="index-post-meta">
         <time> # {{ .Date.Format "2006-01-02"}}</time>
         {{ with .Params.categories }}
         {{ range . }}
-        <span class="namenode">{{ . }}</span>
+        <span class="namenode">
+          <a href="{{ "categories/" | relURL }}{{ . | urlize }}">{{ . }}</a>
+        </span>
         {{ end }}
         {{ end }}
+
+        <span class="tag-node">
+        {{ with .Params.tags }}
+        {{ range . }}
+        <a href="{{ "tags/" | relURL }}{{ . | urlize }}">#{{ . }}</a>
+        {{ end }}
+        {{ end }}
+        </span>
+
       </div>
       <div class="expired-tips" style="display: none;"></div>
       {{ end }}
