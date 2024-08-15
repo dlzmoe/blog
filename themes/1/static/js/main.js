@@ -1,10 +1,18 @@
 $(function () {
   $('.inner-post-content iframe').wrap('<div class="iframe"></div>');
-  $('nav a').each(function () {
+  $('#menu a').each(function () {
     if ($(this).attr('href') == window.location.pathname) {
-      $(this).addClass('active');
+      $(this).addClass('current');
     }
   })
+
+  $("#TableOfContents a").click(function (e) {
+    e.preventDefault();
+    const id = $(this).attr('href');
+    $("html,body").animate({
+      scrollTop: $(id).offset().top - 30,
+    }, 500, )
+  });
 
   $('.inner-post-content img').addClass('zimgbox');
   $('body').append('<div id="zimgbox-wrap" style="display:none"><img src></div>');
@@ -56,5 +64,5 @@ $(function () {
       $(".fixed").removeClass("is-active")
     }
   });
-  
+
 })

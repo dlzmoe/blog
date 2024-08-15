@@ -1,4 +1,4 @@
-<h1 align="center"> 子舒的博客 </h1>
+<h2 align="center"> 子舒的博客 </h2>
 <p align="center"> 分享生活和笔记！</p>
 <p align="center"> 在线访问：<a href="https://zishu.me" target="_blank">https://zishu.me</a> </p>
 
@@ -9,8 +9,6 @@
 <img src="https://img.shields.io/github/stars/dlzmoe/blog?style=flat">
 <img src="https://img.shields.io/github/license/dlzmoe/blog">
 </p>
-
-> 欢迎加入我的 discord 社区！https://discord.gg/Z5Q5FUff
 
 ## 1.介绍
 
