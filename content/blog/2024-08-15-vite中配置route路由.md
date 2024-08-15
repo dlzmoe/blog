@@ -1,5 +1,5 @@
 ---
-slug: 233
+slug: 234
 title: vite 中配置 route 路由
 date: 2024-08-15
 categories: 
