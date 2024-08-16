@@ -26,5 +26,6 @@ define('__TYPECHO_GRAVATAR_PREFIX__', 'https://sdn.geekzu.org/avatar/');
 
 如果你有其他可以用的头像源，欢迎留言。
 
+>https://gravatar.zishu.me/avatar/
 >https://cravatar.cn/avatar/
 >https://sdn.geekzu.org/avatar/

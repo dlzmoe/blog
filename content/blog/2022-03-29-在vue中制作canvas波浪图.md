@@ -9,11 +9,7 @@ tags:
   - canvas
 ---
 
-
-
-
 新建组件 `Canvas.vue` 。
-
 
 
 ```js

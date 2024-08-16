@@ -32,7 +32,7 @@ description: 喜欢折腾技术，研究各种奇怪的程序和网站，喜欢�
 </details>
 
 
-![](https://raw.githubusercontent.com/98zi/98zi/main/github-user-contribution.svg)
+![](https://raw.githubusercontent.com/dlzmoe/dlzmoe/main/github-user-contribution.svg)
 
 我的 [计划单](/plan/)。
 
