@@ -5,21 +5,25 @@ title: 免费服务
 
 提供一些免费服务。
 
-- **Docker 镜像源**  
-https://workers-docker.anghunk.workers.dev/
+### 工具
 
+- **基于 Cloudflare Workers AI 的绘画工具**  
+https://ai.zishu.me/
 
-- **基于 telegraph+Cloudflare 的免费图床**  
-https://telegraph-image-7ti.pages.dev/
-
-
-- **Rsshub 镜像源**  
-https://rsshub.zishu.me/
-
+- **基于 telegraph + Cloudflare 的免费图床**  
+https://zsh.im/
 
 - **临时邮件服务**  
 https://b3260cb9.temp-email-de0.pages.dev/
 
+
+### 镜像源
+
+- **Rsshub 镜像源**  
+https://rsshub.zishu.me/
+
+- **Docker 镜像源**  
+https://workers-docker.zishu.me/
 
 - **gravatar 头像国内镜像**   
 https://gravatar.zishu.me/
