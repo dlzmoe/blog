@@ -16,6 +16,9 @@ https://zsh.im/
 - **临时邮件服务**  
 https://b3260cb9.temp-email-de0.pages.dev/
 
+- **免费文本 logo 生成器**  
+https://logo.zishu.me/
+
 
 ### 镜像源
 
