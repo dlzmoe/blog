@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Blogs - 子舒的博客</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+	<link rel="alternate" type="application/rss+xml" href="/blog/index.xml" title="子舒的博客">
+
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="topbar">
+		<a class="topbar__link" href="/" title="子舒的博客" rel="sidebar">
+			<div class="topbar__item topbar__text">
+					<div class="topbar__title">子舒的博客</div>
+					<div class="topbar__tagline">Thoughts come and go quickly, occasionally stopping here</div>
+				</div>
+		</a>
+	</div>
+		
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main list" role="main">
+	<header class="main__header">
+		<h1 class="main__title">Blogs</h1>
+	</header><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/51.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">使用宝塔面板安装 autoPicCdn 图床工具</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2021-02-25T00:00:00Z">February 25, 2021</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		很多小伙伴在做个人网站或者博客时，总能用到各种各样的图床工具，毕竟在写文章的时候需要插入一些图片，我也不例外，来盘点一下之前用的工具，
+最开始是找一些免费的图床网站，比如 sm.ms 等，但是后来为了安全性和稳定性考虑放弃了这种。 然后是在 github，gitee 仓库存储的（缺点就是 github 访问速度有些尴尬，gitee 其实挺好的，但时用起来怪怪的） 阿里云 oss 储存桶（挺好使的，搭配 picgo 软件，一年也才 9.9，但是链接很尴尬，直接下载，无法右键访问图片，搜过了解决办法，嫌太麻烦就搁置了，至今在那放着） 后来在自己的服务器建一个网站，把图片放进去，使用的时候直接引用链接（缺点就是上传太麻烦，然后就是图片太占内存了，影响服务器的性能） 然后就是今天的重头戏，autoPicCdn，一款开源软件 也是基于 github 实现图床功能，后来才知道可以用 jsdelivr 给资源进行加速，autoPicCdn 就是基于这样的功能实现。
+今天就讲讲用宝塔面板配置 autoPicCdn 的流程吧！
+准备工作 进入 github 仓库下载资源到本地。 https://github.com/yumusb/autoPicCdn 在 github 建立一个新的仓库，自由命名，我的是 shuxhan/pic-cdn，简单易懂 去这个页面 https://github.com/settings/tokens生成一个有写权限的 token（repo：Full control of private repositories 和 write:packages 前打勾，然后点击确定，会生成一个 token 码，记住它，最好复制到你的记事本，不然一刷新网页就不会再显示了 然后解压。
+上传到服务器 先利用自己的域名添加一个新的站点，比如我使用的是 img.
+	</div>
+	<div class="list__footer clearfix">
+		<a class="list__footer-readmore btn" href="/blog/51.html/">Read more</a>
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/50.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">typecho 博客小表情无法显示问题</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2021-02-04T00:00:00Z">February 04, 2021</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		typecho 博客建立完成之后，会发现如果插入一些小表情，页面渲染完之后，表情不会显示，并且表情之后的内容全部消失，导致体验感很差。
+表情无法显示的原因是 uft-8 编码的问题，无法识别小表情，需要将其改成 utf8mb4
+第一步，进入数据库 首先登陆博客后台的数据库，然后点击 sql，输入下列代码：
+alter table typecho_comments convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_contents convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_fields convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_metas convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_options convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_relationships convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_users convert to character set utf8mb4 collate utf8mb4_unicode_ci; 直接复制，然后点击右下角的执行
+	</div>
+	<div class="list__footer clearfix">
+		<a class="list__footer-readmore btn" href="/blog/50.html/">Read more</a>
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/49.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">掘金个人主页头像旋转效果</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2021-02-03T00:00:00Z">February 03, 2021</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		在浏览掘金社区的时候，发现一个很有意思的小彩蛋，在个人主页将鼠标悬浮在头像上，会不停的加速旋转，我感觉挺有意思，f12 看看这个样式怎么写的，发现用到了 css3 的相关技术。
+下面是具体代码，img 是头像元素，直接写在 hover 中即可。
+img:hover { transform: rotate(666turn); transition-delay: 1s; transition-property: all; transition-duration: 59s; transition-timing-function: cubic-bezier(.34,0,.84,1); } ps：今天是 2021 年 2 月 4 号，农历腊月二十三，传统的小年，祝朋友们小年愉快。不知不觉，快过年了。
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/48.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">ES5 和 ES6 的区别？</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2021-01-20T00:00:00Z">January 20, 2021</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		一、javascript 由三部分组成 1.ECMAScript（核心） 它规定了语言的组成部分：法语，类型，语句，关键字，操作符等等。
+2.DOM（文档对象模型） DOM 把整个页面映射为一个多层节点结果，开发人员可借助 DOM 提供的 API，轻松地删除、添加、替换或修改任何节点。
+3.BOM（浏览器对象模型） 支持可以访问和操作浏览器窗口的浏览器对象模型，开发人员可以控制浏览器显示的页面以外的部分。
+二、什么是 ES5？ 作为 ECMAScript 第五个版本（第四版因为过于复杂废弃了），浏览器支持情况可看第一副图，增加特性如下。
+1.strict 模式 严格模式，限制一些用法，&lsquo;use strict&rsquo;;
+2.Array 增加方法 增加了 every、some、forEach、filter、indexOf、lastIndexOf、isArray、map、reduce、reduceRight 方法
+PS：还有其他方法 Function.prototype.bind、String.prototype.trim、Date.now
+3.Object 方法 Object.getPrototypeOf Object.create Object.getOwnPropertyNames Object.defineProperty Object.getOwnPropertyDescriptor Object.defineProperties Object.keys Object.preventExtensions / Object.isExtensible Object.seal / Object.isSealed Object.freeze / Object.isFrozen PS：只讲有什么，不讲是什么。
+2.什么是 ES6? ECMAScript6 在保证向下兼容的前提下，提供大量新特性，目前浏览器兼容情况如下：
+	</div>
+	<div class="list__footer clearfix">
+		<a class="list__footer-readmore btn" href="/blog/48.html/">Read more</a>
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/47.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">webpack 的核心概念和构建流程</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2021-01-18T00:00:00Z">January 18, 2021</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		1.webpack 的核心概念 entry（入口）：一个可执行模块或者库的入口。定义了打包后的入口文件。 output（出口）：指示 webpack 如何去输出，以及在哪里输出。 path: 打包文件存放的绝对路径 publicPath: 网站运行时的访问路径 filename: 打包后的文件名 module（模块）：在 webpack 里，一切皆模块，一个模块对应一个文件。webpack 会从配置的 entry 中开始递归找出所有依赖的模块。 chunk（代码块）：一个 chunk 由多个 模块 组合而成。可以将可执行的模块和他所依赖的模块组合成一个 chunk，这就是打包。 loader（模块转换器）：用于把一个模块原内容按照需求转换成新的内容。例如：es6 转换为 es5，scss 转换为 css 等。 plugin（扩展）：扩展 webpack 功能的插件。在 webpack 构建的生命周期节点上加入扩展 hook，添加功能。 2.webpack 构建流程 初始化参数：解析 webpack 的配置参数，合并 shell 传入和 webpack.config.js 文件配置的参数，形成最后的配置结果。 开始编译：上一步得到的参数初始化 compiler 对象，注册所有配置的插件，插件监听 webpack 构建生命周期的事件节点，做出相应的反应，执行对象的 run 方法开始执行编译。 确定入口：其配置的 entry 入口，开始解析文件构建的 AST 语法树，找出依赖，递归下去。 编译模块：根据文件类型和 loader 配置，调用所有配置的 loader 对文件进行转换，再找出该模块依赖的模块，再递归本步骤知道所有入口依赖的文件都经过了本步骤的处理。 完成模块编译并输出：递归完后，得到每个文件结果，包含了每个模块及她们之间的依赖关系，根据 entry 配置生成代码块 chunk。 输出完成：输出所有的 chunk 到文件系统。 3.
+	</div>
+	<div class="list__footer clearfix">
+		<a class="list__footer-readmore btn" href="/blog/47.html/">Read more</a>
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/46.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">小张厨房日记（二）</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2021-01-17T00:00:00Z">January 17, 2021</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		自从上次更新厨房日记之后，好像过了两个月多，实际上我一直在进阶我的厨艺，为什么没有更新我的厨房日记呢？因为实际在做的过程中我发现，每种菜的组合太多了，没必要组合一次就写一篇攻略，那样就有些做无用功了，没有太大的意义。
+思来想去，我决定了，不再更新做菜的步骤攻略，我想这些攻略网上一抓一大把。把内容着重放在做菜中遇到的一些问题，细节，这样不但可以让我记忆的深刻，还能分享出更多有意思的东西让小伙伴们开心。
+今天做了一道菜，红烧茄子，我在茄子的时候发现皮挺硬的，就在想要不要去皮（不要笑我，因为之前没做过茄子）。想了一会没想出个所以然，直接百度一番，“烧茄子要不要去皮？”，第一条搜索结果是这样说的，
+“不要。营养专家建议在吃茄子的时候最好不要去皮，因在茄子表皮及表皮与肉质的连接部位，含有大量的有益于人体健康的物质，如芦丁、维生素 E、维生素 P 的含量都隐藏在茄子皮中，如果将茄子皮去掉会降低营养价值。”
+嗯，挺好，不用去皮，但是作为百度谷歌资深用户，怎么可能只相信第一条搜索结果呢？我又往下翻了翻，有一条知乎用户是这样说的
+茄子去不去皮，关键还是看你做什么菜了。如果是家常茄子，最好是不要去皮；如是是油煎茄子，因为要打花刀的原因，所以也不要去皮；如果是茄子煲，那就非去皮不可了。
+略加思考，好像说得有那么几分道理，很是欣喜，所以我就采用了他的说法。今天做的是烧茄子，所以不用去皮，直接炒就可以了。
+又增加了一个小技巧。
+结束语：当你在心情不好的时候，或者有心事，可以做一些让你分散注意力的事情，就比如说做菜，不仅可以享受食物，享受生活，内心还可以获得成就感，我感觉这是一举两得的事情。
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/45.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">许嵩的歌又一次被抄袭！</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2021-01-16T00:00:00Z">January 16, 2021</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		最新网上爆出风风火火的一件事，许嵩的《有何不可》被抄袭，抄袭者为罗聪，《简单的幸福》。
+我从 14 年开始听许嵩的歌，一直到现在，许多年过去了，他的歌依旧脍炙人口，从之前的抒情浪漫情歌，批判社会的思想，一直到现在具体哲学内涵，中华传统思想。大部分都是包揽作词作曲为一身，真的很有才华。
+因为太有才华了，所以被“碰瓷”抄袭。这也算是一场闹剧了。据说嵩哥本人对此没有发表什么看法和言论，一直都是粉丝和公司在发声。
+据网友戏称：“许嵩：这要放十年前，我早写歌骂你了。”，“低情商：这不就是抄袭《有何不可》？高情商：你这《有何不可》唱得有点跑调”。
+令人没有想象到的事，罗聪所在公司发表声明：
+突然感觉有些搞笑，我也不对他再发表什么看法，只希望官方能解决这件事，给我们松鼠一个交代。
+要是靠抄袭就能火的话，还要才华做什么。
+这也一直是我的理念，在写博客的时候，我也很注重版权，引用别人写的文章的时候，我都会申请作者授权，标明出处。同时，对于我自己的文章，如果你想要引用转载，只需要标明出处即可。
+大部分做技术的人应该都是和我抱有一样的想法，喜欢分享，但是可不能张冠李戴，毕竟写文章也是耗费脑细胞的。并不指望能获得什么成绩，只是希望当有人看到你的文章时，解决了自己的问题，有一丝认可足以。
+版权一直是一件很重要的事情，很多年前我们还比较淡漠，但是这几年对版权的重视开始慢慢提升了，审查力度增加，这是一件好事。
+让它一直保持启动状态就可以，其他的不用动，以后就不用打开服务器终端输入指令了，直接在浏览器访问端口，就可以访问网页。
+如果为了更方便，做个反代处理即可。
+React 不会意识到应该保留 &lt;li&gt;Duke&lt;/li&gt; 和 &lt;li&gt;Villanova&lt;/li&gt;，而是会重建每一个子元素。这种情况会带来性能问题。
+key
+为了解决上述问题，React 支持 key 属性，当子元素拥有 key 时，React 使用 key 来匹配原有树上的子元素以及最新树上的子元素。以下例子在新增 key 之后使得之前的低效转换变得高效：
+&lt;ul&gt; &lt;li key=&#34;1&#34;&gt;Duke&lt;/li&gt; &lt;li key=&#34;2&#34;&gt;Villanova&lt;/li&gt; &lt;/ul&gt; &lt;ul&gt; &lt;li key=&#34;0&#34;&gt;Connecticut&lt;/li&gt; &lt;li key=&#34;1&#34;&gt;Duke&lt;/li&gt; &lt;li key=&#34;2&#34;&gt;Villanova&lt;/li&gt; &lt;/ul&gt; 现在 React 知道只有带着 '0' key 的元素是新元素，带着 '1' 以及 '2' key 的元素仅仅移动了。
+	</div>
+	<div class="list__footer clearfix">
+		<a class="list__footer-readmore btn" href="/blog/45.html/">Read more</a>
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/45.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">许嵩的歌又一次被抄袭！</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2021-01-16T00:00:00Z">January 16, 2021</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		最新网上爆出风风火火的一件事，许嵩的《有何不可》被抄袭，抄袭者为罗聪，《简单的幸福》。
+我从 14 年开始听许嵩的歌，一直到现在，许多年过去了，他的歌依旧脍炙人口，从之前的抒情浪漫情歌，批判社会的思想，一直到现在具体哲学内涵，中华传统思想。大部分都是包揽作词作曲为一身，真的很有才华。
+因为太有才华了，所以被“碰瓷”抄袭。这也算是一场闹剧了。据说嵩哥本人对此没有发表什么看法和言论，一直都是粉丝和公司在发声。
+据网友戏称：“许嵩：这要放十年前，我早写歌骂你了。”，“低情商：这不就是抄袭《有何不可》？高情商：你这《有何不可》唱得有点跑调”。
+令人没有想象到的事，罗聪所在公司发表声明：
+突然感觉有些搞笑，我也不对他再发表什么看法，只希望官方能解决这件事，给我们松鼠一个交代。
+要是靠抄袭就能火的话，还要才华做什么。
+这也一直是我的理念，在写博客的时候，我也很注重版权，引用别人写的文章的时候，我都会申请作者授权，标明出处。同时，对于我自己的文章，如果你想要引用转载，只需要标明出处即可。
+大部分做技术的人应该都是和我抱有一样的想法，喜欢分享，但是可不能张冠李戴，毕竟写文章也是耗费脑细胞的。并不指望能获得什么成绩，只是希望当有人看到你的文章时，解决了自己的问题，有一丝认可足以。
+版权一直是一件很重要的事情，很多年前我们还比较淡漠，但是这几年对版权的重视开始慢慢提升了，审查力度增加，这是一件好事。
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/44.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">基于 React 的富文本编辑器－－Braft Editor</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2021-01-07T00:00:00Z">January 07, 2021</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		最近发了很多关于 React 的文章，记录遇到的新技术点，以及在写代码过程中遇到的问题，希望可以帮助到和我遇到同样问题的同学。
+今天分享的是一款基于 React 的富文本编辑器－－Braft Editor。
+Braft Editor 官网：https://braft.margox.cn Github 仓库地址：https://github.com/margox/braft-editor
+这款插件非常方便，只需要下载然后引入即可直接使用，页面整体风格清新，符合绝大多数人的审美观，支持图片，音视频的插入。
+按照官方的说法，假如你对它的功能还不够满意，不够使用，完全可以扩展它，自己写一个插件来强化他。
+经过我的测试，功能绝对强大，可以满足市面上绝大多数的需求。接下来就说一下如何使用这款插件。
+1.安装 在项目中直接通过 npm 或者 yarn 下载插件：
+# 使用 npm 安装 npm install braft-editor --save # 使用 yarn 安装 yarn add braft-editor 2.使用 新建一个组件 EditorDemo.js，在里面写入下列代码：
+// EditorDemo.js import React from &#39;react&#39;; import BraftEditor from &#39;braft-editor&#39;; import &#39;braft-editor/dist/index.
+	</div>
+	<div class="list__footer clearfix">
+		<a class="list__footer-readmore btn" href="/blog/44.html/">Read more</a>
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/43.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">使用 React 与 Vue 创建同一款 App，差别究竟有多大？</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2021-01-06T00:00:00Z">January 06, 2021</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		关于 React 框架 和 Vue 框架 的对比，用两者写出同一个程序，对比其代码实现的过程，看看它们的差异究竟有多大？
+转载于：https://blog.csdn.net/csdnnews/article/details/81880378 原文：https://medium.com/javascript-in-plain-english/i-created-the-exact-same-app-in-react-and-vue-here-are-the-differences-e9a1ae8077fd 作者简介：Sunil Sandhu，一位 Web 全栈工程师 + 空想家。 译者：安翔，责编：屠敏
+众所周知，Vue 和 React 都是目前非常著名的前端框架。我在工作中经常使用 Vue，因此我对它有很深入的了解。同时，我也对 React 充满了好奇，想要学习一下，一探究竟。
+于是我阅读了 React 文档并观看了一些视频教程，虽然这些资料很不错，但是我真正想了解的是 React 与 Vue 之间的不同之处。所谓“不同之处”，我并非想知道它们是否都具有虚拟 DOMS 或者它们如何渲染页面，而是希望有人能够从代码的角度解释这两者之间的差异。我想找到一篇解释这些差异的文章，以便 Vue 或者 React 的初学者可以更好地理解它们两者之间的差异。
+很遗憾，我并未找到一篇这样的文章。于是我意识到必须自己动手来比较 Vue 与 React 之间的异同。在我自力更生的过程中，我用这篇文章记录下了具体过程。
+1.目标 我将会构建一个标准的待办事项应用程序，允许用户添加和删除列表中的项目。这两个应用程序都使用默认的 CLI（command-line interface，命令行界面）构建，React 使用 create-react-app，Vue 使用 vue-cli。
+两个应用程序的外观如下：
+	</div>
+	<div class="list__footer clearfix">
+		<a class="list__footer-readmore btn" href="/blog/43.html/">Read more</a>
+	</div>
+</article>
+
+</main>
+
+<div class="pagination">
+	<a class="pagination__item pagination__item--prev btn" href="/blog/page/22/">«</a>
+	<span class="pagination__item pagination__item--current">23/27</span>
+	<a class="pagination__item pagination__item--next btn" href="/blog/page/24/">»</a>
+</div>
+
+			</div>
+			
+
+		</div>
+		
+		
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [["$", "$"]],
+      },
+      displayMath: [
+        ["$$", "$$"],
+        ["\[\[", "\]\]"],
+      ],
+      svg: {
+        fontCache: "global",
+      },
+    };
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script
+    id="MathJax-script"
+    async
+    src="https://gcore.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+  ></script>
+</body>
+</html>

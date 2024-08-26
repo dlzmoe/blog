@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>技术 - 子舒的博客</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+	<link rel="alternate" type="application/rss+xml" href="/categories/%E6%8A%80%E6%9C%AF/index.xml" title="子舒的博客">
+
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="topbar">
+		<a class="topbar__link" href="/" title="子舒的博客" rel="sidebar">
+			<div class="topbar__item topbar__text">
+					<div class="topbar__title">子舒的博客</div>
+					<div class="topbar__tagline">Thoughts come and go quickly, occasionally stopping here</div>
+				</div>
+		</a>
+	</div>
+		
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main list" role="main">
+	<header class="main__header">
+		<h1 class="main__title">技术</h1>
+	</header><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/158.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">一些容易遗漏的点</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2022-08-10T00:00:00Z">August 10, 2022</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		监听对象时如果值是 null 会报错，默认值设置为{}； for in 只能遍历对象 i in 4 是错误的写法； 动态获取数组 - 拼接传参 var arr = [ &#34;单位 1&#34;, &#34;单位 2&#34;, &#34;单位 3&#34;, &#34;单位 4&#34;, &#34;单位 5&#34; ] // 1.数组 [] for (var i = 0; i &lt; arr.length; i++) { this.defaultData.hostUnitList.push({ [arr[i]]: this.defaultData[arr[i]] }); } // 2.对象{} for (var i = 0; i &lt; arr.
+	</div>
+	<div class="list__footer clearfix">
+		<a class="list__footer-readmore btn" href="/blog/158.html/">Read more</a>
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/155.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">win11 使用 10 版本的鼠标右键设置</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2022-08-02T00:00:00Z">August 02, 2022</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		实测好用，没有坑。
+管理员权限下打开终端，输入。
+reg add &#34;HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32&#34; /f /ve 随后重新启动资源管理器即可
+taskkill /f /im explorer.exe &amp; start explorer.exe 恢复默认指令。
+reg delete &#34;HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}&#34; /f 
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/154.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">Anghunk 主题如何在后台评论列表解析表情？</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2022-07-30T00:00:00Z">July 30, 2022</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		本文专为 Anghunk 主题开发文档而写。 https://github.com/dlzmoe/Anghunk
+方案是在梦繁星的协助下完成的。
+介绍 Anghunk 评论携带很多精美的表情，但是正常情况下 Typecho 后台是没办法正常解析这些表情的。如下图；
+但是，经过我解析表情之后，就可以变成下面这样，使用主题如果需要这种功能，可以按照我下面的步骤进行改造。
+修改 打开 /admin/manage-comments.php 文件，在题头插入：
+/* * 解析表情 */ function getparseBiaoQingComment($content) { $emopath=$_SERVER[&#39;REQUEST_SCHEME&#39;].&#34;:&#34;. DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR . $_SERVER[&#39;HTTP_HOST&#39;]; $emo = false; global $emo; if(!$emo) { $emo = json_decode(file_get_contents(dirname(dirname(dirname(__FILE__))).&#39;/zburu.com/usr/themes/dlzmoe/libs/OwO.json&#39;), true); } foreach ($emo as $v) { if($v[&#39;type&#39;] == &#39;image&#39;) { foreach ($v[&#39;container&#39;] as $vv) { $emoaa=&#34;::&#34;.
+	</div>
+	<div class="list__footer clearfix">
+		<a class="list__footer-readmore btn" href="/blog/154.html/">Read more</a>
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/152.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">出错了，面板运行时发生错误！</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2022-07-18T00:00:00Z">July 18, 2022</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		# 删除之前无法使用的面板环境 rm -rf /www/server/panel/pyenv #重新获取新的面板环境和更新包 curl http://download.bt.cn/install/update_panel.sh|bash 
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/151.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">笔记:vue 中使用 axios 调用数据并渲染</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2022-07-12T00:00:00Z">July 12, 2022</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		示例如下。
+&lt;template&gt; &lt;div class=&#34;posts&#34;&gt; &lt;div v-for=&#34;item in list&#34; :key=&#34;item.cid&#34; &gt; {{ item.title }} &lt;/div&gt; &lt;/div&gt; &lt;/template&gt; &lt;script&gt; import Axios from &#39;axios&#39;; export default { name: &#39;index&#39;, data () { return { list: [] } }, methods: { getData () { var api = &#39;https://zburu.com/api/posts.php&#39;; Axios.get(api).then((response) =&gt; { this.list = response.data; console.
+	</div>
+	<div class="list__footer clearfix">
+		<a class="list__footer-readmore btn" href="/blog/151.html/">Read more</a>
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/146.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">obsidian:如何使用坚果云进行多端同步？</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2022-06-27T00:00:00Z">June 27, 2022</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		接上篇文章 《关于我选择笔记系统这件小事》 ，obsidian 的个人体验很棒，我也打算长久使用作为个人知识库。
+但是它有一个弊端，就是本地离线化导致同步是个问题，官方的同步服务很贵，给我劝退了，因此我寻求了其他的同步备份方案，就是今天我要分享的坚果云 + obsidian。
+注册账号 在坚果云官网注册一个账号，选择个人用户，创建账号之后登陆。
+点击创建 &gt; 个人同步文件夹，以后就同步这个文件夹内的内容了。这个我在里面新建了一个 test 文件夹。
+pc 端同步 接下来需要将电脑本地的文件和坚果云的文件夹相连接，只要你在本地修改了文件，自动同步到坚果云。
+点击页面左侧的下载客户端。
+下载完成之后登陆，你就可以看到里面有一个 test 文件夹，是刚才在网页官网创建的。然后在右边三个点里面选择同步到本地。
+浏览你的文件夹，找到一个地方存放 test 文件夹，点击确定，坚果云就会自动同步你在本地文件。但是这个时候 test 文件夹是空的，需要将 obsidian 文件全部移动进去就行了。然后在 obsidian 客户端重新打开 test 库。
+在另一台电脑，进行上面同样的操作，将坚果云的同步文件夹映射到本地，就会自动下载云端的文件。之后，不管你在哪台电脑修改 obsidian 笔记，都会同步到拥有坚果云客户端的其他电脑。
+这是 pc 端同步的方案，之后我会继续分享如果将 pc 同步到手机端。
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/145.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">人民币小写转大写</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2022-06-24T00:00:00Z">June 24, 2022</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		一个有趣的 demo
+this.smalltoBIG(43533534.78); //肆仟叁佰伍拾叁万叁仟伍佰叁拾肆元柒角捌分 smalltoBIG (n) { var fraction = [&#39;角&#39;, &#39;分&#39;]; var digit = [&#39;零&#39;, &#39;壹&#39;, &#39;贰&#39;, &#39;叁&#39;, &#39;肆&#39;, &#39;伍&#39;, &#39;陆&#39;, &#39;柒&#39;, &#39;捌&#39;, &#39;玖&#39;]; var unit = [ [&#39;元&#39;, &#39;万&#39;, &#39;亿&#39;],[&#39;&#39;, &#39;拾&#39;, &#39;佰&#39;, &#39;仟&#39;] ]; var head = n &lt; 0 ? &#39;欠&#39; : &#39;&#39;; n = Math.abs(n); var s = &#39;&#39;; for (var i = 0; i &lt; fraction.
+	</div>
+	<div class="list__footer clearfix">
+		<a class="list__footer-readmore btn" href="/blog/145.html/">Read more</a>
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/143.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">掘金抽奖脚本</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2022-06-22T00:00:00Z">June 22, 2022</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		分享一个掘金抽奖的油猴脚本，可以一键签到，抽奖，梭哈。
+攒多一点矿石，体验买彩票的感觉。
+(async function () { &lsquo;use strict&rsquo;;
+const { createApp } = PetiteVue; // 不会吧不会吧，不会还有人不知道 petite-vue 吧
+const root = document.createElement(&lsquo;div&rsquo;); root.class = &lsquo;wx_draw_wrap&rsquo;; root.innerHTML = ` &lt;div v-show=&quot;!popup&quot; class=&ldquo;wx_draw&rdquo; @click=&ldquo;open&rdquo;&gt;掘金抽奖
+&lt;div v-if=&quot;popup&quot; class=&quot;wx_popup&quot;&gt; &lt;div class=&quot;wx_mask&quot; @click=&quot;popup = false&quot;&gt;&lt;/div&gt; &lt;div class=&quot;wx_main&quot;&gt; &lt;div class=&quot;wx_header&quot;&gt; &lt;div&gt;掘金抽奖&lt;/div&gt; &lt;div class=&quot;wx_score&quot;&gt;当前矿石：{{ score }}&lt;/div&gt; &lt;/div&gt; &lt;div class=&quot;wx_body&quot;&gt; &lt;div class=&quot;wx_options&quot;&gt; &lt;div @click=&quot;check_in&quot; v-if=&quot;check_status === -1 || check_status === false&quot;&gt;签到&lt;/div&gt; &lt;div @click=&quot;get_free&quot; v-else&gt;签到成功&lt;/div&gt; &lt;div @click=&quot;draw(5)&quot;&gt;5 连抽&lt;/div&gt; &lt;div @click=&quot;draw(10)&quot;&gt;10 连抽&lt;/div&gt; &lt;div @click=&quot;draw(undefined)&quot;&gt;梭哈抽奖&lt;/div&gt; &lt;/div&gt; &lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot; width=&quot;100%&quot;&gt; &lt;thead&gt; &lt;tr&gt; &lt;th&gt;奖品图片&lt;/th&gt; &lt;th&gt;奖品名称&lt;/th&gt; &lt;th&gt;中奖次数&lt;/th&gt; &lt;/tr&gt; &lt;/thead&gt; &lt;tbody&gt; &lt;tr v-for=&quot;item in award&quot;&gt; &lt;td&gt;&lt;img :src=&quot;item.
+	</div>
+	<div class="list__footer clearfix">
+		<a class="list__footer-readmore btn" href="/blog/143.html/">Read more</a>
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/132.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">typecho 评论回复艾特评论人</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2022-06-07T00:00:00Z">June 07, 2022</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		typecho 在评论时默认是没有 @ 评论人的功能，可以用代码加一下。
+在 functions.php 中：
+/* * 评论回复时 @ 评论人 */ function get_comment_at($coid) { $db = Typecho_Db::get(); $prow = $db-&gt;fetchRow($db-&gt;select(&#39;parent,status&#39;)-&gt;from(&#39;table.comments&#39;) -&gt;where(&#39;coid = ?&#39;, $coid)); $mail = &#34;&#34;; $parent = @$prow[&#39;parent&#39;]; if ($parent != &#34;0&#34;) { $arow = $db-&gt;fetchRow($db-&gt;select(&#39;author,status,mail&#39;)-&gt;from(&#39;table.comments&#39;) -&gt;where(&#39;coid = ?&#39;, $parent)); @$author = @$arow[&#39;author&#39;]; $mail = @$arow[&#39;mail&#39;]; if(@$author &amp;&amp; $arow[&#39;status&#39;] == &#34;approved&#34;){ if (@$prow[&#39;status&#39;] == &#34;waiting&#34;){ echo &#39;&lt;p class=&#34;commentReview&#34;&gt;（评论审核中）)&lt;/p&gt;&#39;; } echo &#39;&lt;a href=&#34;#comment-&#39; .
+	</div>
+	<div class="list__footer clearfix">
+		<a class="list__footer-readmore btn" href="/blog/132.html/">Read more</a>
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/130.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">宝塔自动备份网站到邮箱教程</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2022-05-25T00:00:00Z">May 25, 2022</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		前言 网站经常备份好处就是遇到问题以后可以迅速的恢复，不那么被动，防止信息丢失，操作性很大。虽然搭建一个网站非常容易，但为了应对网络上各种各样的意外情况，避免自己的网站付诸东流，做好网站备份是非常有必要的。
+现在邮箱接收都支持附件文件，将网站文件和数据库文件备份到我们自己的邮箱也是一种很好地备份方式，也防止备份文件丢失。
+邮箱接收附件文件大小，取决于使用的邮箱服务。一般来说个人博客网站源文件，数据库文件不大，常见邮箱服务都是可以使用的。
+下面开始教程，宝塔安装教程可去宝塔官网查看安装教程。
+系统环境：CentOS 7.9.2009 x86_64（其他系统可参考方式，命令安装自行解决）
+宝塔面板：7.9.0
+安装 mailx 浏览器登录进入宝塔面板，左侧-》终端。首次使用宝塔终端，需要登录服务器，填写 root 用户密码后登录。
+在终端中输入以下 mailx 安装命令，回车安装。
+yum install -y mailx 编辑配置文件 安装完成后，编辑邮箱服务的相关配置文件。 在终端输入以下命令，然后回车进入编辑文件界面。
+vim /etc/mail.rc 使用键盘上下键，找到大约 69 行位置，按‘i’键输入，添加以下配置。
+set from=发件人@qq.com #发送邮件后显示的邮件发送方 需要修改 set smtp=smtps://smtp.qq.com:465 #SMTP服务器的网址及端口 需要修改 set smtp-auth-user=发件人@qq.com #发送邮箱 需要修改 set smtp-auth-password=邮箱密码/SMTP授权码 #设置的邮箱密码，SMTP授权密码 需要修改 set smtp-auth=login #动作、登录 无需修改 set ssl-verify=ignore #ssl验证忽略 无需修改 set nss-config-dir=/etc/pki/nssdb #证书存放目录 无需修改 请将配置按要求修改为自己所使用的邮箱服务配置。服务器需要开启 465 端口。
+	</div>
+	<div class="list__footer clearfix">
+		<a class="list__footer-readmore btn" href="/blog/130.html/">Read more</a>
+	</div>
+</article>
+
+</main>
+
+<div class="pagination">
+	<a class="pagination__item pagination__item--prev btn" href="/categories/%E6%8A%80%E6%9C%AF/page/3/">«</a>
+	<span class="pagination__item pagination__item--current">4/12</span>
+	<a class="pagination__item pagination__item--next btn" href="/categories/%E6%8A%80%E6%9C%AF/page/5/">»</a>
+</div>
+
+			</div>
+			
+
+		</div>
+		
+		
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [["$", "$"]],
+      },
+      displayMath: [
+        ["$$", "$$"],
+        ["\[\[", "\]\]"],
+      ],
+      svg: {
+        fontCache: "global",
+      },
+    };
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script
+    id="MathJax-script"
+    async
+    src="https://gcore.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+  ></script>
+</body>
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>技术 - 子舒的博客</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+	<link rel="alternate" type="application/rss+xml" href="/categories/%E6%8A%80%E6%9C%AF/index.xml" title="子舒的博客">
+
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="topbar">
+		<a class="topbar__link" href="/" title="子舒的博客" rel="sidebar">
+			<div class="topbar__item topbar__text">
+					<div class="topbar__title">子舒的博客</div>
+					<div class="topbar__tagline">Thoughts come and go quickly, occasionally stopping here</div>
+				</div>
+		</a>
+	</div>
+		
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main list" role="main">
+	<header class="main__header">
+		<h1 class="main__title">技术</h1>
+	</header><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/208.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">chrome117 版本隐藏所有标签按钮</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2023-09-20T00:00:00Z">September 20, 2023</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		chrome117 版本更新后标签栏多了一个【所有标签】按钮，相当别扭，通过设置可以隐藏。
+浏览器输入 url: chrome://flags/#power-bookmarks-side-panel
+改成 Disabled 重启浏览器即可。
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/206.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">远程工具 RustDesk 安装流程</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2023-09-02T00:00:00Z">September 02, 2023</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		RustDesk 是一款功能齐全的远程桌面应用，支持 Windows、macOS、Linux、iOS、Android、Web 等多个平台。支持 VP8 / VP9 / AV1 软件编解码器和 H264 / H265 硬件编解码器。完全掌控数据，轻松自建。P2P 连接，端到端加密。在 Windows 上可以非管理员不安装运行，根据需要在本地或远程提升权限。
+下面是在 linux 服务器上部署中继服务器的脚本。
+docker 拉取镜像
+docker image pull rustdesk/rustdesk-server 运行 hbbs
+# 服务器IP &gt;&gt; 替换为你当前终端的ip docker run -d --name hbbs -p 21115:21115 -p 21116:21116 -p 21116:21116/udp -p 21118:21118 -v `pwd`:/root -it --net=host --rm rustdesk/rustdesk-server hbbs -r 服务器IP # 如果–net=host运行正常，-p选项就不起作用了, 可以去掉。 sudo docker run --name hbbs -v /docker/rustdesk:/root -it -d --net=host --restart=always rustdesk/rustdesk-server hbbs -r 服务器IP 运行 hbbr
+	</div>
+	<div class="list__footer clearfix">
+		<a class="list__footer-readmore btn" href="/blog/206.html/">Read more</a>
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/203.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">Bitwarden / Vaultwarden 密码管理工具</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2023-07-27T00:00:00Z">July 27, 2023</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		1.介绍 Bitwarden 是一款自由且开源的密码管理服务，用户可在加密的保管库中存储敏感信息。Bitwarden 平台提供有多种客户端应用程序，包括网页用户界面、桌面应用，浏览器扩展、移动应用以及命令行界面。Bitwarden 提供云端托管服务，并支持自行部署解决方案。
+在调研一些市面常用的密码管理工具之后，我选择了 Bitwarden。然后使用自托管的方式部署在服务器上，定时备份数据库，导出密码，安全性也有保证。
+https://bitwarden.com/
+而 Vaultwarden 是一个使用 Rust 编写的非官方 Bitwarden 服务器实现，提供了不错的 web 管理界面，并与 Bitwarden 兼容。
+2.部署 先在服务器执行指令。
+docker run -d --name bitwardenrs \ --restart unless-stopped \ -e WEBSOCKET_ENABLED=true \ -v /data/password/data/:/data/ \ -p 6666:80 \ -p 3012:3012 \ vaultwarden/server:latest 部署完成后打开网站，登陆注册之后，删除容器。
+需要配置禁止注册的功能，因为我只想自己使用。如果不禁止注册，可以忽略下面这两步。
+docker stop bitwardenrs #停止容器 docker rm -f bitwardenrs #删除容器 docker run -d --name bitwardenrs \ --restart unless-stopped \ -e SIGNUPS_ALLOWED=false \ -e WEBSOCKET_ENABLED=true \ -v /data/password/data/:/data/ \ -p 6666:80 \ -p 3012:3012 \ vaultwarden/server:latest 3.
+	</div>
+	<div class="list__footer clearfix">
+		<a class="list__footer-readmore btn" href="/blog/203.html/">Read more</a>
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/200.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">aos 事件触发失败</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2023-06-29T00:00:00Z">June 29, 2023</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		项目中遇到这个问题，网页往下滑动时加载 aos 事件触发不了，原因也很简单，因为 aos.js 是在页面加载时获取页面高度从而绑定一些事件进去，但是如果这个文件加载速度比框架加载的快，会导致两者高度不一致，从而动画效果触发失败。
+我尝试用 window.onload 但是效果并不好，依旧失败。
+window.onload=function(){ AOS.init({offset:100,duration:600,once:true,delay:100,}); } 所以决定加个 100ms 的延迟调用实例，这样就没问题了。
+setTimeout(function(){ AOS.init({offset:100,duration:600,once:true,delay:100,}); },100) 
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/197.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">vue2 中引入 Ant Design 报错问题</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2023-06-06T00:00:00Z">June 06, 2023</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		https://1x.antdv.com/docs/vue/getting-started-cn/
+根据 Ant Design 官方文档，在 vue2 中安装组件时使用指令：
+npm i --save ant-design-vue 但在实际操作中会出现问题，它仅适用于 vue3 项目，在 vue2 中需要带上相匹配的版本号。
+npm i --save ant-design-vue@1.7.8 // main.js import Antd from &#39;ant-design-vue&#39;; import &#39;ant-design-vue/dist/antd.css&#39;; Vue.use(Antd); 
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/196.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">关于 HugoFast 这个项目</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2023-06-02T00:00:00Z">June 02, 2023</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		项目来源于我的突发奇想，并且基于热爱折腾的心理，利用 GitHub 本身提供的 Api，将博客管理面板化。
+目前仅支持 hugo，其他程序有对应的工具，就不造轮子了。
+Github: https://github.com/dlzmoe/HugoFast
+网站：https://hugofast.netlify.app/
+用户文档：https://hugofast-docs.netlify.app/
+1. 自托管 前往 https://github.com/dlzmoe/HugoFast fork 本项目，然后下载到本地。
+git clone https://github.com/dlzmoe/HugoFast.git ::: warning 这里默认你有一定的代码基础，本地提前安装好了 node 依赖等。 :::
+# 进入项目安装依赖包 cd HugoFast yarn # 使用 `yarn serve` 运行项目 yarn serve # 打包到 dist 文件 yarn build 打包后的文件可以放在的任意空间部署。
+2. 准备工作 (1) 获取 Github Token 前往 https://github.
+	</div>
+	<div class="list__footer clearfix">
+		<a class="list__footer-readmore btn" href="/blog/196.html/">Read more</a>
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/194.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">hugo 纯静态编写一个字数统计脚本</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2023-05-13T00:00:00Z">May 13, 2023</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		早上起来的时候看到微信群中有博友分享自己的建站时间，聊着聊着说到总字数上面，这时我才发现我的网站没有统计的地方，索性就自己写一个吧，因为是静态博客，所以不涉及后端、服务器等，只用前端的方式来解决。
+这里需要借助我之前的一篇文章，《用原生 js 给网站写个搜索功能》，里面有提到如何生成一个文章列表 json 文件，这里我们会用到这个文件 index.json。
+写一个 ajax 方法，让浏览器遍历每个页面。
+$(document).ready(function () { $.ajax({ url: &#39;/index.json&#39;, type: &#39;get&#39;, dataType: &#39;json&#39;, success: function (data) { const pageUrls = data; const totalNum = pageUrls.length; $(&#39;#totalNum&#39;).html(totalNum); let totalWords = 0; pageUrls.forEach(urlObj =&gt; { $.get(urlObj.permalink, function(data) { const content = data.replace(/(&lt;([^&gt;]+)&gt;)/gi, &#34; &#34;).replace(/[^\w\s]/gi, &#34; &#34;); const words = content.
+	</div>
+	<div class="list__footer clearfix">
+		<a class="list__footer-readmore btn" href="/blog/194.html/">Read more</a>
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/192.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">Github Actions 自动化打包流程</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2023-04-13T00:00:00Z">April 13, 2023</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		Github Actions 监听仓库 commit 事件，然后执行自动化打包流程，并通过第三方平台自动部署，发布非常方便。
+name: Build on: push: branches: - main jobs: build: runs-on: ubuntu-latest steps: - name: Checkout code uses: actions/checkout@v2 - name: Install dependencies run: npm install - name: Build run: npm run build - name: Commit changes run: | git config --global user.email &#34;youremail&#34; git config --global user.
+	</div>
+	<div class="list__footer clearfix">
+		<a class="list__footer-readmore btn" href="/blog/192.html/">Read more</a>
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/189.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">用原生 js 给网站写个搜索功能</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2023-03-17T00:00:00Z">March 17, 2023</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		本文也算是一篇教程，可以给 hugo 网站加个搜索功能，并且实现热更新，体验感更好。
+如果是其他程序，只需要按照特定的模板生成以下格式的文件即可，主要代码从 第 2 部分 开始，第一章节写的是如何用 hugo 输出文章列表 json 文件。
+title 是文章标题，permalink 是文章链接。
+[{ &#34;permalink&#34;: &#34;&#34;, &#34;title&#34;: &#34;&#34; }, { &#34;permalink&#34;: &#34;&#34;, &#34;title&#34;: &#34;&#34; }] 1. hugo 模板生成文章列表 json 文件 在 layouts 文件夹下新建 index.json 文件，模板内容如下：
+其中第 2 行最后面的 &quot;blog&quot; 是你文章文件夹的名称。大部分是 posts 等等，这里是我个人的名称。
+{{- $.Scratch.Set &#34;posts&#34; slice -}} {{- range where .
+	</div>
+	<div class="list__footer clearfix">
+		<a class="list__footer-readmore btn" href="/blog/189.html/">Read more</a>
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/187.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">GitHub 生成一个新的 ssh 密钥</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2023-03-09T00:00:00Z">March 09, 2023</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		要在 GitHub 上生成新的 SSH 密钥，请按照以下步骤操作：
+打开终端或命令提示符。 输入以下命令：将&quot;your_email@example.com&quot;替换为您在 GitHub 上注册的电子邮件地址。 ssh-keygen -t rsa -b 4096 -C &#34;your_email@example.com&#34; 稍后您将被提示输入文件保存位置和密码短语。您可以保持所有默认设置，只需一直按 Enter 键即可。 然后输入以下命令：eval &ldquo;$(ssh-agent -s)&rdquo; 然后输入以下命令以将新密钥添加到 ssh-agent 中：ssh-add ~/.ssh/id_rsa 最后，请在 GitHub 上添加您的公共密钥。转到 GitHub 设置并单击&quot;SSH and GPG keys &ldquo;(&ldquo;SSH 和 GPG 密钥&rdquo;）。 单击“新密钥”按钮。 在“标题”字段中输入一个描述性标题，以便您可以识别此密钥。 在“密钥”字段中，将“~/.ssh/id_rsa.pub”文件中的内容复制并粘贴到文本框中。 单击“添加 SSH 密钥”按钮以保存您的新密钥。 现在，您已经成功为 GitHub 生成了一个新的 SSH 密钥！
+来自 chatGPT 的教程，记录一下。
+	</div>
+</article>
+
+</main>
+
+<div class="pagination">
+	<a class="pagination__item pagination__item--prev btn" href="/categories/%E6%8A%80%E6%9C%AF/">«</a>
+	<span class="pagination__item pagination__item--current">2/12</span>
+	<a class="pagination__item pagination__item--next btn" href="/categories/%E6%8A%80%E6%9C%AF/page/3/">»</a>
+</div>
+
+			</div>
+			
+
+		</div>
+		
+		
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [["$", "$"]],
+      },
+      displayMath: [
+        ["$$", "$$"],
+        ["\[\[", "\]\]"],
+      ],
+      svg: {
+        fontCache: "global",
+      },
+    };
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script
+    id="MathJax-script"
+    async
+    src="https://gcore.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+  ></script>
+</body>
+</html>
