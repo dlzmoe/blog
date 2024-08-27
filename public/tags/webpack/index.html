@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+	<title>Webpack - 子舒的博客</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+	<link rel="alternate" type="application/rss+xml" href="/tags/webpack/index.xml" title="子舒的博客">
+
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="topbar">
+		<a class="topbar__link" href="/" title="子舒的博客" rel="sidebar">
+			<div class="topbar__item topbar__text">
+					<div class="topbar__title">子舒的博客</div>
+					<div class="topbar__tagline">The Tao that is utterable is not the eternal Tao</div>
+				</div>
+		</a>
+	</div>
+		
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main list" role="main">
+	<header class="main__header">
+		<h1 class="main__title">Webpack</h1>
+	</header><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/47.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">webpack 的核心概念和构建流程</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2021-01-18T00:00:00Z">2021-01-18</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		1.webpack 的核心概念 entry（入口）：一个可执行模块或者库的入口。定义了打包后的入口文件。 output（出口）：指示 webpack 如何去输出，以及在哪里输出。 path: 打包文件存放的绝对路径 publicPath: 网站运行时的访问路径 filename: 打包后的文件名 module（模块）：在 webpack 里，一切皆模块，一个模块对应一个文件。webpack 会从配置的 entry 中开始递归找出所有依赖的模块。 chunk（代码块）：一个 chunk 由多个 模块 组合而成。可以将可执行的模块和他所依赖的模块组合成一个 chunk，这就是打包。 loader（模块转换器）：用于把一个模块原内容按照需求转换成新的内容。例如：es6 转换为 es5，scss 转换为 css 等。 plugin（扩展）：扩展 webpack 功能的插件。在 webpack 构建的生命周期节点上加入扩展 hook，添加功能。 2.webpack 构建流程 初始化参数：解析 webpack 的配置参数，合并 shell 传入和 webpack.config.js 文件配置的参数，形成最后的配置结果。 开始编译：上一步得到的参数初始化 compiler 对象，注册所有配置的插件，插件监听 webpack 构建生命周期的事件节点，做出相应的反应，执行对象的 run 方法开始执行编译。 确定入口：其配置的 entry 入口，开始解析文件构建的 AST 语法树，找出依赖，递归下去。 编译模块：根据文件类型和 loader 配置，调用所有配置的 loader 对文件进行转换，再找出该模块依赖的模块，再递归本步骤知道所有入口依赖的文件都经过了本步骤的处理。 完成模块编译并输出：递归完后，得到每个文件结果，包含了每个模块及她们之间的依赖关系，根据 entry 配置生成代码块 chunk。 输出完成：输出所有的 chunk 到文件系统。 3.有哪些常见的 loader？ babel-loader：把 es6 转成 es5； css-loader：加载 css，支持模块化，压缩，文件导入等特性； style-loader：把 css 代码注入到 js 中，通过 dom 操作去加载 css； eslint-loader：通过 Eslint 检查 js 代码； image-loader：加载并且压缩图片晚间； file-loader：文件输出到一个文件夹中，在代码中通过相对 url 去引用输出的文件； url-loader：和 file-loader 类似，文件很小的时候可以 base64 方式吧文件内容注入到代码中。 source-map-loader：加载额外的 source map 文件，方便调试。 4.业务场景和对应解决方案 1.单页应用 一个单页应用需要配置一个 entry 指明执行入口，web-webpack-plugin 里的 WebPlugin 可以自动的完成这些工作：webpack 会为 entry 生成一个包含这个入口的所有依赖文件的 chunk，但是还需要一个 html 来加载 chunk 生成的 js，如果还提取出 css 需要 HTML 文件中引入提取的 css。
+一个简单的 webpack 配置文件例子：
+const { WebPlugin } = require(&#39;web-webpack-plugin&#39;); module.exports = { entry: { app: &#39;./src/doc/index.js&#39;, home: &#39;./src/doc/home.js&#39; }, plugins: [ // 一个 WebPlugin 对应生成一个 html 文件 new WebPlugin({ //输出的 html 文件名称 filename: &#39;index.html&#39;, //这个 html 依赖的`entry` requires: [&#39;app&#39;,&#39;home&#39;], }), ], }; 说明：require: [&lsquo;app&rsquo;, &lsquo;home&rsquo;]指明这个 html 依赖哪些 entry，entry 生成的 js 和 css 会自动注入到 html 中。
+还支持配置这些资源注入方式，支持如下属性：
+_dist 只有在生产环境中才引入的资源； _dev 只有在开发环境中才引入的资源； _inline 把资源的内容潜入到 html 中； _ie 只有 IE 浏览器才需要引入的资源。 这些属性可以通过在 js 里配置，看个简单例子：
+new WebPlugin({ filename: &#39;index.html&#39;, requires: { app:{ _dist:true, _inline:false, } }, }), 这些属性还可以在模板中设置，使用模板好处就是可以灵活的控制资源的注入点
+new WebPlugin({ filename: &#39;index.html&#39;, template: &#39;./template.html&#39;, }), &lt;!DOCTYPE html&gt; &lt;html lang=&#34;zh-cn&#34;&gt; &lt;head&gt; &lt;link rel=&#34;stylesheet&#34; href=&#34;app?_inline&#34;&gt; &lt;script src=&#34;ie-polyfill?_ie&#34;&gt;&lt;/script&gt; &lt;/head&gt; &lt;body&gt; &lt;div id=&#34;react-body&#34;&gt;&lt;/div&gt; &lt;script src=&#34;app&#34;&gt;&lt;/script&gt; &lt;/body&gt; &lt;/html&gt; WebPlugin 插件借鉴了 fis3 的思想，补足了 webpack 缺失的以 HTML 为入口的功能。想了解 WebPlugin 的更多功能，见文档。
+2.一个项目管理多个单页面 一个项目中会包含多个单页应用，虽然多个单页面应用可以合成一个，但是这样做会导致用户没有访问的部分也加载了，如果项目中有很多的单页应用。为每一个单页应用配置一个 entry 和 WebPlugin？如果又新增，又要新增 webpack 配置，这样做麻烦，这时候有一个插件 web-webpack-plugin 里的 AutoWebPlugin 方法可以解决这些问题。
+module.exports = { plugins: [ // 所有页面的入口目录 new AutoWebPlugin(&#39;./src/&#39;), ] }; 分析：
+AutoWebPlugin会把./src/目录下所有每个文件夹作为一个单页页面的入口，自动为所有的页面入口配置一个 WebPlugin 输出对应的 html。 要新增一个页面就在 ./src/ 下新建一个文件夹包含这个单页应用所依赖的代码，AutoWebPlugin 自动生成一个名叫文件夹名称的 html 文件。 3.代码分隔优化 一个好的代码分割对浏览器首屏效果提升很大。
+最常见的 react 体系：
+先抽出基础库 react react-dom redux react-redux 到一个单独的文件而不是和其它文件放在一起打包为一个文件，这样做的好处是只要你不升级他们的版本这个文件永远不会被刷新。如果你把这些基础库和业务代码打包在一个文件里每次改动业务代码都会导致文件 hash 值变化从而导致缓存失效浏览器重复下载这些包含基础库的代码。所以把基础库打包成一个文件。 // vender.js 文件抽离基础库到单独的一个文件里防止跟随业务代码被刷新 // 所有页面都依赖的第三方库 // react 基础 import &#39;react&#39;; import &#39;react-dom&#39;; import &#39;react-redux&#39;; // redux 基础 import &#39;redux&#39;; import &#39;redux-thunk&#39;; // webpack 配置 { entry: { vendor: &#39;./path/to/vendor.js&#39;, }, } 通过 CommonsChunkPlugin 可以提取出多个代码块都依赖的代码形成一个单独的 chunk。在应用有多个页面的场景下提取出所有页面公共的代码减少单个页面的代码，在不同页面之间切换时所有页面公共的代码之前被加载过而不必重新加载。所以通过 CommonsChunkPlugin 可以提取出多个代码块都依赖的代码形成一个单独的 chunk。 4.构建服务端渲染 服务端渲染的代码要运行在 nodejs 环境，和浏览器不同的是，服务端渲染代码需要采用 commonjs 规范同时不应该包含除 js 之外的文件比如 css。
+webpack 配置如下：
+module.exports = { target: &#39;node&#39;, entry: { &#39;server_render&#39;: &#39;./src/server_render&#39;, }, output: { filename: &#39;./dist/server/[name].js&#39;, libraryTarget: &#39;commonjs2&#39;, }, module: { rules: [ { test: /\.js$/, loader: &#39;babel-loader&#39;, }, { test: /\.(scss|css|pdf)$/, loader: &#39;ignore-loader&#39;, }, ] }, }; 分析一下：
+target: 'node' 指明构建出代码要运行在 node 环境中。 libraryTarget: 'commonjs2' 指明输出的代码要是 commonjs 规范。 {test: /\.(scss|css|pdf)$/,loader: 'ignore-loader'} 是为了防止不能在 node 里执行服务端渲染也用不上的文件被打包进去。 5.fis3 迁移到 webpack fis3 和 webpack 有很多相似地方也有不同的地方，相似地方：都采用 commonjs 规范，不同地方：导入 css 这些非 js 资源的方式。
+fis3 通过@require &lsquo;./index.scss&rsquo;，而 webpack 是通过 require(&rsquo;./index.scss&rsquo;)。
+如果想把 fis3 平滑迁移到 webpack，可以使用 comment-require-loader。
+比如：你想在 webpack 构建是使用采用了 fis3 方式的 imui 模块
+loaders:[{ test: /\.js$/, loaders: [&#39;comment-require-loader&#39;], include: [path.resolve(__dirname, &#39;node_modules/imui&#39;),] }] 5.自定义 webpack 扩展 如果你在社区找不到你的应用场景的解决方案，那就需要自己动手了写 loader 或者 plugin 了。
+在你编写自定义 webpack 扩展前你需要想明白到底是要做一个 loader 还是 plugin 呢？可以这样判断：
+如果你的扩展是想对一个个单独的文件进行转换那么就编写 loader 剩下的都是 plugin。
+其中对文件进行转换可以是像：
+babel-loader 把 es6 转为 es5； file-loader 把文件替换成对应的 url； raw-loader 注入文本文件内容到代码中。 1.编写 webpack loader 编写 loader 非常简单，以 comment-require-loader 为例：
+module.exports = function (content) { return replace(content); }; loader 的入口需要导出一个函数，这个函数要干的事情就是转换一个文件的内容。
+函数接收的参数 content 是一个文件在转换前的字符串形式内容，需要返回一个新的字符串形式内容作为转换后的结果，所有通过模块化倒入的文件都会经过 loader。从这里可以看出 loader 只能处理一个个单独的文件而不能处理代码块。可以参考官方文档。
+2. 编写 webpack plugin plugin 应用场景广泛，所以稍微复杂点。以 end-webpack-plugin 为例：
+class EndWebpackPlugin { constructor(doneCallback, failCallback) { this.doneCallback = doneCallback; this.failCallback = failCallback; } apply(compiler) { // 监听 webpack 生命周期里的事件，做相应的处理 compiler.plugin(&#39;done&#39;, (stats) =&gt; { this.doneCallback(stats); }); compiler.plugin(&#39;failed&#39;, (err) =&gt; { this.failCallback(err); }); } } module.exports = EndWebpackPlugin; loader 的入口需要导出一个 class，在 new EndWebpackPlugin() 的时候通过构造函数传入这个插件需要的参数，在 webpack 启动的时候会先实例化 plugin，再调用 plugin 的 apply 方法，插件在 apply 函数里监听 webpack 生命周期里的事件，做相应的处理。
+webpack plugin 的两个核心概念：
+compiler：从 webpack 启动到退出只存在一个 Compiler，compiler 存放着 webpack 的配置。 compilation：由于 webpack 的监听文件变化自动编译机制，compilation 代表一次编译。 Compiler 和 Compilation 都会广播一系列事件。webpack 生命周期里有非常多的事件。
+以上只是一个最简单的 demo，更复杂的可以查看 how to write a plugin 或参考 web-webpack-plugin。
+参考文章：https://www.cnblogs.com/chengxs/p/11022842.html
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/30.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">webpack 安装配置指令</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2020-11-26T00:00:00Z">2020-11-26</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		进行重新加载编译。实际就是将浏览器不认识的语法编译成浏览器认识的语法。比如 less 编译成 css，ES6 语法 转成 ES5 等等。
+减少 io 请求，通常我们在请求后，会返回一个 html 到浏览器。这时，我们如果打开控制台，就会发现在 html 页面通过 script,link 等标签引用的静态资源，浏览器会再次发出请求去获取这些资源。但是 webpack 的打包，将所有的静态资源都合并好了，减少了 io 请求。
+# 安装webpack npm install --save-dev webpack # 安装webpack-cli依赖 npm install --save-dev webpack-cli # 创建新项目 mkdir demo # cd项目 cd demo # 初始化 npm init -y # 安装开发版本cli npm install webpack webpack-cli --save-dev 新建一个 html 文件和一个 js 文件，工程目录如下
+demo |- package.json + |- index.html + |- /src + |- index.js src/index.js:
+function component() { var element = document.createElement(&#39;div&#39;); // Lodash（目前通过一个 script 脚本引入）对于执行这一行是必需的 element.innerHTML = _.join([&#39;Hello&#39;, &#39;webpack&#39;], &#39; &#39;); return element; } document.body.appendChild(component()); index.html:
+&lt;!doctype html&gt; &lt;html&gt; &lt;head&gt; &lt;title&gt;起步&lt;/title&gt; &lt;script src=&#34;https://unpkg.com/lodash@4.16.6&#34;&gt;&lt;/script&gt; &lt;/head&gt; &lt;body&gt; &lt;script src=&#34;./src/index.js&#34;&gt;&lt;/script&gt; &lt;/body&gt; &lt;/html&gt; 在 package.json 中：
+删除&quot;main&quot;: &quot;index.js&quot;,添加&quot;private&quot;: true
+调整工程目录：
+demo |- package.json + |- /dist + |- index.html - |- index.html |- /src |- index.js 要在index.js中打包lodash依赖，我们需要在本地安装 library，终端输入指令：
+npm install --save lodash 然后调整index.js内容
+// 添加一行代码 import _ from &#39;lodash&#39;; 在dist/index.html中可以把引入的外部文件lodash删去
+删去&lt;script src=&quot;./src/index.js&quot;&gt;&lt;/script&gt;
+添加&lt;script src=&quot;main.js&quot;&gt;&lt;/script&gt;
+执行终端：
+npx webpack 即可在dist中打包生成需要的main.js文件
+还可以手动配置文件，在根目录下新建一个webpack.config.js文件
+const path = require(&#39;path&#39;); module.exports = { // 这里放着需要打包的文件，如果多个文件，用数组形式写 entry: &#39;./src/index.js&#39;, output: { // 这里是打包生成的文件名，还可以手动修改 filename: &#39;bundle.js&#39;, path: path.resolve(__dirname, &#39;dist&#39;) } }; 考虑到用 CLI 这种方式来运行本地的 webpack 不是特别方便，我们可以设置一个快捷方式，
+在package.json中的&quot;scripts&quot;新增
+&#34;build&#34;: &#34;webpack&#34; 这样就可以使用npm run build指令代替之前的npx了
+把之前dist文件夹里面的js文件删去，然后重新打包
+npm run build 看一下工程目录
+demo |- package.json |- webpack.config.js |- /dist |- bundle.js |- index.html |- /src |- index.js |- /node_modules 没问题，成功打包，浏览器也正常显示
+在 js 文件中import了一个 css 文件，需要在配置中安装并添加style-loaader和css-loader
+npm install --save-dev style-loader css-loader webpack.config.js:
+const path = require(&#39;path&#39;); module.exports = { entry: &#39;./src/index.js&#39;, output: { filename: &#39;bundle.js&#39;, path: path.resolve(__dirname, &#39;dist&#39;) }, // 添加的内容 module: { rules: [ { test: /\.css$/, use: [ &#39;style-loader&#39;, &#39;css-loader&#39; ] } ] } }; 然后在 js 模块中：
+import &#39;./style.css&#39; npm run build就可以自动解析打包啦
+加载图片
+下载安装file-loader
+npm install --save-dev file-loader webpack.config.js:
+module: { rules: [ { test: /\.css$/, use: [ &#39;style-loader&#39;, &#39;css-loader&#39; ] },{ test: /\.(png|svg|jpg|gif)$/, use: [ &#39;file-loader&#39; ] } ] } 加载字体
+webpack 加载字体资源
+记载数据资源
+此外，可加载的有用资源还有数据，json文件，CSV，TSV，XML等，实际上，json是内置的，可以直接import data from './data.json'引入
+但是CSV，TSV，XML不可以，需要配置一下依赖
+终端下载安装：
+npm install --save-dev csv-loader xml-loader webpack.config.js:
+{ test: /\.(csv|tsv)$/, use: [ &#39;csv-loader&#39; ] }, { test: /\.xml$/, use: [ &#39;xml-loader&#39; ] } 在src目录下添加一个 json 文件data.json
+然后在index.js中引入：
+import data from &#39;./data.json&#39; 
+	</div>
+</article>
+
+</main>
+
+
+			</div>
+			
+
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2024 子舒的博客, 
+			使用 hugo 构建
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [["$", "$"]],
+      },
+      displayMath: [
+        ["$$", "$$"],
+        ["\[\[", "\]\]"],
+      ],
+      svg: {
+        fontCache: "global",
+      },
+    };
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script
+    id="MathJax-script"
+    async
+    src="https://gcore.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+  ></script>
+</body>
+</html>

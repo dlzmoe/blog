@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+	<title>在 nuxt 中实现图片放大预览功能 - 子舒的博客</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="topbar">
+		<a class="topbar__link" href="/" title="子舒的博客" rel="sidebar">
+			<div class="topbar__item topbar__text">
+					<div class="topbar__title">子舒的博客</div>
+					<div class="topbar__tagline">The Tao that is utterable is not the eternal Tao</div>
+				</div>
+		</a>
+	</div>
+		
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">在 nuxt 中实现图片放大预览功能</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2022-04-01T00:00:00Z">2022-04-01</time></div></div>
+		</header>
+		<div class="content post__content clearfix">
+			<p><code>v-viewer</code> 基于 vue 的一个插件，可以实现图片放大，缩小，旋转，拖拽，预览等各种功能，效果还是很棒的。这是我在 Github 摸鱼时发现的一个仓库，感觉很有用，就分享一下使用过程。</p>
+<p>Github: <a href="https://github.com/mirari/v-viewer">https://github.com/mirari/v-viewer</a></p>
+<h2 id="1安装">1.安装</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>npm install v-viewer
+</span></span></code></pre></div><h2 id="2用法">2.用法</h2>
+<p>在 <code>plugins</code> 中新建 <code>viewer.js</code> 文件。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// /plugins/viewer.js
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Vue</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;vue&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Viewer</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;v-viewer&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#39;viewerjs/dist/viewer.css&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">use</span>(<span style="color:#a6e22e">Viewer</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Viewer</span>.<span style="color:#a6e22e">setDefaults</span>({
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">Options</span><span style="color:#f92672">:</span> { <span style="color:#e6db74">&#39;inline&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#39;button&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#39;navbar&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#39;title&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#39;toolbar&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#39;tooltip&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#39;movable&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#39;zoomable&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#39;rotatable&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#39;scalable&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#39;transition&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#39;fullscreen&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#39;keyboard&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>, <span style="color:#e6db74">&#39;url&#39;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;data-source&#39;</span> }
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><p>然后再 <code>nuxt.config.js</code> 中引入。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// nuxt.config.js
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">plugins</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	{ <span style="color:#a6e22e">src</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;@/plugins/viewer&#39;</span>, <span style="color:#a6e22e">ssr</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span> }
+</span></span><span style="display:flex;"><span>],
+</span></span></code></pre></div><p>最后在使用的页面中引入。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;markdown-body-box&#34;</span> <span style="color:#a6e22e">v-viewer</span> <span style="color:#a6e22e">v-highlight</span>&gt;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- 页面内容 --&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span></code></pre></div><p>在任意页面中引入，可以是一个小组件页面，也可以是根页面，取决于你想在哪里引入这个功能，只要将<code>class</code>, <code>v-viewer</code>, <code>v-highlight</code> 这三个参数引入即可。</p>
+
+		</div>
+	</article>
+</main>
+
+
+<div class="comments">
+  <div class="giscus"></div>
+</div>
+<script 
+  src="https://giscus.app/client.js" 
+  data-repo="dlzmoe/blog" 
+  data-repo-id="R_kgDOJkJvtw"
+  data-category="Announcements" 
+  data-category-id="DIC_kwDOJkJvt84CX9d6" 
+  data-mapping="url" 
+  data-strict="0"
+  data-reactions-enabled="1" 
+  data-emit-metadata="1" 
+  data-input-position="top" 
+  data-theme="light_protanopia"
+  data-lang="zh-CN" 
+  data-loading="lazy" 
+  crossorigin="anonymous" 
+  async>
+</script>
+
+			</div>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2024 子舒的博客, 
+			使用 hugo 构建
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [["$", "$"]],
+      },
+      displayMath: [
+        ["$$", "$$"],
+        ["\[\[", "\]\]"],
+      ],
+      svg: {
+        fontCache: "global",
+      },
+    };
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script
+    id="MathJax-script"
+    async
+    src="https://gcore.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+  ></script>
+</body>
+</html>

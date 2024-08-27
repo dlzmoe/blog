@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+	<title>利用 memos 生成的在线动态列表 - 子舒的博客</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="topbar">
+		<a class="topbar__link" href="/" title="子舒的博客" rel="sidebar">
+			<div class="topbar__item topbar__text">
+					<div class="topbar__title">子舒的博客</div>
+					<div class="topbar__tagline">The Tao that is utterable is not the eternal Tao</div>
+				</div>
+		</a>
+	</div>
+		
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">利用 memos 生成的在线动态列表</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2023-01-09T00:00:00Z">2023-01-09</time></div></div>
+		</header>
+		<div class="content post__content clearfix">
+			<p>memos 是一个具有知识管理和社交功能的开源自托管备忘录中心。</p>
+<p>Github 地址：<a href="https://github.com/usememos/memos">https://github.com/usememos/memos</a></p>
+<p>可以用它本身提供的 api，然后结合静态博客，做成一个在线的动态列表，类似于朋友圈功能。</p>
+<p>接口 url 有固定的格式，openId 是每个用户自动生成的。</p>
+<p>其次我又写了两个方法，一个是时间戳转成正常时间格式，一个是利用正则删去内容中多余的标签。</p>
+<p>将下面代码复制到你想显示的页面编辑，只需修改 openId，提供了一个基础的样式，如果有其他优化方案，欢迎指出。</p>
+<hr>
+<p>由于接口中带了用户密钥，建议完成代码后将 js 加密再引入，不然可能会有一定的安全风险。</p>
+<p>推荐网址：<a href="https://tool.lu/js/">https://tool.lu/js/</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- 结构和 css --&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;sslist&#34;</span>&gt;&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">style</span>&gt;
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">sslist-item</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">padding</span>: <span style="color:#ae81ff">10</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">10</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">20</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">margin-bottom</span>: <span style="color:#ae81ff">20</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">border-radius</span>: <span style="color:#ae81ff">2</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">background</span>: <span style="color:#ae81ff">#f3f3f3</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">box-shadow</span>: <span style="color:#ae81ff">1</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">2</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">4</span><span style="color:#66d9ef">px</span> rgba(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">.2</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">transition</span>: <span style="color:#66d9ef">all</span> <span style="color:#ae81ff">0.2</span><span style="color:#66d9ef">s</span> <span style="color:#66d9ef">linear</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">animation</span>: up <span style="color:#ae81ff">1</span><span style="color:#66d9ef">s</span> <span style="color:#66d9ef">forwards</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">transform</span>: translateY(<span style="color:#ae81ff">20</span><span style="color:#66d9ef">px</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">opacity</span>: <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>@<span style="color:#66d9ef">keyframes</span> <span style="color:#f92672">up</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">0</span><span style="color:#f92672">%</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">transform</span>: translateY(<span style="color:#ae81ff">20</span><span style="color:#66d9ef">px</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">opacity</span>: <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">100</span><span style="color:#f92672">%</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">transform</span>: translateY(<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">opacity</span>: <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">sslist-item</span>:<span style="color:#a6e22e">hover</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">background</span>: <span style="color:#ae81ff">#eee</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">sslist-item</span> .<span style="color:#a6e22e">sslist-date</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">opacity</span>: <span style="color:#ae81ff">0.6</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">margin</span>: <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">font-size</span>: <span style="color:#ae81ff">15</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">margin-bottom</span>: <span style="color:#ae81ff">5</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">style</span>&gt;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// 调用接口的 js 方法
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">memosShow</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">memosStr</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">openId</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;xxx&#34;</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">$</span>.<span style="color:#a6e22e">ajax</span>({
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;https://memos.zburu.com/api/memo?openId=&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">openId</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;&amp;tag=说说&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;get&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">dataType</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;json&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">success</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">data</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">// 生成数组
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">sslist</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">data</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">sslist</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">element</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">sslist</span>[<span style="color:#a6e22e">i</span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 把时间戳转为正常时间格式 2023-01-9 13:17:12
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">date</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Date(<span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">createdTs</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Y</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">date</span>.<span style="color:#a6e22e">getFullYear</span>() <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;-&#34;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">M</span> <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>          (<span style="color:#a6e22e">date</span>.<span style="color:#a6e22e">getMonth</span>() <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">?</span> <span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#f92672">+</span> (<span style="color:#a6e22e">date</span>.<span style="color:#a6e22e">getMonth</span>() <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">:</span> <span style="color:#a6e22e">date</span>.<span style="color:#a6e22e">getMonth</span>() <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;-&#34;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">D</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">date</span>.<span style="color:#a6e22e">getDate</span>() <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">date</span>.<span style="color:#a6e22e">getDate</span>() <span style="color:#f92672">:</span> <span style="color:#a6e22e">date</span>.<span style="color:#a6e22e">getDate</span>()) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; &#34;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">h</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">date</span>.<span style="color:#a6e22e">getHours</span>() <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;:&#34;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">m</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">date</span>.<span style="color:#a6e22e">getMinutes</span>() <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;:&#34;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">s</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">date</span>.<span style="color:#a6e22e">getSeconds</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">createdTsNew</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Y</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">M</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">D</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">h</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">m</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">s</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">sslist</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">createdTs</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createdTsNew</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 利用js正则删去内容前的标签字符
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">contentNew</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">content</span>.<span style="color:#a6e22e">slice</span>(<span style="color:#ae81ff">4</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">sslist</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">content</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">contentNew</span>;
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">$</span>.<span style="color:#a6e22e">each</span>(<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">data</span>, <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">item</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">list</span> <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#e6db74">&#34;&lt;div class=&#39;sslist-item&#39;&gt;&#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#e6db74">&#34;&lt;p class=&#39;sslist-date&#39;&gt;&#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">createdTs</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#e6db74">&#34;&lt;/p&gt;&#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">content</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#e6db74">&#34;&lt;/div&gt;&#34;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">memosStr</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">list</span>;
+</span></span><span style="display:flex;"><span>      }),
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">$</span>(<span style="color:#e6db74">&#34;.sslist&#34;</span>).<span style="color:#a6e22e">html</span>(<span style="color:#a6e22e">memosStr</span>);
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">error</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span> () {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;error&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  });
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">memosShow</span>();
+</span></span></code></pre></div>
+		</div>
+	</article>
+</main>
+
+
+<div class="comments">
+  <div class="giscus"></div>
+</div>
+<script 
+  src="https://giscus.app/client.js" 
+  data-repo="dlzmoe/blog" 
+  data-repo-id="R_kgDOJkJvtw"
+  data-category="Announcements" 
+  data-category-id="DIC_kwDOJkJvt84CX9d6" 
+  data-mapping="url" 
+  data-strict="0"
+  data-reactions-enabled="1" 
+  data-emit-metadata="1" 
+  data-input-position="top" 
+  data-theme="light_protanopia"
+  data-lang="zh-CN" 
+  data-loading="lazy" 
+  crossorigin="anonymous" 
+  async>
+</script>
+
+			</div>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2024 子舒的博客, 
+			使用 hugo 构建
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [["$", "$"]],
+      },
+      displayMath: [
+        ["$$", "$$"],
+        ["\[\[", "\]\]"],
+      ],
+      svg: {
+        fontCache: "global",
+      },
+    };
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script
+    id="MathJax-script"
+    async
+    src="https://gcore.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+  ></script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+	<title>RustDesk - 子舒的博客</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+	<link rel="alternate" type="application/rss+xml" href="/tags/rustdesk/index.xml" title="子舒的博客">
+
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="topbar">
+		<a class="topbar__link" href="/" title="子舒的博客" rel="sidebar">
+			<div class="topbar__item topbar__text">
+					<div class="topbar__title">子舒的博客</div>
+					<div class="topbar__tagline">The Tao that is utterable is not the eternal Tao</div>
+				</div>
+		</a>
+	</div>
+		
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main list" role="main">
+	<header class="main__header">
+		<h1 class="main__title">RustDesk</h1>
+	</header><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/206.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">远程工具 RustDesk 安装流程</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2023-09-02T00:00:00Z">2023-09-02</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		RustDesk 是一款功能齐全的远程桌面应用，支持 Windows、macOS、Linux、iOS、Android、Web 等多个平台。支持 VP8 / VP9 / AV1 软件编解码器和 H264 / H265 硬件编解码器。完全掌控数据，轻松自建。P2P 连接，端到端加密。在 Windows 上可以非管理员不安装运行，根据需要在本地或远程提升权限。
+下面是在 linux 服务器上部署中继服务器的脚本。
+docker 拉取镜像
+docker image pull rustdesk/rustdesk-server 运行 hbbs
+# 服务器IP &gt;&gt; 替换为你当前终端的ip docker run -d --name hbbs -p 21115:21115 -p 21116:21116 -p 21116:21116/udp -p 21118:21118 -v `pwd`:/root -it --net=host --rm rustdesk/rustdesk-server hbbs -r 服务器IP # 如果–net=host运行正常，-p选项就不起作用了, 可以去掉。 sudo docker run --name hbbs -v /docker/rustdesk:/root -it -d --net=host --restart=always rustdesk/rustdesk-server hbbs -r 服务器IP 运行 hbbr
+docker run -d --name hbbr -p 21117:21117 -p 21119:21119 -v `pwd`:/root -it --net=host --rm rustdesk/rustdesk-server hbbr # 如果–net=host运行正常，-p选项就不起作用了, 可以去掉。 sudo docker run --name hbbr -v /docker/rustdesk:/root -it -d --net=host --restart=always rustdesk/rustdesk-server hbbr 使用 docker ps 命令查看服务是否正常运行。
+windows
+&ldquo;ID 服务器&rdquo; 和 &ldquo;中继服务器&rdquo; 都填写服务器 ip，不需要加端口，但是在服务器防火墙要记得放行端口号。
+	</div>
+</article>
+
+</main>
+
+
+			</div>
+			
+
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2024 子舒的博客, 
+			使用 hugo 构建
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [["$", "$"]],
+      },
+      displayMath: [
+        ["$$", "$$"],
+        ["\[\[", "\]\]"],
+      ],
+      svg: {
+        fontCache: "global",
+      },
+    };
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script
+    id="MathJax-script"
+    async
+    src="https://gcore.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+  ></script>
+</body>
+</html>

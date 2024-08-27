@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+	<title>博客 - 子舒的博客</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+	<link rel="alternate" type="application/rss+xml" href="/tags/%E5%8D%9A%E5%AE%A2/index.xml" title="子舒的博客">
+
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="topbar">
+		<a class="topbar__link" href="/" title="子舒的博客" rel="sidebar">
+			<div class="topbar__item topbar__text">
+					<div class="topbar__title">子舒的博客</div>
+					<div class="topbar__tagline">The Tao that is utterable is not the eternal Tao</div>
+				</div>
+		</a>
+	</div>
+		
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main list" role="main">
+	<header class="main__header">
+		<h1 class="main__title">博客</h1>
+	</header><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/194.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">hugo 纯静态编写一个字数统计脚本</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2023-05-13T00:00:00Z">2023-05-13</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		早上起来的时候看到微信群中有博友分享自己的建站时间，聊着聊着说到总字数上面，这时我才发现我的网站没有统计的地方，索性就自己写一个吧，因为是静态博客，所以不涉及后端、服务器等，只用前端的方式来解决。
+这里需要借助我之前的一篇文章，《用原生 js 给网站写个搜索功能》，里面有提到如何生成一个文章列表 json 文件，这里我们会用到这个文件 index.json。
+写一个 ajax 方法，让浏览器遍历每个页面。
+$(document).ready(function () { $.ajax({ url: &#39;/index.json&#39;, type: &#39;get&#39;, dataType: &#39;json&#39;, success: function (data) { const pageUrls = data; const totalNum = pageUrls.length; $(&#39;#totalNum&#39;).html(totalNum); let totalWords = 0; pageUrls.forEach(urlObj =&gt; { $.get(urlObj.permalink, function(data) { const content = data.replace(/(&lt;([^&gt;]+)&gt;)/gi, &#34; &#34;).replace(/[^\w\s]/gi, &#34; &#34;); const words = content.split(&#34; &#34;); const wordCount = words.filter(word =&gt; word !== &#34;&#34;).length; totalWords += wordCount; $(&#39;#totalWords&#39;).html(totalWords); }); }); }, error: function () { console.log(&#39;error&#39;) } }) }); 我是将信息放在我的 关于 页面下。
+经过脚本统计，我已经写了 &lt;span id=&#34;totalNum&#34;&gt;&lt;/span&gt; 篇文章，总共 &lt;span id=&#34;totalWords&#34;&gt;&lt;/span&gt; 个字。 &lt;!-- 经过脚本统计，我已经写了 164 篇文章，总共 97577 个字。 --&gt; 
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/188.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">博客运行 1000 天了</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2023-03-10T00:00:00Z">2023-03-10</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		使用 openai 生成。 [大漠孤烟直，长河落日圆]
+不知不觉，已经坚持写博客 1000 天了，从 2020 年 6 月 14 日开始，第一次踏入这个圈子。最开始我还会写一些技术类的文章，但随着时间的推移，这意义不大，因为类似的文章在互联网都能找到一大把，因此我放弃这种类型文章的写作。主要进行了生活分享，和一些随笔等。更新日期也不固定，哪天忽然来了灵感会兴奋的更新一次。
+虽然频率不高，但是从未间断，而且还让更多的人和我一起就某个话题进行讨论，这都是让我感觉到有意义的事情。分享自己的经验，心路历程和价值观，在互联网留下自己的足迹，或许在很久之后，我渐渐淡出这个圈子，但是我会保存这个网站在 GitHub 等平台，如果有缘分的话，十年、二十年，你都可以在搜索引擎无意中看到我。每当一想到这，我都感觉充满了干劲。
+这一路上有朋友慢慢退出，我也表示遗憾，就目前而言，我应该不会放弃做博客，阅读者很少，但总归是有的。不能让自己失望，更不能让其他朋友失望，期待十年后依旧可以在互联网看到我的身影。回首过往萧瑟处，也无风雨也无晴！
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/170.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">hugo 一键打包并上传 github</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2022-10-14T00:00:00Z">2022-10-14</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		分享一个 hugo 一键打包并上传 github 的方法，前提是你之前上传过 GitHub 仓库。
+采用 window 支持的 sh 可执行文件，在根目录新建一个 hugo.sh 文件，里面放上一些命令。
+hugo # cd public time=$(date &#34;+%Y-%m-%d %H:%M:%S&#34;) echo $time git add . git commit -m &#34;自动执行构建脚本 🎓$time&#34; git push exit 可以在文件夹双击运行 hugo.sh，也可以在终端输入命令。
+.\hugo.sh 省去了我输入繁琐的 Git 上传指令，并且自动生成当前系统时间作为 commit。
+其他
+这里我上传的是整体的 hugo 目录，如果你只想上传生成的 /public ，在中间加入 cd public。
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/132.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">typecho 评论回复艾特评论人</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2022-06-07T00:00:00Z">2022-06-07</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		typecho 在评论时默认是没有 @ 评论人的功能，可以用代码加一下。
+在 functions.php 中：
+/* * 评论回复时 @ 评论人 */ function get_comment_at($coid) { $db = Typecho_Db::get(); $prow = $db-&gt;fetchRow($db-&gt;select(&#39;parent,status&#39;)-&gt;from(&#39;table.comments&#39;) -&gt;where(&#39;coid = ?&#39;, $coid)); $mail = &#34;&#34;; $parent = @$prow[&#39;parent&#39;]; if ($parent != &#34;0&#34;) { $arow = $db-&gt;fetchRow($db-&gt;select(&#39;author,status,mail&#39;)-&gt;from(&#39;table.comments&#39;) -&gt;where(&#39;coid = ?&#39;, $parent)); @$author = @$arow[&#39;author&#39;]; $mail = @$arow[&#39;mail&#39;]; if(@$author &amp;&amp; $arow[&#39;status&#39;] == &#34;approved&#34;){ if (@$prow[&#39;status&#39;] == &#34;waiting&#34;){ echo &#39;&lt;p class=&#34;commentReview&#34;&gt;（评论审核中）)&lt;/p&gt;&#39;; } echo &#39;&lt;a href=&#34;#comment-&#39; . $parent . &#39;&#34;&gt;@&#39; . $author . &#39;&lt;/a&gt;&#39;; }else{ if (@$prow[&#39;status&#39;] == &#34;waiting&#34;){ echo &#39;&lt;p class=&#34;commentReview&#34;&gt;（评论审核中）)&lt;/p&gt;&#39;; }else{ echo &#39;&#39;; } } } else { if (@$prow[&#39;status&#39;] == &#34;waiting&#34;){ echo &#39;&lt;p class=&#34;commentReview&#34;&gt;（评论审核中）)&lt;/p&gt;&#39;; }else{ echo &#39;&#39;; } } } 然后在 comments.php 中输出评论内容代码的前面加上：
+&lt;?php $parentMail = get_comment_at($comments-&gt;coid)?&gt;&lt;?php echo $parentMail;?&gt; ▼代码所示 ▼效果图 我的博客即将同步至腾讯云+社区，邀请大家一同入驻：https://cloud.tencent.com/developer/support-plan?invite_code=17ctk6evsjk5b
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/120.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">浏览器收藏夹一键填写博客评论信息</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2022-04-26T00:00:00Z">2022-04-26</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		先点击收藏一个页面，然后右键它，选择修改，在网址输入框复制下面的 js 代码，就可以一键填入了。
+将其中的昵称，邮箱，网址修改成自己的信息。
+目前支持绝大多数主流博客平台和系统，如果发现没有起作用，可以在下面代码里面修改增加一下 input 的属性。
+如果你不会修改的话，可以在评论区留言没有起作用的网站，我可以更新代码。
+javascript:void function(){var lauthor=[&#34;#author&#34;,&#34;input[name=&#39;comname&#39;]&#34;,&#34;#inpName&#34;,&#34;input[name=&#39;author&#39;]&#34;,&#34;#ds-dialog-name&#34;,&#34;input[name=&#39;wc_name&#39;]&#34;, &#34;input[name=&#39;nick&#39;]&#34;,],lmail=[&#34;#mail&#34;,&#34;#email&#34;,&#34;input[name=&#39;commail&#39;]&#34;,&#34;#inpEmail&#34;,&#34;input[name=&#39;email&#39;]&#34;,&#34;#ds-dialog-email&#34;,&#34;input[name=&#39;wc_email&#39;]&#34;,&#34;input[name=&#39;mail&#39;]&#34;,],lurl=[&#34;#url&#34;,&#34;input[name=&#39;comurl&#39;]&#34;,&#34;#inpHomePage&#34;,&#34;#ds-dialog-url&#34;,&#34;input[name=&#39;url&#39;]&#34;,&#34;input[name=&#39;wc_website&#39;]&#34;,&#34;input[name=&#39;link&#39;]&#34;,];for(i=0;i&lt;lauthor.length;i++){var author=document.querySelector(lauthor[i]);if(author!=null){author.value=&#39;子舒&#39;;break}}for(j=0;j&lt;lmail.length;j++){var mail=document.querySelector(lmail[j]);if(mail!=null){mail.value=&#39;shuxhan@163.com&#39;;break}}for(k=0;k&lt;lurl.length;k++){var url=document.querySelector(lurl[k]);if(url!=null){url.value=&#39;https://zishu.me&#39;;break}}return!1}() 
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/110.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">增加了站内搜索功能</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2022-03-25T00:00:00Z">2022-03-25</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		如题，我花了一个多小时，参照 nuxt 文档，把搜索功能给加上了，记录一下相关代码。
+可以选择放在 components/&lt;Search /&gt; 里面，然后引入到 head 模板，也可以单独创建一个页面，我选择的是后者。
+新建一个页面模板 /pages/search.vue 。
+&lt;template&gt; &lt;div&gt; &lt;HeaderMe /&gt; &lt;div class=&#34;wrapper&#34;&gt; &lt;PageSidebar /&gt; &lt;div class=&#34;archive&#34;&gt; &lt;h2&gt;{{ article.attributes.title }}&lt;/h2&gt; &lt;div class=&#34;article-content markdown-body&#34; v-html=&#34;article.html&#34;&gt;&lt;/div&gt; &lt;div class=&#34;search&#34;&gt; &lt;input v-model=&#34;searchQuery&#34; type=&#34;search&#34; autocomplete=&#34;off&#34; placeholder=&#34;文章关键词&#34; /&gt; &lt;ul v-if=&#34;articles.length&#34;&gt; &lt;li v-for=&#34;article of articles&#34; :key=&#34;article.slug&#34;&gt; &lt;NuxtLink :to=&#34;article.path+&#39;/&#39;&#34;&gt;{{ article.title }}&lt;/NuxtLink&gt; &lt;!-- 在url地址后加一个/，配置全站的url格式，防止错乱 --&gt; &lt;/li&gt; &lt;/ul&gt; &lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;/template&gt; &lt;script&gt; import HeaderMe from &#34;@/components/HeaderMe&#34;; import PageSidebar from &#39;@/components/PageSidebar&#39;; export default { components: { HeaderMe, PageSidebar }, data () { return { searchQuery: &#39;&#39;, articles: [] } }, async asyncData () { // 调用 search.md 内的数据 const article = await import(`~/content/search.md`); return { article }; }, watch: { async searchQuery (searchQuery) { if (!searchQuery) { this.articles = [] return } this.articles = await this.$content(&#39;posts&#39;) // posts 是文章所在的文件夹的名称 .limit(10) .search(searchQuery) .fetch() } } } &lt;/script&gt; 关于样式的编写不怎么重要我就放下面了。
+css 代码 .wrapper { min-height: 300px; .archive { padding: 25px 2% 15px; .article-content { font-size: inherit; line-height: 1.8; color: inherit; margin-top: 20px; } .search { margin-top: 16px; input { width: 100%; background-color: #edf2f7; color: #2f495e; outline: none; border: none; border-radius: 30px; padding: 4px 20px; box-sizing: border-box; transition: all 0.1s linear; &amp;:focus { box-shadow: 3px 2px 10px rgb(0 0 0 / 20%); } } ul { margin-top: 6px; list-style: none; li { a { display: block; padding: 6px 14px; line-height: 1.6; transition: all 0.2s linear; &amp;:hover { background: #edf2f7; } } } } } } } @media (max-width: 520px) { .wrapper { .archive { .search { ul { li { a { border-bottom: 1px solid #ddd; } } } } } } } 
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/104.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">“不如吃茶去”</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2022-02-24T00:00:00Z">2022-02-24</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		想了很久，也算是结合自己的心境吧，打算正式起一个博客名称，以前子舒的博客，也就是挂着自己的名字，总觉得差点意思。所以现在决定更名为 &lsquo;不如吃茶去&rsquo;。其中含义，听我娓娓道来&hellip;
+我是从中学开始接触音乐的，当时喜欢唱歌，会听很多当时流行的歌曲。那时候比较火的最多的还是周杰伦的歌，还有就是林俊杰等歌手。
+然后再到初入高中，准确的说应该是初三，开始听许嵩的歌，最开始是《自定义》专辑，每天都听，节奏很有旋律感。为此还专门买了一个 mp4，带着一块小屏幕的那种，下载了许嵩的歌，上学放学路上经常会听，包括在上晚自习的时候，也会一边听，一边写作业。
+在 14 年的时候，许嵩正式发布的新专辑《不如吃茶去》，当时的我一听到这里面的歌，一下子就爱上了，从此彻底粉上了许嵩。
+我觉得有一句话说的特别好：许嵩想通过专辑传递出“大千世界有很多想不通的事、猜不透的心与看不透的人，倒不如不想、不猜、不看，携寄情山水的快意人生吃茶去”的淡然态度。
+当时年纪还小，单纯的听旋律和歌词。现在回过头来，仔细琢磨里面的话，突然感觉有了新的变化。这世界一直处于变化之中，正如罗翔老师讲的，这世界唯一不变的就是变化本身。
+社会纷纷扰扰，心里也有很多杂绪，滋生了很多欲望。但是我也很清楚的知道，有些东西和欲望充其量是被社会气氛所带动的，而我自身不需要那些，过好自己的生活，不被外物所扰。“不以物喜，不以己悲。”
+不如吃茶去，我也希望我的心境能同这句话一般，沉淀下来，不想那些太多遥远的东西，立足眼下，把握住身边的美好。
+七碗受至味，一壶得真趣，空持百千偈，不如吃茶去。 &mdash;赵朴初
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/102.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">Nuxt.js 如何部署 Artalk 和遇到的问题</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2022-02-18T00:00:00Z">2022-02-18</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		花了两天时间，终于把 Artalk 部署好了，一款数据自托管带后端的评论程序，非常适合我。这篇文章就介绍一下我部署的流程，以及我在部署过程中遇到的一些问题，将它记录一下，以便之后研究，顺便对使用 Nuxt.js 搭建博客的伙伴提供一些参考价值。
+Artalk 地址：https://artalk.js.org/
+这篇文章我将分为三个部分，后端部署、前端部署、问题研究。
+1.后端部署 官方有两个版本，注意分辨，php 和 go，对应的是不同的仓库，目前官方文档写的默认都是 go 语言开发的。
+ArtalkGo 仓库：https://github.com/ArtalkJS/ArtalkGo
+我使用的也是 go 版本，功能和优化都比较好。
+docker 构建 + 宝塔 我的服务器是 Ubuntu 20.04，其他版本类似，没有很大不同。
+首先，使用 ssh 连接服务器。
+sudo su # 启用sudo模式 cd /www/wwwroot/ # 进入站点目录 mkdir ArtalkGo cd ArtalkGo # 为 ArtalkGo 创建一个目录 curl -L https://raw.githubusercontent.com/ArtalkJS/ArtalkGo/master/artalk-go.example.yml &gt; conf.yml # 下载配置文件模版 到这里之后，官方说的是用 vim conf.yml 进入配置文件，修改参数然后配置。我不是很建议，因为用着并不是那么顺手（因为我菜），我建议直接到达 /www/wwwroot/ArtalkGo 目录下修改 conf.yml 文件，文本模式操作起来更顺手。
+里面的配置基本都是站点名称，管理员，邮箱等设置，没什么大问题。除此之外，端口等参数都不用碰，不然会报错。
+配置完文件之后直接保存就行了。
+在宝塔插件里面下载 Docker 管理器，点击镜像管理。
+然后在镜像名称输入 artalk/artalk-go 点击获取镜像即可，大概两分钟就下载结束了。
+然后回到 ssh 连接，新建 docker 容器。
+docker run -d \ --name artalk-go \ -p 0.0.0.0:8080:23366 \ -v $(pwd)/conf.yml:/conf.yml \ -v $(pwd)/data:/data \ artalk/artalk-go 将上面的命令行在命令行，直接回车就行了。
+这个时候需要去你的服务器厂商那里放行端口 8080 ，如果之前放行过不用管，没有放行的话需要去设置一下。
+然后在浏览器输入 http://ip地址:8080 。
+如果出现现在这个页面，说明你部署成功了，如果打不开或者是其他情况，请检查是否成功执行上面的步骤。
+如果之后修改配置文件了，一定要注意在修改之后执行命令，需要重启服务才能生效。
+docker restart artalk-go 反向代理 这个如果使用宝塔太简单，就不细说了。
+https://artalk.js.org/guide/backend/reverse-proxy.html#%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF
+文档已经说得很详细，如果出现操作失败的情况可以在下面评论。
+2.前端部署 博客使用 vue + nuxt 开发。
+我使用的是通过 cdn 引入的，npm 我目前发现和我博客有些冲突，暂时不使用该方式。
+先在 /components 目录下新建一个组件名为 Comments.vue
+&lt;!-- Comments.vue --&gt; &lt;template&gt; &lt;div class=&#34;wrapper&#34;&gt; &lt;link href=&#34;https://cdn.jsdelivr.net/npm/artalk@2.1.4/dist/Artalk.css&#34; rel=&#34;stylesheet&#34;&gt; &lt;script src=&#34;https://cdn.jsdelivr.net/npm/artalk@2.1.4/dist/Artalk.js&#34;&gt;&lt;/script&gt; &lt;div id=&#34;Comments&#34;&gt;&lt;/div&gt; &lt;/div&gt; &lt;/template&gt; &lt;script&gt; export default { name: &#39;Comments&#39;, } &lt;/script&gt; &lt;style lang=&#34;scss&#34; scoped&gt; &lt;!-- css代码 --&gt; &lt;/style&gt; 配置代码我单独放在 /static/main.js ，然后在 nuxt.config.js 引入。
+// nuxt.config.js head: { title: &#39;子舒的博客 | imhan.cn&#39;, meta: [ // ... ] script: [ { src: &#39;/js/main.js&#39; }, ] }, 在 main.js 中配置 Artick。
+new Artalk({ el: &#34;#Comments&#34;, server: &#39;https://域名/api&#39;, site: &#34;子舒的博客&#34;, placeholder: &#39;说点什么...&#39;, gravatar: { mirror: &#39;https://sdn.geekzu.org/avatar/&#39;, default: &#39;mp&#39;, }, pagination: { pageSize: 15, // 每页评论数 readMore: true, // 加载更多 or 分页条 autoLoad: true, // 自动加载 (加载更多) }, heightLimit: { content: 200, // 评论内容限高 children: 300, // 子评论区域限高 }, versionCheck: true, // 前端版本检测 }); 还有一个方案就是将文件放在服务器或者 github，将它引入，不过有些舍本逐末了，不是很建议。
+3.问题研究 1. 关于评论路径问题
+提交评论之后会在管理后台生成一个列表，表示哪个路径产生了评论，
+如果想把某个页面评论转到其他页面，可以直接修改页面的 url，点击KEY变更。
+Artalk 的路径判断很严格，包括 https://example.com/1 和 https://example.com/1/ 的评论就属于两个页面。
+问过作者，觉得他的说法很有道理
+qwqcode: https://example.com/1 和 https://example.com/1/ 本来就不属于相同路径，后者等价于 https://example.com/1/index.html (和 web 服务器配置有关)
+所以我直接在我博客里把路径然后默认加一个 / 符号，不管打开哪个页面都会跳转到带有 / 的 url，也是非常简单粗暴的解决了这个问题。
+path: `/posts/${key.replace(&#39;.md&#39;, &#39;&#39;).replace(&#39;./&#39;, &#39;&#39;)}/` 2. localhost:3000 和域名
+由此引发的另一个问题就是我在本地构建 localhost:3000 是不会显示域名后的评论，这个问题也不是大问题，我研究过 Artalk 文档，因为他是一个后端，可以多个前端使用，如果仅仅判断二级目录会造成一个很大的问题。
+https://a.com/1 和 https://b.com/1 这两个页面使用了同一套评论数据，所以为了避免这个情况，在判断路径时直接加上域名，这样的话，域名下的评论自然不会同步到 localhost:3000 。
+这对我开发博客来说没有什么影响，所以就不打算解决了。
+这是我目前遇到的问题，我会在后续的使用中持续更新本文，以作留存。
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/96.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">Nuxt 项目中如何引入百度统计？</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2022-01-17T00:00:00Z">2022-01-17</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		在部署一个网站之后，我们最关心的事情无异于是访问量，以及对它的分析。国内的百度统计是一个不错的选择，基本的功能都是免费的。
+只需要在 head 中引入一串 javascript 代码即可。
+&lt;!-- &lt;script&gt; var _hmt = _hmt || []; (function() { var hm = document.createElement(&#34;script&#34;); hm.src = &#34;https://hm.baidu.com/hm.js?xxxxxxxxxxxxxxxxxxx&#34;; var s = document.getElementsByTagName(&#34;script&#34;)[0]; s.parentNode.insertBefore(hm, s); })(); &lt;/script&gt; --&gt; 上面是百度提供的统计代码，需要放在 &lt;head&gt;&lt;/head&gt;中。
+但是在 nuxt 中，没有传统的 &lt;head&gt;&lt;/head&gt; 。所以要对他进行一些处理。
+1. 首先在根目录下 /plugins 新建一个文件 baidu.js // /plugins/baidu.js export default ({app: {router}, store}) =&gt; { /* 每次路由变更时进行 pv 统计 */ router.afterEach((to, from) =&gt; { /* 告诉增加一个 PV */ try { window._hmt = window._hmt || [] window._hmt.push([&#39;_trackPageview&#39;, to.fullPath]) } catch (e) { } }) } 2. 配置 nuxt.config.js 文件 在 plugins中： plugins: [ { src: &#39;~/plugins/baidu&#39; } ], 在 head中： head: { // ... link: [ // ... ], script: [ { src: &#39;https://hm.baidu.com/hm.js?xxxxxxxxxxxxxxxxxxx&#39; } ] }, 在 script 中写入百度统计提供的 url 即可，按照对应的字符。
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/88.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">实现图片灯箱功能</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2021-12-07T00:00:00Z">2021-12-07</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		写博客必不可少的一个功能就是图片灯箱功能，也就是点击放大查看。但是不同程序的博客所使用的插件也都不一样，我这里研究出一套可以满足绝大部分程序的灯箱插件。已经测试过 hexo, hugo, typecho 均无问题。
+引入文件 首先引入我们关键的两个文件分别是 zoom.css 和 zoom.js 。
+&lt;!-- head 头部 --&gt; &lt;link rel=&#34;stylesheet&#34; href=&#34;https://cdn.zburu.com/list/zoom.css&#34;&gt; &lt;!-- body 底部 --&gt; &lt;!-- 如果已经有 jq 文件了，就不要引入 jquery --&gt; &lt;script src=&#34;https://cdn.zburu.com/list/jquery3.6.0.js&#34;&gt;&lt;/script&gt; &lt;!--图片灯箱--&gt; &lt;img src=&#34;&#34; alt=&#34;&#34; class=&#34;bigimg&#34;&gt; &lt;div class=&#34;mask&#34;&gt;&lt;/div&gt; &lt;script src=&#34;https://cdn.zburu.com/list/zoom.js&#34;&gt;&lt;/script&gt; 因为这个文件是放在我自己服务器上的，所以不敢保证以后还是这个路径，建议在浏览器打开，然后把里面的代码复制到本地使用。
+调用 js 然后我们需要给图片一个类名，以及一个父元素盒子，同样也可以使用 jq 来完成。
+这里的 .post-content 正文的类名，如果你是别的类名，可以直接将 .post-content 替换掉。
+$(function(){ $(&#39;.post-content img&#39;).addClass(&#39;smallimg&#39;) $(&#39;.post-content img&#39;).wrap(&#39;&lt;div class=&#34;imgbox&#34;&gt;&lt;/div&gt;&#39;) }) 接着我们需要对插件进行初始化，直接在刚才的代码下面写入。
+$(function(){ $(&#39;.post-content img&#39;).addClass(&#39;smallimg&#39;) $(&#39;.post-content img&#39;).wrap(&#39;&lt;div class=&#34;imgbox&#34;&gt;&lt;/div&gt;&#39;) /* smallimg // 小图 bigimg //点击放大的图片 mask //黑色遮罩 */ var obj = new zoom(&#39;mask&#39;, &#39;bigimg&#39;, &#39;smallimg&#39;); obj.init(); }) 回到页面上，点击正文的图片就可以成功放大了。
+结束 随便放个图片试验一下吧！
+之所以我限制了在正文中才可以放大，是因为网站其他地方也有图片，如果都可以点击放大，就很不合理。
+如果在使用中有其他问题，欢迎留言。
+	</div>
+</article>
+
+</main>
+
+<div class="pagination">
+	<span class="pagination__item pagination__item--current">1/2</span>
+	<a class="pagination__item pagination__item--next btn" href="/tags/%E5%8D%9A%E5%AE%A2/page/2/">»</a>
+</div>
+
+			</div>
+			
+
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2024 子舒的博客, 
+			使用 hugo 构建
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [["$", "$"]],
+      },
+      displayMath: [
+        ["$$", "$$"],
+        ["\[\[", "\]\]"],
+      ],
+      svg: {
+        fontCache: "global",
+      },
+    };
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script
+    id="MathJax-script"
+    async
+    src="https://gcore.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+  ></script>
+</body>
+</html>

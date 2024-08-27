@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta name="generator" content="Hugo 0.123.6">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+	<title>子舒的博客</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+	<link rel="alternate" type="application/rss+xml" href="/index.xml" title="子舒的博客">
+
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="topbar">
+		<a class="topbar__link" href="/" title="子舒的博客" rel="sidebar">
+			<div class="topbar__item topbar__text">
+					<div class="topbar__title">子舒的博客</div>
+					<div class="topbar__tagline">The Tao that is utterable is not the eternal Tao</div>
+				</div>
+		</a>
+	</div>
+		
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main list" role="main">
+	<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/81.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">js 奇怪的知识--console.table</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2021-11-04T00:00:00Z">2021-11-04</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		这个属性对我来说还真有些陌生，无意中发现的，查询过 MDN 之后听得挺有意思的，就记录一下。
+根据字面意思就是“将数据以表格的形式显示”。这个方法需要一个必须参数 data，data 必须是一个数组或者是一个对象；还可以使用一个可选参数 columns。
+表格的第一列是 index。如果数据 data 是一个数组，那么这一列的单元格的值就是数组的索引。如果数据是一个对象，那么它们的值就是各对象的属性名称。注意（在 FireFox 中）console.table 被限制为只显示 1000 行（第一行是被标记的索引）。
+1.直接输出 直接进行尝试，在控制台输出 console.table
+console.table([&#34;双十一&#34;, &#34;双十二&#34;, &#34;双十三&#34;]); PS E:\demo&gt; node 1.js ┌─────────┬──────────┐ │ (index) │ Values │ ├─────────┼──────────┤ │ 1 │ &#39;双十二&#39; │ │ 2 │ &#39;双十三&#39; │ └─────────┴──────────┘ 复制下来怪怪的，直接上个图，就是下面这个样子。
+2.定义对象进行输出 同样也可以定义一个对象然后输出
+function Fun(title, date) { this.title = title this.date = date } const one = new Fun(&#34;双十一&#34;, &#34;11.11&#34;) const two = new Fun(&#34;双十二&#34;, &#34;12.12&#34;) const three = new Fun(&#34;双十三&#34;, &#34;你是傻子吗，没有 13 月&#34;) console.table([one, two, three], [&#34;title&#34;, &#34;date&#34;]) 打印出来，就是下面这个样子。
+3.console.table() 的应用场景 前面是在通过在编辑器中使用 node.js 输出数据，看看在浏览器中输出会不会不一样的效果。
+可以看到成功输出数据，并且点击表头时，可以按照不同顺序进行排序，这么一看&hellip;.嗯，还挺有用的（假笑）
+应用场景大概就是可以对打印的数据进行更直观的观看，在某些情况下有利于调试代码，以后看看是否能用得上这种方法。
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/80.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">通过 getTimezoneOffset() 方法判断当前时区是否为夏令时</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2021-10-22T00:00:00Z">2021-10-22</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		getTimezoneOffset() 方法 方法返回 UTC 时间和本地时间之间的时差，以分钟为单位。
+世界协调时间 (UTC) 是世界时间标准设定的时间，UTC 时间与 GMT 时间（格林威治时间）相同。
+测一下我所在时区和标准时区的时间差
+function myDate () { var d = new Date(); var n = d.getTimezoneOffset(); console.log(n) } myDate(); // PS E:\demo&gt; node 1.js // -480 也就是 480 分钟（8 个小时），北京时间是东八区，刚好与格林威治时间相差 8 个小时，这说明 getTimezoneOffset() 方法是很有效的。
+接下来利用这个方法，判断一下当前时区是否为夏令时。
+const time1 = new Date(2021, 0, 1); const time2 = new Date(2021, 6, 1); if (time1.getTimezoneOffset() != time2.getTimezoneOffset()) { console.log(&#39;夏令时&#39;); } else { console.log(&#39;非夏令时&#39;); } // PS E:\demo&gt; node 1.js // 非夏令时 
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/79.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">有关国庆出行的感想</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2021-10-07T00:00:00Z">2021-10-07</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		好长时间没回老家了，这次本想借着国庆七天回家一趟，顺便处理一些其他的事情。所以我从 9 月 30 日晚，与家人一同驾车回家。
+艰难的回家之路 刚上高速跑得很快，原以为已经错开出行高峰期，结果发现是我想多了，不出意外的堵在高速上。
+导航呢，这时候也是推荐不走高速，直接从国道走（真的是后悔），然后我们就下了高速，结果这个导航给我整的有点蒙，在临安绕来绕去，11 点从杭州出发，凌晨 3 点还在临安出不去，国道都在堵车，然后没办法只能就地休息，困得实在不行了，其实睡也睡不舒服，跑夜车都是这个样子。
+睡到 5 点多，这时候已经是 10 月 1 日了，继续出发，按照导航走，结果走到了一个盘山公路，不知道叫什么山，没注意看。
+大概走了 3 个小时，盘山公路弯弯曲曲的，九转十八弯。不过风景还行，权当安慰自己出来旅游了。
+中午才从山里出来，这时候在安徽境内，接近六安。
+大家随便弄点泡面吃了吃，继续出发，已经是 1 号下午了。跑到下午 5 点多的时候，距离老家还有 100 公里左右，再来两个小时差不多就到了。结果发生了一些小意外，导致轮胎爆了，然后处理事故到后半夜，修好车也不能走了，身心疲惫，就地开了个宾馆休息，一夜的深度睡眠真的很爽，以后再也不熬夜了，难受死。
+早上睡到 9 点半起，简单收拾一下，10 点出发，也没有吃饭，不太饿，打算一口气开回家，也是不负众望，午饭前就赶到县城了。
+好久没回家，发现物价真的低，四个人吃的撑死，最后没吃完，把剩下的菜打包带回去，结账也才 150 左右。不过工资水平也和物价水平差不多，然后就引发了我的一个新的思考，以后是否可以回县城养老。
+回家碎碎念&hellip;照片 (无)
+6 号踏上返程的道路，7 号回到杭州，真的身心疲惫。又是一路的夜车，在服务区休息了两个小时也顶不了多大的用。
+到杭州之后就开始胃疼了，大致算了一下，7 天，有 4 天都在路上奔波，吃的都是饼干泡面，实在是扛不住，到这边之后吃完饭洗了个澡直接睡到下午六点，起来还是精神有些萎靡，我估计至少得三天才能缓成正常。毕竟年纪大了，真的痛苦。
+关于开车出行的反思 长了个记性，以后再也不开学出行跑长途了，特别节假日，火车七八个小时，睡一觉就能解决的问题搞得那么复杂，不过也是因为带了一些行李的缘故。下次就打算行李直接寄回去，随身背个包，然后坐火车轻装上阵，岂不是美滋滋。
+吐槽高速的一些事情 安徽段高速真的不行，管理不到位，救援迟缓，在安徽境内高速上堵车的时候，应急车道基本没闲着，私家车直接跑，路过别的省份基本很少有这种现象，而且出现事故的时候，救援迟缓，交管不到位，直接导致堵车堵了很长时间，我在河南段，浙江段跑的时候，看到事故都是处理的很快，基本没有太长的堵车现象。
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/78.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">使用 js 随机生成背景颜色</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2021-09-29T00:00:00Z">2021-09-29</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		先写一个简单的 html 页面出来
+&lt;style&gt; /* ... */ &lt;/style&gt; &lt;ul&gt; &lt;li&gt;html&lt;/li&gt; &lt;li&gt;css&lt;/li&gt; &lt;li&gt;js&lt;/li&gt; &lt;/ul&gt; 通过 Math.random() 属性可以随机生成一个数字，然后通过转化为十六进制的方法进行处理，下面就是随机生成 6 位数字的代码，并进行转化的代码。
+const randomHex = () =&gt; `#${Math.floor(Math.random() * 0xffffff).toString(16).padEnd(6, &#34;0&#34;)}`; 可以在控制台输出看一下结果，随机生成了一个结果 #62113b。
+接下来就需要将这个颜色传给上面的 li 标签，首先需要将所有的 li 遍历然后生成一个数组，可以使用 for 循环进行遍历。
+var arr = document.getElementsByTagName(&#39;li&#39;), temp = []; for (var i = 0; i &lt; arr.length; i++) { temp.push(arr[i].innerHTML); } 然后再对数组进行循环处理，每个 li 标签要要运行一遍随机生成颜色，并且传给自身。同样也是通过 for 循环进行操作。
+var li = document.getElementsByTagName(&#34;li&#34;); for (var i = 0; i &lt; li.length; i++) { for (var num = 0; num &lt; li.length; num++) { li[num].style.background = randomHex(); } } 这些事件都是在页面加载完成之后运行的，所以需要通过 window.onload 写入事件，然后把所有的代码合在一起。
+看看效果如果。
+把这些复制下来放到本地运行一下就可以看到效果了。
+&lt;!DOCTYPE html&gt; &lt;html lang=&#34;en&#34;&gt; &lt;head&gt; &lt;meta charset=&#34;UTF-8&#34;&gt; &lt;meta http-equiv=&#34;X-UA-Compatible&#34; content=&#34;IE=edge&#34;&gt; &lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1.0&#34;&gt; &lt;title&gt;随机生成颜色&lt;/title&gt; &lt;style&gt; body { display: flex; justify-content: center; padding-top: 100px; } ul { list-style: none; padding: 0; display: flex; } li { width: 100px; height: 40px; color: #333; display: flex; justify-content: center; align-items: center; margin-right: 30px; } &lt;/style&gt; &lt;/head&gt; &lt;body&gt; &lt;ul&gt; &lt;li&gt;html&lt;/li&gt; &lt;li&gt;css&lt;/li&gt; &lt;li&gt;js&lt;/li&gt; &lt;/ul&gt; &lt;script&gt; const randomHex = () =&gt; `#${Math.floor(Math.random() * 0xffffff).toString(16).padEnd(6, &#34;0&#34;)}`; console.log(randomHex()); var arr = document.getElementsByTagName(&#39;li&#39;), temp = []; for (var i = 0; i &lt; arr.length; i++) { temp.push(arr[i].innerHTML); } window.onload = function () { var li = document.getElementsByTagName(&#34;li&#34;); for (var i = 0; i &lt; li.length; i++) { for (var num = 0; num &lt; li.length; num++) { li[num].style.background = randomHex(); } } } &lt;/script&gt; &lt;/body&gt; &lt;/html&gt; 如果有更好的写法，欢迎评论！
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/77.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">hugo 如何使用 Cusdis ?</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2021-09-16T00:00:00Z">2021-09-16</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		Cusdis 是一个界面清爽、注重隐私的轻量级 (~5kb gzip) 评论系统，可以很方便地与 React、Vue 或其他博客系统结合，并且还提供了一个后台来管理所有的评论。
+由于 Cusdis 自称是 Disqus 的替代方案，因此它还支持一键从 Disqus 导入、支持邮件通知等功能。
+官方地址：https://cusdis.com/
+他通常是用于静态博客的一个第三方评论系统，但是官方文档没有提供如何在 hugo 中使用的参数，我也是报错了多次才琢磨出来。
+1. 本地部署 根据提示，注册账号，然后 Add website ，建立一个仓库。
+进入它，然后点击 setting。
+Embed Code 会提供几行代码以及一些 api，复制他们。
+data-app-id 是注册时自动生成的，注意保密，每个人都不一样。
+&lt;div id=&#34;cusdis_thread&#34; data-host=&#34;https://cusdis.com&#34; data-app-id=&#34;xxxxxxxxx&#34; data-page-id=&#34;{{ PAGE_ID }}&#34; data-page-url=&#34;{{ PAGE_URL }}&#34; data-page-title=&#34;{{ PAGE_TITLE }}&#34; &gt;&lt;/div&gt; &lt;script async defer src=&#34;https://cusdis.com/js/cusdis.es.js&#34;&gt;&lt;/script&gt; 将这些代码复制到本地主题的 comments.html 文件内（就是评论的那个模块，每个主题或许都不一样，注意分辨）。
+这个时候如果你 hugo server 基本都会报错，因为没有修改 {{ PAGE_ID }} 等内容，这不是 hugo 官方提供的参数，按照我下面的格式，将 id, url, title 重写一下即可。
+&lt;div id=&#34;cusdis_thread&#34; data-host=&#34;https://cusdis.com&#34; data-app-id=&#34;c1d43485-e8a7-4895-972e-247eddaf242d&#34; data-page-id=&#34;{{ .RelPermalink }}&#34; data-page-url=&#34;{{ .RelPermalink }}&#34; data-page-title=&#34;{{ .Title }}&#34; &gt;&lt;/div&gt; &lt;script async defer src=&#34;https://cusdis.com/js/cusdis.es.js&#34;&gt;&lt;/script&gt; 保存重新 hugo server 即可。
+这样做的好处是当你接受一条评论信息后，审核列表可以清楚地标明来自哪一篇文章。通常大多数博客都提供了这么一个功能。
+2. 邮箱提醒 除了必备的评论功能，Cusdis 还提供了一个非常快速的邮箱提醒功能，不需要绑定密匙，直接输入自己的邮箱即可。
+先勾选这个 Email Notification，然后点击下方的 Advanced Notification Settings (高级通知设置)
+就可以进入设置，输入自己的邮箱。
+3. 中文化 默认的评论和提示文字均为英文，对我们很不友好，这里提供一个不错的解决方案，在引入 Cusdis 之后，顺便复制引入下面这段代码。
+&lt;script&gt; window.CUSDIS_LOCALE = { &#34;powered_by&#34;: &#34;评论由 Cusdis 提供&#34;, &#34;post_comment&#34;: &#34;发送&#34;, &#34;loading&#34;: &#34;加载中&#34;, &#34;email&#34;: &#34;邮箱地址 (可选)&#34;, &#34;nickname&#34;: &#34;昵称&#34;, &#34;reply_placeholder&#34;: &#34;回复内容...&#34;, &#34;reply_btn&#34;: &#34;回复&#34;, &#34;sending&#34;: &#34;发送中...&#34;, &#34;mod_badge&#34;: &#34;管理员&#34;, &#34;content_is_required&#34;: &#34;内容不能为空&#34;, &#34;nickname_is_required&#34;: &#34;昵称不能为空&#34;, &#34;comment_has_been_sent&#34;: &#34;评论已发送，管理员审核通过后会展示&#34; } &lt;/script&gt; 。。。
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/76.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">使用 jq 做一个数字递增效果</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2021-09-14T00:00:00Z">2021-09-14</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		数字递增，顾名思义就是数字不断增加，数字递增的效果就是要一定时间内，让数字有一个增加的特效，一般用于强调某个内容。
+用 jquery 也很好处理，大概就是下面这些。
+data-to 属性代表最后想要递增到的数值 data-speed 代表数值想要递增的过程时间 class=&quot;num-ber&quot; 和 id=&quot;count-number&quot; 按照这个填入。
+&lt;p&gt; &lt;span class=&#34;num-ber&#34; id=&#34;count-number&#34; data-to=&#34;40&#34; data-speed=&#34;1000&#34;&gt;&lt;/span&gt;+ &lt;/p&gt; 引入 jquery 之后再添加下面的 js 代码。
+$.fn.countTo = function (a) { a = a || {}; return $(this).each(function () { var c = $.extend({}, $.fn.countTo.defaults, { from: $(this).data(&#34;from&#34;), to: $(this).data(&#34;to&#34;), speed: $(this).data(&#34;speed&#34;), refreshInterval: $(this).data(&#34;refresh-interval&#34;), decimals: $(this).data(&#34;decimals&#34;) }, a); var h = Math.ceil(c.speed / c.refreshInterval), i = (c.to - c.from) / h; var j = this, f = $(this), e = 0, g = c.from, d = f.data(&#34;countTo&#34;) || {}; f.data(&#34;countTo&#34;, d); if (d.interval) { clearInterval(d.interval) } d.interval = setInterval(k, c.refreshInterval); b(g); function k() { g += i; e++; b(g); if (typeof (c.onUpdate) == &#34;function&#34;) { c.onUpdate.call(j, g) } if (e &gt;= h) { f.removeData(&#34;countTo&#34;); clearInterval(d.interval); g = c.to; if (typeof (c.onComplete) == &#34;function&#34;) { c.onComplete.call(j, g) } } } function b(m) { var l = c.formatter.call(j, m, c); f.html(l) } }) }; $.fn.countTo.defaults = { from: 0, to: 0, speed: 1000, refreshInterval: 100, decimals: 0, formatter: formatter, onUpdate: &#34;null, onComplete: null }; function formatter(b, a) { return b.toFixed(0) } $(&#34;#count-number&#34;).data(&#34;countToOptions&#34;, { formatter: function (b, a) { return b.toFixed(0).replace(/\B(?=(?:\d{3})+(?!\d))/g, &#34;,&#34;) } }); $(&#34;.num-ber&#34;).each(count); function count(a) { var b = $(this); a = $.extend({}, a || {}, b.data(&#34;countToOptions&#34;) || {}); b.countTo(a) }; 
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/75.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">npm install 报错和取消本地代理的问题</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2021-08-19T00:00:00Z">2021-08-19</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		npm install下载依赖包的时候出现下面错误，请求失败。
+npm ERR! FetchError: request to https://registry.npm.taobao.org/cnpm failed, reason: connect ECONNREFUSED 127.0.0.1:1181 调试过后发现是本地代理的问题，取消它。
+npm config delete proxy npm config delete https-proxy npm install 成功运行，完毕。
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/74.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">关于我为什么要写博客？</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2021-07-21T00:00:00Z">2021-07-21</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		关于这个博客的构成 这个就放在最前面吗，算是起到一个统计整理的作用。
+博客基础的框架使用是 hugo, 前端样式是自己慢慢构思的，可能是因为没有设计师的天分吧，构思出来的 UI 就很奇怪。
+我也尽量将色彩往黑白上靠，就是为了避免色彩的冲突造成阅读的不适，以文字为主体，也可以将我的重心转移到写文章上来。
+然后通过本地渲染构建了 public 静态文件，我将这些文件推送到服务器上，服务器的配置是最基础的 1h2g，不过已经完全可以满足个人正常使用了，这样可以提升访问速度。同时的话，我在 Github 备份了源码，这样就不用害怕如果有什么突发事件。
+而且，通过 Github，我在 vercel 也构建了一个备份网站，基于 rope 可以直接生成一个项目网站，也是非常实用。
+目前这个博客主题我并没有将其分离起来，一是不想专门维护一个开源项目，二是我也很难保证其稳定性，隔三差五我都会优化或者改变整体布局，如果作为一个开源项目的话，这毫无疑问是不合格的。
+如果你想使用同款主题，可以前往仓库 https://github.com/dlzmoe/blog，这是博客全部的源码。
+你可以把 themes 文件夹下的代码 copy 走。或者直接 fork 仓库，然后把 /content 内的文章删掉，换成你自己的。
+2021.07.21 落笔
+写这篇文章，大概是想回顾一下自己从写第一篇博客，一直到现在的心理历程吧！但是动笔的时候，又突然改变想法了。决定好好审视一下自己的内心，“我为什么要写博客？”
+伊始 故事最开始源于 2020 年五月份，当时我正频临毕业之际，正处于找工作的状态，对前途还是有些迷茫的，不知道未来该怎么走，往哪方面发展，再加上对自己不够自信，可能有些焦虑吧。
+但是不论心态怎么变化，生活总是要继续的，在闲暇之余我浏览很多技术网站，希望可以提升自己，当时我比较热衷于 csdn 和博客园吧，两个比较大的中文博客网站，不论是学习和查资料，百度出来的内容基本都是这两个网站的文章。然后在平时学习累计的过程中，我也会写一些笔记或者总结的内容，开始我是直接存放在本地，后来我放在 Gayhub 上面。
+Gayhub: 又名，Github. 全球最大的同性交友网站，在这里你可以畅快的交流技术，copy code。
+但是上过这个网站的人都懂，它的速度是多么的令人着急。虽然后来学会了一些科学上网的方法，但是还是很不爽，所以我把目光投向了技术交流平台，论坛社区。我开始试着在把笔记放在 csdn 上面，当做博客发布出去，至今还保留一些浅显易懂的文章在我的 csdn 账号上，不过许久没有登陆了。
+接触 有一天，一个做前端的朋友给我推荐了一本书，叫做《Web 全栈工程师的自我修养》，作者是余果，之前我还写过一篇读后感，感兴趣的话也可以读一下，《对全栈的一些思考》
+挺好的一本书，也很畅销，读完电子版的，我还专门为此买了一本纸质的书，表示支持一下作者。
+然后了解到作者在大学时期就开始写个人博客，在深入了解过程中，我觉得他的思想真的不错，写的内容也很有深度，虽然很多文章跟技术无关，但是不可否认是好文章。（现在他已经转到微信公告号了，有兴趣搜一下：余果的专栏）。然后我就对他挺感兴趣的，以及对于个人博客这件事也突然有了更多的兴趣。
+我感觉这是一个自己的私人领域，可以自由发挥，更像是自己盖了一栋房子，至于房子盖成什么样，就看自己的能力了。
+一开始我选择的是 hexo 静态博客，他有很多优势，免费，部署快，可以不断的白嫖 github 仓库存储，包括文章，图片等，只要你愿意折腾，总有办法可以解决。
+然后还有很多大佬开发了各种各样的插件，还有各种第三方平台。hexo 官网的主题也是相当丰富，都是个人开发者做出来，总能找到自己喜欢的那一款。
+为此我还开发一款轻量的纯文字主题，simple99，感兴趣的话可以在官方列表搜索到，这里就不贴链接了，有夹带私货的嫌疑。
+之后，我就把自己之前写的笔记都放在了这个博客中，部署之后自己查看的时候，也挺有成就感的。
+本质 隔了两个月，开始继续更新这篇博客，接下来我会持续讲述自己的道路&hellip;
+不知不觉已经写了一年的博客，从最开始兴奋，冲动，到现在的平息了内心的悸动，这一场心理历程，其实走的颇为坎坷。
+中间有一段时间，频繁更换博客程序，hexo, hugo, halo, wordpress, typecho
+最后终于确定了 hugo，一方面因为它是静态的系统，不需要服务器和数据库，可以随意在任何支持的平台部署（虽然最后我还是为了速度，将它部署在服务器上），而且它渲染的速度相当快，当文章越来越多时，使用 hexo 会渲染 10 多秒，让我感到很难受，因此我选择了速度更快的 hugo。
+度过那段时间后，我感觉自己内心平静了很多，不会再为这些事情而折腾，处于一个平静期的状态。我想，这大概就是每个博主都要经历的阶段吧，抛去花里胡哨的外表，直击博客的本质。
+我把它总结出四个字 &mdash; 记录、分享。
+现在我认识很多新的博主，大部分都是刚刚接触，内心感官就是新奇，渴望部署一个让自己满意的博客，我都会指点一些细节和心得，也很开心。毕竟，在这个博客衰败，碎片化信息的时代，还有人能喜欢这个圈子，这确让人感到开心。
+我会鼓励他们自己动手解决问题，然后进行思考，得出结果，这无疑是很令各位博主有成就感的。
+有时候我也会写一些教程，或者开发的小插件分享出去，有需要的伙伴就可以到搜索引擎输入关键字，或许可以看到我的文章，这也让我感到荣幸。
+反思 很多时候，我都会审视自己，在这个时代要不要继续坚持下去写博客，大部分人做的都是公众号，自媒体等等。这也是时代的趋势。然后我自己慢慢思考，拨开云雾见光明，我发现我想要的不是自媒体那样的感觉，我更渴望拥有自己的一片净土，偶尔放一些新奇的玩意，然后写写自己的生活记录和一些技术笔记。
+我知道自己的水平远达不到大神的地步，单纯的想写点东西。仅此而已，不为其他。
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/73.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">将数据库中的图片信息导出并调用</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2021-07-09T00:00:00Z">2021-07-09</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		接口链接：http://121.196.166.173/img/img.php 展示 demo：http://121.196.166.173/img
+前言 为了写博客以及其他的一些用途，我使用服务器搭建了一个连接 github 仓库的上传网页，并且在数据库中记录上传的信息，比如缩略名、时间戳和图片链接。分别对应 GitHub 仓库中的图片，但是后期我发现在 GitHub 查看图片非常别扭，因此我打算写一个可展示图片的网页，把 GitHub 仓库中的图片通过链接展示出来，当然我们不可能一张张复制，还好有数据库。
+看一下具体内容
+写一个接口 很好，拥有我们需要的字段。事不宜迟，直接开动，下面是完成的接口代码。
+&lt;?php header(&#39;Content-Type:application/json; charset=utf-8&#39;); header(&#34;Access-Control-Allow-Origin:*&#34;); $servername = &#34;localhost&#34;; $username = &#34;imgbed&#34;; $password = &#34;imgbed&#34;; $dbname = &#34;imgbed&#34;; // 创建连接 $conn = new mysqli($servername, $username, $password, $dbname); // 检测连接 if ($conn-&gt;connect_error) { die(&#34;连接失败：&#34; . $conn-&gt;connect_error); } // imgmd5 名称转 md5 // imguploadtime 上传时间戳 // imgurl 链接 // 上传 ip $sql = &#34;select imgmd5,imguploadtime,imgurl,imguploadip from remote_imgs &#34;; $result = $conn-&gt;query($sql); if ($result-&gt;num_rows &gt; 0) { // 输出数据 while($row = $result-&gt;fetch_assoc()) { $data[]=$row; } $json = json_encode($data,JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);//把数据转换为 JSON 数据。 exit($json) ; } else { echo &#34;未查询到结果！&#34;; } $conn-&gt;close(); ?&gt; 分别将缩略名，时间戳，图片链接，和上传 ip 通过 json 格式导出，非常完美。接口链接：http://121.196.166.173/img/img.php
+使用 ajax 进行调用 然后只需要在前端将接口调用，然后简单写一个页面即可，下面是 html 代码，，通过 ajax 调用。
+&lt;!DOCTYPE html&gt; &lt;html lang=&#34;en&#34;&gt; &lt;head&gt; &lt;meta charset=&#34;UTF-8&#34;&gt; &lt;meta http-equiv=&#34;X-UA-Compatible&#34; content=&#34;IE=edge&#34;&gt; &lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1.0&#34;&gt; &lt;title&gt;图床&lt;/title&gt; &lt;style&gt; .container { max-width: 1000px; margin: 40px auto; display: flex; flex-wrap: wrap; justify-content: space-between; } .item { width:300px; /* height: 300px; */ overflow: hidden; border: 2px solid #bbb; margin-bottom: 24px; } .item a{ display: block; width: 300px; /* height: 300px; */ overflow: hidden; } .item img{ max-width: 300px; max-height: 300px; } &lt;/style&gt; &lt;/head&gt; &lt;body&gt; &lt;div class=&#34;container&#34;&gt;&lt;/div&gt; &lt;script src=&#34;https://cdn.zburu.com/list/jquery3.6.0.js&#34;&gt;&lt;/script&gt; &lt;script&gt; var str = &#39;&#39;; $.ajax({ url: &#39;http://121.196.166.173/img/img.php&#39;, type: &#39;get&#39;, dataType: &#39;json&#39;, async: false, success: function (data) { $.each(data, function (i, item) { console.log(item) list = &#34;&lt;div class=&#39;item&#39;&gt;&lt;p&gt;缩略名：&#34; + item.imgmd5 + &#34;&lt;/p&gt;&#34; + &#34;&lt;p&gt;时间戳：&#34; + item.imguploadtime + &#34;&lt;/p&gt;&#34; + &#34;&lt;a target=&#39;_blank&#39; href=&#39;&#34;+ item.imgurl +&#34;&#39;&gt;&lt;img src=&#39;&#34; + item.imgurl + &#34;&#39;&gt;&lt;/a&gt;&#34; + &#34;&lt;p&gt;上传 ip：&#34; + item.imguploadip + &#34;&lt;/p&gt;&lt;/div&gt;&#34; str += list; }), $(&#34;.container&#34;).html(str); console.log(&#39;数据请求成功&#39;) }, error: function () { console.log(&#39;数据请求失败&#39;) } }); &lt;/script&gt; &lt;/body&gt; &lt;/html&gt; 最后我把这个页面传到我的服务器当中，可以看一下效果 http://121.196.166.173/img
+时间仓促，我也没使用更好的 ui 进行优化，只是大致写一下这个过程，待到以后具体使用时，我会对这个展示图片的页面进一步优化。
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/72.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">冷知识世界新增一个大洋变成五大洋</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2021-06-10T00:00:00Z">2021-06-10</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		从 6 月 8 日世界海洋日开始，南大洋将被认定为世界第五大洋。世界上就有七大洲，五大洋啦！中学课文需要改一改了。
+美国国家地理学会宣布，南极洲周围海域将被称为南大洋，并正式承认南大洋为地球第五大洋。
+南大洋是海洋生态系统的重要家园，也是南半球的焦点。它直接包围着南极洲，从大陆的海岸线一直延伸到南纬 60 度。
+海洋的边界与其他四个大洋中的三个相连——大西洋、印度洋和太平洋。但南大洋与其它大洋的不同之处在于，它在很大程度上不是由周围的陆地决定的，而是由于内部有一股洋流，这片水域很独特。
+	</div>
+</article>
+
+</main>
+
+<div class="pagination">
+	<a class="pagination__item pagination__item--prev btn" href="/page/19/">«</a>
+	<span class="pagination__item pagination__item--current">20/27</span>
+	<a class="pagination__item pagination__item--next btn" href="/page/21/">»</a>
+</div>
+
+			</div>
+			<aside class="sidebar">
+<div class="widget-misc widget">
+    <h4 class="widget-misc__title widget__title">MISC</h4>
+    <div class="widget-misc__content widget__content">
+        <ul class="item-list">
+            
+            <li class="widget-misc__item widget__item">
+                <a class="widget-misc__link widget__link btn" title="周刊"  rel="noopener noreferrer" href="/categories/weekly/">
+                    <span>周刊</span>
+                </a>
+            </li>
+            
+            <li class="widget-misc__item widget__item">
+                <a class="widget-misc__link widget__link btn" title="技术"  rel="noopener noreferrer" href="/categories/%e6%8a%80%e6%9c%af/">
+                    <span>技术</span>
+                </a>
+            </li>
+            
+            <li class="widget-misc__item widget__item">
+                <a class="widget-misc__link widget__link btn" title="随笔"  rel="noopener noreferrer" href="/categories/%e9%9a%8f%e7%ac%94/">
+                    <span>随笔</span>
+                </a>
+            </li>
+            
+            <li class="widget-misc__item widget__item">
+                <a class="widget-misc__link widget__link btn" title="留言"  rel="noopener noreferrer" href="/message">
+                    <span>留言</span>
+                </a>
+            </li>
+            
+            <li class="widget-misc__item widget__item">
+                <a class="widget-misc__link widget__link btn" title="关于我"  rel="noopener noreferrer" href="/about">
+                    <span>关于我</span>
+                </a>
+            </li>
+            
+            <li class="widget-misc__item widget__item">
+                <a class="widget-misc__link widget__link btn" title="GitHub"  rel="noopener noreferrer" href="https://github.com/dlzmoe">
+                    <span>GitHub</span>
+                </a>
+            </li>
+            
+            <li class="widget-misc__item widget__item">
+                <a class="widget-misc__link widget__link btn" title="RSS"  rel="noopener noreferrer" href="/index.xml">
+                    <span>RSS</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+<div class="widget-taglist widget">
+    <h4 class="widget__title">TAGS</h4>
+    <div class="widget__content">
+      <ul class="tag-list">
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/ajax/" title="Ajax">Ajax (5)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/ant-design/" title="Ant Design">Ant Design (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/aos/" title="Aos">Aos (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/axios/" title="Axios">Axios (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/bitwarden/" title="Bitwarden">Bitwarden (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/canvas/" title="Canvas">Canvas (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/chrome/" title="Chrome">Chrome (2)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/cloudflare/" title="Cloudflare">Cloudflare (2)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/css/" title="Css">Css (8)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/docker/" title="Docker">Docker (2)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/docsify/" title="Docsify">Docsify (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/es6/" title="ES6">ES6 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/github/" title="GitHub">GitHub (4)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/gravatar/" title="Gravatar">Gravatar (2)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/hugo/" title="Hugo">Hugo (2)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/hugofast/" title="HugoFast">HugoFast (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/ie/" title="IE">IE (3)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/jquery/" title="Jquery">Jquery (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/js/" title="Js">Js (24)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/jsdelivr/" title="Jsdelivr">Jsdelivr (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/json/" title="Json">Json (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/markdown/" title="Markdown">Markdown (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/memos/" title="Memos">Memos (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/npm/" title="Npm">Npm (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/nuxt/" title="Nuxt">Nuxt (2)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/php/" title="Php">Php (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/python/" title="Python">Python (2)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/react/" title="React">React (11)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/rustdesk/" title="RustDesk">RustDesk (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/serve00/" title="Serve00">Serve00 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/sql/" title="Sql">Sql (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/typecho/" title="Typecho">Typecho (4)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/v2ex/" title="V2ex">V2ex (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/vaultwarden/" title="Vaultwarden">Vaultwarden (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/vite/" title="Vite">Vite (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/vue/" title="Vue">Vue (11)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/webpack/" title="Webpack">Webpack (2)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/weekly/" title="Weekly">Weekly (64)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/win11/" title="Win11">Win11 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E4%B8%83%E6%97%A5%E8%B0%88/" title="七日谈">七日谈 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E4%B8%BB%E9%A2%98%E5%BC%80%E5%8F%91/" title="主题开发">主题开发 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E4%BF%A1%E6%81%AF%E8%8C%A7%E6%88%BF/" title="信息茧房">信息茧房 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E5%87%BA%E8%A1%8C/" title="出行">出行 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E5%8D%9A%E5%AE%A2/" title="博客">博客 (15)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E5%8D%9A%E7%89%A9%E9%A6%86/" title="博物馆">博物馆 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E5%8E%9F%E5%88%9B/" title="原创">原创 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E5%8E%A8%E6%88%BF/" title="厨房">厨房 (2)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E5%9B%BE%E5%BA%8A/" title="图床">图床 (2)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E5%9B%BE%E7%89%87/" title="图片">图片 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E5%9C%B0%E7%90%86/" title="地理">地理 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E5%9D%9A%E6%9E%9C%E4%BA%91/" title="坚果云">坚果云 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E5%A4%87%E4%BB%BD/" title="备份">备份 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E5%AD%97%E4%BD%93/" title="字体">字体 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E5%AE%9D%E5%A1%94/" title="宝塔">宝塔 (4)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E5%AF%86%E7%A0%81%E7%AE%A1%E7%90%86/" title="密码管理">密码管理 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E5%B7%A5%E5%85%B7/" title="工具">工具 (2)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E6%80%9D%E6%BA%90%E7%AC%94%E8%AE%B0/" title="思源笔记">思源笔记 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E6%80%BB%E7%BB%93/" title="总结">总结 (5)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E6%84%9F%E6%83%B3/" title="感想">感想 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E6%8A%A5%E9%94%99/" title="报错">报错 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E6%8B%86%E6%9C%BA/" title="拆机">拆机 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E6%8E%98%E9%87%91/" title="掘金">掘金 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E6%8F%92%E4%BB%B6/" title="插件">插件 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E6%90%9C%E7%B4%A2/" title="搜索">搜索 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" title="数据库">数据库 (3)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E6%96%B0%E5%86%A0/" title="新冠">新冠 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E6%96%B0%E9%97%BB/" title="新闻">新闻 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E6%97%85%E6%B8%B8/" title="旅游">旅游 (8)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E6%97%A5%E5%87%BA/" title="日出">日出 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E6%97%A5%E8%AE%B0/" title="日记">日记 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E6%97%B6%E9%97%B4%E6%88%B3/" title="时间戳">时间戳 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E6%9C%88%E5%85%A8%E9%A3%9F/" title="月全食">月全食 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="服务器">服务器 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E6%9D%82%E8%B0%88/" title="杂谈">杂谈 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E6%A2%A6/" title="梦">梦 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E6%B2%B9%E7%8C%B4%E8%84%9A%E6%9C%AC/" title="油猴脚本">油猴脚本 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" title="浏览器">浏览器 (4)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E7%94%B5%E5%BD%B1/" title="电影">电影 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E7%9F%AD%E7%AF%87%E5%B0%8F%E8%AF%B4/" title="短篇小说">短篇小说 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E7%AC%91%E8%AF%9D/" title="笑话">笑话 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E7%AC%94%E8%AE%B0/" title="笔记">笔记 (16)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E7%AC%94%E8%AE%B0%E6%9C%AC%E7%94%B5%E8%84%91/" title="笔记本电脑">笔记本电脑 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E7%BB%84%E4%BB%B6/" title="组件">组件 (2)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E7%BC%96%E7%A8%8B/" title="编程">编程 (4)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E7%BD%91%E7%AB%99/" title="网站">网站 (2)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E7%BF%BB%E8%AF%91/" title="翻译">翻译 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E8%84%9A%E6%9C%AC/" title="脚本">脚本 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E8%88%AA%E6%8B%8D/" title="航拍">航拍 (2)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E8%AF%84%E8%AE%BA/" title="评论">评论 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E8%AF%B4%E8%AF%B4/" title="说说">说说 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E8%AF%BB%E4%B9%A6/" title="读书">读书 (3)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E8%B0%B7%E6%AD%8C%E6%8F%92%E4%BB%B6/" title="谷歌插件">谷歌插件 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E8%B7%AF%E7%94%B1/" title="路由">路由 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E8%BD%AC%E8%BD%BD/" title="转载">转载 (3)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E9%82%AE%E7%AE%B1/" title="邮箱">邮箱 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E9%9A%8F%E6%83%B3%E5%BD%95/" title="随想录">随想录 (10)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E9%9A%8F%E6%89%8B%E6%8B%8D/" title="随手拍">随手拍 (29)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E9%9A%8F%E7%AC%94/" title="随笔">随笔 (19)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E9%9F%B3%E4%B9%90/" title="音乐">音乐 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E9%AA%91%E8%A1%8C/" title="骑行">骑行 (4)</a>
+            </li>
+      </ul>
+    </div>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">RECENT POSTS</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/blog/236.html/">Github 仓库同步到 Cloudflare R2</a>
+			</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/blog/weekly-64.html/">奇趣周刊 - 第 64 期</a>
+			</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/blog/235.html/">逃离杭州随想</a>
+			</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/blog/234.html/">vite 配置相关笔记</a>
+			</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/blog/weekly-63.html/">奇趣周刊 - 第 63 期</a>
+			</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/blog/233.html/">serve00 如何登录？</a>
+			</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/blog/weekly-62.html/">奇趣周刊 - 第 62 期</a>
+			</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/blog/weekly-61.html/">奇趣周刊 - 第 61 期</a>
+			</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/blog/232.html/">马家坞看日出</a>
+			</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/blog/weekly-60.html/">奇趣周刊 - 第 60 期</a>
+			</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/blog/231.html/">杭州国家版本馆文润阁</a>
+			</li>
+		</ul>
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2024 子舒的博客, 
+			使用 hugo 构建
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [["$", "$"]],
+      },
+      displayMath: [
+        ["$$", "$$"],
+        ["\[\[", "\]\]"],
+      ],
+      svg: {
+        fontCache: "global",
+      },
+    };
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script
+    id="MathJax-script"
+    async
+    src="https://gcore.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+  ></script>
+</body>
+</html>

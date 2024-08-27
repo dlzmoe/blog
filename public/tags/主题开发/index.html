@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+	<title>主题开发 - 子舒的博客</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+	<link rel="alternate" type="application/rss+xml" href="/tags/%E4%B8%BB%E9%A2%98%E5%BC%80%E5%8F%91/index.xml" title="子舒的博客">
+
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="topbar">
+		<a class="topbar__link" href="/" title="子舒的博客" rel="sidebar">
+			<div class="topbar__item topbar__text">
+					<div class="topbar__title">子舒的博客</div>
+					<div class="topbar__tagline">The Tao that is utterable is not the eternal Tao</div>
+				</div>
+		</a>
+	</div>
+		
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main list" role="main">
+	<header class="main__header">
+		<h1 class="main__title">主题开发</h1>
+	</header><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/154.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">Anghunk 主题如何在后台评论列表解析表情？</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2022-07-30T00:00:00Z">2022-07-30</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		本文专为 Anghunk 主题开发文档而写。 https://github.com/dlzmoe/Anghunk
+方案是在梦繁星的协助下完成的。
+介绍 Anghunk 评论携带很多精美的表情，但是正常情况下 Typecho 后台是没办法正常解析这些表情的。如下图；
+但是，经过我解析表情之后，就可以变成下面这样，使用主题如果需要这种功能，可以按照我下面的步骤进行改造。
+修改 打开 /admin/manage-comments.php 文件，在题头插入：
+/* * 解析表情 */ function getparseBiaoQingComment($content) { $emopath=$_SERVER[&#39;REQUEST_SCHEME&#39;].&#34;:&#34;. DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR . $_SERVER[&#39;HTTP_HOST&#39;]; $emo = false; global $emo; if(!$emo) { $emo = json_decode(file_get_contents(dirname(dirname(dirname(__FILE__))).&#39;/zburu.com/usr/themes/dlzmoe/libs/OwO.json&#39;), true); } foreach ($emo as $v) { if($v[&#39;type&#39;] == &#39;image&#39;) { foreach ($v[&#39;container&#39;] as $vv) { $emoaa=&#34;::&#34;.$v[&#39;name&#39;].&#34;:&#34;.$vv[&#39;icon&#39;].&#34;::&#34;; $content = str_replace($emoaa, &#39; &lt;img style=&#34;max-height:40px;vertical-align:middle;&#34; src=&#34;&#39;.$emopath.&#39;/usr/themes/dlzmoe/libs/emotion/&#39;.$v[&#39;name&#39;].&#39;/&#39;.$vv[&#39;icon&#39;] .&#39;.png&#34; alt=&#34;&#39;.$vv[&#39;text&#39;] .&#39;&#34;&gt; &#39;, $content); } } } return $content; } 注意我放置的位置，必须要要 &lt;?php ... ?&gt; 之间
+**找到 第166行，修改一下，把标签中的代码替换为下方标注的。 **
+&lt;div class=&#34;comment-content&#34;&gt; &lt;!-- 解析输出带表情的评论 --&gt; &lt;?php $con=$comments-&gt;content; echo getparseBiaoQingComment($con); ?&gt; &lt;/div&gt; 之后回到后台评论列表就可以看到评论成功被解析了，本方法仅适用于 Anghunk 主题。
+	</div>
+</article>
+
+</main>
+
+
+			</div>
+			
+
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2024 子舒的博客, 
+			使用 hugo 构建
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [["$", "$"]],
+      },
+      displayMath: [
+        ["$$", "$$"],
+        ["\[\[", "\]\]"],
+      ],
+      svg: {
+        fontCache: "global",
+      },
+    };
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script
+    id="MathJax-script"
+    async
+    src="https://gcore.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+  ></script>
+</body>
+</html>

@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta name="generator" content="Hugo 0.123.6">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+	<title>子舒的博客</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+	<link rel="alternate" type="application/rss+xml" href="/index.xml" title="子舒的博客">
+
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="topbar">
+		<a class="topbar__link" href="/" title="子舒的博客" rel="sidebar">
+			<div class="topbar__item topbar__text">
+					<div class="topbar__title">子舒的博客</div>
+					<div class="topbar__tagline">The Tao that is utterable is not the eternal Tao</div>
+				</div>
+		</a>
+	</div>
+		
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main list" role="main">
+	<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/71.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">在 vue 中使用 axios 调用数据</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2021-06-08T00:00:00Z">2021-06-08</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		如何在 vue 中完成一次接口的调用？首选就是 axios，方便快捷又好用，支持各种 api ,封装也很方便。
+先用 node 安装一下。
+npm install axios 然后在 main.js 文件中引入。
+import axios from &#39;axios&#39; import VueAxios from &#39;vue-axios&#39; Vue.use(VueAxios, axios) 以我的一个工程目录作为实例，看一下代码。
+// ListThere.vue // html 代码 ... &lt;div&gt;{{ info }}&lt;/div&gt; ... // js 代码 import axios from &#34;axios&#34;; export default { name: &#34;ListThere&#34;, data() { return { ... }; }, components: { ... }, methods: { ... }, mounted() { axios .get(&#34;http://api.h-camel.com/api?mod=interview&amp;ctr=issues&amp;act=today&#34;) .then((response) =&gt; (this.info = response)) }, }; 数据成功的被取到，然后需要将它在页面中展示出来。使用 vue 自带的 v-for 列表渲染。
+&lt;ul class=&#34;list-api-show&#34;&gt; &lt;li v-for=&#34;(item, index) in show&#34; :key=&#34;index&#34;&gt; {{ item.title }} &lt;/li&gt; &lt;/ul&gt; 然后通过 axios 把数据指向 v-for.
+mounted() { axios // ... .then((response) =&gt; (this.show = response.data.result.today)) } 数据成功取出然后展示在 v-for 里面。
+当然了，这是成功的情况，加入失败了呢？我们需要浏览器给出提示，所以 axios 给出了一个 api &mdash; err 语法。
+mounted() { axios // ... .catch(function (error) { if (error.response) { console.log(error.response.data); console.log(error.response.status); console.log(error.response.headers); console.log(&#39;err&#39;) } else if (error.request) { console.log(error.request); console.log(&#39;err&#39;) } else { console.log(&#39;Error&#39;, error.message); console.log(&#39;err&#39;) } console.log(error.config); console.log(&#39;err&#39;) }); } 如果接口有问题，或者我们调用时代码写错了，都会给出报错提示，具体什么样的错误会有什么样的警告，需要我们一一去经历摸索。
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/70.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">宝塔如何实现进程守护？</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2021-05-30T00:00:00Z">2021-05-30</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		为了方便写一些东西，pc 端和手机端都可以同步，我用 leanote 搭建了一个在线笔记，但是必须在服务器后台运行一个指令
+base run.sh 不然就访问不了端口，我也不可能时刻在终端保持指令运行，所以就需要把指令放在服务器后台，让它自己保持运行，刚好有这么一插件 Supervisor管理器 2.2 。
+是一款免费的 Python 插件，点击下载即可，然后进入设置。
+点击添加进程守护。
+把进程环境目录和启动命令都填好，名称就随便写个自己能分辨出来的就行，最后点击确定。
+让它一直保持启动状态就可以，其他的不用动，以后就不用打开服务器终端输入指令了，直接在浏览器访问端口，就可以访问网页。
+如果为了更方便，做个反代处理即可。
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/69.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">css 中 fixed 定位属性和动画的冲突问题及解决方法</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2021-05-27T00:00:00Z">2021-05-27</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		1.问题 css 中使用动画属性会和同标签下的 fixed 属性冲突，导致定位失效，那么该如何解决他呢？
+2.分析 简单说一下问题产生的背景，昨天夜里我想给我的博客页面做一个简单的动画，浏览器刷新的时候从下往上渐现的效果，代码如下：
+/* index-container 类名是页面的主体部分 */ .index-container { opacity: 0; animation-name: index; animation-duration: 0.7s; animation-fill-mode: forwards; } /* 一个简单的动画实现 */ @keyframes index { 0% { transform: translateY(100px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } } 运行之后发现，动画可以很好的显示，但是当我翻阅文章详情的时候发现，目录固定失效了。
+按照原来的设置是当页面往下滑动的时候，目录会紧贴浏览器的顶部，方便跳转和查看目录，但是现在它已经不能紧贴了。看一下浏览器设置，属性确实生效了，但是页面并没有显示我们想要的结果。
+之前我写目录固定事件的时候用的是 scroll 事件，然后昨天写动画，绑定的 onload 事件，我初步判断是两个 window 冲突了，导致第二个失效，所以我就改了一种写法，用 addEventListener 事件监听执行他们，但最终无论怎么写，目录固定始终不能生效。
+昨天熬得太晚了，就没管它放在那了，今天一早我就去张鑫旭的网站查了一下，果然有这么一个问题。
+参考文章：https://www.zhangxinxu.com/wordpress/2015/05/css3-transform-affect/
+但是文章只是介绍了问题产生的原因，并没有明确给出一个好的解决办法。
+3.方法 虽然没有明确的方法，但是给了我一个思路，因为动画中的一些属性，比如 scale、translate 等，会造车容器的宽高重新计算，而 fixed 属性则依赖于规定的一个像素值，所以当执行动画的时候，页面的高度发生了变化，所以 fixed 不能安心的执行自己的任务了。
+原因找到了，方法自然而然就出来了，看图（图很丑，手画的，能理解意思就行）
+这是我最开始的布局，我将动画绑定给 红色框 的容器了，而目录就在红色框内，所以失效。
+现在我重新布局一下，
+目录依旧处于侧边，但是我将他和通常的侧边栏分开成两个容器了，现在我把动画绑定给 主体部分 和 侧边栏 ，这样目录就和绑定动画的标签分开了。
+再到页面测试，发现没有任何问题，动画效果和目录固定互不影响。
+很快乐，又可以愉快地折腾了！
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/68.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">Oracle 数据库安装教程（超详细）</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2021-05-13T00:00:00Z">2021-05-13</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		转载自：https://www.moeor.com/26.html
+前言 本教程讲解 Oracle Database Express Edition (XE) Release 11.2.0.2.0 (11gR2) 版本的下载安装教程！
+该版本是一个便携式安装版本，直接安装，就可以了，非常方便。
+由于官网的更新，找不到以前那种提供客户端服务端的安装了，所以这里不再讲解！
+准备 访问 Oracle 官网下载该版本数据库。下载时需要登录账号，可百度搜索共享的 Oracle 账号！
+下载地址：https://www.oracle.com/database/technologies/xe-prior-releases.html
+选择适合自己的系统版本，本文以 Win10 为例。建议使用下载工具或者科学上网，下载更快！
+安装 Oracle 下载后解压缩，双击打开文件夹中的“setup.exe&quot; 安装程序，等待程序启动，进入安装程序。
+开始安装，单击“下一步”
+选择“我接受本许可协议中的条款”，然后单击“下一步”。
+这一步是选择安装位置，由于文件程序比较大，建议安装 D 盘。新建一个 Oracle 文件夹，点击“浏览”，选择文件夹，注意查看目标文件夹，文件路径，然后单击“下一步”。
+设置数据库的登录口令，即数据库密码，建议简单一点，比如：root，然后单击“下一步”。
+单击“安装”，开始安装。
+安装过程比较慢，耐心等待安装完成！
+安装完成后，单击“完成”，即 Oracle 11gR2 已经安装完成了。
+安装完成会在桌面新建一个图标，打开可以通过以 web 形式访问数据库。
+双击打开，可能会弹出以下错误提示，这个是没有影响的，安装完成后重启一点电脑就可以了！
+验证数据库 选择桌面生成的图标
+鼠标右键打开文件所在位置，弹出文件夹，往上翻，在文件夹中找到 bin 文件夹。
+双击，进入 bin 文件夹，往下翻，找到 sqlplus.exe 程序。
+双击运行。
+输入用户名：system（统一默认都是 system），回车
+输入口令：（刚才安装时设置的口令），口令输入是不显示的，直接回车就行了。
+若出现“连接到：Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production”语句时，则安装成功！
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/67.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">Typecho 博客搭建及优化教程 (详细)</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2021-05-11T00:00:00Z">2021-05-11</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		1.前言 本文从Typecho 简介开始讲解，其中包括服务器的选择，以及域名注册，服务器系统选择，宝塔安装，环境配置，Typecho 安装包括中间的防采坑注意事项，为您提供完整的保姆级搭建流程，请珍惜哦！
+如果不喜欢前面的啰嗦讲解，请跳过，直接从宝塔安装开始。
+不喜勿喷，谢谢！
+需要买服务器可以 点击链接在腾讯云购买服务器有优惠哦~ 不嫖白不嫖，省个十几二十块钱不香吗？
+2.Typecho 简介 Typecho 基于 PHP5 开发，支持多种数据库，是一款内核强健﹑扩展方便﹑体验友好﹑运行流畅的轻量级开源博客程序。
+Typecho 非常简洁，仅仅 7 张数据表，加上不足 400KB 的代码，就实现了完整的插件与模板机制。超低的 CPU 和内存使用率，足以发挥主机的最高性能。
+原生支持 Markdown 语法，易读更易写。支持 BAE/GAE/SAE 等各类云主机，即使面对突如其来的高访问量，也能轻松应对。
+Typecho 的默认模板和后台，全部采用了响应式设计。所以 Typecho 的大多数自制模板，都采用了自适应设计。
+现在Typecho 拥有很多用户，完整的生态，各种功能插件和简洁优美的主题，是做博客的不二选择，相信你会喜欢上她简洁的风格！
+3.准备 服务器 + 域名
+搭建Typecho 博客需要使用服务器或者虚拟机，最近也看到一篇使用 Vercel+Mysql 搭建 Typecho 的文章，但是这种是使用外部 Mysql 服务的，相比使用服务器或者虚拟机这种还是不太方便配置和管理的。使用服务器相比虚拟机会更加的好用。
+**注：**本文只讲解服务器的搭建流程，虚拟机请参考！
+**服务器选择：**推荐去腾讯云或阿里云，有学生机（9 元/月）可供选择，腾讯云还是 25 岁以下免学生认证的，学生价续费三次，所以有条件可以选择 1 年购买和续费，腾讯的还有免费升配置，，阿里云的学生机下架了，但是也可以买为新用户提供的，建议选择 轻量应用服务器，1h2g 的配置完全够用，流量也完全够用。
+腾讯云：https://cloud.tencent.com/act/campus
+阿里云：https://developer.aliyun.com/plan/grow-up
+如果你买不了这种，也可以去其他服务商买新用户优惠的服务器，建议选择大厂。
+选择服务器要看下地区，如果是大陆地区的服务器，需要去其对应的服务商进行域名备案，否者你无法使用，如果是香港地区或者国外的服务器，则不需要进行备案。
+**注：**阿里和腾讯这两种轻量应用服务器都是需要 备案的，如果嫌麻烦或者不想备案，可选择其他地区的服务器！
+备案操作有些复杂，也需要好几天的时间，但是备案也有备案的好处，比如使用国内的 CDN 加速等。另请仔细参考各服务商提供的流程，要注意看清备案流程上的注意事项，防止备案驳回浪费时间。
+相比国外和香港的服务器，使用大陆的服务器在国内的访问速度是最好的，当然如果你搞外国业务当我没说。。。
+**域名选择：**域名选择很简单，去各大服务商注册一个就完事了，喜欢什么就注册什么，但是如果你要备案使用大陆服务器，一定不要注册不支持备案的域名，当然绝大多数都是支持备案的。另各大服务商也有新用户注册域名优惠活动，在百度仔细找一下就行了。 腾讯云：https://cloud.tencent.com/act/domainsales
+阿里云：https://wanwang.aliyun.com/domain
+华为云：https://activity.huaweicloud.com/domain1.html
+下面开始搭建流程：
+4.LNMP 环境 首先我们要搭建的就是 LNMP 环境，LNMP 代表的就是：Linux 系统下 Nginx+MySQL+PHP 这种网站服务器架构。
+Linux 是一类 Unix 计算机操作系统的统称，是目前最流行的免费操作系统。代表版本有：debian、centos、ubuntu、fedora、gentoo 等。
+Nginx 是一个高性能的 HTTP 和反向代理 web 服务器，同时也提供了 IMAP/POP3/SMTP 服务。
+Mysql 是一款安全、跨平台、高效的，并与 PHP、Java 等主流编程语言紧密结合的数据库系统。
+PHP 是一种在服务器端执行的嵌入 HTML 文档的脚本语言。
+当然如果你不喜欢使用 Nginx，或者 Mysql，请自行更换其它的，这里不过多介绍！
+Linux 系统的话，本文使用 Centos 8 系统讲解。
+搭建 LNMP 环境，我们可以选择自行下载对应的安装包，然后在 Centos 系统中，安装Nginx，Mysql，PHP等，这种纯动手的方式，非常麻烦和复杂，在后期进行多网站管理和配置 HTTPS 证书，以及网站伪静态配置时非常麻烦。
+所以本文讲解使用宝塔面板来进行安装部署环境！
+5.宝塔是什么 宝塔面板是一款服务器管理软件，支持 windows 和 linux 系统，可以通过 Web 端轻松管理服务器，提升运维效率。例如：创建管理网站、FTP、数据库，拥有可视化文件管理器，可视化软件管理器，可视化 CPU、内存、流量监控图表，计划任务等功能。
+宝塔面板拥有极速方便的一键配置与管理，可一键配置服务器环境（LAMP/LNMP/Tomcat/Node.js），一键部署 SSL，异地备份；提供 SSH 开启关闭服务，SSH 端口更改，禁 ping，防火墙端口放行以及操作日志查看；CPU、内存、磁盘 IO、网络 IO 数据监测，可设置记录保存天数以及任意查看某天数据；
+计划任务可按周期添加执行，支持 SHELL 脚本，提供网站、数据库备份以及日志切割，且支持一键备份到又拍云存储空间，或者其他云存储空间里；通过 web 界面就可以轻松管理安装所用的服务器软件，还有实用的扩展插件；集成方便高效的文件管理器，支持上传、下载、打包、解压以及文件编辑查看。
+进入搭建正题：
+6.安装宝塔 选择服务器时，选择系统镜像，不要选择服务商提供的应用镜像，操作系统选择 Centos，版本的话 7 和 8 都可以。当然你也可以选择其他系统，，，
+接着到服务商的控制台，找到你的服务器，进入控制台，重置密码。
+然后在安全&ndash;》防火墙那里添加规则。
+端口范围8888，其他默认，备注随意。
+**注：**如果你不添加 8888，安装宝塔以后你是进不去的，安装宝塔以后可以修改宝塔的进入端口，再修改一下这里就可以了！
+使用 SSH 工具连接你的服务器，如果没有 SSH 工具也可以使用控制台那里提供的远程连接！
+在终端界面输入一下命令开始安装！
+Centos 安装命令：
+yum install -y wget &amp;&amp; wget -O install.sh http://download.bt.cn/install/install_6.0.sh &amp;&amp; sh install.sh 不同操作系统有不同的安装命令，详情请去宝塔官网查看！
+遇到安装提示直接输入：y
+安装完成后如下：
+在浏览器中访问外网面板地址。
+**注：**如果你刚才没有在服务器控制台安全防火墙那里添加端口 8888 是打不开的。
+使用 username 和 password 登录宝塔面板，点击我已阅读并同意“《用户协议》”后进入宝塔面板！
+进入宝塔面板后，会弹出一键安装环境套件选择界面，这时我们选择左边的 LNMP 环境！
+Nginx 1.18，Mysql 5.6（如果服务器内存在 2g 以上可以选择 5.7），PHP 7.4（php 建议版本选择 7.0 以上），Pure-Ftpd 1.0.49，phpMyAdmin 5.0（这是一个可以在浏览器页面管理数据库的软件程序，要在服务器控制台安全防火墙那里添加端口 888，否则无法打开）
+安装方式有两个，极速安装（安装速度快，节省时间），编译安装（安装速度超级慢，有时会卡死，但会提升服务器性能），可自行选择。本文以极速安装为例！
+安装过程：
+安装完成后，会提示绑定宝塔账号，点击免费注册，去注册一个，然后绑定就可以了！
+**说明：**建议，安装完成后，左侧，面板设置，设置下面板的登录信息，修改一下登录入口，用户名，密码和端口。 注： 如果修改面板设置中的端口，也要在服务器控制台安全防火墙那里修改端口。
+7.安装 Typecho 访问Typecho 官网，点击立即下载，点击下载 1.1 正式版。
+下载完成后，得到一个 1.1-17.10.30-release.tar.gz 压缩包，解压后可以看到里面有一个 build 文件夹，文件夹里面便是 Typecho 程序文件。
+先域名解析一下，去你的域名服务商，控制台找到你的域名，解析，添加记录。主机记录填写@，www 或者 blog 其他的都可以（你填写的是什么就要以什么访问，比如填写 www 便是 www.xxx.com 等），记录类型 A 类型，记录值填写自己服务器的 IP 地址（如果不知道，可查看宝塔页面的左上角），确认就可以了！
+打开宝塔页面，左侧&ndash;》网站&ndash;》添加站点
+添加域名，数据库选择 Mysql utf-8，填写数据库账号和密码以及对应的 PHP 版本，然后提交。
+这里可以先设置一下站点，点击站点右侧的设置，需要设置的有伪静态，SSL 证书，，，
+伪静态选择 typecho，然后保存。
+SSL 证书，选择宝塔 SSL 证书，申请证书，填写相关信息，提交资料等申请成功就可以了。
+如果申请失败，可以去域名服务商那里，有提供单域名免费 SSL 证书，然后选择其他证书，上传证书，开启右上角的强制 HTTPs 就可以了。
+关闭设置窗口，点击根目录下的路径地址**/www/wwwroot/你的域名**，直接进入根目录文件夹，删除 index.html 文件。
+点击上传，弹出窗口，点击上传文件，找到下载的 Typecho 压缩包，打开，然后开始上传，上传完毕关闭窗口。
+解压该压缩包后（删除压缩包），得到 build 文件夹，进入其文件夹内，选择文件名旁边的框，全选文件，右上角选择剪贴，然后回到上一级根目录下，黏贴，然后删掉没用的 build 文件夹就可以了。
+到这一步，浏览器输入你的域名，就可以安装 Typecho 了。
+如有在上方遇到Deprecated: Function get_magic_quotes_gpc() is deprecated in /www/wwwroot/woshishabi.top/var/Typecho/Common.php on line 208报错，不用管，没什么影响。
+点击下一步，进入初始化配置，这一步需要填写修改的是数据库用户名（添加站点时设置的数据库账号，如果忘了可去宝塔面板页面左侧，数据库查看），数据库密码，数据库名（数据库名和数据库用户名是一样的！），用户名，登录密码，邮件地址，确认，开始安装。
+不出意外，安装成功！
+现在再浏览器访问域名，便可以查看你的 Typecho 博客了，当然现在是默认主题，还是比较丑的。
+去百度你喜欢的主题下载，然后上传根目录/usr/themes/目录里面，在后台外观设置中更换。各主题教程以及配置教程都有主题文档。
+插件安装是将下载的插件上传根目录/usr/plugin/ 目录里面，在后台设置中启用插件，设置插件。
+你的后台面板地址就是你的域名/admin，用设置的用户名和密码登录就可以了！
+基本的安装到此为止了，下面说一些优化问题！
+8.优化 **永久链接：**对文章和页面进行重写地址，可以去掉地址栏中的 index.php，对 seo 也是很友好的。
+启用重写功能，选择文章路径，选择你喜欢的风格，也可以自定义风格，下面有可选参数，本站使用的是个性化定义 /{cid}.html 。然后保存设置，会出现（重写功能检测失败，请检查你的服务器设置，如果你仍然想启用此功能，请勾选这里。），勾选这里，再次点击保存设置就可以了。
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/66.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">网站引入 iframe 视频，如何实现高度自适应？</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2021-05-09T00:00:00Z">2021-05-09</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		我想很多小伙伴在写博客的时候都能遇到一个令人头疼的问题，某一篇文章想用 iframe 引入一个外链视频，但是大小总是有问题，宽度可以固定到 100% ，但是高度比如用实际高度来表示，比如 100px, 200px，诸如此类。
+但是问题来了，在不同的页面宽度下，视频的高度是一致的，就会导致一个很麻烦的问题，
+看下面两个图，
+pc 端
+移动端
+很明显，在 pc 端正常显示的视频，放到移动端高度就错位了，很不美观。
+解决这个问题，可以同媒体查询，但是显然费时费力，还不那么完美。
+其实很简单，只需要不到 10 行代码即可完美实现。
+引入 jq，（一般网站默认都有这个文件）
+加上一段 js 代码，最好放在网站底部， &lt;/body&gt; 前即可。
+$(&#39;iframe&#39;).wrap(&#39;&lt;p class=&#34;iframe&#34;&gt;&lt;/p&gt;&#39;) 在 css 文件的底部加上： .iframe{ position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; } .iframe iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; } 这个时候再访问带有 iframe 视频的网页，不管宽度如何变化，高度可以随视频自适应。
+例如这个网页，可以看一下效果：https://imhan.cn/posts/20210507.html
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/65.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">呼吸之野</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2021-05-07T00:00:00Z">2021-05-07</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		2021 许嵩第 8 张全创作专辑《呼吸之野》首支曲目《乌鸦》5 月 7 日正式发行。
+《乌鸦》 我们都曾领受过误解、怀疑、孤立，都品尝过爱而不得或种种挫败的滋味，都有过觉得“一切都糟透了”的时候……但感伤过后，却还是会相信“一切都会好起来的”，还是会为了反转剧情而振作前行——也许是为了心里最在乎的人，也许是因为心底笃定的信念。被生活不断刮蹭的脆弱羽翼之下，有着强韧的骨架。许嵩以从未讨喜的乌鸦为第一视角，飞抵呼吸之野。
+人生不过一场呼吸。呼吸不停，则生命与思考不止。当人们习惯于蒙上口罩生活，畅快呼吸日渐成为一种奢侈。比这更为奢侈的，是袒露真心的酣畅对谈，是呼吸于野，吐纳心声。《呼吸之野》从冷色调里起笔，以自如沉着的笔触，描摹情感与境遇。十首音乐，如十场呼吸冥想般令人全神贯注。许嵩在想象与写实的互照里，在温柔与凛冽的交汇处，在浪漫与生猛的切换中，记述着生活与思考。
+在《呼吸之野》里，古典气质与当代元素浑然一体。许嵩构建了有别于其过往作品的音乐语汇，有承接亦有创新。《呼吸之野》是赤诚、饱满且充满细节的，它能够让人在专注聆听时回归内心深处。
+为拍摄专辑平面相片及音乐录影带，许嵩与二十余人拍摄团队进驻高原上人迹罕至的原始森林。帐篷帘幕外，旷野篝火，雪山江河，独行旅人，构成一幅冷暖交汇的静谧画卷。
+《呼吸之野》专辑 10 首曲目将于 5 月 7 日 -5 月 14 日陆续上线！
+《假摔》 暴雪天的十字街头，车来人往川流不息，却如临旷野。
+歌里的故事也许是真实发生的生活影像，也许是虚构的文本创作，但究竟是实是虚，就像歌里的“真摔”与“假摔”一样，真假虚实在裁判们心里有自己的答案。而切换到故事里主人公的角度来看，摔过的跟头吃过的苦，只有自己知道，很难期待无关人士的理解。
+《假摔》是印有许嵩独特标记的叙事性写作，极短的篇幅寥寥数笔就勾勒出故事轮廓。如同一个诚恳而又情绪饱满的目击者，把你带去故事里的现场，却不直接留下他的主观评价，只由你自行体会。故事现场的“假摔”与球场、与人生赛场上的“假摔”互为映照，有着极大的玩味空间。
+音乐方面，电子音色铺陈出冰天雪地氛围，生猛鼓点像钝器般无情敲击，副歌的短旋律乐句不断往复，以及电子摇滚曲风经典的节奏型，这些元素共同营造出极寒雪地的麻木感。后半段步步推进至顶点，直到一声放肆呼喊与一声沉闷的“砰”，猛地击中人心后戛然而止。《假摔》既有关怀的温度，也有反思的冷峻，它在冷暖交汇处，不断引发着心里的强降雪。
+《冰柜》 许嵩 + 黄龄
+当深情与决绝相互碰撞
+既是窜动的电光石火
+也是致命的寒气冰霜
+《冰柜》以惊悚悬疑电影为灵感原点，推演至情感关系的探讨。表层是充满戏剧张力的冷峻叙事，内里是丰富饱满的寓意，内外同步推进。与「惊鸿一面」的黄龄在七年之后再度合唱，默契诠释歌中角色与情感。
+《冰柜》由许嵩创作及制作。迷离的电子乐音色营造出扑朔迷离的诡谲气氛，影像感十足，引人入胜。歌曲在幽微的呼吸声中起始，随后二人交替着不疾不徐地抛出意象，到副歌时揭开面纱，接着以奇诡的 Bridge 段落，一步步将气氛推至高潮。
+《科幻》 脑海里 记忆与幻想交织 亦真亦幻 爱在散场之后 才给出关于爱的答案 ——我们把美满 托付「科幻」
+2021 许嵩第 8 张全创作专辑「呼吸之野」 第四支曲目「科幻」5 月 13 日正式发行
+歌曲从星云浩渺的氛围和隐约的电子频率声里起始，古典气息和 R&amp;B 节拍梦幻联动，让心神跟随许嵩感而不伤的真挚演绎，飘忽在回忆的宇宙中。
+像一场返璞归真的童梦，像一则年少的浪漫寓言。爱之得失，在他的歌与诗里聚合成辽阔原野。聆听「科幻」，一切都在脑海，一切又都已抛之脑后。
+结尾咚咚的鼓声，如心跳不停，如呼吸不止，如爱一直延续。
+发行完毕 人生不过一场呼吸。呼吸不停，则生命与思考不止。当人们习惯于蒙上口罩生活，畅快呼吸日渐成为一种奢侈。比这更为奢侈的，是袒露真心的酣畅对谈，是呼吸于野，吐纳心声。
+《呼吸之野》从冷色调里起笔，以自如沉着的笔触，描摹情感与境遇。十首音乐，如十场呼吸冥想般令人全神贯注。许嵩在想象与写实的互照里，在温柔与凛冽的交汇处，在浪漫与生猛的切换中，记述着生活与思考。
+在《呼吸之野》里，古典气质与当代元素浑然一体。许嵩构建了有别于其过往作品的音乐语汇，有承接亦有创新。《呼吸之野》是赤诚、饱满且充满细节的，它能够让人在专注聆听时回归内心深处。
+为拍摄专辑平面相片及音乐录影带，许嵩与二十余人拍摄团队进驻高原上人迹罕至的原始森林。帐篷帘幕外，旷野篝火，雪山江河，独行旅人，构成一幅冷暖交汇的静谧画卷。
+呼，向外输出，吸，向内滋长，一呼一吸间，许嵩始终坚持用作品与听众进行交互。自 2009 年发行首张专辑至今 12 年里，许嵩已一人作词、作曲、演唱、制作、策划 8 张个人专辑以及近 50 首原创单曲，佳作不断。2019 年举办“寻宝游戏”巡回演唱会大获好评后，许嵩折返到潜心创作的生活状态，以新作《呼吸之野》再一次展现了强大的创作能量。
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/64.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">基耶斯洛夫斯基和他的现实</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2021-04-24T00:00:00Z">2021-04-24</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		由于博友不在维护博客，导致图片链接丢失，仅以此为纪念。 2023-06-02
+文章作者：江江_Jan
+文章链接：https://blog.jannns.com/posts/Kieslowski-and-his-reality/
+版权声明：本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。转载请注明来自 江卮可乐！
+前言 克日什托夫·基耶斯洛夫斯基（以下简称基氏），20 世纪波兰著名导演，其作品**《蓝白红三部曲》（也称三色系列），被许多评论家视为电影史的巅峰。**
+比起身份上电影人的定义，基氏本人更像是一个哲学家、斗争者。他立足于现实生活，擅长用冷静陈述的方式表达对世界的感知，热衷于揭露生活的残酷本质和人性的阴暗内里，并甘愿为【自由的表达】和外界抗衡。
+**我对基氏作品的感知是客观且冷静（甚至有点冷漠）。**他的叙事似乎不带任何感情色彩，但回味起来却能感受到他对生命的热爱。
+基氏的电影没有二元的善恶对错。残暴的杀人犯可以是为妹妹之死隐忍数年的无助青年（《杀人短片》）；权威物理教授会因为相信科学而亲手葬送自己的幼子（《十诫：第一诫》）；少年会因为精神爱情的破灭而赴死（《爱情短片》）；深爱多年的人是否能因为被证实无血缘而在一起（《十诫：父女情深》）……一些人生困境真实摆在眼前时，比起一些脸谱化的选择，我认为基氏的电影更接近生活的本质，也可能是我个人认同的生活本质。
+总之他的电影蛮有意思的，值得挖掘的东西也很多，自己最近沉迷其中无法自拔。
+基耶斯洛夫斯基如是说 第一次看基耶斯洛夫斯基的电影是《蓝白红三部曲》，四年前，马哲课老师的推荐。看完感觉三观都没了。女主为什么毁了丈夫遗作却念念不忘？她怎么可以这么对待默默爱她那么多年的人？她为什么对破坏自己婚姻的人那么好？…被一大堆灵魂提问炙烤以后，我默默告诫自己以后不要再看欧洲电影了，超出我的认知范围，感情方面尤其跟不上西方人思路。（当然“不看欧洲电影”这个 flag?，后来因为被其他优秀电影疯狂打脸。）
+可能因为叙事方式或者文化背景的原因，欧洲电影没有很强的渲染力（美国大片那种看完就热血沸腾的感觉），它热衷于描绘的都是一些很细小很日常挺东西，无论好的还是不好的都客观的摊在你面前，有时候甚至感觉它的道德边界是模糊的（《两小无猜》令我头大），但回味起来，这些电影表达方式可能戏剧化，但对情感的表述很真实，确定的、不确定的、果断的、犹豫的……它告诉我们生活本来就是残酷的，但也会提示你生活中有很多不容忽视的小美好、值得我们的期待和爱护。
+基氏热衷于揭露生活的残酷真相和人性的阴暗面。（可能这也是他电影十分吸引我的原因，我喜欢真实。）他的早期作品都是纪录片，力求反映真实的社会生活，后来因为一些社会原因和本身对纪录片表达方式的失望，他才开始拍摄剧情片。
+他所处的时代比较动荡，人们渴望真正的自由。
+**他用自己的方式替人们发声，与外部抗衡。**朋友问他为什么不索性做政客去改变环境，他只是表达不适合自己，他在做的是自己应该做的事情。
+对他观点感兴趣的朋友可以在去 b 站看纪录片《基耶斯洛夫斯基如是说》。
+我比较认同他对人性的看法。
+一旦某种特性在人们心中扎了根，很难改变。性善性恶这种论题没有定论，也说不清这个“本”应该追溯哪里，但就未来而言，现在就是本，我比较相信“日久见人心”这个古话，人的本性经不起时间考验。
+这是一段废话
+突然想到前两年网上疯传的**原生家庭理念，仿佛我们所有的性格缺陷，**只要归在原生家庭的问题上就可以结束了。这个理念让很多人找到了共鸣，大家可以理直气壮的指责原生家庭带给自己的伤害，所以在遇到一些问题时没法很好解决。但这种指责行为只是一种毫无意义的负面情绪宣泄，于家于己都毫无益处。
+我从不否认原生家庭会给人影响，《野草莓》里探讨的持续三代的情感疏离，《小偷家族》里典型东方家庭的内敛……个体在遭受重大事件时性格都会受到影响，更何况耳濡目染的家庭。但我觉得原生家庭概念的提出不是为了创造家庭矛盾、或者给自己的问题找开脱，而是给个体更多素材（比如家人互动模式）去找到解决问题的方法。
+以下内容含大量剧透及解析，请慎重阅读。
+图源豆瓣或自截。
+蓝白红三部曲之蓝故事梗概 茱莉在一场意外中失去了丈夫和幼女，不堪回忆烦扰的她选择重新开始生活。清空过去的家、切断和过去人们的联系，但情感方面的东西，始终无法像切断物质关系一样简单，能够清理的干干净净。媒体四处渗透她的生活、想要她续写她丈夫的遗作，丈夫的助手一直爱着他、默默关心着她，最重要的是，她脑海中总是回荡着她和丈夫一起创作的交响乐…一个电视采访让她意外发现这首乐曲和另一个女人有关，并且她还有了丈夫的骨肉……
+和贯穿全剧的交响乐相契合，故事也可以分成四个乐章。
+第一乐章 常以奏鸣曲或快板形式表现。常常是两个具冲突性的主题交替上演，在最后突出首要主题。
+电影开头是一段行车的镜头。基氏通过一家人的默契互动、小女孩玩糖纸的动作、街边玩耍的路人，来表现这一天的平常以及这个家庭的和谐氛围。
+突然，车离奇的撞上了路外的树。
+第二乐章 复三部曲式或变奏曲，慢板。
+女主茱莉的丈夫、女儿，因为车祸和她阴阳两隔。寻死不成，她开始漫长的适应过程。
+茱莉变卖了家里的东西，安顿园丁和管家的生活，以决绝的方式和一直对她存有感情的助手道别，自己搬进市区的公寓，想要忘记过去生活的痕迹。
+但是不适就像水一样无缝隙的将她包围。过去的生活习惯、一起创作的乐曲、国家要她续写交响曲的请求…人们的互动总是强行把她拉进生活中。
+第三乐章 小步舞曲或谐谑曲，中、快板。
+茱莉不想与周围世界产生关联，但是她控制不了他人。莫名和同栋公寓的 prostitute 产生了联系以后，她的平静生活慢慢被打破，一次意外看到的电视节目把茱莉彻底逼回现实。助手接受国家委托，续写本已被她销毁的交响曲；丈夫生命中还有另一个女子。原本小心封存的回忆突然就炸开了。她去找助手，责问他凭什么去续写这首乐曲；她去找亡夫的情人，却只能“平静”接受对方已有丈夫骨肉的事实……（女主这段表演真的很精彩）
+茱莉重新审视自己的生活、感情。她把准备变卖的房产赠给了丈夫的情人；重新投入作曲，把一直萦绕在脑内的旋律写出来…
+第四乐章 终曲。通常是快板，经常采用会选取时或者回旋奏鸣曲式。也就是对主题进行呼应。
+电影的最后是本剧的高潮，像走马灯一样回顾了茱莉的遭遇。戴着爱的十字架的男孩突然惊醒、在过去徘徊的母亲永远的沉寂、混乱生活的 prostitute 的沉思、及情人对新生儿的微笑…伴着最终成曲，回顾了茱莉这段人生经历。
+导演的布局真的太妙了，每一个要素都紧紧地联系在一起。蓝色基调、交响乐贯穿全剧，既烘托氛围，又表达茱莉沉默背后压抑的感情……
+后记 本来想把三色系列都写一遍，但好几遍《蓝》看下来感觉还是需要时间去消化。基耶斯洛夫斯基的电影值得反复看的，不同的人生阶段应该也会有不同的看法。
+一人所学有限，若有疏漏，还请大家批评指正。
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/63.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">基于 docsify 搭建一个文档</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2021-04-21T00:00:00Z">2021-04-21</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		一、搭建 docsify 是一个类似 vuepress, gitbook 等静态文档程序，但是对比之前，个人还是喜欢 docsify 的风格和源码。不想要那么多附带的功能，能满足写文章，目录的功能就行了。
+打开终端输入指令，把本地环境搭建起来：
+npm install docsify-cli -g 初始化文档：
+docsify init ./docs 本地运行：
+docs serve 然后在浏览器打开 localhost:3000 就可以查看了。
+二、页面 我觉得最基本的页面就三个
+_navbar.md 导航栏
+* [关于](/) 然后在 index.html 调用。
+window.$docsify = { ... loadNavbar: true, ... } 如图：
+_sidebar.md 侧边栏
+* [基于 docsify 搭建一个文档](基于docsify搭建一个文档.md) 在 index.html 调用。
+window.$docsify = { ... loadSidebar: true, ... } 如图：
+README.md 主页
+## about 博客地址：[https://imhan.cn](https://imhan.cn) 作者：shuxhan 时间：2021.04.20 本文档作为博客的文章备份，如果对文章有一些其他的评论可以直接点击链接到原地址。 如图：
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/62.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">清明时节雨纷纷</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2021-04-03T00:00:00Z">2021-04-03</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		清明时节雨纷纷，路上行人欲断魂。
+云栖竹径 
+	</div>
+</article>
+
+</main>
+
+<div class="pagination">
+	<a class="pagination__item pagination__item--prev btn" href="/page/20/">«</a>
+	<span class="pagination__item pagination__item--current">21/27</span>
+	<a class="pagination__item pagination__item--next btn" href="/page/22/">»</a>
+</div>
+
+			</div>
+			<aside class="sidebar">
+<div class="widget-misc widget">
+    <h4 class="widget-misc__title widget__title">MISC</h4>
+    <div class="widget-misc__content widget__content">
+        <ul class="item-list">
+            
+            <li class="widget-misc__item widget__item">
+                <a class="widget-misc__link widget__link btn" title="周刊"  rel="noopener noreferrer" href="/categories/weekly/">
+                    <span>周刊</span>
+                </a>
+            </li>
+            
+            <li class="widget-misc__item widget__item">
+                <a class="widget-misc__link widget__link btn" title="技术"  rel="noopener noreferrer" href="/categories/%e6%8a%80%e6%9c%af/">
+                    <span>技术</span>
+                </a>
+            </li>
+            
+            <li class="widget-misc__item widget__item">
+                <a class="widget-misc__link widget__link btn" title="随笔"  rel="noopener noreferrer" href="/categories/%e9%9a%8f%e7%ac%94/">
+                    <span>随笔</span>
+                </a>
+            </li>
+            
+            <li class="widget-misc__item widget__item">
+                <a class="widget-misc__link widget__link btn" title="留言"  rel="noopener noreferrer" href="/message">
+                    <span>留言</span>
+                </a>
+            </li>
+            
+            <li class="widget-misc__item widget__item">
+                <a class="widget-misc__link widget__link btn" title="关于我"  rel="noopener noreferrer" href="/about">
+                    <span>关于我</span>
+                </a>
+            </li>
+            
+            <li class="widget-misc__item widget__item">
+                <a class="widget-misc__link widget__link btn" title="GitHub"  rel="noopener noreferrer" href="https://github.com/dlzmoe">
+                    <span>GitHub</span>
+                </a>
+            </li>
+            
+            <li class="widget-misc__item widget__item">
+                <a class="widget-misc__link widget__link btn" title="RSS"  rel="noopener noreferrer" href="/index.xml">
+                    <span>RSS</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+<div class="widget-taglist widget">
+    <h4 class="widget__title">TAGS</h4>
+    <div class="widget__content">
+      <ul class="tag-list">
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/ajax/" title="Ajax">Ajax (5)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/ant-design/" title="Ant Design">Ant Design (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/aos/" title="Aos">Aos (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/axios/" title="Axios">Axios (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/bitwarden/" title="Bitwarden">Bitwarden (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/canvas/" title="Canvas">Canvas (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/chrome/" title="Chrome">Chrome (2)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/cloudflare/" title="Cloudflare">Cloudflare (2)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/css/" title="Css">Css (8)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/docker/" title="Docker">Docker (2)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/docsify/" title="Docsify">Docsify (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/es6/" title="ES6">ES6 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/github/" title="GitHub">GitHub (4)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/gravatar/" title="Gravatar">Gravatar (2)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/hugo/" title="Hugo">Hugo (2)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/hugofast/" title="HugoFast">HugoFast (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/ie/" title="IE">IE (3)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/jquery/" title="Jquery">Jquery (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/js/" title="Js">Js (24)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/jsdelivr/" title="Jsdelivr">Jsdelivr (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/json/" title="Json">Json (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/markdown/" title="Markdown">Markdown (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/memos/" title="Memos">Memos (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/npm/" title="Npm">Npm (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/nuxt/" title="Nuxt">Nuxt (2)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/php/" title="Php">Php (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/python/" title="Python">Python (2)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/react/" title="React">React (11)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/rustdesk/" title="RustDesk">RustDesk (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/serve00/" title="Serve00">Serve00 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/sql/" title="Sql">Sql (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/typecho/" title="Typecho">Typecho (4)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/v2ex/" title="V2ex">V2ex (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/vaultwarden/" title="Vaultwarden">Vaultwarden (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/vite/" title="Vite">Vite (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/vue/" title="Vue">Vue (11)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/webpack/" title="Webpack">Webpack (2)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/weekly/" title="Weekly">Weekly (64)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/win11/" title="Win11">Win11 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E4%B8%83%E6%97%A5%E8%B0%88/" title="七日谈">七日谈 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E4%B8%BB%E9%A2%98%E5%BC%80%E5%8F%91/" title="主题开发">主题开发 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E4%BF%A1%E6%81%AF%E8%8C%A7%E6%88%BF/" title="信息茧房">信息茧房 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E5%87%BA%E8%A1%8C/" title="出行">出行 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E5%8D%9A%E5%AE%A2/" title="博客">博客 (15)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E5%8D%9A%E7%89%A9%E9%A6%86/" title="博物馆">博物馆 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E5%8E%9F%E5%88%9B/" title="原创">原创 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E5%8E%A8%E6%88%BF/" title="厨房">厨房 (2)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E5%9B%BE%E5%BA%8A/" title="图床">图床 (2)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E5%9B%BE%E7%89%87/" title="图片">图片 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E5%9C%B0%E7%90%86/" title="地理">地理 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E5%9D%9A%E6%9E%9C%E4%BA%91/" title="坚果云">坚果云 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E5%A4%87%E4%BB%BD/" title="备份">备份 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E5%AD%97%E4%BD%93/" title="字体">字体 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E5%AE%9D%E5%A1%94/" title="宝塔">宝塔 (4)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E5%AF%86%E7%A0%81%E7%AE%A1%E7%90%86/" title="密码管理">密码管理 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E5%B7%A5%E5%85%B7/" title="工具">工具 (2)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E6%80%9D%E6%BA%90%E7%AC%94%E8%AE%B0/" title="思源笔记">思源笔记 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E6%80%BB%E7%BB%93/" title="总结">总结 (5)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E6%84%9F%E6%83%B3/" title="感想">感想 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E6%8A%A5%E9%94%99/" title="报错">报错 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E6%8B%86%E6%9C%BA/" title="拆机">拆机 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E6%8E%98%E9%87%91/" title="掘金">掘金 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E6%8F%92%E4%BB%B6/" title="插件">插件 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E6%90%9C%E7%B4%A2/" title="搜索">搜索 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" title="数据库">数据库 (3)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E6%96%B0%E5%86%A0/" title="新冠">新冠 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E6%96%B0%E9%97%BB/" title="新闻">新闻 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E6%97%85%E6%B8%B8/" title="旅游">旅游 (8)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E6%97%A5%E5%87%BA/" title="日出">日出 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E6%97%A5%E8%AE%B0/" title="日记">日记 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E6%97%B6%E9%97%B4%E6%88%B3/" title="时间戳">时间戳 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E6%9C%88%E5%85%A8%E9%A3%9F/" title="月全食">月全食 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="服务器">服务器 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E6%9D%82%E8%B0%88/" title="杂谈">杂谈 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E6%A2%A6/" title="梦">梦 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E6%B2%B9%E7%8C%B4%E8%84%9A%E6%9C%AC/" title="油猴脚本">油猴脚本 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" title="浏览器">浏览器 (4)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E7%94%B5%E5%BD%B1/" title="电影">电影 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E7%9F%AD%E7%AF%87%E5%B0%8F%E8%AF%B4/" title="短篇小说">短篇小说 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E7%AC%91%E8%AF%9D/" title="笑话">笑话 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E7%AC%94%E8%AE%B0/" title="笔记">笔记 (16)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E7%AC%94%E8%AE%B0%E6%9C%AC%E7%94%B5%E8%84%91/" title="笔记本电脑">笔记本电脑 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E7%BB%84%E4%BB%B6/" title="组件">组件 (2)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E7%BC%96%E7%A8%8B/" title="编程">编程 (4)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E7%BD%91%E7%AB%99/" title="网站">网站 (2)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E7%BF%BB%E8%AF%91/" title="翻译">翻译 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E8%84%9A%E6%9C%AC/" title="脚本">脚本 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E8%88%AA%E6%8B%8D/" title="航拍">航拍 (2)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E8%AF%84%E8%AE%BA/" title="评论">评论 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E8%AF%B4%E8%AF%B4/" title="说说">说说 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E8%AF%BB%E4%B9%A6/" title="读书">读书 (3)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E8%B0%B7%E6%AD%8C%E6%8F%92%E4%BB%B6/" title="谷歌插件">谷歌插件 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E8%B7%AF%E7%94%B1/" title="路由">路由 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E8%BD%AC%E8%BD%BD/" title="转载">转载 (3)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E9%82%AE%E7%AE%B1/" title="邮箱">邮箱 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E9%9A%8F%E6%83%B3%E5%BD%95/" title="随想录">随想录 (10)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E9%9A%8F%E6%89%8B%E6%8B%8D/" title="随手拍">随手拍 (29)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E9%9A%8F%E7%AC%94/" title="随笔">随笔 (19)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E9%9F%B3%E4%B9%90/" title="音乐">音乐 (1)</a>
+            </li>
+            <li>
+              <a class="widget-taglist__link widget__link btn" href="/tags/%E9%AA%91%E8%A1%8C/" title="骑行">骑行 (4)</a>
+            </li>
+      </ul>
+    </div>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">RECENT POSTS</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/blog/236.html/">Github 仓库同步到 Cloudflare R2</a>
+			</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/blog/weekly-64.html/">奇趣周刊 - 第 64 期</a>
+			</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/blog/235.html/">逃离杭州随想</a>
+			</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/blog/234.html/">vite 配置相关笔记</a>
+			</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/blog/weekly-63.html/">奇趣周刊 - 第 63 期</a>
+			</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/blog/233.html/">serve00 如何登录？</a>
+			</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/blog/weekly-62.html/">奇趣周刊 - 第 62 期</a>
+			</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/blog/weekly-61.html/">奇趣周刊 - 第 61 期</a>
+			</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/blog/232.html/">马家坞看日出</a>
+			</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/blog/weekly-60.html/">奇趣周刊 - 第 60 期</a>
+			</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/blog/231.html/">杭州国家版本馆文润阁</a>
+			</li>
+		</ul>
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2024 子舒的博客, 
+			使用 hugo 构建
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [["$", "$"]],
+      },
+      displayMath: [
+        ["$$", "$$"],
+        ["\[\[", "\]\]"],
+      ],
+      svg: {
+        fontCache: "global",
+      },
+    };
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script
+    id="MathJax-script"
+    async
+    src="https://gcore.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+  ></script>
+</body>
+</html>

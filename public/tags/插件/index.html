@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+	<title>插件 - 子舒的博客</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+	<link rel="alternate" type="application/rss+xml" href="/tags/%E6%8F%92%E4%BB%B6/index.xml" title="子舒的博客">
+
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="topbar">
+		<a class="topbar__link" href="/" title="子舒的博客" rel="sidebar">
+			<div class="topbar__item topbar__text">
+					<div class="topbar__title">子舒的博客</div>
+					<div class="topbar__tagline">The Tao that is utterable is not the eternal Tao</div>
+				</div>
+		</a>
+	</div>
+		
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main list" role="main">
+	<header class="main__header">
+		<h1 class="main__title">插件</h1>
+	</header><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/88.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">实现图片灯箱功能</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2021-12-07T00:00:00Z">2021-12-07</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		写博客必不可少的一个功能就是图片灯箱功能，也就是点击放大查看。但是不同程序的博客所使用的插件也都不一样，我这里研究出一套可以满足绝大部分程序的灯箱插件。已经测试过 hexo, hugo, typecho 均无问题。
+引入文件 首先引入我们关键的两个文件分别是 zoom.css 和 zoom.js 。
+&lt;!-- head 头部 --&gt; &lt;link rel=&#34;stylesheet&#34; href=&#34;https://cdn.zburu.com/list/zoom.css&#34;&gt; &lt;!-- body 底部 --&gt; &lt;!-- 如果已经有 jq 文件了，就不要引入 jquery --&gt; &lt;script src=&#34;https://cdn.zburu.com/list/jquery3.6.0.js&#34;&gt;&lt;/script&gt; &lt;!--图片灯箱--&gt; &lt;img src=&#34;&#34; alt=&#34;&#34; class=&#34;bigimg&#34;&gt; &lt;div class=&#34;mask&#34;&gt;&lt;/div&gt; &lt;script src=&#34;https://cdn.zburu.com/list/zoom.js&#34;&gt;&lt;/script&gt; 因为这个文件是放在我自己服务器上的，所以不敢保证以后还是这个路径，建议在浏览器打开，然后把里面的代码复制到本地使用。
+调用 js 然后我们需要给图片一个类名，以及一个父元素盒子，同样也可以使用 jq 来完成。
+这里的 .post-content 正文的类名，如果你是别的类名，可以直接将 .post-content 替换掉。
+$(function(){ $(&#39;.post-content img&#39;).addClass(&#39;smallimg&#39;) $(&#39;.post-content img&#39;).wrap(&#39;&lt;div class=&#34;imgbox&#34;&gt;&lt;/div&gt;&#39;) }) 接着我们需要对插件进行初始化，直接在刚才的代码下面写入。
+$(function(){ $(&#39;.post-content img&#39;).addClass(&#39;smallimg&#39;) $(&#39;.post-content img&#39;).wrap(&#39;&lt;div class=&#34;imgbox&#34;&gt;&lt;/div&gt;&#39;) /* smallimg // 小图 bigimg //点击放大的图片 mask //黑色遮罩 */ var obj = new zoom(&#39;mask&#39;, &#39;bigimg&#39;, &#39;smallimg&#39;); obj.init(); }) 回到页面上，点击正文的图片就可以成功放大了。
+结束 随便放个图片试验一下吧！
+之所以我限制了在正文中才可以放大，是因为网站其他地方也有图片，如果都可以点击放大，就很不合理。
+如果在使用中有其他问题，欢迎留言。
+	</div>
+</article>
+
+</main>
+
+
+			</div>
+			
+
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2024 子舒的博客, 
+			使用 hugo 构建
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [["$", "$"]],
+      },
+      displayMath: [
+        ["$$", "$$"],
+        ["\[\[", "\]\]"],
+      ],
+      svg: {
+        fontCache: "global",
+      },
+    };
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script
+    id="MathJax-script"
+    async
+    src="https://gcore.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+  ></script>
+</body>
+</html>

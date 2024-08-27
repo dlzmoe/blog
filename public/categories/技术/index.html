@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+	<title>技术 - 子舒的博客</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+	<link rel="alternate" type="application/rss+xml" href="/categories/%E6%8A%80%E6%9C%AF/index.xml" title="子舒的博客">
+
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="topbar">
+		<a class="topbar__link" href="/" title="子舒的博客" rel="sidebar">
+			<div class="topbar__item topbar__text">
+					<div class="topbar__title">子舒的博客</div>
+					<div class="topbar__tagline">The Tao that is utterable is not the eternal Tao</div>
+				</div>
+		</a>
+	</div>
+		
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main list" role="main">
+	<header class="main__header">
+		<h1 class="main__title">技术</h1>
+	</header><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/236.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">Github 仓库同步到 Cloudflare R2</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2024-08-25T00:00:00Z">2024-08-25</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		我在 GitHub 搭建了一个图床，用于小量存储博客图片，为了稳定安全考虑，决定备份到 Cloudflare R2 存储桶一份，R2 默认有每月免费的 10G 存储、100 万次 A 类操作、1000 万次 B 类操作，备份完全足够了。
+说到备份肯定是越自动化越好，手动上传是不可能的，因此我决定利用 GitHub Actions 执行自动任务。
+话不多说，开始操作。
+1. 建立 Cloudflare R2 存储桶 在 R2 页面新建一个存储桶，名称可以随意，就叫做 github-sync-imgurl，默认不公开就行了，这个不用调整。
+然后在管理 R2 API 令牌中，创建一个新的 API 令牌，权限设为 管理员读和写，其他不用管默认设置，保存即可。
+会生成一个 KEY_ID 和 ACCESS_KEY，这俩等会要用到，先记录一下。
+2. GitHub 仓库设置 来到你需要备份的仓库，打开 Setting &gt; Actions &gt; General，勾选这两个设置然后保存，这个是必须的，否则 GitHub Actions 无法自动运行。
+然后来到 Setting &gt; Secrets and variables &gt; Actions，点击 New repository secret 按钮开始创建密钥，按照下面的命名开始依次操作：
+CLOUDFLARE_ACCOUNT_ID #你的 Cloudflare 账户 ID CLOUDFLARE_ACCESS_KEY_ID # Cloudflare R2 的访问密钥 ID CLOUDFLARE_SECRET_ACCESS_KEY # Cloudflare R2 的秘密访问密钥 CLOUDFLARE_BUCKET_NAME # 你在 Cloudflare R2 上的存储桶名称 图示如下：
+最后在 Actions 中新建一个新的任务，可以直接复制代码使用，无需修改，保存后运行即可。
+name: Sync to Cloudflare R2 on: schedule: - cron: &#39;0 16 * * *&#39; # 每天的16:00 UTC 时间触发（相当于东八区的 00:00） workflow_dispatch: # 允许手动触发 jobs: sync: runs-on: ubuntu-latest steps: - name: Checkout code uses: actions/checkout@v2 - name: Install AWS CLI run: | sudo apt-get update sudo apt-get install -y awscli - name: Configure AWS CLI for Cloudflare R2 run: | aws configure set aws_access_key_id ${{ secrets.CLOUDFLARE_ACCESS_KEY_ID }} aws configure set aws_secret_access_key ${{ secrets.CLOUDFLARE_SECRET_ACCESS_KEY }} aws configure set default.region auto - name: Sync repository to Cloudflare R2 run: | aws s3 sync . s3://${{ secrets.CLOUDFLARE_BUCKET_NAME }} --endpoint-url=https://${{ secrets.CLOUDFLARE_ACCOUNT_ID }}.r2.cloudflarestorage.com --delete --exclude &#34;.git/*&#34; env: CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }} 由于使用了 aws s3 sync 命令，它会进行增量同步，这意味着它只会上传有变化的文件，而不会每次都重新上传整个仓库，避免消耗无用的 Cloudflare R2 流量。
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/234.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">vite 配置相关笔记</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2024-08-15T00:00:00Z">2024-08-15</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		一、配置 route 路由 使用 vite + vue 构建项目默认是没有 route 的，所以需要手动引入。
+1. 基础配置 # 建立一个 vite 项目 npm create vite@latest yarn create vite # 安装 route 依赖 npm install vue-router@4 yarn add vue-router@4 接下来，需要在项目中配置 Vue Router。首先在 src 目录下创建一个 router 目录，并在该目录下创建 index.js，并配置路由。
+src/ ├── router/ │ └── index.js // src/router/index.js import { createRouter, createWebHistory } from &#39;vue-router&#39;; const routes = [{ path: &#39;/&#39;, name: &#39;Home&#39;, component: () =&gt; import(&#39;@/views/Home.vue&#39;) }, { path: &#39;/login&#39;, name: &#39;Login&#39;, component: () =&gt; import(&#39;@/views/Login.vue&#39;) } ] const router = createRouter({ history: createWebHistory( import.meta.env.BASE_URL), routes }) export default router 在 main.js 声明一下 route 文件。
+import { createApp } from &#39;vue&#39;; import App from &#39;./App.vue&#39;; import router from &#39;./router&#39;; const app = createApp(App) app.use(router) app.mount(&#39;#app&#39;) 并且在 App.vue 中要使用 router-view 来显示当前路由对应的组件，所以修改下文件。
+&lt;template&gt; &lt;div id=&#34;app&#34;&gt; &lt;router-view&gt;&lt;/router-view&gt; &lt;/div&gt; &lt;/template&gt; &lt;script&gt; export default { name: &#39;App&#39; } &lt;/script&gt; 2. 添加多路由 要添加更多的页面或动态路由，可以继续在 routes 数组中添加配置。例如：
+{ path: &#39;/user/:id&#39;, name: &#39;User&#39;, component: () =&gt; import(&#39;@/views/User.vue&#39;) } 这样，访问 /user/1 就会加载 User.vue 组件并显示相应内容。
+二、配置 @ 路径别名 注意，vite 默认是没有配置路径别名 @ 的，所以要手动添加，配置如下：
+import { defineConfig } from &#39;vite&#39; import vue from &#39;@vitejs/plugin-vue&#39; import { fileURLToPath, URL } from &#39;node:url&#39; export default defineConfig({ plugins: [vue()], resolve: { alias: { &#39;@&#39;: fileURLToPath(new URL(&#39;./src&#39;, import.meta.url)) } } }) 配置完别名后，就可以在项目中使用 @ 来代替 src 目录的路径，从而简化模块引用。
+三、dev 时自动访问本地服务 open: true 表示当你运行 vite 或 vite dev 时，开发服务器将自动在浏览器中打开本地服务器的 URL（例如 http://localhost:5173）。你也可以指定一个具体的 URL，例如：
+// vite.config.js export default defineConfig({ server: { open: true, // 自动打开浏览器并访问本地服务器网址 open: &#39;http://localhost:5173&#39;, // 在浏览器中打开指定的路径 }, }); 
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/233.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">serve00 如何登录？</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2024-08-14T00:00:00Z">2024-08-14</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		很多人在申请完 serve00 后无法登录，简单的介绍一下，首先会收到一封邮件，上面有：
+Login: xxx Password: xxx SSH/SFTP server address: xxx 打开一个终端工具，比如 xshell，
+然后点击【用户身份验证】，选择 password，将账号密码输入，
+点击连接后，会出现一个 SSH 身份验证，Keyboard Interactive(l) ，然后把 password 填入即可。
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/226.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">vue 中配置 env 文件</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2024-04-24T00:00:00Z">2024-04-24</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		.env 命名规则。
+# 开发环境 .env 文件名 .env.development # 开发环境 .env 文件名 .env.production 在 vue-cli 中，要求环境配置文件必须以 VUE_APP 开头，如下：
+# .env VUE_APP_BASE_URL = http://0.0.0.0 # 使用 const baseURL = process.env.VUE_APP_BASE_URL; 修改 package.json 文件，在运行指令后加上 --mode 标识。
+// package.json &#34;scripts&#34;: { &#34;dev&#34;: &#34;vue-cli-service serve --mode development&#34;, &#34;build&#34;: &#34;vue-cli-service build --mode production&#34;, } 
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/220.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">值传递和引用传递、深拷贝和浅拷贝</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2024-03-01T00:00:00Z">2024-03-01</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		vue 把一个值赋给两个变量，修改一个变量时，另一个变量也会修改。
+原因分析
+this.a = res.data; this.b = res.data; 同时给两个变量 a 和 b 赋值时，修改 a 的内容，打印 b 结果是一样的，因为这里的赋值是属于引用传递的，把 res.data 这个地址赋给 a 和 b，当修改 a 时，res.data 会同步变动，导致 b 也发生了改变。
+这种赋值方式也被称为浅拷贝，当我们把一个对象赋值给一个新的变量时，赋的其实是该对象的在栈中的地址，而不是堆中的数据。也就是两个对象指向的是同一个存储空间，无论哪个对象发生改变，其实都是改变的存储空间的内容，因此，两个对象是联动的。
+解决方案
+this.a = JSON.parse(JSON.stringify(res.data)); this.b = JSON.parse(JSON.stringify(res.data)); 使用 JSON.parse 和 JSON.stringify，将他变成一个常量值，这时再赋值给 a 和 b 的时候，就属于值传递了，这种赋值方式也叫做深拷贝，每个对象都对应一个新的空间，和其他对象互不影响。
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/219.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">wewe-rss 项目部署</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2024-02-29T00:00:00Z">2024-02-29</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		Github 仓库：https://github.com/cooderl/wewe-rss/
+免费、开源的微信公众号订阅方式，支持私有化部署、微信公众号 RSS 生成，部署问题也可以提 issues。
+在线感谢 @潇潇 ！！
+部署的一些流程，仅供参考。
+在服务器 /data/ 目录下新建 rss 文件夹，新建 docker-compose.yml 文件。
+xx.xx.xx.xx 是你服务器的 ip。
+# /data/rss/docker-compose.yml version: &#39;3.9&#39; services: server: image: cooderl/wewe-rss-server:latest ports: - 4000:4000 depends_on: db: condition: service_healthy environment: # 数据库连接地址 - DATABASE_URL=mysql://root:123456@db:3306/wewe-rss?schema=public&amp;connect_timeout=30&amp;pool_timeout=30&amp;socket_timeout=30 # 服务接口请求授权码 - AUTH_CODE=123567 # 自动提取全文内容 - FEED_MODE=fulltext # 服务接口请求限制，每分钟请求次数 - MAX_REQUEST_PER_MINUTE=60 # 外网访问时，需设置为服务器的公网 IP 或者域名地址 - SERVER_ORIGIN_URL=http://xx.xx.xx.xx:4000/ web: image: cooderl/wewe-rss-web:latest ports: - 3000:3000 environment: # 同 SERVER_ORIGIN_URL - NEXT_PUBLIC_SERVER_ORIGIN_URL=http://xx.xx.xx.xx:4000/ networks: wewe-rss: 运行 docker 指令
+docker-compose up -d 在服务器运营商处给服务器防火墙放行端口 3000, 3307, 4000。
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/218.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">无法从非 EcmaScript 模块导入命名导出</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2024-02-23T00:00:00Z">2024-02-23</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		https://github.com/markdown-it/markdown-it
+markdown-it 是一个基于 vue 的解析 markdown 语法的库。
+在 vue 中引入 markdown-it 模块时遇到一个问题，dev 开发运行时报出以下错误，无法从非 EcmaScript 模块导入命名导出。
+# shell error in ./node_modules/markdown-it/lib/common/utils.mjs Can&#39;t import the named export &#39;P&#39; from non EcmaScript module (only default export is available) error in ./node_modules/markdown-it/lib/index.mjs Can&#39;t import the named export &#39;decode&#39; from non EcmaScript module (only default export is available) error in ./node_modules/markdown-it/lib/index.mjs Can&#39;t import the named export &#39;decode&#39; from non EcmaScript module (only default export is available) error in ./node_modules/markdown-it/lib/common/utils.mjs Can&#39;t import the named export &#39;decodeHTML&#39; from non EcmaScript module (only default export is available) error in ./node_modules/markdown-it/lib/rules_inline/entity.mjs Can&#39;t import the named export &#39;decodeHTML&#39; from non EcmaScript module (only default export is available) error in ./node_modules/markdown-it/lib/index.mjs Can&#39;t import the named export &#39;encode&#39; from non EcmaScript module (only default export is available) error in ./node_modules/markdown-it/lib/index.mjs Can&#39;t import the named export &#39;format&#39; from non EcmaScript module (only default export is available) error in ./node_modules/markdown-it/lib/index.mjs Can&#39;t import the named export &#39;format&#39; from non EcmaScript module (only default export is available) error in ./node_modules/markdown-it/lib/index.mjs Can&#39;t import the named export &#39;parse&#39; from non EcmaScript module (only default export is available) error in ./node_modules/markdown-it/lib/index.mjs Can&#39;t import the named export &#39;parse&#39; from non EcmaScript module (only default export is available) 导致 import 该库出现错误，解决方案需要修改 vue.config.js
+// vue.config.js module.exports = { configureWebpack: { module: { rules: [{ test: /\.mjs$/, include: /node_modules/, type: &#34;javascript/auto&#34; }] } }, }; 参考文献：https://github.com/vuejs/pinia/issues/675
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/213.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">hugo 的一些模板语法</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2023-11-15T00:00:00Z">2023-11-15</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		分享一下 hugo 的语法模板，如何获取总文章数和总字数，效果可以参考我的首页。
+{{ $articleCount := len .Site.RegularPages }} {{ $totalWordCount := 0 }} {{ range .Site.Pages }} {{ $totalWordCount = add $totalWordCount .WordCount }} {{ end }} &lt;p&gt;已经写了 {{ $articleCount }} 篇文章，共 {{ $totalWordCount }} 字。&lt;/p&gt; 在首页过滤某个分类。
+{{ $pages := .Site.RegularPages }} {{ $paginator := .Paginate ($pages) }} {{ $count := 0 }} {{ range $paginator.Pages }} {{ $title := .Title }} {{ $summary := .Summary }} {{ if and (not (in .Params.categories &#34;weekly&#34;)) (lt $count 7) }} {{ $count = add $count 1 }} &lt;article class=&#34;post-entry&#34;&gt; &lt;header class=&#34;entry-header&#34;&gt; &lt;h2 class=&#34;entry-hint-parent&#34;&gt;{{ .Title }}&lt;/h2&gt; &lt;/header&gt; &lt;div class=&#34;entry-content&#34;&gt; &lt;p&gt;{{ .Summary }}&lt;/p&gt; &lt;/div&gt; &lt;footer class=&#34;entry-footer&#34;&gt; &lt;time datetime=&#34;{{ .Date.Format &#34; 2006-01-02 15:04:05 MST&#34; }}&#34;&gt;{{ .Date.Format &#34;2006-01-02&#34;}}&lt;/time&gt; &lt;span class=&#34;category&#34;&gt; {{ range $key, $value := .Params.categories -}} {{- if $key }}, {{ end }} {{ . }} {{- end }} &lt;/span&gt; &lt;/footer&gt; &lt;a class=&#34;entry-link&#34; href=&#34;{{ .RelPermalink }}&#34;&gt;&lt;/a&gt; &lt;/article&gt; {{ end }} {{ end }} 
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/212.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">python 通过 json 生成小文件</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2023-11-10T00:00:00Z">2023-11-10</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		记录一个方法，pyhton 通过 json 文件，在同级目录下生成对应格式的小文本。
+import json def generate_files_from_json(json_file): with open(json_file, &#39;r&#39;, encoding=&#39;utf-8&#39;) as f: data = json.load(f) for item in data: for key, value in item.items(): if isinstance(value, list): for sub_item in value: for sub_key, sub_value in sub_item.items(): if isinstance(sub_value, dict) and &#39;list&#39; in sub_value: for sub_sub_item in sub_value[&#39;list&#39;]: if &#39;id&#39; in sub_sub_item and &#39;css&#39; in sub_sub_item: id_value = sub_sub_item[&#39;id&#39;] css_value = sub_sub_item[&#39;css&#39;] create_file(id_value, css_value) def create_file(file_name, content): file_path = f&#34;{file_name}.css&#34; with open(file_path, &#39;w&#39;, encoding=&#39;utf-8&#39;) as file: file.write(content) print(f&#34;File &#39;{file_path}&#39; created successfully.&#34;) if __name__ == &#34;__main__&#34;: json_file_path = &#39;your_json_file.json&#39; generate_files_from_json(json_file_path) import json def generate_files_from_json(json_file): with open(json_file, &#39;r&#39;, encoding=&#39;utf-8&#39;) as f: data = json.load(f) for item in data: for key, value in item.items(): if isinstance(value, dict) and &#39;list&#39; in value: for sub_item in value[&#39;list&#39;]: if &#39;id&#39; in sub_item and &#39;css&#39; in sub_item: id_value = sub_item[&#39;id&#39;] css_value = sub_item[&#39;css&#39;] create_file(id_value, css_value) def create_file(file_name, content): file_path = f&#34;{file_name}.css&#34; with open(file_path, &#39;w&#39;, encoding=&#39;utf-8&#39;) as file: file.write(content) print(f&#34;File &#39;{file_path}&#39; created successfully.&#34;) if __name__ == &#34;__main__&#34;: json_file_path = &#39;your_json_file.json&#39; generate_files_from_json(json_file_path) 
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/211.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">chrome119 版本看视频时会闪动</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2023-11-08T00:00:00Z">2023-11-08</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		在 chrome119 版本下观看视频时，比如 bilibili 或者 douyin，会不时的出现闪动，黑屏，自动刷新等情况，反正我是经常遇到。
+在网络上上求助时，看有人说到可能是 NVIDIA 显卡和 Chromium 内核冲突的问题。
+进入设置 chrome://flags/#use-angle ，将 Choose ANGLE graphics backend 设置为 D3D11on12 就可以避免出现这个情况。
+其实不止是 chrome，包括 edge 浏览器都会出现这个问题（实测），因为他们都是使用 Chromium 内核的浏览器。
+也不知道 NVIDIA 和 Chromium 谁该背这个锅，希望早日修复此 bug。
+	</div>
+</article>
+
+</main>
+
+<div class="pagination">
+	<span class="pagination__item pagination__item--current">1/12</span>
+	<a class="pagination__item pagination__item--next btn" href="/categories/%E6%8A%80%E6%9C%AF/page/2/">»</a>
+</div>
+
+			</div>
+			
+
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2024 子舒的博客, 
+			使用 hugo 构建
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [["$", "$"]],
+      },
+      displayMath: [
+        ["$$", "$$"],
+        ["\[\[", "\]\]"],
+      ],
+      svg: {
+        fontCache: "global",
+      },
+    };
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script
+    id="MathJax-script"
+    async
+    src="https://gcore.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+  ></script>
+</body>
+</html>
