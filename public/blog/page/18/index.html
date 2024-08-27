@@ -51,7 +51,7 @@
 可以选择放在 components/&lt;Search /&gt; 里面，然后引入到 head 模板，也可以单独创建一个页面，我选择的是后者。
 新建一个页面模板 /pages/search.vue 。
 &lt;template&gt; &lt;div&gt; &lt;HeaderMe /&gt; &lt;div class=&#34;wrapper&#34;&gt; &lt;PageSidebar /&gt; &lt;div class=&#34;archive&#34;&gt; &lt;h2&gt;{{ article.attributes.title }}&lt;/h2&gt; &lt;div class=&#34;article-content markdown-body&#34; v-html=&#34;article.html&#34;&gt;&lt;/div&gt; &lt;div class=&#34;search&#34;&gt; &lt;input v-model=&#34;searchQuery&#34; type=&#34;search&#34; autocomplete=&#34;off&#34; placeholder=&#34;文章关键词&#34; /&gt; &lt;ul v-if=&#34;articles.length&#34;&gt; &lt;li v-for=&#34;article of articles&#34; :key=&#34;article.slug&#34;&gt; &lt;NuxtLink :to=&#34;article.path+&#39;/&#39;&#34;&gt;{{ article.title }}&lt;/NuxtLink&gt; &lt;!-- 在url地址后加一个/，配置全站的url格式，防止错乱 --&gt; &lt;/li&gt; &lt;/ul&gt; &lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;/template&gt; &lt;script&gt; import HeaderMe from &#34;@/components/HeaderMe&#34;; import PageSidebar from &#39;@/components/PageSidebar&#39;; export default { components: { HeaderMe, PageSidebar }, data () { return { searchQuery: &#39;&#39;, articles: [] } }, async asyncData () { // 调用 search.md 内的数据 const article = await import(`~/content/search.md`); return { article }; }, watch: { async searchQuery (searchQuery) { if (!searchQuery) { this.articles = [] return } this.articles = await this.$content(&#39;posts&#39;) // posts 是文章所在的文件夹的名称 .limit(10) .search(searchQuery) .fetch() } } } &lt;/script&gt; 关于样式的编写不怎么重要我就放下面了。
-css 代码 .wrapper { min-height: 300px; .archive { padding: 25px 2% 15px; .article-content { font-size: inherit; line-height: 1.8; color: inherit; margin-top: 20px; } .search { margin-top: 16px; input { width: 100%; background-color: #edf2f7; color: #2f495e; outline: none; border: none; border-radius: 30px; padding: 4px 20px; box-sizing: border-box; transition: all 0.1s linear; &amp;:focus { box-shadow: 3px 2px 10px rgb(0 0 0 / 20%); } } ul { margin-top: 6px; list-style: none; li { a { display: block; padding: 6px 14px; line-height: 1.6; transition: all 0.2s linear; &amp;:hover { background: #edf2f7; } } } } } } } @media (max-width: 520px) { .wrapper { .archive { .search { ul { li { a { border-bottom: 1px solid #ddd; } } } } } } } 
+css 代码.wrapper { min-height: 300px; .archive { padding: 25px 2% 15px; .article-content { font-size: inherit; line-height: 1.8; color: inherit; margin-top: 20px; } .search { margin-top: 16px; input { width: 100%; background-color: #edf2f7; color: #2f495e; outline: none; border: none; border-radius: 30px; padding: 4px 20px; box-sizing: border-box; transition: all 0.1s linear; &amp;:focus { box-shadow: 3px 2px 10px rgb(0 0 0 / 20%); } } ul { margin-top: 6px; list-style: none; li { a { display: block; padding: 6px 14px; line-height: 1.6; transition: all 0.2s linear; &amp;:hover { background: #edf2f7; } } } } } } } @media (max-width: 520px) { .wrapper { .archive { .search { ul { li { a { border-bottom: 1px solid #ddd; } } } } } } } 
 	</div>
 </article>
 <article class="list__item post">
@@ -407,7 +407,6 @@ ps: 作者肯定不会让林舒轻易 over 啊，毕竟是以自己为原型的�
 		</div>
 		<footer class="footer">
 	<div class="container footer__container flex">
-		
 		<div class="footer__copyright">
 			&copy; 2024 子舒的博客, 
 			使用 hugo 构建
@@ -417,25 +416,5 @@ ps: 作者肯定不会让林舒轻易 over 啊，毕竟是以自己为原型的�
 	</div>
 <script async defer src="/js/menu.js"></script>
 
-  <script>
-    MathJax = {
-      tex: {
-        inlineMath: [["$", "$"]],
-      },
-      displayMath: [
-        ["$$", "$$"],
-        ["\[\[", "\]\]"],
-      ],
-      svg: {
-        fontCache: "global",
-      },
-    };
-  </script>
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script
-    id="MathJax-script"
-    async
-    src="https://gcore.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
-  ></script>
 </body>
 </html>

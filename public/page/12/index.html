@@ -183,7 +183,7 @@ https://eugeneyan.com/writing/what-i-did-not-learn-about-writing-in-school/ 《�
 2.服务名称随意填写，然后点击右下角创建。
 3.点击右上角快速编辑
 4.在左侧编辑器中输入下列的代码
-2.代码 点击展开代码 // 替换成你想镜像的站点 const upstream = &#39;gravatar.com&#39; // 如果那个站点有专门的移动适配站点，否则保持和上面一致 const upstream_mobile = &#39;gravatar.com&#39; // 你希望禁止哪些国家访问 const blocked_region = [] // 禁止自访问 const blocked_ip_address = [] // 替换成你想镜像的站点 const replace_dict = { &#39;$upstream&#39;: &#39;$custom_domain&#39;, &#39;//gravatar.com&#39;: &#39;&#39; } //以下内容都不用动 addEventListener(&#39;fetch&#39;, event =&gt; { event.respondWith(fetchAndApply(event.request)); }) async function fetchAndApply(request) { const region = request.headers.get(&#39;cf-ipcountry&#39;).toUpperCase(); const ip_address = request.headers.get(&#39;cf-connecting-ip&#39;); const user_agent = request.headers.get(&#39;user-agent&#39;); let response = null; let url = new URL(request.url); let url_host = url.host; if (url.protocol == &#39;http:&#39;) { url.protocol = &#39;https:&#39; response = Response.redirect(url.href); return response; } if (await device_status(user_agent)) { upstream_domain = upstream } else { upstream_domain = upstream_mobile } url.host = upstream_domain; if (blocked_region.includes(region)) { response = new Response(&#39;Access denied: WorkersProxy is not available in your region yet.&#39;, { status: 403 }); } else if(blocked_ip_address.includes(ip_address)){ response = new Response(&#39;Access denied: Your IP address is blocked by WorkersProxy.&#39;, { status: 403 }); } else{ let method = request.method; let request_headers = request.headers; let new_request_headers = new Headers(request_headers); new_request_headers.set(&#39;Host&#39;, upstream_domain); new_request_headers.set(&#39;Referer&#39;, url.href); let original_response = await fetch(url.href, { method: method, headers: new_request_headers }) let original_response_clone = original_response.clone(); let original_text = null; let response_headers = original_response.headers; let new_response_headers = new Headers(response_headers); let status = original_response.status; new_response_headers.set(&#39;access-control-allow-origin&#39;, &#39;*&#39;); new_response_headers.set(&#39;access-control-allow-credentials&#39;, true); new_response_headers.delete(&#39;content-security-policy&#39;); new_response_headers.delete(&#39;content-security-policy-report-only&#39;); new_response_headers.delete(&#39;clear-site-data&#39;); const content_type = new_response_headers.get(&#39;content-type&#39;); if (content_type.includes(&#39;text/html&#39;) &amp;&amp; content_type.includes(&#39;UTF-8&#39;)) { original_text = await replace_response_text(original_response_clone, upstream_domain, url_host); } else { original_text = original_response_clone.body } response = new Response(original_text, { status, headers: new_response_headers }) } return response; } async function replace_response_text(response, upstream_domain, host_name) { let text = await response.text() var i, j; for (i in replace_dict) { j = replace_dict[i] if (i == &#39;$upstream&#39;) { i = upstream_domain } else if (i == &#39;$custom_domain&#39;) { i = host_name } if (j == &#39;$upstream&#39;) { j = upstream_domain } else if (j == &#39;$custom_domain&#39;) { j = host_name } let re = new RegExp(i, &#39;g&#39;) text = text.replace(re, j); } return text; } async function device_status (user_agent_info) { var agents = [&#34;Android&#34;, &#34;iPhone&#34;, &#34;SymbianOS&#34;, &#34;Windows Phone&#34;, &#34;iPad&#34;, &#34;iPod&#34;]; var flag = true; for (var v = 0; v &lt; agents.length; v++) { if (user_agent_info.indexOf(agents[v]) &gt; 0) { flag = false; break; } } return flag; } 然后点击保存并部署，就可以成功反代 gravatar 镜像了。
+2.代码 点击展开代码// 替换成你想镜像的站点 const upstream = &#39;gravatar.com&#39; // 如果那个站点有专门的移动适配站点，否则保持和上面一致 const upstream_mobile = &#39;gravatar.com&#39; // 你希望禁止哪些国家访问 const blocked_region = [] // 禁止自访问 const blocked_ip_address = [] // 替换成你想镜像的站点 const replace_dict = { &#39;$upstream&#39;: &#39;$custom_domain&#39;, &#39;//gravatar.com&#39;: &#39;&#39; } //以下内容都不用动 addEventListener(&#39;fetch&#39;, event =&gt; { event.respondWith(fetchAndApply(event.request)); }) async function fetchAndApply(request) { const region = request.headers.get(&#39;cf-ipcountry&#39;).toUpperCase(); const ip_address = request.headers.get(&#39;cf-connecting-ip&#39;); const user_agent = request.headers.get(&#39;user-agent&#39;); let response = null; let url = new URL(request.url); let url_host = url.host; if (url.protocol == &#39;http:&#39;) { url.protocol = &#39;https:&#39; response = Response.redirect(url.href); return response; } if (await device_status(user_agent)) { upstream_domain = upstream } else { upstream_domain = upstream_mobile } url.host = upstream_domain; if (blocked_region.includes(region)) { response = new Response(&#39;Access denied: WorkersProxy is not available in your region yet.&#39;, { status: 403 }); } else if(blocked_ip_address.includes(ip_address)){ response = new Response(&#39;Access denied: Your IP address is blocked by WorkersProxy.&#39;, { status: 403 }); } else{ let method = request.method; let request_headers = request.headers; let new_request_headers = new Headers(request_headers); new_request_headers.set(&#39;Host&#39;, upstream_domain); new_request_headers.set(&#39;Referer&#39;, url.href); let original_response = await fetch(url.href, { method: method, headers: new_request_headers }) let original_response_clone = original_response.clone(); let original_text = null; let response_headers = original_response.headers; let new_response_headers = new Headers(response_headers); let status = original_response.status; new_response_headers.set(&#39;access-control-allow-origin&#39;, &#39;*&#39;); new_response_headers.set(&#39;access-control-allow-credentials&#39;, true); new_response_headers.delete(&#39;content-security-policy&#39;); new_response_headers.delete(&#39;content-security-policy-report-only&#39;); new_response_headers.delete(&#39;clear-site-data&#39;); const content_type = new_response_headers.get(&#39;content-type&#39;); if (content_type.includes(&#39;text/html&#39;) &amp;&amp; content_type.includes(&#39;UTF-8&#39;)) { original_text = await replace_response_text(original_response_clone, upstream_domain, url_host); } else { original_text = original_response_clone.body } response = new Response(original_text, { status, headers: new_response_headers }) } return response; } async function replace_response_text(response, upstream_domain, host_name) { let text = await response.text() var i, j; for (i in replace_dict) { j = replace_dict[i] if (i == &#39;$upstream&#39;) { i = upstream_domain } else if (i == &#39;$custom_domain&#39;) { i = host_name } if (j == &#39;$upstream&#39;) { j = upstream_domain } else if (j == &#39;$custom_domain&#39;) { j = host_name } let re = new RegExp(i, &#39;g&#39;) text = text.replace(re, j); } return text; } async function device_status (user_agent_info) { var agents = [&#34;Android&#34;, &#34;iPhone&#34;, &#34;SymbianOS&#34;, &#34;Windows Phone&#34;, &#34;iPad&#34;, &#34;iPod&#34;]; var flag = true; for (var v = 0; v &lt; agents.length; v++) { if (user_agent_info.indexOf(agents[v]) &gt; 0) { flag = false; break; } } return flag; } 然后点击保存并部署，就可以成功反代 gravatar 镜像了。
 然后照葫芦画瓢，可以通过这种方式反代任何网站，访问起来大致无压力，延迟 100+ms 左右。
 3.自定义域名 在触发器中可以找到自定义域名选项，输入已经绑定 cloudflare 的域名，再次赞美 cloudflare，如果事前绑定好了域名，在这里可以直接输入二级域名，cloudflare 会自动解析，全部都是自动化的。
 在主页左侧的 网站 绑定域名。
@@ -240,7 +240,7 @@ Github 地址：https://github.com/usememos/memos
 			</div>
 			<aside class="sidebar">
 <div class="widget-misc widget">
-    <h4 class="widget-misc__title widget__title">MISC</h4>
+    <h4 class="widget-misc__title widget__title">Nav</h4>
     <div class="widget-misc__content widget__content">
         <ul class="item-list">
             
@@ -289,8 +289,36 @@ Github 地址：https://github.com/usememos/memos
         </ul>
     </div>
 </div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/blog/236.html/">Github 仓库同步到 Cloudflare R2</a>
+			</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/blog/weekly-64.html/">奇趣周刊 - 第 64 期</a>
+			</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/blog/235.html/">逃离杭州随想</a>
+			</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/blog/234.html/">vite 配置相关笔记</a>
+			</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/blog/weekly-63.html/">奇趣周刊 - 第 63 期</a>
+			</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/blog/233.html/">serve00 如何登录？</a>
+			</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/blog/weekly-62.html/">奇趣周刊 - 第 62 期</a>
+			</li>
+		</ul>
+	</div>
+</div>
 <div class="widget-taglist widget">
-    <h4 class="widget__title">TAGS</h4>
+    <h4 class="widget__title">Tags</h4>
     <div class="widget__content">
       <ul class="tag-list">
             <li>
@@ -596,51 +624,10 @@ Github 地址：https://github.com/usememos/memos
       </ul>
     </div>
 </div>
-<div class="widget-recent widget">
-	<h4 class="widget__title">RECENT POSTS</h4>
-	<div class="widget__content">
-		<ul class="widget__list">
-			<li class="widget__item">
-				<a class="widget__link" href="/blog/236.html/">Github 仓库同步到 Cloudflare R2</a>
-			</li>
-			<li class="widget__item">
-				<a class="widget__link" href="/blog/weekly-64.html/">奇趣周刊 - 第 64 期</a>
-			</li>
-			<li class="widget__item">
-				<a class="widget__link" href="/blog/235.html/">逃离杭州随想</a>
-			</li>
-			<li class="widget__item">
-				<a class="widget__link" href="/blog/234.html/">vite 配置相关笔记</a>
-			</li>
-			<li class="widget__item">
-				<a class="widget__link" href="/blog/weekly-63.html/">奇趣周刊 - 第 63 期</a>
-			</li>
-			<li class="widget__item">
-				<a class="widget__link" href="/blog/233.html/">serve00 如何登录？</a>
-			</li>
-			<li class="widget__item">
-				<a class="widget__link" href="/blog/weekly-62.html/">奇趣周刊 - 第 62 期</a>
-			</li>
-			<li class="widget__item">
-				<a class="widget__link" href="/blog/weekly-61.html/">奇趣周刊 - 第 61 期</a>
-			</li>
-			<li class="widget__item">
-				<a class="widget__link" href="/blog/232.html/">马家坞看日出</a>
-			</li>
-			<li class="widget__item">
-				<a class="widget__link" href="/blog/weekly-60.html/">奇趣周刊 - 第 60 期</a>
-			</li>
-			<li class="widget__item">
-				<a class="widget__link" href="/blog/231.html/">杭州国家版本馆文润阁</a>
-			</li>
-		</ul>
-	</div>
-</div>
 </aside>
 		</div>
 		<footer class="footer">
 	<div class="container footer__container flex">
-		
 		<div class="footer__copyright">
 			&copy; 2024 子舒的博客, 
 			使用 hugo 构建
@@ -650,25 +637,5 @@ Github 地址：https://github.com/usememos/memos
 	</div>
 <script async defer src="/js/menu.js"></script>
 
-  <script>
-    MathJax = {
-      tex: {
-        inlineMath: [["$", "$"]],
-      },
-      displayMath: [
-        ["$$", "$$"],
-        ["\[\[", "\]\]"],
-      ],
-      svg: {
-        fontCache: "global",
-      },
-    };
-  </script>
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script
-    id="MathJax-script"
-    async
-    src="https://gcore.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
-  ></script>
 </body>
 </html>
