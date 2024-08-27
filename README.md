@@ -48,23 +48,12 @@ hugo
 py toc.py
 ```
 
-**2. 设置不想在首页显示的分类**
-
-在 `index.html` 中：
-- `7` 表示过滤完还显示 7 条，如果不写的话，可能会设置的数量；
-- `weekly` 表示要过滤的分类。
-
-```html
-<!-- /layouts/index.html -->
-{{ if and (not (in .Params.categories "weekly")) (lt $count 7) }}
-```
-
-
 ## 4.联系我
 
-如对博客内容，排版等有疑问、建议或者其他问题，欢迎给我邮件 (anghunk@gmail.com) 或者在评论区留言 ([https://zishu.me/message/](https://zishu.me/message/))。
+如对博客内容，排版等有疑问、建议或者其他问题，欢迎联系我！
 
-邮箱：
+- 邮箱：anghunk@gmail.com
+- 留言：https://zishu.me/message/
 
 
 ## 5.Star History

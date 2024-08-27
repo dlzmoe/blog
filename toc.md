@@ -1,5 +1,6 @@
 ## 文章归档目录
 
+- 2024-08-25-Github 仓库同步到 Cloudflare-R2【[GitHub 文件链接](./content/blog/2024-08-25-Github仓库同步到Cloudflare-R2.md) / [博客链接](https://zishu.me/blog/236.html/)】
 - 2024-08-22-逃离杭州随想【[GitHub 文件链接](./content/blog/2024-08-22-逃离杭州随想.md) / [博客链接](https://zishu.me/blog/235.html/)】
 - 2024-08-15-vite 配置相关笔记【[GitHub 文件链接](./content/blog/2024-08-15-vite配置相关笔记.md) / [博客链接](https://zishu.me/blog/234.html/)】
 - 2024-08-14-serve00 如何登录【[GitHub 文件链接](./content/blog/2024-08-14-serve00如何登录.md) / [博客链接](https://zishu.me/blog/233.html/)】
