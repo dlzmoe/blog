@@ -1,0 +1,12 @@
+{{- if not .Date.IsZero }}
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+		{{- .Date | dateFormat (.Site.Params.dateformat | default "2006-01-02") -}}
+	</time>
+	{{- if ne .Date .Lastmod }}
+	<time class="meta__text" datetime="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">(
+		{{- T "meta_lastmod" }}: {{ .Lastmod | dateFormat (.Site.Params.dateformat | default "2006-01-02") -}}
+	)</time>
+	{{- end -}}
+</div>
+{{- end }}

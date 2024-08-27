@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
 	<title>Blogs - 子舒的博客</title>
 	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="">
@@ -22,7 +23,7 @@
 		<a class="topbar__link" href="/" title="子舒的博客" rel="sidebar">
 			<div class="topbar__item topbar__text">
 					<div class="topbar__title">子舒的博客</div>
-					<div class="topbar__tagline">Thoughts come and go quickly, occasionally stopping here</div>
+					<div class="topbar__tagline">The Tao that is utterable is not the eternal Tao</div>
 				</div>
 		</a>
 	</div>
@@ -43,18 +44,23 @@
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2022-06-22T00:00:00Z">June 22, 2022</time></div></div>
+	<time class="meta__text" datetime="2022-06-22T00:00:00Z">2022-06-22</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		分享一个掘金抽奖的油猴脚本，可以一键签到，抽奖，梭哈。
 攒多一点矿石，体验买彩票的感觉。
-(async function () { &lsquo;use strict&rsquo;;
+油猴脚本代码 ```js // ==UserScript== // @name 掘金抽奖 // @namespace http://tampermonkey.net/ // @version 1.2.5 // @description 掘金抽奖 签到 免费抽奖 5 连抽 10 连抽 可视化抽奖 petite-vue // @author 无仙 // @match https://juejin.cn/* // @icon https://lf3-cdn-tos.bytescm.com/obj/static/xitu_juejin_web//static/favicons/favicon-32x32.png // @require https://unpkg.com/petite-vue // ==/UserScript== (async function () { &lsquo;use strict&rsquo;;
 const { createApp } = PetiteVue; // 不会吧不会吧，不会还有人不知道 petite-vue 吧
 const root = document.createElement(&lsquo;div&rsquo;); root.class = &lsquo;wx_draw_wrap&rsquo;; root.innerHTML = ` &lt;div v-show=&quot;!popup&quot; class=&ldquo;wx_draw&rdquo; @click=&ldquo;open&rdquo;&gt;掘金抽奖
-&lt;div v-if=&quot;popup&quot; class=&quot;wx_popup&quot;&gt; &lt;div class=&quot;wx_mask&quot; @click=&quot;popup = false&quot;&gt;&lt;/div&gt; &lt;div class=&quot;wx_main&quot;&gt; &lt;div class=&quot;wx_header&quot;&gt; &lt;div&gt;掘金抽奖&lt;/div&gt; &lt;div class=&quot;wx_score&quot;&gt;当前矿石：{{ score }}&lt;/div&gt; &lt;/div&gt; &lt;div class=&quot;wx_body&quot;&gt; &lt;div class=&quot;wx_options&quot;&gt; &lt;div @click=&quot;check_in&quot; v-if=&quot;check_status === -1 || check_status === false&quot;&gt;签到&lt;/div&gt; &lt;div @click=&quot;get_free&quot; v-else&gt;签到成功&lt;/div&gt; &lt;div @click=&quot;draw(5)&quot;&gt;5 连抽&lt;/div&gt; &lt;div @click=&quot;draw(10)&quot;&gt;10 连抽&lt;/div&gt; &lt;div @click=&quot;draw(undefined)&quot;&gt;梭哈抽奖&lt;/div&gt; &lt;/div&gt; &lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot; width=&quot;100%&quot;&gt; &lt;thead&gt; &lt;tr&gt; &lt;th&gt;奖品图片&lt;/th&gt; &lt;th&gt;奖品名称&lt;/th&gt; &lt;th&gt;中奖次数&lt;/th&gt; &lt;/tr&gt; &lt;/thead&gt; &lt;tbody&gt; &lt;tr v-for=&quot;item in award&quot;&gt; &lt;td&gt;&lt;img :src=&quot;item.
-	</div>
-	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/blog/143.html/">Read more</a>
+&lt;div v-if=&quot;popup&quot; class=&quot;wx_popup&quot;&gt; &lt;div class=&quot;wx_mask&quot; @click=&quot;popup = false&quot;&gt;&lt;/div&gt; &lt;div class=&quot;wx_main&quot;&gt; &lt;div class=&quot;wx_header&quot;&gt; &lt;div&gt;掘金抽奖&lt;/div&gt; &lt;div class=&quot;wx_score&quot;&gt;当前矿石：{{ score }}&lt;/div&gt; &lt;/div&gt; &lt;div class=&quot;wx_body&quot;&gt; &lt;div class=&quot;wx_options&quot;&gt; &lt;div @click=&quot;check_in&quot; v-if=&quot;check_status === -1 || check_status === false&quot;&gt;签到&lt;/div&gt; &lt;div @click=&quot;get_free&quot; v-else&gt;签到成功&lt;/div&gt; &lt;div @click=&quot;draw(5)&quot;&gt;5 连抽&lt;/div&gt; &lt;div @click=&quot;draw(10)&quot;&gt;10 连抽&lt;/div&gt; &lt;div @click=&quot;draw(undefined)&quot;&gt;梭哈抽奖&lt;/div&gt; &lt;/div&gt; &lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot; width=&quot;100%&quot;&gt; &lt;thead&gt; &lt;tr&gt; &lt;th&gt;奖品图片&lt;/th&gt; &lt;th&gt;奖品名称&lt;/th&gt; &lt;th&gt;中奖次数&lt;/th&gt; &lt;/tr&gt; &lt;/thead&gt; &lt;tbody&gt; &lt;tr v-for=&quot;item in award&quot;&gt; &lt;td&gt;&lt;img :src=&quot;item.lottery_image&quot;/&gt;&lt;/td&gt; &lt;td&gt;{{ item.lottery_name }}&lt;/td&gt; &lt;td&gt;{{ item.times }}&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; &lt;div class=&quot;wx_loading&quot; v-if=&quot;loading&quot;&gt; &lt;svg class=&quot;circular&quot; viewBox=&quot;25 25 50 50&quot;&gt; &lt;circle class=&quot;path&quot; cx=&quot;50&quot; cy=&quot;50&quot; r=&quot;20&quot; fill=&quot;none&quot; /&gt; &lt;/svg&gt; &lt;/div&gt; &lt;/div&gt; &lt;div class=&quot;wx_footer&quot;&gt; &lt;div class=&quot;wx_confirm wx_btn&quot; @click=&quot;popup = false&quot;&gt;关闭&lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;/div&gt; `;
+// 查询奖品列表 const res = await fetch(&lsquo;https://api.juejin.cn/growth_api/v1/lottery_config/get', { headers: { cookie: document.cookie }, method: &lsquo;GET&rsquo;, credentials: &lsquo;include&rsquo; }).then((res) =&gt; res.json());
+const award = (res.data &amp;&amp; res.data.lottery ? res.data.lottery : []).map((item) =&gt; ({ &hellip;item, times: 0 })); const { free_count, point_cost } = res.data; // 剩余免费抽奖次数，单次抽奖消耗数
+document.body.appendChild(root); // 插入 DOM
+// petite-vue init 初始化 createApp({ award, popup: false, loading: false, score: 0, free_count, check_status: -1,
+async open() { const res = await fetch('https://api.juejin.cn/growth_api/v1/get_cur_point', { headers: { cookie: document.cookie }, method: 'GET', credentials: 'include' }).then((res) =&gt; res.json()); this.score = res.data; // 当前分数 this.popup = true; (this.check_status === -1 || this.check_status === false) &amp;&amp; this.get_status(); }, async draw(times, is_not_free = true) { if (this.loading || times === 0) return; // const is_not_free = !(this.free_count &amp;&amp; times === 1); if (is_not_free &amp;&amp; this.score &lt; point_cost * (times || 1)) return alert('分都不够想啥呢？'); let i = 0; const drawFn = async () =&gt; { if ((is_not_free &amp;&amp; this.score &lt; point_cost) || i === times) { this.free_count = 0; this.loading = false; this.open(); console.log(`${times ? times + '连抽' : '梭哈'}结束！`); return; } const result = await fetch('https://api.juejin.cn/growth_api/v1/lottery/draw', { headers: { cookie: document.cookie }, method: 'POST', credentials: 'include' }).then((res) =&gt; res.json()); if (result.err_no !== 0) { console.log(result.err_msg); this.loading = false; this.open(); return; } i++; is_not_free &amp;&amp; (this.score -= point_cost); if (result.data.lottery_type === 1) this.score += 66; const item = this.award.find((item) =&gt; item.lottery_id === result.data.lottery_id); item.times++; console.log(`抽到：${result.data.lottery_name}`); drawFn(); }; console.log(`开始${times ? times + '连抽' : '梭哈'}！`); this.loading = true; this.award.forEach((item) =&gt; { item.times = 0; }); try { drawFn(); } catch (error) { this.loading = false; console.error(error); } }, async check_in() { if (this.check_status) { this.get_free(); // 免费抽奖 return; } // 签到 const check_in = await fetch('https://api.juejin.cn/growth_api/v1/check_in', { headers: { cookie: document.cookie }, method: 'POST', credentials: 'include' }).then((res) =&gt; res.json()); if (check_in.err_no !== 0) { alert('签到失败！'); this.check_status = false; return; } this.check_status = true; this.score = check_in.data.sum_point; this.get_free(); // 免费抽奖 }, async get_status() { // 查询签到状态 const today_status = await fetch('https://api.juejin.cn/growth_api/v1/get_today_status', { headers: { cookie: document.cookie }, method: 'GET', credentials: 'include' }).then((res) =&gt; res.json()); this.check_status = today_status.data; }, async get_free() { // 查询是否有免费抽奖次数 const res = await fetch('https://api.juejin.cn/growth_api/v1/lottery_config/get', { headers: { cookie: document.cookie }, method: 'GET', credentials: 'include' }).then((res) =&gt; res.json()); this.free_count = res.data.free_count; if (res.data.free_count) { // 有免费抽奖次数 this.draw(res.data.free_count, false); } } }).mount();
+// 处理样式 const style = .wx_draw_wrap { box-sizing: border-box; position: fixed; top: 50%; left: 0px; z-index: 888888; margin-top: -20px; } .wx_draw { box-sizing: border-box; position: fixed; top: 50%; left: 0px; z-index: 888888; width: 40px; height: 40px; line-height: 16px; font-size: 12px; padding: 4px; background-color: rgb(232, 243, 255); border: 1px solid rgb(232, 243, 255); color: rgb(30, 128, 255); text-align: center; overflow: hidden; cursor: pointer; } .wx_popup { position: fixed; left: 0; top: 0; right: 0; bottom: 0; z-index: 999999; } .wx_mask { width: 100%; height: 100%; background: rgba(0,0,0,0.5); } .wx_main { --width: 460px; position: absolute; left: 50%; top: 50%; width: var(--width); transform: translate(-50%, -50%); background: #fff; border-radius: 4px; } .wx_main .wx_header { height: 40px; line-height: 40px; font-size: 16px; padding: 0 16px; border-bottom: 1px solid #999; display: flex; align-items: center; justify-content: space-between; color: #000; font-weight: 400; } .wx_score { font-size: 12px; font-size: #00a100; } .wx_main .wx_body { padding: 16px; border-bottom: 1px solid #999; position: relative; } .wx_main .wx_options { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; } .wx_main .wx_options div { width: 80px; text-align: center; height: 24px; line-height: 24px; background-color: rgb(232, 243, 255); border: 1px solid #c9d4e3; color: rgb(30, 128, 255); cursor: pointer; border-radius: 2px; } .wx_main .wx_body p { margin: 0 0 8px; } .wx_body table { width: 100%; text-align: center; border-left: 1px solid #ccc; border-top: 1px solid #ccc; } .wx_body table th, .wx_body table td { border-right: 1px solid #ccc; border-bottom: 1px solid #ccc; line-height: 20px; } .wx_body table th { line-height: 28px; } .wx_main .wx_body img { vertical-align: middle; width: 40px; height: 40px; } .wx_main .wx_footer { padding: 12px 16px; text-align: right; } .wx_btn { display: inline-block; width: 48px; cursor: pointer; text-align: center; height: 20px; line-height: 20px; background-color: rgb(232, 243, 255); border: 1px solid #c9d4e3; color: rgb(30, 128, 255); border-radius: 2px; } .wx_loading { position: absolute; left: 0; top: 0; right: 0; bottom: 0; z-index: 9999999; background: rgba(0,0,0,0.65); } .wx_loading .circular { height: 42px; width: 42px; -webkit-animation: loading-rotate 2s linear infinite; animation: loading-rotate 2s linear infinite; position: absolute; left: 50%; top: 50%; margin-top: -21px; margin-left: -21px; } .wx_loading .path { -webkit-animation: loading-dash 1.5s ease-in-out infinite; animation: loading-dash 1.5s ease-in-out infinite; stroke-dasharray: 90, 150; stroke-dashoffset: 0; stroke-width: 2; stroke: #409eff; stroke-linecap: round; } @keyframes loading-rotate { 100% { -webkit-transform: rotate(360deg); transform: rotate(360deg); } } @keyframes loading-dash { 0% { stroke-dasharray: 1, 200; stroke-dashoffset: 0; } 50% { stroke-dasharray: 90, 150; stroke-dashoffset: -40px; } 100% { stroke-dasharray: 90, 150; stroke-dashoffset: -120px; } };
+const styleEl = document.createElement(&lsquo;style&rsquo;); styleEl.textContent = style; document.head.appendChild(styleEl); })();
+&lt;/details&gt; &lt;/summary&gt; 
 	</div>
 </article>
 <article class="list__item post">
@@ -65,7 +71,7 @@ const root = document.createElement(&lsquo;div&rsquo;); root.class = &lsquo;wx_d
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2022-06-21T00:00:00Z">June 21, 2022</time></div></div>
+	<time class="meta__text" datetime="2022-06-21T00:00:00Z">2022-06-21</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		传统的 usb 接口是一个神奇的物品，当你插入第一次的时候肯定是反方向的，所以你要反过来插第二次，但是结果仍然是插不进去。这个时候你就会发现，它存在第三面，所以当你再次反过来的时候就可以正常插进接口了。
@@ -81,7 +87,7 @@ const root = document.createElement(&lsquo;div&rsquo;); root.class = &lsquo;wx_d
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2022-06-18T00:00:00Z">June 18, 2022</time></div></div>
+	<time class="meta__text" datetime="2022-06-18T00:00:00Z">2022-06-18</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		当情绪破防的时候， 任何事情都是最后一根稻草。
@@ -97,7 +103,7 @@ const root = document.createElement(&lsquo;div&rsquo;); root.class = &lsquo;wx_d
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2022-06-10T00:00:00Z">June 10, 2022</time></div></div>
+	<time class="meta__text" datetime="2022-06-10T00:00:00Z">2022-06-10</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		随着年龄的增长，越发感觉自我想象力的缺失。
@@ -117,15 +123,13 @@ const root = document.createElement(&lsquo;div&rsquo;); root.class = &lsquo;wx_d
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2022-06-07T00:00:00Z">June 07, 2022</time></div></div>
+	<time class="meta__text" datetime="2022-06-07T00:00:00Z">2022-06-07</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		typecho 在评论时默认是没有 @ 评论人的功能，可以用代码加一下。
 在 functions.php 中：
-/* * 评论回复时 @ 评论人 */ function get_comment_at($coid) { $db = Typecho_Db::get(); $prow = $db-&gt;fetchRow($db-&gt;select(&#39;parent,status&#39;)-&gt;from(&#39;table.comments&#39;) -&gt;where(&#39;coid = ?&#39;, $coid)); $mail = &#34;&#34;; $parent = @$prow[&#39;parent&#39;]; if ($parent != &#34;0&#34;) { $arow = $db-&gt;fetchRow($db-&gt;select(&#39;author,status,mail&#39;)-&gt;from(&#39;table.comments&#39;) -&gt;where(&#39;coid = ?&#39;, $parent)); @$author = @$arow[&#39;author&#39;]; $mail = @$arow[&#39;mail&#39;]; if(@$author &amp;&amp; $arow[&#39;status&#39;] == &#34;approved&#34;){ if (@$prow[&#39;status&#39;] == &#34;waiting&#34;){ echo &#39;&lt;p class=&#34;commentReview&#34;&gt;（评论审核中）)&lt;/p&gt;&#39;; } echo &#39;&lt;a href=&#34;#comment-&#39; .
-	</div>
-	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/blog/132.html/">Read more</a>
+/* * 评论回复时 @ 评论人 */ function get_comment_at($coid) { $db = Typecho_Db::get(); $prow = $db-&gt;fetchRow($db-&gt;select(&#39;parent,status&#39;)-&gt;from(&#39;table.comments&#39;) -&gt;where(&#39;coid = ?&#39;, $coid)); $mail = &#34;&#34;; $parent = @$prow[&#39;parent&#39;]; if ($parent != &#34;0&#34;) { $arow = $db-&gt;fetchRow($db-&gt;select(&#39;author,status,mail&#39;)-&gt;from(&#39;table.comments&#39;) -&gt;where(&#39;coid = ?&#39;, $parent)); @$author = @$arow[&#39;author&#39;]; $mail = @$arow[&#39;mail&#39;]; if(@$author &amp;&amp; $arow[&#39;status&#39;] == &#34;approved&#34;){ if (@$prow[&#39;status&#39;] == &#34;waiting&#34;){ echo &#39;&lt;p class=&#34;commentReview&#34;&gt;（评论审核中）)&lt;/p&gt;&#39;; } echo &#39;&lt;a href=&#34;#comment-&#39; . $parent . &#39;&#34;&gt;@&#39; . $author . &#39;&lt;/a&gt;&#39;; }else{ if (@$prow[&#39;status&#39;] == &#34;waiting&#34;){ echo &#39;&lt;p class=&#34;commentReview&#34;&gt;（评论审核中）)&lt;/p&gt;&#39;; }else{ echo &#39;&#39;; } } } else { if (@$prow[&#39;status&#39;] == &#34;waiting&#34;){ echo &#39;&lt;p class=&#34;commentReview&#34;&gt;（评论审核中）)&lt;/p&gt;&#39;; }else{ echo &#39;&#39;; } } } 然后在 comments.php 中输出评论内容代码的前面加上：
+&lt;?php $parentMail = get_comment_at($comments-&gt;coid)?&gt;&lt;?php echo $parentMail;?&gt; ▼代码所示 ▼效果图 我的博客即将同步至腾讯云+社区，邀请大家一同入驻：https://cloud.tencent.com/developer/support-plan?invite_code=17ctk6evsjk5b
 	</div>
 </article>
 <article class="list__item post">
@@ -136,7 +140,7 @@ const root = document.createElement(&lsquo;div&rsquo;); root.class = &lsquo;wx_d
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2022-06-02T00:00:00Z">June 02, 2022</time></div></div>
+	<time class="meta__text" datetime="2022-06-02T00:00:00Z">2022-06-02</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		抽空看完了爱死机第三季，个人感受比第二季优秀，但是还是不如第一季。太过追求三者的结合，科幻与死亡的元素，不够灵活。
@@ -154,7 +158,7 @@ bootcss4 是一个轻量前端 ui 框架，最近的项目中用到了它，使�
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2022-05-25T00:00:00Z">May 25, 2022</time></div></div>
+	<time class="meta__text" datetime="2022-05-25T00:00:00Z">2022-05-25</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		前言 网站经常备份好处就是遇到问题以后可以迅速的恢复，不那么被动，防止信息丢失，操作性很大。虽然搭建一个网站非常容易，但为了应对网络上各种各样的意外情况，避免自己的网站付诸东流，做好网站备份是非常有必要的。
@@ -168,9 +172,26 @@ bootcss4 是一个轻量前端 ui 框架，最近的项目中用到了它，使�
 yum install -y mailx 编辑配置文件 安装完成后，编辑邮箱服务的相关配置文件。 在终端输入以下命令，然后回车进入编辑文件界面。
 vim /etc/mail.rc 使用键盘上下键，找到大约 69 行位置，按‘i’键输入，添加以下配置。
 set from=发件人@qq.com #发送邮件后显示的邮件发送方 需要修改 set smtp=smtps://smtp.qq.com:465 #SMTP服务器的网址及端口 需要修改 set smtp-auth-user=发件人@qq.com #发送邮箱 需要修改 set smtp-auth-password=邮箱密码/SMTP授权码 #设置的邮箱密码，SMTP授权密码 需要修改 set smtp-auth=login #动作、登录 无需修改 set ssl-verify=ignore #ssl验证忽略 无需修改 set nss-config-dir=/etc/pki/nssdb #证书存放目录 无需修改 请将配置按要求修改为自己所使用的邮箱服务配置。服务器需要开启 465 端口。
-	</div>
-	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/blog/130.html/">Read more</a>
+配置修改完成后，按 Esc 键，输入:wq回车保存退出编辑界面。
+测试发送邮件 在终端输入发送测试邮件命令，需要修改收件人邮箱，回车执行。
+echo &#34;这是一封测试邮件&#34; | mail -s &#34;邮件主题&#34; 收件人@qq.com 查看邮箱是否收到测试邮件。
+如果发现终端报以下错误（但没有影响收件），没有错误请跳过。
+Error in certificate: Peer's certificate issuer has been marked as not trusted by the.
+Ctrl+C结束命令后，修改邮箱服务配置文件，将set ssl-verify=ignore修改为set ssl-verify=strict后保存退出（编辑方法同上）。
+修改完成后在终端输入以下命令。
+获取邮件服务器证书
+echo -n &#34; &#34; | openssl s_client -connect smtp.qq.com:465 | sed -ne &#39;/-BEGIN CERTIFICATE-/,/-END CERTIFIICATE-/p&#39; &gt; /etc/pki/nssdb/qq.crt 把证书添加到受信任表
+certutil -A -n &#39;yeah&#39; -t &#34;P,P,P&#34; -d /etc/pki/nssdb -i /etc/pki/nssdb/qq.crt 注：如果是 163 或者其他邮箱服务器请将smtp.qq.com改为smtp.163.com，qq.crt改为163.crt 以此类推。
+命令执行完成后，重新执行发送测试邮件命令，不在报错。
+宝塔定时任务 左侧-》计划任务
+首先按自己需求（计划任务执行时间，保留文件数量等）添加网站和数据库源文件备份任务。
+然后添加shell脚本任务，在脚本内容中添加以下脚本命令，修改收件人为自己的邮箱。
+#!/bin/bash cd /www/backup/site for file in $(ls *) do str=&#34;${str} -a ${file}&#34; done echo &#34;主人，今天的网站备份又到了哦，请注意查收！&#34; | mail -s &#34;网站备份&#34; $str 2502393029@qq.com 执行时间可按需求，晚于网站，数据库备份任务执行时间。
+数据库备份和网站备份一样需要再添加一次计划任务，将cd /www/backup/site 修改为cd /www/backup/database数据库备份文件所在目录即可，参考改一下邮件主题，和内容信息。
+计划任务添加完成后，可先执行网站，数据库源文件备份任务，再执行网站，数据库邮箱shell脚本备份任务，然后前往邮箱查看文件是否收到，文件过大，邮件会有延迟。
+注：如果有报错或收不到邮件情况，请仔细检查命令，配置文件是否有误，或者查看脚本执行日志进行排查。
+转载自梦繁星博客：https://blog.emoao.com/13.html
+如果问题请在评论区留言。
 	</div>
 </article>
 <article class="list__item post">
@@ -181,7 +202,7 @@ set from=发件人@qq.com #发送邮件后显示的邮件发送方 需要修改 
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2022-05-24T00:00:00Z">May 24, 2022</time></div></div>
+	<time class="meta__text" datetime="2022-05-24T00:00:00Z">2022-05-24</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		分享一个 python 的库 &mdash;fonttools，针对字体文件进行处理非常方便。
@@ -200,7 +221,7 @@ pip install fonttools 字体库 本地新建一个文件夹，取名为 fonts �
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2022-05-13T00:00:00Z">May 13, 2022</time></div></div>
+	<time class="meta__text" datetime="2022-05-13T00:00:00Z">2022-05-13</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		好事和坏事总是接踵而至，你永远不知道下一秒会发生什么。但是总有解决的办法，不是吗？但实际上我也不确定。
@@ -224,7 +245,7 @@ coding 构建部署同步 github 好像有 bug，搞了半天最后重新刷新 
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2022-05-12T00:00:00Z">May 12, 2022</time></div></div>
+	<time class="meta__text" datetime="2022-05-12T00:00:00Z">2022-05-12</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		起因是因为觉得 v2ex 网站主题略有拥挤，阅读体验不好，而正好网站支持自定义 css，所以就在参考其他人的基础上，修改了一套比较美观的样式。
@@ -248,8 +269,15 @@ Github 仓库：https://github.com/dlzmoe/v2ex_theme
 			
 
 		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
 		
-		
+		<div class="footer__copyright">
+			&copy; 2024 子舒的博客, 
+			使用 hugo 构建
+		</div>
+	</div>
+</footer>
 	</div>
 <script async defer src="/js/menu.js"></script>
 

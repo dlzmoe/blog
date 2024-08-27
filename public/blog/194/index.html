@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>hugo 纯静态编写一个字数统计脚本 - 子舒的博客</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="topbar">
+		<a class="topbar__link" href="/" title="子舒的博客" rel="sidebar">
+			<div class="topbar__item topbar__text">
+					<div class="topbar__title">子舒的博客</div>
+					<div class="topbar__tagline">The Tao that is utterable is not the eternal Tao</div>
+				</div>
+		</a>
+	</div>
+		
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">hugo 纯静态编写一个字数统计脚本</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2023-05-13T00:00:00Z">May 13, 2023</time></div></div>
+		</header>
+		<div class="content post__content clearfix">
+			<p>早上起来的时候看到微信群中有博友分享自己的建站时间，聊着聊着说到总字数上面，这时我才发现我的网站没有统计的地方，索性就自己写一个吧，因为是静态博客，所以不涉及后端、服务器等，只用前端的方式来解决。</p>
+<p>这里需要借助我之前的一篇文章，<a href="/blog/189.html/">《用原生 js 给网站写个搜索功能》</a>，里面有提到如何生成一个文章列表 json 文件，这里我们会用到这个文件 <code>index.json</code>。</p>
+<p>写一个 ajax 方法，让浏览器遍历每个页面。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">$</span>(document).<span style="color:#a6e22e">ready</span>(<span style="color:#66d9ef">function</span> () {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">$</span>.<span style="color:#a6e22e">ajax</span>({
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;/index.json&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;get&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">dataType</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;json&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">success</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">data</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">pageUrls</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">data</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">totalNum</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">pageUrls</span>.<span style="color:#a6e22e">length</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">$</span>(<span style="color:#e6db74">&#39;#totalNum&#39;</span>).<span style="color:#a6e22e">html</span>(<span style="color:#a6e22e">totalNum</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">totalWords</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">pageUrls</span>.<span style="color:#a6e22e">forEach</span>(<span style="color:#a6e22e">urlObj</span> =&gt; {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">$</span>.<span style="color:#a6e22e">get</span>(<span style="color:#a6e22e">urlObj</span>.<span style="color:#a6e22e">permalink</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">data</span>) {
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">content</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">replace</span>(<span style="color:#e6db74">/(&lt;([^&gt;]+)&gt;)/gi</span>, <span style="color:#e6db74">&#34; &#34;</span>).<span style="color:#a6e22e">replace</span>(<span style="color:#e6db74">/[^\w\s]/gi</span>, <span style="color:#e6db74">&#34; &#34;</span>);
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">words</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">content</span>.<span style="color:#a6e22e">split</span>(<span style="color:#e6db74">&#34; &#34;</span>);
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">wordCount</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">words</span>.<span style="color:#a6e22e">filter</span>(<span style="color:#a6e22e">word</span> =&gt; <span style="color:#a6e22e">word</span> <span style="color:#f92672">!==</span> <span style="color:#e6db74">&#34;&#34;</span>).<span style="color:#a6e22e">length</span>;
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">totalWords</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">wordCount</span>;
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">$</span>(<span style="color:#e6db74">&#39;#totalWords&#39;</span>).<span style="color:#a6e22e">html</span>(<span style="color:#a6e22e">totalWords</span>);
+</span></span><span style="display:flex;"><span>        });
+</span></span><span style="display:flex;"><span>      });
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">error</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span> () {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;error&#39;</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  })
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre></div><p>我是将信息放在我的 <a href="/about/">关于</a> 页面下。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-md" data-lang="md"><span style="display:flex;"><span>经过脚本统计，我已经写了 &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;totalNum&#34;</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt; 篇文章，总共 &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;totalWords&#34;</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt; 个字。
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- 经过脚本统计，我已经写了 164 篇文章，总共 97577 个字。 --&gt;</span>
+</span></span></code></pre></div><p><img src="https://imgurl.zishu.me/images/old/2023/05/13/645f33d7e3209.webp" alt="image"></p>
+
+		</div>
+	</article>
+</main>
+
+
+
+			</div>
+			
+		</div>
+		
+		
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [["$", "$"]],
+      },
+      displayMath: [
+        ["$$", "$$"],
+        ["\[\[", "\]\]"],
+      ],
+      svg: {
+        fontCache: "global",
+      },
+    };
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script
+    id="MathJax-script"
+    async
+    src="https://gcore.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+  ></script>
+</body>
+</html>

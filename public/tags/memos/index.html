@@ -1,127 +1,102 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html class="no-js" lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="generator" content="Hugo 0.123.6">
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="toTop" content="true">
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="author" content="子舒" />
-<meta property="og:url" content="https://zishu.me/tags/memos/" />
-<link rel="canonical" href="https://zishu.me/tags/memos/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
-<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
-<link rel="shortcut" href="https://imgurl.zishu.me/favicon.ico" /><link rel="alternate" type="application/atom+xml" href="https://zishu.me/index.xml" title="子舒的博客">
-<script type="application/ld+json">
-{
-"@context" : "http://schema.org",
-"@type" : "BlogPosting",
-"mainEntityOfPage": {
-"@type": "WebPage",
-"@id": "https:\/\/zishu.me\/"
-},
-"articleSection" : "tags",
-"name" : "Memos",
-"headline" : "Memos",
-"description" : "",
-"inLanguage" : "en-US",
-"author" : "子舒",
-"creator" : "子舒",
-"publisher": "子舒",
-"accountablePerson" : "子舒",
-"copyrightHolder" : "子舒",
-"copyrightYear" : "2023",
-"datePublished": "2023-01-09 00:00:00 \u002b0000 UTC",
-"dateModified" : "2023-01-09 00:00:00 \u002b0000 UTC",
-"url" : "https:\/\/zishu.me\/tags\/memos\/",
-"keywords" : [  ]
-}
-</script><title>Memos - 子舒的博客</title>
-<meta property="og:title" content="Memos" />
-<meta property="og:type" content="article" />
-<meta property="og:description" content="" />
-<meta name="description" content="" />
-<meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+	<title>Memos - 子舒的博客</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
 
+	<link rel="stylesheet" href="/css/style.css">
+	
+	<link rel="alternate" type="application/rss+xml" href="/tags/memos/index.xml" title="子舒的博客">
 
-<link rel="stylesheet" href="/css/base.css">
-<link rel="stylesheet" href="/css/index.css">
-<link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
-<script src="/js/jquery3.6.0.min.js"></script>
 </head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="topbar">
+		<a class="topbar__link" href="/" title="子舒的博客" rel="sidebar">
+			<div class="topbar__item topbar__text">
+					<div class="topbar__title">子舒的博客</div>
+					<div class="topbar__tagline">The Tao that is utterable is not the eternal Tao</div>
+				</div>
+		</a>
+	</div>
+		
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main list" role="main">
+	<header class="main__header">
+		<h1 class="main__title">Memos</h1>
+	</header><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/181.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">利用 memos 生成的在线动态列表</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2023-01-09T00:00:00Z">2023-01-09</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		memos 是一个具有知识管理和社交功能的开源自托管备忘录中心。
+Github 地址：https://github.com/usememos/memos
+可以用它本身提供的 api，然后结合静态博客，做成一个在线的动态列表，类似于朋友圈功能。
+接口 url 有固定的格式，openId 是每个用户自动生成的。
+其次我又写了两个方法，一个是时间戳转成正常时间格式，一个是利用正则删去内容中多余的标签。
+将下面代码复制到你想显示的页面编辑，只需修改 openId，提供了一个基础的样式，如果有其他优化方案，欢迎指出。
+由于接口中带了用户密钥，建议完成代码后将 js 加密再引入，不然可能会有一定的安全风险。
+推荐网址：https://tool.lu/js/
+&lt;!-- 结构和 css --&gt; &lt;div class=&#34;sslist&#34;&gt;&lt;/div&gt; &lt;style&gt; .sslist-item { padding: 10px 10px 20px; margin-bottom: 20px; border-radius: 2px; background: #f3f3f3; box-shadow: 1px 2px 4px rgba(0, 0, 0, .2); transition: all 0.2s linear; animation: up 1s forwards; transform: translateY(20px); opacity: 0; } @keyframes up { 0% { transform: translateY(20px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } } .sslist-item:hover { background: #eee; } .sslist-item .sslist-date { opacity: 0.6; margin: 0; font-size: 15px; margin-bottom: 5px; } &lt;/style&gt; // 调用接口的 js 方法 function memosShow() { var memosStr = &#34;&#34;; var openId = &#34;xxx&#34;; $.ajax({ url: &#34;https://memos.zburu.com/api/memo?openId=&#34; + openId + &#34;&amp;tag=说说&#34;, type: &#34;get&#34;, dataType: &#34;json&#34;, success: function (data) { // 生成数组 const sslist = data.data; for (let i = 0; i &lt; sslist.length; i++) { const element = sslist[i]; // 把时间戳转为正常时间格式 2023-01-9 13:17:12 var date = new Date(element.createdTs * 1000); Y = date.getFullYear() + &#34;-&#34;; M = (date.getMonth() + 1 &lt; 10 ? &#34;0&#34; + (date.getMonth() + 1) : date.getMonth() + 1) + &#34;-&#34;; D = (date.getDate() &lt; 10 ? &#34;0&#34; + date.getDate() : date.getDate()) + &#34; &#34;; h = date.getHours() + &#34;:&#34;; m = date.getMinutes() + &#34;:&#34;; s = date.getSeconds(); const createdTsNew = Y + M + D + h + m + s; sslist[i].createdTs = createdTsNew; // 利用js正则删去内容前的标签字符 const contentNew = element.content.slice(4); sslist[i].content = contentNew; } $.each(data.data, function (i, item) { list = &#34;&lt;div class=&#39;sslist-item&#39;&gt;&#34; + &#34;&lt;p class=&#39;sslist-date&#39;&gt;&#34; + item.createdTs + &#34;&lt;/p&gt;&#34; + item.content + &#34;&lt;/div&gt;&#34;; memosStr += list; }), $(&#34;.sslist&#34;).html(memosStr); }, error: function () { console.log(&#34;error&#34;); } }); } memosShow(); 
+	</div>
+</article>
 
-<body id="container">
-  <meter id="isread" max="100" value="0"></meter>
-<script>
-  window.addEventListener('scroll', function () {
-    var scrolled = window.scrollY;
-    var totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-    var percentage = (scrolled / totalHeight) * 100;
-    $('#isread').attr('value', percentage)
-  });
-</script>
+</main>
 
 
-<div id="head" class="site-index">
-  <a id="logo" href="/">
-    <img src="https://imgurl.zishu.me/author.webp">
-  </a>
-  <div id="site-title">
-    <a href="/">子舒的博客</a>
-  </div>
-  <ul id="menu">
-    
-    <li><a href="/categories/%e6%8a%80%e6%9c%af/">技术</a></li>
-    
-    <li><a href="/categories/%e9%9a%8f%e7%ac%94/">随笔</a></li>
-    
-    <li><a href="/categories/weekly/">周刊</a></li>
-    
-    <li><a href="/message/">留言</a></li>
-    
-    <li><a href="/about/">关于</a></li>
-    
-    <li><a href="/index.xml" target="_blank">订阅</a></li>
-  </ul>
-</div>
+			</div>
+			
 
-  <section id="body">
-    <h1 id="body-title">📓 Memos</h1>
-
-    <div id="body-in">
-      <h3 class="posts-year" id="2023">2023</h3>
-      
-      
-      <div class="index-post" onclick="javascript:window.location.href='\/blog\/181.html\/'">
-        <div class="index-post-content-long">
-          <a href="/blog/181.html/">
-            <h2>利用 memos 生成的在线动态列表</h2>
-          </a>
-          <div class="text">memos 是一个具有知识管理和社交功能的开源自托管备忘录中心。 Github 地址：https://github.com/usememos/memos 可以用它本身提供的 api，然后结合静态博客，做成一个在线的动态列表，类似于朋友圈功能。 接口 url 有固定的格式，openId 是每个用户自动生成的。 其次我又写了两个方法，一个是时间戳转成正常时间格式，一个是利用正则删去内容中多余的标签。 将下面代码复制到你想显示的页面编辑，只需修改 openId，提供了一个基础的样式，如果有其他优化方案，欢迎指出。 由于接口中带了用户密钥，建议完成代码后将 js 加密再引入，不然可能会有一定的安全风险。 推荐网址：https://tool.lu/js/ &lt;!-- 结构和 css --&gt; &lt;div class=&#34;sslist&#34;&gt;&lt;/div&gt; &lt;style&gt; .sslist-item { padding: 10px 10px 20px; margin-bottom: 20px; border-radius: 2px; background: #f3f3f3; box-shadow: 1px 2px 4px rgba(0, 0, 0, .2); transition: all 0.2s linear; animation: up 1s forwards; transform: translateY(20px); opacity: 0; } @keyframes up { 0% { transform: translateY(20px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } } .sslist-item:hover { background: #eee; } .sslist-item .sslist-date { opacity: 0.6; margin: 0; font-size: 15px; margin-bottom: 5px; } &lt;/style&gt; // 调用接口的 js 方法 function memosShow() { var memosStr = &#34;&#34;; var openId = &#34;xxx&#34;; $.ajax({ url: &#34;https://memos.zburu.com/api/memo?openId=&#34; + openId + &#34;&amp;tag=说说&#34;, type: &#34;get&#34;, dataType: &#34;json&#34;, success: function (data) { // 生成数组 const sslist = data.data; for (let i = 0; i &lt; sslist.length; i++) { const element = sslist[i]; // 把时间戳转为正常时间格式 2023-01-9 13:17:12 var date = new Date(element.createdTs * 1000); Y = date.getFullYear() + &#34;-&#34;; M = (date.getMonth() + 1 &lt; 10 ? &#34;0&#34; + (date.getMonth() + 1) : date.getMonth() + 1) + &#34;-&#34;; D = (date.getDate() &lt; 10 ? &#34;0&#34; + date.getDate() : date.getDate()) + &#34; &#34;; h = date.getHours() + &#34;:&#34;; m = date.getMinutes() + &#34;:&#34;; s = date.getSeconds(); const createdTsNew = Y + M + D + h + m + s; sslist[i].createdTs = createdTsNew; // 利用js正则删去内容前的标签字符 const contentNew = element.content.slice(4); sslist[i].content = contentNew; } $.each(data.data, function (i, item) { list = &#34;&lt;div class=&#39;sslist-item&#39;&gt;&#34; + &#34;&lt;p class=&#39;sslist-date&#39;&gt;&#34; + item.createdTs + &#34;&lt;/p&gt;&#34; + item.content + &#34;&lt;/div&gt;&#34;; memosStr += list; }), $(&#34;.sslist&#34;).html(memosStr); }, error: function () { console.log(&#34;error&#34;); } }); } memosShow();</div>
-          <div class="index-post-meta">
-            <a href="/blog/181.html/"> # 2023-01-09</a>
-            
-            
-            <span class="namenode">技术</span>
-            
-            
-          </div>
-        </div>
-      </div>
-
-      
-    </div>
-    
-    <footer id="foot">
-  <p>© 2020 - 2024 Powered by
-    <a href="https://github.com/dlzmoe/blog" target="_blank">Github</a>
-    / <a href="/index.xml" target="_blank">RSS</a>
-  </p>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2024 子舒的博客, 
+			使用 hugo 构建
+		</div>
+	</div>
 </footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
 
-<script src="/js/main.js"></script>
-
-<script defer src="https://cn.vercount.one/js"></script>
-  </section>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [["$", "$"]],
+      },
+      displayMath: [
+        ["$$", "$$"],
+        ["\[\[", "\]\]"],
+      ],
+      svg: {
+        fontCache: "global",
+      },
+    };
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script
+    id="MathJax-script"
+    async
+    src="https://gcore.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+  ></script>
 </body>
-
 </html>

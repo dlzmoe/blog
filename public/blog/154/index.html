@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Anghunk 主题如何在后台评论列表解析表情？ - 子舒的博客</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="topbar">
+		<a class="topbar__link" href="/" title="子舒的博客" rel="sidebar">
+			<div class="topbar__item topbar__text">
+					<div class="topbar__title">子舒的博客</div>
+					<div class="topbar__tagline">The Tao that is utterable is not the eternal Tao</div>
+				</div>
+		</a>
+	</div>
+		
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Anghunk 主题如何在后台评论列表解析表情？</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2022-07-30T00:00:00Z">July 30, 2022</time></div></div>
+		</header>
+		<div class="content post__content clearfix">
+			<blockquote>
+<p>本文专为 Anghunk 主题开发文档而写。
+<a href="https://github.com/dlzmoe/Anghunk">https://github.com/dlzmoe/Anghunk</a></p>
+</blockquote>
+<p>方案是在<a href="https://blog.emoao.com/">梦繁星</a>的协助下完成的。</p>
+<h3 id="介绍">介绍</h3>
+<p>Anghunk 评论携带很多精美的表情，但是正常情况下 Typecho 后台是没办法正常解析这些表情的。如下图；</p>
+<p><img src="https://imgurl.zishu.me/images/old/2022/07/29/62e3cfa35eb74.png" alt=""></p>
+<hr>
+<p>但是，经过我解析表情之后，就可以变成下面这样，使用主题如果需要这种功能，可以按照我下面的步骤进行改造。</p>
+<p><img src="https://imgurl.zishu.me/images/old/2022/07/29/62e3cfa2ec1ec.png" alt=""></p>
+<h3 id="修改">修改</h3>
+<p>打开 <code>/admin/manage-comments.php</code> 文件，在题头插入：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* 解析表情
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getparseBiaoQingComment</span>($content) {
+</span></span><span style="display:flex;"><span>	$emopath<span style="color:#f92672">=</span>$_SERVER[<span style="color:#e6db74">&#39;REQUEST_SCHEME&#39;</span>]<span style="color:#f92672">.</span><span style="color:#e6db74">&#34;:&#34;</span><span style="color:#f92672">.</span> <span style="color:#a6e22e">DIRECTORY_SEPARATOR</span> <span style="color:#f92672">.</span> <span style="color:#a6e22e">DIRECTORY_SEPARATOR</span> <span style="color:#f92672">.</span> $_SERVER[<span style="color:#e6db74">&#39;HTTP_HOST&#39;</span>];
+</span></span><span style="display:flex;"><span>	$emo <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">global</span> $emo;
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>$emo) {
+</span></span><span style="display:flex;"><span>		$emo <span style="color:#f92672">=</span> <span style="color:#a6e22e">json_decode</span>(<span style="color:#a6e22e">file_get_contents</span>(<span style="color:#a6e22e">dirname</span>(<span style="color:#a6e22e">dirname</span>(<span style="color:#a6e22e">dirname</span>(<span style="color:#66d9ef">__FILE__</span>)))<span style="color:#f92672">.</span><span style="color:#e6db74">&#39;/zburu.com/usr/themes/dlzmoe/libs/OwO.json&#39;</span>), <span style="color:#66d9ef">true</span>);
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">foreach</span> ($emo <span style="color:#66d9ef">as</span> $v) {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span>($v[<span style="color:#e6db74">&#39;type&#39;</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;image&#39;</span>) {
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">foreach</span> ($v[<span style="color:#e6db74">&#39;container&#39;</span>] <span style="color:#66d9ef">as</span> $vv) {
+</span></span><span style="display:flex;"><span>				$emoaa<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;::&#34;</span><span style="color:#f92672">.</span>$v[<span style="color:#e6db74">&#39;name&#39;</span>]<span style="color:#f92672">.</span><span style="color:#e6db74">&#34;:&#34;</span><span style="color:#f92672">.</span>$vv[<span style="color:#e6db74">&#39;icon&#39;</span>]<span style="color:#f92672">.</span><span style="color:#e6db74">&#34;::&#34;</span>;
+</span></span><span style="display:flex;"><span>				$content <span style="color:#f92672">=</span> <span style="color:#a6e22e">str_replace</span>($emoaa, <span style="color:#e6db74">&#39;  &lt;img style=&#34;max-height:40px;vertical-align:middle;&#34; src=&#34;&#39;</span><span style="color:#f92672">.</span>$emopath<span style="color:#f92672">.</span><span style="color:#e6db74">&#39;/usr/themes/dlzmoe/libs/emotion/&#39;</span><span style="color:#f92672">.</span>$v[<span style="color:#e6db74">&#39;name&#39;</span>]<span style="color:#f92672">.</span><span style="color:#e6db74">&#39;/&#39;</span><span style="color:#f92672">.</span>$vv[<span style="color:#e6db74">&#39;icon&#39;</span>] <span style="color:#f92672">.</span><span style="color:#e6db74">&#39;.png&#34;  alt=&#34;&#39;</span><span style="color:#f92672">.</span>$vv[<span style="color:#e6db74">&#39;text&#39;</span>] <span style="color:#f92672">.</span><span style="color:#e6db74">&#39;&#34;&gt;  &#39;</span>, $content);
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> $content;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>注意我放置的位置，必须要要 <code>&lt;?php ...  ?&gt;</code> 之间</strong></p>
+<p><img src="https://imgurl.zishu.me/images/old/2022/07/29/62e3d1047098b.png" alt=""></p>
+<p>**找到 <code>第166行</code>，修改一下，把标签中的代码替换为下方标注的。 **</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;comment-content&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">&lt;!--</span> <span style="color:#a6e22e">解析输出带表情的评论</span> <span style="color:#f92672">--&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span> $con<span style="color:#f92672">=</span>$comments<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">content</span>; <span style="color:#66d9ef">echo</span> <span style="color:#a6e22e">getparseBiaoQingComment</span>($con); <span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">&lt;/div&gt; 
+</span></span></span></code></pre></div><hr>
+<p>之后回到后台评论列表就可以看到评论成功被解析了，本方法仅适用于 Anghunk 主题。</p>
+
+		</div>
+	</article>
+</main>
+
+
+
+			</div>
+			
+		</div>
+		
+		
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [["$", "$"]],
+      },
+      displayMath: [
+        ["$$", "$$"],
+        ["\[\[", "\]\]"],
+      ],
+      svg: {
+        fontCache: "global",
+      },
+    };
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script
+    id="MathJax-script"
+    async
+    src="https://gcore.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+  ></script>
+</body>
+</html>

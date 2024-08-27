@@ -1,167 +1,81 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html class="no-js" lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="generator" content="Hugo 0.123.6">
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="toTop" content="true">
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="author" content="子舒" />
-<meta property="og:url" content="https://zishu.me/blog/88.html/" />
-<link rel="canonical" href="https://zishu.me/blog/88.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
-<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
-<link rel="shortcut" href="https://imgurl.zishu.me/favicon.ico" /><link rel="alternate" type="application/atom+xml" href="https://zishu.me/index.xml" title="子舒的博客">
-<script type="application/ld+json">
-{
-"@context" : "http://schema.org",
-"@type" : "BlogPosting",
-"mainEntityOfPage": {
-"@type": "WebPage",
-"@id": "https:\/\/zishu.me\/"
-},
-"articleSection" : "blog",
-"name" : "实现图片灯箱功能",
-"headline" : "实现图片灯箱功能",
-"description" : "写博客必不可少的一个功能就是图片灯箱功能，也就是点击放大查看。但是不同程序的博客所使用的插件也都不一样，我这里研究出一套可以满足绝大部分程序的灯箱插件。已经测试过 hexo, hugo, typecho 均无问题。 引入文件 首先引入我们关键的两个文件分别是 zoom.css 和 zoom.js 。 \u0026lt;!-- head 头部 --\u0026gt; \u0026lt;link rel=\u0026#34;stylesheet\u0026#34; href=\u0026#34;https:\/\/cdn.zburu.com\/list\/zoom.css\u0026#34;\u0026gt; \u0026lt;!-- body 底部 --\u0026gt; \u0026lt;!-- 如果已经有 jq 文件了，就不要引入 jquery --\u0026gt; \u0026lt;script src=\u0026#34;https:\/\/cdn.zburu.com\/list\/jquery3.6.0.js\u0026#34;\u0026gt;\u0026lt;\/script\u0026gt; \u0026lt;!--图片灯箱--\u0026gt; \u0026lt;img src=\u0026#34;\u0026#34; alt=\u0026#34;\u0026#34; class=\u0026#34;bigimg\u0026#34;\u0026gt; \u0026lt;div class=\u0026#34;mask\u0026#34;\u0026gt;\u0026lt;\/div\u0026gt; \u0026lt;script src=\u0026#34;https:\/\/cdn.zburu.com\/list\/zoom.js\u0026#34;\u0026gt;\u0026lt;\/script\u0026gt; 因为这个文件是放在我自己服务器上的，所以不敢保证以后还是这个路径，建议在浏览器打开，然后把里面的代码复制到本地使用。 调用 js 然后我们需要给图片一个类名，以及一个父元素盒子，同样也可以使用 jq 来完成。 这里的 .post-content 正文的类名，如果你是别的类名，可以直接将 .post-content 替换掉。 $(function(){ $(\u0026#39;.post-content img\u0026#39;).addClass(\u0026#39;smallimg\u0026#39;) $(\u0026#39;.post-content img\u0026#39;).wrap(\u0026#39;\u0026lt;div class=\u0026#34;imgbox\u0026#34;\u0026gt;\u0026lt;\/div\u0026gt;\u0026#39;) }) 接着我们需要对插件进行初始化，直接在刚才的代码下面写入。 $(function(){ $(\u0026#39;.post-content img\u0026#39;).addClass(\u0026#39;smallimg\u0026#39;) $(\u0026#39;.post-content img\u0026#39;).wrap(\u0026#39;\u0026lt;div class=\u0026#34;imgbox\u0026#34;\u0026gt;\u0026lt;\/div\u0026gt;\u0026#39;) \/* smallimg \/\/ 小图 bigimg \/\/点击放大的图片 mask \/\/黑色遮罩 *\/ var obj = new zoom(\u0026#39;mask\u0026#39;, \u0026#39;bigimg\u0026#39;, \u0026#39;smallimg\u0026#39;); obj.init(); }) 回到页面上，点击正文的图片就可以成功放大了。 结束 随便放个图片试验一下吧！ 之所以我限制了在正文中才可以放大，是因为网站其他地方也有图片，如果都可以点击放大，就很不合理。 如果在使用中有其他问题，欢迎留言。",
-"inLanguage" : "en-US",
-"author" : "子舒",
-"creator" : "子舒",
-"publisher": "子舒",
-"accountablePerson" : "子舒",
-"copyrightHolder" : "子舒",
-"copyrightYear" : "2021",
-"datePublished": "2021-12-07 00:00:00 \u002b0000 UTC",
-"dateModified" : "2021-12-07 00:00:00 \u002b0000 UTC",
-"url" : "https:\/\/zishu.me\/blog\/88.html\/",
-"keywords" : [ "博客","插件", ]
-}
-</script><title>实现图片灯箱功能 - 子舒的博客</title>
-<meta property="og:title" content="实现图片灯箱功能" />
-<meta property="og:type" content="article" />
-<meta property="og:description" content="写博客必不可少的一个功能就是图片灯箱功能，也就是点击放大查看。但是不同程序的博客所使用的插件也都不一样，我这里研究出一套可以满足绝大部分程序的灯箱插件。已经测试过 hexo, hugo, typecho 均无问题。 引入文件 首先引入我们关键的两个文件分别是 zoom.css 和 zoom.js 。 &amp;lt;!-- head 头部 --&amp;gt; &amp;lt;link rel=&amp;#34;stylesheet&amp;#34; href=&amp;#34;https://cdn.zburu.com/list/zoom.css&amp;#34;&amp;gt; &amp;lt;!-- body 底部 --&amp;gt; &amp;lt;!-- 如果已经有 jq 文件了，就不要引入 jquery --&amp;gt; &amp;lt;script src=&amp;#34;https://cdn.zburu.com/list/jquery3.6.0.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;!--图片灯箱--&amp;gt; &amp;lt;img src=&amp;#34;&amp;#34; alt=&amp;#34;&amp;#34; class=&amp;#34;bigimg&amp;#34;&amp;gt; &amp;lt;div class=&amp;#34;mask&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; &amp;lt;script src=&amp;#34;https://cdn.zburu.com/list/zoom.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; 因为这个文件是放在我自己服务器上的，所以不敢保证以后还是这个路径，建议在浏览器打开，然后把里面的代码复制到本地使用。 调用 js 然后我们需要给图片一个类名，以及一个父元素盒子，同样也可以使用 jq 来完成。 这里的 .post-content 正文的类名，如果你是别的类名，可以直接将 .post-content 替换掉。 $(function(){ $(&amp;#39;.post-content img&amp;#39;).addClass(&amp;#39;smallimg&amp;#39;) $(&amp;#39;.post-content img&amp;#39;).wrap(&amp;#39;&amp;lt;div class=&amp;#34;imgbox&amp;#34;&amp;gt;&amp;lt;/div&amp;gt;&amp;#39;) }) 接着我们需要对插件进行初始化，直接在刚才的代码下面写入。 $(function(){ $(&amp;#39;.post-content img&amp;#39;).addClass(&amp;#39;smallimg&amp;#39;) $(&amp;#39;.post-content img&amp;#39;).wrap(&amp;#39;&amp;lt;div class=&amp;#34;imgbox&amp;#34;&amp;gt;&amp;lt;/div&amp;gt;&amp;#39;) /* smallimg // 小图 bigimg //点击放大的图片 mask //黑色遮罩 */ var obj = new zoom(&amp;#39;mask&amp;#39;, &amp;#39;bigimg&amp;#39;, &amp;#39;smallimg&amp;#39;); obj.init(); }) 回到页面上，点击正文的图片就可以成功放大了。 结束 随便放个图片试验一下吧！ 之所以我限制了在正文中才可以放大，是因为网站其他地方也有图片，如果都可以点击放大，就很不合理。 如果在使用中有其他问题，欢迎留言。" />
-<meta name="description" content="写博客必不可少的一个功能就是图片灯箱功能，也就是点击放大查看。但是不同程序的博客所使用的插件也都不一样，我这里研究出一套可以满足绝大部分程序的灯箱插件。已经测试过 hexo, hugo, typecho 均无问题。 引入文件 首先引入我们关键的两个文件分别是 zoom.css 和 zoom.js 。 &amp;lt;!-- head 头部 --&amp;gt; &amp;lt;link rel=&amp;#34;stylesheet&amp;#34; href=&amp;#34;https://cdn.zburu.com/list/zoom.css&amp;#34;&amp;gt; &amp;lt;!-- body 底部 --&amp;gt; &amp;lt;!-- 如果已经有 jq 文件了，就不要引入 jquery --&amp;gt; &amp;lt;script src=&amp;#34;https://cdn.zburu.com/list/jquery3.6.0.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;!--图片灯箱--&amp;gt; &amp;lt;img src=&amp;#34;&amp;#34; alt=&amp;#34;&amp;#34; class=&amp;#34;bigimg&amp;#34;&amp;gt; &amp;lt;div class=&amp;#34;mask&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; &amp;lt;script src=&amp;#34;https://cdn.zburu.com/list/zoom.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; 因为这个文件是放在我自己服务器上的，所以不敢保证以后还是这个路径，建议在浏览器打开，然后把里面的代码复制到本地使用。 调用 js 然后我们需要给图片一个类名，以及一个父元素盒子，同样也可以使用 jq 来完成。 这里的 .post-content 正文的类名，如果你是别的类名，可以直接将 .post-content 替换掉。 $(function(){ $(&amp;#39;.post-content img&amp;#39;).addClass(&amp;#39;smallimg&amp;#39;) $(&amp;#39;.post-content img&amp;#39;).wrap(&amp;#39;&amp;lt;div class=&amp;#34;imgbox&amp;#34;&amp;gt;&amp;lt;/div&amp;gt;&amp;#39;) }) 接着我们需要对插件进行初始化，直接在刚才的代码下面写入。 $(function(){ $(&amp;#39;.post-content img&amp;#39;).addClass(&amp;#39;smallimg&amp;#39;) $(&amp;#39;.post-content img&amp;#39;).wrap(&amp;#39;&amp;lt;div class=&amp;#34;imgbox&amp;#34;&amp;gt;&amp;lt;/div&amp;gt;&amp;#39;) /* smallimg // 小图 bigimg //点击放大的图片 mask //黑色遮罩 */ var obj = new zoom(&amp;#39;mask&amp;#39;, &amp;#39;bigimg&amp;#39;, &amp;#39;smallimg&amp;#39;); obj.init(); }) 回到页面上，点击正文的图片就可以成功放大了。 结束 随便放个图片试验一下吧！ 之所以我限制了在正文中才可以放大，是因为网站其他地方也有图片，如果都可以点击放大，就很不合理。 如果在使用中有其他问题，欢迎留言。" />
-<meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+	<title>实现图片灯箱功能 - 子舒的博客</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
 
+	<link rel="stylesheet" href="/css/style.css">
+	
 
-<link rel="stylesheet" href="/css/base.css">
-<link rel="stylesheet" href="/css/index.css">
-<link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
-<script src="/js/jquery3.6.0.min.js"></script>
 </head>
-
-<body id="container">
-  <meter id="isread" max="100" value="0"></meter>
-<script>
-  window.addEventListener('scroll', function () {
-    var scrolled = window.scrollY;
-    var totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-    var percentage = (scrolled / totalHeight) * 100;
-    $('#isread').attr('value', percentage)
-  });
-</script>
-
-
-<div id="head" class="site-index">
-  <a id="logo" href="/">
-    <img src="https://imgurl.zishu.me/author.webp">
-  </a>
-  <div id="site-title">
-    <a href="/">子舒的博客</a>
-  </div>
-  <ul id="menu">
-    
-    <li><a href="/categories/%e6%8a%80%e6%9c%af/">技术</a></li>
-    
-    <li><a href="/categories/%e9%9a%8f%e7%ac%94/">随笔</a></li>
-    
-    <li><a href="/categories/weekly/">周刊</a></li>
-    
-    <li><a href="/message/">留言</a></li>
-    
-    <li><a href="/about/">关于</a></li>
-    
-    <li><a href="/index.xml" target="_blank">订阅</a></li>
-  </ul>
-</div>
-  <section id="body">
-
-    <div class="box">
-      <h1 id="body-title">实现图片灯箱功能</h1>
-
-      
-      <div class="index-post-meta">
-        <time> # 2021-12-07</time>
-        
-        
-        <span class="namenode">
-          <a href="/categories/%E6%8A%80%E6%9C%AF">技术</a>
-        </span>
-        
-        
-
-        <span class="tag-node">
-        
-        
-        <a href="/tags/%E5%8D%9A%E5%AE%A2">#博客</a>
-        
-        <a href="/tags/%E6%8F%92%E4%BB%B6">#插件</a>
-        
-        
-        </span>
-
-      </div>
-      <div class="expired-tips" style="display: none;"></div>
-      
-
-      
-      <div class="toc">
-        <nav id="TableOfContents">
-  <ul>
-    <li><a href="#引入文件">引入文件</a></li>
-    <li><a href="#调用-js">调用 js</a></li>
-    <li><a href="#结束">结束</a></li>
-  </ul>
-</nav>
-      </div>
-      
-
-      <article class="inner-post-content inner-long">
-        
-        <p>写博客必不可少的一个功能就是图片灯箱功能，也就是点击放大查看。但是不同程序的博客所使用的插件也都不一样，我这里研究出一套可以满足绝大部分程序的灯箱插件。已经测试过 hexo, hugo, typecho 均无问题。</p>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="topbar">
+		<a class="topbar__link" href="/" title="子舒的博客" rel="sidebar">
+			<div class="topbar__item topbar__text">
+					<div class="topbar__title">子舒的博客</div>
+					<div class="topbar__tagline">The Tao that is utterable is not the eternal Tao</div>
+				</div>
+		</a>
+	</div>
+		
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">实现图片灯箱功能</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2021-12-07T00:00:00Z">2021-12-07</time></div></div>
+		</header>
+		<div class="content post__content clearfix">
+			<p>写博客必不可少的一个功能就是图片灯箱功能，也就是点击放大查看。但是不同程序的博客所使用的插件也都不一样，我这里研究出一套可以满足绝大部分程序的灯箱插件。已经测试过 hexo, hugo, typecho 均无问题。</p>
 <h2 id="引入文件">引入文件</h2>
 <p>首先引入我们关键的两个文件分别是 <code>zoom.css</code> 和 <code>zoom.js</code> 。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="c">&lt;!-- head 头部 --&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;stylesheet&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;https://cdn.zburu.com/list/zoom.css&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- body 底部 --&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- 如果已经有 jq 文件了，就不要引入 jquery --&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://cdn.zburu.com/list/jquery3.6.0.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span> 
-</span></span><span class="line"><span class="cl"><span class="c">&lt;!--图片灯箱--&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;&#34;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&#34;&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;bigimg&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;mask&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://cdn.zburu.com/list/zoom.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- head 头部 --&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stylesheet&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://cdn.zburu.com/list/zoom.css&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- body 底部 --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- 如果已经有 jq 文件了，就不要引入 jquery --&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://cdn.zburu.com/list/jquery3.6.0.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt; 
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!--图片灯箱--&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span> <span style="color:#a6e22e">alt</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;bigimg&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;mask&#34;</span>&gt;&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://cdn.zburu.com/list/zoom.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
 </span></span></code></pre></div><p>因为这个文件是放在我自己服务器上的，所以不敢保证以后还是这个路径，建议在浏览器打开，然后把里面的代码复制到本地使用。</p>
 <h2 id="调用-js">调用 js</h2>
 <p>然后我们需要给图片一个类名，以及一个父元素盒子，同样也可以使用 jq 来完成。</p>
 <p>这里的 <code>.post-content</code> 正文的类名，如果你是别的类名，可以直接将 <code>.post-content</code> 替换掉。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.post-content img&#39;</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;smallimg&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  	<span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.post-content img&#39;</span><span class="p">).</span><span class="nx">wrap</span><span class="p">(</span><span class="s1">&#39;&lt;div class=&#34;imgbox&#34;&gt;&lt;/div&gt;&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">})</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">$</span>(<span style="color:#66d9ef">function</span>(){
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">$</span>(<span style="color:#e6db74">&#39;.post-content img&#39;</span>).<span style="color:#a6e22e">addClass</span>(<span style="color:#e6db74">&#39;smallimg&#39;</span>)
+</span></span><span style="display:flex;"><span>  	<span style="color:#a6e22e">$</span>(<span style="color:#e6db74">&#39;.post-content img&#39;</span>).<span style="color:#a6e22e">wrap</span>(<span style="color:#e6db74">&#39;&lt;div class=&#34;imgbox&#34;&gt;&lt;/div&gt;&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>})
 </span></span></code></pre></div><p>接着我们需要对插件进行初始化，直接在刚才的代码下面写入。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.post-content img&#39;</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;smallimg&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.post-content img&#39;</span><span class="p">).</span><span class="nx">wrap</span><span class="p">(</span><span class="s1">&#39;&lt;div class=&#34;imgbox&#34;&gt;&lt;/div&gt;&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">		<span class="cm">/*
-</span></span></span><span class="line"><span class="cl"><span class="cm">	smallimg   // 小图
-</span></span></span><span class="line"><span class="cl"><span class="cm">	bigimg  //点击放大的图片
-</span></span></span><span class="line"><span class="cl"><span class="cm">	mask   //黑色遮罩
-</span></span></span><span class="line"><span class="cl"><span class="cm">	*/</span>
-</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">zoom</span><span class="p">(</span><span class="s1">&#39;mask&#39;</span><span class="p">,</span> <span class="s1">&#39;bigimg&#39;</span><span class="p">,</span> <span class="s1">&#39;smallimg&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">obj</span><span class="p">.</span><span class="nx">init</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl"><span class="p">})</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">$</span>(<span style="color:#66d9ef">function</span>(){
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">$</span>(<span style="color:#e6db74">&#39;.post-content img&#39;</span>).<span style="color:#a6e22e">addClass</span>(<span style="color:#e6db74">&#39;smallimg&#39;</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">$</span>(<span style="color:#e6db74">&#39;.post-content img&#39;</span>).<span style="color:#a6e22e">wrap</span>(<span style="color:#e6db74">&#39;&lt;div class=&#34;imgbox&#34;&gt;&lt;/div&gt;&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">	smallimg   // 小图
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">	bigimg  //点击放大的图片
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">	mask   //黑色遮罩
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">	*/</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">obj</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">zoom</span>(<span style="color:#e6db74">&#39;mask&#39;</span>, <span style="color:#e6db74">&#39;bigimg&#39;</span>, <span style="color:#e6db74">&#39;smallimg&#39;</span>);
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">init</span>();
+</span></span><span style="display:flex;"><span>})
 </span></span></code></pre></div><p>回到页面上，点击正文的图片就可以成功放大了。</p>
 <h2 id="结束">结束</h2>
 <p>随便放个图片试验一下吧！</p>
@@ -169,10 +83,11 @@
 <p>之所以我限制了在正文中才可以放大，是因为网站其他地方也有图片，如果都可以点击放大，就很不合理。</p>
 <p>如果在使用中有其他问题，欢迎留言。</p>
 
-      </article>
+		</div>
+	</article>
+</main>
 
-      
-      <div style="padding:20px 0"></div>
+
 <div class="comments">
   <div class="giscus"></div>
 </div>
@@ -194,20 +109,40 @@
   async>
 </script>
 
-      
-
-    </div>
-    <footer id="foot">
-  <p>© 2020 - 2024 Powered by
-    <a href="https://github.com/dlzmoe/blog" target="_blank">Github</a>
-    / <a href="/index.xml" target="_blank">RSS</a>
-  </p>
+			</div>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2024 子舒的博客, 
+			使用 hugo 构建
+		</div>
+	</div>
 </footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
 
-<script src="/js/main.js"></script>
-
-<script defer src="https://cn.vercount.one/js"></script>
-  </section>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [["$", "$"]],
+      },
+      displayMath: [
+        ["$$", "$$"],
+        ["\[\[", "\]\]"],
+      ],
+      svg: {
+        fontCache: "global",
+      },
+    };
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script
+    id="MathJax-script"
+    async
+    src="https://gcore.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+  ></script>
 </body>
-
 </html>

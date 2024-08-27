@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
 	<title>技术 - 子舒的博客</title>
 	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="">
@@ -22,7 +23,7 @@
 		<a class="topbar__link" href="/" title="子舒的博客" rel="sidebar">
 			<div class="topbar__item topbar__text">
 					<div class="topbar__title">子舒的博客</div>
-					<div class="topbar__tagline">Thoughts come and go quickly, occasionally stopping here</div>
+					<div class="topbar__tagline">The Tao that is utterable is not the eternal Tao</div>
 				</div>
 		</a>
 	</div>
@@ -43,7 +44,7 @@
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2020-12-29T00:00:00Z">December 29, 2020</time></div></div>
+	<time class="meta__text" datetime="2020-12-29T00:00:00Z">2020-12-29</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		来源于：https://react.docschina.org/docs/forms.html
@@ -52,9 +53,27 @@
 但大多数情况下，使用 JavaScript 函数可以很方便的处理表单的提交，同时还可以访问用户填写的表单数据。实现这种效果的标准方式是使用“受控组件”。
 受控组件 在 html 中，表单元素比如&lt;input&gt;，&lt;textarea&gt;，&lt;select&gt;，这些表单元素通常自己维护 state，并根据用户输入进行更新。而在 React 中，可变状态（mutable state）通常保存在组件的 state 属性中，并且只能通过使用 setState() 来更新。
 我们可以把两者结合起来，使 React 的 state 成为“唯一数据源”。渲染表单的 React 组件还控制着用户输入过程中表单发生的操作。被 React 以这种方式控制取值的表单输入元素就叫做“受控组件”。
-	</div>
-	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/blog/39.html/">Read more</a>
+例如，如果我们想让前一个示例在提交时打印出名称，我们可以将表单写为受控组件：
+class NameForm extends React.Component { constructor(props) { super(props); this.state = {value: &#39;&#39;}; this.handleChange = this.handleChange.bind(this); this.handleSubmit = this.handleSubmit.bind(this); } handleChange(event) { this.setState({value: event.target.value}); } handleSubmit(event) { alert(&#39;提交的名字：&#39; + this.state.value); event.preventDefault(); } render() { return ( &lt;form onSubmit={this.handleSubmit}&gt; &lt;label&gt; 名字: &lt;input type=&#34;text&#34; value={this.state.value} onChange={this.handleChange} /&gt; &lt;/label&gt; &lt;input type=&#34;submit&#34; value=&#34;提交&#34; /&gt; &lt;/form&gt; ); } } 由于在表单元素上设置了 value 属性，因此显示的值将始终为 this.state.value，这使得 React 的 state 成为唯一数据源。由于 handlechange 在每次按键时都会执行并更新 React 的 state，因此显示的值将随着用户输入而更新。
+对于受控组件来说，输入的值始终由 React 的 state 驱动。你也可以将 value 传递给其他 UI 元素，或者通过其他事件处理函数重置，但这意味着你需要编写更多的代码。
+textarea 标签 在 html 中，&lt;textarea&gt; 元素通过其子元素定义其文本：
+&lt;textarea&gt; 测试！ &lt;/textarea&gt; 而在 React 中，&lt;textarea&gt; 使用 value 属性代替。这样，可以使得使用 &lt;textarea&gt; 的表单和使用单行 input 的表单非常类似：
+class EssayForm extends React.Component { constructor(props) { super(props); this.state = { value: &#39;请撰写一篇关于你喜欢的 DOM 元素的文章。&#39; }; this.handleChange = this.handleChange.bind(this); this.handleSubmit = this.handleSubmit.bind(this); } handleChange(event) { this.setState({value: event.target.value}); } handleSubmit(event) { alert(&#39;提交的文章：&#39; + this.state.value); event.preventDefault(); } render() { return ( &lt;form onSubmit={this.handleSubmit}&gt; &lt;label&gt; 文章: &lt;textarea value={this.state.value} onChange={this.handleChange} /&gt; &lt;/label&gt; &lt;input type=&#34;submit&#34; value=&#34;提交&#34; /&gt; &lt;/form&gt; ); } } 请注意，this.state.value 初始化于构造函数中，因此文本区域默认有初值。
+select 标签 在 HTML 中，&lt;select&gt; 创建下拉列表标签。例如，如下 html 创建了水果相关的下拉列表：
+&lt;select&gt; &lt;option value=&#34;grapefruit&#34;&gt;葡萄柚&lt;/option&gt; &lt;option value=&#34;lime&#34;&gt;酸橙&lt;/option&gt; &lt;option selected value=&#34;coconut&#34;&gt;椰子&lt;/option&gt; &lt;option value=&#34;mango&#34;&gt;芒果&lt;/option&gt; &lt;/select&gt; 请注意，由于 selected 属性的缘故，椰子选项默认被选中。React 并不会使用 selected 属性，而是在根 select 标签上使用 value 属性。这在受控组件中更便捷，因为您只需要在根标签中更新它。例如：
+class FlavorForm extends React.Component { constructor(props) { super(props); this.state = {value: &#39;coconut&#39;}; this.handleChange = this.handleChange.bind(this); this.handleSubmit = this.handleSubmit.bind(this); } handleChange(event) { this.setState({value: event.target.value}); } handleSubmit(event) { alert(&#39;你喜欢的风味是：&#39; + this.state.value); event.preventDefault(); } render() { return ( &lt;form onSubmit={this.handleSubmit}&gt; &lt;label&gt; 选择你喜欢的风味： &lt;select value={this.state.value} onChange={this.handleChange}&gt; &lt;option value=&#34;grapefruit&#34;&gt;葡萄柚&lt;/option&gt; &lt;option value=&#34;lime&#34;&gt;酸橙&lt;/option&gt; &lt;option value=&#34;coconut&#34;&gt;椰子&lt;/option&gt; &lt;option value=&#34;mango&#34;&gt;芒果&lt;/option&gt; &lt;/select&gt; &lt;/label&gt; &lt;input type=&#34;submit&#34; value=&#34;提交&#34; /&gt; &lt;/form&gt; ); } } 总的来说，这使得 &lt;input type=&quot;text&quot;&gt;, &lt;textarea&gt; 和 &lt;select&gt; 之类的标签都非常相似—它们都接受一个 value 属性，你可以使用它来实现受控组件。
+注意：你可以将数组传递到 value 属性中，以支持在 select 标签中选择多个选项：
+&lt;select multiple={true} value={[&#39;B&#39;, &#39;C&#39;]}&gt; 文件 input 标签 在 HTML 中，&lt;input type=&quot;file&quot;&gt; 允许用户从存储设备中选择一个或多个文件，将其上传到服务器，或通过使用 JavaScript 的 File API 进行控制。
+&lt;input type=&#34;file&#34; /&gt; 因为它的 value 只读，所以它是 React 中的一个非受控组件。
+处理多个输入 当需要处理多个 input 元素时，我们可以给每个元素添加 name 属性，并让处理函数根据 event.target.name 的值选择要执行的操作。
+class Reservation extends React.Component { constructor(props) { super(props); this.state = { isGoing: true, numberOfGuests: 2 }; this.handleInputChange = this.handleInputChange.bind(this); } handleInputChange(event) { const target = event.target; const value = target.name === &#39;isGoing&#39; ? target.checked : target.value; const name = target.name; this.setState({ [name]: value }); } render() { return ( &lt;form&gt; &lt;label&gt; 参与: &lt;input name=&#34;isGoing&#34; type=&#34;checkbox&#34; checked={this.state.isGoing} onChange={this.handleInputChange} /&gt; &lt;/label&gt; &lt;br /&gt; &lt;label&gt; 来宾人数： &lt;input name=&#34;numberOfGuests&#34; type=&#34;number&#34; value={this.state.numberOfGuests} onChange={this.handleInputChange} /&gt; &lt;/label&gt; &lt;/form&gt; ); } } 这里使用了 ES6 计算属性名称的语法更新给定输入名称对应的 state 值：
+例如：
+this.setState({ [name]: value }); 等同于 es5：
+var partialState = {}; partialState[name] = value; this.setState(partialState); 另外，由于 setState() 自动将部分 state 合并到当前 state, 只需调用它更改部分 state 即可。
+受控输入空值 在受控组件上指定 value 的 prop 会阻止用户更改输入。如果你指定了 value，但输入仍可编辑，则可能是你意外地将 value 设置为 undefined 或 null。
+下面的代码演示了这一点。（输入最初被锁定，但在短时间延迟后变为可编辑。）
+ReactDOM.render(&lt;input value=&#34;hi&#34; /&gt;, mountNode); setTimeout(function() { ReactDOM.render(&lt;input value={null} /&gt;, mountNode); }, 1000); 受控组件的替代品 有时使用受控组件会很麻烦，因为你需要为数据变化的每种方式都编写事件处理函数，并通过一个 React 组件传递所有的输入 state。当你将之前的代码库转换为 React 或将 React 应用程序与非 React 库集成时，这可能会令人厌烦。在这些情况下，你可能希望使用非受控组件，这是实现输入表单的另一种方式。
+成熟的解决方案 如果你想寻找包含验证、追踪访问字段以及处理表单提交的完整解决方案，使用 Formik 是不错的选择。然而，它也是建立在受控组件和管理 state 的基础之上 —— 所以不要忽视学习它们。
 	</div>
 </article>
 <article class="list__item post">
@@ -65,15 +84,25 @@
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2020-12-21T00:00:00Z">December 21, 2020</time></div></div>
+	<time class="meta__text" datetime="2020-12-21T00:00:00Z">2020-12-21</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		一、React 组件是什么？ 组件，从概念上类似于 javascript 函数，他接受任意入参（props），并返回作用于描述页面展示内容的 React 元素。
 组件允许你将 UI 拆分为独立可复用的代码片段，并对每个片段进行独立构思。
-1.创建一个组件 // 函数组件 function Welcome(props) { return &lt;h1&gt;Hello, {props.name}&lt;/h1&gt;; } // class 组件 class Welcome extends React.Component { render() { return &lt;h1&gt;Hello, {this.props.name}&lt;/h1&gt;; } } 2.渲染组件 class Welcome extends React.Component { render() { return &lt;h1&gt;Hello, {this.props.name}&lt;/h1&gt;; } } ReactDOM.render( &lt;Welcome /&gt;, document.
-	</div>
-	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/blog/37.html/">Read more</a>
+1.创建一个组件 // 函数组件 function Welcome(props) { return &lt;h1&gt;Hello, {props.name}&lt;/h1&gt;; } // class 组件 class Welcome extends React.Component { render() { return &lt;h1&gt;Hello, {this.props.name}&lt;/h1&gt;; } } 2.渲染组件 class Welcome extends React.Component { render() { return &lt;h1&gt;Hello, {this.props.name}&lt;/h1&gt;; } } ReactDOM.render( &lt;Welcome /&gt;, document.getElementById(&#39;root&#39;) ); 3.组件 React 的基础原则有三条，分别是：
+React 界面完全由数据驱动 React 中一切都是组件 props 是 React 组件之间通讯的基本方式 给组件输入一个参数，最终返回一个 React Element,React Element 就是在页面上展示的内容，相当于一个 DOM 节点
+React 一大核心就是－－万物皆可组件
+用户界面就是组件 组件可以嵌套包装组成复杂功能 组件可以用来实现副作用 一个复杂的界面可以分割很很多简单的组件，每个简单的组件又可以分割成很多小组件
+有些类似于类和对象的概念
+二、组件的划分 **无状态组件：**无状态组件 (Stateless Component) 是最基础的组件形式，由于没有状态的影响所以就是纯静态展示的作用。基本组成结构就是属性（props）加上一个渲染函数（render）。由于不涉及到状态的更新，所以这种组件的复用性也最强。例如在各 UI 库中开发的按钮、输入框、图标等等。
+**有状态组件：**组件内部包含状态（state）且状态随着事件或者外部的消息而发生改变的时候，这就构成了有状态组件（Stateful Component）。有状态组件通常会带有生命周期 (lifecycle)，用以在不同的时刻触发状态的更新。在写业务逻辑时常用到，不同场景所用的状态和生命周期也会不同。
+**容器组件：**为使组件的职责更加单一，耦合性进一步地降低，引入了容器组件 (Container Component) 的概念。重要负责对数据获取以及处理的逻辑。下文的设计模式也会提到。
+高阶组件：“高阶组件（HoC）”也算是种组件设计模式。做为一个高阶组件，可以在原有组件的基础上，对其增加新的功能和行为。如打印日志，获取数据和校验数据等和展示无关的逻辑的时候，抽象出一个高阶组件，用以给基础的组件增加这些功能，减少公共的代码。
+**Render Callback 组件：**组件模式是在组件中使用渲染回调的方式，将组件中的渲染逻辑委托给其子组件。也是种重用组件逻辑的方式，也叫 render props 模式。
+三、设计原则 React 的组件其实是软件设计中的模块，其设计原则也需遵从通用的组件设计原则，简单说来，就是要减少组件之间的耦合性（Coupling)，让组件简单，这样才能让整体系统易于理解、易于维护。
+即，设计原则：
+接口小，props 数量少； 划分组件，充分利用组合（composition）； 把 state 往上层组件提取，让下层组件只需要实现为纯函数。 就像搭积木，复杂的应用和组件都是由简单的界面和组件组成的。划分组件也没有绝对的方法，选择在当下场景合适的方式划分，充分利用组合即可。实际编写代码也是逐步精进的过程，努力做到：
+功能正常； 代码整洁； 高性能。 
 	</div>
 </article>
 <article class="list__item post">
@@ -84,7 +113,7 @@
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2020-12-19T00:00:00Z">December 19, 2020</time></div></div>
+	<time class="meta__text" datetime="2020-12-19T00:00:00Z">2020-12-19</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		Github: https://github.com/lydiahallie/javascript-questions
@@ -101,7 +130,7 @@
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2020-12-16T00:00:00Z">December 16, 2020</time></div></div>
+	<time class="meta__text" datetime="2020-12-16T00:00:00Z">2020-12-16</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		React 元素的事件处理和 DOM 元素的很相似，但是有一点语法上的不同
@@ -111,10 +140,74 @@ React 事件的命名采用小驼峰式（camelCase），而不是纯小写
 传统的 html：用双引号包裹，后面必须跟参数
 &lt;button onclick=&#34;myfun()&#34;&gt;点击&lt;/button&gt; React：用大括号包裹，后面不跟参数
 &lt;button onclick={myfun}&gt;点击&lt;/button&gt; 一个完整的事件函数代码如下
-class Demo extends React.Component { render() { // 事件函数 function myfun() { alert(&#39;helo,world&#39;) } return ( // 绑定事件 &lt;button onClick={this.myfun}&gt; Activate Lasers &lt;/button&gt; ) } } ReactDOM.render( &lt;Demo /&gt;, document.
-	</div>
-	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/blog/35.html/">Read more</a>
+class Demo extends React.Component { render() { // 事件函数 function myfun() { alert(&#39;helo,world&#39;) } return ( // 绑定事件 &lt;button onClick={this.myfun}&gt; Activate Lasers &lt;/button&gt; ) } } ReactDOM.render( &lt;Demo /&gt;, document.getElementById(&#39;root&#39;) ) 如果方法后面没有()，则需要为这个方法绑定 this
+2.阻止默认行为 在 React 中还有一个不同的点，不能通过返回 fasle 阻止默认行为，React 提供了一个属性－－preventDefault，可以通过 preventDefault 阻止脚本执行
+看一下传统的 html 和 React 的对比
+&lt;a href=&#34;#&#34; onclick=&#34;alert(&#39;是否弹窗？&#39;);return false&#34;&gt; Click me &lt;/a&gt; 直接在写上 false 就可以阻止脚本执行
+React 通过 preventDefault 属性阻止脚本执行：
+function ActionLink() { function handleClick(e) { e.preventDefault(); console.log(&#39;The link was clicked.&#39;); } return ( &lt;a href=&#34;#&#34; onClick={handleClick}&gt; Click me &lt;/a&gt; ); } 二、条件渲染 在 React 中，可以创建不同的组件来封装各种你需要的行为，然后，根据应用不同的状态，你可以只渲染对应状态下的部分内容。
+React 中的条件渲染和 javascript 中的一样，使用 if 运算符来表示元素当前的状态，然后让 React 根据他们来更新 UI。
+使用 if..else 语句进行条件渲染 先写一个条件渲染的例子，定义了两个组件，然后通过判断组件 Greeting 中的变量 isLoggedIn 的真伪，让浏览器渲染组件 UserGreeting 或者 GuestGreeting。
+// App.js import React, { Component } from &#39;react&#39; export default class App extends Component { render() { function UserGreeting(props) { return &lt;h3&gt;Welcome back!&lt;/h3&gt;; } function GuestGreeting(props) { return &lt;h3&gt;Please sign up.&lt;/h3&gt;; } function Greeting(props) { const isLoggedIn = props.isLoggedIn; if (isLoggedIn) { return &lt;UserGreeting /&gt;; } return &lt;GuestGreeting /&gt;; } return ( &lt;div&gt; &lt;Greeting isLoggedIn={false} /&gt; &lt;/div&gt; ) } } 最后变量 isLoggedIn 定义了 false，因此，浏览器渲染 `GuestGreeting。
+怎么阻止条件渲染？ 在有些情况下，我们希望能隐藏组件，即使他已经被其他组件渲染。我们可以通过 render 方法返回 null 让组件不渲染。
+下面的示例中， 会根据 prop 中 warn 的值来进行条件渲染。如果 warn 的值是 false，那么组件则不会渲染：
+function WarningBanner(props) { if (!props.warn) { return null; } return ( &lt;div className=&#34;warning&#34;&gt; Warning! &lt;/div&gt; ); } class Page extends React.Component { constructor(props) { super(props); this.state = {showWarning: true}; this.handleToggleClick = this.handleToggleClick.bind(this); } handleToggleClick() { this.setState(state =&gt; ({ showWarning: !state.showWarning })); } render() { return ( &lt;div&gt; &lt;WarningBanner warn={this.state.showWarning} /&gt; &lt;button onClick={this.handleToggleClick}&gt; {this.state.showWarning ? &#39;Hide&#39; : &#39;Show&#39;} &lt;/button&gt; &lt;/div&gt; ); } } ReactDOM.render( &lt;Page /&gt;, document.getElementById(&#39;root&#39;) ); 三、渲染列表 先看一段代码，我们使用 map() 函数让数组中的每一项变双倍，然后得到一个新的数组 doubled 并打印出来。
+const numbers = [1, 2, 3, 4, 5]; const doubled = numbers.map((number) =&gt; number * 2); console.log(doubled); // [2,4,6,8,10] 而在 React 中，把数组转换为元素列表的过程是相似的。
+先通过 map() 方法遍历 numbers 数组，将数组中的每个元素变成 &lt;li&gt; 标签，最后将得到的数组赋值给 listItems 。
+然后返回 {listItem} 。
+// Map.js const numbers = [1, 2, 3, 4, 5]; const listItems = numbers.map((number) =&gt; &lt;li&gt;{number}&lt;/li&gt; ); ReactDOM.render( &lt;ul&gt;{listItems}&lt;/ul&gt;, document.getElementById(&#39;root&#39;) ); 运行之后浏览器出现 1-5 的无序列表
+1.分离组件 上面就是一个基本的列表渲染的例子，但是数据写死了。接下来我们将数组重构成一个组件，以后再进行数组渲染时，可以轻松调用。
+// Map.js export default class Map extends Component { render() { // 分离出组件 NumberList 作为转换数组的组件 function NumberList(props) { const numbers = props.numbers; const listItems = numbers.map((number) =&gt; &lt;li&gt;{number}&lt;/li&gt; ); return ( &lt;ul&gt;{listItems}&lt;/ul&gt; ); } // 传入需要的数据 const numbers = [1, 2, 3, 4, 5, 6, 7]; return ( &lt;div&gt; &lt;NumberList numbers={numbers} /&gt; &lt;/div&gt; ) } } 2.key 运行代码之后，页面会正常显示，但是控制台会报一个错误。Each child in a list should have a unique &quot;key&quot; prop.，意思是当你创建一个元素时，必须包括一个特殊的 key 属性。
+现在给每个列表元素分配一个 key：
+function NumberList(props) { const numbers = props.numbers; const listItems = numbers.map((number) =&gt; &lt;li key={number.toString()}&gt; {number} &lt;/li&gt; ); return ( &lt;ul&gt;{listItems}&lt;/ul&gt; ); } const numbers = [1, 2, 3, 4, 5]; ReactDOM.render( &lt;NumberList numbers={numbers} /&gt;, document.getElementById(&#39;root&#39;) ); 3.使用 id 作为 key key 帮助 React 识别了哪些元素被改变，比如删除和添加，所以应当给每个元素确定一个标识，也就是 key。
+一个元素的 key 最好是这个元素在列表中拥有的一个独一无二的字符串。通常，我们使用数据中的 id 来作为元素的 key：
+// Map.js export default class Map extends Component { render() { function NumberList(props) { const numbers = props.numbers; const listItems = numbers.map((number) =&gt; &lt;li key={number.id}&gt; // 赋值 key {number.text} &lt;/li&gt; ); return ( &lt;ul&gt;{listItems}&lt;/ul&gt; ); } // 传入数据 const numbers = [ {id: 1,text: 1}, {id: 2,text: 2}, {id: 3,text: 3}, {id: 4,text: 4}, {id: 5,text: 5} ]; return ( &lt;Fragment&gt; &lt;NumberList numbers={numbers} /&gt; &lt;/Fragment&gt; ) } } 4.索引 index 可以作为 key 吗？ 当元素没有确定 id 的时候，万不得已你可以使用元素索引 index 作为 key：
+const todoItems = todos.map((todo, index) =&gt; // 仅仅当没有确定 id 的时候使用索引 index 作为 key &lt;li key={index}&gt; {todo.text} &lt;/li&gt; ); 如果列表项目的顺序可能会变化，我们不建议使用索引来用作 key 值，因为这样做会导致性能变差，还可能引起组件状态的问题。
+5.用 key 提取组件 比方说，如果你提取出一个 ListItem 组件，你应该把 key 保留在数组中的这个 &lt;ListItem /&gt; 元素上，而不是放在 ListItem 组件中的 &lt;li&gt; 元素上。
+错误的使用方法：
+function ListItem(props) { const value = props.value; return ( // 错误！你不需要在这里指定 key： &lt;li key={value.toString()}&gt; {value} &lt;/li&gt; ); } function NumberList(props) { const numbers = props.numbers; const listItems = numbers.map((number) =&gt; // 错误！元素的 key 应该在这里指定： &lt;ListItem value={number} /&gt; ); return ( &lt;ul&gt; {listItems} &lt;/ul&gt; ); } const numbers = [1, 2, 3, 4, 5]; ReactDOM.render( &lt;NumberList numbers={numbers} /&gt;, document.getElementById(&#39;root&#39;) ); 正确的使用方法：
+function ListItem(props) { // 正确！这里不需要指定 key： return &lt;li&gt;{props.value}&lt;/li&gt;; } function NumberList(props) { const numbers = props.numbers; const listItems = numbers.map((number) =&gt; // 正确！key 应该在数组的上下文中被指定 &lt;ListItem key={number.toString()} value={number} /&gt; ); return ( &lt;ul&gt; {listItems} &lt;/ul&gt; ); } const numbers = [1, 2, 3, 4, 5]; ReactDOM.render( &lt;NumberList numbers={numbers} /&gt;, document.getElementById(&#39;root&#39;) ); React：一个好的经验法则是：在 map( ) 方法中的元素需要设置 key 属性。
+6.key 只是在兄弟节点之间必须唯一 数组元素中使用的 key 在其兄弟节点之间应该是独一无二的。然而，它们不需要是全局唯一的。当我们生成两个不同的数组时，我们可以使用相同的 key 值：
+function Blog(props) { const sidebar = ( &lt;ul&gt; {props.posts.map((post) =&gt; &lt;li key={post.id}&gt; {post.title} &lt;/li&gt; )} &lt;/ul&gt; ); const content = props.posts.map((post) =&gt; &lt;div key={post.id}&gt; &lt;h3&gt;{post.title}&lt;/h3&gt; &lt;p&gt;{post.content}&lt;/p&gt; &lt;/div&gt; ); return ( &lt;div&gt; {sidebar} &lt;hr /&gt; {content} &lt;/div&gt; ); } const posts = [ {id: 1, title: &#39;Hello World&#39;, content: &#39;Welcome to learning React!&#39;}, {id: 2, title: &#39;Installation&#39;, content: &#39;You can install React from npm.&#39;} ]; ReactDOM.render( &lt;Blog posts={posts} /&gt;, document.getElementById(&#39;root&#39;) ); 7.vue 中渲染列表 Vue 中渲染列表使用的是特殊指令 v-for，其中也有 key 的相关用法
+React 中采用的是 map() 方法遍历数组，然后渲染列表
+title: React 学习笔记（二） date: 2020-12-16 13:15:00 updated: 2021-11-09 15:19:31 categories:
+技术 tags: react React 元素的事件处理和 DOM 元素的很相似，但是有一点语法上的不同
+React 事件的命名采用小驼峰式（camelCase），而不是纯小写
+使用 JSX 语法时你需要传入一个函数作为事件处理函数，而不是一个字符串
+一、事件处理 1.事件绑定 React 元素的事件处理和 DOM 元素类似，但是在语法上有些区别，比如：
+传统的 html：用双引号包裹，后面必须跟参数
+&lt;button onclick=&#34;myfun()&#34;&gt;点击&lt;/button&gt; React：用大括号包裹，后面不跟参数
+&lt;button onclick={myfun}&gt;点击&lt;/button&gt; 一个完整的事件函数代码如下
+class Demo extends React.Component { render() { // 事件函数 function myfun() { alert(&#39;helo,world&#39;) } return ( // 绑定事件 &lt;button onClick={this.myfun}&gt; Activate Lasers &lt;/button&gt; ) } } ReactDOM.render( &lt;Demo /&gt;, document.getElementById(&#39;root&#39;) ) 如果方法后面没有()，则需要为这个方法绑定 this
+2.阻止默认行为 在 React 中还有一个不同的点，不能通过返回 fasle 阻止默认行为，React 提供了一个属性－－preventDefault，可以通过 preventDefault 阻止脚本执行
+看一下传统的 html 和 React 的对比
+&lt;a href=&#34;#&#34; onclick=&#34;alert(&#39;是否弹窗？&#39;);return false&#34;&gt; Click me &lt;/a&gt; 直接在写上 false 就可以阻止脚本执行
+React 通过 preventDefault 属性阻止脚本执行：
+function ActionLink() { function handleClick(e) { e.preventDefault(); console.log(&#39;The link was clicked.&#39;); } return ( &lt;a href=&#34;#&#34; onClick={handleClick}&gt; Click me &lt;/a&gt; ); } 二、条件渲染 在 React 中，可以创建不同的组件来封装各种你需要的行为，然后，根据应用不同的状态，你可以只渲染对应状态下的部分内容。
+React 中的条件渲染和 javascript 中的一样，使用 if 运算符来表示元素当前的状态，然后让 React 根据他们来更新 UI。
+使用 if..else 语句进行条件渲染 先写一个条件渲染的例子，定义了两个组件，然后通过判断组件 Greeting 中的变量 isLoggedIn 的真伪，让浏览器渲染组件 UserGreeting 或者 GuestGreeting。
+// App.js import React, { Component } from &#39;react&#39; export default class App extends Component { render() { function UserGreeting(props) { return &lt;h3&gt;Welcome back!&lt;/h3&gt;; } function GuestGreeting(props) { return &lt;h3&gt;Please sign up.&lt;/h3&gt;; } function Greeting(props) { const isLoggedIn = props.isLoggedIn; if (isLoggedIn) { return &lt;UserGreeting /&gt;; } return &lt;GuestGreeting /&gt;; } return ( &lt;div&gt; &lt;Greeting isLoggedIn={false} /&gt; &lt;/div&gt; ) } } 最后变量 isLoggedIn 定义了 false，因此，浏览器渲染 `GuestGreeting。
+怎么阻止条件渲染？ 在有些情况下，我们希望能隐藏组件，即使他已经被其他组件渲染。我们可以通过 render 方法返回 null 让组件不渲染。
+下面的示例中， 会根据 prop 中 warn 的值来进行条件渲染。如果 warn 的值是 false，那么组件则不会渲染：
+function WarningBanner(props) { if (!props.warn) { return null; } return ( &lt;div className=&#34;warning&#34;&gt; Warning! &lt;/div&gt; ); } class Page extends React.Component { constructor(props) { super(props); this.state = {showWarning: true}; this.handleToggleClick = this.handleToggleClick.bind(this); } handleToggleClick() { this.setState(state =&gt; ({ showWarning: !state.showWarning })); } render() { return ( &lt;div&gt; &lt;WarningBanner warn={this.state.showWarning} /&gt; &lt;button onClick={this.handleToggleClick}&gt; {this.state.showWarning ? &#39;Hide&#39; : &#39;Show&#39;} &lt;/button&gt; &lt;/div&gt; ); } } ReactDOM.render( &lt;Page /&gt;, document.getElementById(&#39;root&#39;) ); 三、渲染列表 先看一段代码，我们使用 map() 函数让数组中的每一项变双倍，然后得到一个新的数组 doubled 并打印出来。
+const numbers = [1, 2, 3, 4, 5]; const doubled = numbers.map((number) =&gt; number * 2); console.log(doubled); // [2,4,6,8,10] 而在 React 中，把数组转换为元素列表的过程是相似的。
+先通过 map() 方法遍历 numbers 数组，将数组中的每个元素变成 &lt;li&gt; 标签，最后将得到的数组赋值给 listItems 。
+然后返回 {listItem} 。
+// Map.js const numbers = [1, 2, 3, 4, 5]; const listItems = numbers.map((number) =&gt; &lt;li&gt;{number}&lt;/li&gt; ); ReactDOM.render( &lt;ul&gt;{listItems}&lt;/ul&gt;, document.getElementById(&#39;root&#39;) ); 运行之后浏览器出现 1-5 的无序列表
+1.分离组件 上面就是一个基本的列表渲染的例子，但是数据写死了。接下来我们将数组重构成一个组件，以后再进行数组渲染时，可以轻松调用。
+// Map.js export default class Map extends Component { render() { // 分离出组件 NumberList 作为转换数组的组件 function NumberList(props) { const numbers = props.numbers; const listItems = numbers.map((number) =&gt; &lt;li&gt;{number}&lt;/li&gt; ); return ( &lt;ul&gt;{listItems}&lt;/ul&gt; ); } // 传入需要的数据 const numbers = [1, 2, 3, 4, 5, 6, 7]; return ( &lt;div&gt; &lt;NumberList numbers={numbers} /&gt; &lt;/div&gt; ) } } 2.key 运行代码之后，页面会正常显示，但是控制台会报一个错误。Each child in a list should have a unique &quot;key&quot; prop.，意思是当你创建一个元素时，必须包括一个特殊的 key 属性。
+现在给每个列表元素分配一个 key：
+function NumberList(props) { const numbers = props.numbers; const listItems = numbers.map((number) =&gt; &lt;li key={number.toString()}&gt; {number} &lt;/li&gt; ); return ( &lt;ul&gt;{listItems}&lt;/ul&gt; ); } const numbers = [1, 2, 3, 4, 5]; ReactDOM.render( &lt;NumberList numbers={numbers} /&gt;, document.getElementById(&#39;root&#39;) ); 3.使用 id 作为 key key 帮助 React 识别了哪些元素被改变，比如删除和添加，所以应当给每个元素确定一个标识，也就是 key。
+一个元素的 key 最好是这个元素在列表中拥有的一个独一无二的字符串。通常，我们使用数据中的 id 来作为元素的 key：
+// Map.js export default class Map extends Component { render() { function NumberList(props) { const numbers = props.numbers; const listItems = numbers.map((number) =&gt; &lt;li key={number.id}&gt; // 赋值 key {number.text} &lt;/li&gt; ); return ( &lt;ul&gt;{listItems}&lt;/ul&gt; ); } // 传入数据 const numbers = [ {id: 1,text: 1}, {id: 2,text: 2}, {id: 3,text: 3}, {id: 4,text: 4}, {id: 5,text: 5} ]; return ( &lt;Fragment&gt; &lt;NumberList numbers={numbers} /&gt; &lt;/Fragment&gt; ) } } 4.索引 index 可以作为 key 吗？ 当元素没有确定 id 的时候，万不得已你可以使用元素索引 index 作为 key：
+const todoItems = todos.map((todo, index) =&gt; // 仅仅当没有确定 id 的时候使用索引 index 作为 key &lt;li key={index}&gt; {todo.text} &lt;/li&gt; ); 如果列表项目的顺序可能会变化，我们不建议使用索引来用作 key 值，因为这样做会导致性能变差，还可能引起组件状态的问题。
+5.用 key 提取组件 比方说，如果你提取出一个 ListItem 组件，你应该把 key 保留在数组中的这个 &lt;ListItem /&gt; 元素上，而不是放在 ListItem 组件中的 &lt;li&gt; 元素上。
+错误的使用方法：
+function ListItem(props) { const value = props.value; return ( // 错误！你不需要在这里指定 key： &lt;li key={value.toString()}&gt; {value} &lt;/li&gt; ); } function NumberList(props) { const numbers = props.numbers; const listItems = numbers.map((number) =&gt; // 错误！元素的 key 应该在这里指定： &lt;ListItem value={number} /&gt; ); return ( &lt;ul&gt; {listItems} &lt;/ul&gt; ); } const numbers = [1, 2, 3, 4, 5]; ReactDOM.render( &lt;NumberList numbers={numbers} /&gt;, document.getElementById(&#39;root&#39;) ); 正确的使用方法：
+function ListItem(props) { // 正确！这里不需要指定 key： return &lt;li&gt;{props.value}&lt;/li&gt;; } function NumberList(props) { const numbers = props.numbers; const listItems = numbers.map((number) =&gt; // 正确！key 应该在数组的上下文中被指定 &lt;ListItem key={number.toString()} value={number} /&gt; ); return ( &lt;ul&gt; {listItems} &lt;/ul&gt; ); } const numbers = [1, 2, 3, 4, 5]; ReactDOM.render( &lt;NumberList numbers={numbers} /&gt;, document.getElementById(&#39;root&#39;) ); React：一个好的经验法则是：在 map( ) 方法中的元素需要设置 key 属性。
+6.key 只是在兄弟节点之间必须唯一 数组元素中使用的 key 在其兄弟节点之间应该是独一无二的。然而，它们不需要是全局唯一的。当我们生成两个不同的数组时，我们可以使用相同的 key 值：
+function Blog(props) { const sidebar = ( &lt;ul&gt; {props.posts.map((post) =&gt; &lt;li key={post.id}&gt; {post.title} &lt;/li&gt; )} &lt;/ul&gt; ); const content = props.posts.map((post) =&gt; &lt;div key={post.id}&gt; &lt;h3&gt;{post.title}&lt;/h3&gt; &lt;p&gt;{post.content}&lt;/p&gt; &lt;/div&gt; ); return ( &lt;div&gt; {sidebar} &lt;hr /&gt; {content} &lt;/div&gt; ); } const posts = [ {id: 1, title: &#39;Hello World&#39;, content: &#39;Welcome to learning React!&#39;}, {id: 2, title: &#39;Installation&#39;, content: &#39;You can install React from npm.&#39;} ]; ReactDOM.render( &lt;Blog posts={posts} /&gt;, document.getElementById(&#39;root&#39;) ); 7.vue 中渲染列表 Vue 中渲染列表使用的是特殊指令 v-for，其中也有 key 的相关用法
+React 中采用的是 map() 方法遍历数组，然后渲染列表
 	</div>
 </article>
 <article class="list__item post">
@@ -125,7 +218,7 @@ class Demo extends React.Component { render() { // 事件函数 function myfun()
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2020-12-12T00:00:00Z">December 12, 2020</time></div></div>
+	<time class="meta__text" datetime="2020-12-12T00:00:00Z">2020-12-12</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		在 React 项目中，render 方法只能有一个根元素，一般都是 &lt;div&gt; &lt;div/&gt; ，然后在里面写上我们的组件，渲染到浏览器一看，除了我们想要显示的组件，外面还套着一层 div，如果在写项目的时候，套了很多曾组件，那么每一层都会多出来一个父级元素 div，不美观，而且在调整样式的时候会有些麻烦
@@ -141,16 +234,16 @@ class Demo extends React.Component { render() { // 事件函数 function myfun()
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2020-12-02T00:00:00Z">December 02, 2020</time></div></div>
+	<time class="meta__text" datetime="2020-12-02T00:00:00Z">2020-12-02</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		根据官网文档来解释，为什么不可变性的概念在 React 中非常重要的原因，一般来说，有两种改变数据的方式。第一种方式是直接修改变量的值，第二种方式是使用新的一份数据替换旧数据
 React 文档
 一般来说，有两种改变数据的方式。第一种方式是直接修改变量的值，第二种方式是使用新的一份数据替换旧数据
-直接修改数据 var player = {score: 1, name: &#39;Jeff&#39;}; player.score = 2; // player 修改后的值为 {score: 2, name: &#39;Jeff&#39;} 新数据替换旧数据 var player = {score: 1, name: &#39;Jeff&#39;}; var newPlayer = Object.assign({}, player, {score: 2}); // player 的值没有改变，但是 newPlayer 的值是 {score: 2, name: &#39;Jeff&#39;} // 使用对象展开语法，就可以写成： // var newPlayer = {.
-	</div>
-	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/blog/32.html/">Read more</a>
+直接修改数据 var player = {score: 1, name: &#39;Jeff&#39;}; player.score = 2; // player 修改后的值为 {score: 2, name: &#39;Jeff&#39;} 新数据替换旧数据 var player = {score: 1, name: &#39;Jeff&#39;}; var newPlayer = Object.assign({}, player, {score: 2}); // player 的值没有改变，但是 newPlayer 的值是 {score: 2, name: &#39;Jeff&#39;} // 使用对象展开语法，就可以写成： // var newPlayer = {...player, score: 2}; 不直接修改（或改变底层数据）这种方式和前一种方式的结果是一样的，这种方式有以下几点好处：
+简化复杂的功能 不可变性使得复杂的特性更容易实现。在后面的章节里，我们会实现一种叫做“时间旅行”的功能。“时间旅行”可以使我们回顾井字棋的历史步骤，并且可以“跳回”之前的步骤。这个功能并不是只有游戏才会用到——撤销和恢复功能在开发中是一个很常见的需求。不直接在数据上修改可以让我们追溯并复用游戏的历史记录
+跟踪数据的改变 如果直接修改数据，那么就很难跟踪到数据的改变。跟踪数据的改变需要可变对象可以与改变之前的版本进行对比，这样整个对象树都需要被遍历一次
+确定在 React 中何时重新渲染 不可变性最主要的优势在于它可以帮助我们在 React 中创建 pure components。我们可以很轻松的确定不可变数据是否发生了改变，从而确定何时对组件进行重新渲染
 	</div>
 </article>
 <article class="list__item post">
@@ -161,15 +254,48 @@ React 文档
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2020-11-26T00:00:00Z">November 26, 2020</time></div></div>
+	<time class="meta__text" datetime="2020-11-26T00:00:00Z">2020-11-26</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		进行重新加载编译。实际就是将浏览器不认识的语法编译成浏览器认识的语法。比如 less 编译成 css，ES6 语法 转成 ES5 等等。
 减少 io 请求，通常我们在请求后，会返回一个 html 到浏览器。这时，我们如果打开控制台，就会发现在 html 页面通过 script,link 等标签引用的静态资源，浏览器会再次发出请求去获取这些资源。但是 webpack 的打包，将所有的静态资源都合并好了，减少了 io 请求。
 # 安装webpack npm install --save-dev webpack # 安装webpack-cli依赖 npm install --save-dev webpack-cli # 创建新项目 mkdir demo # cd项目 cd demo # 初始化 npm init -y # 安装开发版本cli npm install webpack webpack-cli --save-dev 新建一个 html 文件和一个 js 文件，工程目录如下
-	</div>
-	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/blog/30.html/">Read more</a>
+demo |- package.json + |- index.html + |- /src + |- index.js src/index.js:
+function component() { var element = document.createElement(&#39;div&#39;); // Lodash（目前通过一个 script 脚本引入）对于执行这一行是必需的 element.innerHTML = _.join([&#39;Hello&#39;, &#39;webpack&#39;], &#39; &#39;); return element; } document.body.appendChild(component()); index.html:
+&lt;!doctype html&gt; &lt;html&gt; &lt;head&gt; &lt;title&gt;起步&lt;/title&gt; &lt;script src=&#34;https://unpkg.com/lodash@4.16.6&#34;&gt;&lt;/script&gt; &lt;/head&gt; &lt;body&gt; &lt;script src=&#34;./src/index.js&#34;&gt;&lt;/script&gt; &lt;/body&gt; &lt;/html&gt; 在 package.json 中：
+删除&quot;main&quot;: &quot;index.js&quot;,添加&quot;private&quot;: true
+调整工程目录：
+demo |- package.json + |- /dist + |- index.html - |- index.html |- /src |- index.js 要在index.js中打包lodash依赖，我们需要在本地安装 library，终端输入指令：
+npm install --save lodash 然后调整index.js内容
+// 添加一行代码 import _ from &#39;lodash&#39;; 在dist/index.html中可以把引入的外部文件lodash删去
+删去&lt;script src=&quot;./src/index.js&quot;&gt;&lt;/script&gt;
+添加&lt;script src=&quot;main.js&quot;&gt;&lt;/script&gt;
+执行终端：
+npx webpack 即可在dist中打包生成需要的main.js文件
+还可以手动配置文件，在根目录下新建一个webpack.config.js文件
+const path = require(&#39;path&#39;); module.exports = { // 这里放着需要打包的文件，如果多个文件，用数组形式写 entry: &#39;./src/index.js&#39;, output: { // 这里是打包生成的文件名，还可以手动修改 filename: &#39;bundle.js&#39;, path: path.resolve(__dirname, &#39;dist&#39;) } }; 考虑到用 CLI 这种方式来运行本地的 webpack 不是特别方便，我们可以设置一个快捷方式，
+在package.json中的&quot;scripts&quot;新增
+&#34;build&#34;: &#34;webpack&#34; 这样就可以使用npm run build指令代替之前的npx了
+把之前dist文件夹里面的js文件删去，然后重新打包
+npm run build 看一下工程目录
+demo |- package.json |- webpack.config.js |- /dist |- bundle.js |- index.html |- /src |- index.js |- /node_modules 没问题，成功打包，浏览器也正常显示
+在 js 文件中import了一个 css 文件，需要在配置中安装并添加style-loaader和css-loader
+npm install --save-dev style-loader css-loader webpack.config.js:
+const path = require(&#39;path&#39;); module.exports = { entry: &#39;./src/index.js&#39;, output: { filename: &#39;bundle.js&#39;, path: path.resolve(__dirname, &#39;dist&#39;) }, // 添加的内容 module: { rules: [ { test: /\.css$/, use: [ &#39;style-loader&#39;, &#39;css-loader&#39; ] } ] } }; 然后在 js 模块中：
+import &#39;./style.css&#39; npm run build就可以自动解析打包啦
+加载图片
+下载安装file-loader
+npm install --save-dev file-loader webpack.config.js:
+module: { rules: [ { test: /\.css$/, use: [ &#39;style-loader&#39;, &#39;css-loader&#39; ] },{ test: /\.(png|svg|jpg|gif)$/, use: [ &#39;file-loader&#39; ] } ] } 加载字体
+webpack 加载字体资源
+记载数据资源
+此外，可加载的有用资源还有数据，json文件，CSV，TSV，XML等，实际上，json是内置的，可以直接import data from './data.json'引入
+但是CSV，TSV，XML不可以，需要配置一下依赖
+终端下载安装：
+npm install --save-dev csv-loader xml-loader webpack.config.js:
+{ test: /\.(csv|tsv)$/, use: [ &#39;csv-loader&#39; ] }, { test: /\.xml$/, use: [ &#39;xml-loader&#39; ] } 在src目录下添加一个 json 文件data.json
+然后在index.js中引入：
+import data from &#39;./data.json&#39; 
 	</div>
 </article>
 <article class="list__item post">
@@ -180,16 +306,44 @@ React 文档
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2020-11-25T00:00:00Z">November 25, 2020</time></div></div>
+	<time class="meta__text" datetime="2020-11-25T00:00:00Z">2020-11-25</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		一、计算属性 computed 1.例子 &lt;div id=&#34;app&#34;&gt; &lt;div&gt;{{message}}&lt;/div&gt; &lt;div&gt;{{revermessage}}&lt;/div&gt; &lt;/div&gt; &lt;script&gt; var vm = new Vue({ el: &#39;#app&#39;, data: { message: &#39;hello,wolrd&#39; }, computed: { revermessage: function() { return this.message.split(&#39;&#39;).reverse().join(&#39;&#39;) } } }) &lt;/script&gt; 声明一个计算属性severmessage，在computed中被指向对message进行一些方法操作后的返回值
 此时vm.severmessage依赖于vm.message的变化，对message改变数据，会引起severmessage的更新
 2.计算属性缓存和方法 还可以通过在表达式中调用方法来达到想要的效果
-&lt;div id=&#34;app&#34;&gt; &lt;div&gt;{{message}}&lt;/div&gt; &lt;div&gt;{{revermessage()}}&lt;/div&gt; &lt;/div&gt; &lt;script&gt; var vm = new Vue({ el: &#39;#app&#39;, data: { message: &#39;hello,wolrd&#39; }, methods: { revermessage: function() { return this.
-	</div>
-	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/blog/29.html/">Read more</a>
+&lt;div id=&#34;app&#34;&gt; &lt;div&gt;{{message}}&lt;/div&gt; &lt;div&gt;{{revermessage()}}&lt;/div&gt; &lt;/div&gt; &lt;script&gt; var vm = new Vue({ el: &#39;#app&#39;, data: { message: &#39;hello,wolrd&#39; }, methods: { revermessage: function() { return this.message.split(&#39;&#39;).reverse().join(&#39;&#39;) } } }) &lt;/script&gt; 经过测试，两者的结果是一样的
+我们可以将同一函数定义为一个方法而不是一个计算属性。两种方式的最终结果确实是完全相同的
+区别是：计算属性是基于他们的响应式依赖进行缓存的，只有当响应式依赖，也就是message发生改变时才会重新求值，就意味着，只要message还没改变，多次访问revermessage计算属性只会返回之前计算结果的缓存，而不是直接执行计算属性的函数
+而方法，在每次触发重新渲染时，调用方法都会执行一次函数，这就多了一份开销
+我们为什么需要缓存？假设我们有一个性能开销比较大的计算属性 A，它需要遍历一个巨大的数组并做大量的计算。然后我们可能有其他的计算属性依赖于 A。如果没有缓存，我们将不可避免的多次执行 A 的 getter！如果你不希望有缓存，请用方法来替代
+3.计算属性和侦听属性 vue 还有一种方式来观测 vue 实例上的数据变动：侦听属性－－watch
+&lt;div id=&#34;app&#34;&gt; {{fullname}} &lt;/div&gt; &lt;script&gt; var vm = new Vue({ el: &#39;#app&#39;, data: { firstname: &#39;a&#39;, lastname: &#39;b&#39;, fullname: &#39;ab&#39; }, watch: { firstname: function(val) { this.fullName = val + &#39; &#39; + this.lastName }, lastname: function(val) { this.fullName = this.firstName + &#39; &#39; + val } } }) &lt;/script&gt; 使用过程是极其繁琐且重复的，再来用计算属性试一下
+&lt;div id=&#34;app&#34;&gt; {{fullname}} &lt;/div&gt; &lt;script&gt; var vm = new Vue({ el: &#39;#app&#39;, data: { firstname: &#39;a&#39;, lastname: &#39;b&#39; }, computed: { fullname: function() { return this.firstname + this.lastname } } }) &lt;/script&gt; 很简单快速的就得到了我们想要的函数表达式
+4.计算属性的 setter computed: { fullName: { // getter get: function () { return this.firstName + &#39; &#39; + this.lastName }, // setter set: function (newValue) { var names = newValue.split(&#39; &#39;) this.firstName = names[0] this.lastName = names[names.length - 1] } } } 现在在控制台输入vm.fullName = 'John Doe'，页面会响应，并且setter会被调用，vm.firstname和vm.lastname也会相应地被更新
+二、绑定 class 和 style 1.对象语法 可以给v-bind:class传入一个对象，动态的切换class
+&lt;div v-bind:class=&#34;{active: ok}&#34;&gt;&lt;/div&gt; 可以通过控制ok的布尔值来动态的控制 class
+还可以创建多个字段，并且不影响普通的className的存在
+html:
+&lt;div class=&#34;static&#34; v-bind:class=&#34;{ active: isActive, &#39;text-danger&#39;: hasError }&#34; &gt;&lt;/div&gt; data:
+data{ isActive: true, hasError: false } 结果为：
+&lt;div class=&#34;static active&#34;&gt;&lt;/div&gt; 当isActive或者hasError变化时，class 列表将相应地更新。例如，如果hasError的值为true，class 列表将变为&quot;static active text-danger&quot;。
+绑定的数据对象也不必直接写在内联模板里
+&lt;div id=&#34;app&#34;&gt; &lt;div v-bind:class=&#34;classobject&#34;&gt;&lt;/div&gt; &lt;/div&gt; &lt;script&gt; var vm = new Vue({ el: &#39;#app&#39;, data: { classobject: { active: true, &#39;text-danger&#39;: true } }, }) &lt;/script&gt; &lt;!-- &lt;div class=&#34;active text-danger&#34;&gt;&lt;/div&gt; --&gt; 如果className有特殊符号，必须加上引号''，或者&quot;&quot;
+2.数组语法 我们可以把一个数组传给v-bind:class，以应用一个 class 列表
+&lt;div v-bind:class=&#34;[activeClass, errorClass]&#34;&gt;&lt;/div&gt; data: { activeClass: &#39;active&#39;, errorClass: &#39;text-danger&#39; } 渲染为：
+&lt;div class=&#34;active text-danger&#34;&gt;&lt;/div&gt; 3.用在组件上 当在一个自定义组件上使用classproperty 时，这些 class 将被添加到该组件的根元素上面。这个元素上已经存在的 class 不会被覆盖。
+Vue.component(&#39;my-component&#39;, { template: &#39;&lt;p class=&#34;foo bar&#34;&gt;Hi&lt;/p&gt;&#39; }) 然后在使用的使用的时候添加了一些class：
+&lt;my-component class=&#34;baz boo&#34;&gt;&lt;/my-component&gt; html 将会被渲染成：
+&lt;p class=&#34;foo bar baz boo&#34;&gt;Hi&lt;/p&gt; 对于带数据绑定的class也同样适用
+&lt;my-component v-bind:class=&#34;{ active: isActive }&#34;&gt;&lt;/my-component&gt; 当isActive为 truthy 时，HTML 将被渲染成为：
+&lt;p class=&#34;foo bar active&#34;&gt;Hi&lt;/p&gt; 4.绑定内联样式 style v-bind:style的对象语法十分直观——看着非常像 CSS，但其实是一个 JavaScript 对象。CSS property 名可以用驼峰式或带引号的短横线来命名
+&lt;div v-bind:style=&#34;{ color: activeColor, fontSize: fontSize + &#39;px&#39; }&#34;&gt;&lt;/div&gt; js:
+data: { activeColor: &#39;red&#39;, fontSize: 30 } 或者直接绑定到一个对象，会让模板更加清晰
+&lt;div v-bind:style=&#34;styleObject&#34;&gt;&lt;/div&gt; js:
+data: { styleObject: { color: &#39;red&#39;, fontSize: &#39;13px&#39; } } 也可以将多个对象应用到一个元素上
+&lt;div v-bind:style=&#34;[baseStyles, overridingStyles]&#34;&gt;&lt;/div&gt; 自动添加前缀
+当v-bind:style需要使用浏览器前缀的时候，如：-webkit-等，vue 会自动侦测并帮生成相应的前缀
 	</div>
 </article>
 <article class="list__item post">
@@ -200,17 +354,53 @@ React 文档
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2020-11-24T00:00:00Z">November 24, 2020</time></div></div>
+	<time class="meta__text" datetime="2020-11-24T00:00:00Z">2020-11-24</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		一、vue 实例 1.创建 vue 实例 一个 vue 实例应该通过new Vue来创建根实例，所有的 vue 组件其实都是 vue 实例
 var vm = new Vue({ ... }) 当一个实例被创建时，data对象中的 property 都被加入到 vue 的响应式系统中，当值发生改变时，试图也会改变
 var data = {a: 1} var vm = new Vue({ data: data }) 此时在控制台输入vm.a == data.a会返回 true，变量data已经被赋给vue实例中的data对象了
 同时，对两个对象的数据进行操作改变也会影响到另一个
-vm.a = 2 // data.a = 2 data.
-	</div>
-	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/blog/28.html/">Read more</a>
+vm.a = 2 // data.a = 2 data.a = 3 // vm.a = 3 当数据改变时，视图也会重新渲染，如果在 vue 实例被创建后，又添加了一个新的 property，则不会被加入到响应式系统中
+如果一开始就知道后面会添加一个 property，但是一开始不存在或为空，需要设置一些初始值
+data: { newTodoText: &#39;&#39;, visitCount: 0, hideCompletedTods: fasle, todos: [], error: null } 使用 Object.freeze() 方法的时候，无法修改数据引起视图变化
+Object.freeze() 方法可以冻结一个对象。一个被冻结的对象再也不能被修改；冻结了一个对象则不能向这个对象添加新的属性，不能删除已有属性，不能修改该对象已有属性的可枚举性、可配置性、可写性，以及不能修改已有属性的值。此外，冻结一个对象后该对象的原型也不能被修改。freeze() 返回和传入的参数相同的对象。
+&lt;div id=&#34;app&#34;&gt;{{message}}&lt;/div&gt; &lt;script&gt; var data = {message: &#39;hello,wolrd&#39;} Object.freeze(data) var vm = new Vue({ el: &#39;#app&#39;, data: data }) &lt;/script&gt; 在控制台改变vm.message的值会直接报错，因为 data 对象已经被冻结了，不可改变
+vm.$data
+代表 vue 实例观察的数据对象
+console.log(vm.$data) // 返回数据对象的数组形式 var data = { a: 1 } var vm = new Vue({ el: &#39;#app&#39;, data: data }) vm.$data === data // true vm.$el === document.getElementById(&#39;app&#39;) // true 2.生命周期函数 每个实例在被创建的时候，都要经历一些初始化过程，比如：设置数据监听，编译模板，将实例挂载到 dom，更新 dom 等
+在这个过程中会运行一些叫做生命周期的钩子函数，可以在不同阶段添加自己需要的代码
+比如created钩子可以用来表示一个实例被创建之后执行的代码
+new Vue({ data: { a: 1 }, created: function () { console.log(&#39;a is: &#39; + this.a) } }) // &#34;a is: 1&#34; this用来指向 vm 实例
+但是不要在 property 或者回调上使用箭头函数，created: () =&gt; console.log(this.a)，因为箭头函数没有this的概念，他会把this当作变量一直向上级作用域查找，经常产生Uncaught TypeError: Cannot read property of undefined或Uncaught TypeError: this.myMethod is not a function之类的报错
+二、模板语法 1.插值 最简单的就是
+&lt;div id=&#34;app&#34;&gt;{{message}}&lt;/div&gt; &lt;script&gt; var app = new Vue({ el: &#34;#app&#34;, data: { message: &#39;hello,world&#39; } }) &lt;/script&gt; &lt;/script&gt; 。。。
+下面这段代码给input绑定了一个disabled属性，但是通过ok的真伪来控制属性是否渲染
+当ok为fasle,null,undefined值时，属性都不会被渲染，有点类似于v-if，但是这种写法只是针对属性
+&lt;div id=&#34;app&#34;&gt; &lt;input type=&#34;text&#34; v-bind:disabled=&#34;ok&#34;&gt; &lt;/div&gt; &lt;script&gt; var vm = new Vue({ el: &#39;#app&#39;, data: { message: &#39;hello,wolrd&#39;, ok: false } }) &lt;/script&gt; 在模板语法中还可以使用 javascript 表达式
+&lt;div id=&#34;app&#34;&gt; &lt;div&gt;{{number + 1}}&lt;/div&gt; &lt;div v-bind:id=&#34;&#39;list-&#39; + id&#34;&gt;&lt;/div&gt; &lt;div&gt;{{message.split(&#39;&#39;).reverse().join(&#39;&#39;)}}&lt;/div&gt; &lt;/div&gt; &lt;script&gt; var vm = new Vue({ el: &#39;#app&#39;, data: { number: 2, id: &#39;li&#39;, message: &#39;hello,wolrd&#39; } }) &lt;/script&gt; 每个模板只能包含一个 javascript 表达式，如果有多个，则不会生效
+&lt;!-- 这是语句，不是表达式 --&gt; {{ var a = 1 }} &lt;!-- 流控制也不会生效，请使用三元表达式 --&gt; {{ if (ok) { return message } }} 2.指令 参数
+一些指令能够接收一个“参数”，在指令名称之后以冒号表示。例如，v-bind指令可以用于响应式地更新 HTML attribute：
+&lt;div id=&#34;app&#34;&gt; &lt;a v-bind:href=&#34;url&#34;&gt;百度&lt;/a&gt; &lt;/div&gt; &lt;script&gt; var vm = new Vue({ el: &#39;#app&#39;, data: { url: &#39;https://www.baidu.com&#39; } }) &lt;/script&gt; 在这里href是参数，告知v-bind指令将该元素的hrefattribute 与表达式url的值绑定
+另一个例子是v-on指令，它用于监听 dom 事件
+&lt;a v-on:click=&#34;doSomething&#34;&gt;...&lt;/a&gt; 动态参数
+从 2.6.0 开始，可以用方括号括起来的 JavaScript 表达式作为一个指令的参数
+&lt;!--注意，参数表达式的写法存在一些约束，如之后的“对动态参数表达式的约束”章节所述。--&gt; &lt;a v-bind:[attributeName]=&#34;url&#34;&gt;...&lt;/a&gt; 这里的attributeName会被作为一个 javascript 表达式进行动态求值，最终结果被作为参数来使用
+比如：vue 实例中有一个attributeName属性其值为href，则这个绑定将等价于v-bind:href
+&lt;a v-bind:href=&#34;url&gt;...&lt;/a&gt; 也可以使用动态的事件名绑定监听函数
+&lt;a v-on:[eventName]=&#34;doSomething&#34;&gt; ... &lt;/a&gt; 如果eventName值为click，则该绑定等价于v-on:click=&quot;doSomething&quot;，一个鼠标点击事件
+对动态参数的值的约束
+动态参数预期会求出一个字符串，异常情况下值为null，这个特殊的null值可以被显性地用于移除绑定。任何其它非字符串类型的值都将会触发一个警告。
+对动态参数表达式的约束
+动态参数表达式有一些语法约束，因为某些字符，如空格和引号，放在 HTML attribute 名里是无效的，例如：
+&lt;!-- 这会触发一个编译警告 --&gt; &lt;a v-bind:[&#39;foo&#39; + bar]=&#34;value&#34;&gt; ... &lt;/a&gt; 因此，尽量不要使用空格和引号的表达式，或者采用计算属性来替代这种复杂表达式
+在 DOM 中使用模板时 (直接在一个 HTML 文件里撰写模板)，还需要避免使用大写字符来命名键名，因为浏览器会把 attribute 名全部强制转为小写
+修饰符
+修饰符是以.指明的特殊后缀，用于指出一个指令应该以特殊方式绑定，例如，.prevent修饰符告诉v-on指令对于触发的事件调用event.preentDefault()
+&lt;form v-on:submit.prevent=&#34;onSubmit&#34;&gt;...&lt;/form&gt; 3.缩写 v-前缀作为一种视觉提示，用来识别模板中 Vue 特定的 attribute。当你在使用 Vue.js 为现有标签添加动态行为 (dynamic behavior) 时，v-前缀很有帮助，然而，对于一些频繁用到的指令来说，就会感到使用繁琐。同时，在构建由 Vue 管理所有模板的单页面应用程序 (SPA - single page application) 时，v-前缀也变得没那么重要了。因此，Vue 为v-bind和v-on这两个最常用的指令，提供了特定简写
+v-bind
+&lt;!-- 完整语法 --&gt; &lt;a v-bind:href=&#34;url&#34;&gt;...&lt;/a&gt; &lt;!-- 缩写 --&gt; &lt;a :href=&#34;url&#34;&gt;...&lt;/a&gt; &lt;!-- 动态参数的缩写 (2.6.0+) --&gt; &lt;a :[key]=&#34;url&#34;&gt; ... &lt;/a&gt; v-on
+&lt;!-- 完整语法 --&gt; &lt;a v-on:click=&#34;doSomething&#34;&gt;...&lt;/a&gt; &lt;!-- 缩写 --&gt; &lt;a @click=&#34;doSomething&#34;&gt;...&lt;/a&gt; &lt;!-- 动态参数的缩写 (2.6.0+) --&gt; &lt;a @[event]=&#34;doSomething&#34;&gt; ... &lt;/a&gt; 它们看起来可能与普通的 HTML 略有不同，但:与@对于 attribute 名来说都是合法字符，在所有支持 Vue 的浏览器都能被正确地解析。而且，它们不会出现在最终渲染的标记中。缩写语法是完全可选的，但随着你更深入地了解它们的作用，你会庆幸拥有它们。
 	</div>
 </article>
 <article class="list__item post">
@@ -221,16 +411,55 @@ vm.a = 2 // data.a = 2 data.
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2020-11-23T00:00:00Z">November 23, 2020</time></div></div>
+	<time class="meta__text" datetime="2020-11-23T00:00:00Z">2020-11-23</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		一、什么是 vue? 练习时使用，最新版本
 &lt;script src=&#34;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&#34;&gt;&lt;/script&gt; 生产时使用，明确版本号的版本，避免造成不可预见的问题
 &lt;script src=&#34;https://cdn.jsdelivr.net/npm/vue@2.6.12&#34;&gt;&lt;/script&gt; hello world
-&lt;div id=&#34;app&#34;&gt; {{message}} &lt;/div&gt; &lt;script&gt; var app = new Vue({ el: &#34;#app&#34;, data: { message: &#39;hello,world&#39; } }) &lt;/script&gt; 1.v-指令 v-bind－－绑定属性 &lt;div id=&#34;app-2&#34;&gt; &lt;span v-bind:title=&#34;message&#34;&gt; 鼠标悬停几秒钟查看此处动态绑定的提示信息！ &lt;/span&gt; &lt;/div&gt; &lt;script&gt; var app = new Vue({ el: &#39;#app&#39;, data: { message: &#39;页面加载于 &#39; + new Date().
-	</div>
-	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/blog/27.html/">Read more</a>
+&lt;div id=&#34;app&#34;&gt; {{message}} &lt;/div&gt; &lt;script&gt; var app = new Vue({ el: &#34;#app&#34;, data: { message: &#39;hello,world&#39; } }) &lt;/script&gt; 1.v-指令 v-bind－－绑定属性 &lt;div id=&#34;app-2&#34;&gt; &lt;span v-bind:title=&#34;message&#34;&gt; 鼠标悬停几秒钟查看此处动态绑定的提示信息！ &lt;/span&gt; &lt;/div&gt; &lt;script&gt; var app = new Vue({ el: &#39;#app&#39;, data: { message: &#39;页面加载于 &#39; + new Date().toLocaleString() } }) &lt;/script&gt; v-bind是 vue 特有的提供的属性，他会在 dom 上应用一个响应式的操作
+打开 console，输入app.message = &quot;hello&quot;，页面会改变内容只显示hello
+又或者输入app.message = false，内容会直接不显示
+vue 官网例子：
+&lt;!-- 绑定一个 attribute --&gt; &lt;img v-bind:src=&#34;imageSrc&#34;&gt; &lt;!-- 动态 attribute 名 (2.6.0+) --&gt; &lt;button v-bind:[key]=&#34;value&#34;&gt;&lt;/button&gt; &lt;!-- 缩写 --&gt; &lt;img :src=&#34;imageSrc&#34;&gt; &lt;!-- 动态 attribute 名缩写 (2.6.0+) --&gt; &lt;button :[key]=&#34;value&#34;&gt;&lt;/button&gt; &lt;!-- 内联字符串拼接 --&gt; &lt;img :src=&#34;&#39;/path/to/images/&#39; + fileName&#34;&gt; &lt;!-- class 绑定 --&gt; &lt;div :class=&#34;{ red: isRed }&#34;&gt;&lt;/div&gt; &lt;div :class=&#34;[classA, classB]&#34;&gt;&lt;/div&gt; &lt;div :class=&#34;[classA, { classB: isB, classC: isC }]&#34;&gt; &lt;!-- style 绑定 --&gt; &lt;div :style=&#34;{ fontSize: size + &#39;px&#39; }&#34;&gt;&lt;/div&gt; &lt;div :style=&#34;[styleObjectA, styleObjectB]&#34;&gt;&lt;/div&gt; &lt;!-- 绑定一个全是 attribute 的对象 --&gt; &lt;div v-bind=&#34;{ id: someProp, &#39;other-attr&#39;: otherProp }&#34;&gt;&lt;/div&gt; &lt;!-- 通过 prop 修饰符绑定 DOM attribute --&gt; &lt;div v-bind:text-content.prop=&#34;text&#34;&gt;&lt;/div&gt; &lt;!-- prop 绑定。“prop”必须在 my-component 中声明。--&gt; &lt;my-component :prop=&#34;someThing&#34;&gt;&lt;/my-component&gt; &lt;!-- 通过 $props 将父组件的 props 一起传给子组件 --&gt; &lt;child-component v-bind=&#34;$props&#34;&gt;&lt;/child-component&gt; &lt;!-- XLink --&gt; &lt;svg&gt;&lt;a :xlink:special=&#34;foo&#34;&gt;&lt;/a&gt;&lt;/svg&gt; v-if－－控制元素的显示隐藏 刚才写了，通过app.message = false，可以让message代表的内容处于隐藏状态，但是控制的只能是通过v-for引入的内容，无法直接让元素隐藏
+其实，vue 中还有一个专门控制元素显示隐藏的指令－－v-if
+&lt;div id=&#34;app&#34;&gt; &lt;span v-if=&#34;show&#34;&gt; {{message}} &lt;/span&gt; &lt;/div&gt; &lt;script&gt; var app = new Vue({ el: &#34;#app&#34;, data: { message: &#39;hello,world&#39;, show: true } }) &lt;/script&gt; 给元素绑定一个指令v-if = &quot;show&quot;，然后在 data 中控制show的布尔值，true 显示，false 隐藏
+同时还有这个功能的指令v-show，根据表达式之真假值，切换元素的display CSS property，也是通过绑定的布尔值来显示隐藏
+但是v-if和v-show有些区别
+(1) v-if 是控制元素是否渲染最终控制元素的显示隐藏，适用于切换频率低的情况 (2) v-show 不管显示隐藏都渲染，然后通过布尔值绑定display: none属性，适用于切换频率高的情况
+注意：v-show不支持&lt;tempalte&gt;元素，也不支持v-else
+搭配用法
+v-else和v-else-if
+可以通过使用v-else达到v-if的效果，必须和v-if搭配使用，比如：
+&lt;div v-if=&#34;1&gt;2&#34;&gt; hello &lt;/div&gt; &lt;div v-else&gt; hi &lt;/div&gt; 如果v-if不成立，执行v-else，也就是显示 v-else 里面的内容
+是不是有点 javascript 里面if函数的感觉了
+v-else-if用法大致一样，必须和v-if和v-else搭配使用
+v-for－－遍历数组并显示到页面上 v-for算是 vue 的核心指令之一了把，主要是渲染一个项目列表的
+&lt;div id=&#34;app&#34;&gt; &lt;div v-for=&#34;item in list&#34;&gt;{{item.message}}&lt;/div&gt; &lt;/div&gt; &lt;script&gt; var app = new Vue({ el: &#34;#app&#34;, data: { list: [ {message: &#39;html&#39;}, {message: &#39;css&#39;} ] } }) &lt;/script&gt; 可以直接把列表数据循环输出
+并且在控制台中通过push()还能添加新的列表项
+app.list.push({message: &#34;js&#34;}) vue 对数据操作，就是这么神奇
+不推荐v-for和v-if同时使用，因为v-for拥有更高的优先级
+v-on－－绑定事件监听器 即绑定事件，通过v-on给 div 绑定了一个点击事件，注意，在reverseMessage方法中，我们更新了应用的状态，但是吗诶呀触碰到 dom，直接通过 vue 来进行处理，编写代码时只需要关注逻辑层即可
+v-on:click=&quot;messagenone&quot;，然后在methods里面写上事件方法
+&lt;div id=&#34;app&#34;&gt; &lt;div v-on:click=&#34;messagenone&#34; id=&#34;demo&#34;&gt;{{message}}&lt;/div&gt; &lt;/div&gt; &lt;script&gt; var app = new Vue({ el: &#34;#app&#34;, data: { message: &#39;hello,wolrd&#39; }, methods: { messagenone: function() { var demo = document.getElementById(&#39;demo&#39;); demo.innerHTML = &#39;&#39; } } }) &lt;/script&gt; v-model－－数据的双向绑定 vue 还提供了v-model指令，它能轻松实现表单输入和应用状态之间的双向绑定
+可使用场景：标签 input, select, textarea 和 components
+&lt;div id=&#34;app&#34;&gt; &lt;div&gt;{{message}}&lt;/div&gt; &lt;input type=&#34;text&#34; v-model=&#34;message&#34;&gt; &lt;/div&gt; &lt;script&gt; var app = new Vue({ el: &#34;#app&#34;, data: { message: &#39;hello,wolrd&#39; } }) &lt;/script&gt; v-text 更新元素的内容 &lt;div id=&#34;app&#34;&gt; &lt;div v-text=&#34;message&#34;&gt;&lt;/div&gt; &lt;div&gt;{{message}}&lt;/div&gt; &lt;/div&gt; &lt;script&gt; var vm = new Vue({ el: &#39;#app&#39;, data: { message: &#39;hello,wolrd&#39; } }) &lt;/script&gt; 上面的 div 和下面的 div 内容跟随一致变化
+v-html－－更新元素的 innerHTML 不建议使用，在网站上动态渲染 html 是非常危险的，容易导致XXS 攻击，不能用在用户提交的内容上，如果必须使用 v-html，可以考虑通过使用组件来代替
+v-pre 跳过绑定的元素和他的子元素的编译，直接显示原始内容
+跳过没有指令的节点不进行编译，直接显示内容，会加快页面的响应
+v-cloak 在编译没有编译完成之前，模板处于的状态
+&lt;style&gt;v-cloak] { display: none; }&lt;/style&gt; &lt;div v-cloak&gt; {{message}} &lt;/div&gt; &lt;script&gt; var vm = new Vue({ el: &#39;#app&#39;, data: { message: &#39;hello,wolrd&#39; } }) &lt;/script&gt; 上述代码表示的含义是，如果网络不好，{{message}}模板代表的hello,world还没有编译成功，此时{{message}}处于隐藏状态，当编译完成，页面直接显示hello,world
+v-once－－一次性渲染 绑定该指令的元素及其子元素只会进行一次渲染，之后页面的第二次渲染会将其视为静态资源并跳过，可以用来优化性能
+&lt;div id=&#34;app&#34;&gt; &lt;span v-once&gt;{{message}}&lt;/span&gt; &lt;/div&gt; &lt;script&gt; var vm = new Vue({ el: &#39;#app&#39;, data: { message: &#39;hello,wolrd&#39;, } }) &lt;/script&gt; 使用场景：表单提交。可防止用户在请求未及时响应时，多次提交~
+2.组件化构建应用 组件化也是 vue 的核心机制之一，它允许我们使用小型，可复用的组件来构建大型应用
+在 vue 里，一个组件本质上是一个拥有预定义选项的一个 vue 实例。在 vue 中注册组件很简单
+// 定义名为 todo-item 的新组件 Vue.component(&#39;todo-item&#39;, { template: &#39;&lt;li&gt;这是个待办项&lt;/li&gt;&#39; }) var app = new Vue(...) 现在可以用它构建另一个组件模板
+&lt;ol&gt; &lt;!-- 创建一个 todo-item 组件的实例 --&gt; &lt;todo-item&gt;&lt;/todo-item&gt; &lt;/ol&gt; 但是这样会为每个待办项渲染同样的文本，这看起来并不炫酷。我们应该能从父作用域将数据传到子组件才对。让我们来修改一下组件的定义，使之能够接受一个props
+Vue.component(&#39;todo-item&#39;, { // todo-item 组件现在接受一个 // &#34;props&#34;，类似于一个自定义 attribute。 // 这个 props 名为 todo。 props: [&#39;todo&#39;], template: &#39;&lt;li&gt;{{ todo.text }}&lt;/li&gt;&#39; }) 现在，我们可以使用v-bind指令将待办项传到循环输出的每个组件中
+现在我们为每个 todo-item 提供 todo 对象 todo 对象是变量，即其内容可以是动态的，我们也需要为每个组件提供一个key
+&lt;div id=&#34;app-7&#34;&gt; &lt;ol&gt; &lt;todo-item v-for=&#34;item in groceryList&#34; v-bind:todo=&#34;item&#34; v-bind:key=&#34;item.id&#34; &gt;&lt;/todo-item&gt; &lt;/ol&gt; &lt;/div&gt; Vue.component(&#39;todo-item&#39;, { props: [&#39;todo&#39;], template: &#39;&lt;li&gt;{{ todo.text }}&lt;/li&gt;&#39; }) var app7 = new Vue({ el: &#39;#app-7&#39;, data: { groceryList: [ { id: 0, text: &#39;蔬菜&#39; }, { id: 1, text: &#39;奶酪&#39; }, { id: 2, text: &#39;随便其它什么人吃的东西&#39; } ] } }) 尽管这只是一个刻意设计的例子，但是我们已经设法将应用分割成了两个更小的单元。子单元通过prop接口与父单元进行了良好的解耦。我们现在可以进一步改进 组件，提供更为复杂的模板和逻辑，而不会影响到父单元
+在一个大型应用中，有必要将整个应用程序划分为组件，以使开发更易管理
+&lt;div id=&#34;app&#34;&gt; &lt;app-nav&gt;&lt;/app-nav&gt; &lt;app-view&gt; &lt;app-sidebar&gt;&lt;/app-sidebar&gt; &lt;app-content&gt;&lt;/app-content&gt; &lt;/app-view&gt; &lt;/div&gt; 
 	</div>
 </article>
 
@@ -246,8 +475,15 @@ vm.a = 2 // data.a = 2 data.
 			
 
 		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
 		
-		
+		<div class="footer__copyright">
+			&copy; 2024 子舒的博客, 
+			使用 hugo 构建
+		</div>
+	</div>
+</footer>
 	</div>
 <script async defer src="/js/menu.js"></script>
 

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>python 通过 json 生成小文件 - 子舒的博客</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="topbar">
+		<a class="topbar__link" href="/" title="子舒的博客" rel="sidebar">
+			<div class="topbar__item topbar__text">
+					<div class="topbar__title">子舒的博客</div>
+					<div class="topbar__tagline">The Tao that is utterable is not the eternal Tao</div>
+				</div>
+		</a>
+	</div>
+		
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">python 通过 json 生成小文件</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2023-11-10T00:00:00Z">November 10, 2023</time></div></div>
+		</header>
+		<div class="content post__content clearfix">
+			<p>记录一个方法，pyhton 通过 json 文件，在同级目录下生成对应格式的小文本。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#f92672">import</span> json
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">generate_files_from_json</span>(json_file):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">with</span> open(json_file, <span style="color:#e6db74">&#39;r&#39;</span>, encoding<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;utf-8&#39;</span>) <span style="color:#66d9ef">as</span> f:
+</span></span><span style="display:flex;"><span>        data <span style="color:#f92672">=</span> json<span style="color:#f92672">.</span>load(f)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> item <span style="color:#f92672">in</span> data:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> key, value <span style="color:#f92672">in</span> item<span style="color:#f92672">.</span>items():
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> isinstance(value, list):
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">for</span> sub_item <span style="color:#f92672">in</span> value:
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">for</span> sub_key, sub_value <span style="color:#f92672">in</span> sub_item<span style="color:#f92672">.</span>items():
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">if</span> isinstance(sub_value, dict) <span style="color:#f92672">and</span> <span style="color:#e6db74">&#39;list&#39;</span> <span style="color:#f92672">in</span> sub_value:
+</span></span><span style="display:flex;"><span>                            <span style="color:#66d9ef">for</span> sub_sub_item <span style="color:#f92672">in</span> sub_value[<span style="color:#e6db74">&#39;list&#39;</span>]:
+</span></span><span style="display:flex;"><span>                                <span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#39;id&#39;</span> <span style="color:#f92672">in</span> sub_sub_item <span style="color:#f92672">and</span> <span style="color:#e6db74">&#39;css&#39;</span> <span style="color:#f92672">in</span> sub_sub_item:
+</span></span><span style="display:flex;"><span>                                    id_value <span style="color:#f92672">=</span> sub_sub_item[<span style="color:#e6db74">&#39;id&#39;</span>]
+</span></span><span style="display:flex;"><span>                                    css_value <span style="color:#f92672">=</span> sub_sub_item[<span style="color:#e6db74">&#39;css&#39;</span>]
+</span></span><span style="display:flex;"><span>                                    create_file(id_value, css_value)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">create_file</span>(file_name, content):
+</span></span><span style="display:flex;"><span>    file_path <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>file_name<span style="color:#e6db74">}</span><span style="color:#e6db74">.css&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">with</span> open(file_path, <span style="color:#e6db74">&#39;w&#39;</span>, encoding<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;utf-8&#39;</span>) <span style="color:#66d9ef">as</span> file:
+</span></span><span style="display:flex;"><span>        file<span style="color:#f92672">.</span>write(content)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;File &#39;</span><span style="color:#e6db74">{</span>file_path<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39; created successfully.&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+</span></span><span style="display:flex;"><span>    json_file_path <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;your_json_file.json&#39;</span>
+</span></span><span style="display:flex;"><span>    generate_files_from_json(json_file_path)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#f92672">import</span> json
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">generate_files_from_json</span>(json_file):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">with</span> open(json_file, <span style="color:#e6db74">&#39;r&#39;</span>, encoding<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;utf-8&#39;</span>) <span style="color:#66d9ef">as</span> f:
+</span></span><span style="display:flex;"><span>        data <span style="color:#f92672">=</span> json<span style="color:#f92672">.</span>load(f)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> item <span style="color:#f92672">in</span> data:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> key, value <span style="color:#f92672">in</span> item<span style="color:#f92672">.</span>items():
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> isinstance(value, dict) <span style="color:#f92672">and</span> <span style="color:#e6db74">&#39;list&#39;</span> <span style="color:#f92672">in</span> value:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">for</span> sub_item <span style="color:#f92672">in</span> value[<span style="color:#e6db74">&#39;list&#39;</span>]:
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#39;id&#39;</span> <span style="color:#f92672">in</span> sub_item <span style="color:#f92672">and</span> <span style="color:#e6db74">&#39;css&#39;</span> <span style="color:#f92672">in</span> sub_item:
+</span></span><span style="display:flex;"><span>                        id_value <span style="color:#f92672">=</span> sub_item[<span style="color:#e6db74">&#39;id&#39;</span>]
+</span></span><span style="display:flex;"><span>                        css_value <span style="color:#f92672">=</span> sub_item[<span style="color:#e6db74">&#39;css&#39;</span>]
+</span></span><span style="display:flex;"><span>                        create_file(id_value, css_value)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">create_file</span>(file_name, content):
+</span></span><span style="display:flex;"><span>    file_path <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>file_name<span style="color:#e6db74">}</span><span style="color:#e6db74">.css&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">with</span> open(file_path, <span style="color:#e6db74">&#39;w&#39;</span>, encoding<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;utf-8&#39;</span>) <span style="color:#66d9ef">as</span> file:
+</span></span><span style="display:flex;"><span>        file<span style="color:#f92672">.</span>write(content)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;File &#39;</span><span style="color:#e6db74">{</span>file_path<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39; created successfully.&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+</span></span><span style="display:flex;"><span>    json_file_path <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;your_json_file.json&#39;</span>
+</span></span><span style="display:flex;"><span>    generate_files_from_json(json_file_path)
+</span></span></code></pre></div>
+		</div>
+	</article>
+</main>
+
+
+
+			</div>
+			
+		</div>
+		
+		
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [["$", "$"]],
+      },
+      displayMath: [
+        ["$$", "$$"],
+        ["\[\[", "\]\]"],
+      ],
+      svg: {
+        fontCache: "global",
+      },
+    };
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script
+    id="MathJax-script"
+    async
+    src="https://gcore.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+  ></script>
+</body>
+</html>

@@ -1,150 +1,116 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html class="no-js" lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="generator" content="Hugo 0.123.6">
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="toTop" content="true">
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="author" content="子舒" />
-<meta property="og:url" content="https://zishu.me/tags/docker/" />
-<link rel="canonical" href="https://zishu.me/tags/docker/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
-<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
-<link rel="shortcut" href="https://imgurl.zishu.me/favicon.ico" /><link rel="alternate" type="application/atom+xml" href="https://zishu.me/index.xml" title="子舒的博客">
-<script type="application/ld+json">
-{
-"@context" : "http://schema.org",
-"@type" : "BlogPosting",
-"mainEntityOfPage": {
-"@type": "WebPage",
-"@id": "https:\/\/zishu.me\/"
-},
-"articleSection" : "tags",
-"name" : "Docker",
-"headline" : "Docker",
-"description" : "",
-"inLanguage" : "en-US",
-"author" : "子舒",
-"creator" : "子舒",
-"publisher": "子舒",
-"accountablePerson" : "子舒",
-"copyrightHolder" : "子舒",
-"copyrightYear" : "2024",
-"datePublished": "2024-02-29 00:00:00 \u002b0000 UTC",
-"dateModified" : "2024-02-29 00:00:00 \u002b0000 UTC",
-"url" : "https:\/\/zishu.me\/tags\/docker\/",
-"keywords" : [  ]
-}
-</script><title>Docker - 子舒的博客</title>
-<meta property="og:title" content="Docker" />
-<meta property="og:type" content="article" />
-<meta property="og:description" content="" />
-<meta name="description" content="" />
-<meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+	<title>Docker - 子舒的博客</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
 
+	<link rel="stylesheet" href="/css/style.css">
+	
+	<link rel="alternate" type="application/rss+xml" href="/tags/docker/index.xml" title="子舒的博客">
 
-<link rel="stylesheet" href="/css/base.css">
-<link rel="stylesheet" href="/css/index.css">
-<link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
-<script src="/js/jquery3.6.0.min.js"></script>
 </head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="topbar">
+		<a class="topbar__link" href="/" title="子舒的博客" rel="sidebar">
+			<div class="topbar__item topbar__text">
+					<div class="topbar__title">子舒的博客</div>
+					<div class="topbar__tagline">The Tao that is utterable is not the eternal Tao</div>
+				</div>
+		</a>
+	</div>
+		
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main list" role="main">
+	<header class="main__header">
+		<h1 class="main__title">Docker</h1>
+	</header><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/219.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">wewe-rss 项目部署</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2024-02-29T00:00:00Z">2024-02-29</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		Github 仓库：https://github.com/cooderl/wewe-rss/
+免费、开源的微信公众号订阅方式，支持私有化部署、微信公众号 RSS 生成，部署问题也可以提 issues。
+在线感谢 @潇潇 ！！
+部署的一些流程，仅供参考。
+在服务器 /data/ 目录下新建 rss 文件夹，新建 docker-compose.yml 文件。
+xx.xx.xx.xx 是你服务器的 ip。
+# /data/rss/docker-compose.yml version: &#39;3.9&#39; services: server: image: cooderl/wewe-rss-server:latest ports: - 4000:4000 depends_on: db: condition: service_healthy environment: # 数据库连接地址 - DATABASE_URL=mysql://root:123456@db:3306/wewe-rss?schema=public&amp;connect_timeout=30&amp;pool_timeout=30&amp;socket_timeout=30 # 服务接口请求授权码 - AUTH_CODE=123567 # 自动提取全文内容 - FEED_MODE=fulltext # 服务接口请求限制，每分钟请求次数 - MAX_REQUEST_PER_MINUTE=60 # 外网访问时，需设置为服务器的公网 IP 或者域名地址 - SERVER_ORIGIN_URL=http://xx.xx.xx.xx:4000/ web: image: cooderl/wewe-rss-web:latest ports: - 3000:3000 environment: # 同 SERVER_ORIGIN_URL - NEXT_PUBLIC_SERVER_ORIGIN_URL=http://xx.xx.xx.xx:4000/ networks: wewe-rss: 运行 docker 指令
+docker-compose up -d 在服务器运营商处给服务器防火墙放行端口 3000, 3307, 4000。
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/124.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">docker 部署思源笔记</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2022-05-05T00:00:00Z">2022-05-05</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		 文章废弃
+部署 docker run --name siyuan -itd -p 6806:6806 -v /opt/my_siyuan_path:/opt/siyuan --restart always b3log/siyuan 备份 sudo su # 查看容器列表 docker ps -a # 制作备份 docker commit -p 7409ce6aae7b siyuan_backup # 其中 403e6db0c 是容器id, jenkins_backup是备份名称 # 查看备份是否成功 docker images # 将镜像制作成文件 docker save -o [filename] [image] docker save -o siyuan_backup.tar siyuan_backup ls # 在 /home/ubuntu/ 中可以看到制作后的压缩包 
+	</div>
+</article>
 
-<body id="container">
-  <meter id="isread" max="100" value="0"></meter>
-<script>
-  window.addEventListener('scroll', function () {
-    var scrolled = window.scrollY;
-    var totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-    var percentage = (scrolled / totalHeight) * 100;
-    $('#isread').attr('value', percentage)
-  });
-</script>
+</main>
 
 
-<div id="head" class="site-index">
-  <a id="logo" href="/">
-    <img src="https://imgurl.zishu.me/author.webp">
-  </a>
-  <div id="site-title">
-    <a href="/">子舒的博客</a>
-  </div>
-  <ul id="menu">
-    
-    <li><a href="/categories/%e6%8a%80%e6%9c%af/">技术</a></li>
-    
-    <li><a href="/categories/%e9%9a%8f%e7%ac%94/">随笔</a></li>
-    
-    <li><a href="/categories/weekly/">周刊</a></li>
-    
-    <li><a href="/message/">留言</a></li>
-    
-    <li><a href="/about/">关于</a></li>
-    
-    <li><a href="/index.xml" target="_blank">订阅</a></li>
-  </ul>
-</div>
+			</div>
+			
 
-  <section id="body">
-    <h1 id="body-title">📓 Docker</h1>
-
-    <div id="body-in">
-      <h3 class="posts-year" id="2024">2024</h3>
-      
-      
-      <div class="index-post" onclick="javascript:window.location.href='\/blog\/219.html\/'">
-        <div class="index-post-content-long">
-          <a href="/blog/219.html/">
-            <h2>wewe-rss 项目部署</h2>
-          </a>
-          <div class="text">Github 仓库：https://github.com/cooderl/wewe-rss/ 免费、开源的微信公众号订阅方式，支持私有化部署、微信公众号 RSS 生成，部署问题也可以提 issues。 在线感谢 @潇潇 ！！ 部署的一些流程，仅供参考。 在服务器 /data/ 目录下新建 rss 文件夹，新建 docker-compose.yml 文件。 xx.xx.xx.xx 是你服务器的 ip。 # /data/rss/docker-compose.yml version: &#39;3.9&#39; services: server: image: cooderl/wewe-rss-server:latest ports: - 4000:4000 depends_on: db: condition: service_healthy environment: # 数据库连接地址 - DATABASE_URL=mysql://root:123456@db:3306/wewe-rss?schema=public&amp;connect_timeout=30&amp;pool_timeout=30&amp;socket_timeout=30 # 服务接口请求授权码 - AUTH_CODE=123567 # 自动提取全文内容 - FEED_MODE=fulltext # 服务接口请求限制，每分钟请求次数 - MAX_REQUEST_PER_MINUTE=60 # 外网访问时，需设置为服务器的公网 IP 或者域名地址 - SERVER_ORIGIN_URL=http://xx.xx.xx.xx:4000/ web: image: cooderl/wewe-rss-web:latest ports: - 3000:3000 environment: # 同 SERVER_ORIGIN_URL - NEXT_PUBLIC_SERVER_ORIGIN_URL=http://xx.xx.xx.xx:4000/ networks: wewe-rss: 运行 docker 指令 docker-compose up -d 在服务器运营商处给服务器防火墙放行端口 3000, 3307, 4000。</div>
-          <div class="index-post-meta">
-            <a href="/blog/219.html/"> # 2024-02-29</a>
-            
-            
-            <span class="namenode">技术</span>
-            
-            
-          </div>
-        </div>
-      </div>
-
-      
-    </div>
-    <div id="body-in">
-      <h3 class="posts-year" id="2022">2022</h3>
-      
-      
-      <div class="index-post" onclick="javascript:window.location.href='\/blog\/124.html\/'">
-        <div class="index-post-content-long">
-          <a href="/blog/124.html/">
-            <h2>docker 部署思源笔记</h2>
-          </a>
-          <div class="text">文章废弃 部署 docker run --name siyuan -itd -p 6806:6806 -v /opt/my_siyuan_path:/opt/siyuan --restart always b3log/siyuan 备份 sudo su # 查看容器列表 docker ps -a # 制作备份 docker commit -p 7409ce6aae7b siyuan_backup # 其中 403e6db0c 是容器id, jenkins_backup是备份名称 # 查看备份是否成功 docker images # 将镜像制作成文件 docker save -o [filename] [image] docker save -o siyuan_backup.tar siyuan_backup ls # 在 /home/ubuntu/ 中可以看到制作后的压缩包</div>
-          <div class="index-post-meta">
-            <a href="/blog/124.html/"> # 2022-05-05</a>
-            
-            
-            <span class="namenode">技术</span>
-            
-            
-          </div>
-        </div>
-      </div>
-
-      
-    </div>
-    
-    <footer id="foot">
-  <p>© 2020 - 2024 Powered by
-    <a href="https://github.com/dlzmoe/blog" target="_blank">Github</a>
-    / <a href="/index.xml" target="_blank">RSS</a>
-  </p>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2024 子舒的博客, 
+			使用 hugo 构建
+		</div>
+	</div>
 </footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
 
-<script src="/js/main.js"></script>
-
-<script defer src="https://cn.vercount.one/js"></script>
-  </section>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [["$", "$"]],
+      },
+      displayMath: [
+        ["$$", "$$"],
+        ["\[\[", "\]\]"],
+      ],
+      svg: {
+        fontCache: "global",
+      },
+    };
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script
+    id="MathJax-script"
+    async
+    src="https://gcore.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+  ></script>
 </body>
-
 </html>

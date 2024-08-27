@@ -1,173 +1,96 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html class="no-js" lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="generator" content="Hugo 0.123.6">
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="toTop" content="true">
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="author" content="子舒" />
-<meta property="og:url" content="https://zishu.me/blog/219.html/" />
-<link rel="canonical" href="https://zishu.me/blog/219.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
-<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
-<link rel="shortcut" href="https://imgurl.zishu.me/favicon.ico" /><link rel="alternate" type="application/atom+xml" href="https://zishu.me/index.xml" title="子舒的博客">
-<script type="application/ld+json">
-{
-"@context" : "http://schema.org",
-"@type" : "BlogPosting",
-"mainEntityOfPage": {
-"@type": "WebPage",
-"@id": "https:\/\/zishu.me\/"
-},
-"articleSection" : "blog",
-"name" : "wewe-rss 项目部署",
-"headline" : "wewe-rss 项目部署",
-"description" : "Github 仓库：https:\/\/github.com\/cooderl\/wewe-rss\/ 免费、开源的微信公众号订阅方式，支持私有化部署、微信公众号 RSS 生成，部署问题也可以提 issues。 在线感谢 @潇潇 ！！ 部署的一些流程，仅供参考。 在服务器 \/data\/ 目录下新建 rss 文件夹，新建 docker-compose.yml 文件。 xx.xx.xx.xx 是你服务器的 ip。 # \/data\/rss\/docker-compose.yml version: \u0026#39;3.9\u0026#39; services: server: image: cooderl\/wewe-rss-server:latest ports: - 4000:4000 depends_on: db: condition: service_healthy environment: # 数据库连接地址 - DATABASE_URL=mysql:\/\/root:123456@db:3306\/wewe-rss?schema=public\u0026amp;connect_timeout=30\u0026amp;pool_timeout=30\u0026amp;socket_timeout=30 # 服务接口请求授权码 - AUTH_CODE=123567 # 自动提取全文内容 - FEED_MODE=fulltext # 服务接口请求限制，每分钟请求次数 - MAX_REQUEST_PER_MINUTE=60 # 外网访问时，需设置为服务器的公网 IP 或者域名地址 - SERVER_ORIGIN_URL=http:\/\/xx.xx.xx.xx:4000\/ web: image: cooderl\/wewe-rss-web:latest ports: - 3000:3000 environment: # 同 SERVER_ORIGIN_URL - NEXT_PUBLIC_SERVER_ORIGIN_URL=http:\/\/xx.xx.xx.xx:4000\/ networks: wewe-rss: 运行 docker 指令 docker-compose up -d 在服务器运营商处给服务器防火墙放行端口 3000, 3307, 4000。",
-"inLanguage" : "en-US",
-"author" : "子舒",
-"creator" : "子舒",
-"publisher": "子舒",
-"accountablePerson" : "子舒",
-"copyrightHolder" : "子舒",
-"copyrightYear" : "2024",
-"datePublished": "2024-02-29 00:00:00 \u002b0000 UTC",
-"dateModified" : "2024-02-29 00:00:00 \u002b0000 UTC",
-"url" : "https:\/\/zishu.me\/blog\/219.html\/",
-"keywords" : [ "docker", ]
-}
-</script><title>wewe-rss 项目部署 - 子舒的博客</title>
-<meta property="og:title" content="wewe-rss 项目部署" />
-<meta property="og:type" content="article" />
-<meta property="og:description" content="Github 仓库：https://github.com/cooderl/wewe-rss/ 免费、开源的微信公众号订阅方式，支持私有化部署、微信公众号 RSS 生成，部署问题也可以提 issues。 在线感谢 @潇潇 ！！ 部署的一些流程，仅供参考。 在服务器 /data/ 目录下新建 rss 文件夹，新建 docker-compose.yml 文件。 xx.xx.xx.xx 是你服务器的 ip。 # /data/rss/docker-compose.yml version: &amp;#39;3.9&amp;#39; services: server: image: cooderl/wewe-rss-server:latest ports: - 4000:4000 depends_on: db: condition: service_healthy environment: # 数据库连接地址 - DATABASE_URL=mysql://root:123456@db:3306/wewe-rss?schema=public&amp;amp;connect_timeout=30&amp;amp;pool_timeout=30&amp;amp;socket_timeout=30 # 服务接口请求授权码 - AUTH_CODE=123567 # 自动提取全文内容 - FEED_MODE=fulltext # 服务接口请求限制，每分钟请求次数 - MAX_REQUEST_PER_MINUTE=60 # 外网访问时，需设置为服务器的公网 IP 或者域名地址 - SERVER_ORIGIN_URL=http://xx.xx.xx.xx:4000/ web: image: cooderl/wewe-rss-web:latest ports: - 3000:3000 environment: # 同 SERVER_ORIGIN_URL - NEXT_PUBLIC_SERVER_ORIGIN_URL=http://xx.xx.xx.xx:4000/ networks: wewe-rss: 运行 docker 指令 docker-compose up -d 在服务器运营商处给服务器防火墙放行端口 3000, 3307, 4000。" />
-<meta name="description" content="Github 仓库：https://github.com/cooderl/wewe-rss/ 免费、开源的微信公众号订阅方式，支持私有化部署、微信公众号 RSS 生成，部署问题也可以提 issues。 在线感谢 @潇潇 ！！ 部署的一些流程，仅供参考。 在服务器 /data/ 目录下新建 rss 文件夹，新建 docker-compose.yml 文件。 xx.xx.xx.xx 是你服务器的 ip。 # /data/rss/docker-compose.yml version: &amp;#39;3.9&amp;#39; services: server: image: cooderl/wewe-rss-server:latest ports: - 4000:4000 depends_on: db: condition: service_healthy environment: # 数据库连接地址 - DATABASE_URL=mysql://root:123456@db:3306/wewe-rss?schema=public&amp;amp;connect_timeout=30&amp;amp;pool_timeout=30&amp;amp;socket_timeout=30 # 服务接口请求授权码 - AUTH_CODE=123567 # 自动提取全文内容 - FEED_MODE=fulltext # 服务接口请求限制，每分钟请求次数 - MAX_REQUEST_PER_MINUTE=60 # 外网访问时，需设置为服务器的公网 IP 或者域名地址 - SERVER_ORIGIN_URL=http://xx.xx.xx.xx:4000/ web: image: cooderl/wewe-rss-web:latest ports: - 3000:3000 environment: # 同 SERVER_ORIGIN_URL - NEXT_PUBLIC_SERVER_ORIGIN_URL=http://xx.xx.xx.xx:4000/ networks: wewe-rss: 运行 docker 指令 docker-compose up -d 在服务器运营商处给服务器防火墙放行端口 3000, 3307, 4000。" />
-<meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+	<title>wewe-rss 项目部署 - 子舒的博客</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
 
+	<link rel="stylesheet" href="/css/style.css">
+	
 
-<link rel="stylesheet" href="/css/base.css">
-<link rel="stylesheet" href="/css/index.css">
-<link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
-<script src="/js/jquery3.6.0.min.js"></script>
 </head>
-
-<body id="container">
-  <meter id="isread" max="100" value="0"></meter>
-<script>
-  window.addEventListener('scroll', function () {
-    var scrolled = window.scrollY;
-    var totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-    var percentage = (scrolled / totalHeight) * 100;
-    $('#isread').attr('value', percentage)
-  });
-</script>
-
-
-<div id="head" class="site-index">
-  <a id="logo" href="/">
-    <img src="https://imgurl.zishu.me/author.webp">
-  </a>
-  <div id="site-title">
-    <a href="/">子舒的博客</a>
-  </div>
-  <ul id="menu">
-    
-    <li><a href="/categories/%e6%8a%80%e6%9c%af/">技术</a></li>
-    
-    <li><a href="/categories/%e9%9a%8f%e7%ac%94/">随笔</a></li>
-    
-    <li><a href="/categories/weekly/">周刊</a></li>
-    
-    <li><a href="/message/">留言</a></li>
-    
-    <li><a href="/about/">关于</a></li>
-    
-    <li><a href="/index.xml" target="_blank">订阅</a></li>
-  </ul>
-</div>
-  <section id="body">
-
-    <div class="box">
-      <h1 id="body-title">wewe-rss 项目部署</h1>
-
-      
-      <div class="index-post-meta">
-        <time> # 2024-02-29</time>
-        
-        
-        <span class="namenode">
-          <a href="/categories/%E6%8A%80%E6%9C%AF">技术</a>
-        </span>
-        
-        
-
-        <span class="tag-node">
-        
-        
-        <a href="/tags/docker">#docker</a>
-        
-        
-        </span>
-
-      </div>
-      <div class="expired-tips" style="display: none;"></div>
-      
-
-      
-      <div class="toc">
-        <nav id="TableOfContents"></nav>
-      </div>
-      
-
-      <article class="inner-post-content inner-long">
-        
-        <p><img src="https://imgurl.zishu.me/2024/02/1709203891809.webp" alt="1709203891809"></p>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="topbar">
+		<a class="topbar__link" href="/" title="子舒的博客" rel="sidebar">
+			<div class="topbar__item topbar__text">
+					<div class="topbar__title">子舒的博客</div>
+					<div class="topbar__tagline">The Tao that is utterable is not the eternal Tao</div>
+				</div>
+		</a>
+	</div>
+		
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">wewe-rss 项目部署</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2024-02-29T00:00:00Z">2024-02-29</time></div></div>
+		</header>
+		<div class="content post__content clearfix">
+			<p><img src="https://imgurl.zishu.me/2024/02/1709203891809.webp" alt="1709203891809"></p>
 <p>Github 仓库：<a href="https://github.com/cooderl/wewe-rss/">https://github.com/cooderl/wewe-rss/</a></p>
 <p>免费、开源的微信公众号订阅方式，支持私有化部署、微信公众号 RSS 生成，部署问题也可以提 issues。</p>
 <p>在线感谢 <a href="https://github.com/abearxiong">@潇潇</a> ！！</p>
 <p>部署的一些流程，仅供参考。</p>
 <p>在服务器 /data/ 目录下新建 rss 文件夹，新建 docker-compose.yml 文件。</p>
 <p>xx.xx.xx.xx 是你服务器的 ip。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># /data/rss/docker-compose.yml</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;3.9&#39;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">server</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">cooderl/wewe-rss-server:latest</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="m">4000</span><span class="p">:</span><span class="m">4000</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">db</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="l">service_healthy</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># 数据库连接地址</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">DATABASE_URL=mysql://root:123456@db:3306/wewe-rss?schema=public&amp;connect_timeout=30&amp;pool_timeout=30&amp;socket_timeout=30</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># 服务接口请求授权码</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">AUTH_CODE=123567</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># 自动提取全文内容</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">FEED_MODE=fulltext</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># 服务接口请求限制，每分钟请求次数</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">MAX_REQUEST_PER_MINUTE=60</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># 外网访问时，需设置为服务器的公网 IP 或者域名地址</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">SERVER_ORIGIN_URL=http://xx.xx.xx.xx:4000/</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">web</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">cooderl/wewe-rss-web:latest</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="m">3000</span><span class="p">:</span><span class="m">3000</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># 同 SERVER_ORIGIN_URL</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">NEXT_PUBLIC_SERVER_ORIGIN_URL=http://xx.xx.xx.xx:4000/</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">networks</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">wewe-rss</span><span class="p">:</span><span class="w">
-</span></span></span></code></pre></div><p>运行 docker 指令</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">docker-compose up -d</span><span class="w">
-</span></span></span></code></pre></div><p>在服务器运营商处给服务器防火墙放行端口 3000, 3307, 4000。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#75715e"># /data/rss/docker-compose.yml</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#39;3.9&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">services</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">server</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">cooderl/wewe-rss-server:latest</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">4000</span>:<span style="color:#ae81ff">4000</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">depends_on</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">db</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">condition</span>: <span style="color:#ae81ff">service_healthy</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">environment</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># 数据库连接地址</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">DATABASE_URL=mysql://root:123456@db:3306/wewe-rss?schema=public&amp;connect_timeout=30&amp;pool_timeout=30&amp;socket_timeout=30</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># 服务接口请求授权码</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">AUTH_CODE=123567</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># 自动提取全文内容</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">FEED_MODE=fulltext</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># 服务接口请求限制，每分钟请求次数</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">MAX_REQUEST_PER_MINUTE=60</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># 外网访问时，需设置为服务器的公网 IP 或者域名地址</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">SERVER_ORIGIN_URL=http://xx.xx.xx.xx:4000/</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">web</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">cooderl/wewe-rss-web:latest</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">3000</span>:<span style="color:#ae81ff">3000</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">environment</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># 同 SERVER_ORIGIN_URL</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">NEXT_PUBLIC_SERVER_ORIGIN_URL=http://xx.xx.xx.xx:4000/</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">networks</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">wewe-rss</span>:
+</span></span></code></pre></div><p>运行 docker 指令</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ae81ff">docker-compose up -d</span>
+</span></span></code></pre></div><p>在服务器运营商处给服务器防火墙放行端口 3000, 3307, 4000。</p>
 <p><img src="https://imgurl.zishu.me/2024/02/1709203859913.webp" alt="1709203859913"></p>
 
-      </article>
+		</div>
+	</article>
+</main>
 
-      
-      <div style="padding:20px 0"></div>
+
 <div class="comments">
   <div class="giscus"></div>
 </div>
@@ -189,20 +112,40 @@
   async>
 </script>
 
-      
-
-    </div>
-    <footer id="foot">
-  <p>© 2020 - 2024 Powered by
-    <a href="https://github.com/dlzmoe/blog" target="_blank">Github</a>
-    / <a href="/index.xml" target="_blank">RSS</a>
-  </p>
+			</div>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2024 子舒的博客, 
+			使用 hugo 构建
+		</div>
+	</div>
 </footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
 
-<script src="/js/main.js"></script>
-
-<script defer src="https://cn.vercount.one/js"></script>
-  </section>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [["$", "$"]],
+      },
+      displayMath: [
+        ["$$", "$$"],
+        ["\[\[", "\]\]"],
+      ],
+      svg: {
+        fontCache: "global",
+      },
+    };
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script
+    id="MathJax-script"
+    async
+    src="https://gcore.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+  ></script>
 </body>
-
 </html>

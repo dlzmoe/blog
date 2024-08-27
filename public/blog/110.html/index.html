@@ -1,255 +1,176 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html class="no-js" lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="generator" content="Hugo 0.123.6">
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="toTop" content="true">
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="author" content="子舒" />
-<meta property="og:url" content="https://zishu.me/blog/110.html/" />
-<link rel="canonical" href="https://zishu.me/blog/110.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
-<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
-<link rel="shortcut" href="https://imgurl.zishu.me/favicon.ico" /><link rel="alternate" type="application/atom+xml" href="https://zishu.me/index.xml" title="子舒的博客">
-<script type="application/ld+json">
-{
-"@context" : "http://schema.org",
-"@type" : "BlogPosting",
-"mainEntityOfPage": {
-"@type": "WebPage",
-"@id": "https:\/\/zishu.me\/"
-},
-"articleSection" : "blog",
-"name" : "增加了站内搜索功能",
-"headline" : "增加了站内搜索功能",
-"description" : "如题，我花了一个多小时，参照 nuxt 文档，把搜索功能给加上了，记录一下相关代码。 可以选择放在 components\/\u0026lt;Search \/\u0026gt; 里面，然后引入到 head 模板，也可以单独创建一个页面，我选择的是后者。 新建一个页面模板 \/pages\/search.vue 。 \u0026lt;template\u0026gt; \u0026lt;div\u0026gt; \u0026lt;HeaderMe \/\u0026gt; \u0026lt;div class=\u0026#34;wrapper\u0026#34;\u0026gt; \u0026lt;PageSidebar \/\u0026gt; \u0026lt;div class=\u0026#34;archive\u0026#34;\u0026gt; \u0026lt;h2\u0026gt;{{ article.attributes.title }}\u0026lt;\/h2\u0026gt; \u0026lt;div class=\u0026#34;article-content markdown-body\u0026#34; v-html=\u0026#34;article.html\u0026#34;\u0026gt;\u0026lt;\/div\u0026gt; \u0026lt;div class=\u0026#34;search\u0026#34;\u0026gt; \u0026lt;input v-model=\u0026#34;searchQuery\u0026#34; type=\u0026#34;search\u0026#34; autocomplete=\u0026#34;off\u0026#34; placeholder=\u0026#34;文章关键词\u0026#34; \/\u0026gt; \u0026lt;ul v-if=\u0026#34;articles.length\u0026#34;\u0026gt; \u0026lt;li v-for=\u0026#34;article of articles\u0026#34; :key=\u0026#34;article.slug\u0026#34;\u0026gt; \u0026lt;NuxtLink :to=\u0026#34;article.path\u002b\u0026#39;\/\u0026#39;\u0026#34;\u0026gt;{{ article.title }}\u0026lt;\/NuxtLink\u0026gt; \u0026lt;!-- 在url地址后加一个\/，配置全站的url格式，防止错乱 --\u0026gt; \u0026lt;\/li\u0026gt; \u0026lt;\/ul\u0026gt; \u0026lt;\/div\u0026gt; \u0026lt;\/div\u0026gt; \u0026lt;\/div\u0026gt; \u0026lt;\/div\u0026gt; \u0026lt;\/template\u0026gt; \u0026lt;script\u0026gt; import HeaderMe from \u0026#34;@\/components\/HeaderMe\u0026#34;; import PageSidebar from \u0026#39;@\/components\/PageSidebar\u0026#39;; export default { components: { HeaderMe, PageSidebar }, data () { return { searchQuery: \u0026#39;\u0026#39;, articles: [] } }, async asyncData () { \/\/ 调用 search.md 内的数据 const article = await import(\u0060~\/content\/search.md\u0060); return { article }; }, watch: { async searchQuery (searchQuery) { if (!searchQuery) { this.articles = [] return } this.articles = await this.$content(\u0026#39;posts\u0026#39;) \/\/ posts 是文章所在的文件夹的名称 .limit(10) .search(searchQuery) .fetch() } } } \u0026lt;\/script\u0026gt; 关于样式的编写不怎么重要我就放下面了。 css 代码 .wrapper { min-height: 300px; .archive { padding: 25px 2% 15px; .article-content { font-size: inherit; line-height: 1.8; color: inherit; margin-top: 20px; } .search { margin-top: 16px; input { width: 100%; background-color: #edf2f7; color: #2f495e; outline: none; border: none; border-radius: 30px; padding: 4px 20px; box-sizing: border-box; transition: all 0.1s linear; \u0026amp;:focus { box-shadow: 3px 2px 10px rgb(0 0 0 \/ 20%); } } ul { margin-top: 6px; list-style: none; li { a { display: block; padding: 6px 14px; line-height: 1.6; transition: all 0.2s linear; \u0026amp;:hover { background: #edf2f7; } } } } } } } @media (max-width: 520px) { .wrapper { .archive { .search { ul { li { a { border-bottom: 1px solid #ddd; } } } } } } }",
-"inLanguage" : "en-US",
-"author" : "子舒",
-"creator" : "子舒",
-"publisher": "子舒",
-"accountablePerson" : "子舒",
-"copyrightHolder" : "子舒",
-"copyrightYear" : "2022",
-"datePublished": "2022-03-25 00:00:00 \u002b0000 UTC",
-"dateModified" : "2022-03-25 00:00:00 \u002b0000 UTC",
-"url" : "https:\/\/zishu.me\/blog\/110.html\/",
-"keywords" : [ "博客","搜索", ]
-}
-</script><title>增加了站内搜索功能 - 子舒的博客</title>
-<meta property="og:title" content="增加了站内搜索功能" />
-<meta property="og:type" content="article" />
-<meta property="og:description" content="如题，我花了一个多小时，参照 nuxt 文档，把搜索功能给加上了，记录一下相关代码。 可以选择放在 components/&amp;lt;Search /&amp;gt; 里面，然后引入到 head 模板，也可以单独创建一个页面，我选择的是后者。 新建一个页面模板 /pages/search.vue 。 &amp;lt;template&amp;gt; &amp;lt;div&amp;gt; &amp;lt;HeaderMe /&amp;gt; &amp;lt;div class=&amp;#34;wrapper&amp;#34;&amp;gt; &amp;lt;PageSidebar /&amp;gt; &amp;lt;div class=&amp;#34;archive&amp;#34;&amp;gt; &amp;lt;h2&amp;gt;{{ article.attributes.title }}&amp;lt;/h2&amp;gt; &amp;lt;div class=&amp;#34;article-content markdown-body&amp;#34; v-html=&amp;#34;article.html&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; &amp;lt;div class=&amp;#34;search&amp;#34;&amp;gt; &amp;lt;input v-model=&amp;#34;searchQuery&amp;#34; type=&amp;#34;search&amp;#34; autocomplete=&amp;#34;off&amp;#34; placeholder=&amp;#34;文章关键词&amp;#34; /&amp;gt; &amp;lt;ul v-if=&amp;#34;articles.length&amp;#34;&amp;gt; &amp;lt;li v-for=&amp;#34;article of articles&amp;#34; :key=&amp;#34;article.slug&amp;#34;&amp;gt; &amp;lt;NuxtLink :to=&amp;#34;article.path&#43;&amp;#39;/&amp;#39;&amp;#34;&amp;gt;{{ article.title }}&amp;lt;/NuxtLink&amp;gt; &amp;lt;!-- 在url地址后加一个/，配置全站的url格式，防止错乱 --&amp;gt; &amp;lt;/li&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/template&amp;gt; &amp;lt;script&amp;gt; import HeaderMe from &amp;#34;@/components/HeaderMe&amp;#34;; import PageSidebar from &amp;#39;@/components/PageSidebar&amp;#39;; export default { components: { HeaderMe, PageSidebar }, data () { return { searchQuery: &amp;#39;&amp;#39;, articles: [] } }, async asyncData () { // 调用 search.md 内的数据 const article = await import(`~/content/search.md`); return { article }; }, watch: { async searchQuery (searchQuery) { if (!searchQuery) { this.articles = [] return } this.articles = await this.$content(&amp;#39;posts&amp;#39;) // posts 是文章所在的文件夹的名称 .limit(10) .search(searchQuery) .fetch() } } } &amp;lt;/script&amp;gt; 关于样式的编写不怎么重要我就放下面了。 css 代码 .wrapper { min-height: 300px; .archive { padding: 25px 2% 15px; .article-content { font-size: inherit; line-height: 1.8; color: inherit; margin-top: 20px; } .search { margin-top: 16px; input { width: 100%; background-color: #edf2f7; color: #2f495e; outline: none; border: none; border-radius: 30px; padding: 4px 20px; box-sizing: border-box; transition: all 0.1s linear; &amp;amp;:focus { box-shadow: 3px 2px 10px rgb(0 0 0 / 20%); } } ul { margin-top: 6px; list-style: none; li { a { display: block; padding: 6px 14px; line-height: 1.6; transition: all 0.2s linear; &amp;amp;:hover { background: #edf2f7; } } } } } } } @media (max-width: 520px) { .wrapper { .archive { .search { ul { li { a { border-bottom: 1px solid #ddd; } } } } } } }" />
-<meta name="description" content="如题，我花了一个多小时，参照 nuxt 文档，把搜索功能给加上了，记录一下相关代码。 可以选择放在 components/&amp;lt;Search /&amp;gt; 里面，然后引入到 head 模板，也可以单独创建一个页面，我选择的是后者。 新建一个页面模板 /pages/search.vue 。 &amp;lt;template&amp;gt; &amp;lt;div&amp;gt; &amp;lt;HeaderMe /&amp;gt; &amp;lt;div class=&amp;#34;wrapper&amp;#34;&amp;gt; &amp;lt;PageSidebar /&amp;gt; &amp;lt;div class=&amp;#34;archive&amp;#34;&amp;gt; &amp;lt;h2&amp;gt;{{ article.attributes.title }}&amp;lt;/h2&amp;gt; &amp;lt;div class=&amp;#34;article-content markdown-body&amp;#34; v-html=&amp;#34;article.html&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; &amp;lt;div class=&amp;#34;search&amp;#34;&amp;gt; &amp;lt;input v-model=&amp;#34;searchQuery&amp;#34; type=&amp;#34;search&amp;#34; autocomplete=&amp;#34;off&amp;#34; placeholder=&amp;#34;文章关键词&amp;#34; /&amp;gt; &amp;lt;ul v-if=&amp;#34;articles.length&amp;#34;&amp;gt; &amp;lt;li v-for=&amp;#34;article of articles&amp;#34; :key=&amp;#34;article.slug&amp;#34;&amp;gt; &amp;lt;NuxtLink :to=&amp;#34;article.path&#43;&amp;#39;/&amp;#39;&amp;#34;&amp;gt;{{ article.title }}&amp;lt;/NuxtLink&amp;gt; &amp;lt;!-- 在url地址后加一个/，配置全站的url格式，防止错乱 --&amp;gt; &amp;lt;/li&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/template&amp;gt; &amp;lt;script&amp;gt; import HeaderMe from &amp;#34;@/components/HeaderMe&amp;#34;; import PageSidebar from &amp;#39;@/components/PageSidebar&amp;#39;; export default { components: { HeaderMe, PageSidebar }, data () { return { searchQuery: &amp;#39;&amp;#39;, articles: [] } }, async asyncData () { // 调用 search.md 内的数据 const article = await import(`~/content/search.md`); return { article }; }, watch: { async searchQuery (searchQuery) { if (!searchQuery) { this.articles = [] return } this.articles = await this.$content(&amp;#39;posts&amp;#39;) // posts 是文章所在的文件夹的名称 .limit(10) .search(searchQuery) .fetch() } } } &amp;lt;/script&amp;gt; 关于样式的编写不怎么重要我就放下面了。 css 代码 .wrapper { min-height: 300px; .archive { padding: 25px 2% 15px; .article-content { font-size: inherit; line-height: 1.8; color: inherit; margin-top: 20px; } .search { margin-top: 16px; input { width: 100%; background-color: #edf2f7; color: #2f495e; outline: none; border: none; border-radius: 30px; padding: 4px 20px; box-sizing: border-box; transition: all 0.1s linear; &amp;amp;:focus { box-shadow: 3px 2px 10px rgb(0 0 0 / 20%); } } ul { margin-top: 6px; list-style: none; li { a { display: block; padding: 6px 14px; line-height: 1.6; transition: all 0.2s linear; &amp;amp;:hover { background: #edf2f7; } } } } } } } @media (max-width: 520px) { .wrapper { .archive { .search { ul { li { a { border-bottom: 1px solid #ddd; } } } } } } }" />
-<meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+	<title>增加了站内搜索功能 - 子舒的博客</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
 
+	<link rel="stylesheet" href="/css/style.css">
+	
 
-<link rel="stylesheet" href="/css/base.css">
-<link rel="stylesheet" href="/css/index.css">
-<link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
-<script src="/js/jquery3.6.0.min.js"></script>
 </head>
-
-<body id="container">
-  <meter id="isread" max="100" value="0"></meter>
-<script>
-  window.addEventListener('scroll', function () {
-    var scrolled = window.scrollY;
-    var totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-    var percentage = (scrolled / totalHeight) * 100;
-    $('#isread').attr('value', percentage)
-  });
-</script>
-
-
-<div id="head" class="site-index">
-  <a id="logo" href="/">
-    <img src="https://imgurl.zishu.me/author.webp">
-  </a>
-  <div id="site-title">
-    <a href="/">子舒的博客</a>
-  </div>
-  <ul id="menu">
-    
-    <li><a href="/categories/%e6%8a%80%e6%9c%af/">技术</a></li>
-    
-    <li><a href="/categories/%e9%9a%8f%e7%ac%94/">随笔</a></li>
-    
-    <li><a href="/categories/weekly/">周刊</a></li>
-    
-    <li><a href="/message/">留言</a></li>
-    
-    <li><a href="/about/">关于</a></li>
-    
-    <li><a href="/index.xml" target="_blank">订阅</a></li>
-  </ul>
-</div>
-  <section id="body">
-
-    <div class="box">
-      <h1 id="body-title">增加了站内搜索功能</h1>
-
-      
-      <div class="index-post-meta">
-        <time> # 2022-03-25</time>
-        
-        
-        <span class="namenode">
-          <a href="/categories/%E6%8A%80%E6%9C%AF">技术</a>
-        </span>
-        
-        
-
-        <span class="tag-node">
-        
-        
-        <a href="/tags/%E5%8D%9A%E5%AE%A2">#博客</a>
-        
-        <a href="/tags/%E6%90%9C%E7%B4%A2">#搜索</a>
-        
-        
-        </span>
-
-      </div>
-      <div class="expired-tips" style="display: none;"></div>
-      
-
-      
-      <div class="toc">
-        <nav id="TableOfContents"></nav>
-      </div>
-      
-
-      <article class="inner-post-content inner-long">
-        
-        <p>如题，我花了一个多小时，参照 nuxt 文档，把搜索功能给加上了，记录一下相关代码。</p>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="topbar">
+		<a class="topbar__link" href="/" title="子舒的博客" rel="sidebar">
+			<div class="topbar__item topbar__text">
+					<div class="topbar__title">子舒的博客</div>
+					<div class="topbar__tagline">The Tao that is utterable is not the eternal Tao</div>
+				</div>
+		</a>
+	</div>
+		
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">增加了站内搜索功能</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2022-03-25T00:00:00Z">2022-03-25</time></div></div>
+		</header>
+		<div class="content post__content clearfix">
+			<p>如题，我花了一个多小时，参照 nuxt 文档，把搜索功能给加上了，记录一下相关代码。</p>
 <p>可以选择放在 <code>components/&lt;Search /&gt;</code> 里面，然后引入到 head 模板，也可以单独创建一个页面，我选择的是后者。</p>
 <p>新建一个页面模板 <code>/pages/search.vue</code> 。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">template</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="o">&lt;</span><span class="nx">HeaderMe</span> <span class="o">/&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="o">&lt;</span><span class="nx">div</span> <span class="kr">class</span><span class="o">=</span><span class="s2">&#34;wrapper&#34;</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="o">&lt;</span><span class="nx">PageSidebar</span> <span class="o">/&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="o">&lt;</span><span class="nx">div</span> <span class="kr">class</span><span class="o">=</span><span class="s2">&#34;archive&#34;</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="nx">h2</span><span class="o">&gt;</span><span class="p">{{</span> <span class="nx">article</span><span class="p">.</span><span class="nx">attributes</span><span class="p">.</span><span class="nx">title</span> <span class="p">}}</span><span class="o">&lt;</span><span class="err">/h2&gt;</span>
-</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="nx">div</span> <span class="kr">class</span><span class="o">=</span><span class="s2">&#34;article-content markdown-body&#34;</span> <span class="nx">v</span><span class="o">-</span><span class="nx">html</span><span class="o">=</span><span class="s2">&#34;article.html&#34;</span><span class="o">&gt;&lt;</span><span class="err">/div&gt;</span>
-</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="nx">div</span> <span class="kr">class</span><span class="o">=</span><span class="s2">&#34;search&#34;</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl">          <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">v</span><span class="o">-</span><span class="nx">model</span><span class="o">=</span><span class="s2">&#34;searchQuery&#34;</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&#34;search&#34;</span> <span class="nx">autocomplete</span><span class="o">=</span><span class="s2">&#34;off&#34;</span> <span class="nx">placeholder</span><span class="o">=</span><span class="s2">&#34;文章关键词&#34;</span> <span class="o">/&gt;</span>
-</span></span><span class="line"><span class="cl">          <span class="o">&lt;</span><span class="nx">ul</span> <span class="nx">v</span><span class="o">-</span><span class="k">if</span><span class="o">=</span><span class="s2">&#34;articles.length&#34;</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl">            <span class="o">&lt;</span><span class="nx">li</span> <span class="nx">v</span><span class="o">-</span><span class="k">for</span><span class="o">=</span><span class="s2">&#34;article of articles&#34;</span> <span class="o">:</span><span class="nx">key</span><span class="o">=</span><span class="s2">&#34;article.slug&#34;</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl">              <span class="o">&lt;</span><span class="nx">NuxtLink</span> <span class="o">:</span><span class="nx">to</span><span class="o">=</span><span class="s2">&#34;article.path+&#39;/&#39;&#34;</span><span class="o">&gt;</span><span class="p">{{</span> <span class="nx">article</span><span class="p">.</span><span class="nx">title</span> <span class="p">}}</span><span class="o">&lt;</span><span class="err">/NuxtLink&gt;</span>
-</span></span><span class="line"><span class="cl">               <span class="c">&lt;!--</span> <span class="nx">在url地址后加一个</span><span class="o">/</span><span class="err">，</span><span class="nx">配置全站的url格式</span><span class="err">，</span><span class="nx">防止错乱</span> <span class="o">--&gt;</span>
-</span></span><span class="line"><span class="cl">            <span class="o">&lt;</span><span class="err">/li&gt;</span>
-</span></span><span class="line"><span class="cl">          <span class="o">&lt;</span><span class="err">/ul&gt;</span>
-</span></span><span class="line"><span class="cl">        <span class="o">&lt;</span><span class="err">/div&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="o">&lt;</span><span class="err">/div&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="o">&lt;</span><span class="err">/div&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="o">&lt;</span><span class="err">/div&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/template&gt;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">HeaderMe</span> <span class="nx">from</span> <span class="s2">&#34;@/components/HeaderMe&#34;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">PageSidebar</span> <span class="nx">from</span> <span class="s1">&#39;@/components/PageSidebar&#39;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">components</span><span class="o">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">HeaderMe</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">PageSidebar</span>
-</span></span><span class="line"><span class="cl">  <span class="p">},</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">data</span> <span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nx">searchQuery</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="nx">articles</span><span class="o">:</span> <span class="p">[]</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="p">},</span>
-</span></span><span class="line"><span class="cl">  <span class="kr">async</span> <span class="nx">asyncData</span> <span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">// 调用 search.md 内的数据
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">article</span> <span class="o">=</span> <span class="kr">await</span> <span class="kr">import</span><span class="p">(</span><span class="sb">`~/content/search.md`</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nx">article</span>
-</span></span><span class="line"><span class="cl">    <span class="p">};</span>
-</span></span><span class="line"><span class="cl">  <span class="p">},</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">watch</span><span class="o">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="kr">async</span> <span class="nx">searchQuery</span> <span class="p">(</span><span class="nx">searchQuery</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">searchQuery</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">articles</span> <span class="o">=</span> <span class="p">[]</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span>
-</span></span><span class="line"><span class="cl">      <span class="p">}</span>
-</span></span><span class="line"><span class="cl">      <span class="k">this</span><span class="p">.</span><span class="nx">articles</span> <span class="o">=</span> <span class="kr">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">$content</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">)</span> <span class="c1">// posts 是文章所在的文件夹的名称
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">.</span><span class="nx">limit</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="nx">searchQuery</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="p">.</span><span class="nx">fetch</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/script&gt;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">template</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">HeaderMe</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;wrapper&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">PageSidebar</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;archive&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h2</span><span style="color:#f92672">&gt;</span>{{ <span style="color:#a6e22e">article</span>.<span style="color:#a6e22e">attributes</span>.<span style="color:#a6e22e">title</span> }}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h2&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;article-content markdown-body&#34;</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#a6e22e">html</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;article.html&#34;</span><span style="color:#f92672">&gt;&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#66d9ef">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;search&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">input</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#a6e22e">model</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;searchQuery&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;search&#34;</span> <span style="color:#a6e22e">autocomplete</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;off&#34;</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;文章关键词&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ul</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#66d9ef">if</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;articles.length&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">li</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#66d9ef">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;article of articles&#34;</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">key</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;article.slug&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">NuxtLink</span> <span style="color:#f92672">:</span><span style="color:#a6e22e">to</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;article.path+&#39;/&#39;&#34;</span><span style="color:#f92672">&gt;</span>{{ <span style="color:#a6e22e">article</span>.<span style="color:#a6e22e">title</span> }}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/NuxtLink&gt;</span>
+</span></span><span style="display:flex;"><span>               <span style="color:#75715e">&lt;!--</span> <span style="color:#a6e22e">在url地址后加一个</span><span style="color:#f92672">/</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#a6e22e">配置全站的url格式</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#a6e22e">防止错乱</span> <span style="color:#f92672">--&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/li&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/ul&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/template&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">HeaderMe</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;@/components/HeaderMe&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">PageSidebar</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;@/components/PageSidebar&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">components</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">HeaderMe</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">PageSidebar</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">data</span> () {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">searchQuery</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;&#39;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">articles</span><span style="color:#f92672">:</span> []
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">asyncData</span> () {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 调用 search.md 内的数据
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">article</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#66d9ef">import</span>(<span style="color:#e6db74">`~/content/search.md`</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">article</span>
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">watch</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">searchQuery</span> (<span style="color:#a6e22e">searchQuery</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">searchQuery</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">articles</span> <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">articles</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$content</span>(<span style="color:#e6db74">&#39;posts&#39;</span>) <span style="color:#75715e">// posts 是文章所在的文件夹的名称
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        .<span style="color:#a6e22e">limit</span>(<span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">search</span>(<span style="color:#a6e22e">searchQuery</span>)
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">fetch</span>()
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
 </span></span></code></pre></div><p>关于样式的编写不怎么重要我就放下面了。</p>
 <details>
 <summary>
 css 代码
 </summary>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="p">.</span><span class="nc">wrapper</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="k">min-height</span><span class="p">:</span> <span class="mi">300</span><span class="kt">px</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="err">.archive</span> <span class="err">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">padding</span><span class="p">:</span> <span class="mi">25</span><span class="kt">px</span> <span class="mi">2</span><span class="kt">%</span> <span class="mi">15</span><span class="kt">px</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="err">.article-content</span> <span class="err">{</span>
-</span></span><span class="line"><span class="cl">      <span class="k">font-size</span><span class="p">:</span> <span class="kc">inherit</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">      <span class="k">line-height</span><span class="p">:</span> <span class="mf">1.8</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">      <span class="k">color</span><span class="p">:</span> <span class="kc">inherit</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">      <span class="k">margin-top</span><span class="p">:</span> <span class="mi">20</span><span class="kt">px</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="nc">search</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="k">margin-top</span><span class="p">:</span> <span class="mi">16</span><span class="kt">px</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">      <span class="err">input</span> <span class="err">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">width</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">        <span class="k">background-color</span><span class="p">:</span> <span class="mh">#edf2f7</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">        <span class="k">color</span><span class="p">:</span> <span class="mh">#2f495e</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">        <span class="k">outline</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">        <span class="k">border</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">        <span class="k">border-radius</span><span class="p">:</span> <span class="mi">30</span><span class="kt">px</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">        <span class="k">padding</span><span class="p">:</span> <span class="mi">4</span><span class="kt">px</span> <span class="mi">20</span><span class="kt">px</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">        <span class="k">box-sizing</span><span class="p">:</span> <span class="kc">border-box</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">        <span class="k">transition</span><span class="p">:</span> <span class="kc">all</span> <span class="mf">0.1</span><span class="kt">s</span> <span class="kc">linear</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">        <span class="err">&amp;:focus</span> <span class="err">{</span>
-</span></span><span class="line"><span class="cl">          <span class="k">box-shadow</span><span class="p">:</span> <span class="mi">3</span><span class="kt">px</span> <span class="mi">2</span><span class="kt">px</span> <span class="mi">10</span><span class="kt">px</span> <span class="nb">rgb</span><span class="p">(</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="o">/</span> <span class="mi">20</span><span class="kt">%</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">      <span class="err">}</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">ul</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">margin-top</span><span class="p">:</span> <span class="mi">6</span><span class="kt">px</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">        <span class="k">list-style</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">        <span class="err">li</span> <span class="err">{</span>
-</span></span><span class="line"><span class="cl">          <span class="err">a</span> <span class="err">{</span>
-</span></span><span class="line"><span class="cl">            <span class="k">display</span><span class="p">:</span> <span class="kc">block</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">            <span class="k">padding</span><span class="p">:</span> <span class="mi">6</span><span class="kt">px</span> <span class="mi">14</span><span class="kt">px</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">            <span class="k">line-height</span><span class="p">:</span> <span class="mf">1.6</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">            <span class="k">transition</span><span class="p">:</span> <span class="kc">all</span> <span class="mf">0.2</span><span class="kt">s</span> <span class="kc">linear</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">            <span class="err">&amp;:hover</span> <span class="err">{</span>
-</span></span><span class="line"><span class="cl">              <span class="k">background</span><span class="p">:</span> <span class="mh">#edf2f7</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">            <span class="p">}</span>
-</span></span><span class="line"><span class="cl">          <span class="err">}</span>
-</span></span><span class="line"><span class="cl">        <span class="err">}</span>
-</span></span><span class="line"><span class="cl">      <span class="err">}</span>
-</span></span><span class="line"><span class="cl">    <span class="err">}</span>
-</span></span><span class="line"><span class="cl">  <span class="err">}</span>
-</span></span><span class="line"><span class="cl"><span class="err">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="k">media</span> <span class="o">(</span><span class="nt">max-width</span><span class="o">:</span> <span class="nt">520px</span><span class="o">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="nc">wrapper</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="err">.archive</span> <span class="err">{</span>
-</span></span><span class="line"><span class="cl">      <span class="err">.search</span> <span class="err">{</span>
-</span></span><span class="line"><span class="cl">        <span class="err">ul</span> <span class="err">{</span>
-</span></span><span class="line"><span class="cl">          <span class="err">li</span> <span class="err">{</span>
-</span></span><span class="line"><span class="cl">            <span class="err">a</span> <span class="err">{</span>
-</span></span><span class="line"><span class="cl">              <span class="k">border-bottom</span><span class="p">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="mh">#ddd</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">            <span class="p">}</span>
-</span></span><span class="line"><span class="cl">          <span class="p">}</span>
-</span></span><span class="line"><span class="cl">        <span class="err">}</span>
-</span></span><span class="line"><span class="cl">      <span class="err">}</span>
-</span></span><span class="line"><span class="cl">    <span class="err">}</span>
-</span></span><span class="line"><span class="cl">  <span class="err">}</span>
-</span></span><span class="line"><span class="cl"><span class="err">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>.<span style="color:#a6e22e">wrapper</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">min-height</span>: <span style="color:#ae81ff">300</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#960050;background-color:#1e0010">.archive</span> <span style="color:#960050;background-color:#1e0010">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">padding</span>: <span style="color:#ae81ff">25</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">2</span><span style="color:#66d9ef">%</span> <span style="color:#ae81ff">15</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#960050;background-color:#1e0010">.article-content</span> <span style="color:#960050;background-color:#1e0010">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">font-size</span>: <span style="color:#66d9ef">inherit</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">line-height</span>: <span style="color:#ae81ff">1.8</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">color</span>: <span style="color:#66d9ef">inherit</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">margin-top</span>: <span style="color:#ae81ff">20</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    .<span style="color:#a6e22e">search</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">margin-top</span>: <span style="color:#ae81ff">16</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#960050;background-color:#1e0010">input</span> <span style="color:#960050;background-color:#1e0010">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">%</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">background-color</span>: <span style="color:#ae81ff">#edf2f7</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">color</span>: <span style="color:#ae81ff">#2f495e</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">outline</span>: <span style="color:#66d9ef">none</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">border</span>: <span style="color:#66d9ef">none</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">border-radius</span>: <span style="color:#ae81ff">30</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">padding</span>: <span style="color:#ae81ff">4</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">20</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">box-sizing</span>: <span style="color:#66d9ef">border-box</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">transition</span>: <span style="color:#66d9ef">all</span> <span style="color:#ae81ff">0.1</span><span style="color:#66d9ef">s</span> <span style="color:#66d9ef">linear</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#960050;background-color:#1e0010">&amp;:focus</span> <span style="color:#960050;background-color:#1e0010">{</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">box-shadow</span>: <span style="color:#ae81ff">3</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">2</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">10</span><span style="color:#66d9ef">px</span> rgb(<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">20</span><span style="color:#66d9ef">%</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      <span style="color:#960050;background-color:#1e0010">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ul</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">margin-top</span>: <span style="color:#ae81ff">6</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">list-style</span>: <span style="color:#66d9ef">none</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#960050;background-color:#1e0010">li</span> <span style="color:#960050;background-color:#1e0010">{</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#960050;background-color:#1e0010">a</span> <span style="color:#960050;background-color:#1e0010">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">display</span>: <span style="color:#66d9ef">block</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">padding</span>: <span style="color:#ae81ff">6</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">14</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">line-height</span>: <span style="color:#ae81ff">1.6</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">transition</span>: <span style="color:#66d9ef">all</span> <span style="color:#ae81ff">0.2</span><span style="color:#66d9ef">s</span> <span style="color:#66d9ef">linear</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#960050;background-color:#1e0010">&amp;:hover</span> <span style="color:#960050;background-color:#1e0010">{</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#66d9ef">background</span>: <span style="color:#ae81ff">#edf2f7</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>          <span style="color:#960050;background-color:#1e0010">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#960050;background-color:#1e0010">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#960050;background-color:#1e0010">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#960050;background-color:#1e0010">}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#960050;background-color:#1e0010">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">}</span>
+</span></span><span style="display:flex;"><span>@<span style="color:#66d9ef">media</span> <span style="color:#f92672">(</span><span style="color:#f92672">max-width</span><span style="color:#f92672">:</span> <span style="color:#f92672">520px</span><span style="color:#f92672">)</span> {
+</span></span><span style="display:flex;"><span>  .<span style="color:#a6e22e">wrapper</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#960050;background-color:#1e0010">.archive</span> <span style="color:#960050;background-color:#1e0010">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#960050;background-color:#1e0010">.search</span> <span style="color:#960050;background-color:#1e0010">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#960050;background-color:#1e0010">ul</span> <span style="color:#960050;background-color:#1e0010">{</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#960050;background-color:#1e0010">li</span> <span style="color:#960050;background-color:#1e0010">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#960050;background-color:#1e0010">a</span> <span style="color:#960050;background-color:#1e0010">{</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#66d9ef">border-bottom</span>: <span style="color:#ae81ff">1</span><span style="color:#66d9ef">px</span> <span style="color:#66d9ef">solid</span> <span style="color:#ae81ff">#ddd</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>          }
+</span></span><span style="display:flex;"><span>        <span style="color:#960050;background-color:#1e0010">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#960050;background-color:#1e0010">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#960050;background-color:#1e0010">}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#960050;background-color:#1e0010">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">}</span>
 </span></span></code></pre></div></details>
-      </article>
+		</div>
+	</article>
+</main>
 
-      
-      <div style="padding:20px 0"></div>
+
 <div class="comments">
   <div class="giscus"></div>
 </div>
@@ -271,20 +192,40 @@ css 代码
   async>
 </script>
 
-      
-
-    </div>
-    <footer id="foot">
-  <p>© 2020 - 2024 Powered by
-    <a href="https://github.com/dlzmoe/blog" target="_blank">Github</a>
-    / <a href="/index.xml" target="_blank">RSS</a>
-  </p>
+			</div>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2024 子舒的博客, 
+			使用 hugo 构建
+		</div>
+	</div>
 </footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
 
-<script src="/js/main.js"></script>
-
-<script defer src="https://cn.vercount.one/js"></script>
-  </section>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [["$", "$"]],
+      },
+      displayMath: [
+        ["$$", "$$"],
+        ["\[\[", "\]\]"],
+      ],
+      svg: {
+        fontCache: "global",
+      },
+    };
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script
+    id="MathJax-script"
+    async
+    src="https://gcore.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+  ></script>
 </body>
-
 </html>

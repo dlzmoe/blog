@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
 	<title>Blogs - 子舒的博客</title>
 	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="">
@@ -22,7 +23,7 @@
 		<a class="topbar__link" href="/" title="子舒的博客" rel="sidebar">
 			<div class="topbar__item topbar__text">
 					<div class="topbar__title">子舒的博客</div>
-					<div class="topbar__tagline">Thoughts come and go quickly, occasionally stopping here</div>
+					<div class="topbar__tagline">The Tao that is utterable is not the eternal Tao</div>
 				</div>
 		</a>
 	</div>
@@ -43,17 +44,16 @@
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2020-11-16T00:00:00Z">November 16, 2020</time></div></div>
+	<time class="meta__text" datetime="2020-11-16T00:00:00Z">2020-11-16</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		querySelector和querySelectorAll的用法和getElementBy大致一样，获取的时候带上符号，getElementBy 获取的是元素的动态集合，querySelector 获取的是元素的静态集合。
 但是需要注意：getElementBy 系列和 querySelector 系列的区别
 比如，我们写一个 for 循环，每次获取 li 标签的时候，ul 生成一个 li 子元素
 &lt;ul id=&#34;ul&#34;&gt; &lt;li&gt;a&lt;/li&gt; &lt;li&gt;b&lt;/li&gt; &lt;li&gt;c&lt;/li&gt; &lt;/ul&gt; &lt;script&gt; var ul = document.getElementById(&#39;ul&#39;); var li = document.getElementsByTagName(&#39;li&#39;); for(var i = 0;i &lt; li.length; i++) { ul.appendChild(document.createElement(&#39;li&#39;)) }; console.log(li.length); // 陷入死循环 &lt;/script&gt; 用i &lt; li.length来进行判断时，会导致浏览器死循环，因为循环一次的时候，浏览器又重新获取 li 标签数组，每调用一次就会重新对文档进行查询，就会进入死循环
-进行修改：把i &lt; li.
-	</div>
-	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/blog/19.html/">Read more</a>
+进行修改：把i &lt; li.length改成i &lt; 3，把 li 标签数组静态化，然后打印
+conosle.log(li.length) // 6 重新用 querySelector 获取一遍元素
+&lt;ul id=&#34;ul&#34;&gt; &lt;li&gt;a&lt;/li&gt; &lt;li&gt;b&lt;/li&gt; &lt;li&gt;c&lt;/li&gt; &lt;/ul&gt; &lt;script&gt; var ul = document.querySelector(&#39;ul&#39;); var li = document.querySelectorAll(&#39;li&#39;); for(var i = 0;i&lt;li.length;i++) { ul.appendChild(document.createElement(&#39;li&#39;)) }; console.log(li.length); // 输出对结果是原来的 li.length = 3，而不是增加后的 6 &lt;/script&gt; 静态集合体现在querySelectorAll('li')获取到 ul 里所有 li 后，不管后续再动态添加了多少 li，都是不会对其参数影响
 	</div>
 </article>
 <article class="list__item post">
@@ -64,16 +64,43 @@
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2020-11-15T00:00:00Z">November 15, 2020</time></div></div>
+	<time class="meta__text" datetime="2020-11-15T00:00:00Z">2020-11-15</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		DOM 中文名文档对象模型，英文名 Document Object Model，我们简称为 DOM，是针对 html 和 xml 文档的一种 API，将 html 以一种树状结构呈现出来，可以更直观去研究文档结构，我们将这种树状文档结构称为－－DOM 树，或者节点树，一样的概念
 一、什么是 DOM？ DOM 中文名文档对象模型，英文名 Document Object Model，我们简称为 DOM，是针对 html 和 xml 文档的一种 API，将 html 以一种树状结构呈现出来，可以更直观去研究文档结构，我们将这种树状文档结构称为－－DOM 树，或者节点树，一样的概念
 js 通过 dom 节点，可以对文档的 html 标签，属性，css 样式，以及具体的内容做出修改，并对页面中的所有事件进行响应
-二、节点树 1.节点类型 文档节点－－Document 标签节点－－Element 文本节点－－Text 注释节点－－Comment 属性节点－－Attr 2. 属性 节点类型－－nodeType 节点名称－－nodeName 节点值－－nodeValue 子节点－－childNodes 父节点－－parentNodes 上一个节点－－previousSibling 下一个节点－－nextSibling 第一个子节点－－firstChild 最后一个子节点－－lastChild 3.
-	</div>
-	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/blog/18.html/">Read more</a>
+二、节点树 1.节点类型 文档节点－－Document 标签节点－－Element 文本节点－－Text 注释节点－－Comment 属性节点－－Attr 2. 属性 节点类型－－nodeType 节点名称－－nodeName 节点值－－nodeValue 子节点－－childNodes 父节点－－parentNodes 上一个节点－－previousSibling 下一个节点－－nextSibling 第一个子节点－－firstChild 最后一个子节点－－lastChild 3.文档节点－－document (1) 获取 getElementById()－－通过 id 获取元素 &lt;div id=&#34;demo&#34;&gt;通过 id 获取元素&lt;/div&gt; &lt;script&gt; var demo = document.getElementById(&#39;demo&#39;); demo.onclick = function() { console.log(&#39;通过 id 获取元素&#39;) } &lt;/script&gt; &lt;!-- 点击 id 为 demo 的元素，控制台输出&#39;通过 id 获取元素&#39; --&gt; getElementsByName()－－通过 name 获取元素 &lt;input type=&#34;text&#34; name=&#34;int&#34; value=&#34;通过name获取元素1&#34;&gt; &lt;input type=&#34;text&#34; name=&#34;int&#34; value=&#34;通过name获取元素2&#34;&gt; &lt;script&gt; var int = document.getElementsByName(&#39;int&#39;); for(var i = 0;i &lt; int.length; i++) { console.log(int[i].value); } &lt;/script&gt; &lt;!-- 控制台输出 name 为 int 的元素的 value 值 --&gt; getElementsByTagName()－－通过标签名获取元素 &lt;div&gt;通过标签名获取元素 1&lt;/div&gt; &lt;div&gt;通过标签名获取元素 2&lt;/div&gt; &lt;script&gt; var div = document.getElementsByTagName(&#39;div&#39;); for(var i = 0;i &lt; div.length; i++) { console.log(div[i].innerHTML) } &lt;/script&gt; &lt;!-- 控制台输出标签名为 div 的元素的文本内容 --&gt; getElementsByClassName()－－通过 class 获取元素 &lt;div class=&#34;demo&#34;&gt;通过 class 获取元素 1&lt;/div&gt; &lt;div class=&#34;demo&#34;&gt;通过 class 获取元素 2&lt;/div&gt; &lt;script&gt; var demo = document.getElementsByClassName(&#39;demo&#39;); for(var i = 0;i &lt; demo.length; i++) { console.log(demo[i].innerHTML) } &lt;/script&gt; &lt;!-- 控制台输出 class 为 demo 的元素的文本内容 --&gt; querySelector()－－通过选择器获取元素 querySelector() 括号里面要跟上符号，class就写.，id就写#，标签直接写标签名TagName
+&lt;div&gt;通过选择器获取标签名&lt;/div&gt; &lt;div class=&#34;div&#34;&gt;通过选择器获取 class&lt;/div&gt; &lt;div id=&#34;div&#34;&gt;通过选择器获取 id&lt;/div&gt; &lt;script&gt; var divtag = document.querySelector(&#39;div&#39;); var divclass = document.querySelector(&#39;.div&#39;); var divid = document.querySelector(&#39;#div&#39;); divtag.onclick = function() { console.log(&#39;通过选择器获取标签名&#39;) }; // 点击标签 div，控制台输出&#34;通过选择器获取标签名&#34; divclass.onclick = function() { console.log(&#39;通过选择器获取 class&#39;) }; // 点击 class 为 div，控制台输出&#34;通过选择器获取 class&#34; divid.onclick = function() { console.log(&#39;通过选择器获取 id&#39;) }; // 点击 id 为 div，控制台输出&#34;通过选择器获取 id&#34; &lt;/script&gt; querySelectorAll()－－通过选择器获取元素集合 获取的是一个数组集合
+&lt;input type=&#34;text&#34; value=&#34;int1&#34;&gt; &lt;input type=&#34;text&#34; value=&#34;int2&#34;&gt; &lt;input type=&#34;text&#34; value=&#34;int3&#34;&gt; &lt;script&gt; var int = document.querySelectorAll(&#39;input&#39;) for(i = 0; i &lt; int.length; i++) { console.log(int[i].value) } &lt;/script&gt; &lt;!-- 浏览器依次打印出`int1`,`int2`,`int3` --&gt; (2) 创建 createElement()－－创建元素（标签）节点 &lt;ul id=&#34;ul&#34;&gt;&lt;/ul&gt; &lt;script&gt; var ul = document.getElementById(&#39;ul&#39;); ul.appendChild(document.createElement(&#39;li&#39;)) &lt;/script&gt; 可以看到，ul 下面已经生成了一个 li 标签
+createTextNode()－－创建文本节点 &lt;ul id=&#34;ul&#34;&gt;&lt;/ul&gt; &lt;script&gt; var ul = document.getElementById(&#39;ul&#39;); var li = ul.appendChild(document.createElement(&#39;li&#39;)); var node = document.createTextNode(&#39;我是 li&#39;); li.appendChild(node); &lt;/script&gt; li 标签中生成了一段文本
+createAttribute()－－创建属性节点 &lt;input type=&#34;text&#34;&gt; &lt;script&gt; var int = document.getElementsByTagName(&#39;input&#39;)[0]; var value = document.createAttribute(&#39;value&#39;); value.nodeValue = &#39;通过创建属性节点生成&#39;; int.setAttributeNode(value); &lt;/script&gt; 可以看到 value 属性值被成功创建
+createComment()－－创建注释节点 &lt;div id=&#34;div&#34;&gt;创建一个注释节点&lt;/div&gt; &lt;script&gt; var div = document.getElementById(&#39;div&#39;); var comment = document.createComment(&#39;添加一个注释节点&#39;); div.appendChild(comment); &lt;/script&gt; f12 查看源码，可以看到 div 生成一行注释
+createDocumentFragment()－－创建文档片段 文档片段的作用，就相当于是添加的所有的节点的父元素
+1.假如没有 createDocumentFragment，添加了很多节点，也可以在 dom 上呈现，但是每次添加的时候都会调用一次 appendChild() 方法，产生很多次页面渲染，显得比较臃肿 2.把多次添加的节点放在一个 createDocumentFragment 节点里面，页面只会调用一次就可以把所有的节点都渲染了
+createEvent()－－创建事件对象
+addEventListener()－－添加事件监听函数
+removeEventListener()－－移除事件监听函数
+事件监听函数详解
+dispatchEvent()－－触发事件 操作 css &lt;div id=&#34;demo&#34;&gt;dom&lt;/div&gt; &lt;script&gt; // 直接通过&#39;.&#39;来操作 style var demo= document.getElementById(&#39;demo&#39;); demo.style.color = &#39;red&#39;; // 通过 setAttribute() 来创建属性节点 demo.setAttribute(&#39;style&#39;,&#39;background-color: green&#39;); // 通过 style 的 cssText 属性 demo.style.cssText = &#34;border: 10px solid black&#34;; &lt;/script&gt; 4.元素节点 (element 对象) 有关 innerHTML, innerText, outerHTML, outerText 的区别
+一个是元素内容，一个是文本内容
+&lt;div id=&#34;div1&#34;&gt;第一个 div&lt;/div&gt; &lt;div id=&#34;div2&#34;&gt;第二个 div&lt;/div&gt; &lt;div id=&#34;div3&#34;&gt;第三个 div&lt;/div&gt; &lt;div id=&#34;div4&#34;&gt;第四个 div&lt;/div&gt; &lt;div id=&#34;div5&#34;&gt;&lt;/div&gt; &lt;div id=&#34;div6&#34;&gt;&lt;/div&gt; &lt;div id=&#34;div7&#34;&gt;&lt;/div&gt; &lt;div id=&#34;div8&#34;&gt;&lt;/div&gt; &lt;script&gt; var div1 = document.getElementById(&#39;div1&#39;).innerHTML console.log(div1) // 第一个 div var div1 = document.getElementById(&#39;div1&#39;).outerHTML console.log(div1) // &lt;div id=&#34;div1&#34;&gt;第一个 div&lt;/div&gt; var div2 = document.getElementById(&#39;div2&#39;).innerText console.log(div2) // 第二个 div var div2 = document.getElementById(&#39;div2&#39;).outerText console.log(div2) // 第二个 div document.getElementById(&#39;div5&#39;).innerHTML = &#39;&lt;a&gt;《第 5 个 div》&lt;/a&gt;&#39; // 在原有的标签内增加内容，如果有标签会被识别 document.getElementById(&#39;div6&#39;).outerHTML = &#39;&lt;a&gt;《第 6 个 div》&lt;/a&gt;&#39; // 原来的标签会被覆盖，新的文本中如果含有标签会自动生成，如果没有标签则直接以文本形式展示 document.getElementById(&#39;div7&#39;).innerText = &#39;&lt;a&gt;《第 7 个 div》&lt;/a&gt;&#39; // 在原有的标签内增加内容，新标签不会被识别为标签元素，而是被当作文本内容直接写入原标签内 document.getElementById(&#39;div8&#39;).outerText = &#39;&lt;a&gt;《第 8 个 div》&lt;/a&gt;&#39; // 原来的标签会被覆盖，新标签不会被识别为标签元素，而是直接被当作文本形式展示 &lt;/script&gt; (1) 节点属性 childElementCount－－返回当前元素的子节点的个数 &lt;div id=&#34;demo&#34;&gt; &lt;a&gt;&lt;/a&gt; &lt;span&gt;&lt;/span&gt; &lt;p&gt;&lt;/p&gt; &lt;div&gt;&lt;/div&gt; &lt;/div&gt; &lt;script&gt; var demo = document.getElementById(&#39;demo&#39;) console.log(demo.childElementCount) // 4 &lt;/script&gt; firstElementChild－－返回当前元素的第一个子元素节点 lastElementChild－－返回当前元素的最后一个子元素节点 &lt;div id=&#34;demo&#34;&gt; &lt;a&gt;&lt;/a&gt; &lt;span&gt;&lt;/span&gt; &lt;p&gt;&lt;/p&gt; &lt;div&gt;&lt;/div&gt; &lt;/div&gt; &lt;script&gt; var demo = document.getElementById(&#39;demo&#39;) console.log(demo.firstElementChild) // &lt;a&gt;&lt;/a&gt; console.log(demo.lastElementChild) // &lt;div&gt;&lt;/div&gt; &lt;/script&gt; nextElementSibling－－返回当前元素的下一个兄弟元素节点 previousElementSibling－－返回当前元素的上一个兄弟元素节点 &lt;span&gt;&lt;/span&gt; &lt;div id=&#34;demo&#34;&gt;&lt;/div&gt; &lt;p&gt;&lt;/p&gt; &lt;script&gt; var demo = document.getElementById(&#39;demo&#39;) console.log(demo.nextElementSibling) // &lt;p&gt;&lt;/p&gt; console.log(demo.previousElementSibling) // &lt;span&gt;&lt;/span&gt; &lt;/script&gt; 返回当前元素所有的子节点 &lt;div id=&#34;demo&#34;&gt; &lt;span&gt;&lt;/span&gt; &lt;p&gt;&lt;/p&gt; &lt;a&gt;&lt;/a&gt; &lt;/div&gt; &lt;script&gt; var demo = document.getElementById(&#39;demo&#39;).children for(var i in demo) { console.log(demo[i]) } &lt;/script&gt; 控制台查看返回结果
+返回所有子节点集合 &lt;div id=&#34;demo&#34;&gt; &lt;span&gt;&lt;/span&gt; &lt;p&gt;&lt;/p&gt; &lt;a id=&#34;demo1&#34;&gt;&lt;/a&gt; &lt;/div&gt; &lt;script&gt; var demo = document.getElementById(&#39;demo&#39;).children for(var i in demo1.childNodes) { console.log(demo[i]) } &lt;/script&gt; (2) 节点方法 appendChild－－插入子节点 &lt;div id=&#34;demo&#34;&gt;&lt;/div&gt; &lt;script&gt; var demo = document.getElementById(&#39;demo&#39;) var node = document.createTextNode(&#39;插入一个子节点&#39;) demo.appendChild(node) &lt;/script&gt; f12 可以看到，div 被插入了一个节点
+insertBefore(a, b)－－在指定位置插入节点 参数 a 表示要插入的内容，b 表示定位，在 b 节点之前插入 a 节点
+&lt;div id=&#34;demo&#34;&gt;&lt;/div&gt; &lt;script&gt; var demo = document.getElementById(&#39;demo&#39;) var node = document.createTextNode(&#39;插入一个子节点&#39;) demo.appendChild(node) var hr = document.createElement(&#39;hr&#39;) demo.insertBefore(hr, node) &lt;/script&gt; 可以看到，原来的文本节点之前，被添加了一个新的元素节点
+replaceChild(a, b)－－替换节点 用参数 a 替换参数 b，a 表示新节点，b 表示旧节点
+&lt;div id=&#34;demo&#34;&gt;&lt;/div&gt; &lt;script&gt; var demo = document.getElementById(&#39;demo&#39;) var node = document.createTextNode(&#39;插入一个子节点&#39;) demo.appendChild(node) var h3 = document.createElement(&#39;h3&#39;) var h3node = document.createTextNode(&#39;title 标题&#39;) h3.appendChild(h3node) demo.replaceChild(h3, node) &lt;/script&gt; h3是新节点，node是旧节点，根据图片可以看到，b 替换掉了 a，成功上位
+removeChild－－父节点删除子节点 &lt;div id=&#34;demo&#34;&gt; &lt;div id=&#34;son&#34;&gt;&lt;/div&gt; &lt;/div&gt; &lt;script&gt; var demo = document.getElementById(&#39;demo&#39;) var son = document.getElementById(&#39;son&#39;) demo.removeChild(son) &lt;/script&gt; f12 可以看到，id 为 son 的元素节点，通过demo.removeChild()已经被删除了
+removeAttribute－－删除属性节点 &lt;div id=&#34;demo&#34; class=&#34;div&#34;&gt;&lt;/div&gt; &lt;script&gt; var demo = document.getElementById(&#39;demo&#39;) demo.removeAttribute(&#39;class&#39;) &lt;/script&gt; class 属性已经被删除了
+删除文本节点 &lt;div id=&#34;demo&#34;&gt;文本&lt;/div&gt; &lt;script&gt; var demo = document.getElementById(&#39;demo&#39;) demo.removeChild(demo.childNodes[0]) &lt;/script&gt; 通过demo.childNodesp[0]获取 demo 的第一个节点，即文本节点，然后removeChild它，就删除了
+isEqualNode－－判断两个元素是否相等 isSameNode－－判断两个元素是否相同 两者分别代表相等和相同
+(1) isEqualNode相等，指的是两个节点是否是同一类型，具有相等的属性（包括：nodeName, nodeValue&hellip;等等），还有相等的 attributes,childNodes（相等的位置包含相同的值） (2) isSameNode相同，指的是两个节点引用的是同一个对象
+&lt;form action=&#34;#&#34;&gt; &lt;input type=&#34;button&#34; /&gt; &lt;/form&gt; &lt;form action=&#34;#&#34;&gt; &lt;input type=&#34;button&#34; /&gt; &lt;/form&gt; &lt;form action=&#34;#&#34; id=&#34;o&#34;&gt; &lt;input type=&#34;button&#34; /&gt; &lt;/form&gt; &lt;form action=&#34;#&#34; id=&#34;o&#34;&gt; &lt;input type=&#34;text&#34; /&gt; &lt;/form&gt; &lt;script&gt; var forms = document.forms; var form1 = forms[0]; var form2 = forms[1]; var form3 = forms[2]; var form4 = forms[3]; var _form1 = document.querySelectorAll(&#39;form&#39;)[0]; console.log(form1.isSameNode(form1)) //true 两个节点引用的对象都是第一个 form console.log(form1.isSameNode(_form1)) //true 两个节点引用的对象都是第一个 form console.log(form1.isSameNode(form2)) //false 两个节点引用的不是一个对象 console.log(form1.isEqualNode(form2)) //true 两个节点具有完全等同属性 console.log(form1.isEqualNode(form3)) //false form1 中无等同的 id 属性 console.log(form3.isEqualNode(form4)) //fasle form4 的 childNodes 中的 input 为 text 类别，与 form3 不同 &lt;/script&gt; 根据例子代码可以看出区别：
+(1) isSameNode只有引用同一个对象时才相同，比如用两中方法调用同一个对象，再比较这两种方法，比来比去还是那个对象，所以相同 (2) 而isEqualNode比较两个对象的元素节点是否相等，只要两者一致就可以相等 true
+hasChildNodes()－－判断一个元素是否拥有子节点 判断demo是否拥有子节点，然后输出他的子节点
+&lt;div id=&#34;demo&#34;&gt; &lt;!-- &lt;a&gt;&lt;/a&gt; --&gt; &lt;/div&gt; &lt;script&gt; var demo = document.getElementById(&#39;demo&#39;) console.log(demo.hasChildNodes()) console.log(demo.childNodes) &lt;/script&gt; contains(a)－－判断一个节点是否包含指定子节点（参数 a 表示要判断的子节点） 存在id=&quot;a&quot;的元素，因此 contains 判断成功输出true，
+不存在id=&quot;b&quot;的元素，因此输出false
+&lt;div id=&#34;demo&#34;&gt; &lt;a id=&#34;a&#34;&gt;&lt;/a&gt; &lt;a&gt;&lt;/a&gt; &lt;/div&gt; &lt;script&gt; var demo = document.getElementById(&#39;demo&#39;) var a = document.getElementById(&#39;a&#39;) console.log(demo.contains(a)) // true var b = document.getElementById(&#39;b&#39;) console.log(demo.contains(b)) // false &lt;/script&gt; 5.属性节点 (Attr 对象) &lt;input type=&#34;text&#34; id=&#34;int&#34;&gt; &lt;script&gt; var int = document.getElementById(&#39;int&#39;) // 1.获取属性值 console.log(int.getAttribute(&#34;type&#34;)) // text // 2.获取属性节点 console.log(int.getAttributeNode(&#34;type&#34;)) // type=&#34;text&#34; // 3.设置属性值 int.setAttribute(&#34;value&#34;, &#34;input 框&#34;) // &lt;input type=&#34;text&#34; id=&#34;int&#34; value=&#34;input 框&#34;&gt; // 4.设置属性节点 let name = document.createAttribute(&#34;name&#34;); name.nodeValue = &#34;uname&#34;; int.setAttributeNode(name); console.log(int.getAttributeNode(&#39;name&#39;).value) // &lt;input type=&#34;text&#34; id=&#34;int&#34; value=&#34;input 框&#34; name=&#34;uname&#34;&gt; // 5.删除属性节点 console.log(int.removeAttribute(&#39;name&#39;)) // &lt;input type=&#34;text&#34; id=&#34;int&#34; value=&#34;input 框&#34;&gt; // 6.判断是否存在属性 console.log(int.hasAttributes()) // true // 7.判断是否存在指定属性 console.log(int.hasAttribute(&#39;value&#39;)) // true &lt;/script&gt; 注意：hasAttribute和hasAttributes的区别 hasAttributes判断是否存在属性， hasAttribute判断是否存在指定属性
 	</div>
 </article>
 <article class="list__item post">
@@ -84,7 +111,7 @@ js 通过 dom 节点，可以对文档的 html 标签，属性，css 样式，�
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2020-11-14T00:00:00Z">November 14, 2020</time></div></div>
+	<time class="meta__text" datetime="2020-11-14T00:00:00Z">2020-11-14</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		数据类型，构造函数，原型和原型链的一些讲解补充
@@ -94,10 +121,14 @@ js 通过 dom 节点，可以对文档的 html 标签，属性，css 样式，�
 对象－Object, 数组－Array, 函数－Function, 正则－RegExp, 日期－Date 等
 二、函数 1.什么是函数？ 具有独立功能的代码块，在 js 中使用 function 关键字定义函数 让代码结构更加清晰，提高代码可用性 js 函数的分类：自定义函数和系统函数 2.自定义函数 有一种匿名函数，没有名字的函数，创建闭包，避免造成全局变量的污染
 匿名自执行函数
-概念：匿名函数的定义完成后立即执行，执行函数表达式 作用：实现闭包和创建独立的命名空间 使用：分组操作符 ()，void 操作符，~操作符，! 操作符等等 使用场景：函数表达式，对象属性，事件，事件参数，返回值 定义完匿名函数后，一定要调用 // 函数表达式 window.onload = function() { let funcobj = function() { alert(&#34;函数表达式中的匿名函数&#34;) } funcobj(); } // 对象属性 window.
-	</div>
-	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/blog/17.html/">Read more</a>
+概念：匿名函数的定义完成后立即执行，执行函数表达式 作用：实现闭包和创建独立的命名空间 使用：分组操作符 ()，void 操作符，~操作符，! 操作符等等 使用场景：函数表达式，对象属性，事件，事件参数，返回值 定义完匿名函数后，一定要调用 // 函数表达式 window.onload = function() { let funcobj = function() { alert(&#34;函数表达式中的匿名函数&#34;) } funcobj(); } // 对象属性 window.onload = function() { let obj = { name: function() { alert(&#39;对象属性中的匿名函数&#39;) } } obj.name(); } 3.内置函数 放在全局下面叫做函数，放在对象里面被叫做方法，对象的方法
+常规函数 alert() // 弹出框 confirm() // 弹出一个确认框 prompt() // 弹出一个输入框 isNaN() // 判断是否为数字 parseInt() // 将字符串或浮点数转换为整数 parseFloat() // 将字符串转换为整数或浮点数 eval() // 计算表达式的结果 数组函数 用for循环遍历数组
+var arr = [1,2,3,4]; for(var i = 0; i&lt;arr.length; i++) { console.log(arr[i]) } // 输出 1,2,3,4 通过for in遍历数组
+var arr = [1,2,3,4]; for (var i in arr) { console.log(arr[i]); } // 输出 1,2,3,4 // 增加 unshift() // 添加元素在数组首部，返回值是数组长度 push() // 添加元素在数组尾部，返回值是数组长度 conat() // 连接两个数组，返回值是连接后的数组 var arr1 = [1]; var arr2 = [2]; let arr = arr1.concat(arr2); console.log(arr); // [1,2] /*****************************************/ // 删除 pop() // 删除数组最后一个元素，返回值是删除的元素 shift() // 删除数组第一个元素，返回值是删除的元素 splice(a,b) // 删除指定位置a后的b个元素，返回值是删除的元素 slice(a,b) // 删除从a位置到b位置之间的元素 /*****************************************/ // 查找 indexOf() // 判断数组是否包含指定元素，存在返回元素，不存在返回-1 includes() // 判断数组是否包含指定元素，存在返回true，不存在返回false /*****************************************/ // 其他 sort() // 将数组按照规则排序 var arr1 = [4,5,6]; var arr2 = [1,2,3]; var arrAscSort = arr5.sort((a, b) =&gt; a-b); // 升序排序 console.log(arrAscSort); // [ 1, 1, 2, 3, 5, 6 ] var arrDescSort = arr5.sort((a, b) =&gt; b-a); // 降序排序 console.log(arrDescSort); // [ 6, 5, 3, 2, 1, 1 ] reerse() // 数组反转 var arr = [1,2,3,4,5,6]; // 直接通过reverse()方法调用 console.log(arr.reverse()) // [6,5,4,3,2,1] Array.from() // 将一串数据转换为数组形式 var str = &#39;将一串数据转换为数组形式&#39; console.log(Array.from(str)) // [&#34;将&#34;, &#34;一&#34;, &#34;串&#34;, &#34;数&#34;, &#34;据&#34;, &#34;转&#34;, &#34;换&#34;, &#34;为&#34;, &#34;数&#34;, &#34;组&#34;, &#34;形&#34;, &#34;式&#34;] Array.isArray() // 判断一个变量是否为数组 var str = &#39;将一串数据转换为数组形式&#39; console.log(Array.isArray(str)) // false 日期函数 Date() 获取时间
+var time = new Date() // 获取当前时间 // Fri Nov 13 2020 20:21:35 GMT+0800 (中国标准时间) getFullYear() // 获取当前年份 getMonth() // 获取当月月份 -1 getDate() // 获取当天日期 getHours() // 获取当前小时 getMinutes() // 获取当前分钟 getSeconds() // 获取当前秒 getMilliseconds() // 获取当前毫秒 getTime() // 时间戳-获取1970年至今的毫秒数 设置时间
+setYear() // 设置年份 setMonth() // 设置月份 setDate() // 设置日期 setHours() // 设置小时 setMinutes() // 设置分钟 setSeconds() // 设置秒 数学函数 Math 主要常用的数学函数方法
+Math.abs() // 绝对值 Math.ceil() // 向上取整 Math.floor()// 向下取整 Math.round()// 四舍五入 Math.random() // 生成0-1之间的随机数 random() 的延伸用法－－－生成指定位的随机数
+function getRandomNumber(min, max){ return Math.floor(Math.random()*(max - min)) + min; } console.log(getRandomNumber(1000, 9999)); 字符串函数 indexOf() // 查找字符串，返回索引值 var arr = [&#34;字&#34;, &#34;符&#34;, &#34;串&#34;, &#34;函&#34;, &#34;数&#34;] console.log(arr.indexOf(&#34;串&#34;)) // 2 split() // 将字符串按照指定的分隔符分割开来 var str = &#34;字符串函数&#34; console.log(str.split(&#39;&#39;)) // [&#34;字&#34;, &#34;符&#34;, &#34;串&#34;, &#34;函&#34;, &#34;数&#34;] trim() // 清除字符串两端的空格 var str = &#34; 字符串函数 &#34; console.log(str) // [ 字符串函数 ] console.log(str.trim()) // [字符串函数] match() // 按照制定规则查找值 var str = &#34;字符串函数字符串函数&#34; console.log(str.match(/字符串/)) // 字符串 document.write(str.match(/字符串/)) // 字符串 search() // 返回字符串 首次出现的位置 var str = &#34;字符串函数字符串函数&#34; console.log(str.search(&#39;串&#39;)) // 2 replace() // 替换指定的字符串 var str = &#34;字符串函数字符串函数&#34; console.log(str.replace(&#39;字&#39;,&#39;函&#39;)) // 函符串函数字符串函数 substring(a,b) // 从指定位置切割字符串，左闭右开 // 从索引a，截取到b var str = &#34;字符串函数字符串函数&#34; console.log(str.substring(0,3)) // 字符串 substr(a,b) // 从指定位置切指定个字符 // 从索引a开始，截取b个字符 var str = &#34;字符串函数字符串函数&#34; console.log(str.substr(0,3)) // 字符串 
 	</div>
 </article>
 <article class="list__item post">
@@ -108,7 +139,7 @@ js 通过 dom 节点，可以对文档的 html 标签，属性，css 样式，�
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2020-11-13T00:00:00Z">November 13, 2020</time></div></div>
+	<time class="meta__text" datetime="2020-11-13T00:00:00Z">2020-11-13</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		今天在写 new Date() 时候，无意中发现了一个很有意思的方法，getTime()，百度了一下，有人说是计算从 1970 年 1 月 1 日至今的毫秒数
@@ -117,9 +148,24 @@ new Date().getTime(); // xxxxxxxxxxx 这个起源于 unix 的诞生，因为 Uni
 当然，这一做法现在看来是很有问题的，例如不方便用它表示更早的时间而且精度有限。
 定义 time 从 1970 年 1 月 1 日开始，忽然想到在 JAVA 里，Oracle 数据库时间也是从 1970 年 1 月 1 日开始计算。
 比如 java 类代码：
-	</div>
-	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/blog/16.html/">Read more</a>
+Date date = new Date(0); System.out.println(date); // 打印出来的结果：Thu Jan 01 08:00:00 CST 1970也 是 1970 年 1 月 1 日，实际上时分秒是 0 点 0 分 0 秒 (这里打印出来是 8 点，稍后会作解释)。
+为什么这个时间会定义在 1970 年 1 月 1 日这个时候呢？
+于是开始了 Google，中文网页根本找不到答案。于是试着搜索英文关键字，在 Sun java 论坛总算找到准确的帖子：
+http://forums.sun.com/thread.jspa?threadID=595140&amp;start=15
+其中有一个回复：
+I suspect that Java was born and raised on a UNIX system. UNIX considers the epoch (when did time begin) to be midnight, January 1, 1970. 是说 java 起源于 UNIX 系统，而 UNIX 认为 1970 年 1 月 1 日 0 点是时间纪元。
+但这依然没很好的解释&quot;为什么&quot;,出于好奇，继续 Google，总算找到了答案：
+http://en.wikipedia.org/wiki/Unix_time
+这里的解释是：
+最初计算机操作系统是 32 位，而时间也是用 32 位表示。
+System.out.println(Integer.MAX_VALUE);
+2147483647
+Integer 在 JAVA 内用 32 位表示，因此 32 位能表示的最大值是 2147483647。另外 1 年 365 天的总秒数是 31536000，2147483647/31536000 = 68.1，也就是说 32 位能表示的最长时间是 68 年，而实际上到 2038 年 01 月 19 日 03 时 14 分 07 秒，便会到达最大时间，过了这个时间点，所有 32 位操作系统时间便会变为 10000000 00000000 00000000 00000000 也就是 1901 年 12 月 13 日 20 时 45 分 52 秒，这样便会出现时间回归的现象，很多软件便会运行异常了。
+到这里，我想问题的答案已经出来了：
+因为用 32 位来表示时间的最大间隔是 68 年，而最早出现的 UNIX 操作系统考虑到计算机产生的年代和应用的时限综合取了 1970 年 1 月 1 日作为 UNIX TIME 的纪元时间 (开始时间)，而 java 自然也遵循了这一约束。
+至于时间回归的现象相信随着 64 为操作系统的产生逐渐得到解决，因为用 64 位操作系统可以表示到 292,277,026,596 年 12 月 4 日 15 时 30 分 08 秒，相信我们的 N 代子孙，哪怕地球毁灭那天都不用愁不够用了，因为这个时间已经是千亿年以后了。
+最后一个问题：
+上面 System.out.println(new Date(0))，打印出来的时间是 8 点而非 0 点，原因是存在系统时间和本地时间的问题，其实系统时间依然是 0 点，只不过我的电脑时区设置为东 8 区，故打印的结果是 8 点。
 	</div>
 </article>
 <article class="list__item post">
@@ -130,7 +176,7 @@ new Date().getTime(); // xxxxxxxxxxx 这个起源于 unix 的诞生，因为 Uni
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2020-11-12T00:00:00Z">November 12, 2020</time></div></div>
+	<time class="meta__text" datetime="2020-11-12T00:00:00Z">2020-11-12</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		面向对象把构成问题的 transaction 分解成各个对象，而建立对象的目的也不是为了完成一个个步骤，而是为了描述某个事物在解决整个问题的过程中所发生的行为，意在写出通用代码，加强代码重用，屏蔽差异性。
@@ -143,10 +189,41 @@ new Date().getTime(); // xxxxxxxxxxx 这个起源于 unix 的诞生，因为 Uni
 面向对象把构成问题的 transaction 分解成各个对象，而建立对象的目的也不是为了完成一个个步骤，而是为了描述某个事物在解决整个问题的过程中所发生的行为，意在写出通用代码，加强代码重用，屏蔽差异性。
 想要弄明白面向对象，需要先理解类和对象的概念
 《什么是类和对象？》
-二、创建对象的方法 1.创建字面量和实例 window.onload = function() { // 实例 var person = new Object(); person.name = &#39;小明&#39;; person.age = 22; person.year = function() { console.log(this.name + &#39;今年&#39; + this.age + &#39;岁了！&#39;) }; person.year(); // 字面量 var student = { name: &#39;小明&#39;, age: 22, year: function () { console.
-	</div>
-	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/blog/15.html/">Read more</a>
+二、创建对象的方法 1.创建字面量和实例 window.onload = function() { // 实例 var person = new Object(); person.name = &#39;小明&#39;; person.age = 22; person.year = function() { console.log(this.name + &#39;今年&#39; + this.age + &#39;岁了！&#39;) }; person.year(); // 字面量 var student = { name: &#39;小明&#39;, age: 22, year: function () { console.log(this.name + &#39;今年&#39; + this.age + &#39;岁了！&#39;) } } student.year(); } // 小明今年22岁了！ 两者输出的结果是一样的，控制台输出：
+缺点：重复实例化对象，代码冗余高
+2.工厂模式 window.onload = function() { function createObj(name, age) { var obj = new Object(); obj.name = name, obj.age = age, obj.year = function() { console.log(this.name + &#39;今年&#39; + this.age + &#39;岁了！&#39;) } return obj; } var obj = createObj(&#39;小明&#39;, 22); obj.year(); } // 小明今年22岁了！ 优点：解决重复实例化对象的问题 缺点：无法识别对象的类型，因为所有的实例都指向一个原型
+3.构造函数 window.onload = function() { function Person(name, age) { this.name = name; this.age = age; this.year = function() { console.log(this.name + &#39;今年&#39; + this.age + &#39;岁了！&#39;) } } var student = new Person(&#39;小明&#39;, 22); student.year(); } // 小明今年22岁了！ 优点：可以识别对象的类型 缺点：多个实例重复创建方法，无法共享
+4. 原型模式 window.onload = function() { function Par() {} Par.prototype = { constructor: &#39;Par&#39;, name: &#39;小明&#39;, age: 22, year: function() { console.log(this.name + &#39;今年&#39; + this.age + &#39;岁了！&#39;) } }; var son = new Par(); son.year(); } // 小明今年22岁了！ 缺点：所有实例共享他的属性和方法，不能传参和初始化属性值
+5.混合模式 (推荐使用) 是构造函数和原型模式混合的写法，拥有各自的优点，构造函数共享实例属性，原型模式共享方法和想要共享的属性，可以传参和初始化属性值
+先用构造函数定义对象的属性方法，然后用原型模式创建方法，使用的属性通过 prototype 获取，有一个 constructor 属性，可以指向要操作的函数对象（构造函数）
+比如constructor: Par，就代表下面这个原型方法指向Par()对象（构造函数）
+window.onload = function() { function Par(name, age) { this.name = name; this.age = age; } Par.prototype = { constructor: Par, year: function() { console.log(this.name + &#39;今年&#39; + this.age + &#39;岁了！&#39;); } }; var son = new Par(&#39;小明&#39;, 22) son.year(); } // 小明今年22岁了！ 三、原型，原型链 1.原型对象 函数对象都具有prototype属性，它指向函数的原型对象 (浏览器内存创建的对象)，原型对象都具有constructor属性，它指向prototype属性所在的函数对象 (构造函数) window.onload = function() { function Par(name, age) { this.name = name; this.age = age; } Par.prototype = { // constructor指向对象 constructor: Par, year: function() { console.log(this.name + &#39;今年&#39; + this.age + &#39;岁了！&#39;); } }; var son = new Par(&#39;小明&#39;, 22) son.year(); /*********************************************/ console.log(Par.prototype) console.log(Par.prototype.constructor) /*********************************************/ } 通过控制台可以看到
+构造函数的prototypr属性指向原型对象
+原型对象的construcyor属性指向构造函数
+当调用构造函数创建一个实例后，该实例会有一个隐藏属性__proto__ ，它指向构造函数的原型对象 console.log(son.__proto__ === Par.prototype) // true 所有的构造函数的 prototype 都是 object 类型 console.log(typeof Par.prototype) // object Function 的 prototype 是一个空函数，所有内置函数的__proto__属性都指向这个空函数 console.log(Math.__proto__) 如果构造函数实例和原型对象中同时定义了一个属性，在调用时，会屏蔽原型对象中的属性，如果想要访问原型对象中的属性值，需要通过delete方法将同名属性在实例（构造函数）中彻底删除 window.onload = function () { function Par(name) { this.name = name; } Par.prototype.name = &#34;张三&#34;; var son = new Par(&#34;李四&#34;); console.log(son.name); // 李四 console.log(son.__proto__.name); // 张三 // 使用 delete 删除实例的同名属性值 console.log(delete son.name); // true console.log(son.name); // 张三 } 通过hasOwnProperty(属性名)可以判断一个属性存在于构造函数中，还是原型对象中 true表示存在构造函数中；false表示存在原型对象中
+console.log(Par.hasOwnProperty(name)); // false 操作符in，可以判断一个属性是否存在（存在于构造函数和原型对象中皆可） window.onload = function () { function Par(name, age) { this.name = name; this.age = age; } Par.prototype = { constructor: Par, year: function() { console.log(this.name + this.age) } }; var son = new Par(&#39;xm&#39;, &#39;22&#39;) son.year(); console.log(&#39;name&#39; in Par); // true console.log(&#39;age&#39; in Par); // false } 同样的两个属性，判断其是否存在于实例或者原型对象中，输出的结果不一样
+参考:《对象中是否有某一个属性 in》https://www.cnblogs.com/IwishIcould/p/12333739.html
+2.__proto__和 prototype 的区别 prototype属性只有函数对象上才有，而__proto__属性所有对象都有
+prototype是由函数对象指向原型对象，而__proto__是由实例指向函数对象的原型对象
+原型链，将父类型的实例作为子类型的原型对象，这种链式关系叫做原型链
+3.继承 原型链继承 优点：父类原型定义的属性和方法可以复用 缺点：子类实例没有自己的属性，不能向父类传递参数
+function test1() { function SuperType() { this.city = [ &#34;北京&#34;, &#34;上海&#34;, &#34;天津&#34; ]; this.property = true; } SuperType.prototype = { constructor : SuperType, // 保持构造函数和原型对象的完整性 age : 15, getSuperValue : function() { return this.property; } }; function SonType() { this.property = false; } // 重写子类的原型指向父类的实例：继承父类的原型 SubType.prototype = new SuperType(); SubType.prototype = { constructor : SubType, getSonType : function() { return this.property; } }; // 优点验证 let son = new SubType(); console.log(son.age); // 15 console.log(son.getSuperValue()); // false // 缺点验证 let instance1 = new SubType(); instance1.city.push(&#34;重庆&#34;); console.log(instance1.city); // [&#34;北京&#34;, &#34;上海&#34;, &#34;天津&#34;, &#34;重庆&#34;] let instance2 = new SubType(); console.log(instance2.city); // [&#34;北京&#34;, &#34;上海&#34;, &#34;天津&#34;, &#34;重庆&#34;] } // test1(); 构造函数继承 优点：子类实例有自己的属性，可以向父类传递参数，解决原型链继承的缺点 缺点：父类原型的属性和方法不可复用
+function test2() { function SuperType(name) { this.name = name; this.city = [ &#34;北京&#34;, &#34;上海&#34;, &#34;天津&#34; ] } SuperType.prototype = { constructor : SuperType, age : 18, showInfo : function() { return this.name; } }; function SubType() { // 父类调用 call() 或者 apply() 方法和子类共用同一个 this，实现子类实例属性的继承 SuperType.call(this, &#34;张三&#34;); } // 优点验证 let instance = new SubType(); instance.city.push(&#34;重庆&#34;); console.log(instance.city); // [&#34;北京&#34;, &#34;上海&#34;, &#34;天津&#34;, &#34;重庆&#34;] let instance1 = new SubType(); console.log(instance1.city); // [&#34;北京&#34;, &#34;上海&#34;, &#34;天津&#34;] // 缺点验证 console.log(instance.age); // undefined instance.showInfo(); // son.showInfo is not a function } // test2(); 组合继承（推荐） 优点：原型的属性和方法可以复用，每个子类实例都有自己的属性 缺点：父类构造函数调用了两次，子类原型中的父类实例属性被子类实例覆盖
+function test3() { function SuperType(name) { this.name = name; this.city = [ &#34;北京&#34;, &#34;上海&#34;, &#34;天津&#34; ] } SuperType.prototype = { constructor : SuperType, showInfo : function() { console.log(this.name + &#34;今年&#34; + this.age + &#34;岁了&#34;); } }; function SubType(name, age) { // 1. 通过构造方法继承实现实例属性的继承 SuperType.call(this, name); this.age = age; } // 2. 通过原型链继承实现原型方法的继承 SubType.prototype = new SuperType(); // 优点验证 let instance = new SubType(&#34;张三&#34;, 15); instance.showInfo(); // 张三今年 15 岁了 let instance1 = new SubType(); instance1.city.push(&#34;重庆&#34;); console.log(instance1.city); // [&#34;北京&#34;, &#34;上海&#34;, &#34;天津&#34;, &#34;重庆&#34;] let instance2 = new SubType(); console.log(instance2.city); // [&#34;北京&#34;, &#34;上海&#34;, &#34;天津&#34;] } // test3(); 寄生组合继承（推荐） 优点：解决了组合继承的缺点，效率高 缺点：基本没有
+function test4() { function inheritPrototype(subType, superType) { // 1. 继承父类的原型 var prototype = Object.create(superType.prototype); // 2. 重写被污染的 construct prototype.constructor = subType; // 3. 重写子类的原型 subType.prototype = prototype; } function SuperType(name) { this.name = name; this.city = [ &#34;北京&#34;, &#34;上海&#34;, &#34;天津&#34; ]; } SuperType.prototype.sayName = function() { console.log(this.name); }; function SubType(name, age) { SuperType.call(this, name); this.age = age; } // 将父类原型指向子类 inheritPrototype(SubType, SuperType); SubType.prototype.sayAge = function() { console.log(this.age); } // 优点验证 let instance = new SubType(&#34;张三&#34;, 15); instance.sayName(); // 张三 let instance1 = new SubType(); instance1.city.push(&#34;重庆&#34;); console.log(instance1.city); // [&#34;北京&#34;, &#34;上海&#34;, &#34;天津&#34;, &#34;重庆&#34;] let instance2 = new SubType(); console.log(instance2.city); // [&#34;北京&#34;, &#34;上海&#34;, &#34;天津&#34;] } // test4(); 4.ES6 新方法－－class 新的关键字class在 es6 开始被引入到 javascript 中来，class的目的就是让定义类更简单
+用函数方法实现：
+function Person(name) { this.name = name; } Person.prototype.hello = function () { console.log(&#39;Hello, &#39; + this.name + &#39;!&#39;); } var son = new Person(&#39;xm&#39;) son.hello(); // Hello, xm! 用class来实现：
+class Person { constructor(name) { this.name = name; } hello() { console.log(&#39;Hello, &#39; + this.name + &#39;!&#39;); } } var son = new person(&#39;xm&#39;) son.hello(); // Hello, xm! 可以在看到，在定义class中，直接包含了构造函数constructor属性，和原型对象上的函数hello()方法，省略掉了function关键字
+需要注意：原来的写法是，构造函数和原型对象分散开来写，现在用class可以直接把两者串在一个对象中，只有最后传参和调用方法时写法是一样的
+class 继承
+用class定义对象的另一个巨大的好处是继承更方便了。想一想我们从Person派生一个PrimaryPerson需要编写的代码量。现在，原型继承的中间对象，原型对象的构造函数等等都不需要考虑了，直接通过extends来实现：
+class PrimaryPerson extends Person { constructor(name, grade) { super(name); // 记得用 super 调用父类的构造方法！ this.grade = grade; } myGrade() { alert(&#39;I am at grade &#39; + this.grade); } } 注意PrimaryPerson的定义也是通过 class 关键字实现的，而extends则表示原型链对象来自Person，子类的构造函数可能会和父类的不太相同
+例如，PrimaryPerson需要name和grade两个参数，并且需要通过super(name)来调用父类的构造函数，否则父类的name属性无法正常初始化。
+PrimaryPerson已经自动获得了父类Person的hello方法，我们又在子类中定义了新的myGrade方法。
+ES6 引入的class和原有的JavaScript原型继承有什么区别呢？
+实际上它们没有任何区别，class的作用就是让 JavaScript 引擎去实现原来需要我们自己编写的原型链代码。简而言之，用class的好处就是极大地简化了原型链代码。
+但是！
+目前并不是所有的浏览器都支持class，所以在选择的时候一定要慎重！
 	</div>
 </article>
 <article class="list__item post">
@@ -157,7 +234,7 @@ new Date().getTime(); // xxxxxxxxxxx 这个起源于 unix 的诞生，因为 Uni
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2020-11-09T00:00:00Z">November 09, 2020</time></div></div>
+	<time class="meta__text" datetime="2020-11-09T00:00:00Z">2020-11-09</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		厨房日记，记录我的&rsquo;高光&rsquo;时刻
@@ -181,7 +258,7 @@ new Date().getTime(); // xxxxxxxxxxx 这个起源于 unix 的诞生，因为 Uni
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2020-11-04T00:00:00Z">November 04, 2020</time></div></div>
+	<time class="meta__text" datetime="2020-11-04T00:00:00Z">2020-11-04</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		当代码出现有规律的重复之后，可以利用函数，定义变量，调用方法，不用去重复的改动代码，只需要进行函数的修改。基本上所有的高级语言都支持函数，javascript 也不例外，它可以像变量一样被使用，方便且强大，因此本文对 js 函数进行系统的学习，并在学习过程中做了详细的笔记以及样例。
@@ -189,9 +266,75 @@ new Date().getTime(); // xxxxxxxxxxx 这个起源于 unix 的诞生，因为 Uni
 也可以直接定义一个对象，这个对象也可以写成函数的方式
 var abs = function (x) { if (x&gt;=0) { return x }else { return -x } }； function(x)就是一个匿名函数，这个函数被赋值给了变量abs，所以可以直接通过abs调用该函数
 这两种定义函数的方式完全一致，，但是用变量定义的时候需要注意，要用;结尾，代表函数语句结束
-	</div>
-	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/blog/13.html/">Read more</a>
+2.调用函数 调用函数时，直接传参即可 abs(10)，根据函数定义，将 10 代入进去即可，返回的结果是 x , 即 10
+3.检查参数 可以对参数进行检查，看看是否是自己想要的参数对类型
+如果传入对参数abs(x)中非数字，控制台返回结果this is not number，如果传参为数字，则进行条件判断
+function abs(x) { // 检查参数x是否为数字 if (typeof x !== &#39;number&#39;) { console.log(&#39;this is not number&#39;) }else{ if (x &gt;= 0) { return x }else { return -x } } } 4.arguments 利用arguments，可以获得调用者传入的所有参数
+arguments代表传入的参数，arguments.length代表传入参数的长度
+console.log(arguments.length) // 这行代码写在函数中，控制台就可以输出出来 先写一个循环，把参数输出的函数方法，函数写完之后，传入参数，控制台随之打印出传入的参数
+function str() { var s for(var i = 0; i&lt;arguments.length; i++) { // 返回传入的参数 console.log(arguments[i]); s += arguments[i] + &#34;,&#34;; } return s; }; // 传入参数 str(&#34;name&#34;, &#34;age&#34;); //控制台输出：name, age 5.return 返回 true 时，点击链接直接跳转，返回 false 时，会忽略 a 链接的地址，跳转到 window.location.href 后的地址
+&lt;a href=&#34;https:www.baidu.com&#34; onclick=&#34;return myfun()&#34;&gt;baidu&lt;/a&gt; &lt;input type=&#34;text&#34; id=&#34;test&#34; value=&#34;click&#34;&gt; &lt;script&gt; function myfun() { window.location.href = &#39;https://www.bilibili.com&#39;; var test = document.getElementById(&#39;test&#39;).value; console.log(test); return false; } &lt;/script&gt; return 需要注意的地方：函数会自动在行尾添加;，所以在写 return 的时候一定要注意，不要单纯的拆分为两行，很容易报错
+return { name: &#39;foo&#39; } // 上面这种写法就是有问题的，js的机制会自动将其渲染为 return; //return undefined { naem: &#39;foo&#39; }; // 正确的写法应该是： return { name: &#39;foo&#39; }; 6.rest 把传入的参数，多余的部分，以数组的形式保存起来，为了获得额外的参数，需要 i = 2 开始，把已有的 a,b 排除掉
+function arr(a, b) { var i, rest = []; if (arguments.length &gt; 2) { for (i = 2; i&lt;arguments.length; i++) { rest.push(arguments[i]); } } console.log(&#39;a = &#39; + a); console.log(&#39;b = &#39; + b); console.log(rest); }; arr(1,2,3,4); 控制台打印：
+可以看到多余的部分被打印到Array中了
+这种写法略显麻烦，下面是更简单的写法
+直接在在函数里定义参数rest，并且在前面加上...标识，多余的参数直接以数组的形式交给变量rest，不需要arguments就可以获取全部参数
+如果传参数量还没有超过定义参数的数量，函数就会返回一个空数组
+function foo(a, b, ...rest) { console.log(&#39;a = &#39; + a); console.log(&#39;b = &#39; + b); console.log(rest) } foo(1,2,3,4) // a = 1 // b = 2 // Array [3,4] foo(1) // a = 1 // b = undefined // Array [ ] 7.计算 对传入的参数求和
+// forEach可以返回数组中所有的元素 function sum(...rest) { var sum = 0; rest.forEach(function(x) { sum += x; }); return sum; }; //sum(1,2) //控制台输出 3。求和成功 计算圆的面积
+// r 表示圆的半径 // pi 如果没有参数，默认为3.14 function area_of_circle(r, pi){ var area; if(arguments.length == 1) { // 当传入的参数只有一位时，计算3.14*r的平方 area = 3.14*r*r; }else{ area = pi*r*r; } return area; } 二、变量和作用域 1.声明变量 在 js 中，通常使用var来生声明变量，而声明的变量实际上是有作用域的
+在函数体内声明的变量，只能在函数体内生效，在函数体外是无法识别的 function fun() { var a = 1; }; a = a + 1; // err 这行代码直接报错，因为全局中没有a这个变量 如果两个函数体中各自声明了变量a，互不干扰，在自己的函数体内可以正常作用，出了函数体都没有作用了
+js 函数可以嵌套，内部函数可以访问外部函数，外部函数不能访问内部函数
+function par() { var x = 1; function son() { var y = x + 1; }; var z = x + y; // Error: } 所以var z = x + y会报错，因为变量y在son()中，根据函数外部无法访问函数内部，y无法被访问，因此var z = x + y报错
+两个嵌套的函数体，各有一个重名变量，js 函数在查找变量的时候，优先从自身开始，如果自身有这个变量就获取，如果没有，有内向外，由下层到上层的查找 function par() { var num = 1; function son() { var num = 2; console.log(&#34;son() = &#34; + num); }; console.log(&#34;par() = &#34; + num); son(); }; par(); 函数必须经过调用之后才能生效 son()和par()
+2.变量提升 JavaScript 的函数定义有个特点，它会先扫描整个函数体的语句，把所有申明的变量“提升”到函数顶部，但是并不会将赋值一起提升，很容易产生代码的报错
+因此，针对这一问题，我们在声明变量的时候，要将其统一放置在函数的起始位置，严格遵守在函数内部首先声明所有变量的原则
+3.全局作用域 不再任何函数内部定义的变量就叫做全局变量，也就是window下，他也被称作全局作用域，全局作用域下的变量实际上被绑定到window
+var course = &#39;learn js&#39;; console.log(course); // learn js console.log(window.course) // learn js 直接访问全局变量或者在前面加上window，结果都是一样的
+整个 js 文件只有一个全局作用域，就是window，如果在某一个函数作用域内查找变量，没有查找到，就会由内到外一层层查找，如果最后在全局作用域中也没有查找到，就会ReferenceError 报错
+4.局部作用域 在函数内部就是局部作用域，这个代码的名字只在函数的内部起作用
+在for循环等语句中，无法定义具有局部作用域的变量
+5.全局变量和局部变量的区别 全局变量：在任何一个地方都可以使用，全局变量只有在浏览器关闭的时候才会销毁，比较占用内存资源
+局部变量：只能在函数内部使用，当其所在代码块被执行时，会被初始化；当代码块执行完毕就会销毁，因此更节省节约内存空间
+当在函数作用域中操作一个变量的时候，会先在自身作用域中查找，如果有就直接使用，如果没有就向上级作用域中寻找。如果全局作用域中也没有，那么就报错
+6.常量 var和let声明的是一个变量，在 ES6 之间，用大写的变量名，表示定义一个常量
+// ES5 var NAME = &#39;xiaoming&#39; ES6 新增一个关键字const来定义常量
+// ES6 const name = &#39;xiaoming&#39; 三、解构赋值 1.可以把一个数组的元素分别赋值给不同的变量
+var array = [&#39;hello&#39;, &#39;javascript&#39;, &#39;ES6&#39;]; var x = array[0]; var y = array[1]; var z = array[2]; // x = &#39;hello&#39; // y = &#39;javascript&#39; // z = &#39;ES6&#39; 2.如果数组本身还有嵌套，也可以进行解构赋值，但是要注意嵌套的层次和数组保持一致
+let [x, [y, z]] = [&#39;hello&#39;, [&#39;JavaScript&#39;, &#39;ES6&#39;]]; x; // &#39;hello&#39; y; // &#39;JavaScript&#39; z; // &#39;ES6&#39; 3.解构赋值时可以忽略元素
+let [, , z] = [&#39;hello&#39;, &#39;JavaScript&#39;, &#39;ES6&#39;]; z; // ES6 4.还可以对对象进行解构赋值
+var person = { name: &#39;xiaoming&#39;, age: 22, gender: &#39;male&#39;, email: &#39;zsh981109@163.com&#39;, school: &#39;zyg&#39; } // 定义了三个变量，分别对应三个属性 var {name, age, email} = person; console.log(name, age, email); 控制台就可以打印出我们想要的内容了
+对对象进行解构赋值时，也可以进行嵌套
+5.可以通过属性名赋值的时候，重新定义一个变量名
+var person = { name: &#39;小明&#39;, age: 20, gender: &#39;male&#39;, passport: &#39;G-12345678&#39;, school: &#39;No.4 middle school&#39; }; // 把passport属性赋值给变量id: let {name, passport:id} = person; console.log(name); console.log(age); console.log(id); console.log(email); 控制台输出结果：
+可以看到，name,age,id 都打印出来了，而 email 报错，因为 email 的内容赋值给了新变量id，而email没有任何内容，所以报错
+6.可以使用默认值 true，避免不存在的属性返回 undefined
+var person = { name: &#39;小明&#39;, age: 20, gender: &#39;male&#39;, passport: &#39;G-12345678&#39; }; // 如果person对象没有single属性，默认赋值为true: var {name, single=true} = person; name; // &#39;小明&#39; single; // true 要注意，赋值的时候不能以{开头，避免 js 将其渲染失败
+var person = { name: &#39;小明&#39;, age: 20, gender: &#39;male&#39;, passport: &#39;G-12345678&#39; }; // 声明变量 var x; var y; // 解构赋值 {x, y} = { name: &#39;小明&#39;, x: 100, y: 200} // Error: 在这里 {x, y} = person会报一个错误，=不合法，所以正确的写法是，在赋值语句外部包裹一层()小括号
+({x, y} = { name: &#39;小明&#39;, x: 100, y: 200}); 7.解构赋值的使用场景
+交换两个变量的值
+var a = 1; var b = 2; [a, b] = [b, a] 四、对象的方法 绑定到对象上的函数被称为方法
+在一个对象中绑定函数，称为这个对象的方法
+1.this 下面段代码返回的是（今年的年份－出生年份）
+var xm = { name: &#39;xiaoming&#39;, birth: 1998, age: function() { var year = new Date().getFullYear(); return year - this.birth } }; // 在对象xm中，调用方法age() xm.age(); // 22 这里引入了一个新的关键词this
+在方法内部，this是一个特殊的变量，它始终指向当前对象，也就是xm这个变量
+所以this.birth指的就是变量xm的birth属性
+this存在于方法中，想在方法中调用对象的属性，必须通过this
+如果在方法写在对象外部时，this的指向问题就要好好分析了，比如：
+function getage() { var year = new Date().getFullYear(); return year - this.birth; } var xiaoming = { name: &#39;小明&#39;, birth: 1990, age: getage }; 单独调用getage()的时候，这时的getage()指的是一个方法，同时这个方法处于全局作用域下，此时this指向的是全局对象window，所以返回NaN
+只有xiaoming.age()调用的才是对象xiaoming下面的方法getage()
+因此：要保证this的指向正确，必须使用obj.xxx()的形式调用 如果没有使用这种方法，全部报错，如果是在&rsquo;use strict&rsquo;模式下，this会指向 undefined
+2.that 如果在对象里面的方法，又套了一层事件，此时this指向又有问题了，它指向第一层方法，而不是方法对应的对象
+所以，在写方法的时候，直接先声明一个var that = this，这个that指向对象里面的属性，接下来，在方法里面调用属性的时候，直接在前面加上that.即可，它直接指向到对象下面的属性
+var xm = { name: &#39;xiaoming&#39;, birth: 1998, age: function() { var that = this; function getbirthage() { var y = new Date().getFullYear(); return y - that.birth; } return getbirthage(); } }; // xm.age(); 可以看到，通过定义var that = this，然后在方法里面使用that.指向属性，不管套了几层方法，都不会报错，直接指向对象下面的属性
+通过var that = this，可以放心的在方法里面定义其他函数，不用担心获取不到对象属性的问题
+但是有一个需要注意的地方，每个方法结束后，都要返回一下结果，return getbirthage()
+3.apply 除了var that = this，还可以通过apply属性控制this的指向
+apply是函数本身的方法，它拥有两个参数
+function getage() { var y = new Date().getFullYear(); return y - this.birth; } var xm = { name: &#39;xiaoming&#39;, birth: 1998, age: getage } // xm.age(); // getage.apply(xm, []); 写法就是getage.apply(xm, [])，apply的第一个参数代表this指向，即对象，第二个参数，表示函数本身的参数
+4.apply( ) 和 call( ) call()是与apply类似的方法，区别是：
+apply()将参数打包成Array call()直接将参数按顺序传入 调用math.max(1,2,3)，分别采用两种方式
+math.max.apply(null, [1,2,3]); // 3 math.max.call(null, [1,2,3]); // 3 两者的结果是一样的，调用普通函数时，把this绑定为null
 	</div>
 </article>
 <article class="list__item post">
@@ -202,7 +345,7 @@ var abs = function (x) { if (x&gt;=0) { return x }else { return -x } }； functi
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2020-10-29T00:00:00Z">October 29, 2020</time></div></div>
+	<time class="meta__text" datetime="2020-10-29T00:00:00Z">2020-10-29</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		研究 html 的对象，事件和方法，从 js 的角度来思考，这个标签的属性是通过什么方法，触发什么事件来实现的
@@ -217,10 +360,100 @@ demo 查看
 打开 f12，然后刷新，或者关闭浏览器，可以在浏览器触发事件
 &lt;script&gt; window.onbeforeunload = function(){ return &#34;提示&#34; //返回的内容不会显示， //在刷新的时候触发，或者关闭浏览器，浏览会直接提示是否重新加载，不能直接返回return } &lt;/script&gt; demo 查看
 3.onerror 当图片出错是可以触发该事件，支持该事件的标签只有 &lt;img&gt;,&lt;object&gt;,&lt;style&gt;
-&lt;img src=&#34;1.gif&#34; onerror = &#34;myfun()&#34;&gt; &lt;script&gt; function myfun() { alert(&#34;图片出错&#34;) } &lt;/script&gt; 1.
-	</div>
-	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/blog/12.html/">Read more</a>
+&lt;img src=&#34;1.gif&#34; onerror = &#34;myfun()&#34;&gt; &lt;script&gt; function myfun() { alert(&#34;图片出错&#34;) } &lt;/script&gt; 1.gif 不存在，因此触发了一个 myfun() 事件，弹出窗口
+demo 查看
+4.onhashchange 当文档改变时发生的脚本 ？？？
+5.onload 页面加载完成之后触发
+demo 查看
+6.onmessage 在消息被触发时运行 ???
+7.onoffline 当浏览器离线时触发
+&lt;body onoffline=&#34;myfun()&#34;&gt; 8.ononline 当浏览器在线工作时触发
+&lt;body ononline=&#34;myfun()&#34;&gt; ononline和onoffline在网络断线或者连线时触发，可以控制电脑网络查看效果
+9.onpagehide 当用户从网页离开时触发，也可以理解成当窗口隐藏时运行的脚本
+刷新页面可以触发事件
+demo 查看
+10.onpageshow 打开一个新页面或者刷新的时候触发
+demo 查看
+相当于onload，加载页面时触发，但是在不同浏览器触发的有所不同
+第一次加载页面时，onpageshow在ie浏览器中不触发，其他情况都触发
+11.onresize 当浏览器窗口被改变大小时触发事件
+&lt;body onresize=&#34;myfun()&#34;&gt; &lt;script&gt; function myfun() { alert(&#39;浏览器窗口改变了&#39;) } &lt;/script&gt; &lt;/body&gt; demo 查看
+12.onunload 页面被下载时触发，就是刷新或者关闭页面时触发
+window.onunload = function() { return &#39;确定关闭吗？&#39; } 13.onpopstate 当浏览器窗口记录改变时运行的脚本，
+14.onredo 当文档执行撤销时触发的事件
+二、form 事件属性 由 html 表单内触发的事件，通常使用在 form 元素中
+1.onblur 失去焦点时运行的脚本
+&lt;input name=&#34;int&#34; id=&#34;int&#34; onblur=&#34;myfun()&#34;&gt; &lt;script&gt; function myfun() { var int = document.getElementById(&#39;int&#39;).value; document.getElementById(&#39;int&#39;).value = int.toUpperCase(); } &lt;/script&gt; 给 input 绑定一个 onblur=myfun() 的事件，当 input 失去焦点的时候产生什么样的效果
+demo 查看
+2.onfocus 元素获得焦点时触发事件，和 onblur 相反
+demo 查看
+3.onchange 当元素值被改变的时候触发事件
+&lt;input type=&#34;text&#34; id=&#34;int&#34; name=&#34;int&#34; onchange=&#34;myfun()&#34;&gt; &lt;script&gt; function myfun() { alert(&#39;我的元素被改变啦！&#39;) } &lt;/script&gt; 这个事件的意思就是，当我对 input 内容进行操作改变后，浏览器会弹出一个 alert
+demo 查看
+4.oncontextmenu 当用户右键操作时触发该事件
+可以绑定在任意元素中触发，可以一直触发，不用刷新
+&lt;div oncontextmenu=&#34;myfun()&#34;&gt;这是一个文本框！&lt;/div&gt; &lt;script&gt; function myfun() { alert(&#39;oncontentmenu事件触发&#39;) } &lt;/script&gt; demo 查看
+5.onformchange 当表单获得输入时可以触发事件
+触发发不了脚本
+6.onforminput 当表单获得用户输入时触发的事件，无法触发
+浏览器不支持
+6.oninput 当元素获得用户输入时触发的事件 当输入框输入或者删除时都会触发 oninput
+&lt;input type=&#34;text&#34; oninput=&#34;myfun()&#34;&gt; &lt;script&gt; function myfun() { alert(&#39;oninput触发了&#39;) } &lt;/script&gt; onchange和oninput有相似的地方，都是改变文本内容时触发事件
+但是onchange是在 input 失去焦点时才触发，oninput是立刻触发
+demo 查看
+7.oninvalid oninvalid事件要搭配required属性来使用
+required如果使用该属性，代表必填字段，oninvalid是当元素无效时触发的事件
+&lt;form&gt; &lt;input type=&#34;text&#34; oninvalid=&#34;myfun()&#34; required&gt; &lt;input type=&#34;submit&#34;&gt; &lt;/form&gt; &lt;script&gt; function myfun() { alert(&#39;填写为空&#39;) } &lt;/script&gt; demo 查看
+8.onreset 表单中重置按钮被点击时触发
+&lt;form onreset=&#34;myfun()&#34;&gt; &lt;input type=&#34;text&#34;&gt; &lt;input type=&#34;reset&#34; value=&#34;reset&#34;&gt; &lt;/form&gt; &lt;script&gt; function myfun(){ alert(&#39;重置成功&#39;) } &lt;/script&gt; demo 查看
+9.onselect 文本被选中时触发
+&lt;input onselect=&#34;myfun()&#34; value=&#34;选中我&#34;&gt; &lt;script&gt; function myfun() { alert(&#39;onselect被触发 &#39;) } &lt;/script&gt; demo 查看
+10.onsubmit 当表单被提交时触发
+要把事件绑定到 form 标签里面
+&lt;form onsubmit=&#34;myfun()&#34;&gt; &lt;!-- 注意：事件要绑定到form标签上面 --&gt; &lt;input type=&#34;text&#34; name=&#34;name&#34;&gt; &lt;input type=&#34;submit&#34; value=&#34;submit&#34;&gt; &lt;/form&gt; &lt;script&gt; function myfun() { alert(&#39;提交了&#39;) } &lt;/script&gt; demo 查看
+注意：提交了之后会自动刷新页面，document 和 console 的触发内容会立刻刷新，一闪而过，只有 alert 能停留在页面上，等待点击确定
+三、key 键盘事件 1.onkeydown 按下任意键时触发，包括系统按钮，箭头和功能键
+demo 查看
+2.onkeypress 按下任意字母数字键时触发，但系统按钮，箭头和功能无法识别
+3.onkeyup 松开任何之前按下的键盘时触发
+demo 查看
+四、mouse 鼠标事件 利用鼠标触发的事件
+1.onclick 鼠标点击元素触发的事件
+&lt;p onclick=&#34;myfun()&#34;&gt;点击我&lt;/p&gt; &lt;script&gt; function myfun() { alert(&#39;点击成功&#39;) } &lt;/script&gt; demo 查看
+2.ondblclick 鼠标双击时触发的事件
+&lt;div ondblclick=&#34;myfun()&#34;&gt;测试文本！&lt;/div&gt; &lt;script&gt; function myfun() { alert(&#39;双击测试成功！&#39;) } &lt;/script&gt; demo 查看
+3.拖动事件 ondrag/ 元素被拖动时触发的事件
+ondragstart/在拖动操作开端运行的脚本
+ondrop/ 当元素正在被拖动时触发的事件
+ondragend/在拖动操作末端运行的脚本
+ondragenter/当元素元素已被拖动到有效拖放区域时运行的脚本
+ondragleave/当元素离开有效拖放目标时运行的脚本
+ondragover/当元素在有效拖放目标上正在被拖动时运行的脚本
+4.onmousedown/onmouseup 当元素按下鼠标时触发的事件/鼠标释放时触发的事件
+一个是按下去的瞬间就触发 一个是当鼠标被松开的时候触发 onmouseup效果和onclick一样，因为click也是点击过后触发
+这两个事件加起来相当于一个click事件，但是并不能用这两个事件来做点击事件的效果
+demo 查看
+5.onmousemove 当鼠标移动到元素上时触发
+相当于 css 里面的 :hover，但是作为事件拥有更灵活多变的用法
+demo 查看
+6.onmouseout 当鼠标离开元素时触发
+demo 查看
+7.onmouseover 当鼠标进入元素时触发
+onmouseover和onmousemove都是鼠标进入元素触发
+区别：
+1.
+over在进入元素时触发，但在元素内部移动时不触发 move是进入元素时和在元素里面移动时都触发
+2.
+over优先触发，然后才触发move
+8.onmousewheel 当鼠标滚动被滚动时触发的事件
+&lt;style&gt; div { height: 1000px; } &lt;/style&gt; &lt;body&gt; &lt;div onmousewheel=&#34;myfun()&#34;&gt;测试&lt;/div&gt; &lt;script&gt; function myfun() { alert(&#39;onmousewheel&#39;) } &lt;/script&gt; &lt;/body&gt; 每次滚动时都可以触发，可以绑定到 body 上
+demo 查看
+9.onscroll 当元素滚动条被滚动时触发的事件
+&lt;div onscroll=&#34;myfun()&#34;&gt;In my younger and more vulnerable years my father gave me some advice that I&#39;ve been turning over in my mind ever since.&lt;/div&gt; &lt;p&gt;滑动了&lt;span id=&#34;ci&#34;&gt;&lt;/span&gt;次&lt;/p&gt; &lt;script&gt; x = 0 function myfun() { document.getElementById(&#39;ci&#39;).innerHTML = x += 1 } &lt;/script&gt; 这个案例－－－滑动滚动计数
+demo 查看
+区别：
+1.wheel在滚轮滑动的时候有效，鼠标拖拽的时候无效
+2.onscroll不管在滑动还是拖动的时候，均生效
 	</div>
 </article>
 <article class="list__item post">
@@ -231,7 +464,7 @@ demo 查看
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2020-10-21T00:00:00Z">October 21, 2020</time></div></div>
+	<time class="meta__text" datetime="2020-10-21T00:00:00Z">2020-10-21</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		在学习 js 基本语法的过程中，把遇见的知识点和问题记录喜下来，以便未来复习和参考。
@@ -241,9 +474,75 @@ true;	//true false;	//false 2&gt;1;	//true 2&gt;3;	//fasle 与	&amp;&amp; 两者
 或	|| 只要有一个为true，运算结果就是true
 非	！ 当程序为true时，运算结果取反为false
 var age = 15; if(age &gt;= 18) { alert(&#39;adult&#39;) }else{ alert(&#39;teenager&#39;) } age 值是 15，当 age 大于且等于 18 的时候浏览器弹出 adult，反之弹出 teenager
-	</div>
-	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/blog/11.html/">Read more</a>
+3.字符串 4.比较运算符 ==和===
+当使用==进行比较的时候，一般会自动转换类型然后再进行比较
+当使用===进行比较的时候，如果数据类型不一样，直接返回false，等到类型一致了，然后再进行比较
+有一个特殊的number就是NaN，它不与任何值相等，包括它自己NaN
+NaN === NaN	//false 5.null和undefined null表示一个空值，0表示一个数值，''表示长度为 0 的字符串，但是null表示空
+undefined表示未定义
+但是区分两者意义不大，大多数还是在用null，undefined仅仅在判断函数参数是否传递的情况下有用
+6.数组 Array [ ] ，表示一组按顺序排列的集合，其中的每个值称为元素
+new Array(1,2,3)	//[1,2,3] 数组的索引
+二、对象和变量 var person = { name: &#39;jack&#39;, age: 20, city: &#39;hangzhou&#39; } person是对象变量，name: 'jack'这就是一个键值对，name是属性名，'jack'是属性
+要获取一个对象的属性，用对象变量.属性，也就是person.name，结果是jack
+person.name	//jack person.age	//20 var是一个动态语言，就算 var 定义了 x = 100，后面又有 x = x+ 100，所以就变成了 200,
+var x = 100; x = x+ 100; console.log(x)	//200 假如用 int 来定义 x，后面的 x = x + 100 就会报错
+并且使用 var 定义的变量只会存在与该函数作用域，并不是默认的全局变量
+而如果没有使用var，直接定义i = 100，变量 i 会被默认为全局变量
+三、字符串 需要用到转义字符\
+1.模板字符串 var name = &#39;小明&#39;; var age = 20; var message = name + &#39;今年&#39; + age + &#39;了&#39;; //小明今年20了 var message = `${naem}，你今年${20}了` //ES6新增的语法，一样的结果 字符串不可改变
+如果对字符串的某个索引赋值，不会报错，不会发生任何改变
+var a = &#39;hello,world!&#39; a[0];	//h a[0] = k; console.log(a);	//结果为&#39;hello,world!&#39;，不会发生改变 2.toUpperCase 大写 他会返回一个新的字符串，把一个字符串全部变成大写
+var a = &#39;hello&#39;; a.toUpperCase();	//返回HELLO 3.toLowerCase 小写 他会返回一个新的字符串，他会把一个字符串全部变成小写
+var a = &#39;hello&#39; a.toLowerCase();	//HELLO 4.indexOf 他会返回指定字符串的索引，如果没有找到指定的字符串，则会返回-1
+var a = &#39;hello,world!&#39; a.indexOf(&#39;world&#39;);	//6 5.substring 他会返回指定区间索引的字符串，包括前一个数，不包括后一个数
+var a = &#39;hello,world!&#39; a.substrng(0, 5);	//hello 如果()里面只有一个数值，则从这个数值的索引开始直到结束，比如：
+var a = &#39;hello,world!&#39;; a.substring(6);	//返回world! 四、数组 数组Array可以包含任何类型的数据，并通过索引来访问每个数据
+1.length 属性 Array的长度可以用length属性来获取，它和索引不一样，从 1 开始计算
+var arr = [1,2,3,&#39;hello&#39;,null,true] arr.length;	//返回6 并且通过改变length的值，可以改变数组的内容大小变化
+var arr = [1,2,3,&#39;hello&#39;,null,true] arr.length;	//6 arr.length = 8;	//[1,2,3,&#39;hello&#39;,null,true,undefined,undefined] arr.length = 2;	//[1,2] 2.通过索引改变数组 Array可以直接通过索引修改对应的元素
+var arr = [1,2,3] arr[1] = &#39;hello&#39; console.log(arr); //[1,&#39;hello&#39;,3] js 允许直接通过索引改变数组的长度，不会报错，但是不建议这么做
+3.indexOf Array可以通过indexOf来搜索一个指定的元素的索引
+var arr = [1,2,3,&#39;hello&#39;] arr.indexOf(1);	//0 arr.indexOf(3); //2 4.slice slice属性与substring类似，后者是截取字符串的内容，slice是截取数组的内容，然后返回一个新的数组
+如果有两个数值，包括前面的数值，不包括后面的数值；如果只有一个数值，则从它开始算起一直到结束
+var arr = [1,2,3,4,5]; arr.slice[0,2];	//返回[1,2] arr.slice[2];	//返回[3,4,5] 如果slice不指定数值，则返回数组的全部内容，可以利用这个特性复制一个相同的数组出来
+var arr = [1,2,3]; var arr1 = arr.slice(); console.log(arr1);	//[1,2,3] arr1 === arr;	//true 注意：两个数组相比都是 false，就算数组内容一样也会 false
+var arr = [1,2,3] var arr1 = [1,2,3] arr === arr1	//false 5.push 和 pop push()向数组的末尾添加元素
+pop()把数组的最后一个元素删掉
+6.unshifth 和 shift unshift()向数组的头部添加元素
+shift()把数组的第一个元素删掉
+7.sort sort()可以对数组进行排序，会直接修改当前数组的元素位置，直接调用时，会按照默认的方式排序
+var arr = [B,A,C] arr.sort(); arr	//[A,B,C] 8.reverse reverse()会把整个数组调个个，不是反向排序
+var arr = [2,1,3] arr.reverse(); arr;	//[3,1,2] 9.splice 这个属性是万能的方法，通过调用splice()，可以从指定的索引删除元素或者添加元素
+五、条件判断 在 js 中，使用 if() {...} else {...}进行条件判断
+var age = 22; if(age&gt;20) { // 如果age&gt;20成立，执行该语句 console.log(&#39;22&gt;20&#39;) }else { // 如果age&gt;20不成立，则执行该语句 conosle.log(&#39;22&lt;20&#39;) } 最终，控制台会打印出22&gt;20，因为条件成立
+执行的语句要用{}包裹起来，防止其他情况会报错
+多条件判断语句
+三个或者三个以上多判断语句，被称为多条件判断语句
+var a = 10 if(a&lt;10) { console.log(&#39;a&lt;10&#39;) }else if(a&gt;20){ console.log(&#39;a&gt;10&#39;) }else{ console.log(&#39;10&lt;=a&lt;=20&#39;) } 如果多个条件中都满足，则取第一个满足的结果，执行其代码，之后满足的自动忽略掉，所以在 进行条件判断的时候，不要重复判断情况
+一个复杂的多条件判断语句
+var height = parseFloat(prompt(&#39;请输入身高(m):&#39;)); var weight = parseFloat(prompt(&#39;请输入体重(kg):&#39;)); var bmi = weight/(height*height); if(bmi &lt; 18.5) { console.log(&#39;过轻&#39;) }else if(bmi&gt;18.5,bmi&lt;25) { console.log(&#39;正常&#39;) }else if(bmi&gt;25,bmi&lt;28){ console.log(&#39;过重&#39;) }else if(bmi&gt;28,bmi&lt;32){ console.log(&#39;肥胖&#39;) }else{ console.log(&#39;严重肥胖&#39;) } parseFloat可以解析一个字符串，并返回一个数字
+六、循环 简单的运算可以手打出来
+1 + 2 + 3 // 控制台输出 6 但是几百次，几千次，几万次的运算无法手打，可以依靠循环语句来进行计算，为了让计算机能够进行成千上万次的运算
+循环语句有两种 for 和 while，他们有不同的用法，适应不同的情况
+1. for 循环 通过初始条件，结束条件和递增条件来循环执行语句块
+var x = 0 var i for(i = 1; i &lt;= 1000; i++) { x = x + i } i = 1 是初始条件，i 从 1 开始算起 i&lt;=是判断条件，满足就执行循环，不满足就退出循环 i++ 是递增条件，每次循环过后都是＋1，当无数次后不满足了 i&lt;=1000，会跳出循环
+2. 通过 for 语句遍历数组 var arr = [&#39;apple&#39;, &#39;banana&#39;, &#39;oringen&#39;] var x,i for(i = 0; i &lt;= arr.length; i++) { x = arr[i] console.log(x) } 3. 用 break 终止 for 循环 var x = 0; for ( ; ; ) { // 将无限循环下去 if (x &gt; 100) { console.log(x) break; // 通过if判断来退出循环 } x ++; } 4. for&hellip;in 可以把一个对象对属性循环遍历出来
+var person = { name: &#39;jack&#39;, age: 20, city: &#39;beijing&#39; }; for(var i in person) { console.log(i) console.log(person[i]) } var i in person会把 person 里面所有对属性遍历，然后通过console.log(i)可以把属性名打印出来，console.log(person[i])可以把属性值打印出来
+如果对一个数组进行这样的操作，就可以把数组元素对索引打印出来，打印结果是字符串形式
+5. while 循环 while循环适用于忽视判断条件的情况，for适用于明确了初始条件和结束条件的情况
+比如要计算 1-100 之间的寄数和，可以用while循环
+var x = 0 var n = 99 while (n &gt; 0) { x = x + n n = n - 2 } x 在变量内部，n 不断自减，直接 n=-1，不满足判断条件，此时退出循环
+6. do&hellip;while do...while循环是先循环，然后再判断条件，所以不论条件是否满足，do...while至少循环一次，这是它与for和while的区别
+比如：
+var n = 0 do{ n = n + 1 }while(n &gt; 1) n;	//1 先定义n=0，然后执行n=n+1，所以n=1，再判断条件，当 n&gt;1 的时候执行，不符合，退出循环，控制台输出n，结果为 1
+七、Map 和 Set 1. Map Map是一组键值对的结构，具有极快的查找速度
+只要我们定义一个属性名和属性值对应的数组，就可以从这个数组里面通过 name 直接查找数据
+var m = new Map([[&#39;jack&#39;, 95], [&#39;Bob&#39;, 94], [&#39;linda&#39;, 93]]) m.get(&#39;jack&#39;) 首先，要初始化一个Map数组
+var m = new Map();	//空map m.set(&#39;jack&#39;, 95)	//添加一个新的键值对	key-value m.has(&#39;jack&#39;)	//检查是否存在 &#39;	jack&#39;key m.get(&#39;jack&#39;)	//获取&#39;jack&#39;对应的数据	value m.delete(&#39;jack&#39;)	//删除&#39;jack&#39;键值对	key-value m.get(&#39;jack&#39;)	//undefined 一个 key 只能对应一个 value，所以如果重复赋值的话，后面的数据会把前面的数据覆盖掉
+var m = new Map(); m.set(&#39;Adam&#39;, 67); m.set(&#39;Adam&#39;, 88); m.get(&#39;Adam&#39;); // 88 2. Set set中值储存key，不储存value，而且在set中，key不能重复，如果重复了，会自动忽略掉重复
+首先，创建一个空的set
+var m = new Set()	//空set m.add(1)	//添加一个key m.delete(1)	//删除一个key m	//控制台输入［ ］空数组，没有数据 
 	</div>
 </article>
 <article class="list__item post">
@@ -254,7 +553,7 @@ var age = 15; if(age &gt;= 18) { alert(&#39;adult&#39;) }else{ alert(&#39;teenag
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2020-09-18T00:00:00Z">September 18, 2020</time></div></div>
+	<time class="meta__text" datetime="2020-09-18T00:00:00Z">2020-09-18</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		这里我要推荐一本书，叫做《Web 全栈工程师的自我修养》，在看的过程中，自己也代入进去进行分析，然后写了这篇笔记。
@@ -290,8 +589,15 @@ var age = 15; if(age &gt;= 18) { alert(&#39;adult&#39;) }else{ alert(&#39;teenag
 			
 
 		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
 		
-		
+		<div class="footer__copyright">
+			&copy; 2024 子舒的博客, 
+			使用 hugo 构建
+		</div>
+	</div>
+</footer>
 	</div>
 <script async defer src="/js/menu.js"></script>
 

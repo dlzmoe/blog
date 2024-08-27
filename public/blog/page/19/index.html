@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
 	<title>Blogs - 子舒的博客</title>
 	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="">
@@ -22,7 +23,7 @@
 		<a class="topbar__link" href="/" title="子舒的博客" rel="sidebar">
 			<div class="topbar__item topbar__text">
 					<div class="topbar__title">子舒的博客</div>
-					<div class="topbar__tagline">Thoughts come and go quickly, occasionally stopping here</div>
+					<div class="topbar__tagline">The Tao that is utterable is not the eternal Tao</div>
 				</div>
 		</a>
 	</div>
@@ -43,17 +44,14 @@
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2022-01-17T00:00:00Z">January 17, 2022</time></div></div>
+	<time class="meta__text" datetime="2022-01-17T00:00:00Z">2022-01-17</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		在部署一个网站之后，我们最关心的事情无异于是访问量，以及对它的分析。国内的百度统计是一个不错的选择，基本的功能都是免费的。
 只需要在 head 中引入一串 javascript 代码即可。
 &lt;!-- &lt;script&gt; var _hmt = _hmt || []; (function() { var hm = document.createElement(&#34;script&#34;); hm.src = &#34;https://hm.baidu.com/hm.js?xxxxxxxxxxxxxxxxxxx&#34;; var s = document.getElementsByTagName(&#34;script&#34;)[0]; s.parentNode.insertBefore(hm, s); })(); &lt;/script&gt; --&gt; 上面是百度提供的统计代码，需要放在 &lt;head&gt;&lt;/head&gt;中。
 但是在 nuxt 中，没有传统的 &lt;head&gt;&lt;/head&gt; 。所以要对他进行一些处理。
-1. 首先在根目录下 /plugins 新建一个文件 baidu.js // /plugins/baidu.js export default ({app: {router}, store}) =&gt; { /* 每次路由变更时进行 pv 统计 */ router.
-	</div>
-	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/blog/96.html/">Read more</a>
+1. 首先在根目录下 /plugins 新建一个文件 baidu.js // /plugins/baidu.js export default ({app: {router}, store}) =&gt; { /* 每次路由变更时进行 pv 统计 */ router.afterEach((to, from) =&gt; { /* 告诉增加一个 PV */ try { window._hmt = window._hmt || [] window._hmt.push([&#39;_trackPageview&#39;, to.fullPath]) } catch (e) { } }) } 2. 配置 nuxt.config.js 文件 在 plugins中： plugins: [ { src: &#39;~/plugins/baidu&#39; } ], 在 head中： head: { // ... link: [ // ... ], script: [ { src: &#39;https://hm.baidu.com/hm.js?xxxxxxxxxxxxxxxxxxx&#39; } ] }, 在 script 中写入百度统计提供的 url 即可，按照对应的字符。
 	</div>
 </article>
 <article class="list__item post">
@@ -64,7 +62,7 @@
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2021-12-27T00:00:00Z">December 27, 2021</time></div></div>
+	<time class="meta__text" datetime="2021-12-27T00:00:00Z">2021-12-27</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		我真的老了吗？看看我的网易云音乐年度报告分享吧！
@@ -79,7 +77,7 @@
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2021-12-21T00:00:00Z">December 21, 2021</time></div></div>
+	<time class="meta__text" datetime="2021-12-21T00:00:00Z">2021-12-21</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		找到根目录下 config.inc.php 文件，在最前面加入下面的代码。
@@ -97,7 +95,7 @@ https://gravatar.zishu.me/avatar/ https://cravatar.cn/avatar/ https://sdn.geekzu
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2021-12-20T00:00:00Z">December 20, 2021</time></div></div>
+	<time class="meta__text" datetime="2021-12-20T00:00:00Z">2021-12-20</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		记录一次不大不小的事件，2021 年 12 月 20 日，cdn.jsdelivr.net 国内 ip 全面崩盘，说是证书出错了，然后所有使用 cdn.jsdelivr.net 进行加速的资源全部 404。
@@ -120,7 +118,7 @@ https://gravatar.zishu.me/avatar/ https://cravatar.cn/avatar/ https://sdn.geekzu
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2021-12-17T00:00:00Z">December 17, 2021</time></div></div>
+	<time class="meta__text" datetime="2021-12-17T00:00:00Z">2021-12-17</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		2021，不知不觉，又过去一年了。
@@ -139,7 +137,7 @@ https://gravatar.zishu.me/avatar/ https://cravatar.cn/avatar/ https://sdn.geekzu
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2021-12-07T00:00:00Z">December 07, 2021</time></div></div>
+	<time class="meta__text" datetime="2021-12-07T00:00:00Z">2021-12-07</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		写博客必不可少的一个功能就是图片灯箱功能，也就是点击放大查看。但是不同程序的博客所使用的插件也都不一样，我这里研究出一套可以满足绝大部分程序的灯箱插件。已经测试过 hexo, hugo, typecho 均无问题。
@@ -147,9 +145,11 @@ https://gravatar.zishu.me/avatar/ https://cravatar.cn/avatar/ https://sdn.geekzu
 &lt;!-- head 头部 --&gt; &lt;link rel=&#34;stylesheet&#34; href=&#34;https://cdn.zburu.com/list/zoom.css&#34;&gt; &lt;!-- body 底部 --&gt; &lt;!-- 如果已经有 jq 文件了，就不要引入 jquery --&gt; &lt;script src=&#34;https://cdn.zburu.com/list/jquery3.6.0.js&#34;&gt;&lt;/script&gt; &lt;!--图片灯箱--&gt; &lt;img src=&#34;&#34; alt=&#34;&#34; class=&#34;bigimg&#34;&gt; &lt;div class=&#34;mask&#34;&gt;&lt;/div&gt; &lt;script src=&#34;https://cdn.zburu.com/list/zoom.js&#34;&gt;&lt;/script&gt; 因为这个文件是放在我自己服务器上的，所以不敢保证以后还是这个路径，建议在浏览器打开，然后把里面的代码复制到本地使用。
 调用 js 然后我们需要给图片一个类名，以及一个父元素盒子，同样也可以使用 jq 来完成。
 这里的 .post-content 正文的类名，如果你是别的类名，可以直接将 .post-content 替换掉。
-	</div>
-	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/blog/88.html/">Read more</a>
+$(function(){ $(&#39;.post-content img&#39;).addClass(&#39;smallimg&#39;) $(&#39;.post-content img&#39;).wrap(&#39;&lt;div class=&#34;imgbox&#34;&gt;&lt;/div&gt;&#39;) }) 接着我们需要对插件进行初始化，直接在刚才的代码下面写入。
+$(function(){ $(&#39;.post-content img&#39;).addClass(&#39;smallimg&#39;) $(&#39;.post-content img&#39;).wrap(&#39;&lt;div class=&#34;imgbox&#34;&gt;&lt;/div&gt;&#39;) /* smallimg // 小图 bigimg //点击放大的图片 mask //黑色遮罩 */ var obj = new zoom(&#39;mask&#39;, &#39;bigimg&#39;, &#39;smallimg&#39;); obj.init(); }) 回到页面上，点击正文的图片就可以成功放大了。
+结束 随便放个图片试验一下吧！
+之所以我限制了在正文中才可以放大，是因为网站其他地方也有图片，如果都可以点击放大，就很不合理。
+如果在使用中有其他问题，欢迎留言。
 	</div>
 </article>
 <article class="list__item post">
@@ -160,7 +160,7 @@ https://gravatar.zishu.me/avatar/ https://cravatar.cn/avatar/ https://sdn.geekzu
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2021-11-24T00:00:00Z">November 24, 2021</time></div></div>
+	<time class="meta__text" datetime="2021-11-24T00:00:00Z">2021-11-24</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		因为一件小事有感而发，在人际交往的过程中，我们通常都会关注一些细节，从而影响对一个人印象。这是一个作为人很正常的行为。
@@ -182,7 +182,7 @@ https://gravatar.zishu.me/avatar/ https://cravatar.cn/avatar/ https://sdn.geekzu
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2021-11-18T00:00:00Z">November 18, 2021</time></div></div>
+	<time class="meta__text" datetime="2021-11-18T00:00:00Z">2021-11-18</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		格局刚好。
@@ -196,7 +196,7 @@ https://gravatar.zishu.me/avatar/ https://cravatar.cn/avatar/ https://sdn.geekzu
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2021-11-11T00:00:00Z">November 11, 2021</time></div></div>
+	<time class="meta__text" datetime="2021-11-11T00:00:00Z">2021-11-11</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		这段时间双十一，发现没有了往年那种囤货淘宝的欲望了，翻来翻去不知道买什么，包括那些活动，有好多朋友给我发链接助力我都没怎么弄，可能是生活的打磨让我对它没兴趣了吧~~
@@ -217,7 +217,7 @@ https://gravatar.zishu.me/avatar/ https://cravatar.cn/avatar/ https://sdn.geekzu
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2021-11-05T00:00:00Z">November 05, 2021</time></div></div>
+	<time class="meta__text" datetime="2021-11-05T00:00:00Z">2021-11-05</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		英文地址：https://javascript.plainenglish.io/demystifying-javascript-arrow-functions-7b2a0908a2b3
@@ -225,10 +225,11 @@ https://gravatar.zishu.me/avatar/ https://cravatar.cn/avatar/ https://sdn.geekzu
 箭头函数是函数表达式的替代方法，但在语法上有所不同，不能在所有情况下使用。如果您还没有阅读 JavaScript 中的函数表达式，我建议您在继续阅读之前先阅读这篇文章。
 现在，让我们试着从语法、执行、作用域和提升以及代码示例方面来理解箭头函数。
 1. 语法 const arrowFunctionSyntax = () =&gt; { console.log(&#39;Hi, I am an arrow function&#39;); }; arrowFunctionSyntax(); 在上面的代码示例中，我们可以看到箭头函数类似于函数表达式，因为它们被赋值为变量。主要区别在于函数的编写方式。以下是我们可以根据其语法从上述代码中得出的观察结果：
-它不包含 function 关键字。 它没有 函数名 ，这意味着这些是匿名函数。 引入了箭头 =&gt; 符号。 const arrowFunctionWithOneParam = (number) =&gt; number + 1; const arrowFunctionWithMultipleParams = (numberOne, numberTwo) =&gt; { let sum = numberOne + numberTwo; return sum; }; console.
-	</div>
-	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/blog/82.html/">Read more</a>
+它不包含 function 关键字。 它没有 函数名 ，这意味着这些是匿名函数。 引入了箭头 =&gt; 符号。 const arrowFunctionWithOneParam = (number) =&gt; number + 1; const arrowFunctionWithMultipleParams = (numberOne, numberTwo) =&gt; { let sum = numberOne + numberTwo; return sum; }; console.log(arrowFunctionWithOneParam(5)); console.log(arrowFunctionWithMultipleParams(5, 6)); 如果我们同时观察 arrowFunctionWithOneParam 和 arrowFunctionWithMultipleParams，我们可以发现三者的不同&mdash;括号 ()、块 {} 和 return 关键字的使用。根据箭头函数的语法，如果函数只接受一个参数，可以忽略括号()。如果函数只包含一条语句，则可以忽略块{}，最后其实也可以忽略return ，如果函数只包含一个语句。
+2. 执行 const arrowFunctionExecution = () =&gt; { console.log(&#39;Hi, my execution is similar to normal function&#39;); }; arrowFunctionExecution(); 在执行箭头函数时，它们的执行方式与其他普通函数的执行方式相似。当 JS 引擎执行 arrowFunctionExecution() 时，它会创建一个函数，执行上下文并被推送到调用堆栈。一旦创建了执行上下文，它就会启动创建阶段。在这个阶段，它将创建参数对象并在其本地内存堆中声明所有变量。
+与普通函数相比，主要区别在于 this 的声明。箭头函数没有自己的 this 变量； this 在箭头函数中使用时会得到词法解析。在创建阶段之后不久，执行阶段开始。这时它开始执行语句 console.log() ，并将 &quot;Hi, my execution is similar to normal function&quot; 打印到控制台。
+3. 作用域 const arrowFunctionScope = () =&gt; { console.log(&#39;Hi, my scoping rules works similar to function expression&#39;); }; 这些函数遵循与其他函数表达式相同的作用域规则。这些函数有自己的作用域，函数内部声明的任何变量都不能在函数外部访问。这些函数也不适用于 call、apply 和 bind 方法，这些方法通常依赖于作用域。如果您还没有阅读过 JavaScript 中的作用域，我建议您阅读 这篇文章。
+4. 提升 amIGoingToBeHoisted(); var amIGoingToBeHoisted = () =&gt; { console.log(&#39;The answer is NO&#39;); }; 箭头函数没有被提升，因为它们也是函数表达式，其中函数被分配为变量的值。当 JavaScript 引擎执行上述代码时，在创建阶段，声明语句 var amIGoingToBeHoisted 将被移到顶部并使用值 undefined 进行初始化，而将初始值留在后面。在执行阶段，遇到语句amIGoingToBeHoisted 时会抛出类型错误，因为它的值是 undefined，这不是提升后的函数类型。要了解有关 JavaScript 提升的更多信息，我建议您阅读 文章。
 	</div>
 </article>
 
@@ -244,8 +245,15 @@ https://gravatar.zishu.me/avatar/ https://cravatar.cn/avatar/ https://sdn.geekzu
 			
 
 		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
 		
-		
+		<div class="footer__copyright">
+			&copy; 2024 子舒的博客, 
+			使用 hugo 构建
+		</div>
+	</div>
+</footer>
 	</div>
 <script async defer src="/js/menu.js"></script>
 

@@ -1,125 +1,47 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html class="no-js" lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="generator" content="Hugo 0.123.6">
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="toTop" content="true">
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="author" content="子舒" />
-<meta property="og:url" content="https://zishu.me/blog/58.html/" />
-<link rel="canonical" href="https://zishu.me/blog/58.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
-<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
-<link rel="shortcut" href="https://imgurl.zishu.me/favicon.ico" /><link rel="alternate" type="application/atom+xml" href="https://zishu.me/index.xml" title="子舒的博客">
-<script type="application/ld+json">
-{
-"@context" : "http://schema.org",
-"@type" : "BlogPosting",
-"mainEntityOfPage": {
-"@type": "WebPage",
-"@id": "https:\/\/zishu.me\/"
-},
-"articleSection" : "blog",
-"name" : "ajax 和 js 事件的执行顺序",
-"headline" : "ajax 和 js 事件的执行顺序",
-"description" : "有一个需求，滚轮滚动到相应位置的时候执行当前的动画，这个动画在footer里面，而网页的主体通过ajax进行渲染，我在 js 里面调用 ajax 渲染数据，然后再获取主体的高度，滚动到该高度的时候执行动画。 本地测试了一下没什么问题，该有的效果都有了。放在服务器上测试发现无论怎么写，都是先获取主体的高度，然后才进行数据的渲染。那么必然高度是一个极小的值，不符合我想要的属性。 我大致想了两种解决办法，均以失败告终，本地是 ajax 先执行，服务器是 js 先执行。 让获取高度的事件时间延时 500ms，发现最后获取不到事件了； 将该事件写在 ajax 的 success 回调里面，结果是只有打开网页第一次能够成功，然后不管刷新多少次均无效，事件被屏蔽，所以方法二也被废除； 最后我想到了，ajax 不就是一种异步方法，我将其改为同步不就行，先让 ajax 执行完在执行 js 事件。 async: false, 我在 ajax 里面写了async这个方法，false 意思是将其默认为同步获取数据，很好，回到服务器打开控制台，发现是先渲染了数据，才获取了主体的高度，问题得以解决。 当然这样做有弊端的，如果接口出问题，ajax 渲染失败，那么整个网页的 js 都将执行不了。不过我想真到了数据都渲染不出的地方，访问网页就没有意义了，所以最后我采用了这种方法。",
-"inLanguage" : "en-US",
-"author" : "子舒",
-"creator" : "子舒",
-"publisher": "子舒",
-"accountablePerson" : "子舒",
-"copyrightHolder" : "子舒",
-"copyrightYear" : "2021",
-"datePublished": "2021-03-23 00:00:00 \u002b0000 UTC",
-"dateModified" : "2021-03-23 00:00:00 \u002b0000 UTC",
-"url" : "https:\/\/zishu.me\/blog\/58.html\/",
-"keywords" : [ "ajax", ]
-}
-</script><title>ajax 和 js 事件的执行顺序 - 子舒的博客</title>
-<meta property="og:title" content="ajax 和 js 事件的执行顺序" />
-<meta property="og:type" content="article" />
-<meta property="og:description" content="有一个需求，滚轮滚动到相应位置的时候执行当前的动画，这个动画在footer里面，而网页的主体通过ajax进行渲染，我在 js 里面调用 ajax 渲染数据，然后再获取主体的高度，滚动到该高度的时候执行动画。 本地测试了一下没什么问题，该有的效果都有了。放在服务器上测试发现无论怎么写，都是先获取主体的高度，然后才进行数据的渲染。那么必然高度是一个极小的值，不符合我想要的属性。 我大致想了两种解决办法，均以失败告终，本地是 ajax 先执行，服务器是 js 先执行。 让获取高度的事件时间延时 500ms，发现最后获取不到事件了； 将该事件写在 ajax 的 success 回调里面，结果是只有打开网页第一次能够成功，然后不管刷新多少次均无效，事件被屏蔽，所以方法二也被废除； 最后我想到了，ajax 不就是一种异步方法，我将其改为同步不就行，先让 ajax 执行完在执行 js 事件。 async: false, 我在 ajax 里面写了async这个方法，false 意思是将其默认为同步获取数据，很好，回到服务器打开控制台，发现是先渲染了数据，才获取了主体的高度，问题得以解决。 当然这样做有弊端的，如果接口出问题，ajax 渲染失败，那么整个网页的 js 都将执行不了。不过我想真到了数据都渲染不出的地方，访问网页就没有意义了，所以最后我采用了这种方法。" />
-<meta name="description" content="有一个需求，滚轮滚动到相应位置的时候执行当前的动画，这个动画在footer里面，而网页的主体通过ajax进行渲染，我在 js 里面调用 ajax 渲染数据，然后再获取主体的高度，滚动到该高度的时候执行动画。 本地测试了一下没什么问题，该有的效果都有了。放在服务器上测试发现无论怎么写，都是先获取主体的高度，然后才进行数据的渲染。那么必然高度是一个极小的值，不符合我想要的属性。 我大致想了两种解决办法，均以失败告终，本地是 ajax 先执行，服务器是 js 先执行。 让获取高度的事件时间延时 500ms，发现最后获取不到事件了； 将该事件写在 ajax 的 success 回调里面，结果是只有打开网页第一次能够成功，然后不管刷新多少次均无效，事件被屏蔽，所以方法二也被废除； 最后我想到了，ajax 不就是一种异步方法，我将其改为同步不就行，先让 ajax 执行完在执行 js 事件。 async: false, 我在 ajax 里面写了async这个方法，false 意思是将其默认为同步获取数据，很好，回到服务器打开控制台，发现是先渲染了数据，才获取了主体的高度，问题得以解决。 当然这样做有弊端的，如果接口出问题，ajax 渲染失败，那么整个网页的 js 都将执行不了。不过我想真到了数据都渲染不出的地方，访问网页就没有意义了，所以最后我采用了这种方法。" />
-<meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+	<title>ajax 和 js 事件的执行顺序 - 子舒的博客</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
 
+	<link rel="stylesheet" href="/css/style.css">
+	
 
-<link rel="stylesheet" href="/css/base.css">
-<link rel="stylesheet" href="/css/index.css">
-<link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
-<script src="/js/jquery3.6.0.min.js"></script>
 </head>
-
-<body id="container">
-  <meter id="isread" max="100" value="0"></meter>
-<script>
-  window.addEventListener('scroll', function () {
-    var scrolled = window.scrollY;
-    var totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-    var percentage = (scrolled / totalHeight) * 100;
-    $('#isread').attr('value', percentage)
-  });
-</script>
-
-
-<div id="head" class="site-index">
-  <a id="logo" href="/">
-    <img src="https://imgurl.zishu.me/author.webp">
-  </a>
-  <div id="site-title">
-    <a href="/">子舒的博客</a>
-  </div>
-  <ul id="menu">
-    
-    <li><a href="/categories/%e6%8a%80%e6%9c%af/">技术</a></li>
-    
-    <li><a href="/categories/%e9%9a%8f%e7%ac%94/">随笔</a></li>
-    
-    <li><a href="/categories/weekly/">周刊</a></li>
-    
-    <li><a href="/message/">留言</a></li>
-    
-    <li><a href="/about/">关于</a></li>
-    
-    <li><a href="/index.xml" target="_blank">订阅</a></li>
-  </ul>
-</div>
-  <section id="body">
-
-    <div class="box">
-      <h1 id="body-title">ajax 和 js 事件的执行顺序</h1>
-
-      
-      <div class="index-post-meta">
-        <time> # 2021-03-23</time>
-        
-        
-        <span class="namenode">
-          <a href="/categories/%E6%8A%80%E6%9C%AF">技术</a>
-        </span>
-        
-        
-
-        <span class="tag-node">
-        
-        
-        <a href="/tags/ajax">#ajax</a>
-        
-        
-        </span>
-
-      </div>
-      <div class="expired-tips" style="display: none;"></div>
-      
-
-      
-      <div class="toc">
-        <nav id="TableOfContents"></nav>
-      </div>
-      
-
-      <article class="inner-post-content inner-long">
-        
-        <p>有一个需求，滚轮滚动到相应位置的时候执行当前的动画，这个动画在<code>footer</code>里面，而网页的主体通过<code>ajax</code>进行渲染，我在 js 里面调用 ajax 渲染数据，然后再获取主体的高度，滚动到该高度的时候执行动画。</p>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="topbar">
+		<a class="topbar__link" href="/" title="子舒的博客" rel="sidebar">
+			<div class="topbar__item topbar__text">
+					<div class="topbar__title">子舒的博客</div>
+					<div class="topbar__tagline">The Tao that is utterable is not the eternal Tao</div>
+				</div>
+		</a>
+	</div>
+		
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">ajax 和 js 事件的执行顺序</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2021-03-23T00:00:00Z">2021-03-23</time></div></div>
+		</header>
+		<div class="content post__content clearfix">
+			<p>有一个需求，滚轮滚动到相应位置的时候执行当前的动画，这个动画在<code>footer</code>里面，而网页的主体通过<code>ajax</code>进行渲染，我在 js 里面调用 ajax 渲染数据，然后再获取主体的高度，滚动到该高度的时候执行动画。</p>
 <p>本地测试了一下没什么问题，该有的效果都有了。放在服务器上测试发现无论怎么写，都是先获取主体的高度，然后才进行数据的渲染。那么必然高度是一个极小的值，不符合我想要的属性。</p>
 <p>我大致想了两种解决办法，均以失败告终，本地是 ajax 先执行，服务器是 js 先执行。</p>
 <ol>
@@ -127,16 +49,17 @@
 <li>将该事件写在 ajax 的 success 回调里面，结果是只有打开网页第一次能够成功，然后不管刷新多少次均无效，事件被屏蔽，所以方法二也被废除；</li>
 </ol>
 <p>最后我想到了，ajax 不就是一种异步方法，我将其改为同步不就行，先让 ajax 执行完在执行 js 事件。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">async</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">async</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>,
 </span></span></code></pre></div><p>我在 ajax 里面写了<code>async</code>这个方法，<code>false</code> 意思是将其默认为同步获取数据，很好，回到服务器打开控制台，发现是先渲染了数据，才获取了主体的高度，问题得以解决。</p>
 <blockquote>
 <p>当然这样做有弊端的，如果接口出问题，ajax 渲染失败，那么整个网页的 js 都将执行不了。不过我想真到了数据都渲染不出的地方，访问网页就没有意义了，所以最后我采用了这种方法。</p>
 </blockquote>
 
-      </article>
+		</div>
+	</article>
+</main>
 
-      
-      <div style="padding:20px 0"></div>
+
 <div class="comments">
   <div class="giscus"></div>
 </div>
@@ -158,20 +81,40 @@
   async>
 </script>
 
-      
-
-    </div>
-    <footer id="foot">
-  <p>© 2020 - 2024 Powered by
-    <a href="https://github.com/dlzmoe/blog" target="_blank">Github</a>
-    / <a href="/index.xml" target="_blank">RSS</a>
-  </p>
+			</div>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2024 子舒的博客, 
+			使用 hugo 构建
+		</div>
+	</div>
 </footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
 
-<script src="/js/main.js"></script>
-
-<script defer src="https://cn.vercount.one/js"></script>
-  </section>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [["$", "$"]],
+      },
+      displayMath: [
+        ["$$", "$$"],
+        ["\[\[", "\]\]"],
+      ],
+      svg: {
+        fontCache: "global",
+      },
+    };
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script
+    id="MathJax-script"
+    async
+    src="https://gcore.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+  ></script>
 </body>
-
 </html>

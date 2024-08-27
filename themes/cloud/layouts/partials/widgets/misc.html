@@ -1,0 +1,19 @@
+{{- if .Site.Params.widgets.misc }}
+<div class="widget-misc widget">
+    <h4 class="widget-misc__title widget__title">{{ T "misc_title" }}</h4>
+    <div class="widget-misc__content widget__content">
+        <ul class="item-list">
+            {{ range .Site.Params.widgets.misc.custom }}
+            <li class="widget-misc__item widget__item">
+                <a class="widget-misc__link widget__link btn" title="{{ .title }}" {{ with .rel | default "noopener noreferrer" }} rel="{{ . }}"{{ end }} href="{{ .url }}">
+                    {{- if .icon }}
+                    {{ partial .icon (dict "class" "widget-misc__link-icon") }}
+                    {{- end }}
+                    <span>{{ .title }}</span>
+                </a>
+            </li>
+            {{ end }}
+        </ul>
+    </div>
+</div>
+{{- end }}

@@ -1,127 +1,103 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html class="no-js" lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="generator" content="Hugo 0.123.6">
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="toTop" content="true">
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="author" content="子舒" />
-<meta property="og:url" content="https://zishu.me/tags/vite/" />
-<link rel="canonical" href="https://zishu.me/tags/vite/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
-<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
-<link rel="shortcut" href="https://imgurl.zishu.me/favicon.ico" /><link rel="alternate" type="application/atom+xml" href="https://zishu.me/index.xml" title="子舒的博客">
-<script type="application/ld+json">
-{
-"@context" : "http://schema.org",
-"@type" : "BlogPosting",
-"mainEntityOfPage": {
-"@type": "WebPage",
-"@id": "https:\/\/zishu.me\/"
-},
-"articleSection" : "tags",
-"name" : "Vite",
-"headline" : "Vite",
-"description" : "",
-"inLanguage" : "en-US",
-"author" : "子舒",
-"creator" : "子舒",
-"publisher": "子舒",
-"accountablePerson" : "子舒",
-"copyrightHolder" : "子舒",
-"copyrightYear" : "2024",
-"datePublished": "2024-08-15 00:00:00 \u002b0000 UTC",
-"dateModified" : "2024-08-15 00:00:00 \u002b0000 UTC",
-"url" : "https:\/\/zishu.me\/tags\/vite\/",
-"keywords" : [  ]
-}
-</script><title>Vite - 子舒的博客</title>
-<meta property="og:title" content="Vite" />
-<meta property="og:type" content="article" />
-<meta property="og:description" content="" />
-<meta name="description" content="" />
-<meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+	<title>Vite - 子舒的博客</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
 
+	<link rel="stylesheet" href="/css/style.css">
+	
+	<link rel="alternate" type="application/rss+xml" href="/tags/vite/index.xml" title="子舒的博客">
 
-<link rel="stylesheet" href="/css/base.css">
-<link rel="stylesheet" href="/css/index.css">
-<link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
-<script src="/js/jquery3.6.0.min.js"></script>
 </head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="topbar">
+		<a class="topbar__link" href="/" title="子舒的博客" rel="sidebar">
+			<div class="topbar__item topbar__text">
+					<div class="topbar__title">子舒的博客</div>
+					<div class="topbar__tagline">The Tao that is utterable is not the eternal Tao</div>
+				</div>
+		</a>
+	</div>
+		
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main list" role="main">
+	<header class="main__header">
+		<h1 class="main__title">Vite</h1>
+	</header><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/blog/234.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">vite 配置相关笔记</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2024-08-15T00:00:00Z">2024-08-15</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		一、配置 route 路由 使用 vite + vue 构建项目默认是没有 route 的，所以需要手动引入。
+1. 基础配置 # 建立一个 vite 项目 npm create vite@latest yarn create vite # 安装 route 依赖 npm install vue-router@4 yarn add vue-router@4 接下来，需要在项目中配置 Vue Router。首先在 src 目录下创建一个 router 目录，并在该目录下创建 index.js，并配置路由。
+src/ ├── router/ │ └── index.js // src/router/index.js import { createRouter, createWebHistory } from &#39;vue-router&#39;; const routes = [{ path: &#39;/&#39;, name: &#39;Home&#39;, component: () =&gt; import(&#39;@/views/Home.vue&#39;) }, { path: &#39;/login&#39;, name: &#39;Login&#39;, component: () =&gt; import(&#39;@/views/Login.vue&#39;) } ] const router = createRouter({ history: createWebHistory( import.meta.env.BASE_URL), routes }) export default router 在 main.js 声明一下 route 文件。
+import { createApp } from &#39;vue&#39;; import App from &#39;./App.vue&#39;; import router from &#39;./router&#39;; const app = createApp(App) app.use(router) app.mount(&#39;#app&#39;) 并且在 App.vue 中要使用 router-view 来显示当前路由对应的组件，所以修改下文件。
+&lt;template&gt; &lt;div id=&#34;app&#34;&gt; &lt;router-view&gt;&lt;/router-view&gt; &lt;/div&gt; &lt;/template&gt; &lt;script&gt; export default { name: &#39;App&#39; } &lt;/script&gt; 2. 添加多路由 要添加更多的页面或动态路由，可以继续在 routes 数组中添加配置。例如：
+{ path: &#39;/user/:id&#39;, name: &#39;User&#39;, component: () =&gt; import(&#39;@/views/User.vue&#39;) } 这样，访问 /user/1 就会加载 User.vue 组件并显示相应内容。
+二、配置 @ 路径别名 注意，vite 默认是没有配置路径别名 @ 的，所以要手动添加，配置如下：
+import { defineConfig } from &#39;vite&#39; import vue from &#39;@vitejs/plugin-vue&#39; import { fileURLToPath, URL } from &#39;node:url&#39; export default defineConfig({ plugins: [vue()], resolve: { alias: { &#39;@&#39;: fileURLToPath(new URL(&#39;./src&#39;, import.meta.url)) } } }) 配置完别名后，就可以在项目中使用 @ 来代替 src 目录的路径，从而简化模块引用。
+三、dev 时自动访问本地服务 open: true 表示当你运行 vite 或 vite dev 时，开发服务器将自动在浏览器中打开本地服务器的 URL（例如 http://localhost:5173）。你也可以指定一个具体的 URL，例如：
+// vite.config.js export default defineConfig({ server: { open: true, // 自动打开浏览器并访问本地服务器网址 open: &#39;http://localhost:5173&#39;, // 在浏览器中打开指定的路径 }, }); 
+	</div>
+</article>
 
-<body id="container">
-  <meter id="isread" max="100" value="0"></meter>
-<script>
-  window.addEventListener('scroll', function () {
-    var scrolled = window.scrollY;
-    var totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-    var percentage = (scrolled / totalHeight) * 100;
-    $('#isread').attr('value', percentage)
-  });
-</script>
+</main>
 
 
-<div id="head" class="site-index">
-  <a id="logo" href="/">
-    <img src="https://imgurl.zishu.me/author.webp">
-  </a>
-  <div id="site-title">
-    <a href="/">子舒的博客</a>
-  </div>
-  <ul id="menu">
-    
-    <li><a href="/categories/%e6%8a%80%e6%9c%af/">技术</a></li>
-    
-    <li><a href="/categories/%e9%9a%8f%e7%ac%94/">随笔</a></li>
-    
-    <li><a href="/categories/weekly/">周刊</a></li>
-    
-    <li><a href="/message/">留言</a></li>
-    
-    <li><a href="/about/">关于</a></li>
-    
-    <li><a href="/index.xml" target="_blank">订阅</a></li>
-  </ul>
-</div>
+			</div>
+			
 
-  <section id="body">
-    <h1 id="body-title">📓 Vite</h1>
-
-    <div id="body-in">
-      <h3 class="posts-year" id="2024">2024</h3>
-      
-      
-      <div class="index-post" onclick="javascript:window.location.href='\/blog\/234.html\/'">
-        <div class="index-post-content-long">
-          <a href="/blog/234.html/">
-            <h2>vite 配置相关笔记</h2>
-          </a>
-          <div class="text">一、配置 route 路由 使用 vite + vue 构建项目默认是没有 route 的，所以需要手动引入。 1. 基础配置 # 建立一个 vite 项目 npm create vite@latest yarn create vite # 安装 route 依赖 npm install vue-router@4 yarn add vue-router@4 接下来，需要在项目中配置 Vue Router。首先在 src 目录下创建一个 router 目录，并在该目录下创建 index.js，并配置路由。 src/ ├── router/ │ └── index.js // src/router/index.js import { createRouter, createWebHistory } from &#39;vue-router&#39;; const routes = [{ path: &#39;/&#39;, name: &#39;Home&#39;, component: () =&gt; import(&#39;@/views/Home.vue&#39;) }, { path: &#39;/login&#39;, name: &#39;Login&#39;, component: () =&gt; import(&#39;@/views/Login.vue&#39;) } ] const router = createRouter({ history: createWebHistory( import.meta.env.BASE_URL), routes }) export default router 在 main.js 声明一下 route 文件。 import { createApp } from &#39;vue&#39;; import App from &#39;./App.vue&#39;; import router from &#39;./router&#39;; const app = createApp(App) app.use(router) app.mount(&#39;#app&#39;) 并且在 App.vue 中要使用 router-view 来显示当前路由对应的组件，所以修改下文件。 &lt;template&gt; &lt;div id=&#34;app&#34;&gt; &lt;router-view&gt;&lt;/router-view&gt; &lt;/div&gt; &lt;/template&gt; &lt;script&gt; export default { name: &#39;App&#39; } &lt;/script&gt; 2. 添加多路由 要添加更多的页面或动态路由，可以继续在 routes 数组中添加配置。例如： { path: &#39;/user/:id&#39;, name: &#39;User&#39;, component: () =&gt; import(&#39;@/views/User.vue&#39;) } 这样，访问 /user/1 就会加载 User.vue 组件并显示相应内容。 二、配置 @ 路径别名 注意，vite 默认是没有配置路径别名 @ 的，所以要手动添加，配置如下： import { defineConfig } from &#39;vite&#39; import vue from &#39;@vitejs/plugin-vue&#39; import { fileURLToPath, URL } from &#39;node:url&#39; export default defineConfig({ plugins: [vue()], resolve: { alias: { &#39;@&#39;: fileURLToPath(new URL(&#39;./src&#39;, import.meta.url)) } } }) 配置完别名后，就可以在项目中使用 @ 来代替 src 目录的路径，从而简化模块引用。 三、dev 时自动访问本地服务 open: true 表示当你运行 vite 或 vite dev 时，开发服务器将自动在浏览器中打开本地服务器的 URL（例如 http://localhost:5173）。你也可以指定一个具体的 URL，例如： // vite.config.js export default defineConfig({ server: { open: true, // 自动打开浏览器并访问本地服务器网址 open: &#39;http://localhost:5173&#39;, // 在浏览器中打开指定的路径 }, });</div>
-          <div class="index-post-meta">
-            <a href="/blog/234.html/"> # 2024-08-15</a>
-            
-            
-            <span class="namenode">技术</span>
-            
-            
-          </div>
-        </div>
-      </div>
-
-      
-    </div>
-    
-    <footer id="foot">
-  <p>© 2020 - 2024 Powered by
-    <a href="https://github.com/dlzmoe/blog" target="_blank">Github</a>
-    / <a href="/index.xml" target="_blank">RSS</a>
-  </p>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2024 子舒的博客, 
+			使用 hugo 构建
+		</div>
+	</div>
 </footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
 
-<script src="/js/main.js"></script>
-
-<script defer src="https://cn.vercount.one/js"></script>
-  </section>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [["$", "$"]],
+      },
+      displayMath: [
+        ["$$", "$$"],
+        ["\[\[", "\]\]"],
+      ],
+      svg: {
+        fontCache: "global",
+      },
+    };
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script
+    id="MathJax-script"
+    async
+    src="https://gcore.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+  ></script>
 </body>
-
 </html>

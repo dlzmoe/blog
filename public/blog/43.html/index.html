@@ -1,165 +1,47 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html class="no-js" lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="generator" content="Hugo 0.123.6">
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="toTop" content="true">
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="author" content="子舒" />
-<meta property="og:url" content="https://zishu.me/blog/43.html/" />
-<link rel="canonical" href="https://zishu.me/blog/43.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
-<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
-<link rel="shortcut" href="https://imgurl.zishu.me/favicon.ico" /><link rel="alternate" type="application/atom+xml" href="https://zishu.me/index.xml" title="子舒的博客">
-<script type="application/ld+json">
-{
-"@context" : "http://schema.org",
-"@type" : "BlogPosting",
-"mainEntityOfPage": {
-"@type": "WebPage",
-"@id": "https:\/\/zishu.me\/"
-},
-"articleSection" : "blog",
-"name" : "使用 React 与 Vue 创建同一款 App，差别究竟有多大？",
-"headline" : "使用 React 与 Vue 创建同一款 App，差别究竟有多大？",
-"description" : "关于 React 框架 和 Vue 框架 的对比，用两者写出同一个程序，对比其代码实现的过程，看看它们的差异究竟有多大？ 转载于：https:\/\/blog.csdn.net\/csdnnews\/article\/details\/81880378 原文：https:\/\/medium.com\/javascript-in-plain-english\/i-created-the-exact-same-app-in-react-and-vue-here-are-the-differences-e9a1ae8077fd 作者简介：Sunil Sandhu，一位 Web 全栈工程师 \u002b 空想家。 译者：安翔，责编：屠敏 众所周知，Vue 和 React 都是目前非常著名的前端框架。我在工作中经常使用 Vue，因此我对它有很深入的了解。同时，我也对 React 充满了好奇，想要学习一下，一探究竟。 于是我阅读了 React 文档并观看了一些视频教程，虽然这些资料很不错，但是我真正想了解的是 React 与 Vue 之间的不同之处。所谓“不同之处”，我并非想知道它们是否都具有虚拟 DOMS 或者它们如何渲染页面，而是希望有人能够从代码的角度解释这两者之间的差异。我想找到一篇解释这些差异的文章，以便 Vue 或者 React 的初学者可以更好地理解它们两者之间的差异。 很遗憾，我并未找到一篇这样的文章。于是我意识到必须自己动手来比较 Vue 与 React 之间的异同。在我自力更生的过程中，我用这篇文章记录下了具体过程。 1.目标 我将会构建一个标准的待办事项应用程序，允许用户添加和删除列表中的项目。这两个应用程序都使用默认的 CLI（command-line interface，命令行界面）构建，React 使用 create-react-app，Vue 使用 vue-cli。 两个应用程序的外观如下： 两个应用程序的 CSS 代码几乎一样，但这些代码的位置存在差异。考虑到这一点，我们来看看这两个应用程序的文件结构： 你会发现它们的结构几乎完全相同。唯一的区别在于 React App 拥有三个 CSS 文件，而 Vue App 中没有 CSS 文件。这是因为 React 的 create-react-app 组件需要一个附带文件来保存其样式，而 Vue CLI 采用全包方法，其样式在实际组件文件中声明。 两种不同的策略得到的结果是一样的，相信开发者很快能够掌握这两种不同的策略。开发者可以根据自己的偏好做出选择，你会听到开发社区关于如何构建 CSS 的大量讨论。以上，我们遵循两个 CLI 列出了代码结构。 在我们进一步讨论之前，先快速看一下典型的 Vue 和 React 组件的外观： 现在让我们正式开始，深入其中的细节！ 2.如何修改数据 首先，我们需要明白“修改数据”的意思是什么。它听起来有些学术，但实际上很简单，就是把我们已经存储好的数据进行更改。比如，如果我们想把一个人的名字变量从“Jhon”改为“Mark”，我们就需要执行“修改数据”的操作。在这一点上，React 和 Vue 的处理方式有所区别。Vue 本质上会创建一个数据对象，其中的数据可以自由更改；React 则创建一个状态对象，更改数据需要一些额外的操作。React 之所以需要额外的操作有着自己的理由，稍后我会深入介绍。在此之前，我们先看看 Vue 中的数据对象和 React 中的状态对象： vue 数据对象 React 状态对象 从图中可以看出，我们传入了相同的数据，但它们的标记方法不同。因此，将初始数据传递到组件的方式非常相似。但正如我们提到的那样，在两个框架中更改数据的方式有所不同。 假设我们有一个名为 name: ‘Sunil’的数据元素。 在 Vue 中，我们通过调用 this.name 来引用它。我们也可以通过调用 this.name =\u0026lsquo;John\u0026rsquo; 来更新它。这样一来，名字就被成功改为了“Jhon”。 在 React 中，我们通过调用 this.state.name 来引用同一段数据。现在关键的区别在于，我们不能简单地写成 this.state.name =\u0026lsquo;John\u0026rsquo;，因为 React 有限制机制，它会阻止这种简单的修改方式。在 React 中，我们需要这样写：this.setState({name：\u0026lsquo;John\u0026rsquo;})。 虽然这基本上与我们在 Vue 中实现的结果一样，但是 React 的操作更为繁琐，那是因为 Vue 在每次更新数据时默认组合了自己的 setState 版本。简单来说就是，React 需要 setState，然后更新其内部数据，而对于 Vue 来说，当你更新数据对象的值时它就默认了你的更改意图。那么为什么 React 没有进行简化，为什么需要 setState 呢？Revanth Kumar 对此做出了解释： “这是因为 React 希望在状态发生变化时重新运行某些生命周期 hook，比如 componentWillReceiveProps、shouldComponentUpdate、componentWillUpdate、render、componentDidUpdate。当你调用 setState 函数时，它知道状态已经改变。如果你直接改变状态，React 将需要做更多工作来跟踪更改以及运行生命周期 hook 等等。所以为了简单起见，React 使用 setState。\u0026quot; 3.添加新的待办事项 React 的实现方法 createNewToDoItem = () =\u0026gt; { this.setState( ({ list, todo }) =\u0026gt; ({ list: [ ...list, { todo } ], todo: \u0026#39;\u0026#39; }) ); }; 在 React 中，我们的输入字段有一个名为 value 的属性。这个 value 通过使用几个函数自动更新，这些函数绑定在一起以创建双向绑定。我们通过在输入字段上附加一个 onChange 事件监听器来创建这种形式的双向绑定。看看代码，一探究竟： \u0026lt;input type=\u0026#34;text\u0026#34; value={this.state.todo} onChange={this.handleInput}\/\u0026gt; 只要输入字段的值发生更改，handleInput 函数就会运行。它通过将状态对象设置为输入字段中的任何内容来更新状态对象内的 todo。handleInput 函数如下： handleInput = e =\u0026gt; { this.setState({ todo: e.target.value }); }; 现在，只要用户按下页面上的 \u002b 按钮添加新项目，createNewToDoItem 函数就会运行 this.setState 并向其传递一个函数。该函数有两个参数，第一个是来自状态对象的整个列表数组，第二个是由 handleInput 函数更新的 todo。然后该函数返回一个新对象，该对象包含之前的整个列表，并在其末尾添加 todo。整个列表是通过使用扩展运算符添加的。 最后，我们将 todo 设置为空字符串，它会自动更新输入字段中的 value。 Vue 的实现方法 createNewToDoItem() { this.list.push( { \u0026#39;todo\u0026#39;: this.todo } ); this.todo = \u0026#39;\u0026#39;; } 在 Vue 中，我们的输入字段中有一个名为 v-model 的句柄。这实现了**双向绑定。输入字段代码如下： \u0026lt;input type=\u0026#34;text\u0026#34; v-model=\u0026#34;todo\u0026#34;\/\u0026gt; V-Model 将输入字段的内容绑定到名为 toDoItem 的数据对象的键（key）上。当页面加载时，我们将 toDoItem 设置为空字符串，比如：todo：\u0026rsquo; \u0026lsquo;。如果已经存在数据，例如 todo：\u0026lsquo;添加文本处\u0026rsquo;，输入字段将加载添加文本处的输入内容。无论如何，将其作为空字符串，我们在输入字段中键入的任何文本都会绑定到 todo。这实际上是双向绑定（输入字段可以更新数据对象，数据对象可以更新输入字段）。 因此，回顾前面的 createNewToDoItem() 代码块，我们将 todo 的内容存放到列表数组中，然后将 todo 改为空字符串。 4.删除待办事项 React 的实现方法 deleteItem = indexToDelete =\u0026gt; { this.setState(({ list }) =\u0026gt; ({ list: list.filter((toDo, index) =\u0026gt; index !== indexToDelete) })); }; 尽管 deleteItem 函数位于 ToDo.js 文件中，但是从 ToDoItem.js 文件中引用它也很容易，将 deleteItem() 函数作为 上的 prop 传递： \u0026lt;ToDoItem deleteItem={this.deleteItem.bind(this, key)}\/\u0026gt; 这会将该函数传递给子组件，使其可以访问。我们绑定了 this 并传递 key 参数，当用户点击删除项时，函数通过 key 区分用户点击的是哪一条 ToDoItem。然后，在 ToDoItem 组件内部，我们执行以下操作： \u0026lt;div className=”ToDoItem-Delete” onClick={this.props.deleteItem}\u0026gt;-\u0026lt;\/div\u0026gt; 想要引用位于父组件内部的函数，只需引用 this.props.deleteItem 即可。 Vue 的实现方法 onDeleteItem(todo){ this.list = this.list.filter(item =\u0026gt; item !== todo); } Vue 的实现方法稍有不同，我们需要做到以下三点： 首先，在元素上调用函数： \u0026lt;div class=”ToDoItem-Delete” @click=”deleteItem(todo)”\u0026gt;-\u0026lt;\/div\u0026gt; 然后我们必须创建一个 emit 函数，将其作为子组件的内部方法（在本例中为 ToDoItem.vue），如下所示： deleteItem(todo) { this.$emit(\u0026#39;delete\u0026#39;, todo) } 之后，你会发现，当我们添加 ToDo.vue 的 ToDoItem.vue 时，实际上引用了一个函数： \u0026lt;ToDoItem v-for=\u0026#34;todo in list\u0026#34; :todo=\u0026#34;todo\u0026#34; @delete=\u0026#34;onDeleteItem\u0026#34; \/\/ \u0026lt;-- this :) :key=\u0026#34;todo.id\u0026#34; \/\u0026gt; 这就是所谓的自定义事件监听器。它会监听任何使用 \u0026lsquo;delete\u0026rsquo; 字符串的触发事件。一旦监听到事件，它会触发一个名为 onDeleteItem 的函数。此函数位于 ToDo.vue 内部，而不是 ToDoItem.vue。如前所述，该函数只是过滤数据对象内的 todo 数组，以删除被点击的待办事项。 在 Vue 示例中还需要注意的是，我们可以在 @click 侦听器中编写 $emit 部分，这样更加简单，如下所示： \u0026lt;div class=”ToDoItem-Delete” @click=”$emit(‘delete’, todo)”\u0026gt;-\u0026lt;\/div\u0026gt; 如果你喜欢，这样做可以把 3 步减少到 2 步。 React 中的子组件可以通过 this.props 访问父函数，而在 Vue 中，你需要从子组件中发出事件，父组件来收集事件。 5.如何传递事件监听器 React 的实现方法 事件监听器处理简单事件（比如点击）非常直接。我们为待办事项创建了点击事件，用于创建新的待办事项，代码如下： \u0026lt;div className=”ToDo-Add” onClick={this.createNewToDoItem}\u0026gt;\u002b\u0026lt;\/div\u0026gt; 非常简单，就像使用 vanilla JS 处理内联 onClick 一样。正如前文所述，只要按下回车按钮，设置事件监听器就需要花费更长的时间。这需要输入标签处理 onKeyPress 事件，代码如下： \u0026lt;input type=”text” onKeyPress={this.handleKeyPress}\/\u0026gt; 该函数只要识别到\u0026rsquo;enter\u0026rsquo;键被按下，它就会触发 createNewToDoItem 函数，代码如下所示： handleKeyPress = (e) =\u0026gt; { if (e.key === ‘Enter’) { this.createNewToDoItem(); } }; Vue 的实现方法 Vue 的事件监听器更加直接。我们只需要使用一个简单的 @ 符号，就可以构建出我们想要的事件监听器。例如，想要添加 click 事件监听器，代码： \u0026lt;div class=”ToDo-Add” @click=”createNewToDoItem()”\u0026gt;\u002b\u0026lt;\/div\u0026gt; 注意：@click 实际上是 v-on:click 的简写。Vue 事件监听器很强大，你可以为其选择属性，例如 .once 可以防止事件监听器被多次触发。此外，它还包含很多快捷方式。按下回车按钮时，React 就需要花费更长的时间来创建事件监听器，从而创建新的 ToDo 项目。在 Vue，代码如下： \u0026lt;input type=”text” v-on:keyup.enter=”createNewToDoItem”\/\u0026gt; 6.如何将数据传递给子组件 React 的实现方法 在 React 中，我们将 props 传递到子组件的创建处。比如： \u0026lt;ToDoItem key={key} item={todo} \/\u0026gt; 此处我们向 ToDoItem 组件传递了两个 prop。之后，我们可以在子组件中通过 this.props 引用它们。因此，想要访问 item.todo prop，我们只需调用 this.props.item。 Vue 的实现方法 在 Vue 中，我们将 props 传递到子组件创建处的方式如下： \u0026lt;ToDoItem v-for=\u0026#34;todo in list\u0026#34; :todo=\u0026#34;todo\u0026#34; :key=\u0026#34;todo.id\u0026#34; @delete=\u0026#34;onDeleteItem\u0026#34; \/\u0026gt; 我们将它们传递给子组件中的 props 数组，如：props：[\u0026lsquo;id\u0026rsquo;，\u0026rsquo;todo\u0026rsquo;]。然后可以在子组件中通过名字引用它们。 7.如何将数据发送回父组件 React 的实现方法 我们首先将函数传递给子组件，方法是在我们调用子组件时将其引用为 prop。然后我们通过引用 this.props.whateverTheFunctionIsCalled，为子组件添加调用函数，例如 onClick。然后，这将触发父组件中的函数。删除待办事项一节中详细介绍了整个过程。 Vue 的实现方法 在子组件中我们只需编写一个函数，将一个值发送回父函数。在父组件中编写一个函数来监听子组件何时发出该值的事件，监听到事件之后触发函数调用。同样，删除待办事项一节中详细介绍了整个过程。 8.总结 我们研究了添加、删除和更改数据，以 prop 形式从父组件到子组件传递数据，以及通过事件监听器的形式将数据从子组件发送到父组件。当然，React 和 Vue 之间存在一些小差异，希望本文的内容有助于理解这两个框架。 两个应用程序的 GitHub 地址： **Vue ToDo:**https:\/\/github.com\/sunil-sandhu\/vue-todo **React ToDo:**https:\/\/github.com\/sunil-sandhu\/react-todo",
-"inLanguage" : "en-US",
-"author" : "子舒",
-"creator" : "子舒",
-"publisher": "子舒",
-"accountablePerson" : "子舒",
-"copyrightHolder" : "子舒",
-"copyrightYear" : "2021",
-"datePublished": "2021-01-06 00:00:00 \u002b0000 UTC",
-"dateModified" : "2021-01-06 00:00:00 \u002b0000 UTC",
-"url" : "https:\/\/zishu.me\/blog\/43.html\/",
-"keywords" : [ "vue","编程","react", ]
-}
-</script><title>使用 React 与 Vue 创建同一款 App，差别究竟有多大？ - 子舒的博客</title>
-<meta property="og:title" content="使用 React 与 Vue 创建同一款 App，差别究竟有多大？" />
-<meta property="og:type" content="article" />
-<meta property="og:description" content="关于 React 框架 和 Vue 框架 的对比，用两者写出同一个程序，对比其代码实现的过程，看看它们的差异究竟有多大？ 转载于：https://blog.csdn.net/csdnnews/article/details/81880378 原文：https://medium.com/javascript-in-plain-english/i-created-the-exact-same-app-in-react-and-vue-here-are-the-differences-e9a1ae8077fd 作者简介：Sunil Sandhu，一位 Web 全栈工程师 &#43; 空想家。 译者：安翔，责编：屠敏 众所周知，Vue 和 React 都是目前非常著名的前端框架。我在工作中经常使用 Vue，因此我对它有很深入的了解。同时，我也对 React 充满了好奇，想要学习一下，一探究竟。 于是我阅读了 React 文档并观看了一些视频教程，虽然这些资料很不错，但是我真正想了解的是 React 与 Vue 之间的不同之处。所谓“不同之处”，我并非想知道它们是否都具有虚拟 DOMS 或者它们如何渲染页面，而是希望有人能够从代码的角度解释这两者之间的差异。我想找到一篇解释这些差异的文章，以便 Vue 或者 React 的初学者可以更好地理解它们两者之间的差异。 很遗憾，我并未找到一篇这样的文章。于是我意识到必须自己动手来比较 Vue 与 React 之间的异同。在我自力更生的过程中，我用这篇文章记录下了具体过程。 1.目标 我将会构建一个标准的待办事项应用程序，允许用户添加和删除列表中的项目。这两个应用程序都使用默认的 CLI（command-line interface，命令行界面）构建，React 使用 create-react-app，Vue 使用 vue-cli。 两个应用程序的外观如下： 两个应用程序的 CSS 代码几乎一样，但这些代码的位置存在差异。考虑到这一点，我们来看看这两个应用程序的文件结构： 你会发现它们的结构几乎完全相同。唯一的区别在于 React App 拥有三个 CSS 文件，而 Vue App 中没有 CSS 文件。这是因为 React 的 create-react-app 组件需要一个附带文件来保存其样式，而 Vue CLI 采用全包方法，其样式在实际组件文件中声明。 两种不同的策略得到的结果是一样的，相信开发者很快能够掌握这两种不同的策略。开发者可以根据自己的偏好做出选择，你会听到开发社区关于如何构建 CSS 的大量讨论。以上，我们遵循两个 CLI 列出了代码结构。 在我们进一步讨论之前，先快速看一下典型的 Vue 和 React 组件的外观： 现在让我们正式开始，深入其中的细节！ 2.如何修改数据 首先，我们需要明白“修改数据”的意思是什么。它听起来有些学术，但实际上很简单，就是把我们已经存储好的数据进行更改。比如，如果我们想把一个人的名字变量从“Jhon”改为“Mark”，我们就需要执行“修改数据”的操作。在这一点上，React 和 Vue 的处理方式有所区别。Vue 本质上会创建一个数据对象，其中的数据可以自由更改；React 则创建一个状态对象，更改数据需要一些额外的操作。React 之所以需要额外的操作有着自己的理由，稍后我会深入介绍。在此之前，我们先看看 Vue 中的数据对象和 React 中的状态对象： vue 数据对象 React 状态对象 从图中可以看出，我们传入了相同的数据，但它们的标记方法不同。因此，将初始数据传递到组件的方式非常相似。但正如我们提到的那样，在两个框架中更改数据的方式有所不同。 假设我们有一个名为 name: ‘Sunil’的数据元素。 在 Vue 中，我们通过调用 this.name 来引用它。我们也可以通过调用 this.name =&amp;lsquo;John&amp;rsquo; 来更新它。这样一来，名字就被成功改为了“Jhon”。 在 React 中，我们通过调用 this.state.name 来引用同一段数据。现在关键的区别在于，我们不能简单地写成 this.state.name =&amp;lsquo;John&amp;rsquo;，因为 React 有限制机制，它会阻止这种简单的修改方式。在 React 中，我们需要这样写：this.setState({name：&amp;lsquo;John&amp;rsquo;})。 虽然这基本上与我们在 Vue 中实现的结果一样，但是 React 的操作更为繁琐，那是因为 Vue 在每次更新数据时默认组合了自己的 setState 版本。简单来说就是，React 需要 setState，然后更新其内部数据，而对于 Vue 来说，当你更新数据对象的值时它就默认了你的更改意图。那么为什么 React 没有进行简化，为什么需要 setState 呢？Revanth Kumar 对此做出了解释： “这是因为 React 希望在状态发生变化时重新运行某些生命周期 hook，比如 componentWillReceiveProps、shouldComponentUpdate、componentWillUpdate、render、componentDidUpdate。当你调用 setState 函数时，它知道状态已经改变。如果你直接改变状态，React 将需要做更多工作来跟踪更改以及运行生命周期 hook 等等。所以为了简单起见，React 使用 setState。&amp;quot; 3.添加新的待办事项 React 的实现方法 createNewToDoItem = () =&amp;gt; { this.setState( ({ list, todo }) =&amp;gt; ({ list: [ ...list, { todo } ], todo: &amp;#39;&amp;#39; }) ); }; 在 React 中，我们的输入字段有一个名为 value 的属性。这个 value 通过使用几个函数自动更新，这些函数绑定在一起以创建双向绑定。我们通过在输入字段上附加一个 onChange 事件监听器来创建这种形式的双向绑定。看看代码，一探究竟： &amp;lt;input type=&amp;#34;text&amp;#34; value={this.state.todo} onChange={this.handleInput}/&amp;gt; 只要输入字段的值发生更改，handleInput 函数就会运行。它通过将状态对象设置为输入字段中的任何内容来更新状态对象内的 todo。handleInput 函数如下： handleInput = e =&amp;gt; { this.setState({ todo: e.target.value }); }; 现在，只要用户按下页面上的 &#43; 按钮添加新项目，createNewToDoItem 函数就会运行 this.setState 并向其传递一个函数。该函数有两个参数，第一个是来自状态对象的整个列表数组，第二个是由 handleInput 函数更新的 todo。然后该函数返回一个新对象，该对象包含之前的整个列表，并在其末尾添加 todo。整个列表是通过使用扩展运算符添加的。 最后，我们将 todo 设置为空字符串，它会自动更新输入字段中的 value。 Vue 的实现方法 createNewToDoItem() { this.list.push( { &amp;#39;todo&amp;#39;: this.todo } ); this.todo = &amp;#39;&amp;#39;; } 在 Vue 中，我们的输入字段中有一个名为 v-model 的句柄。这实现了**双向绑定。输入字段代码如下： &amp;lt;input type=&amp;#34;text&amp;#34; v-model=&amp;#34;todo&amp;#34;/&amp;gt; V-Model 将输入字段的内容绑定到名为 toDoItem 的数据对象的键（key）上。当页面加载时，我们将 toDoItem 设置为空字符串，比如：todo：&amp;rsquo; &amp;lsquo;。如果已经存在数据，例如 todo：&amp;lsquo;添加文本处&amp;rsquo;，输入字段将加载添加文本处的输入内容。无论如何，将其作为空字符串，我们在输入字段中键入的任何文本都会绑定到 todo。这实际上是双向绑定（输入字段可以更新数据对象，数据对象可以更新输入字段）。 因此，回顾前面的 createNewToDoItem() 代码块，我们将 todo 的内容存放到列表数组中，然后将 todo 改为空字符串。 4.删除待办事项 React 的实现方法 deleteItem = indexToDelete =&amp;gt; { this.setState(({ list }) =&amp;gt; ({ list: list.filter((toDo, index) =&amp;gt; index !== indexToDelete) })); }; 尽管 deleteItem 函数位于 ToDo.js 文件中，但是从 ToDoItem.js 文件中引用它也很容易，将 deleteItem() 函数作为 上的 prop 传递： &amp;lt;ToDoItem deleteItem={this.deleteItem.bind(this, key)}/&amp;gt; 这会将该函数传递给子组件，使其可以访问。我们绑定了 this 并传递 key 参数，当用户点击删除项时，函数通过 key 区分用户点击的是哪一条 ToDoItem。然后，在 ToDoItem 组件内部，我们执行以下操作： &amp;lt;div className=”ToDoItem-Delete” onClick={this.props.deleteItem}&amp;gt;-&amp;lt;/div&amp;gt; 想要引用位于父组件内部的函数，只需引用 this.props.deleteItem 即可。 Vue 的实现方法 onDeleteItem(todo){ this.list = this.list.filter(item =&amp;gt; item !== todo); } Vue 的实现方法稍有不同，我们需要做到以下三点： 首先，在元素上调用函数： &amp;lt;div class=”ToDoItem-Delete” @click=”deleteItem(todo)”&amp;gt;-&amp;lt;/div&amp;gt; 然后我们必须创建一个 emit 函数，将其作为子组件的内部方法（在本例中为 ToDoItem.vue），如下所示： deleteItem(todo) { this.$emit(&amp;#39;delete&amp;#39;, todo) } 之后，你会发现，当我们添加 ToDo.vue 的 ToDoItem.vue 时，实际上引用了一个函数： &amp;lt;ToDoItem v-for=&amp;#34;todo in list&amp;#34; :todo=&amp;#34;todo&amp;#34; @delete=&amp;#34;onDeleteItem&amp;#34; // &amp;lt;-- this :) :key=&amp;#34;todo.id&amp;#34; /&amp;gt; 这就是所谓的自定义事件监听器。它会监听任何使用 &amp;lsquo;delete&amp;rsquo; 字符串的触发事件。一旦监听到事件，它会触发一个名为 onDeleteItem 的函数。此函数位于 ToDo.vue 内部，而不是 ToDoItem.vue。如前所述，该函数只是过滤数据对象内的 todo 数组，以删除被点击的待办事项。 在 Vue 示例中还需要注意的是，我们可以在 @click 侦听器中编写 $emit 部分，这样更加简单，如下所示： &amp;lt;div class=”ToDoItem-Delete” @click=”$emit(‘delete’, todo)”&amp;gt;-&amp;lt;/div&amp;gt; 如果你喜欢，这样做可以把 3 步减少到 2 步。 React 中的子组件可以通过 this.props 访问父函数，而在 Vue 中，你需要从子组件中发出事件，父组件来收集事件。 5.如何传递事件监听器 React 的实现方法 事件监听器处理简单事件（比如点击）非常直接。我们为待办事项创建了点击事件，用于创建新的待办事项，代码如下： &amp;lt;div className=”ToDo-Add” onClick={this.createNewToDoItem}&amp;gt;&#43;&amp;lt;/div&amp;gt; 非常简单，就像使用 vanilla JS 处理内联 onClick 一样。正如前文所述，只要按下回车按钮，设置事件监听器就需要花费更长的时间。这需要输入标签处理 onKeyPress 事件，代码如下： &amp;lt;input type=”text” onKeyPress={this.handleKeyPress}/&amp;gt; 该函数只要识别到&amp;rsquo;enter&amp;rsquo;键被按下，它就会触发 createNewToDoItem 函数，代码如下所示： handleKeyPress = (e) =&amp;gt; { if (e.key === ‘Enter’) { this.createNewToDoItem(); } }; Vue 的实现方法 Vue 的事件监听器更加直接。我们只需要使用一个简单的 @ 符号，就可以构建出我们想要的事件监听器。例如，想要添加 click 事件监听器，代码： &amp;lt;div class=”ToDo-Add” @click=”createNewToDoItem()”&amp;gt;&#43;&amp;lt;/div&amp;gt; 注意：@click 实际上是 v-on:click 的简写。Vue 事件监听器很强大，你可以为其选择属性，例如 .once 可以防止事件监听器被多次触发。此外，它还包含很多快捷方式。按下回车按钮时，React 就需要花费更长的时间来创建事件监听器，从而创建新的 ToDo 项目。在 Vue，代码如下： &amp;lt;input type=”text” v-on:keyup.enter=”createNewToDoItem”/&amp;gt; 6.如何将数据传递给子组件 React 的实现方法 在 React 中，我们将 props 传递到子组件的创建处。比如： &amp;lt;ToDoItem key={key} item={todo} /&amp;gt; 此处我们向 ToDoItem 组件传递了两个 prop。之后，我们可以在子组件中通过 this.props 引用它们。因此，想要访问 item.todo prop，我们只需调用 this.props.item。 Vue 的实现方法 在 Vue 中，我们将 props 传递到子组件创建处的方式如下： &amp;lt;ToDoItem v-for=&amp;#34;todo in list&amp;#34; :todo=&amp;#34;todo&amp;#34; :key=&amp;#34;todo.id&amp;#34; @delete=&amp;#34;onDeleteItem&amp;#34; /&amp;gt; 我们将它们传递给子组件中的 props 数组，如：props：[&amp;lsquo;id&amp;rsquo;，&amp;rsquo;todo&amp;rsquo;]。然后可以在子组件中通过名字引用它们。 7.如何将数据发送回父组件 React 的实现方法 我们首先将函数传递给子组件，方法是在我们调用子组件时将其引用为 prop。然后我们通过引用 this.props.whateverTheFunctionIsCalled，为子组件添加调用函数，例如 onClick。然后，这将触发父组件中的函数。删除待办事项一节中详细介绍了整个过程。 Vue 的实现方法 在子组件中我们只需编写一个函数，将一个值发送回父函数。在父组件中编写一个函数来监听子组件何时发出该值的事件，监听到事件之后触发函数调用。同样，删除待办事项一节中详细介绍了整个过程。 8.总结 我们研究了添加、删除和更改数据，以 prop 形式从父组件到子组件传递数据，以及通过事件监听器的形式将数据从子组件发送到父组件。当然，React 和 Vue 之间存在一些小差异，希望本文的内容有助于理解这两个框架。 两个应用程序的 GitHub 地址： **Vue ToDo:**https://github.com/sunil-sandhu/vue-todo **React ToDo:**https://github.com/sunil-sandhu/react-todo" />
-<meta name="description" content="关于 React 框架 和 Vue 框架 的对比，用两者写出同一个程序，对比其代码实现的过程，看看它们的差异究竟有多大？ 转载于：https://blog.csdn.net/csdnnews/article/details/81880378 原文：https://medium.com/javascript-in-plain-english/i-created-the-exact-same-app-in-react-and-vue-here-are-the-differences-e9a1ae8077fd 作者简介：Sunil Sandhu，一位 Web 全栈工程师 &#43; 空想家。 译者：安翔，责编：屠敏 众所周知，Vue 和 React 都是目前非常著名的前端框架。我在工作中经常使用 Vue，因此我对它有很深入的了解。同时，我也对 React 充满了好奇，想要学习一下，一探究竟。 于是我阅读了 React 文档并观看了一些视频教程，虽然这些资料很不错，但是我真正想了解的是 React 与 Vue 之间的不同之处。所谓“不同之处”，我并非想知道它们是否都具有虚拟 DOMS 或者它们如何渲染页面，而是希望有人能够从代码的角度解释这两者之间的差异。我想找到一篇解释这些差异的文章，以便 Vue 或者 React 的初学者可以更好地理解它们两者之间的差异。 很遗憾，我并未找到一篇这样的文章。于是我意识到必须自己动手来比较 Vue 与 React 之间的异同。在我自力更生的过程中，我用这篇文章记录下了具体过程。 1.目标 我将会构建一个标准的待办事项应用程序，允许用户添加和删除列表中的项目。这两个应用程序都使用默认的 CLI（command-line interface，命令行界面）构建，React 使用 create-react-app，Vue 使用 vue-cli。 两个应用程序的外观如下： 两个应用程序的 CSS 代码几乎一样，但这些代码的位置存在差异。考虑到这一点，我们来看看这两个应用程序的文件结构： 你会发现它们的结构几乎完全相同。唯一的区别在于 React App 拥有三个 CSS 文件，而 Vue App 中没有 CSS 文件。这是因为 React 的 create-react-app 组件需要一个附带文件来保存其样式，而 Vue CLI 采用全包方法，其样式在实际组件文件中声明。 两种不同的策略得到的结果是一样的，相信开发者很快能够掌握这两种不同的策略。开发者可以根据自己的偏好做出选择，你会听到开发社区关于如何构建 CSS 的大量讨论。以上，我们遵循两个 CLI 列出了代码结构。 在我们进一步讨论之前，先快速看一下典型的 Vue 和 React 组件的外观： 现在让我们正式开始，深入其中的细节！ 2.如何修改数据 首先，我们需要明白“修改数据”的意思是什么。它听起来有些学术，但实际上很简单，就是把我们已经存储好的数据进行更改。比如，如果我们想把一个人的名字变量从“Jhon”改为“Mark”，我们就需要执行“修改数据”的操作。在这一点上，React 和 Vue 的处理方式有所区别。Vue 本质上会创建一个数据对象，其中的数据可以自由更改；React 则创建一个状态对象，更改数据需要一些额外的操作。React 之所以需要额外的操作有着自己的理由，稍后我会深入介绍。在此之前，我们先看看 Vue 中的数据对象和 React 中的状态对象： vue 数据对象 React 状态对象 从图中可以看出，我们传入了相同的数据，但它们的标记方法不同。因此，将初始数据传递到组件的方式非常相似。但正如我们提到的那样，在两个框架中更改数据的方式有所不同。 假设我们有一个名为 name: ‘Sunil’的数据元素。 在 Vue 中，我们通过调用 this.name 来引用它。我们也可以通过调用 this.name =&amp;lsquo;John&amp;rsquo; 来更新它。这样一来，名字就被成功改为了“Jhon”。 在 React 中，我们通过调用 this.state.name 来引用同一段数据。现在关键的区别在于，我们不能简单地写成 this.state.name =&amp;lsquo;John&amp;rsquo;，因为 React 有限制机制，它会阻止这种简单的修改方式。在 React 中，我们需要这样写：this.setState({name：&amp;lsquo;John&amp;rsquo;})。 虽然这基本上与我们在 Vue 中实现的结果一样，但是 React 的操作更为繁琐，那是因为 Vue 在每次更新数据时默认组合了自己的 setState 版本。简单来说就是，React 需要 setState，然后更新其内部数据，而对于 Vue 来说，当你更新数据对象的值时它就默认了你的更改意图。那么为什么 React 没有进行简化，为什么需要 setState 呢？Revanth Kumar 对此做出了解释： “这是因为 React 希望在状态发生变化时重新运行某些生命周期 hook，比如 componentWillReceiveProps、shouldComponentUpdate、componentWillUpdate、render、componentDidUpdate。当你调用 setState 函数时，它知道状态已经改变。如果你直接改变状态，React 将需要做更多工作来跟踪更改以及运行生命周期 hook 等等。所以为了简单起见，React 使用 setState。&amp;quot; 3.添加新的待办事项 React 的实现方法 createNewToDoItem = () =&amp;gt; { this.setState( ({ list, todo }) =&amp;gt; ({ list: [ ...list, { todo } ], todo: &amp;#39;&amp;#39; }) ); }; 在 React 中，我们的输入字段有一个名为 value 的属性。这个 value 通过使用几个函数自动更新，这些函数绑定在一起以创建双向绑定。我们通过在输入字段上附加一个 onChange 事件监听器来创建这种形式的双向绑定。看看代码，一探究竟： &amp;lt;input type=&amp;#34;text&amp;#34; value={this.state.todo} onChange={this.handleInput}/&amp;gt; 只要输入字段的值发生更改，handleInput 函数就会运行。它通过将状态对象设置为输入字段中的任何内容来更新状态对象内的 todo。handleInput 函数如下： handleInput = e =&amp;gt; { this.setState({ todo: e.target.value }); }; 现在，只要用户按下页面上的 &#43; 按钮添加新项目，createNewToDoItem 函数就会运行 this.setState 并向其传递一个函数。该函数有两个参数，第一个是来自状态对象的整个列表数组，第二个是由 handleInput 函数更新的 todo。然后该函数返回一个新对象，该对象包含之前的整个列表，并在其末尾添加 todo。整个列表是通过使用扩展运算符添加的。 最后，我们将 todo 设置为空字符串，它会自动更新输入字段中的 value。 Vue 的实现方法 createNewToDoItem() { this.list.push( { &amp;#39;todo&amp;#39;: this.todo } ); this.todo = &amp;#39;&amp;#39;; } 在 Vue 中，我们的输入字段中有一个名为 v-model 的句柄。这实现了**双向绑定。输入字段代码如下： &amp;lt;input type=&amp;#34;text&amp;#34; v-model=&amp;#34;todo&amp;#34;/&amp;gt; V-Model 将输入字段的内容绑定到名为 toDoItem 的数据对象的键（key）上。当页面加载时，我们将 toDoItem 设置为空字符串，比如：todo：&amp;rsquo; &amp;lsquo;。如果已经存在数据，例如 todo：&amp;lsquo;添加文本处&amp;rsquo;，输入字段将加载添加文本处的输入内容。无论如何，将其作为空字符串，我们在输入字段中键入的任何文本都会绑定到 todo。这实际上是双向绑定（输入字段可以更新数据对象，数据对象可以更新输入字段）。 因此，回顾前面的 createNewToDoItem() 代码块，我们将 todo 的内容存放到列表数组中，然后将 todo 改为空字符串。 4.删除待办事项 React 的实现方法 deleteItem = indexToDelete =&amp;gt; { this.setState(({ list }) =&amp;gt; ({ list: list.filter((toDo, index) =&amp;gt; index !== indexToDelete) })); }; 尽管 deleteItem 函数位于 ToDo.js 文件中，但是从 ToDoItem.js 文件中引用它也很容易，将 deleteItem() 函数作为 上的 prop 传递： &amp;lt;ToDoItem deleteItem={this.deleteItem.bind(this, key)}/&amp;gt; 这会将该函数传递给子组件，使其可以访问。我们绑定了 this 并传递 key 参数，当用户点击删除项时，函数通过 key 区分用户点击的是哪一条 ToDoItem。然后，在 ToDoItem 组件内部，我们执行以下操作： &amp;lt;div className=”ToDoItem-Delete” onClick={this.props.deleteItem}&amp;gt;-&amp;lt;/div&amp;gt; 想要引用位于父组件内部的函数，只需引用 this.props.deleteItem 即可。 Vue 的实现方法 onDeleteItem(todo){ this.list = this.list.filter(item =&amp;gt; item !== todo); } Vue 的实现方法稍有不同，我们需要做到以下三点： 首先，在元素上调用函数： &amp;lt;div class=”ToDoItem-Delete” @click=”deleteItem(todo)”&amp;gt;-&amp;lt;/div&amp;gt; 然后我们必须创建一个 emit 函数，将其作为子组件的内部方法（在本例中为 ToDoItem.vue），如下所示： deleteItem(todo) { this.$emit(&amp;#39;delete&amp;#39;, todo) } 之后，你会发现，当我们添加 ToDo.vue 的 ToDoItem.vue 时，实际上引用了一个函数： &amp;lt;ToDoItem v-for=&amp;#34;todo in list&amp;#34; :todo=&amp;#34;todo&amp;#34; @delete=&amp;#34;onDeleteItem&amp;#34; // &amp;lt;-- this :) :key=&amp;#34;todo.id&amp;#34; /&amp;gt; 这就是所谓的自定义事件监听器。它会监听任何使用 &amp;lsquo;delete&amp;rsquo; 字符串的触发事件。一旦监听到事件，它会触发一个名为 onDeleteItem 的函数。此函数位于 ToDo.vue 内部，而不是 ToDoItem.vue。如前所述，该函数只是过滤数据对象内的 todo 数组，以删除被点击的待办事项。 在 Vue 示例中还需要注意的是，我们可以在 @click 侦听器中编写 $emit 部分，这样更加简单，如下所示： &amp;lt;div class=”ToDoItem-Delete” @click=”$emit(‘delete’, todo)”&amp;gt;-&amp;lt;/div&amp;gt; 如果你喜欢，这样做可以把 3 步减少到 2 步。 React 中的子组件可以通过 this.props 访问父函数，而在 Vue 中，你需要从子组件中发出事件，父组件来收集事件。 5.如何传递事件监听器 React 的实现方法 事件监听器处理简单事件（比如点击）非常直接。我们为待办事项创建了点击事件，用于创建新的待办事项，代码如下： &amp;lt;div className=”ToDo-Add” onClick={this.createNewToDoItem}&amp;gt;&#43;&amp;lt;/div&amp;gt; 非常简单，就像使用 vanilla JS 处理内联 onClick 一样。正如前文所述，只要按下回车按钮，设置事件监听器就需要花费更长的时间。这需要输入标签处理 onKeyPress 事件，代码如下： &amp;lt;input type=”text” onKeyPress={this.handleKeyPress}/&amp;gt; 该函数只要识别到&amp;rsquo;enter&amp;rsquo;键被按下，它就会触发 createNewToDoItem 函数，代码如下所示： handleKeyPress = (e) =&amp;gt; { if (e.key === ‘Enter’) { this.createNewToDoItem(); } }; Vue 的实现方法 Vue 的事件监听器更加直接。我们只需要使用一个简单的 @ 符号，就可以构建出我们想要的事件监听器。例如，想要添加 click 事件监听器，代码： &amp;lt;div class=”ToDo-Add” @click=”createNewToDoItem()”&amp;gt;&#43;&amp;lt;/div&amp;gt; 注意：@click 实际上是 v-on:click 的简写。Vue 事件监听器很强大，你可以为其选择属性，例如 .once 可以防止事件监听器被多次触发。此外，它还包含很多快捷方式。按下回车按钮时，React 就需要花费更长的时间来创建事件监听器，从而创建新的 ToDo 项目。在 Vue，代码如下： &amp;lt;input type=”text” v-on:keyup.enter=”createNewToDoItem”/&amp;gt; 6.如何将数据传递给子组件 React 的实现方法 在 React 中，我们将 props 传递到子组件的创建处。比如： &amp;lt;ToDoItem key={key} item={todo} /&amp;gt; 此处我们向 ToDoItem 组件传递了两个 prop。之后，我们可以在子组件中通过 this.props 引用它们。因此，想要访问 item.todo prop，我们只需调用 this.props.item。 Vue 的实现方法 在 Vue 中，我们将 props 传递到子组件创建处的方式如下： &amp;lt;ToDoItem v-for=&amp;#34;todo in list&amp;#34; :todo=&amp;#34;todo&amp;#34; :key=&amp;#34;todo.id&amp;#34; @delete=&amp;#34;onDeleteItem&amp;#34; /&amp;gt; 我们将它们传递给子组件中的 props 数组，如：props：[&amp;lsquo;id&amp;rsquo;，&amp;rsquo;todo&amp;rsquo;]。然后可以在子组件中通过名字引用它们。 7.如何将数据发送回父组件 React 的实现方法 我们首先将函数传递给子组件，方法是在我们调用子组件时将其引用为 prop。然后我们通过引用 this.props.whateverTheFunctionIsCalled，为子组件添加调用函数，例如 onClick。然后，这将触发父组件中的函数。删除待办事项一节中详细介绍了整个过程。 Vue 的实现方法 在子组件中我们只需编写一个函数，将一个值发送回父函数。在父组件中编写一个函数来监听子组件何时发出该值的事件，监听到事件之后触发函数调用。同样，删除待办事项一节中详细介绍了整个过程。 8.总结 我们研究了添加、删除和更改数据，以 prop 形式从父组件到子组件传递数据，以及通过事件监听器的形式将数据从子组件发送到父组件。当然，React 和 Vue 之间存在一些小差异，希望本文的内容有助于理解这两个框架。 两个应用程序的 GitHub 地址： **Vue ToDo:**https://github.com/sunil-sandhu/vue-todo **React ToDo:**https://github.com/sunil-sandhu/react-todo" />
-<meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+	<title>使用 React 与 Vue 创建同一款 App，差别究竟有多大？ - 子舒的博客</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
 
+	<link rel="stylesheet" href="/css/style.css">
+	
 
-<link rel="stylesheet" href="/css/base.css">
-<link rel="stylesheet" href="/css/index.css">
-<link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
-<script src="/js/jquery3.6.0.min.js"></script>
 </head>
-
-<body id="container">
-  <meter id="isread" max="100" value="0"></meter>
-<script>
-  window.addEventListener('scroll', function () {
-    var scrolled = window.scrollY;
-    var totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-    var percentage = (scrolled / totalHeight) * 100;
-    $('#isread').attr('value', percentage)
-  });
-</script>
-
-
-<div id="head" class="site-index">
-  <a id="logo" href="/">
-    <img src="https://imgurl.zishu.me/author.webp">
-  </a>
-  <div id="site-title">
-    <a href="/">子舒的博客</a>
-  </div>
-  <ul id="menu">
-    
-    <li><a href="/categories/%e6%8a%80%e6%9c%af/">技术</a></li>
-    
-    <li><a href="/categories/%e9%9a%8f%e7%ac%94/">随笔</a></li>
-    
-    <li><a href="/categories/weekly/">周刊</a></li>
-    
-    <li><a href="/message/">留言</a></li>
-    
-    <li><a href="/about/">关于</a></li>
-    
-    <li><a href="/index.xml" target="_blank">订阅</a></li>
-  </ul>
-</div>
-  <section id="body">
-
-    <div class="box">
-      <h1 id="body-title">使用 React 与 Vue 创建同一款 App，差别究竟有多大？</h1>
-
-      
-      <div class="index-post-meta">
-        <time> # 2021-01-06</time>
-        
-        
-        <span class="namenode">
-          <a href="/categories/%E6%8A%80%E6%9C%AF">技术</a>
-        </span>
-        
-        
-
-        <span class="tag-node">
-        
-        
-        <a href="/tags/vue">#vue</a>
-        
-        <a href="/tags/%E7%BC%96%E7%A8%8B">#编程</a>
-        
-        <a href="/tags/react">#react</a>
-        
-        
-        </span>
-
-      </div>
-      <div class="expired-tips" style="display: none;"></div>
-      
-
-      
-      <div class="toc">
-        <nav id="TableOfContents">
-  <ul>
-    <li><a href="#1目标">1.目标</a></li>
-    <li><a href="#2如何修改数据">2.如何修改数据</a></li>
-    <li><a href="#3添加新的待办事项">3.添加新的待办事项</a>
-      <ul>
-        <li><a href="#react-的实现方法">React 的实现方法</a></li>
-        <li><a href="#vue-的实现方法">Vue 的实现方法</a></li>
-      </ul>
-    </li>
-    <li><a href="#4删除待办事项">4.删除待办事项</a>
-      <ul>
-        <li><a href="#react-的实现方法-1">React 的实现方法</a></li>
-        <li><a href="#vue-的实现方法-1">Vue 的实现方法</a></li>
-      </ul>
-    </li>
-    <li><a href="#5如何传递事件监听器">5.如何传递事件监听器</a>
-      <ul>
-        <li><a href="#react-的实现方法-2">React 的实现方法</a></li>
-        <li><a href="#vue-的实现方法-2">Vue 的实现方法</a></li>
-      </ul>
-    </li>
-    <li><a href="#6如何将数据传递给子组件">6.如何将数据传递给子组件</a>
-      <ul>
-        <li><a href="#react-的实现方法-3">React 的实现方法</a></li>
-        <li><a href="#vue-的实现方法-3">Vue 的实现方法</a></li>
-      </ul>
-    </li>
-    <li><a href="#7如何将数据发送回父组件">7.如何将数据发送回父组件</a>
-      <ul>
-        <li><a href="#react-的实现方法-4">React 的实现方法</a></li>
-        <li><a href="#vue-的实现方法-4">Vue 的实现方法</a></li>
-      </ul>
-    </li>
-    <li><a href="#8总结">8.总结</a></li>
-  </ul>
-</nav>
-      </div>
-      
-
-      <article class="inner-post-content inner-long">
-        
-        <p>关于 <a href="https://react.docschina.org/">React 框架</a> 和 <a href="https://cn.vuejs.org/">Vue 框架</a> 的对比，用两者写出同一个程序，对比其代码实现的过程，看看它们的差异究竟有多大？</p>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="topbar">
+		<a class="topbar__link" href="/" title="子舒的博客" rel="sidebar">
+			<div class="topbar__item topbar__text">
+					<div class="topbar__title">子舒的博客</div>
+					<div class="topbar__tagline">The Tao that is utterable is not the eternal Tao</div>
+				</div>
+		</a>
+	</div>
+		
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">使用 React 与 Vue 创建同一款 App，差别究竟有多大？</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2021-01-06T00:00:00Z">2021-01-06</time></div></div>
+		</header>
+		<div class="content post__content clearfix">
+			<p>关于 <a href="https://react.docschina.org/">React 框架</a> 和 <a href="https://cn.vuejs.org/">Vue 框架</a> 的对比，用两者写出同一个程序，对比其代码实现的过程，看看它们的差异究竟有多大？</p>
 <blockquote>
 <p>转载于：https://blog.csdn.net/csdnnews/article/details/81880378
 原文：https://medium.com/javascript-in-plain-english/i-created-the-exact-same-app-in-react-and-vue-here-are-the-differences-e9a1ae8077fd
@@ -191,112 +73,112 @@
 </blockquote>
 <h2 id="3添加新的待办事项">3.添加新的待办事项</h2>
 <h3 id="react-的实现方法">React 的实现方法</h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">createNewToDoItem</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">(</span> <span class="p">({</span> <span class="nx">list</span><span class="p">,</span> <span class="nx">todo</span> <span class="p">})</span> <span class="p">=&gt;</span> <span class="p">({</span>
-</span></span><span class="line"><span class="cl">      <span class="nx">list</span><span class="o">:</span> <span class="p">[</span>
-</span></span><span class="line"><span class="cl">          <span class="p">...</span><span class="nx">list</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="p">{</span>
-</span></span><span class="line"><span class="cl">          <span class="nx">todo</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">      <span class="p">],</span>
-</span></span><span class="line"><span class="cl">      <span class="nx">todo</span><span class="o">:</span> <span class="s1">&#39;&#39;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">})</span>
-</span></span><span class="line"><span class="cl">  <span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">createNewToDoItem</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">setState</span>( ({ <span style="color:#a6e22e">list</span>, <span style="color:#a6e22e">todo</span> }) =&gt; ({
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">list</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>          ...<span style="color:#a6e22e">list</span>,
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">todo</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      ],
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">todo</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>    })
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>};
 </span></span></code></pre></div><p>在 React 中，我们的输入字段有一个名为 value 的属性。这个 value 通过使用几个函数自动更新，这些函数绑定在一起以创建双向绑定。我们通过在输入字段上附加一个 onChange 事件监听器来创建这种形式的双向绑定。看看代码，一探究竟：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> 
-</span></span><span class="line"><span class="cl">       <span class="na">value</span><span class="o">=</span><span class="s">{this.state.todo}</span> 
-</span></span><span class="line"><span class="cl">       <span class="na">onChange</span><span class="o">=</span><span class="s">{this.handleInput}/</span><span class="p">&gt;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> 
+</span></span><span style="display:flex;"><span>       <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">{this.state.todo}</span> 
+</span></span><span style="display:flex;"><span>       <span style="color:#a6e22e">onChange</span><span style="color:#f92672">=</span><span style="color:#e6db74">{this.handleInput}/</span>&gt;
 </span></span></code></pre></div><p>只要输入字段的值发生更改，handleInput 函数就会运行。它通过将状态对象设置为输入字段中的任何内容来更新状态对象内的 todo。handleInput 函数如下：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">handleInput</span> <span class="o">=</span> <span class="nx">e</span> <span class="p">=&gt;</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">todo</span><span class="o">:</span> <span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span>
-</span></span><span class="line"><span class="cl">  <span class="p">});</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">handleInput</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span> =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">setState</span>({
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">todo</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">value</span>
+</span></span><span style="display:flex;"><span>  });
+</span></span><span style="display:flex;"><span>};
 </span></span></code></pre></div><p>现在，只要用户按下页面上的 + 按钮添加新项目，createNewToDoItem 函数就会运行 this.setState 并向其传递一个函数。该函数有两个参数，第一个是来自状态对象的整个列表数组，第二个是由 handleInput 函数更新的 todo。然后该函数返回一个新对象，该对象包含之前的整个列表，并在其末尾添加 todo。整个列表是通过使用扩展运算符添加的。</p>
 <p>最后，我们将 todo 设置为空字符串，它会自动更新输入字段中的 value。</p>
 <h3 id="vue-的实现方法">Vue 的实现方法</h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">createNewToDoItem</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">        <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="s1">&#39;todo&#39;</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">todo</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">todo</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">createNewToDoItem</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">list</span>.<span style="color:#a6e22e">push</span>(
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;todo&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">todo</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    );
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">todo</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>;
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>在 Vue 中，我们的输入字段中有一个名为 v-model 的句柄。这实现了**双向绑定。输入字段代码如下：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">v-model</span><span class="o">=</span><span class="s">&#34;todo&#34;</span><span class="p">/&gt;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">v-model</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;todo&#34;</span>/&gt;
 </span></span></code></pre></div><p>V-Model 将输入字段的内容绑定到名为 toDoItem 的数据对象的键（key）上。当页面加载时，我们将 toDoItem 设置为空字符串，比如：todo：&rsquo; &lsquo;。如果已经存在数据，例如 todo：&lsquo;添加文本处&rsquo;，输入字段将加载添加文本处的输入内容。无论如何，将其作为空字符串，我们在输入字段中键入的任何文本都会绑定到 todo。这实际上是双向绑定（输入字段可以更新数据对象，数据对象可以更新输入字段）。</p>
 <p>因此，回顾前面的 createNewToDoItem() 代码块，我们将 todo 的内容存放到列表数组中，然后将 todo 改为空字符串。</p>
 <h2 id="4删除待办事项">4.删除待办事项</h2>
 <h3 id="react-的实现方法-1">React 的实现方法</h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">deleteItem</span> <span class="o">=</span> <span class="nx">indexToDelete</span> <span class="p">=&gt;</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">(({</span> <span class="nx">list</span> <span class="p">})</span> <span class="p">=&gt;</span> <span class="p">({</span>
-</span></span><span class="line"><span class="cl">      <span class="nx">list</span><span class="o">:</span> <span class="nx">list</span><span class="p">.</span><span class="nx">filter</span><span class="p">((</span><span class="nx">toDo</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">index</span> <span class="o">!==</span> <span class="nx">indexToDelete</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}));</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">deleteItem</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">indexToDelete</span> =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">setState</span>(({ <span style="color:#a6e22e">list</span> }) =&gt; ({
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">list</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">list</span>.<span style="color:#a6e22e">filter</span>((<span style="color:#a6e22e">toDo</span>, <span style="color:#a6e22e">index</span>) =&gt; <span style="color:#a6e22e">index</span> <span style="color:#f92672">!==</span> <span style="color:#a6e22e">indexToDelete</span>)
+</span></span><span style="display:flex;"><span>    }));
+</span></span><span style="display:flex;"><span>};
 </span></span></code></pre></div><p>尽管 deleteItem 函数位于 ToDo.js 文件中，但是从 ToDoItem.js 文件中引用它也很容易，将 deleteItem() 函数作为 上的 prop 传递：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">ToDoItem</span> <span class="nx">deleteItem</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">deleteItem</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">key</span><span class="p">)}</span><span class="o">/&gt;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ToDoItem</span> <span style="color:#a6e22e">deleteItem</span><span style="color:#f92672">=</span>{<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">deleteItem</span>.<span style="color:#a6e22e">bind</span>(<span style="color:#66d9ef">this</span>, <span style="color:#a6e22e">key</span>)}<span style="color:#f92672">/&gt;</span>
 </span></span></code></pre></div><p>这会将该函数传递给子组件，使其可以访问。我们绑定了 this 并传递 key 参数，当用户点击删除项时，函数通过 key 区分用户点击的是哪一条 ToDoItem。然后，在 ToDoItem 组件内部，我们执行以下操作：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="o">=</span><span class="s">”ToDoItem-Delete”</span> <span class="na">onClick</span><span class="o">=</span><span class="s">{this.props.deleteItem}</span><span class="p">&gt;</span>-<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span> 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">”ToDoItem-Delete”</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span><span style="color:#e6db74">{this.props.deleteItem}</span>&gt;-&lt;/<span style="color:#f92672">div</span>&gt; 
 </span></span></code></pre></div><p>想要引用位于父组件内部的函数，只需引用 this.props.deleteItem 即可。</p>
 <h3 id="vue-的实现方法-1">Vue 的实现方法</h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">onDeleteItem</span><span class="p">(</span><span class="nx">todo</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">list</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">item</span> <span class="p">=&gt;</span> <span class="nx">item</span> <span class="o">!==</span> <span class="nx">todo</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">onDeleteItem</span>(<span style="color:#a6e22e">todo</span>){
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">list</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">list</span>.<span style="color:#a6e22e">filter</span>(<span style="color:#a6e22e">item</span> =&gt; <span style="color:#a6e22e">item</span> <span style="color:#f92672">!==</span> <span style="color:#a6e22e">todo</span>);
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>Vue 的实现方法稍有不同，我们需要做到以下三点：</p>
 <ol>
 <li>首先，在元素上调用函数：</li>
 </ol>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">”ToDoItem-Delete”</span> <span class="err">@</span><span class="na">click</span><span class="o">=</span><span class="s">”deleteItem(todo)”</span><span class="p">&gt;</span>-<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">”ToDoItem-Delete”</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">”deleteItem(todo)”</span>&gt;-&lt;/<span style="color:#f92672">div</span>&gt;
 </span></span></code></pre></div><ol start="2">
 <li>然后我们必须创建一个 emit 函数，将其作为子组件的内部方法（在本例中为 ToDoItem.vue），如下所示：</li>
 </ol>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">deleteItem</span><span class="p">(</span><span class="nx">todo</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">$emit</span><span class="p">(</span><span class="s1">&#39;delete&#39;</span><span class="p">,</span> <span class="nx">todo</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">deleteItem</span>(<span style="color:#a6e22e">todo</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">$emit</span>(<span style="color:#e6db74">&#39;delete&#39;</span>, <span style="color:#a6e22e">todo</span>)
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><ol start="3">
 <li>之后，你会发现，当我们添加 ToDo.vue 的 ToDoItem.vue 时，实际上引用了一个函数：</li>
 </ol>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">ToDoItem</span> <span class="nx">v</span><span class="o">-</span><span class="k">for</span><span class="o">=</span><span class="s2">&#34;todo in list&#34;</span> 
-</span></span><span class="line"><span class="cl">	<span class="o">:</span><span class="nx">todo</span><span class="o">=</span><span class="s2">&#34;todo&#34;</span> 
-</span></span><span class="line"><span class="cl">	<span class="err">@</span><span class="k">delete</span><span class="o">=</span><span class="s2">&#34;onDeleteItem&#34;</span> <span class="c1">// &lt;-- this :)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="o">:</span><span class="nx">key</span><span class="o">=</span><span class="s2">&#34;todo.id&#34;</span> <span class="o">/&gt;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ToDoItem</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#66d9ef">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;todo in list&#34;</span> 
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">:</span><span style="color:#a6e22e">todo</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;todo&#34;</span> 
+</span></span><span style="display:flex;"><span>	<span style="color:#960050;background-color:#1e0010">@</span><span style="color:#66d9ef">delete</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;onDeleteItem&#34;</span> <span style="color:#75715e">// &lt;-- this :)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#f92672">:</span><span style="color:#a6e22e">key</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;todo.id&#34;</span> <span style="color:#f92672">/&gt;</span>
 </span></span></code></pre></div><p>这就是所谓的自定义事件监听器。它会监听任何使用 &lsquo;delete&rsquo; 字符串的触发事件。一旦监听到事件，它会触发一个名为 onDeleteItem 的函数。此函数位于 ToDo.vue 内部，而不是 ToDoItem.vue。如前所述，该函数只是过滤数据对象内的 todo 数组，以删除被点击的待办事项。</p>
 <p>在 Vue 示例中还需要注意的是，我们可以在 @click 侦听器中编写 $emit 部分，这样更加简单，如下所示：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">”ToDoItem-Delete”</span> <span class="err">@</span><span class="na">click</span><span class="o">=</span><span class="s">”$emit(‘delete’,</span> <span class="na">todo</span><span class="err">)”</span><span class="p">&gt;</span>-<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span> 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">”ToDoItem-Delete”</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">”$emit(‘delete’,</span> <span style="color:#a6e22e">todo</span><span style="color:#960050;background-color:#1e0010">)”</span>&gt;-&lt;/<span style="color:#f92672">div</span>&gt; 
 </span></span></code></pre></div><p>如果你喜欢，这样做可以把 3 步减少到 2 步。</p>
 <p>React 中的子组件可以通过 this.props 访问父函数，而在 Vue 中，你需要从子组件中发出事件，父组件来收集事件。</p>
 <h2 id="5如何传递事件监听器">5.如何传递事件监听器</h2>
 <h3 id="react-的实现方法-2">React 的实现方法</h3>
 <p>事件监听器处理简单事件（比如点击）非常直接。我们为待办事项创建了点击事件，用于创建新的待办事项，代码如下：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">className</span><span class="o">=</span><span class="s">”ToDo-Add”</span> <span class="na">onClick</span><span class="o">=</span><span class="s">{this.createNewToDoItem}</span><span class="p">&gt;</span>+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">”ToDo-Add”</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span><span style="color:#e6db74">{this.createNewToDoItem}</span>&gt;+&lt;/<span style="color:#f92672">div</span>&gt;
 </span></span></code></pre></div><p>非常简单，就像使用 vanilla JS 处理内联 onClick 一样。正如前文所述，只要按下回车按钮，设置事件监听器就需要花费更长的时间。这需要输入标签处理 onKeyPress 事件，代码如下：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">”text”</span> <span class="na">onKeyPress</span><span class="o">=</span><span class="s">{this.handleKeyPress}/</span><span class="p">&gt;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">”text”</span> <span style="color:#a6e22e">onKeyPress</span><span style="color:#f92672">=</span><span style="color:#e6db74">{this.handleKeyPress}/</span>&gt;
 </span></span></code></pre></div><p>该函数只要识别到&rsquo;enter&rsquo;键被按下，它就会触发 <strong>createNewToDoItem</strong> 函数，代码如下所示：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">handleKeyPress</span> <span class="o">=</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">key</span> <span class="o">===</span> <span class="err">‘</span><span class="nx">Enter</span><span class="err">’</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="p">.</span><span class="nx">createNewToDoItem</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">handleKeyPress</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">e</span>) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">key</span> <span style="color:#f92672">===</span> <span style="color:#960050;background-color:#1e0010">‘</span><span style="color:#a6e22e">Enter</span><span style="color:#960050;background-color:#1e0010">’</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">createNewToDoItem</span>();
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>};
 </span></span></code></pre></div><h3 id="vue-的实现方法-2">Vue 的实现方法</h3>
 <p>Vue 的事件监听器更加直接。我们只需要使用一个简单的 @ 符号，就可以构建出我们想要的事件监听器。例如，想要添加 click 事件监听器，代码：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">”ToDo-Add”</span> <span class="err">@</span><span class="na">click</span><span class="o">=</span><span class="s">”createNewToDoItem()”</span><span class="p">&gt;</span>+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span> 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">”ToDo-Add”</span> <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">”createNewToDoItem()”</span>&gt;+&lt;/<span style="color:#f92672">div</span>&gt; 
 </span></span></code></pre></div><blockquote>
 <p>注意：@click 实际上是 v-on:click 的简写。Vue 事件监听器很强大，你可以为其选择属性，例如 .once 可以防止事件监听器被多次触发。此外，它还包含很多快捷方式。按下回车按钮时，React 就需要花费更长的时间来创建事件监听器，从而创建新的 ToDo 项目。在 Vue，代码如下：</p>
 </blockquote>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">”text”</span> <span class="na">v-on:keyup</span><span class="err">.</span><span class="na">enter</span><span class="o">=</span><span class="s">”createNewToDoItem”/</span><span class="p">&gt;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">”text”</span> <span style="color:#a6e22e">v-on:keyup</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">enter</span><span style="color:#f92672">=</span><span style="color:#e6db74">”createNewToDoItem”/</span>&gt;
 </span></span></code></pre></div><h2 id="6如何将数据传递给子组件">6.如何将数据传递给子组件</h2>
 <h3 id="react-的实现方法-3">React 的实现方法</h3>
 <p>在 React 中，我们将 props 传递到子组件的创建处。比如：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">ToDoItem</span> <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">key</span><span class="p">}</span> <span class="nx">item</span><span class="o">=</span><span class="p">{</span><span class="nx">todo</span><span class="p">}</span> <span class="o">/&gt;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ToDoItem</span> <span style="color:#a6e22e">key</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">key</span>} <span style="color:#a6e22e">item</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">todo</span>} <span style="color:#f92672">/&gt;</span>
 </span></span></code></pre></div><p>此处我们向 ToDoItem 组件传递了两个 prop。之后，我们可以在子组件中通过 this.props 引用它们。因此，想要访问 item.todo prop，我们只需调用 this.props.item。</p>
 <h3 id="vue-的实现方法-3">Vue 的实现方法</h3>
 <p>在 Vue 中，我们将 props 传递到子组件创建处的方式如下：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">ToDoItem</span> <span class="nx">v</span><span class="o">-</span><span class="k">for</span><span class="o">=</span><span class="s2">&#34;todo in list&#34;</span> 
-</span></span><span class="line"><span class="cl">	<span class="o">:</span><span class="nx">todo</span><span class="o">=</span><span class="s2">&#34;todo&#34;</span>
-</span></span><span class="line"><span class="cl">	<span class="o">:</span><span class="nx">key</span><span class="o">=</span><span class="s2">&#34;todo.id&#34;</span>
-</span></span><span class="line"><span class="cl">	<span class="err">@</span><span class="k">delete</span><span class="o">=</span><span class="s2">&#34;onDeleteItem&#34;</span> <span class="o">/&gt;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ToDoItem</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#66d9ef">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;todo in list&#34;</span> 
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">:</span><span style="color:#a6e22e">todo</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;todo&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">:</span><span style="color:#a6e22e">key</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;todo.id&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#960050;background-color:#1e0010">@</span><span style="color:#66d9ef">delete</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;onDeleteItem&#34;</span> <span style="color:#f92672">/&gt;</span>
 </span></span></code></pre></div><p>我们将它们传递给子组件中的 props 数组，如：props：[&lsquo;id&rsquo;，&rsquo;todo&rsquo;]。然后可以在子组件中通过名字引用它们。</p>
 <h2 id="7如何将数据发送回父组件">7.如何将数据发送回父组件</h2>
 <h3 id="react-的实现方法-4">React 的实现方法</h3>
@@ -309,10 +191,11 @@
 <p>**Vue ToDo:**<a href="https://github.com/sunil-sandhu/vue-todo">https://github.com/sunil-sandhu/vue-todo</a></p>
 <p>**React ToDo:**<a href="https://github.com/sunil-sandhu/react-todo">https://github.com/sunil-sandhu/react-todo</a></p>
 
-      </article>
+		</div>
+	</article>
+</main>
 
-      
-      <div style="padding:20px 0"></div>
+
 <div class="comments">
   <div class="giscus"></div>
 </div>
@@ -334,20 +217,40 @@
   async>
 </script>
 
-      
-
-    </div>
-    <footer id="foot">
-  <p>© 2020 - 2024 Powered by
-    <a href="https://github.com/dlzmoe/blog" target="_blank">Github</a>
-    / <a href="/index.xml" target="_blank">RSS</a>
-  </p>
+			</div>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2024 子舒的博客, 
+			使用 hugo 构建
+		</div>
+	</div>
 </footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
 
-<script src="/js/main.js"></script>
-
-<script defer src="https://cn.vercount.one/js"></script>
-  </section>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [["$", "$"]],
+      },
+      displayMath: [
+        ["$$", "$$"],
+        ["\[\[", "\]\]"],
+      ],
+      svg: {
+        fontCache: "global",
+      },
+    };
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script
+    id="MathJax-script"
+    async
+    src="https://gcore.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+  ></script>
 </body>
-
 </html>

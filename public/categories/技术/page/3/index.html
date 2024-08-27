@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
 	<title>技术 - 子舒的博客</title>
 	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="">
@@ -22,7 +23,7 @@
 		<a class="topbar__link" href="/" title="子舒的博客" rel="sidebar">
 			<div class="topbar__item topbar__text">
 					<div class="topbar__title">子舒的博客</div>
-					<div class="topbar__tagline">Thoughts come and go quickly, occasionally stopping here</div>
+					<div class="topbar__tagline">The Tao that is utterable is not the eternal Tao</div>
 				</div>
 		</a>
 	</div>
@@ -43,7 +44,7 @@
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2023-03-05T00:00:00Z">March 05, 2023</time></div></div>
+	<time class="meta__text" datetime="2023-03-05T00:00:00Z">2023-03-05</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		Vue 不允许在已经创建的实例上动态添加新的根级响应式属性，它可以使用 Vue.set(object, key, value) 方法将响应属性添加到嵌套的对象上。
@@ -59,7 +60,7 @@ for (let i = 0; i &lt; this.data.length; i++) { // this.data[i].state = false; t
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2023-02-04T00:00:00Z">February 04, 2023</time></div></div>
+	<time class="meta__text" datetime="2023-02-04T00:00:00Z">2023-02-04</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		想在文章中插入 iframe, video, 以及其他比如 summar y 等标签，可以配置一下 config 文件。
@@ -76,7 +77,7 @@ for (let i = 0; i &lt; this.data.length; i++) { // this.data[i].state = false; t
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2023-02-01T00:00:00Z">February 01, 2023</time></div></div>
+	<time class="meta__text" datetime="2023-02-01T00:00:00Z">2023-02-01</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		1.介绍 cloudflare 有一个非常好用的功能&mdash;Workers，可以在无服务器的状态下运行一些程序，包括常见的反向代理等。
@@ -86,10 +87,11 @@ for (let i = 0; i &lt; this.data.length; i++) { // this.data[i].state = false; t
 2.服务名称随意填写，然后点击右下角创建。
 3.点击右上角快速编辑
 4.在左侧编辑器中输入下列的代码
-2.代码 // 替换成你想镜像的站点 const upstream = &#39;gravatar.com&#39; // 如果那个站点有专门的移动适配站点，否则保持和上面一致 const upstream_mobile = &#39;gravatar.com&#39; // 你希望禁止哪些国家访问 const blocked_region = [] // 禁止自访问 const blocked_ip_address = [] // 替换成你想镜像的站点 const replace_dict = { &#39;$upstream&#39;: &#39;$custom_domain&#39;, &#39;//gravatar.com&#39;: &#39;&#39; } //以下内容都不用动 addEventListener(&#39;fetch&#39;, event =&gt; { event.
-	</div>
-	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/blog/182.html/">Read more</a>
+2.代码 点击展开代码 // 替换成你想镜像的站点 const upstream = &#39;gravatar.com&#39; // 如果那个站点有专门的移动适配站点，否则保持和上面一致 const upstream_mobile = &#39;gravatar.com&#39; // 你希望禁止哪些国家访问 const blocked_region = [] // 禁止自访问 const blocked_ip_address = [] // 替换成你想镜像的站点 const replace_dict = { &#39;$upstream&#39;: &#39;$custom_domain&#39;, &#39;//gravatar.com&#39;: &#39;&#39; } //以下内容都不用动 addEventListener(&#39;fetch&#39;, event =&gt; { event.respondWith(fetchAndApply(event.request)); }) async function fetchAndApply(request) { const region = request.headers.get(&#39;cf-ipcountry&#39;).toUpperCase(); const ip_address = request.headers.get(&#39;cf-connecting-ip&#39;); const user_agent = request.headers.get(&#39;user-agent&#39;); let response = null; let url = new URL(request.url); let url_host = url.host; if (url.protocol == &#39;http:&#39;) { url.protocol = &#39;https:&#39; response = Response.redirect(url.href); return response; } if (await device_status(user_agent)) { upstream_domain = upstream } else { upstream_domain = upstream_mobile } url.host = upstream_domain; if (blocked_region.includes(region)) { response = new Response(&#39;Access denied: WorkersProxy is not available in your region yet.&#39;, { status: 403 }); } else if(blocked_ip_address.includes(ip_address)){ response = new Response(&#39;Access denied: Your IP address is blocked by WorkersProxy.&#39;, { status: 403 }); } else{ let method = request.method; let request_headers = request.headers; let new_request_headers = new Headers(request_headers); new_request_headers.set(&#39;Host&#39;, upstream_domain); new_request_headers.set(&#39;Referer&#39;, url.href); let original_response = await fetch(url.href, { method: method, headers: new_request_headers }) let original_response_clone = original_response.clone(); let original_text = null; let response_headers = original_response.headers; let new_response_headers = new Headers(response_headers); let status = original_response.status; new_response_headers.set(&#39;access-control-allow-origin&#39;, &#39;*&#39;); new_response_headers.set(&#39;access-control-allow-credentials&#39;, true); new_response_headers.delete(&#39;content-security-policy&#39;); new_response_headers.delete(&#39;content-security-policy-report-only&#39;); new_response_headers.delete(&#39;clear-site-data&#39;); const content_type = new_response_headers.get(&#39;content-type&#39;); if (content_type.includes(&#39;text/html&#39;) &amp;&amp; content_type.includes(&#39;UTF-8&#39;)) { original_text = await replace_response_text(original_response_clone, upstream_domain, url_host); } else { original_text = original_response_clone.body } response = new Response(original_text, { status, headers: new_response_headers }) } return response; } async function replace_response_text(response, upstream_domain, host_name) { let text = await response.text() var i, j; for (i in replace_dict) { j = replace_dict[i] if (i == &#39;$upstream&#39;) { i = upstream_domain } else if (i == &#39;$custom_domain&#39;) { i = host_name } if (j == &#39;$upstream&#39;) { j = upstream_domain } else if (j == &#39;$custom_domain&#39;) { j = host_name } let re = new RegExp(i, &#39;g&#39;) text = text.replace(re, j); } return text; } async function device_status (user_agent_info) { var agents = [&#34;Android&#34;, &#34;iPhone&#34;, &#34;SymbianOS&#34;, &#34;Windows Phone&#34;, &#34;iPad&#34;, &#34;iPod&#34;]; var flag = true; for (var v = 0; v &lt; agents.length; v++) { if (user_agent_info.indexOf(agents[v]) &gt; 0) { flag = false; break; } } return flag; } 然后点击保存并部署，就可以成功反代 gravatar 镜像了。
+然后照葫芦画瓢，可以通过这种方式反代任何网站，访问起来大致无压力，延迟 100+ms 左右。
+3.自定义域名 在触发器中可以找到自定义域名选项，输入已经绑定 cloudflare 的域名，再次赞美 cloudflare，如果事前绑定好了域名，在这里可以直接输入二级域名，cloudflare 会自动解析，全部都是自动化的。
+在主页左侧的 网站 绑定域名。
+# 分享我的免费镜像。 https://gravatar.zsh.im/avatar 
 	</div>
 </article>
 <article class="list__item post">
@@ -100,7 +102,7 @@ for (let i = 0; i &lt; this.data.length; i++) { // this.data[i].state = false; t
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2023-01-09T00:00:00Z">January 09, 2023</time></div></div>
+	<time class="meta__text" datetime="2023-01-09T00:00:00Z">2023-01-09</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		memos 是一个具有知识管理和社交功能的开源自托管备忘录中心。
@@ -111,10 +113,7 @@ Github 地址：https://github.com/usememos/memos
 将下面代码复制到你想显示的页面编辑，只需修改 openId，提供了一个基础的样式，如果有其他优化方案，欢迎指出。
 由于接口中带了用户密钥，建议完成代码后将 js 加密再引入，不然可能会有一定的安全风险。
 推荐网址：https://tool.lu/js/
-&lt;!-- 结构和 css --&gt; &lt;div class=&#34;sslist&#34;&gt;&lt;/div&gt; &lt;style&gt; .sslist-item { padding: 10px 10px 20px; margin-bottom: 20px; border-radius: 2px; background: #f3f3f3; box-shadow: 1px 2px 4px rgba(0, 0, 0, .2); transition: all 0.2s linear; animation: up 1s forwards; transform: translateY(20px); opacity: 0; } @keyframes up { 0% { transform: translateY(20px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } } .
-	</div>
-	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/blog/181.html/">Read more</a>
+&lt;!-- 结构和 css --&gt; &lt;div class=&#34;sslist&#34;&gt;&lt;/div&gt; &lt;style&gt; .sslist-item { padding: 10px 10px 20px; margin-bottom: 20px; border-radius: 2px; background: #f3f3f3; box-shadow: 1px 2px 4px rgba(0, 0, 0, .2); transition: all 0.2s linear; animation: up 1s forwards; transform: translateY(20px); opacity: 0; } @keyframes up { 0% { transform: translateY(20px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } } .sslist-item:hover { background: #eee; } .sslist-item .sslist-date { opacity: 0.6; margin: 0; font-size: 15px; margin-bottom: 5px; } &lt;/style&gt; // 调用接口的 js 方法 function memosShow() { var memosStr = &#34;&#34;; var openId = &#34;xxx&#34;; $.ajax({ url: &#34;https://memos.zburu.com/api/memo?openId=&#34; + openId + &#34;&amp;tag=说说&#34;, type: &#34;get&#34;, dataType: &#34;json&#34;, success: function (data) { // 生成数组 const sslist = data.data; for (let i = 0; i &lt; sslist.length; i++) { const element = sslist[i]; // 把时间戳转为正常时间格式 2023-01-9 13:17:12 var date = new Date(element.createdTs * 1000); Y = date.getFullYear() + &#34;-&#34;; M = (date.getMonth() + 1 &lt; 10 ? &#34;0&#34; + (date.getMonth() + 1) : date.getMonth() + 1) + &#34;-&#34;; D = (date.getDate() &lt; 10 ? &#34;0&#34; + date.getDate() : date.getDate()) + &#34; &#34;; h = date.getHours() + &#34;:&#34;; m = date.getMinutes() + &#34;:&#34;; s = date.getSeconds(); const createdTsNew = Y + M + D + h + m + s; sslist[i].createdTs = createdTsNew; // 利用js正则删去内容前的标签字符 const contentNew = element.content.slice(4); sslist[i].content = contentNew; } $.each(data.data, function (i, item) { list = &#34;&lt;div class=&#39;sslist-item&#39;&gt;&#34; + &#34;&lt;p class=&#39;sslist-date&#39;&gt;&#34; + item.createdTs + &#34;&lt;/p&gt;&#34; + item.content + &#34;&lt;/div&gt;&#34;; memosStr += list; }), $(&#34;.sslist&#34;).html(memosStr); }, error: function () { console.log(&#34;error&#34;); } }); } memosShow(); 
 	</div>
 </article>
 <article class="list__item post">
@@ -125,7 +124,7 @@ Github 地址：https://github.com/usememos/memos
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2023-01-06T00:00:00Z">January 06, 2023</time></div></div>
+	<time class="meta__text" datetime="2023-01-06T00:00:00Z">2023-01-06</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		点击页面时可以弹出随机颜色小心心，目前我的网站就使用了这个特效。
@@ -141,7 +140,7 @@ Github 地址：https://github.com/usememos/memos
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2022-11-15T00:00:00Z">November 15, 2022</time></div></div>
+	<time class="meta__text" datetime="2022-11-15T00:00:00Z">2022-11-15</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		[ ]+{ }：一个数组加一个对象。
@@ -150,10 +149,7 @@ Github 地址：https://github.com/usememos/memos
 [ ].toString() 返回空字符串，({ }).toString() 返回 &ldquo;[object Object]&quot;，最后的结果就是 &ldquo;[object Object]&quot;。
 { }+[ ]：看上去应该和上面一样。
 但是{ }除了表示一个对象之外，也可以表示一个空的 bock。在 [ ] + { }中，[ ]被解析为数组，因此后续的 + 被解析为加法运算符，而{ }就解析为对象。
-但在{ } + [ ]中，{ }被解析为空的 bock，随后的 + 被解析为正号运算符。即实际上成了：{∥empty block}+[ ]，即对一个空数组执行正号运算，实际上就是把数组转型为数字。首先调用.
-	</div>
-	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/blog/175.html/">Read more</a>
+但在{ } + [ ]中，{ }被解析为空的 bock，随后的 + 被解析为正号运算符。即实际上成了：{∥empty block}+[ ]，即对一个空数组执行正号运算，实际上就是把数组转型为数字。首先调用.valueOf()，返回数组自身，不是 primitive value，因此继续调用 [ ].toString()，返回空字符串。空字符串转型为数字，返回 0，即最后的结果。
 	</div>
 </article>
 <article class="list__item post">
@@ -164,7 +160,7 @@ Github 地址：https://github.com/usememos/memos
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2022-10-22T00:00:00Z">October 22, 2022</time></div></div>
+	<time class="meta__text" datetime="2022-10-22T00:00:00Z">2022-10-22</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		demo: https://img.zburu.com/
@@ -184,9 +180,14 @@ Github 仓库：https://github.com/XPoet/picx
 如果你已经有 node 环境了，直接执行下面命令就可以，如果没有，先去安装一下 node 环境，这里就假设环境安装好了。（https://nodejs.org/zh-cn/）。
 下面这两种方式都可以，没有区别。
 # 安装依赖 # 这个过程因为网速问题可能比较慢 npm install #or yarn 依赖安装之后，就开始构建。
-	</div>
-	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/blog/172.html/">Read more</a>
+# 构建 npm run build # or yarn build 构建完成之后就会生成一个 dist 文件夹，这就是打包好后的文件，里面有一个 index.html 和其他静态资源。
+3.我应该上传到哪里？ 这个时候只需要将他们上传到你想要访问的域名目录下即可。
+比如我使用的是 hugo 博客程序，先在 content 下新建一个文件夹，命名为 img，（你可以起任何名字，注意不要和其他文件名冲突即可。） 然后把 dist 文件夹下的所有文件全部复制到 /content/img/ 文件夹下。
+这样在执行 hugo 命令后会打包到 public 文件夹下，然后直接访问 https://zburu.com/img 就可以打宝图床。
+或者你自己上传到任何你想放的空间下都可以，没有限制~~
+图床如何使用对着文档琢磨即可，上面写的很详细。
+https://picx-docs.xpoet.cn/tutorial/get-start.html
+4.其他问题 如果后面开发者更新图床版本，可以从第一步重新操作，下载、构建、上传。 如果有其他问题，请在评论区留言~~
 	</div>
 </article>
 <article class="list__item post">
@@ -197,7 +198,7 @@ Github 仓库：https://github.com/XPoet/picx
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2022-10-20T00:00:00Z">October 20, 2022</time></div></div>
+	<time class="meta__text" datetime="2022-10-20T00:00:00Z">2022-10-20</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		localStorage 是浏览器自带的一个属性，只读的 localStorage 属性允许你访问一个 Document 源（origin）的对象 Storage；存储的数据将保存在浏览器会话中。localStorage 类似 sessionStorage，但其区别在于：存储在 localStorage 的数据可以长期保留；而当页面会话结束——也就是说，当页面被关闭时，存储在 sessionStorage 的数据会被清除。
@@ -205,10 +206,10 @@ Github 仓库：https://github.com/XPoet/picx
 另外，localStorage 中的键值对总是以字符串的形式存储。 (需要注意，和 js 对象相比，键值对总是以字符串的形式存储意味着数值类型会自动转化为字符串类型).
 localStorage 的使用也非常简单，分为存入和读取，可以将其绑定在事件方法中。
 // 存入 const arr= 100; localStorage.setItem(&#34;key&#34;, JSON.stringify(arr)); // 读取 const arr = JSON.parse(localStorage.getItem(&#34;key&#34;)); 这里 &quot;key&quot; 指的是存到浏览器中的参数名，arr 则是参数值。
-localStorage.setItem(&quot;key&quot;, JSON.stringify(arr)); 这个方法就是将数组 arr 存到了浏览器的 localStorage 中，它的参数名叫 key const arr = JSON.
-	</div>
-	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/blog/171.html/">Read more</a>
+localStorage.setItem(&quot;key&quot;, JSON.stringify(arr)); 这个方法就是将数组 arr 存到了浏览器的 localStorage 中，它的参数名叫 key const arr = JSON.parse(localStorage.getItem(&quot;key&quot;)); 就是读取浏览器中参数名为 key 的参数值。 比如静态保存某个设置参数，可以将其写入数组中，然后通过 localStorage 存储，原本刷新就会显示默认设置，现在可以在每次刷新的适合读取存入的参数。
+在一些场景下非常好用，比如开发一个油猴脚本等等。
+清除 localStorage，分为清除所以的存储值和清除某个特定的 key。
+// 清除本地存储中的所有值 localStorage.clear(); // 本地存储中删除特定项 localStorage.removeItem(key); 
 	</div>
 </article>
 <article class="list__item post">
@@ -219,7 +220,7 @@ localStorage.setItem(&quot;key&quot;, JSON.stringify(arr)); 这个方法就是�
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2022-10-14T00:00:00Z">October 14, 2022</time></div></div>
+	<time class="meta__text" datetime="2022-10-14T00:00:00Z">2022-10-14</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		分享一个 hugo 一键打包并上传 github 的方法，前提是你之前上传过 GitHub 仓库。
@@ -238,14 +239,11 @@ hugo # cd public time=$(date &#34;+%Y-%m-%d %H:%M:%S&#34;) echo $time git add . 
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2022-09-26T00:00:00Z">September 26, 2022</time></div></div>
+	<time class="meta__text" datetime="2022-09-26T00:00:00Z">2022-09-26</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		业务中需求的方法，接口返回一个数组，里面包含了大量的对象，具有同名的属性名，比较常见。但是需要将其中参数为 name 的属性值全部取出，合并成数组。
-const num = [ { id: 1, name: &#39;abc&#39;, }, { id: 2, name: &#39;xyz&#39;, } ] function getFields(arrnum, field) { const resnum = []; for (let i = 0; i &lt; arrnum.length; ++i) resnum.push(arrnum[i][field]); return resnum; } const result = getFields(num, &#34;name&#34;); console.log(result); // [&#39;abc&#39;, &#39;xyz&#39;] console.
-	</div>
-	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/blog/168.html/">Read more</a>
+const num = [ { id: 1, name: &#39;abc&#39;, }, { id: 2, name: &#39;xyz&#39;, } ] function getFields(arrnum, field) { const resnum = []; for (let i = 0; i &lt; arrnum.length; ++i) resnum.push(arrnum[i][field]); return resnum; } const result = getFields(num, &#34;name&#34;); console.log(result); // [&#39;abc&#39;, &#39;xyz&#39;] console.log(result.join(&#39; &#39;)); // &#34;abc xyz&#34; 
 	</div>
 </article>
 
@@ -261,8 +259,15 @@ const num = [ { id: 1, name: &#39;abc&#39;, }, { id: 2, name: &#39;xyz&#39;, } ]
 			
 
 		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
 		
-		
+		<div class="footer__copyright">
+			&copy; 2024 子舒的博客, 
+			使用 hugo 构建
+		</div>
+	</div>
+</footer>
 	</div>
 <script async defer src="/js/menu.js"></script>
 

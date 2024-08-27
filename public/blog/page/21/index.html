@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
 	<title>Blogs - 子舒的博客</title>
 	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="">
@@ -22,7 +23,7 @@
 		<a class="topbar__link" href="/" title="子舒的博客" rel="sidebar">
 			<div class="topbar__item topbar__text">
 					<div class="topbar__title">子舒的博客</div>
-					<div class="topbar__tagline">Thoughts come and go quickly, occasionally stopping here</div>
+					<div class="topbar__tagline">The Tao that is utterable is not the eternal Tao</div>
 				</div>
 		</a>
 	</div>
@@ -43,17 +44,18 @@
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2021-06-08T00:00:00Z">June 08, 2021</time></div></div>
+	<time class="meta__text" datetime="2021-06-08T00:00:00Z">2021-06-08</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		如何在 vue 中完成一次接口的调用？首选就是 axios，方便快捷又好用，支持各种 api ,封装也很方便。
 先用 node 安装一下。
 npm install axios 然后在 main.js 文件中引入。
 import axios from &#39;axios&#39; import VueAxios from &#39;vue-axios&#39; Vue.use(VueAxios, axios) 以我的一个工程目录作为实例，看一下代码。
-// ListThere.vue // html 代码 ... &lt;div&gt;{{ info }}&lt;/div&gt; ... // js 代码 import axios from &#34;axios&#34;; export default { name: &#34;ListThere&#34;, data() { return { .
-	</div>
-	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/blog/71.html/">Read more</a>
+// ListThere.vue // html 代码 ... &lt;div&gt;{{ info }}&lt;/div&gt; ... // js 代码 import axios from &#34;axios&#34;; export default { name: &#34;ListThere&#34;, data() { return { ... }; }, components: { ... }, methods: { ... }, mounted() { axios .get(&#34;http://api.h-camel.com/api?mod=interview&amp;ctr=issues&amp;act=today&#34;) .then((response) =&gt; (this.info = response)) }, }; 数据成功的被取到，然后需要将它在页面中展示出来。使用 vue 自带的 v-for 列表渲染。
+&lt;ul class=&#34;list-api-show&#34;&gt; &lt;li v-for=&#34;(item, index) in show&#34; :key=&#34;index&#34;&gt; {{ item.title }} &lt;/li&gt; &lt;/ul&gt; 然后通过 axios 把数据指向 v-for.
+mounted() { axios // ... .then((response) =&gt; (this.show = response.data.result.today)) } 数据成功取出然后展示在 v-for 里面。
+当然了，这是成功的情况，加入失败了呢？我们需要浏览器给出提示，所以 axios 给出了一个 api &mdash; err 语法。
+mounted() { axios // ... .catch(function (error) { if (error.response) { console.log(error.response.data); console.log(error.response.status); console.log(error.response.headers); console.log(&#39;err&#39;) } else if (error.request) { console.log(error.request); console.log(&#39;err&#39;) } else { console.log(&#39;Error&#39;, error.message); console.log(&#39;err&#39;) } console.log(error.config); console.log(&#39;err&#39;) }); } 如果接口有问题，或者我们调用时代码写错了，都会给出报错提示，具体什么样的错误会有什么样的警告，需要我们一一去经历摸索。
 	</div>
 </article>
 <article class="list__item post">
@@ -64,7 +66,7 @@ import axios from &#39;axios&#39; import VueAxios from &#39;vue-axios&#39; Vue.u
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2021-05-30T00:00:00Z">May 30, 2021</time></div></div>
+	<time class="meta__text" datetime="2021-05-30T00:00:00Z">2021-05-30</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		为了方便写一些东西，pc 端和手机端都可以同步，我用 leanote 搭建了一个在线笔记，但是必须在服务器后台运行一个指令
@@ -84,7 +86,7 @@ base run.sh 不然就访问不了端口，我也不可能时刻在终端保持�
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2021-05-27T00:00:00Z">May 27, 2021</time></div></div>
+	<time class="meta__text" datetime="2021-05-27T00:00:00Z">2021-05-27</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		1.问题 css 中使用动画属性会和同标签下的 fixed 属性冲突，导致定位失效，那么该如何解决他呢？
@@ -92,9 +94,16 @@ base run.sh 不然就访问不了端口，我也不可能时刻在终端保持�
 /* index-container 类名是页面的主体部分 */ .index-container { opacity: 0; animation-name: index; animation-duration: 0.7s; animation-fill-mode: forwards; } /* 一个简单的动画实现 */ @keyframes index { 0% { transform: translateY(100px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } } 运行之后发现，动画可以很好的显示，但是当我翻阅文章详情的时候发现，目录固定失效了。
 按照原来的设置是当页面往下滑动的时候，目录会紧贴浏览器的顶部，方便跳转和查看目录，但是现在它已经不能紧贴了。看一下浏览器设置，属性确实生效了，但是页面并没有显示我们想要的结果。
 之前我写目录固定事件的时候用的是 scroll 事件，然后昨天写动画，绑定的 onload 事件，我初步判断是两个 window 冲突了，导致第二个失效，所以我就改了一种写法，用 addEventListener 事件监听执行他们，但最终无论怎么写，目录固定始终不能生效。
-	</div>
-	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/blog/69.html/">Read more</a>
+昨天熬得太晚了，就没管它放在那了，今天一早我就去张鑫旭的网站查了一下，果然有这么一个问题。
+参考文章：https://www.zhangxinxu.com/wordpress/2015/05/css3-transform-affect/
+但是文章只是介绍了问题产生的原因，并没有明确给出一个好的解决办法。
+3.方法 虽然没有明确的方法，但是给了我一个思路，因为动画中的一些属性，比如 scale、translate 等，会造车容器的宽高重新计算，而 fixed 属性则依赖于规定的一个像素值，所以当执行动画的时候，页面的高度发生了变化，所以 fixed 不能安心的执行自己的任务了。
+原因找到了，方法自然而然就出来了，看图（图很丑，手画的，能理解意思就行）
+这是我最开始的布局，我将动画绑定给 红色框 的容器了，而目录就在红色框内，所以失效。
+现在我重新布局一下，
+目录依旧处于侧边，但是我将他和通常的侧边栏分开成两个容器了，现在我把动画绑定给 主体部分 和 侧边栏 ，这样目录就和绑定动画的标签分开了。
+再到页面测试，发现没有任何问题，动画效果和目录固定互不影响。
+很快乐，又可以愉快地折腾了！
 	</div>
 </article>
 <article class="list__item post">
@@ -105,7 +114,7 @@ base run.sh 不然就访问不了端口，我也不可能时刻在终端保持�
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2021-05-13T00:00:00Z">May 13, 2021</time></div></div>
+	<time class="meta__text" datetime="2021-05-13T00:00:00Z">2021-05-13</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		转载自：https://www.moeor.com/26.html
@@ -127,9 +136,11 @@ base run.sh 不然就访问不了端口，我也不可能时刻在终端保持�
 双击打开，可能会弹出以下错误提示，这个是没有影响的，安装完成后重启一点电脑就可以了！
 验证数据库 选择桌面生成的图标
 鼠标右键打开文件所在位置，弹出文件夹，往上翻，在文件夹中找到 bin 文件夹。
-	</div>
-	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/blog/68.html/">Read more</a>
+双击，进入 bin 文件夹，往下翻，找到 sqlplus.exe 程序。
+双击运行。
+输入用户名：system（统一默认都是 system），回车
+输入口令：（刚才安装时设置的口令），口令输入是不显示的，直接回车就行了。
+若出现“连接到：Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production”语句时，则安装成功！
 	</div>
 </article>
 <article class="list__item post">
@@ -140,7 +151,7 @@ base run.sh 不然就访问不了端口，我也不可能时刻在终端保持�
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2021-05-11T00:00:00Z">May 11, 2021</time></div></div>
+	<time class="meta__text" datetime="2021-05-11T00:00:00Z">2021-05-11</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		1.前言 本文从Typecho 简介开始讲解，其中包括服务器的选择，以及域名注册，服务器系统选择，宝塔安装，环境配置，Typecho 安装包括中间的防采坑注意事项，为您提供完整的保姆级搭建流程，请珍惜哦！
@@ -156,9 +167,73 @@ Typecho 的默认模板和后台，全部采用了响应式设计。所以 Typec
 搭建Typecho 博客需要使用服务器或者虚拟机，最近也看到一篇使用 Vercel+Mysql 搭建 Typecho 的文章，但是这种是使用外部 Mysql 服务的，相比使用服务器或者虚拟机这种还是不太方便配置和管理的。使用服务器相比虚拟机会更加的好用。
 **注：**本文只讲解服务器的搭建流程，虚拟机请参考！
 **服务器选择：**推荐去腾讯云或阿里云，有学生机（9 元/月）可供选择，腾讯云还是 25 岁以下免学生认证的，学生价续费三次，所以有条件可以选择 1 年购买和续费，腾讯的还有免费升配置，，阿里云的学生机下架了，但是也可以买为新用户提供的，建议选择 轻量应用服务器，1h2g 的配置完全够用，流量也完全够用。
-	</div>
-	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/blog/67.html/">Read more</a>
+腾讯云：https://cloud.tencent.com/act/campus
+阿里云：https://developer.aliyun.com/plan/grow-up
+如果你买不了这种，也可以去其他服务商买新用户优惠的服务器，建议选择大厂。
+选择服务器要看下地区，如果是大陆地区的服务器，需要去其对应的服务商进行域名备案，否者你无法使用，如果是香港地区或者国外的服务器，则不需要进行备案。
+**注：**阿里和腾讯这两种轻量应用服务器都是需要 备案的，如果嫌麻烦或者不想备案，可选择其他地区的服务器！
+备案操作有些复杂，也需要好几天的时间，但是备案也有备案的好处，比如使用国内的 CDN 加速等。另请仔细参考各服务商提供的流程，要注意看清备案流程上的注意事项，防止备案驳回浪费时间。
+相比国外和香港的服务器，使用大陆的服务器在国内的访问速度是最好的，当然如果你搞外国业务当我没说。。。
+**域名选择：**域名选择很简单，去各大服务商注册一个就完事了，喜欢什么就注册什么，但是如果你要备案使用大陆服务器，一定不要注册不支持备案的域名，当然绝大多数都是支持备案的。另各大服务商也有新用户注册域名优惠活动，在百度仔细找一下就行了。 腾讯云：https://cloud.tencent.com/act/domainsales
+阿里云：https://wanwang.aliyun.com/domain
+华为云：https://activity.huaweicloud.com/domain1.html
+下面开始搭建流程：
+4.LNMP 环境 首先我们要搭建的就是 LNMP 环境，LNMP 代表的就是：Linux 系统下 Nginx+MySQL+PHP 这种网站服务器架构。
+Linux 是一类 Unix 计算机操作系统的统称，是目前最流行的免费操作系统。代表版本有：debian、centos、ubuntu、fedora、gentoo 等。
+Nginx 是一个高性能的 HTTP 和反向代理 web 服务器，同时也提供了 IMAP/POP3/SMTP 服务。
+Mysql 是一款安全、跨平台、高效的，并与 PHP、Java 等主流编程语言紧密结合的数据库系统。
+PHP 是一种在服务器端执行的嵌入 HTML 文档的脚本语言。
+当然如果你不喜欢使用 Nginx，或者 Mysql，请自行更换其它的，这里不过多介绍！
+Linux 系统的话，本文使用 Centos 8 系统讲解。
+搭建 LNMP 环境，我们可以选择自行下载对应的安装包，然后在 Centos 系统中，安装Nginx，Mysql，PHP等，这种纯动手的方式，非常麻烦和复杂，在后期进行多网站管理和配置 HTTPS 证书，以及网站伪静态配置时非常麻烦。
+所以本文讲解使用宝塔面板来进行安装部署环境！
+5.宝塔是什么 宝塔面板是一款服务器管理软件，支持 windows 和 linux 系统，可以通过 Web 端轻松管理服务器，提升运维效率。例如：创建管理网站、FTP、数据库，拥有可视化文件管理器，可视化软件管理器，可视化 CPU、内存、流量监控图表，计划任务等功能。
+宝塔面板拥有极速方便的一键配置与管理，可一键配置服务器环境（LAMP/LNMP/Tomcat/Node.js），一键部署 SSL，异地备份；提供 SSH 开启关闭服务，SSH 端口更改，禁 ping，防火墙端口放行以及操作日志查看；CPU、内存、磁盘 IO、网络 IO 数据监测，可设置记录保存天数以及任意查看某天数据；
+计划任务可按周期添加执行，支持 SHELL 脚本，提供网站、数据库备份以及日志切割，且支持一键备份到又拍云存储空间，或者其他云存储空间里；通过 web 界面就可以轻松管理安装所用的服务器软件，还有实用的扩展插件；集成方便高效的文件管理器，支持上传、下载、打包、解压以及文件编辑查看。
+进入搭建正题：
+6.安装宝塔 选择服务器时，选择系统镜像，不要选择服务商提供的应用镜像，操作系统选择 Centos，版本的话 7 和 8 都可以。当然你也可以选择其他系统，，，
+接着到服务商的控制台，找到你的服务器，进入控制台，重置密码。
+然后在安全&ndash;》防火墙那里添加规则。
+端口范围8888，其他默认，备注随意。
+**注：**如果你不添加 8888，安装宝塔以后你是进不去的，安装宝塔以后可以修改宝塔的进入端口，再修改一下这里就可以了！
+使用 SSH 工具连接你的服务器，如果没有 SSH 工具也可以使用控制台那里提供的远程连接！
+在终端界面输入一下命令开始安装！
+Centos 安装命令：
+yum install -y wget &amp;&amp; wget -O install.sh http://download.bt.cn/install/install_6.0.sh &amp;&amp; sh install.sh 不同操作系统有不同的安装命令，详情请去宝塔官网查看！
+遇到安装提示直接输入：y
+安装完成后如下：
+在浏览器中访问外网面板地址。
+**注：**如果你刚才没有在服务器控制台安全防火墙那里添加端口 8888 是打不开的。
+使用 username 和 password 登录宝塔面板，点击我已阅读并同意“《用户协议》”后进入宝塔面板！
+进入宝塔面板后，会弹出一键安装环境套件选择界面，这时我们选择左边的 LNMP 环境！
+Nginx 1.18，Mysql 5.6（如果服务器内存在 2g 以上可以选择 5.7），PHP 7.4（php 建议版本选择 7.0 以上），Pure-Ftpd 1.0.49，phpMyAdmin 5.0（这是一个可以在浏览器页面管理数据库的软件程序，要在服务器控制台安全防火墙那里添加端口 888，否则无法打开）
+安装方式有两个，极速安装（安装速度快，节省时间），编译安装（安装速度超级慢，有时会卡死，但会提升服务器性能），可自行选择。本文以极速安装为例！
+安装过程：
+安装完成后，会提示绑定宝塔账号，点击免费注册，去注册一个，然后绑定就可以了！
+**说明：**建议，安装完成后，左侧，面板设置，设置下面板的登录信息，修改一下登录入口，用户名，密码和端口。 注： 如果修改面板设置中的端口，也要在服务器控制台安全防火墙那里修改端口。
+7.安装 Typecho 访问Typecho 官网，点击立即下载，点击下载 1.1 正式版。
+下载完成后，得到一个 1.1-17.10.30-release.tar.gz 压缩包，解压后可以看到里面有一个 build 文件夹，文件夹里面便是 Typecho 程序文件。
+先域名解析一下，去你的域名服务商，控制台找到你的域名，解析，添加记录。主机记录填写@，www 或者 blog 其他的都可以（你填写的是什么就要以什么访问，比如填写 www 便是 www.xxx.com 等），记录类型 A 类型，记录值填写自己服务器的 IP 地址（如果不知道，可查看宝塔页面的左上角），确认就可以了！
+打开宝塔页面，左侧&ndash;》网站&ndash;》添加站点
+添加域名，数据库选择 Mysql utf-8，填写数据库账号和密码以及对应的 PHP 版本，然后提交。
+这里可以先设置一下站点，点击站点右侧的设置，需要设置的有伪静态，SSL 证书，，，
+伪静态选择 typecho，然后保存。
+SSL 证书，选择宝塔 SSL 证书，申请证书，填写相关信息，提交资料等申请成功就可以了。
+如果申请失败，可以去域名服务商那里，有提供单域名免费 SSL 证书，然后选择其他证书，上传证书，开启右上角的强制 HTTPs 就可以了。
+关闭设置窗口，点击根目录下的路径地址**/www/wwwroot/你的域名**，直接进入根目录文件夹，删除 index.html 文件。
+点击上传，弹出窗口，点击上传文件，找到下载的 Typecho 压缩包，打开，然后开始上传，上传完毕关闭窗口。
+解压该压缩包后（删除压缩包），得到 build 文件夹，进入其文件夹内，选择文件名旁边的框，全选文件，右上角选择剪贴，然后回到上一级根目录下，黏贴，然后删掉没用的 build 文件夹就可以了。
+到这一步，浏览器输入你的域名，就可以安装 Typecho 了。
+如有在上方遇到Deprecated: Function get_magic_quotes_gpc() is deprecated in /www/wwwroot/woshishabi.top/var/Typecho/Common.php on line 208报错，不用管，没什么影响。
+点击下一步，进入初始化配置，这一步需要填写修改的是数据库用户名（添加站点时设置的数据库账号，如果忘了可去宝塔面板页面左侧，数据库查看），数据库密码，数据库名（数据库名和数据库用户名是一样的！），用户名，登录密码，邮件地址，确认，开始安装。
+不出意外，安装成功！
+现在再浏览器访问域名，便可以查看你的 Typecho 博客了，当然现在是默认主题，还是比较丑的。
+去百度你喜欢的主题下载，然后上传根目录/usr/themes/目录里面，在后台外观设置中更换。各主题教程以及配置教程都有主题文档。
+插件安装是将下载的插件上传根目录/usr/plugin/ 目录里面，在后台设置中启用插件，设置插件。
+你的后台面板地址就是你的域名/admin，用设置的用户名和密码登录就可以了！
+基本的安装到此为止了，下面说一些优化问题！
+8.优化 **永久链接：**对文章和页面进行重写地址，可以去掉地址栏中的 index.php，对 seo 也是很友好的。
+启用重写功能，选择文章路径，选择你喜欢的风格，也可以自定义风格，下面有可选参数，本站使用的是个性化定义 /{cid}.html 。然后保存设置，会出现（重写功能检测失败，请检查你的服务器设置，如果你仍然想启用此功能，请勾选这里。），勾选这里，再次点击保存设置就可以了。
 	</div>
 </article>
 <article class="list__item post">
@@ -169,7 +244,7 @@ Typecho 的默认模板和后台，全部采用了响应式设计。所以 Typec
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2021-05-09T00:00:00Z">May 09, 2021</time></div></div>
+	<time class="meta__text" datetime="2021-05-09T00:00:00Z">2021-05-09</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		我想很多小伙伴在写博客的时候都能遇到一个令人头疼的问题，某一篇文章想用 iframe 引入一个外链视频，但是大小总是有问题，宽度可以固定到 100% ，但是高度比如用实际高度来表示，比如 100px, 200px，诸如此类。
@@ -183,9 +258,7 @@ pc 端
 引入 jq，（一般网站默认都有这个文件）
 加上一段 js 代码，最好放在网站底部， &lt;/body&gt; 前即可。
 $(&#39;iframe&#39;).wrap(&#39;&lt;p class=&#34;iframe&#34;&gt;&lt;/p&gt;&#39;) 在 css 文件的底部加上： .iframe{ position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; } .iframe iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; } 这个时候再访问带有 iframe 视频的网页，不管宽度如何变化，高度可以随视频自适应。
-	</div>
-	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/blog/66.html/">Read more</a>
+例如这个网页，可以看一下效果：https://imhan.cn/posts/20210507.html
 	</div>
 </article>
 <article class="list__item post">
@@ -196,7 +269,7 @@ $(&#39;iframe&#39;).wrap(&#39;&lt;p class=&#34;iframe&#34;&gt;&lt;/p&gt;&#39;) �
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2021-05-07T00:00:00Z">May 07, 2021</time></div></div>
+	<time class="meta__text" datetime="2021-05-07T00:00:00Z">2021-05-07</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		2021 许嵩第 8 张全创作专辑《呼吸之野》首支曲目《乌鸦》5 月 7 日正式发行。
@@ -217,9 +290,14 @@ $(&#39;iframe&#39;).wrap(&#39;&lt;p class=&#34;iframe&#34;&gt;&lt;/p&gt;&#39;) �
 《冰柜》由许嵩创作及制作。迷离的电子乐音色营造出扑朔迷离的诡谲气氛，影像感十足，引人入胜。歌曲在幽微的呼吸声中起始，随后二人交替着不疾不徐地抛出意象，到副歌时揭开面纱，接着以奇诡的 Bridge 段落，一步步将气氛推至高潮。
 《科幻》 脑海里 记忆与幻想交织 亦真亦幻 爱在散场之后 才给出关于爱的答案 ——我们把美满 托付「科幻」
 2021 许嵩第 8 张全创作专辑「呼吸之野」 第四支曲目「科幻」5 月 13 日正式发行
-	</div>
-	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/blog/65.html/">Read more</a>
+歌曲从星云浩渺的氛围和隐约的电子频率声里起始，古典气息和 R&amp;B 节拍梦幻联动，让心神跟随许嵩感而不伤的真挚演绎，飘忽在回忆的宇宙中。
+像一场返璞归真的童梦，像一则年少的浪漫寓言。爱之得失，在他的歌与诗里聚合成辽阔原野。聆听「科幻」，一切都在脑海，一切又都已抛之脑后。
+结尾咚咚的鼓声，如心跳不停，如呼吸不止，如爱一直延续。
+发行完毕 人生不过一场呼吸。呼吸不停，则生命与思考不止。当人们习惯于蒙上口罩生活，畅快呼吸日渐成为一种奢侈。比这更为奢侈的，是袒露真心的酣畅对谈，是呼吸于野，吐纳心声。
+《呼吸之野》从冷色调里起笔，以自如沉着的笔触，描摹情感与境遇。十首音乐，如十场呼吸冥想般令人全神贯注。许嵩在想象与写实的互照里，在温柔与凛冽的交汇处，在浪漫与生猛的切换中，记述着生活与思考。
+在《呼吸之野》里，古典气质与当代元素浑然一体。许嵩构建了有别于其过往作品的音乐语汇，有承接亦有创新。《呼吸之野》是赤诚、饱满且充满细节的，它能够让人在专注聆听时回归内心深处。
+为拍摄专辑平面相片及音乐录影带，许嵩与二十余人拍摄团队进驻高原上人迹罕至的原始森林。帐篷帘幕外，旷野篝火，雪山江河，独行旅人，构成一幅冷暖交汇的静谧画卷。
+呼，向外输出，吸，向内滋长，一呼一吸间，许嵩始终坚持用作品与听众进行交互。自 2009 年发行首张专辑至今 12 年里，许嵩已一人作词、作曲、演唱、制作、策划 8 张个人专辑以及近 50 首原创单曲，佳作不断。2019 年举办“寻宝游戏”巡回演唱会大获好评后，许嵩折返到潜心创作的生活状态，以新作《呼吸之野》再一次展现了强大的创作能量。
 	</div>
 </article>
 <article class="list__item post">
@@ -230,7 +308,7 @@ $(&#39;iframe&#39;).wrap(&#39;&lt;p class=&#34;iframe&#34;&gt;&lt;/p&gt;&#39;) �
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2021-04-24T00:00:00Z">April 24, 2021</time></div></div>
+	<time class="meta__text" datetime="2021-04-24T00:00:00Z">2021-04-24</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		由于博友不在维护博客，导致图片链接丢失，仅以此为纪念。 2023-06-02
@@ -266,9 +344,12 @@ $(&#39;iframe&#39;).wrap(&#39;&lt;p class=&#34;iframe&#34;&gt;&lt;/p&gt;&#39;) �
 但是不适就像水一样无缝隙的将她包围。过去的生活习惯、一起创作的乐曲、国家要她续写交响曲的请求…人们的互动总是强行把她拉进生活中。
 第三乐章 小步舞曲或谐谑曲，中、快板。
 茱莉不想与周围世界产生关联，但是她控制不了他人。莫名和同栋公寓的 prostitute 产生了联系以后，她的平静生活慢慢被打破，一次意外看到的电视节目把茱莉彻底逼回现实。助手接受国家委托，续写本已被她销毁的交响曲；丈夫生命中还有另一个女子。原本小心封存的回忆突然就炸开了。她去找助手，责问他凭什么去续写这首乐曲；她去找亡夫的情人，却只能“平静”接受对方已有丈夫骨肉的事实……（女主这段表演真的很精彩）
-	</div>
-	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/blog/64.html/">Read more</a>
+茱莉重新审视自己的生活、感情。她把准备变卖的房产赠给了丈夫的情人；重新投入作曲，把一直萦绕在脑内的旋律写出来…
+第四乐章 终曲。通常是快板，经常采用会选取时或者回旋奏鸣曲式。也就是对主题进行呼应。
+电影的最后是本剧的高潮，像走马灯一样回顾了茱莉的遭遇。戴着爱的十字架的男孩突然惊醒、在过去徘徊的母亲永远的沉寂、混乱生活的 prostitute 的沉思、及情人对新生儿的微笑…伴着最终成曲，回顾了茱莉这段人生经历。
+导演的布局真的太妙了，每一个要素都紧紧地联系在一起。蓝色基调、交响乐贯穿全剧，既烘托氛围，又表达茱莉沉默背后压抑的感情……
+后记 本来想把三色系列都写一遍，但好几遍《蓝》看下来感觉还是需要时间去消化。基耶斯洛夫斯基的电影值得反复看的，不同的人生阶段应该也会有不同的看法。
+一人所学有限，若有疏漏，还请大家批评指正。
 	</div>
 </article>
 <article class="list__item post">
@@ -279,7 +360,7 @@ $(&#39;iframe&#39;).wrap(&#39;&lt;p class=&#34;iframe&#34;&gt;&lt;/p&gt;&#39;) �
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2021-04-21T00:00:00Z">April 21, 2021</time></div></div>
+	<time class="meta__text" datetime="2021-04-21T00:00:00Z">2021-04-21</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		一、搭建 docsify 是一个类似 vuepress, gitbook 等静态文档程序，但是对比之前，个人还是喜欢 docsify 的风格和源码。不想要那么多附带的功能，能满足写文章，目录的功能就行了。
@@ -293,9 +374,9 @@ _navbar.md 导航栏
 window.$docsify = { ... loadNavbar: true, ... } 如图：
 _sidebar.md 侧边栏
 * [基于 docsify 搭建一个文档](基于docsify搭建一个文档.md) 在 index.html 调用。
-	</div>
-	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/blog/63.html/">Read more</a>
+window.$docsify = { ... loadSidebar: true, ... } 如图：
+README.md 主页
+## about 博客地址：[https://imhan.cn](https://imhan.cn) 作者：shuxhan 时间：2021.04.20 本文档作为博客的文章备份，如果对文章有一些其他的评论可以直接点击链接到原地址。 如图：
 	</div>
 </article>
 <article class="list__item post">
@@ -306,7 +387,7 @@ _sidebar.md 侧边栏
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2021-04-03T00:00:00Z">April 03, 2021</time></div></div>
+	<time class="meta__text" datetime="2021-04-03T00:00:00Z">2021-04-03</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		清明时节雨纷纷，路上行人欲断魂。
@@ -326,8 +407,15 @@ _sidebar.md 侧边栏
 			
 
 		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
 		
-		
+		<div class="footer__copyright">
+			&copy; 2024 子舒的博客, 
+			使用 hugo 构建
+		</div>
+	</div>
+</footer>
 	</div>
 <script async defer src="/js/menu.js"></script>
 

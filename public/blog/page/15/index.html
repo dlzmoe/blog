@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
 	<title>Blogs - 子舒的博客</title>
 	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="">
@@ -22,7 +23,7 @@
 		<a class="topbar__link" href="/" title="子舒的博客" rel="sidebar">
 			<div class="topbar__item topbar__text">
 					<div class="topbar__title">子舒的博客</div>
-					<div class="topbar__tagline">Thoughts come and go quickly, occasionally stopping here</div>
+					<div class="topbar__tagline">The Tao that is utterable is not the eternal Tao</div>
 				</div>
 		</a>
 	</div>
@@ -43,7 +44,7 @@
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2022-08-04T00:00:00Z">August 04, 2022</time></div></div>
+	<time class="meta__text" datetime="2022-08-04T00:00:00Z">2022-08-04</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		来自一位朋友的意难平。
@@ -57,7 +58,7 @@
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2022-08-02T00:00:00Z">August 02, 2022</time></div></div>
+	<time class="meta__text" datetime="2022-08-02T00:00:00Z">2022-08-02</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		实测好用，没有坑。
@@ -75,7 +76,7 @@ reg delete &#34;HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2022-07-30T00:00:00Z">July 30, 2022</time></div></div>
+	<time class="meta__text" datetime="2022-07-30T00:00:00Z">2022-07-30</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		本文专为 Anghunk 主题开发文档而写。 https://github.com/dlzmoe/Anghunk
@@ -83,10 +84,9 @@ reg delete &#34;HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a
 介绍 Anghunk 评论携带很多精美的表情，但是正常情况下 Typecho 后台是没办法正常解析这些表情的。如下图；
 但是，经过我解析表情之后，就可以变成下面这样，使用主题如果需要这种功能，可以按照我下面的步骤进行改造。
 修改 打开 /admin/manage-comments.php 文件，在题头插入：
-/* * 解析表情 */ function getparseBiaoQingComment($content) { $emopath=$_SERVER[&#39;REQUEST_SCHEME&#39;].&#34;:&#34;. DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR . $_SERVER[&#39;HTTP_HOST&#39;]; $emo = false; global $emo; if(!$emo) { $emo = json_decode(file_get_contents(dirname(dirname(dirname(__FILE__))).&#39;/zburu.com/usr/themes/dlzmoe/libs/OwO.json&#39;), true); } foreach ($emo as $v) { if($v[&#39;type&#39;] == &#39;image&#39;) { foreach ($v[&#39;container&#39;] as $vv) { $emoaa=&#34;::&#34;.
-	</div>
-	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/blog/154.html/">Read more</a>
+/* * 解析表情 */ function getparseBiaoQingComment($content) { $emopath=$_SERVER[&#39;REQUEST_SCHEME&#39;].&#34;:&#34;. DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR . $_SERVER[&#39;HTTP_HOST&#39;]; $emo = false; global $emo; if(!$emo) { $emo = json_decode(file_get_contents(dirname(dirname(dirname(__FILE__))).&#39;/zburu.com/usr/themes/dlzmoe/libs/OwO.json&#39;), true); } foreach ($emo as $v) { if($v[&#39;type&#39;] == &#39;image&#39;) { foreach ($v[&#39;container&#39;] as $vv) { $emoaa=&#34;::&#34;.$v[&#39;name&#39;].&#34;:&#34;.$vv[&#39;icon&#39;].&#34;::&#34;; $content = str_replace($emoaa, &#39; &lt;img style=&#34;max-height:40px;vertical-align:middle;&#34; src=&#34;&#39;.$emopath.&#39;/usr/themes/dlzmoe/libs/emotion/&#39;.$v[&#39;name&#39;].&#39;/&#39;.$vv[&#39;icon&#39;] .&#39;.png&#34; alt=&#34;&#39;.$vv[&#39;text&#39;] .&#39;&#34;&gt; &#39;, $content); } } } return $content; } 注意我放置的位置，必须要要 &lt;?php ... ?&gt; 之间
+**找到 第166行，修改一下，把标签中的代码替换为下方标注的。 **
+&lt;div class=&#34;comment-content&#34;&gt; &lt;!-- 解析输出带表情的评论 --&gt; &lt;?php $con=$comments-&gt;content; echo getparseBiaoQingComment($con); ?&gt; &lt;/div&gt; 之后回到后台评论列表就可以看到评论成功被解析了，本方法仅适用于 Anghunk 主题。
 	</div>
 </article>
 <article class="list__item post">
@@ -97,7 +97,7 @@ reg delete &#34;HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2022-07-29T00:00:00Z">July 29, 2022</time></div></div>
+	<time class="meta__text" datetime="2022-07-29T00:00:00Z">2022-07-29</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		好像很久没有写随笔了，最近发生的事很多，却不是件件如人心意。上午烈日当空，下午乌云密布，也已经是常事。当然我说的是天气。
@@ -115,7 +115,7 @@ reg delete &#34;HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2022-07-18T00:00:00Z">July 18, 2022</time></div></div>
+	<time class="meta__text" datetime="2022-07-18T00:00:00Z">2022-07-18</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		# 删除之前无法使用的面板环境 rm -rf /www/server/panel/pyenv #重新获取新的面板环境和更新包 curl http://download.bt.cn/install/update_panel.sh|bash 
@@ -129,14 +129,11 @@ reg delete &#34;HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2022-07-12T00:00:00Z">July 12, 2022</time></div></div>
+	<time class="meta__text" datetime="2022-07-12T00:00:00Z">2022-07-12</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		示例如下。
-&lt;template&gt; &lt;div class=&#34;posts&#34;&gt; &lt;div v-for=&#34;item in list&#34; :key=&#34;item.cid&#34; &gt; {{ item.title }} &lt;/div&gt; &lt;/div&gt; &lt;/template&gt; &lt;script&gt; import Axios from &#39;axios&#39;; export default { name: &#39;index&#39;, data () { return { list: [] } }, methods: { getData () { var api = &#39;https://zburu.com/api/posts.php&#39;; Axios.get(api).then((response) =&gt; { this.list = response.data; console.
-	</div>
-	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/blog/151.html/">Read more</a>
+&lt;template&gt; &lt;div class=&#34;posts&#34;&gt; &lt;div v-for=&#34;item in list&#34; :key=&#34;item.cid&#34; &gt; {{ item.title }} &lt;/div&gt; &lt;/div&gt; &lt;/template&gt; &lt;script&gt; import Axios from &#39;axios&#39;; export default { name: &#39;index&#39;, data () { return { list: [] } }, methods: { getData () { var api = &#39;https://zburu.com/api/posts.php&#39;; Axios.get(api).then((response) =&gt; { this.list = response.data; console.log(response.data) }).catch((error) =&gt; { console.log(error); }) } }, mounted () { this.getData(); }, } &lt;/script&gt; &lt;style&gt; &lt;/style&gt; 
 	</div>
 </article>
 <article class="list__item post">
@@ -147,7 +144,7 @@ reg delete &#34;HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2022-07-08T00:00:00Z">July 08, 2022</time></div></div>
+	<time class="meta__text" datetime="2022-07-08T00:00:00Z">2022-07-08</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		2022 年 7 月 8 日，安倍晋三在街头发表演讲时遭枪击。据奈良市消防局称，遇袭的安倍晋三目前失去意识，心肺停止。嫌疑人 41 岁男子山上彻也（现住奈良市）随后被控制。
@@ -162,7 +159,7 @@ reg delete &#34;HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2022-07-02T00:00:00Z">July 02, 2022</time></div></div>
+	<time class="meta__text" datetime="2022-07-02T00:00:00Z">2022-07-02</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		手机像素一般，更主要的是拍照手法不行，拍不出优美的感觉。
@@ -176,7 +173,7 @@ reg delete &#34;HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2022-06-27T00:00:00Z">June 27, 2022</time></div></div>
+	<time class="meta__text" datetime="2022-06-27T00:00:00Z">2022-06-27</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		接上篇文章 《关于我选择笔记系统这件小事》 ，obsidian 的个人体验很棒，我也打算长久使用作为个人知识库。
@@ -199,14 +196,11 @@ pc 端同步 接下来需要将电脑本地的文件和坚果云的文件夹相�
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2022-06-24T00:00:00Z">June 24, 2022</time></div></div>
+	<time class="meta__text" datetime="2022-06-24T00:00:00Z">2022-06-24</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		一个有趣的 demo
-this.smalltoBIG(43533534.78); //肆仟叁佰伍拾叁万叁仟伍佰叁拾肆元柒角捌分 smalltoBIG (n) { var fraction = [&#39;角&#39;, &#39;分&#39;]; var digit = [&#39;零&#39;, &#39;壹&#39;, &#39;贰&#39;, &#39;叁&#39;, &#39;肆&#39;, &#39;伍&#39;, &#39;陆&#39;, &#39;柒&#39;, &#39;捌&#39;, &#39;玖&#39;]; var unit = [ [&#39;元&#39;, &#39;万&#39;, &#39;亿&#39;],[&#39;&#39;, &#39;拾&#39;, &#39;佰&#39;, &#39;仟&#39;] ]; var head = n &lt; 0 ? &#39;欠&#39; : &#39;&#39;; n = Math.abs(n); var s = &#39;&#39;; for (var i = 0; i &lt; fraction.
-	</div>
-	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/blog/145.html/">Read more</a>
+this.smalltoBIG(43533534.78); //肆仟叁佰伍拾叁万叁仟伍佰叁拾肆元柒角捌分 smalltoBIG (n) { var fraction = [&#39;角&#39;, &#39;分&#39;]; var digit = [&#39;零&#39;, &#39;壹&#39;, &#39;贰&#39;, &#39;叁&#39;, &#39;肆&#39;, &#39;伍&#39;, &#39;陆&#39;, &#39;柒&#39;, &#39;捌&#39;, &#39;玖&#39;]; var unit = [ [&#39;元&#39;, &#39;万&#39;, &#39;亿&#39;],[&#39;&#39;, &#39;拾&#39;, &#39;佰&#39;, &#39;仟&#39;] ]; var head = n &lt; 0 ? &#39;欠&#39; : &#39;&#39;; n = Math.abs(n); var s = &#39;&#39;; for (var i = 0; i &lt; fraction.length; i++) { s += (digit[Math.floor(n * 10 * Math.pow(10, i)) % 10] + fraction[i]).replace(/零./, &#39;&#39;); } s = s || &#39;整&#39;; n = Math.floor(n); for (var i = 0; i &lt; unit[0].length &amp;&amp; n &gt; 0; i++) { var p = &#39;&#39;; for (var j = 0; j &lt; unit[1].length &amp;&amp; n &gt; 0; j++) { p = digit[n % 10] + unit[1][j] + p; n = Math.floor(n / 10); } s = p.replace(/(零.)*零$/, &#39;&#39;).replace(/^$/, &#39;零&#39;) + unit[0][i] + s; } return head + s.replace(/(零.)*零元/, &#39;元&#39;).replace(/(零.)+/g, &#39;零&#39;).replace(/^整$/, &#39;零元整&#39;); }, 
 	</div>
 </article>
 
@@ -222,8 +216,15 @@ this.smalltoBIG(43533534.78); //肆仟叁佰伍拾叁万叁仟伍佰叁拾肆元
 			
 
 		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
 		
-		
+		<div class="footer__copyright">
+			&copy; 2024 子舒的博客, 
+			使用 hugo 构建
+		</div>
+	</div>
+</footer>
 	</div>
 <script async defer src="/js/menu.js"></script>
 

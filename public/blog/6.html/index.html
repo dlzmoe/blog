@@ -1,155 +1,78 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html class="no-js" lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="generator" content="Hugo 0.123.6">
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="toTop" content="true">
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="author" content="子舒" />
-<meta property="og:url" content="https://zishu.me/blog/6.html/" />
-<link rel="canonical" href="https://zishu.me/blog/6.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
-<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
-<link rel="shortcut" href="https://imgurl.zishu.me/favicon.ico" /><link rel="alternate" type="application/atom+xml" href="https://zishu.me/index.xml" title="子舒的博客">
-<script type="application/ld+json">
-{
-"@context" : "http://schema.org",
-"@type" : "BlogPosting",
-"mainEntityOfPage": {
-"@type": "WebPage",
-"@id": "https:\/\/zishu.me\/"
-},
-"articleSection" : "blog",
-"name" : "文字溢出隐藏以及和 flex 冲突的问题",
-"headline" : "文字溢出隐藏以及和 flex 冲突的问题",
-"description" : "在某些段落中，页面要求文字只显示一行，但是width固定，而文字过长，就会出现一个需求，超过长度限制的文字被隐藏且显示省略号，css 支持这样的属性。 单行文本溢出隐藏 div{ overflow: hidden; white-space: nowrap; text-overflow: ellipsis; } 多行文本溢出隐藏 div { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; } 简单的几行代码就可以达到我们的要求。 但是有一个我们需要注意的地方！！ flex 布局是前端写代码经常使用的一种布局方式，简单便捷且有效，但是在使用 flex 布局的元素中不能同时使用文字溢出隐藏，也就是两者不能同时出现在同一标签中。 这里，我们也有对应的解决办法。 只要保证 flex 布局和隐藏的样式不在同级元素中就可以，所以在文字外部多包裹一层标签。 可以采用下面这段代码的写法； \u0026lt;p\u0026gt; \u0026lt;!-- 我们在这一层的标签进行flex布局 --\u0026gt; \u0026lt;span\u0026gt; \u0026lt;!-- 这一层的标签我们引入文字过长隐藏的样式 --\u0026gt; \u0026lt;!-- 文本 --\u0026gt; \u0026lt;\/span\u0026gt; \u0026lt;\/p\u0026gt;",
-"inLanguage" : "en-US",
-"author" : "子舒",
-"creator" : "子舒",
-"publisher": "子舒",
-"accountablePerson" : "子舒",
-"copyrightHolder" : "子舒",
-"copyrightYear" : "2020",
-"datePublished": "2020-08-03 00:00:00 \u002b0000 UTC",
-"dateModified" : "2020-08-03 00:00:00 \u002b0000 UTC",
-"url" : "https:\/\/zishu.me\/blog\/6.html\/",
-"keywords" : [ "css", ]
-}
-</script><title>文字溢出隐藏以及和 flex 冲突的问题 - 子舒的博客</title>
-<meta property="og:title" content="文字溢出隐藏以及和 flex 冲突的问题" />
-<meta property="og:type" content="article" />
-<meta property="og:description" content="在某些段落中，页面要求文字只显示一行，但是width固定，而文字过长，就会出现一个需求，超过长度限制的文字被隐藏且显示省略号，css 支持这样的属性。 单行文本溢出隐藏 div{ overflow: hidden; white-space: nowrap; text-overflow: ellipsis; } 多行文本溢出隐藏 div { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; } 简单的几行代码就可以达到我们的要求。 但是有一个我们需要注意的地方！！ flex 布局是前端写代码经常使用的一种布局方式，简单便捷且有效，但是在使用 flex 布局的元素中不能同时使用文字溢出隐藏，也就是两者不能同时出现在同一标签中。 这里，我们也有对应的解决办法。 只要保证 flex 布局和隐藏的样式不在同级元素中就可以，所以在文字外部多包裹一层标签。 可以采用下面这段代码的写法； &amp;lt;p&amp;gt; &amp;lt;!-- 我们在这一层的标签进行flex布局 --&amp;gt; &amp;lt;span&amp;gt; &amp;lt;!-- 这一层的标签我们引入文字过长隐藏的样式 --&amp;gt; &amp;lt;!-- 文本 --&amp;gt; &amp;lt;/span&amp;gt; &amp;lt;/p&amp;gt;" />
-<meta name="description" content="在某些段落中，页面要求文字只显示一行，但是width固定，而文字过长，就会出现一个需求，超过长度限制的文字被隐藏且显示省略号，css 支持这样的属性。 单行文本溢出隐藏 div{ overflow: hidden; white-space: nowrap; text-overflow: ellipsis; } 多行文本溢出隐藏 div { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; } 简单的几行代码就可以达到我们的要求。 但是有一个我们需要注意的地方！！ flex 布局是前端写代码经常使用的一种布局方式，简单便捷且有效，但是在使用 flex 布局的元素中不能同时使用文字溢出隐藏，也就是两者不能同时出现在同一标签中。 这里，我们也有对应的解决办法。 只要保证 flex 布局和隐藏的样式不在同级元素中就可以，所以在文字外部多包裹一层标签。 可以采用下面这段代码的写法； &amp;lt;p&amp;gt; &amp;lt;!-- 我们在这一层的标签进行flex布局 --&amp;gt; &amp;lt;span&amp;gt; &amp;lt;!-- 这一层的标签我们引入文字过长隐藏的样式 --&amp;gt; &amp;lt;!-- 文本 --&amp;gt; &amp;lt;/span&amp;gt; &amp;lt;/p&amp;gt;" />
-<meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+	<title>文字溢出隐藏以及和 flex 冲突的问题 - 子舒的博客</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
 
+	<link rel="stylesheet" href="/css/style.css">
+	
 
-<link rel="stylesheet" href="/css/base.css">
-<link rel="stylesheet" href="/css/index.css">
-<link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
-<script src="/js/jquery3.6.0.min.js"></script>
 </head>
-
-<body id="container">
-  <meter id="isread" max="100" value="0"></meter>
-<script>
-  window.addEventListener('scroll', function () {
-    var scrolled = window.scrollY;
-    var totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-    var percentage = (scrolled / totalHeight) * 100;
-    $('#isread').attr('value', percentage)
-  });
-</script>
-
-
-<div id="head" class="site-index">
-  <a id="logo" href="/">
-    <img src="https://imgurl.zishu.me/author.webp">
-  </a>
-  <div id="site-title">
-    <a href="/">子舒的博客</a>
-  </div>
-  <ul id="menu">
-    
-    <li><a href="/categories/%e6%8a%80%e6%9c%af/">技术</a></li>
-    
-    <li><a href="/categories/%e9%9a%8f%e7%ac%94/">随笔</a></li>
-    
-    <li><a href="/categories/weekly/">周刊</a></li>
-    
-    <li><a href="/message/">留言</a></li>
-    
-    <li><a href="/about/">关于</a></li>
-    
-    <li><a href="/index.xml" target="_blank">订阅</a></li>
-  </ul>
-</div>
-  <section id="body">
-
-    <div class="box">
-      <h1 id="body-title">文字溢出隐藏以及和 flex 冲突的问题</h1>
-
-      
-      <div class="index-post-meta">
-        <time> # 2020-08-03</time>
-        
-        
-        <span class="namenode">
-          <a href="/categories/%E6%8A%80%E6%9C%AF">技术</a>
-        </span>
-        
-        
-
-        <span class="tag-node">
-        
-        
-        <a href="/tags/css">#css</a>
-        
-        
-        </span>
-
-      </div>
-      <div class="expired-tips" style="display: none;"></div>
-      
-
-      
-      <div class="toc">
-        <nav id="TableOfContents"></nav>
-      </div>
-      
-
-      <article class="inner-post-content inner-long">
-        
-        <p>在某些段落中，页面要求文字只显示一行，但是<code>width</code>固定，而文字过长，就会出现一个需求，超过长度限制的文字被隐藏且显示省略号，css 支持这样的属性。</p>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="topbar">
+		<a class="topbar__link" href="/" title="子舒的博客" rel="sidebar">
+			<div class="topbar__item topbar__text">
+					<div class="topbar__title">子舒的博客</div>
+					<div class="topbar__tagline">The Tao that is utterable is not the eternal Tao</div>
+				</div>
+		</a>
+	</div>
+		
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">文字溢出隐藏以及和 flex 冲突的问题</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2020-08-03T00:00:00Z">2020-08-03</time></div></div>
+		</header>
+		<div class="content post__content clearfix">
+			<p>在某些段落中，页面要求文字只显示一行，但是<code>width</code>固定，而文字过长，就会出现一个需求，超过长度限制的文字被隐藏且显示省略号，css 支持这样的属性。</p>
 <p><strong>单行文本溢出隐藏</strong></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="nt">div</span><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="k">overflow</span><span class="p">:</span> <span class="kc">hidden</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="k">white-space</span><span class="p">:</span> <span class="kc">nowrap</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="k">text-overflow</span><span class="p">:</span> <span class="kc">ellipsis</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span><span style="color:#f92672">div</span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">overflow</span>: <span style="color:#66d9ef">hidden</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">white-space</span>: <span style="color:#66d9ef">nowrap</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">text-overflow</span>: <span style="color:#66d9ef">ellipsis</span>;
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p><strong>多行文本溢出隐藏</strong></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="nt">div</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="k">display</span><span class="p">:</span> <span class="kp">-webkit-</span><span class="n">box</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="kp">-webkit-</span><span class="n">box-orient</span><span class="p">:</span> <span class="kc">vertical</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="kp">-webkit-</span><span class="n">line-clamp</span><span class="p">:</span> <span class="mi">3</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="k">overflow</span><span class="p">:</span> <span class="kc">hidden</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span><span style="color:#f92672">div</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">display</span>: <span style="color:#66d9ef">-webkit-</span>box;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">-webkit-</span>box-orient: <span style="color:#66d9ef">vertical</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">-webkit-</span>line-clamp: <span style="color:#ae81ff">3</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">overflow</span>: <span style="color:#66d9ef">hidden</span>;
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>简单的几行代码就可以达到我们的要求。</p>
 <p><strong>但是有一个我们需要注意的地方！！</strong></p>
 <p>flex 布局是前端写代码经常使用的一种布局方式，简单便捷且有效，但是在使用 flex 布局的元素中不能同时使用文字溢出隐藏，也就是两者不能同时出现在同一标签中。</p>
 <p>这里，我们也有对应的解决办法。</p>
 <p>只要保证 flex 布局和隐藏的样式不在同级元素中就可以，所以在文字外部多包裹一层标签。</p>
 <p>可以采用下面这段代码的写法；</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>   
-</span></span><span class="line"><span class="cl">    <span class="c">&lt;!-- 我们在这一层的标签进行flex布局 --&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;</span>  <span class="c">&lt;!-- 这一层的标签我们引入文字过长隐藏的样式 --&gt;</span>
-</span></span><span class="line"><span class="cl">        <span class="c">&lt;!-- 文本 --&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">p</span>&gt;   
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">&lt;!-- 我们在这一层的标签进行flex布局 --&gt;</span>
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">span</span>&gt;  <span style="color:#75715e">&lt;!-- 这一层的标签我们引入文字过长隐藏的样式 --&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">&lt;!-- 文本 --&gt;</span>
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">p</span>&gt;
 </span></span></code></pre></div>
-      </article>
+		</div>
+	</article>
+</main>
 
-      
-      <div style="padding:20px 0"></div>
+
 <div class="comments">
   <div class="giscus"></div>
 </div>
@@ -171,20 +94,40 @@
   async>
 </script>
 
-      
-
-    </div>
-    <footer id="foot">
-  <p>© 2020 - 2024 Powered by
-    <a href="https://github.com/dlzmoe/blog" target="_blank">Github</a>
-    / <a href="/index.xml" target="_blank">RSS</a>
-  </p>
+			</div>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2024 子舒的博客, 
+			使用 hugo 构建
+		</div>
+	</div>
 </footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
 
-<script src="/js/main.js"></script>
-
-<script defer src="https://cn.vercount.one/js"></script>
-  </section>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [["$", "$"]],
+      },
+      displayMath: [
+        ["$$", "$$"],
+        ["\[\[", "\]\]"],
+      ],
+      svg: {
+        fontCache: "global",
+      },
+    };
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script
+    id="MathJax-script"
+    async
+    src="https://gcore.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+  ></script>
 </body>
-
 </html>
