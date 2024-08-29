@@ -40,6 +40,26 @@
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
+			<a href="/blog/32.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">为什么不可变性在 React 中那么重要？</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2020-12-02T00:00:00Z">2020-12-02</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		根据官网文档来解释，为什么不可变性的概念在 React 中非常重要的原因，一般来说，有两种改变数据的方式。第一种方式是直接修改变量的值，第二种方式是使用新的一份数据替换旧数据
+React 文档
+一般来说，有两种改变数据的方式。第一种方式是直接修改变量的值，第二种方式是使用新的一份数据替换旧数据
+直接修改数据 var player = {score: 1, name: &#39;Jeff&#39;}; player.score = 2; // player 修改后的值为 {score: 2, name: &#39;Jeff&#39;} 新数据替换旧数据 var player = {score: 1, name: &#39;Jeff&#39;}; var newPlayer = Object.assign({}, player, {score: 2}); // player 的值没有改变，但是 newPlayer 的值是 {score: 2, name: &#39;Jeff&#39;} // 使用对象展开语法，就可以写成： // var newPlayer = {...player, score: 2}; 不直接修改（或改变底层数据）这种方式和前一种方式的结果是一样的，这种方式有以下几点好处：
+简化复杂的功能 不可变性使得复杂的特性更容易实现。在后面的章节里，我们会实现一种叫做“时间旅行”的功能。“时间旅行”可以使我们回顾井字棋的历史步骤，并且可以“跳回”之前的步骤。这个功能并不是只有游戏才会用到——撤销和恢复功能在开发中是一个很常见的需求。不直接在数据上修改可以让我们追溯并复用游戏的历史记录
+跟踪数据的改变 如果直接修改数据，那么就很难跟踪到数据的改变。跟踪数据的改变需要可变对象可以与改变之前的版本进行对比，这样整个对象树都需要被遍历一次
+确定在 React 中何时重新渲染 不可变性最主要的优势在于它可以帮助我们在 React 中创建 pure components。我们可以很轻松的确定不可变数据是否发生了改变，从而确定何时对组件进行重新渲染
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
 			<a href="/blog/31.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">关于 react 的一份学习计划</a>
 		</h2>
 		<div class="list__meta meta">
@@ -79,7 +99,7 @@ function component() { var element = document.createElement(&#39;div&#39;); // L
 &lt;!doctype html&gt; &lt;html&gt; &lt;head&gt; &lt;title&gt;起步&lt;/title&gt; &lt;script src=&#34;https://unpkg.com/lodash@4.16.6&#34;&gt;&lt;/script&gt; &lt;/head&gt; &lt;body&gt; &lt;script src=&#34;./src/index.js&#34;&gt;&lt;/script&gt; &lt;/body&gt; &lt;/html&gt; 在 package.json 中：
 删除&quot;main&quot;: &quot;index.js&quot;,添加&quot;private&quot;: true
 调整工程目录：
-demo|- package.json+ |- /dist+ |- index.html- |- index.html|- /src|- index.js 要在index.js中打包lodash依赖，我们需要在本地安装 library，终端输入指令：
+demo |- package.json + |- /dist + |- index.html - |- index.html |- /src |- index.js 要在index.js中打包lodash依赖，我们需要在本地安装 library，终端输入指令：
 npm install --save lodash 然后调整index.js内容
 // 添加一行代码 import _ from &#39;lodash&#39;; 在dist/index.html中可以把引入的外部文件lodash删去
 删去&lt;script src=&quot;./src/index.js&quot;&gt;&lt;/script&gt;
@@ -401,36 +421,6 @@ React 组件之间存在层级关系。在很多时候，你的数据模型也�
 因为 sub.value 不能直接定义在变量中
 // 先定义 id 为 sub 的 input 框 var sub = document.getElementById(&#39;sub&#39;) // 然后在运算的时候在直接使用 sub.value sub.value = a * b 顺手放一个写 demo 时候用的简易计算器
 &lt;!DOCTYPE html&gt; &lt;html lang=&#34;en&#34;&gt; &lt;head&gt; &lt;meta charset=&#34;UTF-8&#34;&gt; &lt;title&gt;简易计算器&lt;/title&gt; &lt;/head&gt; &lt;body&gt; &lt;input type=&#34;text&#34;&#34; id=&#34;a&#34;&gt; &lt;select id=&#34;c&#34;&gt; &lt;option value=&#34;+&#34;&gt;+&lt;/option&gt; &lt;option value=&#34;-&#34;&gt;-&lt;/option&gt; &lt;option value=&#34;*&#34;&gt;*&lt;/option&gt; &lt;option value=&#34;/&#34;&gt;/&lt;/option&gt; &lt;/select&gt; &lt;input type=&#34;text&#34; id=&#34;b&#34;&gt; &lt;input type=&#34;button&#34; value=&#34;=&#34; onclick=&#34;beto()&#34;&gt; &lt;input type=&#34;text&#34; id=&#34;sub&#34; disabled&gt; &lt;script&gt; function beto() { var a = document.getElementById(&#39;a&#39;).value var b = document.getElementById(&#39;b&#39;).value var c = document.getElementById(&#39;c&#39;).value var sub = document.getElementById(&#39;sub&#39;) switch(c) { case &#34;+&#34;: sub.value = parseInt(a) + parseInt(b); break; case &#34;-&#34;: sub.value = parseInt(a) - parseInt(b); break; case &#34;*&#34;: sub.value = parseInt(a) * parseInt(b); break; case &#34;/&#34;: sub.value = parseInt(a) / parseInt(b); break; } } &lt;/script&gt; &lt;/body&gt; &lt;/html&gt; 
-	</div>
-</article>
-<article class="list__item post">
-	
-	<header class="list__header">
-		<h2 class="list__title post__title">
-			<a href="/blog/21.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">事件监听函数，以及事件的捕获和冒泡机制</a>
-		</h2>
-		<div class="list__meta meta">
-<div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2020-11-17T00:00:00Z">2020-11-17</time></div></div>
-	</header>
-	<div class="content list__excerpt post__content clearfix">
-		事件一般是用于浏览器和用户操作之间的交互，当用户执行某些特殊的操作时，浏览器给予反应，触发绑定的事件，事件流，事件发生时会在元素节点和根节点之间按照约定的顺序传播，事件经过的所有节点都会受到事件的影响，这个传播过程被称为 DOM 事件流
-函数事件 事件一般是用于浏览器和用户操作之间的交互，当用户执行某些特殊的操作时，浏览器给予反应，触发绑定的事件
-事件流，事件发生时会在元素节点和根节点之间按照约定的顺序传播，事件经过的所有节点都会受到事件的影响，这个传播过程被称为 DOM 事件流
-true 是捕获，false 是冒泡，默认为冒泡事件
-1.addEventListener()－－添加事件监听函数 给元素添加一个事件，假如有多个事件，不会覆盖，会依次执行
-&lt;div id=&#34;demo&#34;&gt;dom&lt;/div&gt; &lt;script&gt; document.getElementById(&#39;demo&#39;).addEventListener(&#34;click&#34;, myfun) document.getElementById(&#39;demo&#39;).addEventListener(&#34;click&#34;, myfun1) function myfun() { console.log(&#39;事件监听函数&#39;) } function myfun1() { console.log(&#39;addEventListener&#39;) } &lt;/script&gt; 注意： 1.这里有一个细节，addEventListener() 里面有两个参数，第一个表示触发的条件，第二个表示触发的事件 正常情况下，第二个参数直接写函数名并且不加参数()，如果加了参数()则表示立即执行，不需要触发第一个参数要求的条件
-2.在这里绑定事件的时候，事件名不能和定义的变量名一样，否则无效
-2.removeEventListener()－－移除事件监听函数 下面这个 demo，当鼠标在 div 中移动的时候，出现随机数，点击按钮后，移除事件监听函数
-&lt;!-- css --&gt; &lt;style&gt; #demo { width: 100px; height: 100px; border: 1px solid #000; } &lt;/style&gt; &lt;!-- html --&gt; &lt;div id=&#34;demo&#34;&gt;&lt;/div&gt; &lt;input type=&#34;button&#34; value=&#34;点击移除&#34; onclick=&#34;remove()&#34;&gt; &lt;div id=&#34;show&#34;&gt;&lt;/div&gt; &lt;!-- js --&gt; &lt;script&gt; document.getElementById(&#39;demo&#39;).addEventListener(&#34;mousemove&#34;, myfun) function myfun() { document.getElementById(&#39;show&#39;).innerHTML = Math.random() } function remove() { document.getElementById(&#39;demo&#39;).removeEventListener(&#34;mousemove&#34;, myfun) } &lt;/script&gt; 3.利用事件的捕获和冒泡做点事情 addEventListener() 和 removeEventListener() 其实拥有三个参数，刚才说过了，第一个表示触发条件，第二个表示触发事件，第三个参数正常情况下可以省略，但是要知道它代表的意思
-用布尔值来表示，true 或者 false，默认是 false
-true 表示在捕获阶段调用事件处理程序 false 表示在冒泡阶段调用事件处理程序 根据图片可以看出，捕获阶段要先于冒泡阶段，因此，true 事件要先于 flase 事件触发，多个 true 事件按顺序触发，多个 false 事件，写在后面的先触发
-结论：写在前面的 true 事件 &gt; 写在后面的 true 事件 &gt; 写在后面的 false 事件 &gt; 写在前面的 false 事件
-因此，利用这个参数，可以控制同一个元素的不同事件触发的顺序
-&lt;div id=&#34;out&#34;&gt; &lt;p&gt;最外面&lt;/p&gt; &lt;div id=&#34;middle&#34;&gt; &lt;div id=&#34;inner&#34;&gt;最里面&lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;!-- 第一种情况 --&gt; &lt;script&gt; var out = document.getElementById(&#39;out&#39;); var middle = document.getElementById(&#39;middle&#39;); var inner = document.getElementById(&#39;inner&#39;); //点击 inner 时，触发顺序为：inner-------middle------out out.addEventListener(&#39;click&#39;,function(){alert(&#34;我是最外面的&#34;);},false); middle.addEventListener(&#39;click&#39;,function(){alert(&#34;我是中间的&#34;);},false); inner.addEventListener(&#39;click&#39;,function(){alert(&#34;我是最里面的&#34;);},false); &lt;/script&gt; &lt;!-- 第二种情况 --&gt; &lt;script&gt; var out = document.getElementById(&#39;out&#39;); var middle = document.getElementById(&#39;middle&#39;); var inner = document.getElementById(&#39;inner&#39;); //点击 inner 时，触发顺序为：out------middle-------inner out.addEventListener(&#39;click&#39;,function(){alert(&#34;我是最外面的&#34;);},true); middle.addEventListener(&#39;click&#39;,function(){alert(&#34;我是中间的&#34;);},true); inner.addEventListener(&#39;click&#39;,function(){alert(&#34;我是最里面的&#34;);},true); &lt;/script&gt; &lt;!-- 第三种情况 --&gt; &lt;script&gt; var out = document.getElementById(&#39;out&#39;); var middle = document.getElementById(&#39;middle&#39;); var inner = document.getElementById(&#39;inner&#39;); //点击 inner 时，触发顺序为：out------inner-------middle out.addEventListener(&#39;click&#39;,function(){alert(&#34;我是最外面的&#34;);},true); middle.addEventListener(&#39;click&#39;,function(){alert(&#34;我是中间的&#34;);},false); inner.addEventListener(&#39;click&#39;,function(){alert(&#34;我是最里面的&#34;);},false); &lt;/script&gt; &lt;!-- 第四种情况 --&gt; &lt;script&gt; var out = document.getElementById(&#39;out&#39;); var middle = document.getElementById(&#39;middle&#39;); var inner = document.getElementById(&#39;inner&#39;); //点击 inner 时，触发顺序为：out-------middle------inner out.addEventListener(&#39;click&#39;,function(){alert(&#34;我是最外面的&#34;);},true); middle.addEventListener(&#39;click&#39;,function(){alert(&#34;我是中间的&#34;);},true); inner.addEventListener(&#39;click&#39;,function(){alert(&#34;我是最里面的&#34;);},false); &lt;/script&gt; &lt;!-- 第五种情况 --&gt; &lt;script&gt; var out = document.getElementById(&#39;out&#39;); var middle = document.getElementById(&#39;middle&#39;); var inner = document.getElementById(&#39;inner&#39;); //点击 inner 时，触发顺序为：middle-------inner------out out.addEventListener(&#39;click&#39;,function(){alert(&#34;我是最外面的&#34;);},false); middle.addEventListener(&#39;click&#39;,function(){alert(&#34;我是中间的&#34;);},true); inner.addEventListener(&#39;click&#39;,function(){alert(&#34;我是最里面的&#34;);},false); &lt;/script&gt; &lt;!-- 第六种情况 --&gt; &lt;script&gt; var out = document.getElementById(&#39;out&#39;); var middle = document.getElementById(&#39;middle&#39;); var inner = document.getElementById(&#39;inner&#39;); //点击 inner 时，触发顺序为：out-------inner------middle out.addEventListener(&#39;click&#39;,function(){alert(&#34;我是最外面的&#34;);},true); middle.addEventListener(&#39;click&#39;,function(){alert(&#34;我是中间的&#34;);},false); inner.addEventListener(&#39;click&#39;,function(){alert(&#34;我是最里面的&#34;);},true); &lt;/script&gt; 4.事件处理程序 HTML 事件处理程序 &lt;button onclick=&#34;test()&#34;&gt;测试&lt;/button&gt; &lt;script&gt; function test() { alert(&#34;HTML 事件处理程序&#34;); } &lt;/script&gt; 1.优点：事件处理程序中的代码，能够访问全局作用域中的任何变量 2.缺点：时差问题、扩展的作用域链在不同浏览器中会导致不同结果、html 代码与 js 代码高度耦合
-DOM0 级事件处理程序 &lt;button id=&#34;btn&#34;&gt;测试&lt;/button&gt; &lt;script&gt; var btn = document.getElementById(&#34;btn&#34;); btn.onclick = function test() { alert(&#34;DOM0 级事件处理程序&#34;); } &lt;/script&gt; 1.优点：代码简单，浏览器兼容性好，解决了 html 代码和 js 代码的高度耦合问题 2.缺点：一个元素只能绑定一个事件处理函数，只会在事件冒泡中运行
-DOM2 级事件处理程序 该级别的事件处理程序，运用的就是事件捕获和冒泡机制
-&lt;button id=&#34;btn&#34;&gt;测试&lt;/button&gt; &lt;script&gt; var btn = document.getElementById(&#34;btn&#34;); // 事件监听 btn.addEventListener(&#34;click&#34;, function() { alert(&#34;DOM2 级事件处理程序，我在捕获阶段执行&#34;); }, true); btn.addEventListener(&#34;click&#34;, function() { alert(&#34;DOM2 级事件处理程序，我在冒泡阶段执行&#34;); }, false); // 移除事件监听 var fun = function() { alert(&#34;我要被移除了&#34;); } btn.addEventListener(&#34;click&#34;, fun, false); btn.removeEventListener(&#34;click&#34;, fun, false); &lt;/script&gt; 1.优点：同时支持事件处理的捕获和冒泡阶段，并且一个元素可以绑定多个处理函数 2.缺点：IE 不支持
 	</div>
 </article>
 

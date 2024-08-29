@@ -39,6 +39,25 @@
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
+			<a href="/blog/128.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">分享一款自用的 v2ex 主题样式</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<time class="meta__text" datetime="2022-05-12T00:00:00Z">2022-05-12</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		起因是因为觉得 v2ex 网站主题略有拥挤，阅读体验不好，而正好网站支持自定义 css，所以就在参考其他人的基础上，修改了一套比较美观的样式。
+本来是自用的，但是看到有人发帖分享主题，我也索性将它分享出来了。
+v2ex 帖子：https://www.v2ex.com/t/851735
+Github 仓库：https://github.com/dlzmoe/v2ex_theme
+不想看文档可以直接用下面的链接。
+/* 通过 jsd 加速 github 文件 */ @import &#34;https://cdn.jsdelivr.net/gh/dlzmoe/v2ex_theme/v2ex_theme.min.css&#34;; /* 放在我自己服务器上的链接 */ @import &#34;https://cdn.zburu.com/list/v2ex_theme.css&#34;; 
+	</div>
+</article>
+<article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
 			<a href="/blog/125.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">随想录 (3)</a>
 		</h2>
 		<div class="list__meta meta">
@@ -239,21 +258,6 @@ Github: https://github.com/mirari/v-viewer
 &lt;div class=&#34;markdown-body-box&#34; v-viewer v-highlight&gt; &lt;!-- 页面内容 --&gt; &lt;/div&gt; 在任意页面中引入，可以是一个小组件页面，也可以是根页面，取决于你想在哪里引入这个功能，只要将class, v-viewer, v-highlight 这三个参数引入即可。
 	</div>
 </article>
-<article class="list__item post">
-	
-	<header class="list__header">
-		<h2 class="list__title post__title">
-			<a href="/blog/111.html/" style="color: #000000; text-decoration: none;" onmouseover="this.style.color='#4d4e4e';" onmouseout="this.style.color='#000000';">在 vue 中制作 canvas 波浪图</a>
-		</h2>
-		<div class="list__meta meta">
-<div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2022-03-29T00:00:00Z">2022-03-29</time></div></div>
-	</header>
-	<div class="content list__excerpt post__content clearfix">
-		新建组件 Canvas.vue 。
-// @/components/Canvas.vue &lt;template&gt; &lt;div :style=&#34;{ height: waveAllHeight + &#39;px&#39;, background: bgColor }&#34; class=&#34;wave&#34;&gt; &lt;canvas id=&#34;wave1&#34;&gt;&lt;/canvas&gt; &lt;canvas id=&#34;wave2&#34;&gt;&lt;/canvas&gt; &lt;canvas id=&#34;wave3&#34;&gt;&lt;/canvas&gt; &lt;/div&gt; &lt;/template&gt; &lt;script&gt; export default { name: &#34;Canvas&#34;, props: { bgColor: { default: &#34;none&#34;, }, // 背景色 waveAllHeight: { default: 160 }, // 波浪的整体高度 waveCount: { default: 2 }, // 波峰个数 waveHeight: { default: 50 }, // 波浪起伏高度 // 波浪颜色 waveColor: { default () { return [ &#34;#f3f3f3&#34;, &#34;#f3f3f3&#34;, &#34;#f3f3f3&#34;, ]; }, }, // 波浪速率 waveTime: { default () { return [4000, 4000, 4000]; }, }, }, data () { return {}; }, mounted () { this.wavePlay(&#34;wave1&#34;, 140, this.waveColor[0], this.waveTime[0]); this.wavePlay(&#34;wave2&#34;, 140, this.waveColor[1], this.waveTime[1]); this.wavePlay(&#34;wave3&#34;, 140, this.waveColor[2], this.waveTime[2]); }, methods: { wavePlay ($canvasID, $progress, $maveColor, $time) { const that = this; let waveWidth = 3300, // 波浪长度 offset = 0, waveHeight = that.waveHeight, // 波浪起伏高度 waveCount = that.waveCount, // 波浪个数 startX = -1200, startY = 212, // canvas 高度 progress = $progress, // 波浪位置高度 d2 = waveWidth / waveCount, // 单个波浪的宽度 d = d2 / 2, hd = d / 2, c = document.getElementById($canvasID), ctx = c.getContext(&#34;2d&#34;); c.width = 1920; // 画布宽度 c.height = that.waveAllHeight; // 画布高度 function move () { offset -= 5; if (-1 * offset === d2) { offset = 0; } ctx.clearRect(0, 0, c.width, c.height); ctx.fillStyle = $maveColor; // 画布填充色 ctx.beginPath(); let offsetY = startY - progress; // 绘制贝塞尔曲线 ctx.moveTo(startX - offset, offsetY); // 开始点 for (let i = 0; i &lt; waveCount; i++) { let dx = i * d2; let offsetX = dx + startX - offset; ctx.quadraticCurveTo( offsetX + hd, offsetY + waveHeight, offsetX + d, offsetY ); ctx.quadraticCurveTo( offsetX + hd + d, offsetY - waveHeight, offsetX + d2, offsetY ); } ctx.lineTo(startX + waveWidth, 3000); ctx.lineTo(startX, 0); ctx.fill(); setTimeout(move, $time / 60); // 速度 } move(); }, }, }; &lt;/script&gt; &lt;style scoped lang=&#34;scss&#34;&gt; .wave { width: 100%; height: 100%; position: relative; top: 0; left: 0; margin-top: -8%; canvas { width: 100%; opacity: 1; position: absolute; top: 0; left: 0; } } @media (max-width: 900px) { .wave { display: none; } } &lt;/style&gt; 
-	</div>
-</article>
 
 </main>
 
@@ -320,6 +324,9 @@ Github: https://github.com/mirari/v-viewer
 	<div class="widget__content">
 		<ul class="widget__list">
 			<li class="widget__item">
+				<a class="widget__link" href="/blog/weekly-65.html/">奇趣周刊 - 第 65 期</a>
+			</li>
+			<li class="widget__item">
 				<a class="widget__link" href="/blog/236.html/">Github 仓库同步到 Cloudflare R2</a>
 			</li>
 			<li class="widget__item">
@@ -336,9 +343,6 @@ Github: https://github.com/mirari/v-viewer
 			</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/blog/233.html/">serve00 如何登录？</a>
-			</li>
-			<li class="widget__item">
-				<a class="widget__link" href="/blog/weekly-62.html/">奇趣周刊 - 第 62 期</a>
 			</li>
 		</ul>
 	</div>
@@ -459,7 +463,7 @@ Github: https://github.com/mirari/v-viewer
               <a class="widget-taglist__link widget__link btn" href="/tags/webpack/" title="Webpack">Webpack (2)</a>
             </li>
             <li>
-              <a class="widget-taglist__link widget__link btn" href="/tags/weekly/" title="Weekly">Weekly (64)</a>
+              <a class="widget-taglist__link widget__link btn" href="/tags/weekly/" title="Weekly">Weekly (65)</a>
             </li>
             <li>
               <a class="widget-taglist__link widget__link btn" href="/tags/win11/" title="Win11">Win11 (1)</a>
