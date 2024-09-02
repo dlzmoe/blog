@@ -1,47 +1,144 @@
 <!DOCTYPE html>
-<html class="no-js" lang="en">
+<html lang="en-us">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
-	<title>vue 生命周期 - 子舒的博客</title>
-	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
-	<meta name="description" content="">
+<meta charset="utf-8" />
+<meta name="generator" content="Hugo 0.123.6">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="toTop" content="true">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="author" content="子舒" />
+<meta property="og:url" content="https://zishu.me/blog/5.html/" />
+<link rel="canonical" href="https://zishu.me/blog/5.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="shortcut" href="https://imgurl.zishu.me/favicon.ico" /><link rel="alternate" type="application/atom+xml" href="https://zishu.me/index.xml" title="子舒的博客">
+<script type="application/ld+json">
+{
+"@context" : "http://schema.org",
+"@type" : "BlogPosting",
+"mainEntityOfPage": {
+"@type": "WebPage",
+"@id": "https:\/\/zishu.me\/"
+},
+"articleSection" : "blog",
+"name" : "vue 生命周期",
+"headline" : "vue 生命周期",
+"description" : "学习 vue 中一个非常重要的领域，就是生命周期，它包含了很多的内容。每个 vue 实例在被创建的时候都要经历一系列的初始化过程，这个过程就是 vue 的生命周期。 每个 vue 实例在被创建的时候都要经过一系列的初始化过程——例如，需要把设置数据监听、编译模板、将实例挂载到 DOM 并在数据变化时更新 DOM 等，我们要把这一系列的过程称为组件的生命周期（组件从注册到销毁的整个过程）。我们有时候需要在组件生命周期的某个过程中，执行某些代码，基于此，vue 提供了生命周期钩子函数，给了用户在不同阶段添加自己的代码的机会。 但是在此之前，我们要详细的介绍下组件的生命周期，以及生命后期中每个阶段组件完成和未完成的部分。 一、组件的生命周期 放一张大家都很熟悉的官网文章中对生命周期的注释图。 从图中可以看出，vue 为生命周期提供了 8 个钩子函数，分别是： beforeCreate: 创建前 created: 创建后 beforeMount: 挂载前 mounted: 挂载后 beforeUpate: 更新前 upated: 更新后 beforeDestoy: 销毁前 destoyed: 销毁后 1.beforeCreate beforeCreate 在 vue 实例发生之后，数据观测 (data observer) 和 event\/watcher 事件配置之前被调用。 我们在上面的例子中在的 beforeCreate 钩子中调用 Vue 的 data 和 method，来看一下结果： 可以看到 Vue 中的 data 和方法都是去不到的，并且是在 wath 之前执行 2.created 实例已经创建完成之后被调用。在这一步，实例已完成以下的配置：数据观测 (data observer)，属性和方法的运算，watch\/event 事件回调。然而，挂载阶段还没开始，$el 属性目前不可见。 主要应用：调用数据，调用方法，调用异步函数 console 输出的结果我们看一下 可以看到：created 钩子可以获取 Vue 的 data，调用 Vue 方法，获取原本 HTML 上的直接加载出来的 DOM，但是无法获取到通过挂载模板生成的 DOM（例如：v-for 循环遍历 Vue.list 生成 li） 3.beforeMount 在挂载开始之前被调用：相关的 render 函数（模板）首次被调用。 例如通过 v-for 生成的 html 还没有被挂载到页面上 beforeMount: function () { console.log(\u0026#39;beforeMount:\u0026#39;,document.getElementsByTagName(\u0026#39;li\u0026#39;).length); }, console 打印出来的 beforeMount 为 1 4.mounted el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用该钩子。 有初始值的 DOM 渲染，例如我们的初始数据 list，渲染出来的 li，只有这里才能获取 mounted: function () { console.log(\u0026#39;mounted:\u0026#39;,document.getElementsByTagName(\u0026#39;li\u0026#39;).length); }, 结果 mounted: 3 , 可以看到到这里为止，挂载到实例上了，我们可以获取到 li 的个数了 5.beforeUpdate 数据更新时调用，发生在虚拟 DOM 重新渲染和打补丁之前。你可以在这个钩子中进一步地更改状态，这不会触发附加的重渲染过程。 当我们更改 Vue 的任何数据，都会触发该函数 beforeUpdate: \u0026#34;function () { console.log(\u0026#39;beforeUpdate 钩子执行.\u0026#39;); console.log(\u0026#39;beforeUpdate:\u0026#39;\u002bthis.message) }, 6.updated 由于数据更改导致的虚拟 DOM 重新渲染和打补丁，在这之后会调用该钩子。 当这个钩子被调用时，组件 DOM 已经更新，所以你现在可以执行依赖于 DOM 的操作。然而在大多数情况下，你应该避免在此期间更改状态，因为这可能会导致更新无限循环。 该钩子在服务器端渲染期间不被调用。 数据更新就会触发（vue 所有的数据只有有更新就会触发）,如果想数据一遍就做统一的处理，可以用这个，如果想对不同数据的更新做不同的处理可以用 nextTick，或者是 watch 进行监听 updated: function () { console.log(\u0026#39;updated 钩子执行...\u0026#39;); console.log(\u0026#39;updated:\u0026#39;,this.message) }, 7.beforeDestroy 实例销毁之前调用。在这一步，实例仍然完全可用。 8.destroyed Vue 实例销毁后调用。调用后，Vue 实例指示的所有东西都会解绑定，所有的事件监听器会被移除，所有的子实例也会被销毁。该钩子在服务器端渲染期间不被调用。 结果 可以看打到销毁 Vue 实例时会调用这两个函数",
+"inLanguage" : "en-US",
+"author" : "子舒",
+"creator" : "子舒",
+"publisher": "子舒",
+"accountablePerson" : "子舒",
+"copyrightHolder" : "子舒",
+"copyrightYear" : "2020",
+"datePublished": "2020-06-19 00:00:00 \u002b0000 UTC",
+"dateModified" : "2020-06-19 00:00:00 \u002b0000 UTC",
+"url" : "https:\/\/zishu.me\/blog\/5.html\/",
+"keywords" : [ "vue", ]
+}
+</script><title>vue 生命周期 - 子舒的博客</title>
+<meta property="og:title" content="vue 生命周期" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="学习 vue 中一个非常重要的领域，就是生命周期，它包含了很多的内容。每个 vue 实例在被创建的时候都要经历一系列的初始化过程，这个过程就是 vue 的生命周期。 每个 vue 实例在被创建的时候都要经过一系列的初始化过程——例如，需要把设置数据监听、编译模板、将实例挂载到 DOM 并在数据变化时更新 DOM 等，我们要把这一系列的过程称为组件的生命周期（组件从注册到销毁的整个过程）。我们有时候需要在组件生命周期的某个过程中，执行某些代码，基于此，vue 提供了生命周期钩子函数，给了用户在不同阶段添加自己的代码的机会。 但是在此之前，我们要详细的介绍下组件的生命周期，以及生命后期中每个阶段组件完成和未完成的部分。 一、组件的生命周期 放一张大家都很熟悉的官网文章中对生命周期的注释图。 从图中可以看出，vue 为生命周期提供了 8 个钩子函数，分别是： beforeCreate: 创建前 created: 创建后 beforeMount: 挂载前 mounted: 挂载后 beforeUpate: 更新前 upated: 更新后 beforeDestoy: 销毁前 destoyed: 销毁后 1.beforeCreate beforeCreate 在 vue 实例发生之后，数据观测 (data observer) 和 event/watcher 事件配置之前被调用。 我们在上面的例子中在的 beforeCreate 钩子中调用 Vue 的 data 和 method，来看一下结果： 可以看到 Vue 中的 data 和方法都是去不到的，并且是在 wath 之前执行 2.created 实例已经创建完成之后被调用。在这一步，实例已完成以下的配置：数据观测 (data observer)，属性和方法的运算，watch/event 事件回调。然而，挂载阶段还没开始，$el 属性目前不可见。 主要应用：调用数据，调用方法，调用异步函数 console 输出的结果我们看一下 可以看到：created 钩子可以获取 Vue 的 data，调用 Vue 方法，获取原本 HTML 上的直接加载出来的 DOM，但是无法获取到通过挂载模板生成的 DOM（例如：v-for 循环遍历 Vue.list 生成 li） 3.beforeMount 在挂载开始之前被调用：相关的 render 函数（模板）首次被调用。 例如通过 v-for 生成的 html 还没有被挂载到页面上 beforeMount: function () { console.log(&amp;#39;beforeMount:&amp;#39;,document.getElementsByTagName(&amp;#39;li&amp;#39;).length); }, console 打印出来的 beforeMount 为 1 4.mounted el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用该钩子。 有初始值的 DOM 渲染，例如我们的初始数据 list，渲染出来的 li，只有这里才能获取 mounted: function () { console.log(&amp;#39;mounted:&amp;#39;,document.getElementsByTagName(&amp;#39;li&amp;#39;).length); }, 结果 mounted: 3 , 可以看到到这里为止，挂载到实例上了，我们可以获取到 li 的个数了 5.beforeUpdate 数据更新时调用，发生在虚拟 DOM 重新渲染和打补丁之前。你可以在这个钩子中进一步地更改状态，这不会触发附加的重渲染过程。 当我们更改 Vue 的任何数据，都会触发该函数 beforeUpdate: &amp;#34;function () { console.log(&amp;#39;beforeUpdate 钩子执行.&amp;#39;); console.log(&amp;#39;beforeUpdate:&amp;#39;&#43;this.message) }, 6.updated 由于数据更改导致的虚拟 DOM 重新渲染和打补丁，在这之后会调用该钩子。 当这个钩子被调用时，组件 DOM 已经更新，所以你现在可以执行依赖于 DOM 的操作。然而在大多数情况下，你应该避免在此期间更改状态，因为这可能会导致更新无限循环。 该钩子在服务器端渲染期间不被调用。 数据更新就会触发（vue 所有的数据只有有更新就会触发）,如果想数据一遍就做统一的处理，可以用这个，如果想对不同数据的更新做不同的处理可以用 nextTick，或者是 watch 进行监听 updated: function () { console.log(&amp;#39;updated 钩子执行...&amp;#39;); console.log(&amp;#39;updated:&amp;#39;,this.message) }, 7.beforeDestroy 实例销毁之前调用。在这一步，实例仍然完全可用。 8.destroyed Vue 实例销毁后调用。调用后，Vue 实例指示的所有东西都会解绑定，所有的事件监听器会被移除，所有的子实例也会被销毁。该钩子在服务器端渲染期间不被调用。 结果 可以看打到销毁 Vue 实例时会调用这两个函数" />
+<meta name="description" content="学习 vue 中一个非常重要的领域，就是生命周期，它包含了很多的内容。每个 vue 实例在被创建的时候都要经历一系列的初始化过程，这个过程就是 vue 的生命周期。 每个 vue 实例在被创建的时候都要经过一系列的初始化过程——例如，需要把设置数据监听、编译模板、将实例挂载到 DOM 并在数据变化时更新 DOM 等，我们要把这一系列的过程称为组件的生命周期（组件从注册到销毁的整个过程）。我们有时候需要在组件生命周期的某个过程中，执行某些代码，基于此，vue 提供了生命周期钩子函数，给了用户在不同阶段添加自己的代码的机会。 但是在此之前，我们要详细的介绍下组件的生命周期，以及生命后期中每个阶段组件完成和未完成的部分。 一、组件的生命周期 放一张大家都很熟悉的官网文章中对生命周期的注释图。 从图中可以看出，vue 为生命周期提供了 8 个钩子函数，分别是： beforeCreate: 创建前 created: 创建后 beforeMount: 挂载前 mounted: 挂载后 beforeUpate: 更新前 upated: 更新后 beforeDestoy: 销毁前 destoyed: 销毁后 1.beforeCreate beforeCreate 在 vue 实例发生之后，数据观测 (data observer) 和 event/watcher 事件配置之前被调用。 我们在上面的例子中在的 beforeCreate 钩子中调用 Vue 的 data 和 method，来看一下结果： 可以看到 Vue 中的 data 和方法都是去不到的，并且是在 wath 之前执行 2.created 实例已经创建完成之后被调用。在这一步，实例已完成以下的配置：数据观测 (data observer)，属性和方法的运算，watch/event 事件回调。然而，挂载阶段还没开始，$el 属性目前不可见。 主要应用：调用数据，调用方法，调用异步函数 console 输出的结果我们看一下 可以看到：created 钩子可以获取 Vue 的 data，调用 Vue 方法，获取原本 HTML 上的直接加载出来的 DOM，但是无法获取到通过挂载模板生成的 DOM（例如：v-for 循环遍历 Vue.list 生成 li） 3.beforeMount 在挂载开始之前被调用：相关的 render 函数（模板）首次被调用。 例如通过 v-for 生成的 html 还没有被挂载到页面上 beforeMount: function () { console.log(&amp;#39;beforeMount:&amp;#39;,document.getElementsByTagName(&amp;#39;li&amp;#39;).length); }, console 打印出来的 beforeMount 为 1 4.mounted el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用该钩子。 有初始值的 DOM 渲染，例如我们的初始数据 list，渲染出来的 li，只有这里才能获取 mounted: function () { console.log(&amp;#39;mounted:&amp;#39;,document.getElementsByTagName(&amp;#39;li&amp;#39;).length); }, 结果 mounted: 3 , 可以看到到这里为止，挂载到实例上了，我们可以获取到 li 的个数了 5.beforeUpdate 数据更新时调用，发生在虚拟 DOM 重新渲染和打补丁之前。你可以在这个钩子中进一步地更改状态，这不会触发附加的重渲染过程。 当我们更改 Vue 的任何数据，都会触发该函数 beforeUpdate: &amp;#34;function () { console.log(&amp;#39;beforeUpdate 钩子执行.&amp;#39;); console.log(&amp;#39;beforeUpdate:&amp;#39;&#43;this.message) }, 6.updated 由于数据更改导致的虚拟 DOM 重新渲染和打补丁，在这之后会调用该钩子。 当这个钩子被调用时，组件 DOM 已经更新，所以你现在可以执行依赖于 DOM 的操作。然而在大多数情况下，你应该避免在此期间更改状态，因为这可能会导致更新无限循环。 该钩子在服务器端渲染期间不被调用。 数据更新就会触发（vue 所有的数据只有有更新就会触发）,如果想数据一遍就做统一的处理，可以用这个，如果想对不同数据的更新做不同的处理可以用 nextTick，或者是 watch 进行监听 updated: function () { console.log(&amp;#39;updated 钩子执行...&amp;#39;); console.log(&amp;#39;updated:&amp;#39;,this.message) }, 7.beforeDestroy 实例销毁之前调用。在这一步，实例仍然完全可用。 8.destroyed Vue 实例销毁后调用。调用后，Vue 实例指示的所有东西都会解绑定，所有的事件监听器会被移除，所有的子实例也会被销毁。该钩子在服务器端渲染期间不被调用。 结果 可以看打到销毁 Vue 实例时会调用这两个函数" />
+<meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
 
-	<link rel="stylesheet" href="/css/style.css">
-	
 
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/index.css">
+<link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
+<script src="/js/jquery3.6.0.min.js"></script>
 </head>
-<body class="body">
-	<div class="container container--outer">
-		<header class="header">
-	<div class="container header__container">
-		
-	<div class="topbar">
-		<a class="topbar__link" href="/" title="子舒的博客" rel="sidebar">
-			<div class="topbar__item topbar__text">
-					<div class="topbar__title">子舒的博客</div>
-					<div class="topbar__tagline">我的独立博客，记录了很多东西，随笔、周刊、笔记等，欢迎访问！</div>
-				</div>
-		</a>
-	</div>
-		
-	</div>
-</header>
-		<div class="wrapper flex">
-			<div class="primary">
-			
-<main class="main" role="main">
-	<article class="post">
-		<header class="post__header">
-			<h1 class="post__title">vue 生命周期</h1>
-			<div class="post__meta meta">
-<div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2020-06-19T00:00:00Z">2020-06-19</time></div></div>
-		</header>
-		<div class="content post__content clearfix">
-			<p>学习 vue 中一个非常重要的领域，就是生命周期，它包含了很多的内容。每个 vue 实例在被创建的时候都要经历一系列的初始化过程，这个过程就是 vue 的生命周期。</p>
+
+<body id="container">
+  <meter id="isread" max="100" value="0"></meter>
+<script>
+  window.addEventListener('scroll', function () {
+    var scrolled = window.scrollY;
+    var totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var percentage = (scrolled / totalHeight) * 100;
+    $('#isread').attr('value', percentage)
+  });
+</script>
+
+
+<div id="head" class="site-index">
+  <a id="logo" href="/">
+    <img src="https://imgurl.zishu.me/author.webp">
+  </a>
+  <div id="site-title">
+    <a href="/">子舒的博客</a>
+  </div>
+  <ul id="menu">
+    
+    <li><a href="/categories/%e6%8a%80%e6%9c%af/">技术</a></li>
+    
+    <li><a href="/categories/%e9%9a%8f%e7%ac%94/">随笔</a></li>
+    
+    <li><a href="/categories/weekly/">周刊</a></li>
+    
+    <li><a href="/message/">留言</a></li>
+    
+    <li><a href="/about/">关于</a></li>
+    
+    <li><a href="/index.xml" target="_blank">订阅</a></li>
+  </ul>
+</div>
+  <section id="body">
+
+    <div class="box">
+      
+
+      
+      <div class="index-post-meta">
+        <time> # 2020-06-19</time>
+        
+        
+        <span class="namenode">
+          <a href="/categories/%E6%8A%80%E6%9C%AF">技术</a>
+        </span>
+        
+        
+
+        <span class="tag-node">
+        
+          Tags: 
+        
+        <a href="/tags/vue">#vue</a>
+        
+        
+        </span>
+
+      </div>
+
+      <h1 id="body-title">vue 生命周期</h1>
+      
+      <div class="expired-tips" style="display: none;"></div>
+      
+
+      
+      <div class="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一组件的生命周期">一、组件的生命周期</a>
+      <ul>
+        <li><a href="#1beforecreate">1.beforeCreate</a></li>
+        <li><a href="#2created">2.created</a></li>
+        <li><a href="#3beforemount">3.beforeMount</a></li>
+        <li><a href="#4mounted">4.mounted</a></li>
+        <li><a href="#5beforeupdate">5.beforeUpdate</a></li>
+        <li><a href="#6updated">6.updated</a></li>
+        <li><a href="#7beforedestroy">7.beforeDestroy</a></li>
+        <li><a href="#8destroyed">8.destroyed</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </div>
+      
+
+      <article class="inner-post-content inner-long">
+        
+        <p>学习 vue 中一个非常重要的领域，就是生命周期，它包含了很多的内容。每个 vue 实例在被创建的时候都要经历一系列的初始化过程，这个过程就是 vue 的生命周期。</p>
 <p>每个 vue 实例在被创建的时候都要经过一系列的初始化过程——例如，需要把设置数据监听、编译模板、将实例挂载到 DOM 并在数据变化时更新 DOM 等，我们要把这一系列的过程称为组件的<code>生命周期</code>（组件从注册到销毁的整个过程）。我们有时候需要在组件生命周期的某个过程中，执行某些代码，基于此，vue 提供了<code>生命周期钩子函数</code>，给了用户在不同阶段添加自己的代码的机会。</p>
 <p>但是在此之前，我们要详细的介绍下组件的生命周期，以及生命后期中每个阶段组件完成和未完成的部分。</p>
 <h2 id="一组件的生命周期">一、组件的生命周期</h2>
@@ -69,33 +166,33 @@
 <h3 id="3beforemount">3.beforeMount</h3>
 <p>在挂载开始之前被调用：相关的 render 函数（模板）首次被调用。</p>
 <p>例如通过 v-for 生成的 html 还没有被挂载到页面上</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span> <span style="color:#a6e22e">beforeMount</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span> () {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;beforeMount:&#39;</span>,document.<span style="color:#a6e22e">getElementsByTagName</span>(<span style="color:#e6db74">&#39;li&#39;</span>).<span style="color:#a6e22e">length</span>);
-</span></span><span style="display:flex;"><span>  },
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"> <span class="nx">beforeMount</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;beforeMount:&#39;</span><span class="p">,</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;li&#39;</span><span class="p">).</span><span class="nx">length</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
 </span></span></code></pre></div><p>console 打印出来的 beforeMount 为 1</p>
 <h3 id="4mounted">4.mounted</h3>
 <p>el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用该钩子。</p>
 <p><strong>有初始值的 DOM 渲染，例如我们的初始数据 list，渲染出来的 li，只有这里才能获取</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span> <span style="color:#a6e22e">mounted</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span> () {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;mounted:&#39;</span>,document.<span style="color:#a6e22e">getElementsByTagName</span>(<span style="color:#e6db74">&#39;li&#39;</span>).<span style="color:#a6e22e">length</span>);
-</span></span><span style="display:flex;"><span>  },
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"> <span class="nx">mounted</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;mounted:&#39;</span><span class="p">,</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;li&#39;</span><span class="p">).</span><span class="nx">length</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
 </span></span></code></pre></div><p>结果 mounted: 3 , 可以看到到这里为止，挂载到实例上了，我们可以获取到 li 的个数了</p>
 <h3 id="5beforeupdate">5.beforeUpdate</h3>
 <p>数据更新时调用，发生在虚拟 DOM 重新渲染和打补丁之前。你可以在这个钩子中进一步地更改状态，这不会触发附加的重渲染过程。</p>
 <p>当我们更改 Vue 的任何数据，都会触发该函数</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span> <span style="color:#a6e22e">beforeUpdate</span><span style="color:#f92672">:</span> <span style="color:#960050;background-color:#1e0010">&#34;</span><span style="color:#66d9ef">function</span> () {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;beforeUpdate 钩子执行.&#39;</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;beforeUpdate:&#39;</span><span style="color:#f92672">+</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">message</span>)
-</span></span><span style="display:flex;"><span>  },
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"> <span class="nx">beforeUpdate</span><span class="o">:</span> <span class="err">&#34;</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;beforeUpdate 钩子执行.&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;beforeUpdate:&#39;</span><span class="o">+</span><span class="k">this</span><span class="p">.</span><span class="nx">message</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
 </span></span></code></pre></div><h3 id="6updated">6.updated</h3>
 <p>由于数据更改导致的虚拟 DOM 重新渲染和打补丁，在这之后会调用该钩子。</p>
 <p>当这个钩子被调用时，组件 DOM 已经更新，所以你现在可以执行依赖于 DOM 的操作。然而在大多数情况下，你应该避免在此期间更改状态，因为这可能会导致更新无限循环。</p>
 <p>该钩子在服务器端渲染期间不被调用。</p>
 <p>数据更新就会触发（vue 所有的数据只有有更新就会触发）,如果想数据一遍就做统一的处理，可以用这个，如果想对不同数据的更新做不同的处理可以用 nextTick，或者是 watch 进行监听</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span> <span style="color:#a6e22e">updated</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span> () {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;updated 钩子执行...&#39;</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;updated:&#39;</span>,<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">message</span>)
-</span></span><span style="display:flex;"><span>  },
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"> <span class="nx">updated</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;updated 钩子执行...&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;updated:&#39;</span><span class="p">,</span><span class="k">this</span><span class="p">.</span><span class="nx">message</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
 </span></span></code></pre></div><h3 id="7beforedestroy">7.beforeDestroy</h3>
 <p>实例销毁之前调用。在这一步，实例仍然完全可用。</p>
 <h3 id="8destroyed">8.destroyed</h3>
@@ -103,11 +200,10 @@
 <p><strong>结果</strong></p>
 <p>可以看打到销毁 Vue 实例时会调用这两个函数</p>
 
-		</div>
-	</article>
-</main>
+      </article>
 
-
+      
+      <div style="padding:20px 0"></div>
 <div class="comments">
   <div class="giscus"></div>
 </div>
@@ -129,19 +225,19 @@
   async>
 </script>
 
-			</div>
-			
-		</div>
-		<footer class="footer">
-	<div class="container footer__container flex">
-		<div class="footer__copyright">
-			&copy; 2024 子舒的博客, 
-			使用 hugo 构建
-		</div>
-	</div>
-</footer>
-	</div>
-<script async defer src="/js/menu.js"></script>
+      
 
+    </div>
+    <footer id="foot">
+  <p>© 2020 - 2024 Powered by
+    <a href="https://github.com/dlzmoe/blog" target="_blank">Github</a>
+    / <a href="/index.xml" target="_blank">RSS</a>
+  </p>
+</footer>
+
+<script src="/js/main.js"></script>
+<script defer src="https://cn.vercount.one/js"></script>
+  </section>
 </body>
+
 </html>

@@ -1,86 +1,170 @@
 <!DOCTYPE html>
-<html class="no-js" lang="en">
+<html lang="en-us">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
-	<title>typecho 评论回复艾特评论人 - 子舒的博客</title>
-	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
-	<meta name="description" content="">
+<meta charset="utf-8" />
+<meta name="generator" content="Hugo 0.123.6">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="toTop" content="true">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="author" content="子舒" />
+<meta property="og:url" content="https://zishu.me/blog/132.html/" />
+<link rel="canonical" href="https://zishu.me/blog/132.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="shortcut" href="https://imgurl.zishu.me/favicon.ico" /><link rel="alternate" type="application/atom+xml" href="https://zishu.me/index.xml" title="子舒的博客">
+<script type="application/ld+json">
+{
+"@context" : "http://schema.org",
+"@type" : "BlogPosting",
+"mainEntityOfPage": {
+"@type": "WebPage",
+"@id": "https:\/\/zishu.me\/"
+},
+"articleSection" : "blog",
+"name" : "typecho 评论回复艾特评论人",
+"headline" : "typecho 评论回复艾特评论人",
+"description" : "typecho 在评论时默认是没有 @ 评论人的功能，可以用代码加一下。 在 functions.php 中： \/* * 评论回复时 @ 评论人 *\/ function get_comment_at($coid) { $db = Typecho_Db::get(); $prow = $db-\u0026gt;fetchRow($db-\u0026gt;select(\u0026#39;parent,status\u0026#39;)-\u0026gt;from(\u0026#39;table.comments\u0026#39;) -\u0026gt;where(\u0026#39;coid = ?\u0026#39;, $coid)); $mail = \u0026#34;\u0026#34;; $parent = @$prow[\u0026#39;parent\u0026#39;]; if ($parent != \u0026#34;0\u0026#34;) { $arow = $db-\u0026gt;fetchRow($db-\u0026gt;select(\u0026#39;author,status,mail\u0026#39;)-\u0026gt;from(\u0026#39;table.comments\u0026#39;) -\u0026gt;where(\u0026#39;coid = ?\u0026#39;, $parent)); @$author = @$arow[\u0026#39;author\u0026#39;]; $mail = @$arow[\u0026#39;mail\u0026#39;]; if(@$author \u0026amp;\u0026amp; $arow[\u0026#39;status\u0026#39;] == \u0026#34;approved\u0026#34;){ if (@$prow[\u0026#39;status\u0026#39;] == \u0026#34;waiting\u0026#34;){ echo \u0026#39;\u0026lt;p class=\u0026#34;commentReview\u0026#34;\u0026gt;（评论审核中）)\u0026lt;\/p\u0026gt;\u0026#39;; } echo \u0026#39;\u0026lt;a href=\u0026#34;#comment-\u0026#39; . $parent . \u0026#39;\u0026#34;\u0026gt;@\u0026#39; . $author . \u0026#39;\u0026lt;\/a\u0026gt;\u0026#39;; }else{ if (@$prow[\u0026#39;status\u0026#39;] == \u0026#34;waiting\u0026#34;){ echo \u0026#39;\u0026lt;p class=\u0026#34;commentReview\u0026#34;\u0026gt;（评论审核中）)\u0026lt;\/p\u0026gt;\u0026#39;; }else{ echo \u0026#39;\u0026#39;; } } } else { if (@$prow[\u0026#39;status\u0026#39;] == \u0026#34;waiting\u0026#34;){ echo \u0026#39;\u0026lt;p class=\u0026#34;commentReview\u0026#34;\u0026gt;（评论审核中）)\u0026lt;\/p\u0026gt;\u0026#39;; }else{ echo \u0026#39;\u0026#39;; } } } 然后在 comments.php 中输出评论内容代码的前面加上： \u0026lt;?php $parentMail = get_comment_at($comments-\u0026gt;coid)?\u0026gt;\u0026lt;?php echo $parentMail;?\u0026gt; ▼代码所示 ▼效果图 我的博客即将同步至腾讯云\u002b社区，邀请大家一同入驻：https:\/\/cloud.tencent.com\/developer\/support-plan?invite_code=17ctk6evsjk5b",
+"inLanguage" : "en-US",
+"author" : "子舒",
+"creator" : "子舒",
+"publisher": "子舒",
+"accountablePerson" : "子舒",
+"copyrightHolder" : "子舒",
+"copyrightYear" : "2022",
+"datePublished": "2022-06-07 00:00:00 \u002b0000 UTC",
+"dateModified" : "2022-06-07 00:00:00 \u002b0000 UTC",
+"url" : "https:\/\/zishu.me\/blog\/132.html\/",
+"keywords" : [ "博客","typecho", ]
+}
+</script><title>typecho 评论回复艾特评论人 - 子舒的博客</title>
+<meta property="og:title" content="typecho 评论回复艾特评论人" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="typecho 在评论时默认是没有 @ 评论人的功能，可以用代码加一下。 在 functions.php 中： /* * 评论回复时 @ 评论人 */ function get_comment_at($coid) { $db = Typecho_Db::get(); $prow = $db-&amp;gt;fetchRow($db-&amp;gt;select(&amp;#39;parent,status&amp;#39;)-&amp;gt;from(&amp;#39;table.comments&amp;#39;) -&amp;gt;where(&amp;#39;coid = ?&amp;#39;, $coid)); $mail = &amp;#34;&amp;#34;; $parent = @$prow[&amp;#39;parent&amp;#39;]; if ($parent != &amp;#34;0&amp;#34;) { $arow = $db-&amp;gt;fetchRow($db-&amp;gt;select(&amp;#39;author,status,mail&amp;#39;)-&amp;gt;from(&amp;#39;table.comments&amp;#39;) -&amp;gt;where(&amp;#39;coid = ?&amp;#39;, $parent)); @$author = @$arow[&amp;#39;author&amp;#39;]; $mail = @$arow[&amp;#39;mail&amp;#39;]; if(@$author &amp;amp;&amp;amp; $arow[&amp;#39;status&amp;#39;] == &amp;#34;approved&amp;#34;){ if (@$prow[&amp;#39;status&amp;#39;] == &amp;#34;waiting&amp;#34;){ echo &amp;#39;&amp;lt;p class=&amp;#34;commentReview&amp;#34;&amp;gt;（评论审核中）)&amp;lt;/p&amp;gt;&amp;#39;; } echo &amp;#39;&amp;lt;a href=&amp;#34;#comment-&amp;#39; . $parent . &amp;#39;&amp;#34;&amp;gt;@&amp;#39; . $author . &amp;#39;&amp;lt;/a&amp;gt;&amp;#39;; }else{ if (@$prow[&amp;#39;status&amp;#39;] == &amp;#34;waiting&amp;#34;){ echo &amp;#39;&amp;lt;p class=&amp;#34;commentReview&amp;#34;&amp;gt;（评论审核中）)&amp;lt;/p&amp;gt;&amp;#39;; }else{ echo &amp;#39;&amp;#39;; } } } else { if (@$prow[&amp;#39;status&amp;#39;] == &amp;#34;waiting&amp;#34;){ echo &amp;#39;&amp;lt;p class=&amp;#34;commentReview&amp;#34;&amp;gt;（评论审核中）)&amp;lt;/p&amp;gt;&amp;#39;; }else{ echo &amp;#39;&amp;#39;; } } } 然后在 comments.php 中输出评论内容代码的前面加上： &amp;lt;?php $parentMail = get_comment_at($comments-&amp;gt;coid)?&amp;gt;&amp;lt;?php echo $parentMail;?&amp;gt; ▼代码所示 ▼效果图 我的博客即将同步至腾讯云&#43;社区，邀请大家一同入驻：https://cloud.tencent.com/developer/support-plan?invite_code=17ctk6evsjk5b" />
+<meta name="description" content="typecho 在评论时默认是没有 @ 评论人的功能，可以用代码加一下。 在 functions.php 中： /* * 评论回复时 @ 评论人 */ function get_comment_at($coid) { $db = Typecho_Db::get(); $prow = $db-&amp;gt;fetchRow($db-&amp;gt;select(&amp;#39;parent,status&amp;#39;)-&amp;gt;from(&amp;#39;table.comments&amp;#39;) -&amp;gt;where(&amp;#39;coid = ?&amp;#39;, $coid)); $mail = &amp;#34;&amp;#34;; $parent = @$prow[&amp;#39;parent&amp;#39;]; if ($parent != &amp;#34;0&amp;#34;) { $arow = $db-&amp;gt;fetchRow($db-&amp;gt;select(&amp;#39;author,status,mail&amp;#39;)-&amp;gt;from(&amp;#39;table.comments&amp;#39;) -&amp;gt;where(&amp;#39;coid = ?&amp;#39;, $parent)); @$author = @$arow[&amp;#39;author&amp;#39;]; $mail = @$arow[&amp;#39;mail&amp;#39;]; if(@$author &amp;amp;&amp;amp; $arow[&amp;#39;status&amp;#39;] == &amp;#34;approved&amp;#34;){ if (@$prow[&amp;#39;status&amp;#39;] == &amp;#34;waiting&amp;#34;){ echo &amp;#39;&amp;lt;p class=&amp;#34;commentReview&amp;#34;&amp;gt;（评论审核中）)&amp;lt;/p&amp;gt;&amp;#39;; } echo &amp;#39;&amp;lt;a href=&amp;#34;#comment-&amp;#39; . $parent . &amp;#39;&amp;#34;&amp;gt;@&amp;#39; . $author . &amp;#39;&amp;lt;/a&amp;gt;&amp;#39;; }else{ if (@$prow[&amp;#39;status&amp;#39;] == &amp;#34;waiting&amp;#34;){ echo &amp;#39;&amp;lt;p class=&amp;#34;commentReview&amp;#34;&amp;gt;（评论审核中）)&amp;lt;/p&amp;gt;&amp;#39;; }else{ echo &amp;#39;&amp;#39;; } } } else { if (@$prow[&amp;#39;status&amp;#39;] == &amp;#34;waiting&amp;#34;){ echo &amp;#39;&amp;lt;p class=&amp;#34;commentReview&amp;#34;&amp;gt;（评论审核中）)&amp;lt;/p&amp;gt;&amp;#39;; }else{ echo &amp;#39;&amp;#39;; } } } 然后在 comments.php 中输出评论内容代码的前面加上： &amp;lt;?php $parentMail = get_comment_at($comments-&amp;gt;coid)?&amp;gt;&amp;lt;?php echo $parentMail;?&amp;gt; ▼代码所示 ▼效果图 我的博客即将同步至腾讯云&#43;社区，邀请大家一同入驻：https://cloud.tencent.com/developer/support-plan?invite_code=17ctk6evsjk5b" />
+<meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
 
-	<link rel="stylesheet" href="/css/style.css">
-	
 
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/index.css">
+<link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
+<script src="/js/jquery3.6.0.min.js"></script>
 </head>
-<body class="body">
-	<div class="container container--outer">
-		<header class="header">
-	<div class="container header__container">
-		
-	<div class="topbar">
-		<a class="topbar__link" href="/" title="子舒的博客" rel="sidebar">
-			<div class="topbar__item topbar__text">
-					<div class="topbar__title">子舒的博客</div>
-					<div class="topbar__tagline">我的独立博客，记录了很多东西，随笔、周刊、笔记等，欢迎访问！</div>
-				</div>
-		</a>
-	</div>
-		
-	</div>
-</header>
-		<div class="wrapper flex">
-			<div class="primary">
-			
-<main class="main" role="main">
-	<article class="post">
-		<header class="post__header">
-			<h1 class="post__title">typecho 评论回复艾特评论人</h1>
-			<div class="post__meta meta">
-<div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2022-06-07T00:00:00Z">2022-06-07</time></div></div>
-		</header>
-		<div class="content post__content clearfix">
-			<p>typecho 在评论时默认是没有 <code>@</code>  评论人的功能，可以用代码加一下。</p>
+
+<body id="container">
+  <meter id="isread" max="100" value="0"></meter>
+<script>
+  window.addEventListener('scroll', function () {
+    var scrolled = window.scrollY;
+    var totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var percentage = (scrolled / totalHeight) * 100;
+    $('#isread').attr('value', percentage)
+  });
+</script>
+
+
+<div id="head" class="site-index">
+  <a id="logo" href="/">
+    <img src="https://imgurl.zishu.me/author.webp">
+  </a>
+  <div id="site-title">
+    <a href="/">子舒的博客</a>
+  </div>
+  <ul id="menu">
+    
+    <li><a href="/categories/%e6%8a%80%e6%9c%af/">技术</a></li>
+    
+    <li><a href="/categories/%e9%9a%8f%e7%ac%94/">随笔</a></li>
+    
+    <li><a href="/categories/weekly/">周刊</a></li>
+    
+    <li><a href="/message/">留言</a></li>
+    
+    <li><a href="/about/">关于</a></li>
+    
+    <li><a href="/index.xml" target="_blank">订阅</a></li>
+  </ul>
+</div>
+  <section id="body">
+
+    <div class="box">
+      
+
+      
+      <div class="index-post-meta">
+        <time> # 2022-06-07</time>
+        
+        
+        <span class="namenode">
+          <a href="/categories/%E6%8A%80%E6%9C%AF">技术</a>
+        </span>
+        
+        
+
+        <span class="tag-node">
+        
+          Tags: 
+        
+        <a href="/tags/%E5%8D%9A%E5%AE%A2">#博客</a>
+        
+        <a href="/tags/typecho">#typecho</a>
+        
+        
+        </span>
+
+      </div>
+
+      <h1 id="body-title">typecho 评论回复艾特评论人</h1>
+      
+      <div class="expired-tips" style="display: none;"></div>
+      
+
+      
+      <div class="toc">
+        <nav id="TableOfContents"></nav>
+      </div>
+      
+
+      <article class="inner-post-content inner-long">
+        
+        <p>typecho 在评论时默认是没有 <code>@</code>  评论人的功能，可以用代码加一下。</p>
 <p>在 <code>functions.php</code> 中：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#75715e">/*
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* 评论回复时 @ 评论人
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">get_comment_at</span>($coid)
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>    $db   <span style="color:#f92672">=</span> <span style="color:#a6e22e">Typecho_Db</span><span style="color:#f92672">::</span><span style="color:#a6e22e">get</span>();
-</span></span><span style="display:flex;"><span>    $prow <span style="color:#f92672">=</span> $db<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">fetchRow</span>($db<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">select</span>(<span style="color:#e6db74">&#39;parent,status&#39;</span>)<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">from</span>(<span style="color:#e6db74">&#39;table.comments&#39;</span>)
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">where</span>(<span style="color:#e6db74">&#39;coid = ?&#39;</span>, $coid));
-</span></span><span style="display:flex;"><span>    $mail <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>;
-</span></span><span style="display:flex;"><span>    $parent <span style="color:#f92672">=</span> <span style="color:#f92672">@</span>$prow[<span style="color:#e6db74">&#39;parent&#39;</span>];
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> ($parent <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;0&#34;</span>) {
-</span></span><span style="display:flex;"><span>        $arow <span style="color:#f92672">=</span> $db<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">fetchRow</span>($db<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">select</span>(<span style="color:#e6db74">&#39;author,status,mail&#39;</span>)<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">from</span>(<span style="color:#e6db74">&#39;table.comments&#39;</span>)
-</span></span><span style="display:flex;"><span>            <span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">where</span>(<span style="color:#e6db74">&#39;coid = ?&#39;</span>, $parent));
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">@</span>$author <span style="color:#f92672">=</span> <span style="color:#f92672">@</span>$arow[<span style="color:#e6db74">&#39;author&#39;</span>];
-</span></span><span style="display:flex;"><span>        $mail <span style="color:#f92672">=</span> <span style="color:#f92672">@</span>$arow[<span style="color:#e6db74">&#39;mail&#39;</span>];
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(<span style="color:#f92672">@</span>$author <span style="color:#f92672">&amp;&amp;</span> $arow[<span style="color:#e6db74">&#39;status&#39;</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;approved&#34;</span>){
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (<span style="color:#f92672">@</span>$prow[<span style="color:#e6db74">&#39;status&#39;</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;waiting&#34;</span>){
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#39;&lt;p class=&#34;commentReview&#34;&gt;（评论审核中）)&lt;/p&gt;&#39;</span>;
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#39;&lt;a href=&#34;#comment-&#39;</span> <span style="color:#f92672">.</span> $parent <span style="color:#f92672">.</span> <span style="color:#e6db74">&#39;&#34;&gt;@&#39;</span> <span style="color:#f92672">.</span> $author <span style="color:#f92672">.</span> <span style="color:#e6db74">&#39;&lt;/a&gt;&#39;</span>;
-</span></span><span style="display:flex;"><span>        }<span style="color:#66d9ef">else</span>{
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (<span style="color:#f92672">@</span>$prow[<span style="color:#e6db74">&#39;status&#39;</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;waiting&#34;</span>){
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#39;&lt;p class=&#34;commentReview&#34;&gt;（评论审核中）)&lt;/p&gt;&#39;</span>;
-</span></span><span style="display:flex;"><span>            }<span style="color:#66d9ef">else</span>{
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#39;&#39;</span>;
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#f92672">@</span>$prow[<span style="color:#e6db74">&#39;status&#39;</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;waiting&#34;</span>){
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#39;&lt;p class=&#34;commentReview&#34;&gt;（评论审核中）)&lt;/p&gt;&#39;</span>;
-</span></span><span style="display:flex;"><span>        }<span style="color:#66d9ef">else</span>{
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#39;&#39;</span>;
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">* 评论回复时 @ 评论人
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>
+</span></span><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">get_comment_at</span><span class="p">(</span><span class="nv">$coid</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$db</span>   <span class="o">=</span> <span class="nx">Typecho_Db</span><span class="o">::</span><span class="na">get</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$prow</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">fetchRow</span><span class="p">(</span><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="s1">&#39;parent,status&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;table.comments&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;coid = ?&#39;</span><span class="p">,</span> <span class="nv">$coid</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$mail</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$parent</span> <span class="o">=</span> <span class="o">@</span><span class="nv">$prow</span><span class="p">[</span><span class="s1">&#39;parent&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nv">$parent</span> <span class="o">!=</span> <span class="s2">&#34;0&#34;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$arow</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">fetchRow</span><span class="p">(</span><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="s1">&#39;author,status,mail&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;table.comments&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;coid = ?&#39;</span><span class="p">,</span> <span class="nv">$parent</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="o">@</span><span class="nv">$author</span> <span class="o">=</span> <span class="o">@</span><span class="nv">$arow</span><span class="p">[</span><span class="s1">&#39;author&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$mail</span> <span class="o">=</span> <span class="o">@</span><span class="nv">$arow</span><span class="p">[</span><span class="s1">&#39;mail&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="o">@</span><span class="nv">$author</span> <span class="o">&amp;&amp;</span> <span class="nv">$arow</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&#34;approved&#34;</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="o">@</span><span class="nv">$prow</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&#34;waiting&#34;</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                <span class="k">echo</span> <span class="s1">&#39;&lt;p class=&#34;commentReview&#34;&gt;（评论审核中）)&lt;/p&gt;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">echo</span> <span class="s1">&#39;&lt;a href=&#34;#comment-&#39;</span> <span class="o">.</span> <span class="nv">$parent</span> <span class="o">.</span> <span class="s1">&#39;&#34;&gt;@&#39;</span> <span class="o">.</span> <span class="nv">$author</span> <span class="o">.</span> <span class="s1">&#39;&lt;/a&gt;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="o">@</span><span class="nv">$prow</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&#34;waiting&#34;</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                <span class="k">echo</span> <span class="s1">&#39;&lt;p class=&#34;commentReview&#34;&gt;（评论审核中）)&lt;/p&gt;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">echo</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">@</span><span class="nv">$prow</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&#34;waiting&#34;</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="k">echo</span> <span class="s1">&#39;&lt;p class=&#34;commentReview&#34;&gt;（评论审核中）)&lt;/p&gt;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">echo</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>然后在 <code>comments.php</code> 中输出评论内容代码的前面加上：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span> $parentMail <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_comment_at</span>($comments<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">coid</span>)<span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">&lt;?php echo $parentMail;?&gt;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span> <span class="nv">$parentMail</span> <span class="o">=</span> <span class="nx">get_comment_at</span><span class="p">(</span><span class="nv">$comments</span><span class="o">-&gt;</span><span class="na">coid</span><span class="p">)</span><span class="cp">?&gt;</span><span class="err">&lt;?php echo $parentMail;?&gt;
 </span></span></span></code></pre></div><p>▼代码所示
 <img src="https://imgurl.zishu.me/images/old/2022/06/07/629eb95de8a9f.png" alt="1654569311759.png"></p>
 <p>▼效果图
@@ -88,11 +172,10 @@
 <hr>
 <p>我的博客即将同步至腾讯云+社区，邀请大家一同入驻：https://cloud.tencent.com/developer/support-plan?invite_code=17ctk6evsjk5b</p>
 
-		</div>
-	</article>
-</main>
+      </article>
 
-
+      
+      <div style="padding:20px 0"></div>
 <div class="comments">
   <div class="giscus"></div>
 </div>
@@ -114,19 +197,19 @@
   async>
 </script>
 
-			</div>
-			
-		</div>
-		<footer class="footer">
-	<div class="container footer__container flex">
-		<div class="footer__copyright">
-			&copy; 2024 子舒的博客, 
-			使用 hugo 构建
-		</div>
-	</div>
-</footer>
-	</div>
-<script async defer src="/js/menu.js"></script>
+      
 
+    </div>
+    <footer id="foot">
+  <p>© 2020 - 2024 Powered by
+    <a href="https://github.com/dlzmoe/blog" target="_blank">Github</a>
+    / <a href="/index.xml" target="_blank">RSS</a>
+  </p>
+</footer>
+
+<script src="/js/main.js"></script>
+<script defer src="https://cn.vercount.one/js"></script>
+  </section>
 </body>
+
 </html>

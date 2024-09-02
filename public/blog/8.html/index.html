@@ -1,48 +1,130 @@
 <!DOCTYPE html>
-<html class="no-js" lang="en">
+<html lang="en-us">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
-	<title>chrome 浏览器中对 autoplay 的一些处理技巧 - 子舒的博客</title>
-	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
-	<meta name="description" content="">
+<meta charset="utf-8" />
+<meta name="generator" content="Hugo 0.123.6">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="toTop" content="true">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="author" content="子舒" />
+<meta property="og:url" content="https://zishu.me/blog/8.html/" />
+<link rel="canonical" href="https://zishu.me/blog/8.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="shortcut" href="https://imgurl.zishu.me/favicon.ico" /><link rel="alternate" type="application/atom+xml" href="https://zishu.me/index.xml" title="子舒的博客">
+<script type="application/ld+json">
+{
+"@context" : "http://schema.org",
+"@type" : "BlogPosting",
+"mainEntityOfPage": {
+"@type": "WebPage",
+"@id": "https:\/\/zishu.me\/"
+},
+"articleSection" : "blog",
+"name" : "chrome 浏览器中对 autoplay 的一些处理技巧",
+"headline" : "chrome 浏览器中对 autoplay 的一些处理技巧",
+"description" : "我在写博客的时候，想给博客网页添加自己喜欢的音乐，这样我在写作和阅读的时候，心情也会比较愉悦，这个时候，我们就需要用到audio这个标签。 \u0026lt;audio src=\u0026#34;\u0026#34;\u0026gt;\u0026lt;\/audio\u0026gt; 同时 audio 标签还带有很多实用的属性，常用的有以下几个： src \u0026ndash; 这个就不说了，懂的都懂 autoplay \u0026ndash; 如果出现该属性，音频在就绪后马上播放 controls \u0026ndash; 网页中显示音频控件 loop \u0026ndash; 循环播放 muted \u0026ndash; 默认静音 但是我在设置 autoplay 的时候发现，chrome 对自动播放深恶痛绝，直接从根源上限制了这个属性的开启，意思是说，这个属性直接禁用，在打开网页没有交互的情况下，不允许自动播放。 但仔细想一想，这个做法其实是对用户比较有利的。假设用户使用的时候宽带流量，直接自动播放视频、音频，就会对用户造成损失。甚至一些广告会自动播放，这就直接影响到了用户的体验。所以，对于 chrome 的做法我还是比较赞同的。 回过头一想，不对啊，我的目的是解决这个问题，不是夸赞谷歌的。我想给自己的个人博客添加喜欢的音乐，所以我找了一个不算办法的办法。我直接在模拟一个事件，当鼠标点击网页任意处的时候，自动触发 autoplay 的音频效果，直接上代码。 \u0026lt;script\u0026gt; function toggleSound() { var music = document.getElementById(\u0026#34;vd\u0026#34;); \/\/获取ID console.log(music); console.log(music.paused); if (music.paused) { \/\/判读是否播放 music.paused=false; music.play(); \/\/没有就播放 } } setInterval(\u0026#34;toggleSound()\u0026#34;,1); \u0026lt;\/script\u0026gt; 这样处理过之后，插入音频，任意点击网页某个地方，都会触发播放效果，但凡事有利有弊，这样做的话，一旦开启播放，将无法启用暂停功能，也就是说会一直播放下去 如果是像我这样写个人博客，这个弊端倒是影响不大，我在这里记录一下这个方法。",
+"inLanguage" : "en-US",
+"author" : "子舒",
+"creator" : "子舒",
+"publisher": "子舒",
+"accountablePerson" : "子舒",
+"copyrightHolder" : "子舒",
+"copyrightYear" : "2020",
+"datePublished": "2020-09-11 00:00:00 \u002b0000 UTC",
+"dateModified" : "2020-09-11 00:00:00 \u002b0000 UTC",
+"url" : "https:\/\/zishu.me\/blog\/8.html\/",
+"keywords" : [ "浏览器", ]
+}
+</script><title>chrome 浏览器中对 autoplay 的一些处理技巧 - 子舒的博客</title>
+<meta property="og:title" content="chrome 浏览器中对 autoplay 的一些处理技巧" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="我在写博客的时候，想给博客网页添加自己喜欢的音乐，这样我在写作和阅读的时候，心情也会比较愉悦，这个时候，我们就需要用到audio这个标签。 &amp;lt;audio src=&amp;#34;&amp;#34;&amp;gt;&amp;lt;/audio&amp;gt; 同时 audio 标签还带有很多实用的属性，常用的有以下几个： src &amp;ndash; 这个就不说了，懂的都懂 autoplay &amp;ndash; 如果出现该属性，音频在就绪后马上播放 controls &amp;ndash; 网页中显示音频控件 loop &amp;ndash; 循环播放 muted &amp;ndash; 默认静音 但是我在设置 autoplay 的时候发现，chrome 对自动播放深恶痛绝，直接从根源上限制了这个属性的开启，意思是说，这个属性直接禁用，在打开网页没有交互的情况下，不允许自动播放。 但仔细想一想，这个做法其实是对用户比较有利的。假设用户使用的时候宽带流量，直接自动播放视频、音频，就会对用户造成损失。甚至一些广告会自动播放，这就直接影响到了用户的体验。所以，对于 chrome 的做法我还是比较赞同的。 回过头一想，不对啊，我的目的是解决这个问题，不是夸赞谷歌的。我想给自己的个人博客添加喜欢的音乐，所以我找了一个不算办法的办法。我直接在模拟一个事件，当鼠标点击网页任意处的时候，自动触发 autoplay 的音频效果，直接上代码。 &amp;lt;script&amp;gt; function toggleSound() { var music = document.getElementById(&amp;#34;vd&amp;#34;); //获取ID console.log(music); console.log(music.paused); if (music.paused) { //判读是否播放 music.paused=false; music.play(); //没有就播放 } } setInterval(&amp;#34;toggleSound()&amp;#34;,1); &amp;lt;/script&amp;gt; 这样处理过之后，插入音频，任意点击网页某个地方，都会触发播放效果，但凡事有利有弊，这样做的话，一旦开启播放，将无法启用暂停功能，也就是说会一直播放下去 如果是像我这样写个人博客，这个弊端倒是影响不大，我在这里记录一下这个方法。" />
+<meta name="description" content="我在写博客的时候，想给博客网页添加自己喜欢的音乐，这样我在写作和阅读的时候，心情也会比较愉悦，这个时候，我们就需要用到audio这个标签。 &amp;lt;audio src=&amp;#34;&amp;#34;&amp;gt;&amp;lt;/audio&amp;gt; 同时 audio 标签还带有很多实用的属性，常用的有以下几个： src &amp;ndash; 这个就不说了，懂的都懂 autoplay &amp;ndash; 如果出现该属性，音频在就绪后马上播放 controls &amp;ndash; 网页中显示音频控件 loop &amp;ndash; 循环播放 muted &amp;ndash; 默认静音 但是我在设置 autoplay 的时候发现，chrome 对自动播放深恶痛绝，直接从根源上限制了这个属性的开启，意思是说，这个属性直接禁用，在打开网页没有交互的情况下，不允许自动播放。 但仔细想一想，这个做法其实是对用户比较有利的。假设用户使用的时候宽带流量，直接自动播放视频、音频，就会对用户造成损失。甚至一些广告会自动播放，这就直接影响到了用户的体验。所以，对于 chrome 的做法我还是比较赞同的。 回过头一想，不对啊，我的目的是解决这个问题，不是夸赞谷歌的。我想给自己的个人博客添加喜欢的音乐，所以我找了一个不算办法的办法。我直接在模拟一个事件，当鼠标点击网页任意处的时候，自动触发 autoplay 的音频效果，直接上代码。 &amp;lt;script&amp;gt; function toggleSound() { var music = document.getElementById(&amp;#34;vd&amp;#34;); //获取ID console.log(music); console.log(music.paused); if (music.paused) { //判读是否播放 music.paused=false; music.play(); //没有就播放 } } setInterval(&amp;#34;toggleSound()&amp;#34;,1); &amp;lt;/script&amp;gt; 这样处理过之后，插入音频，任意点击网页某个地方，都会触发播放效果，但凡事有利有弊，这样做的话，一旦开启播放，将无法启用暂停功能，也就是说会一直播放下去 如果是像我这样写个人博客，这个弊端倒是影响不大，我在这里记录一下这个方法。" />
+<meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
 
-	<link rel="stylesheet" href="/css/style.css">
-	
 
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/index.css">
+<link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
+<script src="/js/jquery3.6.0.min.js"></script>
 </head>
-<body class="body">
-	<div class="container container--outer">
-		<header class="header">
-	<div class="container header__container">
-		
-	<div class="topbar">
-		<a class="topbar__link" href="/" title="子舒的博客" rel="sidebar">
-			<div class="topbar__item topbar__text">
-					<div class="topbar__title">子舒的博客</div>
-					<div class="topbar__tagline">我的独立博客，记录了很多东西，随笔、周刊、笔记等，欢迎访问！</div>
-				</div>
-		</a>
-	</div>
-		
-	</div>
-</header>
-		<div class="wrapper flex">
-			<div class="primary">
-			
-<main class="main" role="main">
-	<article class="post">
-		<header class="post__header">
-			<h1 class="post__title">chrome 浏览器中对 autoplay 的一些处理技巧</h1>
-			<div class="post__meta meta">
-<div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2020-09-11T00:00:00Z">2020-09-11</time></div></div>
-		</header>
-		<div class="content post__content clearfix">
-			<p>我在写博客的时候，想给博客网页添加自己喜欢的音乐，这样我在写作和阅读的时候，心情也会比较愉悦，这个时候，我们就需要用到<code>audio</code>这个标签。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span> &lt;<span style="color:#f92672">audio</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>&gt;&lt;/<span style="color:#f92672">audio</span>&gt;
+
+<body id="container">
+  <meter id="isread" max="100" value="0"></meter>
+<script>
+  window.addEventListener('scroll', function () {
+    var scrolled = window.scrollY;
+    var totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var percentage = (scrolled / totalHeight) * 100;
+    $('#isread').attr('value', percentage)
+  });
+</script>
+
+
+<div id="head" class="site-index">
+  <a id="logo" href="/">
+    <img src="https://imgurl.zishu.me/author.webp">
+  </a>
+  <div id="site-title">
+    <a href="/">子舒的博客</a>
+  </div>
+  <ul id="menu">
+    
+    <li><a href="/categories/%e6%8a%80%e6%9c%af/">技术</a></li>
+    
+    <li><a href="/categories/%e9%9a%8f%e7%ac%94/">随笔</a></li>
+    
+    <li><a href="/categories/weekly/">周刊</a></li>
+    
+    <li><a href="/message/">留言</a></li>
+    
+    <li><a href="/about/">关于</a></li>
+    
+    <li><a href="/index.xml" target="_blank">订阅</a></li>
+  </ul>
+</div>
+  <section id="body">
+
+    <div class="box">
+      
+
+      
+      <div class="index-post-meta">
+        <time> # 2020-09-11</time>
+        
+        
+        <span class="namenode">
+          <a href="/categories/%E6%8A%80%E6%9C%AF">技术</a>
+        </span>
+        
+        
+
+        <span class="tag-node">
+        
+          Tags: 
+        
+        <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8">#浏览器</a>
+        
+        
+        </span>
+
+      </div>
+
+      <h1 id="body-title">chrome 浏览器中对 autoplay 的一些处理技巧</h1>
+      
+      <div class="expired-tips" style="display: none;"></div>
+      
+
+      
+      <div class="toc">
+        <nav id="TableOfContents"></nav>
+      </div>
+      
+
+      <article class="inner-post-content inner-long">
+        
+        <p>我在写博客的时候，想给博客网页添加自己喜欢的音乐，这样我在写作和阅读的时候，心情也会比较愉悦，这个时候，我们就需要用到<code>audio</code>这个标签。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"> <span class="p">&lt;</span><span class="nt">audio</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">audio</span><span class="p">&gt;</span>
 </span></span></code></pre></div><p>同时 audio 标签还带有很多实用的属性，常用的有以下几个：</p>
 <ul>
 <li>src &ndash; 这个就不说了，懂的都懂</li>
@@ -54,29 +136,28 @@
 <p>但是我在设置 autoplay 的时候发现，chrome 对自动播放深恶痛绝，直接从根源上限制了这个属性的开启，意思是说，这个属性直接禁用，在打开网页没有交互的情况下，不允许自动播放。</p>
 <p>但仔细想一想，这个做法其实是对用户比较有利的。假设用户使用的时候宽带流量，直接自动播放视频、音频，就会对用户造成损失。甚至一些广告会自动播放，这就直接影响到了用户的体验。所以，对于 chrome 的做法我还是比较赞同的。</p>
 <p>回过头一想，不对啊，我的目的是解决这个问题，不是夸赞谷歌的。我想给自己的个人博客添加喜欢的音乐，所以我找了一个不算办法的办法。我直接在模拟一个事件，当鼠标点击网页任意处的时候，自动触发 autoplay 的音频效果，直接上代码。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">script</span>&gt;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">toggleSound</span>() {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">music</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;vd&#34;</span>);          
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e">//获取ID  
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">music</span>);
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">music</span>.<span style="color:#a6e22e">paused</span>);
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">music</span>.<span style="color:#a6e22e">paused</span>) { 
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//判读是否播放  
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">music</span>.<span style="color:#a6e22e">paused</span><span style="color:#f92672">=</span><span style="color:#66d9ef">false</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">music</span>.<span style="color:#a6e22e">play</span>(); 
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//没有就播放 
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  }  
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">setInterval</span>(<span style="color:#e6db74">&#34;toggleSound()&#34;</span>,<span style="color:#ae81ff">1</span>);
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">script</span>&gt;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">toggleSound</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="nx">music</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&#34;vd&#34;</span><span class="p">);</span>          
+</span></span><span class="line"><span class="cl">  <span class="c1">//获取ID  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">music</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">music</span><span class="p">.</span><span class="nx">paused</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">music</span><span class="p">.</span><span class="nx">paused</span><span class="p">)</span> <span class="p">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="c1">//判读是否播放  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">music</span><span class="p">.</span><span class="nx">paused</span><span class="o">=</span><span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">music</span><span class="p">.</span><span class="nx">play</span><span class="p">();</span> 
+</span></span><span class="line"><span class="cl">    <span class="c1">//没有就播放 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>  
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">setInterval</span><span class="p">(</span><span class="s2">&#34;toggleSound()&#34;</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </span></span></code></pre></div><p>这样处理过之后，插入音频，任意点击网页某个地方，都会触发播放效果，但凡事有利有弊，这样做的话，一旦开启播放，将无法启用暂停功能，也就是说会一直播放下去</p>
 <p>如果是像我这样写个人博客，这个弊端倒是影响不大，我在这里记录一下这个方法。</p>
 
-		</div>
-	</article>
-</main>
+      </article>
 
-
+      
+      <div style="padding:20px 0"></div>
 <div class="comments">
   <div class="giscus"></div>
 </div>
@@ -98,19 +179,19 @@
   async>
 </script>
 
-			</div>
-			
-		</div>
-		<footer class="footer">
-	<div class="container footer__container flex">
-		<div class="footer__copyright">
-			&copy; 2024 子舒的博客, 
-			使用 hugo 构建
-		</div>
-	</div>
-</footer>
-	</div>
-<script async defer src="/js/menu.js"></script>
+      
 
+    </div>
+    <footer id="foot">
+  <p>© 2020 - 2024 Powered by
+    <a href="https://github.com/dlzmoe/blog" target="_blank">Github</a>
+    / <a href="/index.xml" target="_blank">RSS</a>
+  </p>
+</footer>
+
+<script src="/js/main.js"></script>
+<script defer src="https://cn.vercount.one/js"></script>
+  </section>
 </body>
+
 </html>

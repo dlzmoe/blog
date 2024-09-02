@@ -1,91 +1,172 @@
 <!DOCTYPE html>
-<html class="no-js" lang="en">
+<html lang="en-us">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
-	<title>window.scroll 方法只能存在一次该如何解决？ - 子舒的博客</title>
-	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
-	<meta name="description" content="">
+<meta charset="utf-8" />
+<meta name="generator" content="Hugo 0.123.6">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="toTop" content="true">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="author" content="子舒" />
+<meta property="og:url" content="https://zishu.me/blog/55.html/" />
+<link rel="canonical" href="https://zishu.me/blog/55.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="shortcut" href="https://imgurl.zishu.me/favicon.ico" /><link rel="alternate" type="application/atom+xml" href="https://zishu.me/index.xml" title="子舒的博客">
+<script type="application/ld+json">
+{
+"@context" : "http://schema.org",
+"@type" : "BlogPosting",
+"mainEntityOfPage": {
+"@type": "WebPage",
+"@id": "https:\/\/zishu.me\/"
+},
+"articleSection" : "blog",
+"name" : "window.scroll 方法只能存在一次该如何解决？",
+"headline" : "window.scroll 方法只能存在一次该如何解决？",
+"description" : "页面监听是我们经常用的一个功能，下面两个段代码表示两个事件，分别在页面滚动 500px 和 1000px 的时候触发，在代码中使用了箭头函数。 window.addEventListener(\u0026#39;scroll\u0026#39;, () =\u0026gt; { var scrollTop = document.documentElement.scrollTop if (scrollTop \u0026gt; 500) { console.log(\u0026#39;滚动了 500px\u0026#39;) } }) window.addEventListener(\u0026#39;scroll\u0026#39;, () =\u0026gt; { var scrollTop = document.documentElement.scrollTop if (scrollTop \u0026gt; 1000) { console.log(\u0026#39;滚动了 1000px\u0026#39;) } }) 但是后面又要求代码兼容到 IE10，就不能采用这种写法了。然后我就想使用原生的function写法。 window.onscroll = function() { \/\/ ... } 在用的过程中我发现，如果只有一个window.scroll没有任何问题，但是如果有多个window.scroll，后面的就不会生效。 那么如何解决这个问题呢？ window.scroll只能存在一次，第一个会生效，后面的不生效，可以通过 js 处理这个问题。 function addEvent(type, toDo) { if (window.attachEvent) { window.attachEvent(\u0026#39;on\u0026#39; \u002b type, function() { toDo.call(window) }) } else { window.addEventListener(type, toDo, false) } } addEvent(\u0026#39;scroll\u0026#39;, function(){ console.log(\u0026#39;第一次调用window.scroll\u0026#39;) } addEvent(\u0026#39;scroll\u0026#39;, function(){ console.log(\u0026#39;第一次调用window.scroll\u0026#39;) } 运行一下，多个scroll可以同时运行。",
+"inLanguage" : "en-US",
+"author" : "子舒",
+"creator" : "子舒",
+"publisher": "子舒",
+"accountablePerson" : "子舒",
+"copyrightHolder" : "子舒",
+"copyrightYear" : "2021",
+"datePublished": "2021-03-17 00:00:00 \u002b0000 UTC",
+"dateModified" : "2021-03-17 00:00:00 \u002b0000 UTC",
+"url" : "https:\/\/zishu.me\/blog\/55.html\/",
+"keywords" : [ "IE", ]
+}
+</script><title>window.scroll 方法只能存在一次该如何解决？ - 子舒的博客</title>
+<meta property="og:title" content="window.scroll 方法只能存在一次该如何解决？" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="页面监听是我们经常用的一个功能，下面两个段代码表示两个事件，分别在页面滚动 500px 和 1000px 的时候触发，在代码中使用了箭头函数。 window.addEventListener(&amp;#39;scroll&amp;#39;, () =&amp;gt; { var scrollTop = document.documentElement.scrollTop if (scrollTop &amp;gt; 500) { console.log(&amp;#39;滚动了 500px&amp;#39;) } }) window.addEventListener(&amp;#39;scroll&amp;#39;, () =&amp;gt; { var scrollTop = document.documentElement.scrollTop if (scrollTop &amp;gt; 1000) { console.log(&amp;#39;滚动了 1000px&amp;#39;) } }) 但是后面又要求代码兼容到 IE10，就不能采用这种写法了。然后我就想使用原生的function写法。 window.onscroll = function() { // ... } 在用的过程中我发现，如果只有一个window.scroll没有任何问题，但是如果有多个window.scroll，后面的就不会生效。 那么如何解决这个问题呢？ window.scroll只能存在一次，第一个会生效，后面的不生效，可以通过 js 处理这个问题。 function addEvent(type, toDo) { if (window.attachEvent) { window.attachEvent(&amp;#39;on&amp;#39; &#43; type, function() { toDo.call(window) }) } else { window.addEventListener(type, toDo, false) } } addEvent(&amp;#39;scroll&amp;#39;, function(){ console.log(&amp;#39;第一次调用window.scroll&amp;#39;) } addEvent(&amp;#39;scroll&amp;#39;, function(){ console.log(&amp;#39;第一次调用window.scroll&amp;#39;) } 运行一下，多个scroll可以同时运行。" />
+<meta name="description" content="页面监听是我们经常用的一个功能，下面两个段代码表示两个事件，分别在页面滚动 500px 和 1000px 的时候触发，在代码中使用了箭头函数。 window.addEventListener(&amp;#39;scroll&amp;#39;, () =&amp;gt; { var scrollTop = document.documentElement.scrollTop if (scrollTop &amp;gt; 500) { console.log(&amp;#39;滚动了 500px&amp;#39;) } }) window.addEventListener(&amp;#39;scroll&amp;#39;, () =&amp;gt; { var scrollTop = document.documentElement.scrollTop if (scrollTop &amp;gt; 1000) { console.log(&amp;#39;滚动了 1000px&amp;#39;) } }) 但是后面又要求代码兼容到 IE10，就不能采用这种写法了。然后我就想使用原生的function写法。 window.onscroll = function() { // ... } 在用的过程中我发现，如果只有一个window.scroll没有任何问题，但是如果有多个window.scroll，后面的就不会生效。 那么如何解决这个问题呢？ window.scroll只能存在一次，第一个会生效，后面的不生效，可以通过 js 处理这个问题。 function addEvent(type, toDo) { if (window.attachEvent) { window.attachEvent(&amp;#39;on&amp;#39; &#43; type, function() { toDo.call(window) }) } else { window.addEventListener(type, toDo, false) } } addEvent(&amp;#39;scroll&amp;#39;, function(){ console.log(&amp;#39;第一次调用window.scroll&amp;#39;) } addEvent(&amp;#39;scroll&amp;#39;, function(){ console.log(&amp;#39;第一次调用window.scroll&amp;#39;) } 运行一下，多个scroll可以同时运行。" />
+<meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
 
-	<link rel="stylesheet" href="/css/style.css">
-	
 
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/index.css">
+<link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
+<script src="/js/jquery3.6.0.min.js"></script>
 </head>
-<body class="body">
-	<div class="container container--outer">
-		<header class="header">
-	<div class="container header__container">
-		
-	<div class="topbar">
-		<a class="topbar__link" href="/" title="子舒的博客" rel="sidebar">
-			<div class="topbar__item topbar__text">
-					<div class="topbar__title">子舒的博客</div>
-					<div class="topbar__tagline">我的独立博客，记录了很多东西，随笔、周刊、笔记等，欢迎访问！</div>
-				</div>
-		</a>
-	</div>
-		
-	</div>
-</header>
-		<div class="wrapper flex">
-			<div class="primary">
-			
-<main class="main" role="main">
-	<article class="post">
-		<header class="post__header">
-			<h1 class="post__title">window.scroll 方法只能存在一次该如何解决？</h1>
-			<div class="post__meta meta">
-<div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2021-03-17T00:00:00Z">2021-03-17</time></div></div>
-		</header>
-		<div class="content post__content clearfix">
-			<p>页面监听是我们经常用的一个功能，下面两个段代码表示两个事件，分别在页面滚动 500px 和 1000px 的时候触发，在代码中使用了箭头函数。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;scroll&#39;</span>, () =&gt; {
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">scrollTop</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">documentElement</span>.<span style="color:#a6e22e">scrollTop</span> 
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">scrollTop</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">500</span>) {
-</span></span><span style="display:flex;"><span>       <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;滚动了 500px&#39;</span>)
-</span></span><span style="display:flex;"><span>   }
-</span></span><span style="display:flex;"><span>})
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;scroll&#39;</span>, () =&gt; {
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">scrollTop</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">documentElement</span>.<span style="color:#a6e22e">scrollTop</span> 
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">scrollTop</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1000</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;滚动了 1000px&#39;</span>)
-</span></span><span style="display:flex;"><span>   }
-</span></span><span style="display:flex;"><span>})
+
+<body id="container">
+  <meter id="isread" max="100" value="0"></meter>
+<script>
+  window.addEventListener('scroll', function () {
+    var scrolled = window.scrollY;
+    var totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var percentage = (scrolled / totalHeight) * 100;
+    $('#isread').attr('value', percentage)
+  });
+</script>
+
+
+<div id="head" class="site-index">
+  <a id="logo" href="/">
+    <img src="https://imgurl.zishu.me/author.webp">
+  </a>
+  <div id="site-title">
+    <a href="/">子舒的博客</a>
+  </div>
+  <ul id="menu">
+    
+    <li><a href="/categories/%e6%8a%80%e6%9c%af/">技术</a></li>
+    
+    <li><a href="/categories/%e9%9a%8f%e7%ac%94/">随笔</a></li>
+    
+    <li><a href="/categories/weekly/">周刊</a></li>
+    
+    <li><a href="/message/">留言</a></li>
+    
+    <li><a href="/about/">关于</a></li>
+    
+    <li><a href="/index.xml" target="_blank">订阅</a></li>
+  </ul>
+</div>
+  <section id="body">
+
+    <div class="box">
+      
+
+      
+      <div class="index-post-meta">
+        <time> # 2021-03-17</time>
+        
+        
+        <span class="namenode">
+          <a href="/categories/%E6%8A%80%E6%9C%AF">技术</a>
+        </span>
+        
+        
+
+        <span class="tag-node">
+        
+          Tags: 
+        
+        <a href="/tags/ie">#IE</a>
+        
+        
+        </span>
+
+      </div>
+
+      <h1 id="body-title">window.scroll 方法只能存在一次该如何解决？</h1>
+      
+      <div class="expired-tips" style="display: none;"></div>
+      
+
+      
+      <div class="toc">
+        <nav id="TableOfContents"></nav>
+      </div>
+      
+
+      <article class="inner-post-content inner-long">
+        
+        <p>页面监听是我们经常用的一个功能，下面两个段代码表示两个事件，分别在页面滚动 500px 和 1000px 的时候触发，在代码中使用了箭头函数。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;scroll&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="kd">var</span> <span class="nx">scrollTop</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">scrollTop</span> 
+</span></span><span class="line"><span class="cl">   <span class="k">if</span> <span class="p">(</span><span class="nx">scrollTop</span> <span class="o">&gt;</span> <span class="mi">500</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;滚动了 500px&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">   <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;scroll&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="kd">var</span> <span class="nx">scrollTop</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">scrollTop</span> 
+</span></span><span class="line"><span class="cl">   <span class="k">if</span> <span class="p">(</span><span class="nx">scrollTop</span> <span class="o">&gt;</span> <span class="mi">1000</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;滚动了 1000px&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">   <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
 </span></span></code></pre></div><p>但是后面又要求代码兼容到 IE10，就不能采用这种写法了。然后我就想使用原生的<code>function</code>写法。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>window.<span style="color:#a6e22e">onscroll</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ...
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nb">window</span><span class="p">.</span><span class="nx">onscroll</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
 </span></span></code></pre></div><p>在用的过程中我发现，如果只有一个<code>window.scroll</code>没有任何问题，但是如果有多个<code>window.scroll</code>，后面的就不会生效。</p>
 <p><strong>那么如何解决这个问题呢？</strong></p>
 <p><code>window.scroll</code>只能存在一次，第一个会生效，后面的不生效，可以通过 js 处理这个问题。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-JS" data-lang="JS"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">addEvent</span>(<span style="color:#a6e22e">type</span>, <span style="color:#a6e22e">toDo</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (window.<span style="color:#a6e22e">attachEvent</span>) {
-</span></span><span style="display:flex;"><span>        window.<span style="color:#a6e22e">attachEvent</span>(<span style="color:#e6db74">&#39;on&#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">type</span>, <span style="color:#66d9ef">function</span>() {
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">toDo</span>.<span style="color:#a6e22e">call</span>(window)
-</span></span><span style="display:flex;"><span>        })
-</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>        window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#a6e22e">type</span>, <span style="color:#a6e22e">toDo</span>, <span style="color:#66d9ef">false</span>)
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">addEvent</span>(<span style="color:#e6db74">&#39;scroll&#39;</span>, <span style="color:#66d9ef">function</span>(){
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;第一次调用window.scroll&#39;</span>)
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">addEvent</span>(<span style="color:#e6db74">&#39;scroll&#39;</span>, <span style="color:#66d9ef">function</span>(){
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;第一次调用window.scroll&#39;</span>)
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JS" data-lang="JS"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">addEvent</span><span class="p">(</span><span class="nx">type</span><span class="p">,</span> <span class="nx">toDo</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">window</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">(</span><span class="s1">&#39;on&#39;</span> <span class="o">+</span> <span class="nx">type</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">toDo</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nb">window</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">type</span><span class="p">,</span> <span class="nx">toDo</span><span class="p">,</span> <span class="kc">false</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">addEvent</span><span class="p">(</span><span class="s1">&#39;scroll&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;第一次调用window.scroll&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">addEvent</span><span class="p">(</span><span class="s1">&#39;scroll&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;第一次调用window.scroll&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>运行一下，多个<code>scroll</code>可以同时运行。</p>
 
-		</div>
-	</article>
-</main>
+      </article>
 
-
+      
+      <div style="padding:20px 0"></div>
 <div class="comments">
   <div class="giscus"></div>
 </div>
@@ -107,19 +188,19 @@
   async>
 </script>
 
-			</div>
-			
-		</div>
-		<footer class="footer">
-	<div class="container footer__container flex">
-		<div class="footer__copyright">
-			&copy; 2024 子舒的博客, 
-			使用 hugo 构建
-		</div>
-	</div>
-</footer>
-	</div>
-<script async defer src="/js/menu.js"></script>
+      
 
+    </div>
+    <footer id="foot">
+  <p>© 2020 - 2024 Powered by
+    <a href="https://github.com/dlzmoe/blog" target="_blank">Github</a>
+    / <a href="/index.xml" target="_blank">RSS</a>
+  </p>
+</footer>
+
+<script src="/js/main.js"></script>
+<script defer src="https://cn.vercount.one/js"></script>
+  </section>
 </body>
+
 </html>

@@ -1,63 +1,155 @@
 <!DOCTYPE html>
-<html class="no-js" lang="en">
+<html lang="en-us">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
-	<title>为什么不可变性在 React 中那么重要？ - 子舒的博客</title>
-	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
-	<meta name="description" content="">
+<meta charset="utf-8" />
+<meta name="generator" content="Hugo 0.123.6">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="toTop" content="true">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="author" content="子舒" />
+<meta property="og:url" content="https://zishu.me/blog/32.html/" />
+<link rel="canonical" href="https://zishu.me/blog/32.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="shortcut" href="https://imgurl.zishu.me/favicon.ico" /><link rel="alternate" type="application/atom+xml" href="https://zishu.me/index.xml" title="子舒的博客">
+<script type="application/ld+json">
+{
+"@context" : "http://schema.org",
+"@type" : "BlogPosting",
+"mainEntityOfPage": {
+"@type": "WebPage",
+"@id": "https:\/\/zishu.me\/"
+},
+"articleSection" : "blog",
+"name" : "为什么不可变性在 React 中那么重要？",
+"headline" : "为什么不可变性在 React 中那么重要？",
+"description" : "根据官网文档来解释，为什么不可变性的概念在 React 中非常重要的原因，一般来说，有两种改变数据的方式。第一种方式是直接修改变量的值，第二种方式是使用新的一份数据替换旧数据 React 文档 一般来说，有两种改变数据的方式。第一种方式是直接修改变量的值，第二种方式是使用新的一份数据替换旧数据 直接修改数据 var player = {score: 1, name: \u0026#39;Jeff\u0026#39;}; player.score = 2; \/\/ player 修改后的值为 {score: 2, name: \u0026#39;Jeff\u0026#39;} 新数据替换旧数据 var player = {score: 1, name: \u0026#39;Jeff\u0026#39;}; var newPlayer = Object.assign({}, player, {score: 2}); \/\/ player 的值没有改变，但是 newPlayer 的值是 {score: 2, name: \u0026#39;Jeff\u0026#39;} \/\/ 使用对象展开语法，就可以写成： \/\/ var newPlayer = {...player, score: 2}; 不直接修改（或改变底层数据）这种方式和前一种方式的结果是一样的，这种方式有以下几点好处： 简化复杂的功能 不可变性使得复杂的特性更容易实现。在后面的章节里，我们会实现一种叫做“时间旅行”的功能。“时间旅行”可以使我们回顾井字棋的历史步骤，并且可以“跳回”之前的步骤。这个功能并不是只有游戏才会用到——撤销和恢复功能在开发中是一个很常见的需求。不直接在数据上修改可以让我们追溯并复用游戏的历史记录 跟踪数据的改变 如果直接修改数据，那么就很难跟踪到数据的改变。跟踪数据的改变需要可变对象可以与改变之前的版本进行对比，这样整个对象树都需要被遍历一次 确定在 React 中何时重新渲染 不可变性最主要的优势在于它可以帮助我们在 React 中创建 pure components。我们可以很轻松的确定不可变数据是否发生了改变，从而确定何时对组件进行重新渲染",
+"inLanguage" : "en-US",
+"author" : "子舒",
+"creator" : "子舒",
+"publisher": "子舒",
+"accountablePerson" : "子舒",
+"copyrightHolder" : "子舒",
+"copyrightYear" : "2020",
+"datePublished": "2020-12-02 00:00:00 \u002b0000 UTC",
+"dateModified" : "2020-12-02 00:00:00 \u002b0000 UTC",
+"url" : "https:\/\/zishu.me\/blog\/32.html\/",
+"keywords" : [ "编程","react", ]
+}
+</script><title>为什么不可变性在 React 中那么重要？ - 子舒的博客</title>
+<meta property="og:title" content="为什么不可变性在 React 中那么重要？" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="根据官网文档来解释，为什么不可变性的概念在 React 中非常重要的原因，一般来说，有两种改变数据的方式。第一种方式是直接修改变量的值，第二种方式是使用新的一份数据替换旧数据 React 文档 一般来说，有两种改变数据的方式。第一种方式是直接修改变量的值，第二种方式是使用新的一份数据替换旧数据 直接修改数据 var player = {score: 1, name: &amp;#39;Jeff&amp;#39;}; player.score = 2; // player 修改后的值为 {score: 2, name: &amp;#39;Jeff&amp;#39;} 新数据替换旧数据 var player = {score: 1, name: &amp;#39;Jeff&amp;#39;}; var newPlayer = Object.assign({}, player, {score: 2}); // player 的值没有改变，但是 newPlayer 的值是 {score: 2, name: &amp;#39;Jeff&amp;#39;} // 使用对象展开语法，就可以写成： // var newPlayer = {...player, score: 2}; 不直接修改（或改变底层数据）这种方式和前一种方式的结果是一样的，这种方式有以下几点好处： 简化复杂的功能 不可变性使得复杂的特性更容易实现。在后面的章节里，我们会实现一种叫做“时间旅行”的功能。“时间旅行”可以使我们回顾井字棋的历史步骤，并且可以“跳回”之前的步骤。这个功能并不是只有游戏才会用到——撤销和恢复功能在开发中是一个很常见的需求。不直接在数据上修改可以让我们追溯并复用游戏的历史记录 跟踪数据的改变 如果直接修改数据，那么就很难跟踪到数据的改变。跟踪数据的改变需要可变对象可以与改变之前的版本进行对比，这样整个对象树都需要被遍历一次 确定在 React 中何时重新渲染 不可变性最主要的优势在于它可以帮助我们在 React 中创建 pure components。我们可以很轻松的确定不可变数据是否发生了改变，从而确定何时对组件进行重新渲染" />
+<meta name="description" content="根据官网文档来解释，为什么不可变性的概念在 React 中非常重要的原因，一般来说，有两种改变数据的方式。第一种方式是直接修改变量的值，第二种方式是使用新的一份数据替换旧数据 React 文档 一般来说，有两种改变数据的方式。第一种方式是直接修改变量的值，第二种方式是使用新的一份数据替换旧数据 直接修改数据 var player = {score: 1, name: &amp;#39;Jeff&amp;#39;}; player.score = 2; // player 修改后的值为 {score: 2, name: &amp;#39;Jeff&amp;#39;} 新数据替换旧数据 var player = {score: 1, name: &amp;#39;Jeff&amp;#39;}; var newPlayer = Object.assign({}, player, {score: 2}); // player 的值没有改变，但是 newPlayer 的值是 {score: 2, name: &amp;#39;Jeff&amp;#39;} // 使用对象展开语法，就可以写成： // var newPlayer = {...player, score: 2}; 不直接修改（或改变底层数据）这种方式和前一种方式的结果是一样的，这种方式有以下几点好处： 简化复杂的功能 不可变性使得复杂的特性更容易实现。在后面的章节里，我们会实现一种叫做“时间旅行”的功能。“时间旅行”可以使我们回顾井字棋的历史步骤，并且可以“跳回”之前的步骤。这个功能并不是只有游戏才会用到——撤销和恢复功能在开发中是一个很常见的需求。不直接在数据上修改可以让我们追溯并复用游戏的历史记录 跟踪数据的改变 如果直接修改数据，那么就很难跟踪到数据的改变。跟踪数据的改变需要可变对象可以与改变之前的版本进行对比，这样整个对象树都需要被遍历一次 确定在 React 中何时重新渲染 不可变性最主要的优势在于它可以帮助我们在 React 中创建 pure components。我们可以很轻松的确定不可变数据是否发生了改变，从而确定何时对组件进行重新渲染" />
+<meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
 
-	<link rel="stylesheet" href="/css/style.css">
-	
 
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/index.css">
+<link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
+<script src="/js/jquery3.6.0.min.js"></script>
 </head>
-<body class="body">
-	<div class="container container--outer">
-		<header class="header">
-	<div class="container header__container">
-		
-	<div class="topbar">
-		<a class="topbar__link" href="/" title="子舒的博客" rel="sidebar">
-			<div class="topbar__item topbar__text">
-					<div class="topbar__title">子舒的博客</div>
-					<div class="topbar__tagline">我的独立博客，记录了很多东西，随笔、周刊、笔记等，欢迎访问！</div>
-				</div>
-		</a>
-	</div>
-		
-	</div>
-</header>
-		<div class="wrapper flex">
-			<div class="primary">
-			
-<main class="main" role="main">
-	<article class="post">
-		<header class="post__header">
-			<h1 class="post__title">为什么不可变性在 React 中那么重要？</h1>
-			<div class="post__meta meta">
-<div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2020-12-02T00:00:00Z">2020-12-02</time></div></div>
-		</header>
-		<div class="content post__content clearfix">
-			<p>根据官网文档来解释，为什么不可变性的概念在 React 中非常重要的原因，一般来说，有两种改变数据的方式。第一种方式是直接修改变量的值，第二种方式是使用新的一份数据替换旧数据</p>
+
+<body id="container">
+  <meter id="isread" max="100" value="0"></meter>
+<script>
+  window.addEventListener('scroll', function () {
+    var scrolled = window.scrollY;
+    var totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var percentage = (scrolled / totalHeight) * 100;
+    $('#isread').attr('value', percentage)
+  });
+</script>
+
+
+<div id="head" class="site-index">
+  <a id="logo" href="/">
+    <img src="https://imgurl.zishu.me/author.webp">
+  </a>
+  <div id="site-title">
+    <a href="/">子舒的博客</a>
+  </div>
+  <ul id="menu">
+    
+    <li><a href="/categories/%e6%8a%80%e6%9c%af/">技术</a></li>
+    
+    <li><a href="/categories/%e9%9a%8f%e7%ac%94/">随笔</a></li>
+    
+    <li><a href="/categories/weekly/">周刊</a></li>
+    
+    <li><a href="/message/">留言</a></li>
+    
+    <li><a href="/about/">关于</a></li>
+    
+    <li><a href="/index.xml" target="_blank">订阅</a></li>
+  </ul>
+</div>
+  <section id="body">
+
+    <div class="box">
+      
+
+      
+      <div class="index-post-meta">
+        <time> # 2020-12-02</time>
+        
+        
+        <span class="namenode">
+          <a href="/categories/%E6%8A%80%E6%9C%AF">技术</a>
+        </span>
+        
+        
+
+        <span class="tag-node">
+        
+          Tags: 
+        
+        <a href="/tags/%E7%BC%96%E7%A8%8B">#编程</a>
+        
+        <a href="/tags/react">#react</a>
+        
+        
+        </span>
+
+      </div>
+
+      <h1 id="body-title">为什么不可变性在 React 中那么重要？</h1>
+      
+      <div class="expired-tips" style="display: none;"></div>
+      
+
+      
+      <div class="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#直接修改数据">直接修改数据</a></li>
+    <li><a href="#新数据替换旧数据">新数据替换旧数据</a></li>
+    <li><a href="#简化复杂的功能">简化复杂的功能</a></li>
+    <li><a href="#跟踪数据的改变">跟踪数据的改变</a></li>
+    <li><a href="#确定在-react-中何时重新渲染">确定在 React 中何时重新渲染</a></li>
+  </ul>
+</nav>
+      </div>
+      
+
+      <article class="inner-post-content inner-long">
+        
+        <p>根据官网文档来解释，为什么不可变性的概念在 React 中非常重要的原因，一般来说，有两种改变数据的方式。第一种方式是直接修改变量的值，第二种方式是使用新的一份数据替换旧数据</p>
 <blockquote>
 <p><a href="https://react.docschina.org/tutorial/tutorial.html#why-immutability-is-important">React 文档</a></p>
 </blockquote>
 <p>一般来说，有两种改变数据的方式。第一种方式是直接修改变量的值，第二种方式是使用新的一份数据替换旧数据</p>
 <h2 id="直接修改数据">直接修改数据</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">player</span> <span style="color:#f92672">=</span> {<span style="color:#a6e22e">score</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Jeff&#39;</span>};
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">player</span>.<span style="color:#a6e22e">score</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// player 修改后的值为 {score: 2, name: &#39;Jeff&#39;}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">player</span> <span class="o">=</span> <span class="p">{</span><span class="nx">score</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Jeff&#39;</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="nx">player</span><span class="p">.</span><span class="nx">score</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// player 修改后的值为 {score: 2, name: &#39;Jeff&#39;}
 </span></span></span></code></pre></div><h2 id="新数据替换旧数据">新数据替换旧数据</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">player</span> <span style="color:#f92672">=</span> {<span style="color:#a6e22e">score</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Jeff&#39;</span>};
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">newPlayer</span> <span style="color:#f92672">=</span> Object.<span style="color:#a6e22e">assign</span>({}, <span style="color:#a6e22e">player</span>, {<span style="color:#a6e22e">score</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>});
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// player 的值没有改变，但是 newPlayer 的值是 {score: 2, name: &#39;Jeff&#39;}
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// 使用对象展开语法，就可以写成：
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// var newPlayer = {...player, score: 2};
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">player</span> <span class="o">=</span> <span class="p">{</span><span class="nx">score</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Jeff&#39;</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">newPlayer</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">({},</span> <span class="nx">player</span><span class="p">,</span> <span class="p">{</span><span class="nx">score</span><span class="o">:</span> <span class="mi">2</span><span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// player 的值没有改变，但是 newPlayer 的值是 {score: 2, name: &#39;Jeff&#39;}
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 使用对象展开语法，就可以写成：
+</span></span></span><span class="line"><span class="cl"><span class="c1">// var newPlayer = {...player, score: 2};
 </span></span></span></code></pre></div><p><strong>不直接修改（或改变底层数据）这种方式和前一种方式的结果是一样的，这种方式有以下几点好处：</strong></p>
 <h2 id="简化复杂的功能">简化复杂的功能</h2>
 <p>不可变性使得复杂的特性更容易实现。在后面的章节里，我们会实现一种叫做“时间旅行”的功能。“时间旅行”可以使我们回顾井字棋的历史步骤，并且可以“跳回”之前的步骤。这个功能并不是只有游戏才会用到——撤销和恢复功能在开发中是一个很常见的需求。不直接在数据上修改可以让我们追溯并复用游戏的历史记录</p>
@@ -66,11 +158,10 @@
 <h2 id="确定在-react-中何时重新渲染">确定在 React 中何时重新渲染</h2>
 <p>不可变性最主要的优势在于它可以帮助我们在 React 中创建 pure components。我们可以很轻松的确定不可变数据是否发生了改变，从而确定何时对组件进行重新渲染</p>
 
-		</div>
-	</article>
-</main>
+      </article>
 
-
+      
+      <div style="padding:20px 0"></div>
 <div class="comments">
   <div class="giscus"></div>
 </div>
@@ -92,19 +183,19 @@
   async>
 </script>
 
-			</div>
-			
-		</div>
-		<footer class="footer">
-	<div class="container footer__container flex">
-		<div class="footer__copyright">
-			&copy; 2024 子舒的博客, 
-			使用 hugo 构建
-		</div>
-	</div>
-</footer>
-	</div>
-<script async defer src="/js/menu.js"></script>
+      
 
+    </div>
+    <footer id="foot">
+  <p>© 2020 - 2024 Powered by
+    <a href="https://github.com/dlzmoe/blog" target="_blank">Github</a>
+    / <a href="/index.xml" target="_blank">RSS</a>
+  </p>
+</footer>
+
+<script src="/js/main.js"></script>
+<script defer src="https://cn.vercount.one/js"></script>
+  </section>
 </body>
+
 </html>

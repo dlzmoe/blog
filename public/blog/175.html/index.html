@@ -1,47 +1,129 @@
 <!DOCTYPE html>
-<html class="no-js" lang="en">
+<html lang="en-us">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
-	<title>js 中 [ ]&#43;{ } 和 { }&#43;[ ] 的区别 - 子舒的博客</title>
-	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
-	<meta name="description" content="">
+<meta charset="utf-8" />
+<meta name="generator" content="Hugo 0.123.6">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="toTop" content="true">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="author" content="子舒" />
+<meta property="og:url" content="https://zishu.me/blog/175.html/" />
+<link rel="canonical" href="https://zishu.me/blog/175.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="shortcut" href="https://imgurl.zishu.me/favicon.ico" /><link rel="alternate" type="application/atom+xml" href="https://zishu.me/index.xml" title="子舒的博客">
+<script type="application/ld+json">
+{
+"@context" : "http://schema.org",
+"@type" : "BlogPosting",
+"mainEntityOfPage": {
+"@type": "WebPage",
+"@id": "https:\/\/zishu.me\/"
+},
+"articleSection" : "blog",
+"name" : "js 中 [ ]\u002b{ } 和 { }\u002b[ ] 的区别",
+"headline" : "js 中 [ ]\u002b{ } 和 { }\u002b[ ] 的区别",
+"description" : "[ ]\u002b{ }：一个数组加一个对象。 加法会进行隐式类型转换，规则是调用其 valueOf() 或 toString() 以取得一个非对象的值 (primitive value)。 如果两个值中的任何一个是字符串，则进行字符串串接，否则进行数字加法。[ ] 和 { } 的 valueOf() 都返回对象自身，所以都会调用 toString()，最后的结果是字符串串接。 [ ].toString() 返回空字符串，({ }).toString() 返回 \u0026ldquo;[object Object]\u0026quot;，最后的结果就是 \u0026ldquo;[object Object]\u0026quot;。 { }\u002b[ ]：看上去应该和上面一样。 但是{ }除了表示一个对象之外，也可以表示一个空的 bock。在 [ ] \u002b { }中，[ ]被解析为数组，因此后续的 \u002b 被解析为加法运算符，而{ }就解析为对象。 但在{ } \u002b [ ]中，{ }被解析为空的 bock，随后的 \u002b 被解析为正号运算符。即实际上成了：{∥empty block}\u002b[ ]，即对一个空数组执行正号运算，实际上就是把数组转型为数字。首先调用.valueOf()，返回数组自身，不是 primitive value，因此继续调用 [ ].toString()，返回空字符串。空字符串转型为数字，返回 0，即最后的结果。",
+"inLanguage" : "en-US",
+"author" : "子舒",
+"creator" : "子舒",
+"publisher": "子舒",
+"accountablePerson" : "子舒",
+"copyrightHolder" : "子舒",
+"copyrightYear" : "2022",
+"datePublished": "2022-11-15 00:00:00 \u002b0000 UTC",
+"dateModified" : "2022-11-15 00:00:00 \u002b0000 UTC",
+"url" : "https:\/\/zishu.me\/blog\/175.html\/",
+"keywords" : [ "js", ]
+}
+</script><title>js 中 [ ]&#43;{ } 和 { }&#43;[ ] 的区别 - 子舒的博客</title>
+<meta property="og:title" content="js 中 [ ]&#43;{ } 和 { }&#43;[ ] 的区别" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="[ ]&#43;{ }：一个数组加一个对象。 加法会进行隐式类型转换，规则是调用其 valueOf() 或 toString() 以取得一个非对象的值 (primitive value)。 如果两个值中的任何一个是字符串，则进行字符串串接，否则进行数字加法。[ ] 和 { } 的 valueOf() 都返回对象自身，所以都会调用 toString()，最后的结果是字符串串接。 [ ].toString() 返回空字符串，({ }).toString() 返回 &amp;ldquo;[object Object]&amp;quot;，最后的结果就是 &amp;ldquo;[object Object]&amp;quot;。 { }&#43;[ ]：看上去应该和上面一样。 但是{ }除了表示一个对象之外，也可以表示一个空的 bock。在 [ ] &#43; { }中，[ ]被解析为数组，因此后续的 &#43; 被解析为加法运算符，而{ }就解析为对象。 但在{ } &#43; [ ]中，{ }被解析为空的 bock，随后的 &#43; 被解析为正号运算符。即实际上成了：{∥empty block}&#43;[ ]，即对一个空数组执行正号运算，实际上就是把数组转型为数字。首先调用.valueOf()，返回数组自身，不是 primitive value，因此继续调用 [ ].toString()，返回空字符串。空字符串转型为数字，返回 0，即最后的结果。" />
+<meta name="description" content="[ ]&#43;{ }：一个数组加一个对象。 加法会进行隐式类型转换，规则是调用其 valueOf() 或 toString() 以取得一个非对象的值 (primitive value)。 如果两个值中的任何一个是字符串，则进行字符串串接，否则进行数字加法。[ ] 和 { } 的 valueOf() 都返回对象自身，所以都会调用 toString()，最后的结果是字符串串接。 [ ].toString() 返回空字符串，({ }).toString() 返回 &amp;ldquo;[object Object]&amp;quot;，最后的结果就是 &amp;ldquo;[object Object]&amp;quot;。 { }&#43;[ ]：看上去应该和上面一样。 但是{ }除了表示一个对象之外，也可以表示一个空的 bock。在 [ ] &#43; { }中，[ ]被解析为数组，因此后续的 &#43; 被解析为加法运算符，而{ }就解析为对象。 但在{ } &#43; [ ]中，{ }被解析为空的 bock，随后的 &#43; 被解析为正号运算符。即实际上成了：{∥empty block}&#43;[ ]，即对一个空数组执行正号运算，实际上就是把数组转型为数字。首先调用.valueOf()，返回数组自身，不是 primitive value，因此继续调用 [ ].toString()，返回空字符串。空字符串转型为数字，返回 0，即最后的结果。" />
+<meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
 
-	<link rel="stylesheet" href="/css/style.css">
-	
 
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/index.css">
+<link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
+<script src="/js/jquery3.6.0.min.js"></script>
 </head>
-<body class="body">
-	<div class="container container--outer">
-		<header class="header">
-	<div class="container header__container">
-		
-	<div class="topbar">
-		<a class="topbar__link" href="/" title="子舒的博客" rel="sidebar">
-			<div class="topbar__item topbar__text">
-					<div class="topbar__title">子舒的博客</div>
-					<div class="topbar__tagline">我的独立博客，记录了很多东西，随笔、周刊、笔记等，欢迎访问！</div>
-				</div>
-		</a>
-	</div>
-		
-	</div>
-</header>
-		<div class="wrapper flex">
-			<div class="primary">
-			
-<main class="main" role="main">
-	<article class="post">
-		<header class="post__header">
-			<h1 class="post__title">js 中 [ ]&#43;{ } 和 { }&#43;[ ] 的区别</h1>
-			<div class="post__meta meta">
-<div class="meta__item-datetime meta__item">
-	<time class="meta__text" datetime="2022-11-15T00:00:00Z">2022-11-15</time></div></div>
-		</header>
-		<div class="content post__content clearfix">
-			<p><img src="https://imgurl.zishu.me/images/old/20221115/1668517551012.iwayac5c194.webp" alt="1668517551012"></p>
+
+<body id="container">
+  <meter id="isread" max="100" value="0"></meter>
+<script>
+  window.addEventListener('scroll', function () {
+    var scrolled = window.scrollY;
+    var totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var percentage = (scrolled / totalHeight) * 100;
+    $('#isread').attr('value', percentage)
+  });
+</script>
+
+
+<div id="head" class="site-index">
+  <a id="logo" href="/">
+    <img src="https://imgurl.zishu.me/author.webp">
+  </a>
+  <div id="site-title">
+    <a href="/">子舒的博客</a>
+  </div>
+  <ul id="menu">
+    
+    <li><a href="/categories/%e6%8a%80%e6%9c%af/">技术</a></li>
+    
+    <li><a href="/categories/%e9%9a%8f%e7%ac%94/">随笔</a></li>
+    
+    <li><a href="/categories/weekly/">周刊</a></li>
+    
+    <li><a href="/message/">留言</a></li>
+    
+    <li><a href="/about/">关于</a></li>
+    
+    <li><a href="/index.xml" target="_blank">订阅</a></li>
+  </ul>
+</div>
+  <section id="body">
+
+    <div class="box">
+      
+
+      
+      <div class="index-post-meta">
+        <time> # 2022-11-15</time>
+        
+        
+        <span class="namenode">
+          <a href="/categories/%E6%8A%80%E6%9C%AF">技术</a>
+        </span>
+        
+        
+
+        <span class="tag-node">
+        
+          Tags: 
+        
+        <a href="/tags/js">#js</a>
+        
+        
+        </span>
+
+      </div>
+
+      <h1 id="body-title">js 中 [ ]&#43;{ } 和 { }&#43;[ ] 的区别</h1>
+      
+      <div class="expired-tips" style="display: none;"></div>
+      
+
+      
+      <div class="toc">
+        <nav id="TableOfContents"></nav>
+      </div>
+      
+
+      <article class="inner-post-content inner-long">
+        
+        <p><img src="https://imgurl.zishu.me/images/old/20221115/1668517551012.iwayac5c194.webp" alt="1668517551012"></p>
 <p><code>[ ]+{ }</code>：一个数组加一个对象。</p>
 <p>加法会进行隐式类型转换，规则是调用其 valueOf() 或 toString() 以取得一个非对象的值 (primitive value)。</p>
 <p>如果两个值中的任何一个是字符串，则进行字符串串接，否则进行数字加法。[ ] 和 { } 的 valueOf() 都返回对象自身，所以都会调用 toString()，最后的结果是字符串串接。</p>
@@ -50,11 +132,10 @@
 <p>但是{ }除了表示一个对象之外，也可以表示一个空的 bock。在 [ ] + { }中，[ ]被解析为数组，因此后续的 + 被解析为加法运算符，而{ }就解析为对象。</p>
 <p>但在{ } + [ ]中，{ }被解析为空的 bock，随后的 + 被解析为正号运算符。即实际上成了：{∥empty block}+[ ]，即对一个空数组执行正号运算，实际上就是把数组转型为数字。首先调用.valueOf()，返回数组自身，不是 primitive value，因此继续调用 [ ].toString()，返回空字符串。空字符串转型为数字，返回 0，即最后的结果。</p>
 
-		</div>
-	</article>
-</main>
+      </article>
 
-
+      
+      <div style="padding:20px 0"></div>
 <div class="comments">
   <div class="giscus"></div>
 </div>
@@ -76,19 +157,19 @@
   async>
 </script>
 
-			</div>
-			
-		</div>
-		<footer class="footer">
-	<div class="container footer__container flex">
-		<div class="footer__copyright">
-			&copy; 2024 子舒的博客, 
-			使用 hugo 构建
-		</div>
-	</div>
-</footer>
-	</div>
-<script async defer src="/js/menu.js"></script>
+      
 
+    </div>
+    <footer id="foot">
+  <p>© 2020 - 2024 Powered by
+    <a href="https://github.com/dlzmoe/blog" target="_blank">Github</a>
+    / <a href="/index.xml" target="_blank">RSS</a>
+  </p>
+</footer>
+
+<script src="/js/main.js"></script>
+<script defer src="https://cn.vercount.one/js"></script>
+  </section>
 </body>
+
 </html>

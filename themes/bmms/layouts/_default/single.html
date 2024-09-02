@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+{{ partial "head.html" . }}
+
+<body id="container">
+  {{ partial "header.html" . }}
+  <section id="body">
+
+    <div class="box">
+      
+
+      {{ if in .Site.Params.mainSections .Type }}
+      <div class="index-post-meta">
+        <time> # {{ .Date.Format "2006-01-02"}}</time>
+        {{ with .Params.categories }}
+        {{ range . }}
+        <span class="namenode">
+          <a href="{{ "categories/" | relURL }}{{ . | urlize }}">{{ . }}</a>
+        </span>
+        {{ end }}
+        {{ end }}
+
+        <span class="tag-node">
+        {{ with .Params.tags }}
+          Tags: 
+        {{ range . }}
+        <a href="{{ "tags/" | relURL }}{{ . | urlize }}">#{{ . }}</a>
+        {{ end }}
+        {{ end }}
+        </span>
+
+      </div>
+
+      <h1 id="body-title">{{ .Title }}</h1>
+      
+      <div class="expired-tips" style="display: none;"></div>
+      {{ end }}
+
+      {{ if in .Site.Params.mainSections .Type }}
+      <div class="toc">
+        {{ .TableOfContents }}
+      </div>
+      {{ end }}
+
+      <article class="inner-post-content inner-long">
+        {{ .Site.Params.postHeaderContent | safeHTML }}
+        {{ .Content }}
+      </article>
+
+      {{ if in .Site.Params.mainSections .Type }}
+      {{ partial "comment.html" . }}
+      {{ end }}
+
+    </div>
+    {{ partial "footer.html" . }}
+  </section>
+</body>
+
+</html>

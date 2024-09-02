@@ -1,12 +1,20 @@
 $(function () {
-  $('.post-content iframe').wrap('<div class="iframe"></div>');
-  $('nav a').each(function () {
+  $('.inner-post-content iframe').wrap('<div class="iframe"></div>');
+  $('#menu a').each(function () {
     if ($(this).attr('href') == window.location.pathname) {
-      $(this).addClass('active');
+      $(this).addClass('current');
     }
   })
 
-  $('.post-content img').addClass('zimgbox');
+  $("#TableOfContents a").click(function (e) {
+    e.preventDefault();
+    const id = $(this).attr('href');
+    $("html,body").animate({
+      scrollTop: $(id).offset().top - 30,
+    }, 500, )
+  });
+
+  $('.inner-post-content img').addClass('zimgbox');
   $('body').append('<div id="zimgbox-wrap" style="display:none"><img src></div>');
   $(".top-link").click(function () {
     $("html,body").animate({
@@ -35,7 +43,7 @@ $(function () {
   })
 
   function TimeDifference() {
-    const time = $('.date time').html();
+    const time = $('time').html();
     var now = new Date(); // 获取当前时间
     var end = new Date(time); // 设置结束时间
     var diff = Math.abs(now - end); // 计算两个日期之间的差值，结果是毫秒数
@@ -48,4 +56,13 @@ $(function () {
     }
   }
   TimeDifference();
+
+  $(window).on("scroll", function () {
+    if ($(window).scrollTop() >= 50) {
+      $(".fixed").addClass("is-active")
+    } else {
+      $(".fixed").removeClass("is-active")
+    }
+  });
+
 })
