@@ -14,6 +14,11 @@ $(function () {
     }, 500, )
   });
 
+  $('.inner-post-content h2,.inner-post-content h3').each(function () {
+    const url = $(this).attr('id');
+    $(this).prepend(`<a href="#${url}">#</a>`)
+  })
+
   $('.inner-post-content img').addClass('zimgbox');
   $('body').append('<div id="zimgbox-wrap" style="display:none"><img src></div>');
   $(".top-link").click(function () {
