@@ -811,6 +811,10 @@
 
 
 
+
+
+
+
 <body id="container">
   <meter id="isread" max="100" value="0"></meter>
 <script>
@@ -855,11 +859,35 @@
 
       <div class="index-post index-post-content-long">
         <p class="text">欢迎来到我的博客，已经运行了 <span id="days"></span> 天，有 <span id="busuanzi_value_site_pv">...</span>
-          位小伙伴逛过，写了 272 篇文章，共 180008 字。</p>
+          位小伙伴逛过，写了 273 篇文章，共 180113 字。</p>
       </div>
 
       
       
+      
+
+      
+      
+      
+
+
+      
+      <div class="index-post" onclick="javascript:window.location.href='\/blog\/48.html\/'">
+        <div class="index-post-content-long">
+          <a href="/blog/48.html/">
+            <h2>ES5 和 ES6 的区别？</h2>
+          </a>
+          <div class="text">一、javascript 由三部分组成 1.ECMAScript（核心） 它规定了语言的组成部分：法语，类型，语句，关键字，操作符等等。 2.DOM（文档对象模型） DOM 把整个页面映射为一个多层节点结果，开发人员可借助 DOM 提供的 API，轻松地删除、添加、替换或修改任何节点。 3.BOM（浏览器对象模型） 支持可以访问和操作浏览器窗口的浏览器对象模型，开发人员可以控制浏览器显示的页面以外的部分。 二、什么是 ES5？ 作为 ECMAScript 第五个版本（第四版因为过于复杂废弃了），浏览器支持情况可看第一副图，增加特性如下。 1.strict 模式 严格模式，限制一些用法，&lsquo;use strict&rsquo;; 2.Array 增加方法 增加了 every、some、forEach、filter、indexOf、lastIndexOf、isArray、map、reduce、reduceRight 方法 PS：还有其他方法 Function.prototype.bind、String.prototype.trim、Date.now 3.Object 方法 Object.getPrototypeOf Object.create Object.getOwnPropertyNames Object.defineProperty Object.getOwnPropertyDescriptor Object.defineProperties Object.keys Object.preventExtensions / Object.isExtensible Object.seal / Object.isSealed Object.freeze / Object.isFrozen PS：只讲有什么，不讲是什么。 2.什么是 ES6? ECMAScript6 在保证向下兼容的前提下，提供大量新特性，目前浏览器兼容情况如下： ES6 特性如下： 块级作用域 关键字 let, 常量 const 对象字面量的属性赋值简写（property value shorthand） var obj = { // __proto__ __proto__: theProtoObj, // Shorthand for ‘handler: handler’ handler, // Method definitions toString() { // Super calls return &#34;d &#34; + super.toString(); }, // Computed (dynamic) property names [ &#39;prop_&#39; + (() =&gt; 42)() ]: 42 }; 赋值解构 let singer = { first: &#34;Bob&#34;, last: &#34;Dylan&#34; }; let { first: f, last: l } = singer; // 相当于 f = &#34;Bob&#34;, l = &#34;Dylan&#34; let [all, year, month, day] = /^(\d\d\d\d)-(\d\d)-(\d\d)$/.exec(&#34;2015-10-25&#34;); let [x, y] = [1, 2, 3]; // x = 1, y = 2 函数参数 - 默认值、参数打包、数组展开（Default、Rest、Spread） //Default function findArtist(name=&#39;lu&#39;, age=&#39;26&#39;) { ... } //Rest function f(x, ...y) { // y is an Array return x * y.length; } f(3, &#34;hello&#34;, true) == 6 //Spread function f(x, y, z) { return x + y + z; } // Pass each elem of array as argument f(...[1,2,3]) == 6 箭头函数 Arrow functions (1) 简化了代码形式，默认 return 表达式结果。 (2) 自动绑定语义 this，即定义函数时的 this。如上面例子中，forEach 的匿名函数参数中用到的 this。 6.字符串模板 Template strings var name = &#34;Bob&#34;, time = &#34;today&#34;; `Hello ${name}, how are you ${time}?` // return &#34;Hello Bob, how are you today?&#34; Iterators（迭代器）+ for..of 迭代器有个 next 方法，调用会返回： (1) 返回迭代对象的一个元素：{ done: false, value: elem } (2) 如果已到迭代对象的末端：{ done: true, value: retVal } for (var n of [&#39;a&#39;,&#39;b&#39;,&#39;c&#39;]) { console.log(n); } // 打印a、b、c 生成器（Generators） Class Class，有 constructor、extends、super，但本质上是语法糖（对语言的功能并没有影响，但是更方便程序员使用）。 class Artist { constructor(name) { this.name = name; } perform() { return this.name + &#34; performs &#34;; } } class Singer extends Artist { constructor(name, song) { super.constructor(name); this.song = song; } perform() { return super.perform() + &#34;[&#34; + this.song + &#34;]&#34;; } } let james = new Singer(&#34;Etta James&#34;, &#34;At last&#34;); james instanceof Artist; // true james instanceof Singer; // true james.perform(); // &#34;Etta James performs [At last]&#34; Modules ES6 的内置模块功能借鉴了 CommonJS 和 AMD 各自的优点： (1) 具有 CommonJS 的精简语法、唯一导出出口 (single exports) 和循环依赖 (cyclic dependencies) 的特点。 (2) 类似 AMD，支持异步加载和可配置的模块加载。 // lib/math.js export function sum(x, y) { return x + y; } export var pi = 3.141593; // app.js import * as math from &#34;lib/math&#34;; alert(&#34;2π = &#34; + math.sum(math.pi, math.pi)); // otherApp.js import {sum, pi} from &#34;lib/math&#34;; alert(&#34;2π = &#34; + sum(pi, pi)); Module Loaders: // Dynamic loading – ‘System’ is default loader System.import(&#39;lib/math&#39;).then(function(m) { alert(&#34;2π = &#34; + m.sum(m.pi, m.pi)); }); // Directly manipulate module cache System.get(&#39;jquery&#39;); System.set(&#39;jquery&#39;, Module({$: $})); // WARNING: not yet finalized Map + Set + WeakMap + WeakSet 四种集合类型，WeakMap、WeakSet 作为属性键的对象如果没有别的变量在引用它们，则会被回收释放掉。 // Sets var s = new Set(); s.add(&#34;hello&#34;).add(&#34;goodbye&#34;).add(&#34;hello&#34;); s.size === 2; s.has(&#34;hello&#34;) === true; // Maps var m = new Map(); m.set(&#34;hello&#34;, 42); m.set(s, 34); m.get(s) == 34; //WeakMap var wm = new WeakMap(); wm.set(s, { extra: 42 }); wm.size === undefined // Weak Sets var ws = new WeakSet(); ws.add({ data: 42 });//Because the added object has no other references, it will not be held in the set Math + Number + String + Array + Object APIs 一些新的 API Number.EPSILON Number.isInteger(Infinity) // false Number.isNaN(&#34;NaN&#34;) // false Math.acosh(3) // 1.762747174039086 Math.hypot(3, 4) // 5 Math.imul(Math.pow(2, 32) - 1, Math.pow(2, 32) - 2) // 2 &#34;abcde&#34;.includes(&#34;cd&#34;) // true &#34;abc&#34;.repeat(3) // &#34;abcabcabc&#34; Array.from(document.querySelectorAll(&#39;*&#39;)) // Returns a real Array Array.of(1, 2, 3) // Similar to new Array(...), but without special one-arg behavior [0, 0, 0].fill(7, 1) // [0,7,7] [1, 2, 3].find(x =&gt; x == 3) // 3 [1, 2, 3].findIndex(x =&gt; x == 2) // 1 [1, 2, 3, 4, 5].copyWithin(3, 0) // [1, 2, 3, 1, 2] [&#34;a&#34;, &#34;b&#34;, &#34;c&#34;].entries() // iterator [0, &#34;a&#34;], [1,&#34;b&#34;], [2,&#34;c&#34;] [&#34;a&#34;, &#34;b&#34;, &#34;c&#34;].keys() // iterator 0, 1, 2 [&#34;a&#34;, &#34;b&#34;, &#34;c&#34;].values() // iterator &#34;a&#34;, &#34;b&#34;, &#34;c&#34; Object.assign(Point, { origin: new Point(0,0) }) Proxies 使用代理（Proxy）监听对象的操作，然后可以做一些相应事情。 var target = {}; var handler = { get: function (receiver, name) { return `Hello, ${name}!`; } }; var p = new Proxy(target, handler); p.world === &#39;Hello, world!&#39;; 可监听的操作：get、set、has、deleteProperty、apply、construct、getOwnPropertyDescriptor、defineProperty、getPrototypeOf、setPrototypeOf、enumerate、ownKeys、preventExtensions、isExtensible。 Symbols Symbol 是一种基本类型。Symbol 通过调用 symbol 函数产生，它接收一个可选的名字参数，该函数返回的 symbol 是唯一的。 var key = Symbol(&#34;key&#34;); var key2 = Symbol(&#34;key&#34;); key == key2 //false Promises Promises 是处理异步操作的对象，使用了 Promise 对象之后可以用一种链式调用的方式来组织代码，让代码更加直观（类似 jQuery 的 deferred 对象）。 function fakeAjax(url) { return new Promise(function (resolve, reject) { // setTimeouts are for effect, typically we would handle XHR if (!url) { return setTimeout(reject, 1000); } return setTimeout(resolve, 1000); }); } // no url, promise rejected fakeAjax().then(function () { console.log(&#39;success&#39;); },function () { console.log(&#39;fail&#39;); });</div>
+          <div class="index-post-meta">
+            <a href="/blog/48.html/"> # 2021-01-20</a>
+            
+            
+            <span class="namenode">技术</span>
+            
+            
+          </div>
+        </div>
+      </div>
       
 
       
@@ -1044,30 +1072,6 @@
           <div class="text">本文主要写如何在 React 中引入 less。因为 less 和 css 非常像，因此很容易学习。而且 less 仅对 css 语言增加了少许方便的扩展，这就是 less 如此易学的原因之一。 1.安装 less npm install less less-loader --save-dev 2.暴露 webpack 文件 利用 npx create-react-app 搭建的 React 项目，默认隐藏 webpack 配置文件，引入 less 需要修改 webpack 配置文件，因此我们需要执行命令暴露 webpack 配置文件。 这里需要注意，一旦暴露，无法回退。 npm run eject 如果这一步失败，执行下列命令： git add . git commit -m &#34;init&#34; 然后再执行 npm run eject 注意：暴露 webpack 文件只能在 create-react-app 之初，一旦项目结构发生改变，再进行暴露操作就会失败。所以尽量在项目建立时就进行 npm run eject 操作。 3.修改 wenpack.config.js 配置 在合适的位置添加： // 放在 // const sassRegex = /\.(scss|sass)$/; // const sassModuleRegex = /\.module\.(scss|sass)$/; // 后面 const lessRegex = /\.less$/; const lessModuleRegex = /\.module\.less$/; // 放在 oneof 数组下 { test: lessRegex, exclude: lessModuleRegex, use: getStyleLoaders( { importLoaders: 2, sourceMap: isEnvProduction &amp;&amp; shouldUseSourceMap, }, &#39;less-loader&#39; ), // Don&#39;t consider CSS imports dead code even if the // containing package claims to have no side effects. // Remove this when webpack adds a warning or an error for this. // See https://github.com/webpack/webpack/issues/6571 sideEffects: true, }, // Adds support for CSS Modules, but using SASS // using the extension .module.scss or .module.sass { test: lessModuleRegex, use: getStyleLoaders( { importLoaders: 2, sourceMap: isEnvProduction &amp;&amp; shouldUseSourceMap, modules: true, getLocalIdent: getCSSModuleLocalIdent, }, &#39;less-loader&#39; ), }, 4.如何使用 less 新建一个 App.less 文件，然后在 App.js 中引入： import &#39;./Map.less&#39; less 语法手册</div>
           <div class="index-post-meta">
             <a href="/blog/41.html/"> # 2021-01-04</a>
-            
-            
-            <span class="namenode">技术</span>
-            
-            
-          </div>
-        </div>
-      </div>
-      
-
-      
-      
-      
-
-
-      
-      <div class="index-post" onclick="javascript:window.location.href='\/blog\/39.html\/'">
-        <div class="index-post-content-long">
-          <a href="/blog/39.html/">
-            <h2>React 学习笔记（三）</h2>
-          </a>
-          <div class="text">来源于：https://react.docschina.org/docs/forms.html 一、表单 在 React 中，html 表单元素的工作方式和其他的 DOM 元素不太一样，因为表单内部通常会保持一些内部的 state，比如下面这个纯 html 表单只接受一个名称： &lt;form&gt; &lt;label&gt; 名字： &lt;input type=&#34;text&#34; name=&#34;name&#34; /&gt; &lt;/label&gt; &lt;input type=&#34;submit&#34; value=&#34;提交&#34; /&gt; &lt;/form&gt; 这个表单具有默认的 html 表单行为，即在用户提交表单之后自动刷新页面。如果你在 React 中执行相同的代码，它仍然有效。 但大多数情况下，使用 JavaScript 函数可以很方便的处理表单的提交，同时还可以访问用户填写的表单数据。实现这种效果的标准方式是使用“受控组件”。 受控组件 在 html 中，表单元素比如&lt;input&gt;，&lt;textarea&gt;，&lt;select&gt;，这些表单元素通常自己维护 state，并根据用户输入进行更新。而在 React 中，可变状态（mutable state）通常保存在组件的 state 属性中，并且只能通过使用 setState() 来更新。 我们可以把两者结合起来，使 React 的 state 成为“唯一数据源”。渲染表单的 React 组件还控制着用户输入过程中表单发生的操作。被 React 以这种方式控制取值的表单输入元素就叫做“受控组件”。 例如，如果我们想让前一个示例在提交时打印出名称，我们可以将表单写为受控组件： class NameForm extends React.Component { constructor(props) { super(props); this.state = {value: &#39;&#39;}; this.handleChange = this.handleChange.bind(this); this.handleSubmit = this.handleSubmit.bind(this); } handleChange(event) { this.setState({value: event.target.value}); } handleSubmit(event) { alert(&#39;提交的名字：&#39; + this.state.value); event.preventDefault(); } render() { return ( &lt;form onSubmit={this.handleSubmit}&gt; &lt;label&gt; 名字: &lt;input type=&#34;text&#34; value={this.state.value} onChange={this.handleChange} /&gt; &lt;/label&gt; &lt;input type=&#34;submit&#34; value=&#34;提交&#34; /&gt; &lt;/form&gt; ); } } 由于在表单元素上设置了 value 属性，因此显示的值将始终为 this.state.value，这使得 React 的 state 成为唯一数据源。由于 handlechange 在每次按键时都会执行并更新 React 的 state，因此显示的值将随着用户输入而更新。 对于受控组件来说，输入的值始终由 React 的 state 驱动。你也可以将 value 传递给其他 UI 元素，或者通过其他事件处理函数重置，但这意味着你需要编写更多的代码。 textarea 标签 在 html 中，&lt;textarea&gt; 元素通过其子元素定义其文本： &lt;textarea&gt; 测试！ &lt;/textarea&gt; 而在 React 中，&lt;textarea&gt; 使用 value 属性代替。这样，可以使得使用 &lt;textarea&gt; 的表单和使用单行 input 的表单非常类似： class EssayForm extends React.Component { constructor(props) { super(props); this.state = { value: &#39;请撰写一篇关于你喜欢的 DOM 元素的文章。&#39; }; this.handleChange = this.handleChange.bind(this); this.handleSubmit = this.handleSubmit.bind(this); } handleChange(event) { this.setState({value: event.target.value}); } handleSubmit(event) { alert(&#39;提交的文章：&#39; + this.state.value); event.preventDefault(); } render() { return ( &lt;form onSubmit={this.handleSubmit}&gt; &lt;label&gt; 文章: &lt;textarea value={this.state.value} onChange={this.handleChange} /&gt; &lt;/label&gt; &lt;input type=&#34;submit&#34; value=&#34;提交&#34; /&gt; &lt;/form&gt; ); } } 请注意，this.state.value 初始化于构造函数中，因此文本区域默认有初值。 select 标签 在 HTML 中，&lt;select&gt; 创建下拉列表标签。例如，如下 html 创建了水果相关的下拉列表： &lt;select&gt; &lt;option value=&#34;grapefruit&#34;&gt;葡萄柚&lt;/option&gt; &lt;option value=&#34;lime&#34;&gt;酸橙&lt;/option&gt; &lt;option selected value=&#34;coconut&#34;&gt;椰子&lt;/option&gt; &lt;option value=&#34;mango&#34;&gt;芒果&lt;/option&gt; &lt;/select&gt; 请注意，由于 selected 属性的缘故，椰子选项默认被选中。React 并不会使用 selected 属性，而是在根 select 标签上使用 value 属性。这在受控组件中更便捷，因为您只需要在根标签中更新它。例如： class FlavorForm extends React.Component { constructor(props) { super(props); this.state = {value: &#39;coconut&#39;}; this.handleChange = this.handleChange.bind(this); this.handleSubmit = this.handleSubmit.bind(this); } handleChange(event) { this.setState({value: event.target.value}); } handleSubmit(event) { alert(&#39;你喜欢的风味是：&#39; + this.state.value); event.preventDefault(); } render() { return ( &lt;form onSubmit={this.handleSubmit}&gt; &lt;label&gt; 选择你喜欢的风味： &lt;select value={this.state.value} onChange={this.handleChange}&gt; &lt;option value=&#34;grapefruit&#34;&gt;葡萄柚&lt;/option&gt; &lt;option value=&#34;lime&#34;&gt;酸橙&lt;/option&gt; &lt;option value=&#34;coconut&#34;&gt;椰子&lt;/option&gt; &lt;option value=&#34;mango&#34;&gt;芒果&lt;/option&gt; &lt;/select&gt; &lt;/label&gt; &lt;input type=&#34;submit&#34; value=&#34;提交&#34; /&gt; &lt;/form&gt; ); } } 总的来说，这使得 &lt;input type=&quot;text&quot;&gt;, &lt;textarea&gt; 和 &lt;select&gt; 之类的标签都非常相似—它们都接受一个 value 属性，你可以使用它来实现受控组件。 注意：你可以将数组传递到 value 属性中，以支持在 select 标签中选择多个选项： &lt;select multiple={true} value={[&#39;B&#39;, &#39;C&#39;]}&gt; 文件 input 标签 在 HTML 中，&lt;input type=&quot;file&quot;&gt; 允许用户从存储设备中选择一个或多个文件，将其上传到服务器，或通过使用 JavaScript 的 File API 进行控制。 &lt;input type=&#34;file&#34; /&gt; 因为它的 value 只读，所以它是 React 中的一个非受控组件。 处理多个输入 当需要处理多个 input 元素时，我们可以给每个元素添加 name 属性，并让处理函数根据 event.target.name 的值选择要执行的操作。 class Reservation extends React.Component { constructor(props) { super(props); this.state = { isGoing: true, numberOfGuests: 2 }; this.handleInputChange = this.handleInputChange.bind(this); } handleInputChange(event) { const target = event.target; const value = target.name === &#39;isGoing&#39; ? target.checked : target.value; const name = target.name; this.setState({ [name]: value }); } render() { return ( &lt;form&gt; &lt;label&gt; 参与: &lt;input name=&#34;isGoing&#34; type=&#34;checkbox&#34; checked={this.state.isGoing} onChange={this.handleInputChange} /&gt; &lt;/label&gt; &lt;br /&gt; &lt;label&gt; 来宾人数： &lt;input name=&#34;numberOfGuests&#34; type=&#34;number&#34; value={this.state.numberOfGuests} onChange={this.handleInputChange} /&gt; &lt;/label&gt; &lt;/form&gt; ); } } 这里使用了 ES6 计算属性名称的语法更新给定输入名称对应的 state 值： 例如： this.setState({ [name]: value }); 等同于 es5： var partialState = {}; partialState[name] = value; this.setState(partialState); 另外，由于 setState() 自动将部分 state 合并到当前 state, 只需调用它更改部分 state 即可。 受控输入空值 在受控组件上指定 value 的 prop 会阻止用户更改输入。如果你指定了 value，但输入仍可编辑，则可能是你意外地将 value 设置为 undefined 或 null。 下面的代码演示了这一点。（输入最初被锁定，但在短时间延迟后变为可编辑。） ReactDOM.render(&lt;input value=&#34;hi&#34; /&gt;, mountNode); setTimeout(function() { ReactDOM.render(&lt;input value={null} /&gt;, mountNode); }, 1000); 受控组件的替代品 有时使用受控组件会很麻烦，因为你需要为数据变化的每种方式都编写事件处理函数，并通过一个 React 组件传递所有的输入 state。当你将之前的代码库转换为 React 或将 React 应用程序与非 React 库集成时，这可能会令人厌烦。在这些情况下，你可能希望使用非受控组件，这是实现输入表单的另一种方式。 成熟的解决方案 如果你想寻找包含验证、追踪访问字段以及处理表单提交的完整解决方案，使用 Formik 是不错的选择。然而，它也是建立在受控组件和管理 state 的基础之上 —— 所以不要忽视学习它们。</div>
-          <div class="index-post-meta">
-            <a href="/blog/39.html/"> # 2020-12-29</a>
             
             
             <span class="namenode">技术</span>

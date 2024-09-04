@@ -6,8 +6,22 @@
     <description>Recent content in 笔记 on 子舒的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 12 Jul 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 04 Sep 2024 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://zishu.me/tags/%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>记录 vite 中引入 tailwindcss</title>
+      <link>https://zishu.me/blog/237.html/</link>
+      <pubDate>Wed, 04 Sep 2024 00:00:00 +0000</pubDate>
+      <guid>https://zishu.me/blog/237.html/</guid>
+      <description>安装依赖并生成 tailwind.config.js 和 postcss.config.js。 yarn add -D tailwindcss postcss autoprefixer npx tailwindcss init -p 注意，配置中要使用 ES6 模块语法 export default。 // tailwind.config.js export default { content: [ &amp;#34;./index.html&amp;#34;, &amp;#34;./src/**/*.{vue,js,ts,jsx,tsx}&amp;#34;, ], theme: { extend: {}, }, plugins: [], }; 添加 Tailwind 的 CSS 文件。 /* src/index.css */ @tailwind base; @tailwind components; @tailwind utilities; 在 main.js 中引入。 // main.js import &amp;#39;./index.css&amp;#39;;</description>
+    </item>
+    <item>
+      <title>vite 配置相关笔记</title>
+      <link>https://zishu.me/blog/234.html/</link>
+      <pubDate>Thu, 15 Aug 2024 00:00:00 +0000</pubDate>
+      <guid>https://zishu.me/blog/234.html/</guid>
+      <description>一、配置 route 路由 使用 vite + vue 构建项目默认是没有 route 的，所以需要手动引入。 1. 基础配置 # 建立一个 vite 项目 npm create vite@latest yarn create vite # 安装 route 依赖 npm install vue-router@4 yarn add vue-router@4 接下来，需要在项目中配置 Vue Router。首先在 src 目录下创建一个 router 目录，并在该目录下创建 index.js，并配置路由。 src/ ├── router/ │ └── index.js // src/router/index.js import { createRouter, createWebHistory } from &amp;#39;vue-router&amp;#39;; const routes = [{ path: &amp;#39;/&amp;#39;, name: &amp;#39;Home&amp;#39;, component: () =&amp;gt; import(&amp;#39;@/views/Home.vue&amp;#39;) }, { path: &amp;#39;/login&amp;#39;, name: &amp;#39;Login&amp;#39;, component: () =&amp;gt; import(&amp;#39;@/views/Login.vue&amp;#39;) } ] const router = createRouter({ history: createWebHistory(import.meta.env.BASE_URL), routes }) export default router 在 main.js 声明一下 route 文件。 import { createApp } from &amp;#39;vue&amp;#39;; import App from &amp;#39;./App.vue&amp;#39;; import router from &amp;#39;./router&amp;#39;; const app = createApp(App) app.use(router) app.mount(&amp;#39;#app&amp;#39;) 并且在 App.vue 中要使用 router-view 来显示当前路由对应的组件，所以修改下文件。 &amp;lt;template&amp;gt; &amp;lt;div id=&amp;#34;app&amp;#34;&amp;gt; &amp;lt;router-view&amp;gt;&amp;lt;/router-view&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/template&amp;gt; &amp;lt;script&amp;gt; export default { name: &amp;#39;App&amp;#39; } &amp;lt;/script&amp;gt; 2. 添加多路由 要添加更多的页面或动态路由，可以继续在 routes 数组中添加配置。例如： { path: &amp;#39;/user/:id&amp;#39;, name: &amp;#39;User&amp;#39;, component: () =&amp;gt; import(&amp;#39;@/views/User.vue&amp;#39;) } 这样，访问 /user/1 就会加载 User.vue 组件并显示相应内容。 二、配置 @ 路径别名 注意，vite 默认是没有配置路径别名 @ 的，所以要手动添加，配置如下： import { defineConfig } from &amp;#39;vite&amp;#39; import vue from &amp;#39;@vitejs/plugin-vue&amp;#39; import { fileURLToPath, URL } from &amp;#39;node:url&amp;#39; export default defineConfig({ plugins: [vue()], resolve: { alias: { &amp;#39;@&amp;#39;: fileURLToPath(new URL(&amp;#39;./src&amp;#39;, import.meta.url)) } } }) 配置完别名后，就可以在项目中使用 @ 来代替 src 目录的路径，从而简化模块引用。 三、dev 时自动访问本地服务 open: true 表示当你运行 vite 或 vite dev 时，开发服务器将自动在浏览器中打开本地服务器的 URL（例如 http://localhost:5173）。你也可以指定一个具体的 URL，例如： // vite.config.js export default defineConfig({ server: { open: true, // 自动打开浏览器并访问本地服务器网址 open: &amp;#39;http://localhost:5173&amp;#39;, // 在浏览器中打开指定的路径 }, }); 四、允许本地 ip 访问 local // vite.config.js export default { server: { host: true, // 允许使用本地 IP 访问 port: 3000 // 可以根据需要修改端口 } } vite.config.js 配置集合 // vite.config.js import { defineConfig } from &amp;#39;vite&amp;#39;; import vue from &amp;#39;@vitejs/plugin-vue&amp;#39;; import { fileURLToPath, URL } from &amp;#39;node:url&amp;#39;; // https://vitejs.dev/config/ export default defineConfig({ base: &amp;#39;/single-template/&amp;#39;, // 设置打开目录 plugins: [vue()], resolve: { alias: { &amp;#39;@&amp;#39;: fileURLToPath(new URL(&amp;#39;./src&amp;#39;, import.meta.url)) // 允许使用 @ 别名 } }, server: { host: true, // 允许本地 ip 访问 open: true, // 自动打开浏览器并访问本地服务器网址 // open: &amp;#39;http://localhost:5173&amp;#39;, // 在浏览器中打开指定的路径 }, })</description>
+    </item>
     <item>
       <title>笔记:vue 中使用 axios 调用数据并渲染</title>
       <link>https://zishu.me/blog/151.html/</link>

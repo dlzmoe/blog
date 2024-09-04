@@ -811,6 +811,10 @@
 
 
 
+
+
+
+
 <body id="container">
   <meter id="isread" max="100" value="0"></meter>
 <script>
@@ -855,11 +859,35 @@
 
       <div class="index-post index-post-content-long">
         <p class="text">欢迎来到我的博客，已经运行了 <span id="days"></span> 天，有 <span id="busuanzi_value_site_pv">...</span>
-          位小伙伴逛过，写了 272 篇文章，共 180008 字。</p>
+          位小伙伴逛过，写了 273 篇文章，共 180113 字。</p>
       </div>
 
       
       
+      
+
+      
+      
+      
+
+
+      
+      <div class="index-post" onclick="javascript:window.location.href='\/blog\/66.html\/'">
+        <div class="index-post-content-long">
+          <a href="/blog/66.html/">
+            <h2>网站引入 iframe 视频，如何实现高度自适应？</h2>
+          </a>
+          <div class="text">我想很多小伙伴在写博客的时候都能遇到一个令人头疼的问题，某一篇文章想用 iframe 引入一个外链视频，但是大小总是有问题，宽度可以固定到 100% ，但是高度比如用实际高度来表示，比如 100px, 200px，诸如此类。 但是问题来了，在不同的页面宽度下，视频的高度是一致的，就会导致一个很麻烦的问题， 看下面两个图， pc 端 移动端 很明显，在 pc 端正常显示的视频，放到移动端高度就错位了，很不美观。 解决这个问题，可以同媒体查询，但是显然费时费力，还不那么完美。 其实很简单，只需要不到 10 行代码即可完美实现。 引入 jq，（一般网站默认都有这个文件） 加上一段 js 代码，最好放在网站底部， &lt;/body&gt; 前即可。 $(&#39;iframe&#39;).wrap(&#39;&lt;p class=&#34;iframe&#34;&gt;&lt;/p&gt;&#39;) 在 css 文件的底部加上： .iframe{ position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; } .iframe iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; } 这个时候再访问带有 iframe 视频的网页，不管宽度如何变化，高度可以随视频自适应。 例如这个网页，可以看一下效果：https://imhan.cn/posts/20210507.html</div>
+          <div class="index-post-meta">
+            <a href="/blog/66.html/"> # 2021-05-09</a>
+            
+            
+            <span class="namenode">技术</span>
+            
+            
+          </div>
+        </div>
+      </div>
       
 
       
@@ -1044,30 +1072,6 @@
           <div class="text">起因是因为 IE10 不兼容 es6，所以引发了一系列的问题。 一 使用ajax拼接字符串有很多方法，最简单的莫过于使用 es6 的语法中的关键符号， str += `&lt;li class=&#34;wrap-item&#34;&gt; &lt;div class=&#34;pic-wrap&#34;&gt; &lt;div class=&#34;pic&#34;&gt; &lt;div class=&#34;pic-son&#34;&gt; &lt;a href=&#34; ` + item.link + `&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34; ` + item.pic+ `&#34; alt=&#34;缩略图&#34;&gt;&lt;/a&gt; &lt;/div&gt; &lt;/div&gt; &lt;div class=&#34;pic-main&#34;&gt; &lt;div class=&#34;pic-title&#34;&gt; &lt;span&gt;编号：&lt;/span&gt; &lt;span&gt; ` + item.title + ` &lt;/span&gt; &lt;/div&gt; &lt;div class=&#34;pic-guide&#34;&gt; ` + item.guide + ` &lt;/div&gt; &lt;div class=&#34;pic-link&#34; id=&#34;picLink&#34;&gt; &lt;a href=&#34; ` + item.link + ` &#34; target=&#34;_blank&#34;&gt;预览&lt;/a&gt; &lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;/li&gt; ` 可以很快的把模版字符串写好，但是正因为它是es6的新特性，因此对于低版本的浏览器兼容性不太好，报错无效字符。 二 因此还有一种较为麻烦的写法&quot; '' &quot; ，使用单引号和双引号将标签和字符串连接起来。因为太过繁琐，所以需要特别仔细的查看，一不小心漏个符号，就会导致网页报错。 p = &#34;&lt;li class=&#39;wrap-item&#39;&gt;&#34; +&#34;&lt;div class=&#39;pic-wrap&#39;&gt;&#34; +&#34;&lt;div class=&#39;pic&#39;&gt;&#34; +&#34;&lt;div class=&#39;pic-son-wrap&#39;&gt;&#34; +&#34;&lt;div class=&#39;pic-son&#39;&gt;&#34; +&#34;&lt;a href=&#39;&#34;+item.link+&#34;&#39;&gt;&#34; +&#34;&lt;img src=&#39;&#34;+item.pic+&#34;&#39; alt=&#39;缩略图&#39;&gt;&#34; +&#34;&lt;/a&gt;&#34; +&#34;&lt;/div&gt;&#34; +&#34;&lt;/div&gt;&#34; +&#34;&lt;div class=&#39;pic-main&#39;&gt;&#34; +&#34;&lt;div class=&#39;pic-title&#39;&gt;&#34; +&#34;&lt;span&gt;&#34;+&#34;编号：&#34;+&#34;&lt;/span&gt;&#34;+&#34;&lt;span&gt;&#34;+item.title+&#34;&lt;/span&gt;&#34; +&#34;&lt;/div&gt;&#34; +&#34;&lt;div class=&#39;pic-guide&#39;&gt;&#34; +item.guide +&#34;&lt;/div&gt;&#34; +&#34;&lt;div class=&#39;pic-link&#39; id=&#39;picLink&#39;&gt;&#34; +&#34;&lt;a href=&#39;&#34;+item.link+&#34;&#39;&gt;&#34; +&#34;预览&#34; +&#34;&lt;/a&gt;&#34; +&#34;&lt;/div&gt;&#34; +&#34;&lt;/div&gt;&#34; +&#34;&lt;/div&gt;&#34; +&#34;&lt;/div&gt;&#34; +&#34;&lt;/li&gt;&#34; str += p; 在不同的情况下使用不同的方法，多掌握几种方法总是不亏的，能适用与各种开发环境。</div>
           <div class="index-post-meta">
             <a href="/blog/59.html/"> # 2021-03-22</a>
-            
-            
-            <span class="namenode">技术</span>
-            
-            
-          </div>
-        </div>
-      </div>
-      
-
-      
-      
-      
-
-
-      
-      <div class="index-post" onclick="javascript:window.location.href='\/blog\/57.html\/'">
-        <div class="index-post-content-long">
-          <a href="/blog/57.html/">
-            <h2>用 ajax 请求获取数据</h2>
-          </a>
-          <div class="text">通过 jquery 进行 ajax 请求数据是一种较为简便的方式，我简单写了一个本地的data.json文件，然后用get请求数据，下面是部分代码 // ajax 请求获取数据 function picShow(){ var str = &#39;&#39;; $.ajax({ url:&#39;./js/data.json&#39;, type:&#39;get&#39;, dataType:&#39;json&#39;, success:function(data){ console.log(&#39;success&#39;) }, error: function() { console.log(&#39;error&#39;) } }) } picShow(); 但是这样做有一个弊端，无法在本地预览，因为浏览器禁止客户端直接获取本地数据，这也算一个跨域问题了，不过这也是为了保证用户的安全。当然这对前端来说很不爽！ 其实解决的方法也很简单，通过 node 服务，用live server在本地跑一下，就可以让 ajax 获取数据，当然还有其他更好的解决方法，或者直接在服务器跑，通过 jsonp 等等。 live server 不明白的可以百度看看，也是一个技巧。</div>
-          <div class="index-post-meta">
-            <a href="/blog/57.html/"> # 2021-03-19</a>
             
             
             <span class="namenode">技术</span>
