@@ -38,7 +38,7 @@ def process_md_files(folder_path):
     output_file_path = os.path.join(current_directory, 'toc.md')
     with open(output_file_path, 'w', encoding='utf-8') as output_file:
         # 添加标题
-        output_file.write("## 文章归档目录\n\n")
+        output_file.write("# 文章归档目录\n\n")
         # 写入输出文本
         for line in reversed(output_text):
             output_file.write(line + '\n')
