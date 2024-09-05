@@ -46,33 +46,16 @@
 <link rel="stylesheet" href="/css/base.css">
 <link rel="stylesheet" href="/css/index.css">
 <link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
-<script src="/js/jquery3.6.0.min.js"></script>
 </head>
 
-<body id="container">
-  <meter id="isread" max="100" value="0"></meter>
-<script>
-  window.addEventListener('scroll', function () {
-    var scrolled = window.scrollY;
-    var totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-    var percentage = (scrolled / totalHeight) * 100;
-    $('#isread').attr('value', percentage)
-  });
-</script>
-
-
-<div id="head" class="site-index">
-  <a id="logo" href="/">
-    <img src="https://imgurl.zishu.me/author.webp">
-  </a>
-  <div id="site-title">
-    <a href="/">子舒的博客</a>
-  </div>
+<body>
+  <nav class="headnav">
+  <a href="/" class="logo">ZISHU.ME</a>
   <ul id="menu">
     
-    <li><a href="/categories/%e6%8a%80%e6%9c%af/">技术</a></li>
+    <li><a href="/tags/">标签</a></li>
     
-    <li><a href="/categories/%e9%9a%8f%e7%ac%94/">随笔</a></li>
+    <li><a href="/blog/">博客</a></li>
     
     <li><a href="/categories/weekly/">周刊</a></li>
     
@@ -82,46 +65,45 @@
     
     <li><a href="/about/">关于</a></li>
     
-    <li><a href="/index.xml" target="_blank">订阅</a></li>
+    <li><a href="/index.xml">订阅</a></li>
+    
   </ul>
-</div>
+</nav>
 
-  <section id="body">
-    <h1 id="body-title">📓 ES6</h1>
+  <section>
+    
 
-    <div id="body-in">
-      <h3 class="posts-year" id="2021">2021</h3>
-      
-      
-      <div class="index-post" onclick="javascript:window.location.href='\/blog\/48.html\/'">
-        <div class="index-post-content-long">
-          <a href="/blog/48.html/">
-            <h2>ES5 和 ES6 的区别？</h2>
-          </a>
-          <div class="text">一、javascript 由三部分组成 1.ECMAScript（核心） 它规定了语言的组成部分：法语，类型，语句，关键字，操作符等等。 2.DOM（文档对象模型） DOM 把整个页面映射为一个多层节点结果，开发人员可借助 DOM 提供的 API，轻松地删除、添加、替换或修改任何节点。 3.BOM（浏览器对象模型） 支持可以访问和操作浏览器窗口的浏览器对象模型，开发人员可以控制浏览器显示的页面以外的部分。 二、什么是 ES5？ 作为 ECMAScript 第五个版本（第四版因为过于复杂废弃了），浏览器支持情况可看第一副图，增加特性如下。 1.strict 模式 严格模式，限制一些用法，&lsquo;use strict&rsquo;; 2.Array 增加方法 增加了 every、some、forEach、filter、indexOf、lastIndexOf、isArray、map、reduce、reduceRight 方法 PS：还有其他方法 Function.prototype.bind、String.prototype.trim、Date.now 3.Object 方法 Object.getPrototypeOf Object.create Object.getOwnPropertyNames Object.defineProperty Object.getOwnPropertyDescriptor Object.defineProperties Object.keys Object.preventExtensions / Object.isExtensible Object.seal / Object.isSealed Object.freeze / Object.isFrozen PS：只讲有什么，不讲是什么。 2.什么是 ES6? ECMAScript6 在保证向下兼容的前提下，提供大量新特性，目前浏览器兼容情况如下： ES6 特性如下： 块级作用域 关键字 let, 常量 const 对象字面量的属性赋值简写（property value shorthand） var obj = { // __proto__ __proto__: theProtoObj, // Shorthand for ‘handler: handler’ handler, // Method definitions toString() { // Super calls return &#34;d &#34; + super.toString(); }, // Computed (dynamic) property names [ &#39;prop_&#39; + (() =&gt; 42)() ]: 42 }; 赋值解构 let singer = { first: &#34;Bob&#34;, last: &#34;Dylan&#34; }; let { first: f, last: l } = singer; // 相当于 f = &#34;Bob&#34;, l = &#34;Dylan&#34; let [all, year, month, day] = /^(\d\d\d\d)-(\d\d)-(\d\d)$/.exec(&#34;2015-10-25&#34;); let [x, y] = [1, 2, 3]; // x = 1, y = 2 函数参数 - 默认值、参数打包、数组展开（Default、Rest、Spread） //Default function findArtist(name=&#39;lu&#39;, age=&#39;26&#39;) { ... } //Rest function f(x, ...y) { // y is an Array return x * y.length; } f(3, &#34;hello&#34;, true) == 6 //Spread function f(x, y, z) { return x + y + z; } // Pass each elem of array as argument f(...[1,2,3]) == 6 箭头函数 Arrow functions (1) 简化了代码形式，默认 return 表达式结果。 (2) 自动绑定语义 this，即定义函数时的 this。如上面例子中，forEach 的匿名函数参数中用到的 this。 6.字符串模板 Template strings var name = &#34;Bob&#34;, time = &#34;today&#34;; `Hello ${name}, how are you ${time}?` // return &#34;Hello Bob, how are you today?&#34; Iterators（迭代器）+ for..of 迭代器有个 next 方法，调用会返回： (1) 返回迭代对象的一个元素：{ done: false, value: elem } (2) 如果已到迭代对象的末端：{ done: true, value: retVal } for (var n of [&#39;a&#39;,&#39;b&#39;,&#39;c&#39;]) { console.log(n); } // 打印a、b、c 生成器（Generators） Class Class，有 constructor、extends、super，但本质上是语法糖（对语言的功能并没有影响，但是更方便程序员使用）。 class Artist { constructor(name) { this.name = name; } perform() { return this.name + &#34; performs &#34;; } } class Singer extends Artist { constructor(name, song) { super.constructor(name); this.song = song; } perform() { return super.perform() + &#34;[&#34; + this.song + &#34;]&#34;; } } let james = new Singer(&#34;Etta James&#34;, &#34;At last&#34;); james instanceof Artist; // true james instanceof Singer; // true james.perform(); // &#34;Etta James performs [At last]&#34; Modules ES6 的内置模块功能借鉴了 CommonJS 和 AMD 各自的优点： (1) 具有 CommonJS 的精简语法、唯一导出出口 (single exports) 和循环依赖 (cyclic dependencies) 的特点。 (2) 类似 AMD，支持异步加载和可配置的模块加载。 // lib/math.js export function sum(x, y) { return x + y; } export var pi = 3.141593; // app.js import * as math from &#34;lib/math&#34;; alert(&#34;2π = &#34; + math.sum(math.pi, math.pi)); // otherApp.js import {sum, pi} from &#34;lib/math&#34;; alert(&#34;2π = &#34; + sum(pi, pi)); Module Loaders: // Dynamic loading – ‘System’ is default loader System.import(&#39;lib/math&#39;).then(function(m) { alert(&#34;2π = &#34; + m.sum(m.pi, m.pi)); }); // Directly manipulate module cache System.get(&#39;jquery&#39;); System.set(&#39;jquery&#39;, Module({$: $})); // WARNING: not yet finalized Map + Set + WeakMap + WeakSet 四种集合类型，WeakMap、WeakSet 作为属性键的对象如果没有别的变量在引用它们，则会被回收释放掉。 // Sets var s = new Set(); s.add(&#34;hello&#34;).add(&#34;goodbye&#34;).add(&#34;hello&#34;); s.size === 2; s.has(&#34;hello&#34;) === true; // Maps var m = new Map(); m.set(&#34;hello&#34;, 42); m.set(s, 34); m.get(s) == 34; //WeakMap var wm = new WeakMap(); wm.set(s, { extra: 42 }); wm.size === undefined // Weak Sets var ws = new WeakSet(); ws.add({ data: 42 });//Because the added object has no other references, it will not be held in the set Math + Number + String + Array + Object APIs 一些新的 API Number.EPSILON Number.isInteger(Infinity) // false Number.isNaN(&#34;NaN&#34;) // false Math.acosh(3) // 1.762747174039086 Math.hypot(3, 4) // 5 Math.imul(Math.pow(2, 32) - 1, Math.pow(2, 32) - 2) // 2 &#34;abcde&#34;.includes(&#34;cd&#34;) // true &#34;abc&#34;.repeat(3) // &#34;abcabcabc&#34; Array.from(document.querySelectorAll(&#39;*&#39;)) // Returns a real Array Array.of(1, 2, 3) // Similar to new Array(...), but without special one-arg behavior [0, 0, 0].fill(7, 1) // [0,7,7] [1, 2, 3].find(x =&gt; x == 3) // 3 [1, 2, 3].findIndex(x =&gt; x == 2) // 1 [1, 2, 3, 4, 5].copyWithin(3, 0) // [1, 2, 3, 1, 2] [&#34;a&#34;, &#34;b&#34;, &#34;c&#34;].entries() // iterator [0, &#34;a&#34;], [1,&#34;b&#34;], [2,&#34;c&#34;] [&#34;a&#34;, &#34;b&#34;, &#34;c&#34;].keys() // iterator 0, 1, 2 [&#34;a&#34;, &#34;b&#34;, &#34;c&#34;].values() // iterator &#34;a&#34;, &#34;b&#34;, &#34;c&#34; Object.assign(Point, { origin: new Point(0,0) }) Proxies 使用代理（Proxy）监听对象的操作，然后可以做一些相应事情。 var target = {}; var handler = { get: function (receiver, name) { return `Hello, ${name}!`; } }; var p = new Proxy(target, handler); p.world === &#39;Hello, world!&#39;; 可监听的操作：get、set、has、deleteProperty、apply、construct、getOwnPropertyDescriptor、defineProperty、getPrototypeOf、setPrototypeOf、enumerate、ownKeys、preventExtensions、isExtensible。 Symbols Symbol 是一种基本类型。Symbol 通过调用 symbol 函数产生，它接收一个可选的名字参数，该函数返回的 symbol 是唯一的。 var key = Symbol(&#34;key&#34;); var key2 = Symbol(&#34;key&#34;); key == key2 //false Promises Promises 是处理异步操作的对象，使用了 Promise 对象之后可以用一种链式调用的方式来组织代码，让代码更加直观（类似 jQuery 的 deferred 对象）。 function fakeAjax(url) { return new Promise(function (resolve, reject) { // setTimeouts are for effect, typically we would handle XHR if (!url) { return setTimeout(reject, 1000); } return setTimeout(resolve, 1000); }); } // no url, promise rejected fakeAjax().then(function () { console.log(&#39;success&#39;); },function () { console.log(&#39;fail&#39;); });</div>
-          <div class="index-post-meta">
-            <a href="/blog/48.html/"> # 2021-01-20</a>
-            
-            
-            <span class="namenode">技术</span>
-            
-            
-          </div>
-        </div>
+    <div class="container">
+      <div class="aside-list">
+        <a href="/blog/">全部</a>
+        <a href="/categories/技术/">技术</a>
+        <a href="/categories/随笔/">随笔</a>
+        <a href="/categories/weekly/">周刊</a>
       </div>
 
-      
+      <div class="posts">
+        <h3 class="posts-year" id="2021">2021</h3>
+        <div class="posts-list">
+          
+          <div class="posts-item">
+            <span class="date">2021-01-20</span>
+            <a href="/blog/48.html/">ES5 和 ES6 的区别？</a>
+          </div>
+          
+        </div>
+        
+      </div>
+
     </div>
-    
-    <footer id="foot">
+  </section>
+  <footer class="footer">
   <p>© 2020 - 2024 Powered by
-    <a href="https://github.com/dlzmoe/blog" target="_blank">Github</a>
+    <a href="https://github.com/dlzmoe" target="_blank">Github</a>
     / <a href="/index.xml" target="_blank">RSS</a>
   </p>
 </footer>
 
-<script src="/js/main.js"></script>
-  </section>
+
 </body>
 
 </html>

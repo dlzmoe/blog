@@ -46,33 +46,16 @@
 <link rel="stylesheet" href="/css/base.css">
 <link rel="stylesheet" href="/css/index.css">
 <link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
-<script src="/js/jquery3.6.0.min.js"></script>
 </head>
 
-<body id="container">
-  <meter id="isread" max="100" value="0"></meter>
-<script>
-  window.addEventListener('scroll', function () {
-    var scrolled = window.scrollY;
-    var totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-    var percentage = (scrolled / totalHeight) * 100;
-    $('#isread').attr('value', percentage)
-  });
-</script>
-
-
-<div id="head" class="site-index">
-  <a id="logo" href="/">
-    <img src="https://imgurl.zishu.me/author.webp">
-  </a>
-  <div id="site-title">
-    <a href="/">子舒的博客</a>
-  </div>
+<body>
+  <nav class="headnav">
+  <a href="/" class="logo">ZISHU.ME</a>
   <ul id="menu">
     
-    <li><a href="/categories/%e6%8a%80%e6%9c%af/">技术</a></li>
+    <li><a href="/tags/">标签</a></li>
     
-    <li><a href="/categories/%e9%9a%8f%e7%ac%94/">随笔</a></li>
+    <li><a href="/blog/">博客</a></li>
     
     <li><a href="/categories/weekly/">周刊</a></li>
     
@@ -82,69 +65,54 @@
     
     <li><a href="/about/">关于</a></li>
     
-    <li><a href="/index.xml" target="_blank">订阅</a></li>
-  </ul>
-</div>
-
-  <section id="body">
-    <h1 id="body-title">📓 Gravatar</h1>
-
-    <div id="body-in">
-      <h3 class="posts-year" id="2023">2023</h3>
-      
-      
-      <div class="index-post" onclick="javascript:window.location.href='\/blog\/182.html\/'">
-        <div class="index-post-content-long">
-          <a href="/blog/182.html/">
-            <h2>使用 cloudflare 反代 gravatar 生成镜像</h2>
-          </a>
-          <div class="text">1.介绍 cloudflare 有一个非常好用的功能&mdash;Workers，可以在无服务器的状态下运行一些程序，包括常见的反向代理等。 所以我利用这一功能实现对 gravatar 反代，达到国内访问加速的目的。 话不多说，开始流程操作，分享我的部署过程。 1.登陆后，在主页点击左侧的 Workers，然后点击创建服务。 2.服务名称随意填写，然后点击右下角创建。 3.点击右上角快速编辑 4.在左侧编辑器中输入下列的代码 2.代码 点击展开代码 // 替换成你想镜像的站点 const upstream = &#39;gravatar.com&#39; // 如果那个站点有专门的移动适配站点，否则保持和上面一致 const upstream_mobile = &#39;gravatar.com&#39; // 你希望禁止哪些国家访问 const blocked_region = [] // 禁止自访问 const blocked_ip_address = [] // 替换成你想镜像的站点 const replace_dict = { &#39;$upstream&#39;: &#39;$custom_domain&#39;, &#39;//gravatar.com&#39;: &#39;&#39; } //以下内容都不用动 addEventListener(&#39;fetch&#39;, event =&gt; { event.respondWith(fetchAndApply(event.request)); }) async function fetchAndApply(request) { const region = request.headers.get(&#39;cf-ipcountry&#39;).toUpperCase(); const ip_address = request.headers.get(&#39;cf-connecting-ip&#39;); const user_agent = request.headers.get(&#39;user-agent&#39;); let response = null; let url = new URL(request.url); let url_host = url.host; if (url.protocol == &#39;http:&#39;) { url.protocol = &#39;https:&#39; response = Response.redirect(url.href); return response; } if (await device_status(user_agent)) { upstream_domain = upstream } else { upstream_domain = upstream_mobile } url.host = upstream_domain; if (blocked_region.includes(region)) { response = new Response(&#39;Access denied: WorkersProxy is not available in your region yet.&#39;, { status: 403 }); } else if(blocked_ip_address.includes(ip_address)){ response = new Response(&#39;Access denied: Your IP address is blocked by WorkersProxy.&#39;, { status: 403 }); } else{ let method = request.method; let request_headers = request.headers; let new_request_headers = new Headers(request_headers); new_request_headers.set(&#39;Host&#39;, upstream_domain); new_request_headers.set(&#39;Referer&#39;, url.href); let original_response = await fetch(url.href, { method: method, headers: new_request_headers }) let original_response_clone = original_response.clone(); let original_text = null; let response_headers = original_response.headers; let new_response_headers = new Headers(response_headers); let status = original_response.status; new_response_headers.set(&#39;access-control-allow-origin&#39;, &#39;*&#39;); new_response_headers.set(&#39;access-control-allow-credentials&#39;, true); new_response_headers.delete(&#39;content-security-policy&#39;); new_response_headers.delete(&#39;content-security-policy-report-only&#39;); new_response_headers.delete(&#39;clear-site-data&#39;); const content_type = new_response_headers.get(&#39;content-type&#39;); if (content_type.includes(&#39;text/html&#39;) &amp;&amp; content_type.includes(&#39;UTF-8&#39;)) { original_text = await replace_response_text(original_response_clone, upstream_domain, url_host); } else { original_text = original_response_clone.body } response = new Response(original_text, { status, headers: new_response_headers }) } return response; } async function replace_response_text(response, upstream_domain, host_name) { let text = await response.text() var i, j; for (i in replace_dict) { j = replace_dict[i] if (i == &#39;$upstream&#39;) { i = upstream_domain } else if (i == &#39;$custom_domain&#39;) { i = host_name } if (j == &#39;$upstream&#39;) { j = upstream_domain } else if (j == &#39;$custom_domain&#39;) { j = host_name } let re = new RegExp(i, &#39;g&#39;) text = text.replace(re, j); } return text; } async function device_status (user_agent_info) { var agents = [&#34;Android&#34;, &#34;iPhone&#34;, &#34;SymbianOS&#34;, &#34;Windows Phone&#34;, &#34;iPad&#34;, &#34;iPod&#34;]; var flag = true; for (var v = 0; v &lt; agents.length; v++) { if (user_agent_info.indexOf(agents[v]) &gt; 0) { flag = false; break; } } return flag; } 然后点击保存并部署，就可以成功反代 gravatar 镜像了。 然后照葫芦画瓢，可以通过这种方式反代任何网站，访问起来大致无压力，延迟 100+ms 左右。 3.自定义域名 在触发器中可以找到自定义域名选项，输入已经绑定 cloudflare 的域名，再次赞美 cloudflare，如果事前绑定好了域名，在这里可以直接输入二级域名，cloudflare 会自动解析，全部都是自动化的。 在主页左侧的 网站 绑定域名。 # 分享我的免费镜像。 https://gravatar.zsh.im/avatar</div>
-          <div class="index-post-meta">
-            <a href="/blog/182.html/"> # 2023-02-01</a>
-            
-            
-            <span class="namenode">技术</span>
-            
-            
-          </div>
-        </div>
-      </div>
-
-      
-    </div>
-    <div id="body-in">
-      <h3 class="posts-year" id="2021">2021</h3>
-      
-      
-      <div class="index-post" onclick="javascript:window.location.href='\/blog\/92.html\/'">
-        <div class="index-post-content-long">
-          <a href="/blog/92.html/">
-            <h2>typecho 更换 gravatar 头像源</h2>
-          </a>
-          <div class="text">找到根目录下 config.inc.php 文件，在最前面加入下面的代码。 define(&#39;__TYPECHO_GRAVATAR_PREFIX__&#39;, &#39;https://sdn.geekzu.org/avatar/&#39;); 其中 https://sdn.geekzu.org/avatar/ 是一个国内源链接，这个是我目前找到的比较稳定的源。 如果这个源不能用了，可以更换其他的源，直接搜其他的相关国内源就可以了。 如果你有其他可以用的头像源，欢迎留言。 https://gravatar.zishu.me/avatar/ https://cravatar.cn/avatar/ https://sdn.geekzu.org/avatar/</div>
-          <div class="index-post-meta">
-            <a href="/blog/92.html/"> # 2021-12-21</a>
-            
-            
-            <span class="namenode">技术</span>
-            
-            
-          </div>
-        </div>
-      </div>
-
-      
-    </div>
+    <li><a href="/index.xml">订阅</a></li>
     
-    <footer id="foot">
+  </ul>
+</nav>
+
+  <section>
+    
+
+    <div class="container">
+      <div class="aside-list">
+        <a href="/blog/">全部</a>
+        <a href="/categories/技术/">技术</a>
+        <a href="/categories/随笔/">随笔</a>
+        <a href="/categories/weekly/">周刊</a>
+      </div>
+
+      <div class="posts">
+        <h3 class="posts-year" id="2023">2023</h3>
+        <div class="posts-list">
+          
+          <div class="posts-item">
+            <span class="date">2023-02-01</span>
+            <a href="/blog/182.html/">使用 cloudflare 反代 gravatar 生成镜像</a>
+          </div>
+          
+        </div>
+        <h3 class="posts-year" id="2021">2021</h3>
+        <div class="posts-list">
+          
+          <div class="posts-item">
+            <span class="date">2021-12-21</span>
+            <a href="/blog/92.html/">typecho 更换 gravatar 头像源</a>
+          </div>
+          
+        </div>
+        
+      </div>
+
+    </div>
+  </section>
+  <footer class="footer">
   <p>© 2020 - 2024 Powered by
-    <a href="https://github.com/dlzmoe/blog" target="_blank">Github</a>
+    <a href="https://github.com/dlzmoe" target="_blank">Github</a>
     / <a href="/index.xml" target="_blank">RSS</a>
   </p>
 </footer>
 
-<script src="/js/main.js"></script>
-  </section>
+
 </body>
 
 </html>

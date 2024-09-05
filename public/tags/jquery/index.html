@@ -46,33 +46,16 @@
 <link rel="stylesheet" href="/css/base.css">
 <link rel="stylesheet" href="/css/index.css">
 <link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
-<script src="/js/jquery3.6.0.min.js"></script>
 </head>
 
-<body id="container">
-  <meter id="isread" max="100" value="0"></meter>
-<script>
-  window.addEventListener('scroll', function () {
-    var scrolled = window.scrollY;
-    var totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-    var percentage = (scrolled / totalHeight) * 100;
-    $('#isread').attr('value', percentage)
-  });
-</script>
-
-
-<div id="head" class="site-index">
-  <a id="logo" href="/">
-    <img src="https://imgurl.zishu.me/author.webp">
-  </a>
-  <div id="site-title">
-    <a href="/">子舒的博客</a>
-  </div>
+<body>
+  <nav class="headnav">
+  <a href="/" class="logo">ZISHU.ME</a>
   <ul id="menu">
     
-    <li><a href="/categories/%e6%8a%80%e6%9c%af/">技术</a></li>
+    <li><a href="/tags/">标签</a></li>
     
-    <li><a href="/categories/%e9%9a%8f%e7%ac%94/">随笔</a></li>
+    <li><a href="/blog/">博客</a></li>
     
     <li><a href="/categories/weekly/">周刊</a></li>
     
@@ -82,46 +65,45 @@
     
     <li><a href="/about/">关于</a></li>
     
-    <li><a href="/index.xml" target="_blank">订阅</a></li>
+    <li><a href="/index.xml">订阅</a></li>
+    
   </ul>
-</div>
+</nav>
 
-  <section id="body">
-    <h1 id="body-title">📓 Jquery</h1>
+  <section>
+    
 
-    <div id="body-in">
-      <h3 class="posts-year" id="2021">2021</h3>
-      
-      
-      <div class="index-post" onclick="javascript:window.location.href='\/blog\/76.html\/'">
-        <div class="index-post-content-long">
-          <a href="/blog/76.html/">
-            <h2>使用 jq 做一个数字递增效果</h2>
-          </a>
-          <div class="text">数字递增，顾名思义就是数字不断增加，数字递增的效果就是要一定时间内，让数字有一个增加的特效，一般用于强调某个内容。 用 jquery 也很好处理，大概就是下面这些。 data-to 属性代表最后想要递增到的数值 data-speed 代表数值想要递增的过程时间 class=&quot;num-ber&quot; 和 id=&quot;count-number&quot; 按照这个填入。 &lt;p&gt; &lt;span class=&#34;num-ber&#34; id=&#34;count-number&#34; data-to=&#34;40&#34; data-speed=&#34;1000&#34;&gt;&lt;/span&gt;+ &lt;/p&gt; 引入 jquery 之后再添加下面的 js 代码。 $.fn.countTo = function (a) { a = a || {}; return $(this).each(function () { var c = $.extend({}, $.fn.countTo.defaults, { from: $(this).data(&#34;from&#34;), to: $(this).data(&#34;to&#34;), speed: $(this).data(&#34;speed&#34;), refreshInterval: $(this).data(&#34;refresh-interval&#34;), decimals: $(this).data(&#34;decimals&#34;) }, a); var h = Math.ceil(c.speed / c.refreshInterval), i = (c.to - c.from) / h; var j = this, f = $(this), e = 0, g = c.from, d = f.data(&#34;countTo&#34;) || {}; f.data(&#34;countTo&#34;, d); if (d.interval) { clearInterval(d.interval) } d.interval = setInterval(k, c.refreshInterval); b(g); function k() { g += i; e++; b(g); if (typeof (c.onUpdate) == &#34;function&#34;) { c.onUpdate.call(j, g) } if (e &gt;= h) { f.removeData(&#34;countTo&#34;); clearInterval(d.interval); g = c.to; if (typeof (c.onComplete) == &#34;function&#34;) { c.onComplete.call(j, g) } } } function b(m) { var l = c.formatter.call(j, m, c); f.html(l) } }) }; $.fn.countTo.defaults = { from: 0, to: 0, speed: 1000, refreshInterval: 100, decimals: 0, formatter: formatter, onUpdate: &#34;null, onComplete: null }; function formatter(b, a) { return b.toFixed(0) } $(&#34;#count-number&#34;).data(&#34;countToOptions&#34;, { formatter: function (b, a) { return b.toFixed(0).replace(/\B(?=(?:\d{3})+(?!\d))/g, &#34;,&#34;) } }); $(&#34;.num-ber&#34;).each(count); function count(a) { var b = $(this); a = $.extend({}, a || {}, b.data(&#34;countToOptions&#34;) || {}); b.countTo(a) };</div>
-          <div class="index-post-meta">
-            <a href="/blog/76.html/"> # 2021-09-14</a>
-            
-            
-            <span class="namenode">技术</span>
-            
-            
-          </div>
-        </div>
+    <div class="container">
+      <div class="aside-list">
+        <a href="/blog/">全部</a>
+        <a href="/categories/技术/">技术</a>
+        <a href="/categories/随笔/">随笔</a>
+        <a href="/categories/weekly/">周刊</a>
       </div>
 
-      
+      <div class="posts">
+        <h3 class="posts-year" id="2021">2021</h3>
+        <div class="posts-list">
+          
+          <div class="posts-item">
+            <span class="date">2021-09-14</span>
+            <a href="/blog/76.html/">使用 jq 做一个数字递增效果</a>
+          </div>
+          
+        </div>
+        
+      </div>
+
     </div>
-    
-    <footer id="foot">
+  </section>
+  <footer class="footer">
   <p>© 2020 - 2024 Powered by
-    <a href="https://github.com/dlzmoe/blog" target="_blank">Github</a>
+    <a href="https://github.com/dlzmoe" target="_blank">Github</a>
     / <a href="/index.xml" target="_blank">RSS</a>
   </p>
 </footer>
 
-<script src="/js/main.js"></script>
-  </section>
+
 </body>
 
 </html>

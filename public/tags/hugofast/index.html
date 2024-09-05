@@ -46,33 +46,16 @@
 <link rel="stylesheet" href="/css/base.css">
 <link rel="stylesheet" href="/css/index.css">
 <link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
-<script src="/js/jquery3.6.0.min.js"></script>
 </head>
 
-<body id="container">
-  <meter id="isread" max="100" value="0"></meter>
-<script>
-  window.addEventListener('scroll', function () {
-    var scrolled = window.scrollY;
-    var totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-    var percentage = (scrolled / totalHeight) * 100;
-    $('#isread').attr('value', percentage)
-  });
-</script>
-
-
-<div id="head" class="site-index">
-  <a id="logo" href="/">
-    <img src="https://imgurl.zishu.me/author.webp">
-  </a>
-  <div id="site-title">
-    <a href="/">子舒的博客</a>
-  </div>
+<body>
+  <nav class="headnav">
+  <a href="/" class="logo">ZISHU.ME</a>
   <ul id="menu">
     
-    <li><a href="/categories/%e6%8a%80%e6%9c%af/">技术</a></li>
+    <li><a href="/tags/">标签</a></li>
     
-    <li><a href="/categories/%e9%9a%8f%e7%ac%94/">随笔</a></li>
+    <li><a href="/blog/">博客</a></li>
     
     <li><a href="/categories/weekly/">周刊</a></li>
     
@@ -82,46 +65,45 @@
     
     <li><a href="/about/">关于</a></li>
     
-    <li><a href="/index.xml" target="_blank">订阅</a></li>
+    <li><a href="/index.xml">订阅</a></li>
+    
   </ul>
-</div>
+</nav>
 
-  <section id="body">
-    <h1 id="body-title">📓 HugoFast</h1>
+  <section>
+    
 
-    <div id="body-in">
-      <h3 class="posts-year" id="2023">2023</h3>
-      
-      
-      <div class="index-post" onclick="javascript:window.location.href='\/blog\/196.html\/'">
-        <div class="index-post-content-long">
-          <a href="/blog/196.html/">
-            <h2>关于 HugoFast 这个项目</h2>
-          </a>
-          <div class="text">项目来源于我的突发奇想，并且基于热爱折腾的心理，利用 GitHub 本身提供的 Api，将博客管理面板化。 目前仅支持 hugo，其他程序有对应的工具，就不造轮子了。 Github: https://github.com/dlzmoe/HugoFast 网站：https://hugofast.netlify.app/ 用户文档：https://hugofast-docs.netlify.app/ 1. 自托管 前往 https://github.com/dlzmoe/HugoFast fork 本项目，然后下载到本地。 git clone https://github.com/dlzmoe/HugoFast.git ::: warning 这里默认你有一定的代码基础，本地提前安装好了 node 依赖等。 ::: # 进入项目安装依赖包 cd HugoFast yarn # 使用 `yarn serve` 运行项目 yarn serve # 打包到 dist 文件 yarn build 打包后的文件可以放在的任意空间部署。 2. 准备工作 (1) 获取 Github Token 前往 https://github.com/settings/tokens/ 。 新建一个 token，选择 repo / user 这两个权限，名称随意，最后生成 token。 注意要保存好这个密钥，在新的终端打开网站需要用到这个密钥。 (2) 操作 hugo 源码仓库 前往你的 hugo 源码仓库，如下图。 在仓库的 setting/actions，滑到最下面，打开 actions 的 pr 权限，不然 actions 自动部署会失败。 (3) 添加 .github/workflows/main.yml 点击 actions &gt; set up a workflow yourself 新建一个 actions 工作流。 注意： git config --global user.email &quot;&quot; 和 git config --global user.name &quot;&quot; 里面要填写你的 GitHub 邮箱以及用户名。 name: hugo deploy on: push: workflow_dispatch: schedule: # Runs everyday at 8:00 AM - cron: &#34;0 0 * * *&#34; jobs: build: runs-on: ubuntu-latest steps: - name: Checkout uses: actions/checkout@v2 with: submodules: true fetch-depth: 0 - name: Setup Hugo uses: peaceiris/actions-hugo@v2 with: hugo-version: &#34;latest&#34; - name: Build Web run: hugo - name: Commit changes run: | git config --global user.email &#34;&#34; git config --global user.name &#34;&#34; git pull git add . git commit -m &#34;my commit&#34; - name: Push changes uses: ad-m/github-push-action@master with: github_token: ${{ secrets.GITHUB_TOKEN }} branch: main 3. HugoFast 网站 使用官方提供的版本。 在线管理：https://hugofast.netlify.app/ 第一行：获取的 GitHub Token 第二行：hugo 源码仓库 填写完成后，会自动获取文章目录，选择后点击确认。 进入网站就可以正常使用功能了，如修改文章，发布新文章，其他功能还在开发中。 未完待续&hellip;</div>
-          <div class="index-post-meta">
-            <a href="/blog/196.html/"> # 2023-06-02</a>
-            
-            
-            <span class="namenode">技术</span>
-            
-            
-          </div>
-        </div>
+    <div class="container">
+      <div class="aside-list">
+        <a href="/blog/">全部</a>
+        <a href="/categories/技术/">技术</a>
+        <a href="/categories/随笔/">随笔</a>
+        <a href="/categories/weekly/">周刊</a>
       </div>
 
-      
+      <div class="posts">
+        <h3 class="posts-year" id="2023">2023</h3>
+        <div class="posts-list">
+          
+          <div class="posts-item">
+            <span class="date">2023-06-02</span>
+            <a href="/blog/196.html/">关于 HugoFast 这个项目</a>
+          </div>
+          
+        </div>
+        
+      </div>
+
     </div>
-    
-    <footer id="foot">
+  </section>
+  <footer class="footer">
   <p>© 2020 - 2024 Powered by
-    <a href="https://github.com/dlzmoe/blog" target="_blank">Github</a>
+    <a href="https://github.com/dlzmoe" target="_blank">Github</a>
     / <a href="/index.xml" target="_blank">RSS</a>
   </p>
 </footer>
 
-<script src="/js/main.js"></script>
-  </section>
+
 </body>
 
 </html>

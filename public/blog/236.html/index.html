@@ -46,33 +46,16 @@
 <link rel="stylesheet" href="/css/base.css">
 <link rel="stylesheet" href="/css/index.css">
 <link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
-<script src="/js/jquery3.6.0.min.js"></script>
 </head>
 
-<body id="container">
-  <meter id="isread" max="100" value="0"></meter>
-<script>
-  window.addEventListener('scroll', function () {
-    var scrolled = window.scrollY;
-    var totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-    var percentage = (scrolled / totalHeight) * 100;
-    $('#isread').attr('value', percentage)
-  });
-</script>
-
-
-<div id="head" class="site-index">
-  <a id="logo" href="/">
-    <img src="https://imgurl.zishu.me/author.webp">
-  </a>
-  <div id="site-title">
-    <a href="/">子舒的博客</a>
-  </div>
+<body>
+  <nav class="headnav">
+  <a href="/" class="logo">ZISHU.ME</a>
   <ul id="menu">
     
-    <li><a href="/categories/%e6%8a%80%e6%9c%af/">技术</a></li>
+    <li><a href="/tags/">标签</a></li>
     
-    <li><a href="/categories/%e9%9a%8f%e7%ac%94/">随笔</a></li>
+    <li><a href="/blog/">博客</a></li>
     
     <li><a href="/categories/weekly/">周刊</a></li>
     
@@ -82,59 +65,57 @@
     
     <li><a href="/about/">关于</a></li>
     
-    <li><a href="/index.xml" target="_blank">订阅</a></li>
+    <li><a href="/index.xml">订阅</a></li>
+    
   </ul>
-</div>
-  <section id="body">
+</nav>
+  <section>
+    
+    <div class="body-title">Github 仓库同步到 Cloudflare R2</div>
 
-    <div class="box">
+    
+    <div class="post-meta">
+      <time> 2024-08-25</time>
+      
+      
+      <span class="namenode">分类：
+        <a href="/categories/%E6%8A%80%E6%9C%AF">技术</a>
+      </span>
+      
       
 
-      
-      <div class="index-post-meta">
-        <time> # 2024-08-25</time>
+      <span class="tag-node">
         
-        
-        <span class="namenode">
-          <a href="/categories/%E6%8A%80%E6%9C%AF">技术</a>
-        </span>
-        
-        
-
-        <span class="tag-node">
-        
-          Tags: 
+        标签：
         
         <a href="/tags/github">#GitHub</a>
         
         <a href="/tags/cloudflare">#Cloudflare</a>
         
         
-        </span>
+      </span>
 
-      </div>
-      
-      
-      <h1 id="body-title">Github 仓库同步到 Cloudflare R2</h1>
-      
-      
-      <div class="expired-tips" style="display: none;"></div>
-      
+    </div>
+    
 
-      
-      <div class="toc">
-        <nav id="TableOfContents">
+    
+    <div class="expired-tips" style="display: none;"></div>
+    
+
+    
+    <div class="toc">
+      <nav id="TableOfContents">
   <ul>
     <li><a href="#1-建立-cloudflare-r2-存储桶">1. 建立 Cloudflare R2 存储桶</a></li>
     <li><a href="#2-github-仓库设置">2. GitHub 仓库设置</a></li>
   </ul>
 </nav>
-      </div>
-      
+    </div>
+    
 
-      <article class="inner-post-content inner-long">
-        
-        <p>我在 GitHub 搭建了一个图床，用于小量存储博客图片，为了稳定安全考虑，决定备份到 Cloudflare R2 存储桶一份，R2 默认有每月免费的 10G 存储、100 万次 A 类操作、1000 万次 B 类操作，备份完全足够了。</p>
+    <article class="post-content">
+      
+      <p>我在 GitHub 搭建了一个图床，用于小量存储博客图片，为了稳定安全考虑，决定备份到 Cloudflare R2 存储桶一份，R2 默认有每月免费的 10G 存储、100 万次 A 类操作、1000 万次 B 类操作，备份完全足够了。</p>
 <p>说到备份肯定是越自动化越好，手动上传是不可能的，因此我决定利用 GitHub Actions 执行自动任务。</p>
 <p>话不多说，开始操作。</p>
 <h2 id="1-建立-cloudflare-r2-存储桶">1. 建立 Cloudflare R2 存储桶</h2>
@@ -187,11 +168,10 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">CLOUDFLARE_ACCOUNT_ID</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.CLOUDFLARE_ACCOUNT_ID }}</span><span class="w">
 </span></span></span></code></pre></div><p>由于使用了 <code>aws s3 sync</code> 命令，它会进行增量同步，这意味着它只会上传有变化的文件，而不会每次都重新上传整个仓库，避免消耗无用的 Cloudflare R2 流量。</p>
 
-      </article>
+    </article>
 
-      
-      <div style="padding:20px 0"></div>
-<div class="comments">
+    
+    <div class="comments">
   <div class="giscus"></div>
 </div>
 <script 
@@ -212,18 +192,17 @@
   async>
 </script>
 
-      
-
-    </div>
-    <footer id="foot">
+    
+    
+  </section>
+  <footer class="footer">
   <p>© 2020 - 2024 Powered by
-    <a href="https://github.com/dlzmoe/blog" target="_blank">Github</a>
+    <a href="https://github.com/dlzmoe" target="_blank">Github</a>
     / <a href="/index.xml" target="_blank">RSS</a>
   </p>
 </footer>
 
-<script src="/js/main.js"></script>
-  </section>
+
 </body>
 
 </html>

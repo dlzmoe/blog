@@ -6,7 +6,7 @@
   {{ partial "header.html" . }}
 
   <section>
-    <div class="body-title">{{ .Title }}</div>
+    <!-- <div class="body-title">{{ .Title }}</div> -->
 
     <div class="container">
       <div class="aside-list">
@@ -18,21 +18,21 @@
 
       <div class="posts">
         {{ range (where .Data.Pages "Type" "in" site.Params.mainSections).GroupByDate "2006" -}}
-        <div>
-          <h3 class="posts-year" id="{{ .Key }}">{{ .Key }}</h3>
+        <h3 class="posts-year" id="{{ .Key }}">{{ .Key }}</h3>
+        <div class="posts-list">
           {{ range .Pages }}
           <div class="posts-item">
             <span class="date">{{ .Date.Format "2006-01-02"}}</span>
             <a href="{{ .RelPermalink }}">{{ .Title }}</a>
           </div>
+          {{ end }}
         </div>
-        {{ end }}
         {{ end }}
       </div>
 
     </div>
-    {{ partial "footer.html" . }}
   </section>
+  {{ partial "footer.html" . }}
 </body>
 
 </html>

@@ -13,19 +13,19 @@
 
   <section>
 
-    <p class="text">欢迎来到我的博客，已经运行了 <span id="days"></span> 天，
-      有 <span id="busuanzi_value_site_pv">...</span> 位小伙伴逛过，写了 {{ $articleCount }} 篇文章，共 {{ $totalWordCount }} 字。
-    </p>
-
     <article class="post-content">
-
-      {{ .Site.Params.postHeaderContent | safeHTML }}
-      {{ .Content }}
-
+      <em>【子舒的博客】</em>
+      <p>一名 Web 开发工程师，负责前端方面业务开发。</p>
+      <p>这是我的个人博客，已经运行了 <span id="days"></span> 天，写了 {{ $articleCount }} 篇文章，共 {{ $totalWordCount }} 字。</p>
+      <p>经常混迹在 GitHub，V2EX，LinuxDo 等各大社交论坛，喜欢折腾技术，研究各种奇怪的程序和网站，喜欢户外运动，热爱生活。</p>
+      <!-- <ul>
+        <li><a href="https://github.com/dlzmoe">GitHub: @dlzmoe</a></li>
+        <li><a href="mailto:anghunk@gmail.com">E-mail: anghunk@gmail.com</a></li>
+      </ul> -->
+      <p>在这里，我提供了一些免费的 <a href="/serve/">在线服务</a>。</p>
     </article>
-
+    <p><strong>最新的 9 篇文章：</strong></p>
     <div>
-
       {{ $pages := .Site.RegularPages }}
       {{ $paginator := .Paginate ($pages) }}
       {{ $count := 0 }}
@@ -33,34 +33,15 @@
       {{ range $paginator.Pages }}
       {{ $title := .Title }}
       {{ $summary := .Summary }}
-
-
-      <!--  -->
-      <!-- <div class="index-post" onclick="javascript:window.location.href='{{ .RelPermalink }}'">
-        <div class="index-post-content-long">
-          <a href="{{ .RelPermalink }}">
-            <h2>{{ .Title }}</h2>
-          </a>
-          <div class="text">{{ .Summary }}</div>
-          <div class="index-post-meta">
-            <a href="{{ .RelPermalink }}"> # {{ .Date.Format "2006-01-02"}}</a>
-            {{ with .Params.categories }}
-            {{ range . }}
-            <span class="namenode">{{ . }}</span>
-            {{ end }}
-            {{ end }}
-          </div>
-        </div>
-      </div> -->
-      <!--  -->
-
+      <div class="posts-item">
+        <span class="date">{{ .Date.Format "2006-01-02"}}</span>
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+      </div>
       {{ end }}
-
-
     </div>
 
-    {{ partial "footer.html" . }}
   </section>
+  {{ partial "footer.html" . }}
 
   <script>
     const time = "{{ .Site.Params.buildDate }}";
@@ -68,7 +49,8 @@
     var end = new Date(time);
     var diff = Math.abs(now - end);
     var days = Math.ceil(diff / (1000 * 60 * 60 * 24));
-    $('#days').html(days);
+    document.getElementById('days').innerHTML = days;
+
   </script>
 </body>
 

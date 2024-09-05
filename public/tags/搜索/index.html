@@ -46,33 +46,16 @@
 <link rel="stylesheet" href="/css/base.css">
 <link rel="stylesheet" href="/css/index.css">
 <link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
-<script src="/js/jquery3.6.0.min.js"></script>
 </head>
 
-<body id="container">
-  <meter id="isread" max="100" value="0"></meter>
-<script>
-  window.addEventListener('scroll', function () {
-    var scrolled = window.scrollY;
-    var totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-    var percentage = (scrolled / totalHeight) * 100;
-    $('#isread').attr('value', percentage)
-  });
-</script>
-
-
-<div id="head" class="site-index">
-  <a id="logo" href="/">
-    <img src="https://imgurl.zishu.me/author.webp">
-  </a>
-  <div id="site-title">
-    <a href="/">子舒的博客</a>
-  </div>
+<body>
+  <nav class="headnav">
+  <a href="/" class="logo">ZISHU.ME</a>
   <ul id="menu">
     
-    <li><a href="/categories/%e6%8a%80%e6%9c%af/">技术</a></li>
+    <li><a href="/tags/">标签</a></li>
     
-    <li><a href="/categories/%e9%9a%8f%e7%ac%94/">随笔</a></li>
+    <li><a href="/blog/">博客</a></li>
     
     <li><a href="/categories/weekly/">周刊</a></li>
     
@@ -82,46 +65,45 @@
     
     <li><a href="/about/">关于</a></li>
     
-    <li><a href="/index.xml" target="_blank">订阅</a></li>
+    <li><a href="/index.xml">订阅</a></li>
+    
   </ul>
-</div>
+</nav>
 
-  <section id="body">
-    <h1 id="body-title">📓 搜索</h1>
+  <section>
+    
 
-    <div id="body-in">
-      <h3 class="posts-year" id="2022">2022</h3>
-      
-      
-      <div class="index-post" onclick="javascript:window.location.href='\/blog\/110.html\/'">
-        <div class="index-post-content-long">
-          <a href="/blog/110.html/">
-            <h2>增加了站内搜索功能</h2>
-          </a>
-          <div class="text">如题，我花了一个多小时，参照 nuxt 文档，把搜索功能给加上了，记录一下相关代码。 可以选择放在 components/&lt;Search /&gt; 里面，然后引入到 head 模板，也可以单独创建一个页面，我选择的是后者。 新建一个页面模板 /pages/search.vue 。 &lt;template&gt; &lt;div&gt; &lt;HeaderMe /&gt; &lt;div class=&#34;wrapper&#34;&gt; &lt;PageSidebar /&gt; &lt;div class=&#34;archive&#34;&gt; &lt;h2&gt;{{ article.attributes.title }}&lt;/h2&gt; &lt;div class=&#34;article-content markdown-body&#34; v-html=&#34;article.html&#34;&gt;&lt;/div&gt; &lt;div class=&#34;search&#34;&gt; &lt;input v-model=&#34;searchQuery&#34; type=&#34;search&#34; autocomplete=&#34;off&#34; placeholder=&#34;文章关键词&#34; /&gt; &lt;ul v-if=&#34;articles.length&#34;&gt; &lt;li v-for=&#34;article of articles&#34; :key=&#34;article.slug&#34;&gt; &lt;NuxtLink :to=&#34;article.path+&#39;/&#39;&#34;&gt;{{ article.title }}&lt;/NuxtLink&gt; &lt;!-- 在url地址后加一个/，配置全站的url格式，防止错乱 --&gt; &lt;/li&gt; &lt;/ul&gt; &lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;/template&gt; &lt;script&gt; import HeaderMe from &#34;@/components/HeaderMe&#34;; import PageSidebar from &#39;@/components/PageSidebar&#39;; export default { components: { HeaderMe, PageSidebar }, data () { return { searchQuery: &#39;&#39;, articles: [] } }, async asyncData () { // 调用 search.md 内的数据 const article = await import(`~/content/search.md`); return { article }; }, watch: { async searchQuery (searchQuery) { if (!searchQuery) { this.articles = [] return } this.articles = await this.$content(&#39;posts&#39;) // posts 是文章所在的文件夹的名称 .limit(10) .search(searchQuery) .fetch() } } } &lt;/script&gt; 关于样式的编写不怎么重要我就放下面了。 css 代码 .wrapper { min-height: 300px; .archive { padding: 25px 2% 15px; .article-content { font-size: inherit; line-height: 1.8; color: inherit; margin-top: 20px; } .search { margin-top: 16px; input { width: 100%; background-color: #edf2f7; color: #2f495e; outline: none; border: none; border-radius: 30px; padding: 4px 20px; box-sizing: border-box; transition: all 0.1s linear; &amp;:focus { box-shadow: 3px 2px 10px rgb(0 0 0 / 20%); } } ul { margin-top: 6px; list-style: none; li { a { display: block; padding: 6px 14px; line-height: 1.6; transition: all 0.2s linear; &amp;:hover { background: #edf2f7; } } } } } } } @media (max-width: 520px) { .wrapper { .archive { .search { ul { li { a { border-bottom: 1px solid #ddd; } } } } } } }</div>
-          <div class="index-post-meta">
-            <a href="/blog/110.html/"> # 2022-03-25</a>
-            
-            
-            <span class="namenode">技术</span>
-            
-            
-          </div>
-        </div>
+    <div class="container">
+      <div class="aside-list">
+        <a href="/blog/">全部</a>
+        <a href="/categories/技术/">技术</a>
+        <a href="/categories/随笔/">随笔</a>
+        <a href="/categories/weekly/">周刊</a>
       </div>
 
-      
+      <div class="posts">
+        <h3 class="posts-year" id="2022">2022</h3>
+        <div class="posts-list">
+          
+          <div class="posts-item">
+            <span class="date">2022-03-25</span>
+            <a href="/blog/110.html/">增加了站内搜索功能</a>
+          </div>
+          
+        </div>
+        
+      </div>
+
     </div>
-    
-    <footer id="foot">
+  </section>
+  <footer class="footer">
   <p>© 2020 - 2024 Powered by
-    <a href="https://github.com/dlzmoe/blog" target="_blank">Github</a>
+    <a href="https://github.com/dlzmoe" target="_blank">Github</a>
     / <a href="/index.xml" target="_blank">RSS</a>
   </p>
 </footer>
 
-<script src="/js/main.js"></script>
-  </section>
+
 </body>
 
 </html>

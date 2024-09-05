@@ -5,32 +5,31 @@
 <body>
   {{ partial "header.html" . }}
   <section>
-
+    
+    <div class="body-title">{{ .Title }}</div>
 
     {{ if in .Site.Params.mainSections .Type }}
-    <div>
-      <time> # {{ .Date.Format "2006-01-02"}}</time>
+    <div class="post-meta">
+      <time> {{ .Date.Format "2006-01-02"}}</time>
       {{ with .Params.categories }}
       {{ range . }}
-      <span class="namenode">
-        <a href="{{ " categories/" | relURL }}{{ . | urlize }}">{{ . }}</a>
+      <span class="namenode">分类：
+        <a href="{{ "categories/" | relURL }}{{ . | urlize }}">{{ . }}</a>
       </span>
       {{ end }}
       {{ end }}
 
       <span class="tag-node">
         {{ with .Params.tags }}
-        Tags:
+        标签：
         {{ range . }}
-        <a href="{{ " tags/" | relURL }}{{ . | urlize }}">#{{ . }}</a>
+        <a href="{{ "tags/" | relURL }}{{ . | urlize }}">#{{ . }}</a>
         {{ end }}
         {{ end }}
       </span>
 
     </div>
     {{ end }}
-
-    <div class="body-title">{{ .Title }}</div>
 
     {{ if in .Site.Params.mainSections .Type }}
     <div class="expired-tips" style="display: none;"></div>
@@ -51,8 +50,8 @@
     {{ partial "comment.html" . }}
     {{ end }}
     
-    {{ partial "footer.html" . }}
   </section>
+  {{ partial "footer.html" . }}
 </body>
 
 </html>

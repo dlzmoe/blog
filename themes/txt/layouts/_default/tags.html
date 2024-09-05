@@ -11,6 +11,12 @@
     <article class="post-content">
       {{ .Site.Params.postHeaderContent | safeHTML }}
       {{ .Content }}
+
+      <ul class="tags-list">
+        {{ range .Site.Taxonomies.tags }}
+        <li><a href="{{ .Page.Permalink }}">{{ .Page.Title }} <sup>{{ .Count }}</sup></a> </li>
+        {{ end }}
+      </ul>
     </article>
 
     {{ partial "comment.html" . }}
