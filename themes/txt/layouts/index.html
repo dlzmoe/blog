@@ -14,31 +14,27 @@
   <section>
 
     <article class="post-content">
-      <em>【子舒的博客】</em>
-      <p>一名 Web 开发工程师，负责前端方面业务开发。</p>
       <p>这是我的个人博客，已经运行了 <span id="days"></span> 天，写了 {{ $articleCount }} 篇文章，共 {{ $totalWordCount }} 字。</p>
-      <p>经常混迹在 GitHub，V2EX，LinuxDo 等各大社交论坛，喜欢折腾技术，研究各种奇怪的程序和网站，喜欢户外运动，热爱生活。</p>
-      <!-- <ul>
-        <li><a href="https://github.com/dlzmoe">GitHub: @dlzmoe</a></li>
-        <li><a href="mailto:anghunk@gmail.com">E-mail: anghunk@gmail.com</a></li>
-      </ul> -->
-      <p>在这里，我提供了一些免费的 <a href="/serve/">在线服务</a>。</p>
-    </article>
-    <p><strong>最新的 9 篇文章：</strong></p>
-    <div>
-      {{ $pages := .Site.RegularPages }}
-      {{ $paginator := .Paginate ($pages) }}
-      {{ $count := 0 }}
+      <p><strong>最新的 9 篇文章：</strong></p>
+      <div class="indexpost">
+        {{ $pages := .Site.RegularPages }}
+        {{ $paginator := .Paginate ($pages) }}
+        {{ $count := 0 }}
 
-      {{ range $paginator.Pages }}
-      {{ $title := .Title }}
-      {{ $summary := .Summary }}
-      <div class="posts-item">
-        <span class="date">{{ .Date.Format "2006-01-02"}}</span>
-        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        {{ range $paginator.Pages }}
+        {{ $title := .Title }}
+        {{ $summary := .Summary }}
+        <div class="posts-item">
+          <span class="date">{{ .Date.Format "2006-01-02"}}</span>
+          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        </div>
+        {{ end }}
       </div>
-      {{ end }}
-    </div>
+      {{ .Site.Params.postHeaderContent | safeHTML }}
+      {{ .Content }}
+
+    </article>
+
 
   </section>
   {{ partial "footer.html" . }}

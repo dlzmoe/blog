@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+{{ partial "head.html" . }}
+
+<body>
+  {{ partial "header.html" . }}
+  <section id="body">
+
+    <div class="body-title">{{ .Title }}</div>
+
+    <article class="post-content">
+      {{ .Site.Params.postHeaderContent | safeHTML }}
+      {{ .Content }}
+
+      <form id="searchForm">
+        <input autocomplete="off" type="text" id="searchInput" placeholder="输入搜索内容..." required>
+        <button type="submit">搜索</button>
+      </form>
+
+      <ul id="resultsList"></ul>
+
+    </article>
+
+    <script>
+      let data = [];
+
+      // 从 /index.json 加载数据
+      fetch('/index.json')
+        .then(response => response.json())
+        .then(json => {
+          data = json; // 保存数据
+        })
+        .catch(error => console.error('Error loading data:', error));
+
+      document.getElementById('searchForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const query = document.getElementById('searchInput').value.toLowerCase();
+        const resultsList = document.getElementById('resultsList');
+
+        resultsList.innerHTML = ''; // 清空之前的结果
+
+        if (query) {
+          const results = data.filter(item =>
+            item.title.toLowerCase().includes(query) ||
+            item.summary.toLowerCase().includes(query)
+          );
+
+          if (results.length > 0) {
+            results.forEach(item => {
+              const listItem = document.createElement('li');
+              const truncatedSummary = getTruncatedSummary(item.summary, query);
+              listItem.innerHTML = `
+                    <a href="${item.permalink}">${highlightKeywords(item.title, query)}</a>
+                    <p>${highlightKeywords(truncatedSummary, query)}</p>
+                `;
+              resultsList.appendChild(listItem);
+            });
+          } else {
+            resultsList.innerHTML = '<li>没有找到相关内容。</li>';
+          }
+        }
+      });
+
+      function highlightKeywords(text, query) {
+        const regex = new RegExp(`(${query})`, 'gi');
+        return text.replace(regex, '<span class="keyword-highlight">$1</span>');
+      }
+
+      function getTruncatedSummary(summary, query) {
+        const index = summary.toLowerCase().indexOf(query);
+        if (index === -1) return highlightKeywords(summary, query); // 如果没有找到关键词，返回高亮的摘要
+
+        const start = Math.max(0, index - 50);
+        const end = Math.min(summary.length, index + query.length + 50);
+        const truncated = summary.substring(start, end);
+
+        // 添加省略号
+        if (start > 0) {
+          return '...' + highlightKeywords(truncated, query); // 在开头添加省略号
+        } else if (end < summary.length) {
+          return highlightKeywords(truncated, query) + '...'; // 在结尾添加省略号
+        }
+
+        return highlightKeywords(truncated, query); // 返回高亮的截断摘要
+      }
+    </script>
+
+  </section>
+  {{ partial "footer.html" . }}
+</body>
+
+</html>
