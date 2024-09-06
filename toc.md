@@ -1,5 +1,6 @@
 # 文章归档目录
 
+- 2024-09-05-有趣的 vue 版本号名称【[GitHub 文件链接](./content/blog/2024-09-05-有趣的vue版本号名称.md) / [博客链接](https://zishu.me/blog/238.html/)】
 - 2024-09-04-记录 vite 中引入 tailwindcss【[GitHub 文件链接](./content/blog/2024-09-04-记录vite中引入tailwindcss.md) / [博客链接](https://zishu.me/blog/237.html/)】
 - 2024-08-25-Github 仓库同步到 Cloudflare-R2【[GitHub 文件链接](./content/blog/2024-08-25-Github仓库同步到Cloudflare-R2.md) / [博客链接](https://zishu.me/blog/236.html/)】
 - 2024-08-22-逃离杭州随想【[GitHub 文件链接](./content/blog/2024-08-22-逃离杭州随想.md) / [博客链接](https://zishu.me/blog/235.html/)】
