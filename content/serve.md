@@ -11,7 +11,8 @@ title: 在线服务
 https://ai.zishu.me/
 
 - **基于 telegraph + Cloudflare 的免费图床**  
-https://zsh.im/
+telegraph 不再支持 api 外部上传。  
+~https://zsh.im/~
 
 - **临时邮件服务**  
 https://b3260cb9.temp-email-de0.pages.dev/
