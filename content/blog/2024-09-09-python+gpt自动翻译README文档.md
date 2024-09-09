@@ -12,6 +12,8 @@ tags:
 
 在开发个人项目时，写 README 文件一直是一件很头疼的事情，所幸辛苦写完了，想做个多语言版本更头疼，为了解决整个痛点，写了个 python + GPT 脚本，将这一切自动化处理了。
 
+源码：https://github.com/dlzmoe/translate-README
+
 在根目录下新建俩文件 `.env` 和 `translate_md.py`：
 
 ```shell
