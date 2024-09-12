@@ -29,6 +29,7 @@
 ## 奇趣周刊
 
 <!-- WEEKLY -->
+- [奇趣周刊 - 第 67 期](https://zishu.me/blog/weekly-67.html/)
 - [奇趣周刊 - 第 66 期](https://zishu.me/blog/weekly-66.html/)
 - [奇趣周刊 - 第 65 期](https://zishu.me/blog/weekly-65.html/)
 - [奇趣周刊 - 第 64 期](https://zishu.me/blog/weekly-64.html/)
