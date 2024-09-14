@@ -8,7 +8,6 @@ tags:
   - 笔记
   - vite
   - tailwindcss
-
 ---
 
 安装依赖并生成 `tailwind.config.js` 和 `postcss.config.js`。

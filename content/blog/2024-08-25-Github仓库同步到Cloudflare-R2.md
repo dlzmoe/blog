@@ -7,7 +7,6 @@ categories:
 tags: 
   - GitHub
   - Cloudflare
-
 ---
 
 我在 GitHub 搭建了一个图床，用于小量存储博客图片，为了稳定安全考虑，决定备份到 Cloudflare R2 存储桶一份，R2 默认有每月免费的 10G 存储、100 万次 A 类操作、1000 万次 B 类操作，备份完全足够了。
