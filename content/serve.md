@@ -7,6 +7,9 @@ title: 在线服务
 
 ### 工具
 
+- **词汇理解器**  
+https://vocabulary-understander.zishu.me/
+
 - **基于 Cloudflare Workers AI 的绘画工具**  
 https://ai.zishu.me/
 
