@@ -7,6 +7,9 @@ title: 在线服务
 
 ### 工具
 
+- **AI 解梦**  
+https://dream.zishu.me/
+
 - **词汇理解器**  
 https://vocabulary-understander.zishu.me/
 
