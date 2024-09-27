@@ -11,14 +11,14 @@ title: 在线服务
 https://vocabulary-understander.zishu.me/
 
 - **基于 Cloudflare Workers AI 的绘画工具**  
-https://ai.zishu.me/
+https://painting.zishu.me/
 
 - **基于 telegraph + Cloudflare 的免费图床**  
 telegraph 不再支持 api 外部上传。  
 ~https://zsh.im/~
 
 - **临时邮件服务**  
-https://b3260cb9.temp-email-de0.pages.dev/
+https://email.zishu.me/
 
 - **免费文本 logo 生成器**  
 https://logo.zishu.me/
