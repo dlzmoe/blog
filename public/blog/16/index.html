@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <title>为什么 getTime() 返回 1970 年至今的毫秒？ // 子舒的博客</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.134.1">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="子舒" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/css/main.min.5b1fcc8902588589c4767187402a3c29f8b8d7a6fdef6d9f8f77045bb0d14fee.css" />
+    
+
+    
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="为什么 getTime() 返回 1970 年至今的毫秒？">
+  <meta name="twitter:description" content="今天在写 new Date() 时候，无意中发现了一个很有意思的方法，getTime()，百度了一下，有人说是计算从 1970 年 1 月 1 日至今的毫秒数
+为什么要是 1970 年呢？
+new Date().getTime(); // xxxxxxxxxxx 这个起源于 unix 的诞生，因为 Unix 在 1969 年被开发出来，1971 年正式发布，在这之前没有机器会需要来表示 1970-01-01-00:00:00 之前的时间，后面的语言很多就沿用了这一习惯，js 只是也沿用了这种习惯而已。
+当然，这一做法现在看来是很有问题的，例如不方便用它表示更早的时间而且精度有限。
+定义 time 从 1970 年 1 月 1 日开始，忽然想到在 JAVA 里，Oracle 数据库时间也是从 1970 年 1 月 1 日开始计算。
+比如 java 类代码：">
+
+    <meta property="og:url" content="http://localhost:1313/blog/16/">
+  <meta property="og:site_name" content="子舒的博客">
+  <meta property="og:title" content="为什么 getTime() 返回 1970 年至今的毫秒？">
+  <meta property="og:description" content="今天在写 new Date() 时候，无意中发现了一个很有意思的方法，getTime()，百度了一下，有人说是计算从 1970 年 1 月 1 日至今的毫秒数
+为什么要是 1970 年呢？
+new Date().getTime(); // xxxxxxxxxxx 这个起源于 unix 的诞生，因为 Unix 在 1969 年被开发出来，1971 年正式发布，在这之前没有机器会需要来表示 1970-01-01-00:00:00 之前的时间，后面的语言很多就沿用了这一习惯，js 只是也沿用了这种习惯而已。
+当然，这一做法现在看来是很有问题的，例如不方便用它表示更早的时间而且精度有限。
+定义 time 从 1970 年 1 月 1 日开始，忽然想到在 JAVA 里，Oracle 数据库时间也是从 1970 年 1 月 1 日开始计算。
+比如 java 类代码：">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2020-11-13T00:00:00+00:00">
+    <meta property="article:modified_time" content="2020-11-13T00:00:00+00:00">
+    <meta property="article:tag" content="杂谈">
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="http://localhost:1313/"><img class="app-header-avatar" src="https://imgurl.zishu.me/author.webp" alt="子舒" /></a>
+      <span class="app-header-title">zishu.me</span>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/">Home</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/message/">Message</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/about/">About</a>
+      </nav>
+      <p>无人扶我青云志，我自踏雪至山巅。一名 Web 前端开发工程师，热爱生活。</p>
+      <div class="app-header-social">
+        
+          <a href="https://github.com/dlzmoe" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>Github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg>
+          </a>
+        
+          <a href="https://twitter.com/dlzmoe" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>Twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg>
+          </a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">为什么 getTime() 返回 1970 年至今的毫秒？</h1>
+      <div class="post-meta">
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Nov 13, 2020
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          2 min read
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line>
+</svg>
+              <a class="tag" href="http://localhost:1313/tags/%E6%9D%82%E8%B0%88/">杂谈</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <p>今天在写 new Date() 时候，无意中发现了一个很有意思的方法，<code>getTime()</code>，百度了一下，有人说是计算从 1970 年 1 月 1 日至今的毫秒数</p>
+<blockquote>
+<p>为什么要是 1970 年呢？</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">new</span> Date().<span style="color:#a6e22e">getTime</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// xxxxxxxxxxx
+</span></span></span></code></pre></div><p>这个起源于 unix 的诞生，因为 Unix 在 1969 年被开发出来，1971 年正式发布，在这之前没有机器会需要来表示 1970-01-01-00:00:00 之前的时间，后面的语言很多就沿用了这一习惯，js 只是也沿用了这种习惯而已。</p>
+<p>当然，这一做法现在看来是很有问题的，例如不方便用它表示更早的时间而且精度有限。</p>
+<p>定义 time 从 1970 年 1 月 1 日开始，忽然想到在 JAVA 里，Oracle 数据库时间也是从 1970 年 1 月 1 日开始计算。</p>
+<p>比如 java 类代码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Date date <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Date(0);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(date);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 打印出来的结果：Thu Jan 01 08:00:00 CST 1970也</span>
+</span></span></code></pre></div><p>是 1970 年 1 月 1 日，实际上时分秒是 0 点 0 分 0 秒 (这里打印出来是 8 点，稍后会作解释)。</p>
+<p>为什么这个时间会定义在 1970 年 1 月 1 日这个时候呢？</p>
+<p>于是开始了 Google，中文网页根本找不到答案。于是试着搜索英文关键字，在 Sun java 论坛总算找到准确的帖子：</p>
+<p><a href="http://forums.sun.com/thread.jspa?threadID=595140&amp;start=15">http://forums.sun.com/thread.jspa?threadID=595140&amp;start=15</a></p>
+<p>其中有一个回复：</p>
+<p>I suspect that Java was born and raised on a UNIX system.
+UNIX considers the epoch (when did time begin) to be midnight, January 1, 1970.
+是说 java 起源于 UNIX 系统，而 UNIX 认为 1970 年 1 月 1 日 0 点是时间纪元。</p>
+<p>但这依然没很好的解释&quot;为什么&quot;,出于好奇，继续 Google，总算找到了答案：</p>
+<p><a href="http://en.wikipedia.org/wiki/Unix_time">http://en.wikipedia.org/wiki/Unix_time</a></p>
+<p>这里的解释是：</p>
+<p>最初计算机操作系统是 32 位，而时间也是用 32 位表示。</p>
+<p>System.out.println(Integer.MAX_VALUE);</p>
+<p>2147483647</p>
+<p>Integer 在 JAVA 内用 32 位表示，因此 32 位能表示的最大值是 2147483647。另外 1 年 365 天的总秒数是 31536000，2147483647/31536000 = 68.1，也就是说 32 位能表示的最长时间是 68 年，而实际上到 2038 年 01 月 19 日 03 时 14 分 07 秒，便会到达最大时间，过了这个时间点，所有 32 位操作系统时间便会变为 10000000 00000000 00000000 00000000 也就是 1901 年 12 月 13 日 20 时 45 分 52 秒，这样便会出现时间回归的现象，很多软件便会运行异常了。</p>
+<p>到这里，我想问题的答案已经出来了：</p>
+<p>因为用 32 位来表示时间的最大间隔是 68 年，而最早出现的 UNIX 操作系统考虑到计算机产生的年代和应用的时限综合取了 1970 年 1 月 1 日作为 UNIX TIME 的纪元时间 (开始时间)，而 java 自然也遵循了这一约束。</p>
+<p>至于时间回归的现象相信随着 64 为操作系统的产生逐渐得到解决，因为用 64 位操作系统可以表示到 292,277,026,596 年 12 月 4 日 15 时 30 分 08 秒，相信我们的 N 代子孙，哪怕地球毁灭那天都不用愁不够用了，因为这个时间已经是千亿年以后了。</p>
+<p>最后一个问题：</p>
+<p>上面 System.out.println(new Date(0))，打印出来的时间是 8 点而非 0 点，原因是存在系统时间和本地时间的问题，其实系统时间依然是 0 点，只不过我的电脑时区设置为东 8 区，故打印的结果是 8 点。</p>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

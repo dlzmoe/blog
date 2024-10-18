@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <title>安装一个基于 Github 的静态图床程序 // 子舒的博客</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.134.1">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="子舒" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/css/main.min.5b1fcc8902588589c4767187402a3c29f8b8d7a6fdef6d9f8f77045bb0d14fee.css" />
+    
+
+    
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="安装一个基于 Github 的静态图床程序">
+  <meta name="twitter:description" content=" demo: https://img.zburu.com/
+今天分享一下如何使用 Github 作为图床，首先就要推荐这个工具 picx。
+Github 仓库：https://github.com/XPoet/picx
+本文的图片全部使用该工具上传，然后通过 Staticaly 进行 cdn 加速（这个在上传的时候自动生成链接。）
+可以设置自动压缩、转码成 webp 格式。
+基于 GitHub API 开发的具有 CDN 加速功能的图床管理工具。无需下载与安装，网页端在线使用！免费！稳定！便捷！极速！
+看了一下源码，vue 写的，全部都是纯静态化加上本地存储，所以说没有后端。
+也就是说我们也可以部署在自己域名下，不使用开发者提供的域名，虽然这么做没什么区别，但还是折腾一下吧。
+我会在最后提供一个打包好的链接（直接打包源码，不做任何修改），下载后自行上传到域名空间下即可使用。
+说明文档：https://picx-docs.xpoet.cn/tutorial/get-start.html
+这是官方说明，试用了一下，效果很棒。图床如何使用文档中标注的很清晰，我就不赘述了，本文只介绍如何编译打包，面向群友。
+过程很简单，需要提前准备好 node 环境。
+1.下载源码 直接去 https://github.com/XPoet/picx，然后 Download Zip。
+2.执行命令 下载后解压来到这个页面，然后在空白处鼠标右键，打开终端。">
+
+    <meta property="og:url" content="http://localhost:1313/blog/172/">
+  <meta property="og:site_name" content="子舒的博客">
+  <meta property="og:title" content="安装一个基于 Github 的静态图床程序">
+  <meta property="og:description" content=" demo: https://img.zburu.com/
+今天分享一下如何使用 Github 作为图床，首先就要推荐这个工具 picx。
+Github 仓库：https://github.com/XPoet/picx
+本文的图片全部使用该工具上传，然后通过 Staticaly 进行 cdn 加速（这个在上传的时候自动生成链接。）
+可以设置自动压缩、转码成 webp 格式。
+基于 GitHub API 开发的具有 CDN 加速功能的图床管理工具。无需下载与安装，网页端在线使用！免费！稳定！便捷！极速！
+看了一下源码，vue 写的，全部都是纯静态化加上本地存储，所以说没有后端。
+也就是说我们也可以部署在自己域名下，不使用开发者提供的域名，虽然这么做没什么区别，但还是折腾一下吧。
+我会在最后提供一个打包好的链接（直接打包源码，不做任何修改），下载后自行上传到域名空间下即可使用。
+说明文档：https://picx-docs.xpoet.cn/tutorial/get-start.html
+这是官方说明，试用了一下，效果很棒。图床如何使用文档中标注的很清晰，我就不赘述了，本文只介绍如何编译打包，面向群友。
+过程很简单，需要提前准备好 node 环境。
+1.下载源码 直接去 https://github.com/XPoet/picx，然后 Download Zip。
+2.执行命令 下载后解压来到这个页面，然后在空白处鼠标右键，打开终端。">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2022-10-22T00:00:00+00:00">
+    <meta property="article:modified_time" content="2022-10-22T00:00:00+00:00">
+    <meta property="article:tag" content="GitHub">
+    <meta property="article:tag" content="图床">
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="http://localhost:1313/"><img class="app-header-avatar" src="https://imgurl.zishu.me/author.webp" alt="子舒" /></a>
+      <span class="app-header-title">zishu.me</span>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/">Home</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/message/">Message</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/about/">About</a>
+      </nav>
+      <p>无人扶我青云志，我自踏雪至山巅。一名 Web 前端开发工程师，热爱生活。</p>
+      <div class="app-header-social">
+        
+          <a href="https://github.com/dlzmoe" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>Github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg>
+          </a>
+        
+          <a href="https://twitter.com/dlzmoe" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>Twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg>
+          </a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">安装一个基于 Github 的静态图床程序</h1>
+      <div class="post-meta">
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Oct 22, 2022
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          1 min read
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line>
+</svg>
+              <a class="tag" href="http://localhost:1313/tags/github/">GitHub</a>
+              <a class="tag" href="http://localhost:1313/tags/%E5%9B%BE%E5%BA%8A/">图床</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <blockquote>
+<p>demo: <a href="https://img.zburu.com/">https://img.zburu.com/</a></p>
+</blockquote>
+<p>今天分享一下如何使用 Github 作为图床，首先就要推荐这个工具 picx。</p>
+<p>Github 仓库：<a href="https://github.com/XPoet/picx">https://github.com/XPoet/picx</a></p>
+<p>本文的图片全部使用该工具上传，然后通过 Staticaly 进行 cdn 加速（这个在上传的时候自动生成链接。）</p>
+<p>可以设置自动压缩、转码成 webp 格式。</p>
+<blockquote>
+<p>基于 GitHub API 开发的具有 CDN 加速功能的图床管理工具。无需下载与安装，网页端在线使用！免费！稳定！便捷！极速！</p>
+</blockquote>
+<p>看了一下源码，vue 写的，全部都是纯静态化加上本地存储，所以说没有后端。</p>
+<p>也就是说我们也可以部署在自己域名下，不使用开发者提供的域名，虽然这么做没什么区别，但还是折腾一下吧。</p>
+<p><strong>我会在最后提供一个打包好的链接（直接打包源码，不做任何修改），下载后自行上传到域名空间下即可使用。</strong></p>
+<p><img src="https://imgurl.zishu.me/images/old/2022/20221022-1.2zpfhu4mgl40.webp" alt="image"></p>
+<p>说明文档：<a href="https://picx-docs.xpoet.cn/tutorial/get-start.html">https://picx-docs.xpoet.cn/tutorial/get-start.html</a></p>
+<p>这是官方说明，试用了一下，效果很棒。图床如何使用文档中标注的很清晰，我就不赘述了，本文只介绍如何编译打包，面向群友。</p>
+<hr>
+<p>过程很简单，需要提前准备好 node 环境。</p>
+<h3 id="1下载源码">1.下载源码</h3>
+<p>直接去 <a href="https://github.com/XPoet/picx">https://github.com/XPoet/picx</a>，然后 Download Zip。</p>
+<p><img src="https://imgurl.zishu.me/images/old/2022/20221022-2.707drdl2ifs0.webp" alt=""></p>
+<h3 id="2执行命令">2.执行命令</h3>
+<p>下载后解压来到这个页面，然后在空白处鼠标右键，打开终端。</p>
+<p><img src="https://imgurl.zishu.me/images/old/2022/20221022-3.34jbfy4mtbq0.webp" alt="1666401948613"></p>
+<p><img src="https://imgurl.zishu.me/images/old/2022/20221022-4.1c6nn69wefgg.webp" alt="image"></p>
+<p>如果你已经有 node 环境了，直接执行下面命令就可以，如果没有，先去安装一下 node 环境，这里就假设环境安装好了。（<a href="https://nodejs.org/zh-cn/">https://nodejs.org/zh-cn/</a>）。</p>
+<p>下面这两种方式都可以，没有区别。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 安装依赖</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 这个过程因为网速问题可能比较慢</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>npm install
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#or</span>
+</span></span><span style="display:flex;"><span>yarn
+</span></span></code></pre></div><p>依赖安装之后，就开始构建。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 构建</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>npm run build
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># or</span>
+</span></span><span style="display:flex;"><span>yarn build
+</span></span></code></pre></div><p>构建完成之后就会生成一个 <code>dist</code> 文件夹，这就是打包好后的文件，里面有一个 <code>index.html</code> 和其他静态资源。</p>
+<h3 id="3我应该上传到哪里">3.我应该上传到哪里？</h3>
+<p>这个时候只需要将他们上传到你想要访问的域名目录下即可。</p>
+<p>比如我使用的是 hugo 博客程序，先在 <code>content</code> 下新建一个文件夹，命名为 <code>img</code>，（你可以起任何名字，注意不要和其他文件名冲突即可。）
+然后把 <code>dist</code> 文件夹下的所有文件全部复制到 <code>/content/img/</code> 文件夹下。</p>
+<p><img src="https://imgurl.zishu.me/images/old/2022/20221022-5.3bs1ti6xhki0.webp" alt="1666402810476"></p>
+<p>这样在执行 hugo 命令后会打包到 <code>public</code> 文件夹下，然后直接访问 <a href="https://zburu.com/img">https://zburu.com/img</a> 就可以打宝图床。</p>
+<p>或者你自己上传到任何你想放的空间下都可以，没有限制~~</p>
+<p>图床如何使用对着文档琢磨即可，上面写的很详细。</p>
+<p><a href="https://picx-docs.xpoet.cn/tutorial/get-start.html">https://picx-docs.xpoet.cn/tutorial/get-start.html</a></p>
+<h3 id="4其他问题">4.其他问题</h3>
+<ol>
+<li>如果后面开发者更新图床版本，可以从第一步重新操作，下载、构建、上传。</li>
+</ol>
+<p>如果有其他问题，请在评论区留言~~</p>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

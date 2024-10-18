@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <title>webpack 安装配置指令 // 子舒的博客</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.134.1">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="子舒" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/css/main.min.5b1fcc8902588589c4767187402a3c29f8b8d7a6fdef6d9f8f77045bb0d14fee.css" />
+    
+
+    
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="webpack 安装配置指令">
+  <meta name="twitter:description" content="进行重新加载编译。实际就是将浏览器不认识的语法编译成浏览器认识的语法。比如 less 编译成 css，ES6 语法 转成 ES5 等等。
+减少 io 请求，通常我们在请求后，会返回一个 html 到浏览器。这时，我们如果打开控制台，就会发现在 html 页面通过 script,link 等标签引用的静态资源，浏览器会再次发出请求去获取这些资源。但是 webpack 的打包，将所有的静态资源都合并好了，减少了 io 请求。
+# 安装webpack npm install --save-dev webpack # 安装webpack-cli依赖 npm install --save-dev webpack-cli # 创建新项目 mkdir demo # cd项目 cd demo ">
+
+    <meta property="og:url" content="http://localhost:1313/blog/30/">
+  <meta property="og:site_name" content="子舒的博客">
+  <meta property="og:title" content="webpack 安装配置指令">
+  <meta property="og:description" content="进行重新加载编译。实际就是将浏览器不认识的语法编译成浏览器认识的语法。比如 less 编译成 css，ES6 语法 转成 ES5 等等。
+减少 io 请求，通常我们在请求后，会返回一个 html 到浏览器。这时，我们如果打开控制台，就会发现在 html 页面通过 script,link 等标签引用的静态资源，浏览器会再次发出请求去获取这些资源。但是 webpack 的打包，将所有的静态资源都合并好了，减少了 io 请求。
+# 安装webpack npm install --save-dev webpack # 安装webpack-cli依赖 npm install --save-dev webpack-cli # 创建新项目 mkdir demo # cd项目 cd demo ">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2020-11-26T00:00:00+00:00">
+    <meta property="article:modified_time" content="2020-11-26T00:00:00+00:00">
+    <meta property="article:tag" content="工具">
+    <meta property="article:tag" content="Webpack">
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="http://localhost:1313/"><img class="app-header-avatar" src="https://imgurl.zishu.me/author.webp" alt="子舒" /></a>
+      <span class="app-header-title">zishu.me</span>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/">Home</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/message/">Message</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/about/">About</a>
+      </nav>
+      <p>无人扶我青云志，我自踏雪至山巅。一名 Web 前端开发工程师，热爱生活。</p>
+      <div class="app-header-social">
+        
+          <a href="https://github.com/dlzmoe" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>Github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg>
+          </a>
+        
+          <a href="https://twitter.com/dlzmoe" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>Twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg>
+          </a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">webpack 安装配置指令</h1>
+      <div class="post-meta">
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Nov 26, 2020
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          2 min read
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line>
+</svg>
+              <a class="tag" href="http://localhost:1313/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+              <a class="tag" href="http://localhost:1313/tags/webpack/">Webpack</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <p>进行重新加载编译。实际就是将浏览器不认识的语法编译成浏览器认识的语法。比如 less 编译成 css，ES6 语法 转成 ES5 等等。</p>
+<p>减少 io 请求，通常我们在请求后，会返回一个 html 到浏览器。这时，我们如果打开控制台，就会发现在 html 页面通过 script,link 等标签引用的静态资源，浏览器会再次发出请求去获取这些资源。但是 webpack 的打包，将所有的静态资源都合并好了，减少了 io 请求。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 安装webpack</span>
+</span></span><span style="display:flex;"><span>npm install --save-dev webpack
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 安装webpack-cli依赖</span>
+</span></span><span style="display:flex;"><span>npm install --save-dev webpack-cli
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 创建新项目</span>
+</span></span><span style="display:flex;"><span>mkdir demo
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># cd项目</span>
+</span></span><span style="display:flex;"><span>cd demo
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 初始化</span>
+</span></span><span style="display:flex;"><span>npm init -y
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 安装开发版本cli</span>
+</span></span><span style="display:flex;"><span>npm install webpack webpack-cli --save-dev
+</span></span></code></pre></div><p>新建一个 html 文件和一个 js 文件，工程目录如下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>  demo
+</span></span><span style="display:flex;"><span>  |- package.json
+</span></span><span style="display:flex;"><span>+ |- index.html
+</span></span><span style="display:flex;"><span>+ |- /src
+</span></span><span style="display:flex;"><span>+   |- index.js
+</span></span></code></pre></div><p>src/index.js:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">component</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">element</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#39;div&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// Lodash（目前通过一个 script 脚本引入）对于执行这一行是必需的
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">_</span>.<span style="color:#a6e22e">join</span>([<span style="color:#e6db74">&#39;Hello&#39;</span>, <span style="color:#e6db74">&#39;webpack&#39;</span>], <span style="color:#e6db74">&#39; &#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">element</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>document.<span style="color:#a6e22e">body</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#a6e22e">component</span>());
+</span></span></code></pre></div><p>index.html:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!doctype html&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">title</span>&gt;起步&lt;/<span style="color:#f92672">title</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://unpkg.com/lodash@4.16.6&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;./src/index.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
+</span></span></code></pre></div><p>在 package.json 中：</p>
+<p>删除<code>&quot;main&quot;: &quot;index.js&quot;</code>,添加<code>&quot;private&quot;: true</code></p>
+<p>调整工程目录：</p>
+<pre tabindex="0"><code>  demo
+  |- package.json
++ |- /dist
++   |- index.html
+- |- index.html
+  |- /src
+    |- index.js
+</code></pre><p>要在<code>index.js</code>中打包<code>lodash</code>依赖，我们需要在本地安装 library，终端输入指令：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>npm install --save lodash
+</span></span></code></pre></div><p>然后调整<code>index.js</code>内容</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// 添加一行代码
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">_</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;lodash&#39;</span>;
+</span></span></code></pre></div><p>在<code>dist/index.html</code>中可以把引入的外部文件<code>lodash</code>删去</p>
+<p>删去<code>&lt;script src=&quot;./src/index.js&quot;&gt;&lt;/script&gt;</code></p>
+<p>添加<code>&lt;script src=&quot;main.js&quot;&gt;&lt;/script&gt;</code></p>
+<p>执行终端：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>npx webpack
+</span></span></code></pre></div><p>即可在<code>dist</code>中打包生成需要的<code>main.js</code>文件</p>
+<p>还可以手动配置文件，在根目录下新建一个<code>webpack.config.js</code>文件</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">path</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;path&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 这里放着需要打包的文件，如果多个文件，用数组形式写
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">entry</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;./src/index.js&#39;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">output</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 这里是打包生成的文件名，还可以手动修改
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">filename</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;bundle.js&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">__dirname</span>, <span style="color:#e6db74">&#39;dist&#39;</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>考虑到用 CLI 这种方式来运行本地的 webpack 不是特别方便，我们可以设置一个快捷方式，</p>
+<p>在<code>package.json</code>中的<code>&quot;scripts&quot;</code>新增</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#e6db74">&#34;build&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;webpack&#34;</span>
+</span></span></code></pre></div><p>这样就可以使用<code>npm run build</code>指令代替之前的<code>npx</code>了</p>
+<p>把之前<code>dist</code>文件夹里面的<code>js文件</code>删去，然后重新打包</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>npm run build
+</span></span></code></pre></div><p>看一下工程目录</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">demo</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|-</span> <span style="color:#66d9ef">package</span>.<span style="color:#a6e22e">json</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|-</span> <span style="color:#a6e22e">webpack</span>.<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">js</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|-</span> <span style="color:#960050;background-color:#1e0010">/dist</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|-</span> <span style="color:#a6e22e">bundle</span>.<span style="color:#a6e22e">js</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|-</span> <span style="color:#a6e22e">index</span>.<span style="color:#a6e22e">html</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|-</span> <span style="color:#960050;background-color:#1e0010">/src</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|-</span> <span style="color:#a6e22e">index</span>.<span style="color:#a6e22e">js</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|-</span> <span style="color:#960050;background-color:#1e0010">/node_modules</span>
+</span></span></code></pre></div><p>没问题，成功打包，浏览器也正常显示</p>
+<p><strong>在 js 文件中<code>import</code>了一个 css 文件，需要在配置中安装并添加<code>style-loaader</code>和<code>css-loader</code></strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>npm install --save-dev style-loader css-loader
+</span></span></code></pre></div><p>webpack.config.js:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">path</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;path&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">entry</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;./src/index.js&#39;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">output</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">filename</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;bundle.js&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">__dirname</span>, <span style="color:#e6db74">&#39;dist&#39;</span>)
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 添加的内容
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">module</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">rules</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.css$/</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">use</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>          <span style="color:#e6db74">&#39;style-loader&#39;</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#e6db74">&#39;css-loader&#39;</span>
+</span></span><span style="display:flex;"><span>        ]
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>然后在 js 模块中：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#39;./style.css&#39;</span>
+</span></span></code></pre></div><p><code>npm run build</code>就可以自动解析打包啦</p>
+<p><strong>加载图片</strong></p>
+<p>下载安装<code>file-loader</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>npm install --save-dev file-loader
+</span></span></code></pre></div><p>webpack.config.js:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">module</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">rules</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.css$/</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">use</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>          <span style="color:#e6db74">&#39;style-loader&#39;</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#e6db74">&#39;css-loader&#39;</span>
+</span></span><span style="display:flex;"><span>      ]
+</span></span><span style="display:flex;"><span>      },{
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.(png|svg|jpg|gif)$/</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">use</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>          <span style="color:#e6db74">&#39;file-loader&#39;</span>
+</span></span><span style="display:flex;"><span>      ]
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  ]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>加载字体</strong></p>
+<p><a href="https://www.webpackjs.com/guides/asset-management/#%E5%8A%A0%E8%BD%BD%E5%AD%97%E4%BD%93">webpack 加载字体资源</a></p>
+<p><strong>记载数据资源</strong></p>
+<p>此外，可加载的有用资源还有数据，<code>json文件</code>，<code>CSV</code>，<code>TSV</code>，<code>XML</code>等，实际上，<code>json</code>是内置的，可以直接<code>import data from './data.json'</code>引入</p>
+<p>但是<code>CSV</code>，<code>TSV</code>，<code>XML</code>不可以，需要配置一下依赖</p>
+<p>终端下载安装：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>npm install --save-dev csv-loader xml-loader
+</span></span></code></pre></div><p>webpack.config.js:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.(csv|tsv)$/</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">use</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;csv-loader&#39;</span>
+</span></span><span style="display:flex;"><span>  ]
+</span></span><span style="display:flex;"><span>},
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.xml$/</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">use</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;xml-loader&#39;</span>
+</span></span><span style="display:flex;"><span>  ]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>在<code>src</code>目录下添加一个 json 文件<code>data.json</code></p>
+<p>然后在<code>index.js</code>中引入：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">data</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./data.json&#39;</span>
+</span></span></code></pre></div>
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

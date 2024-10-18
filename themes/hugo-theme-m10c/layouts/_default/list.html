@@ -1,0 +1,25 @@
+{{ define "main" }}
+  <article>
+    <h1>{{ .Site.Params.Title }}</h1>
+    <ul class="posts-list">
+      {{ range where .Paginator.Pages "Type" "!=" "page" }}
+        <li class="posts-list-item">
+          <a class="posts-list-item-title" href="{{ .Permalink }}">{{ .Title }}</a>
+          <span class="posts-list-item-description">
+            {{ partial "icon.html" (dict "ctx" $ "name" "calendar") }}
+            {{ .PublishDate.Format "1 月 2 日，2006 年" }}
+            <span class="posts-list-item-separator">-</span>
+            {{ with .Params.categories }}
+      {{ range . }}
+      <span class="namenode">分类：
+        <a href="{{ "categories/" | relURL }}{{ . | urlize }}">{{ . }}</a>
+      </span>
+      {{ end }}
+      {{ end }}
+          </span>
+        </li>
+      {{ end }}
+    </ul>
+    {{ partial "pagination.html" $ }}
+  </article>
+{{ end }}

@@ -14,19 +14,22 @@ const author = {
   email: 'anghunk@gmail.com',
   github: 'https://github.com/dlzmoe',
   blog: 'https://zishu.me',
-  description: '喜欢折腾技术，研究各种奇怪的程序和网站，喜欢户外运动，热爱生活。'
+  description: '无人扶我青云志，我自踏雪至山巅。一名 Web 前端开发工程师，热爱生活。'
 }
 ```
 
-![](https://raw.githubusercontent.com/dlzmoe/dlzmoe/main/github-user-contribution.svg)
+经常混迹在 GitHub，LinuxDo，V2EX 等各大技术社交论坛，喜欢折腾，研究各种奇怪的程序和网站。
 
-我的 [计划单](/plan/)。
+同时将周刊一起发布到了本网站，督促自己多扩展眼界，获取更新的知识，不管是技术类型还是娱乐，让自己的容量不断 +1。
 
-同时将周刊一起发布到了本网站，督促自己多扩展眼界，获取更新的知识，不管是技术类型还是娱乐，让自己的容量不断 +1.
+在这里，我提供了一些免费的 [在线服务](/serve/)
 
-[提供一些免费服务](/serve/)。
+点击查看 [骑行记录](/riding/), [计划单](/plan/)
 
-### 2.友情链接
+暂不做友链，请勿留言友链信息。
+
+
+### 2.推荐博客
 
 有时候就会遇到一些文章写的不错的博主，于是就记录在这里了。
 
@@ -40,6 +43,6 @@ const author = {
 [Jiang's Blog](https://jiangxueqiao.com/) // 
 [ImQi1 的博客](https://imqi1.com) 
 
-### 5.版权声明
+### 3.版权声明
 
 本站文章所有版权均归本人所有，未经允许，不允许转载。

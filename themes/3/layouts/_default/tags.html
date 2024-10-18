@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+{{ partial "head.html" . }}
+
+<body>
+  {{ partial "header.html" . }}
+  <section id="body">
+    <div class="container">
+      <div class="body-title">{{ .Title }}</div>
+
+      <article class="post-content">
+        {{ .Site.Params.postHeaderContent | safeHTML }}
+        {{ .Content }}
+
+        <ul class="tags-list">
+          {{ range .Site.Taxonomies.tags }}
+          <li><a href="{{ .Page.Permalink }}">{{ .Page.Title }} <sup>{{ .Count }}</sup></a> </li>
+          {{ end }}
+        </ul>
+      </article>
+    </div>
+    {{ partial "footer.html" . }}
+  </section>
+</body>
+
+</html>

@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <title>掘金抽奖脚本 // 子舒的博客</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.134.1">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="子舒" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/css/main.min.5b1fcc8902588589c4767187402a3c29f8b8d7a6fdef6d9f8f77045bb0d14fee.css" />
+    
+
+    
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="掘金抽奖脚本">
+  <meta name="twitter:description" content="分享一个掘金抽奖的油猴脚本，可以一键签到，抽奖，梭哈。
+攒多一点矿石，体验买彩票的感觉。
+(async function () { ‘use strict’;
+const { createApp } = PetiteVue; // 不会吧不会吧，不会还有人不知道 petite-vue 吧
+const root = document.createElement(‘div’); root.class = ‘wx_draw_wrap’; root.innerHTML = ` &lt;div v-show=&#34;!popup&#34; class=“wx_draw” @click=“open”&gt;掘金抽奖
+&lt;div v-if=&#34;popup&#34; class=&#34;wx_popup&#34;&gt; &lt;div class=&#34;wx_mask&#34; @click=&#34;popup = false&#34;&gt;&lt;/div&gt; &lt;div class=&#34;wx_main&#34;&gt; &lt;div class=&#34;wx_header&#34;&gt; &lt;div&gt;掘金抽奖&lt;/div&gt; &lt;div class=&#34;wx_score&#34;&gt;当前矿石：{{ score }}&lt;/div&gt; &lt;/div&gt; &lt;div class=&#34;wx_body&#34;&gt; &lt;div class=&#34;wx_options&#34;&gt; &lt;div @click=&#34;check_in&#34; v-if=&#34;check_status === -1 || check_status === false&#34;&gt;签到&lt;/div&gt; &lt;div @click=&#34;get_free&#34; v-else&gt;签到成功&lt;/div&gt; &lt;div @click=&#34;draw(5)&#34;&gt;5 连抽&lt;/div&gt; &lt;div @click=&#34;draw(10)&#34;&gt;10 连抽&lt;/div&gt; &lt;div @click=&#34;draw(undefined)&#34;&gt;梭哈抽奖&lt;/div&gt; &lt;/div&gt; &lt;table cellpadding=&#34;0&#34; cellspacing=&#34;0&#34; border=&#34;0&#34; width=&#34;100%&#34;&gt; &lt;thead&gt; &lt;tr&gt; &lt;th&gt;奖品图片&lt;/th&gt; &lt;th&gt;奖品名称&lt;/th&gt; &lt;th&gt;中奖次数&lt;/th&gt; &lt;/tr&gt; &lt;/thead&gt; &lt;tbody&gt; &lt;tr v-for=&#34;item in award&#34;&gt; &lt;td&gt;&lt;img :src=&#34;item.lottery_image&#34;/&gt;&lt;/td&gt; &lt;td&gt;{{ item.lottery_name }}&lt;/td&gt; &lt;td&gt;{{ item.times }}&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; &lt;div class=&#34;wx_loading&#34; v-if=&#34;loading&#34;&gt; &lt;svg class=&#34;circular&#34; viewBox=&#34;25 25 50 50&#34;&gt; &lt;circle class=&#34;path&#34; cx=&#34;50&#34; cy=&#34;50&#34; r=&#34;20&#34; fill=&#34;none&#34; /&gt; &lt;/svg&gt; &lt;/div&gt; &lt;/div&gt; &lt;div class=&#34;wx_footer&#34;&gt; &lt;div class=&#34;wx_confirm wx_btn&#34; @click=&#34;popup = false&#34;&gt;关闭&lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;/div&gt; ">
+
+    <meta property="og:url" content="http://localhost:1313/blog/143/">
+  <meta property="og:site_name" content="子舒的博客">
+  <meta property="og:title" content="掘金抽奖脚本">
+  <meta property="og:description" content="分享一个掘金抽奖的油猴脚本，可以一键签到，抽奖，梭哈。
+攒多一点矿石，体验买彩票的感觉。
+(async function () { ‘use strict’;
+const { createApp } = PetiteVue; // 不会吧不会吧，不会还有人不知道 petite-vue 吧
+const root = document.createElement(‘div’); root.class = ‘wx_draw_wrap’; root.innerHTML = ` &lt;div v-show=&#34;!popup&#34; class=“wx_draw” @click=“open”&gt;掘金抽奖
+&lt;div v-if=&#34;popup&#34; class=&#34;wx_popup&#34;&gt; &lt;div class=&#34;wx_mask&#34; @click=&#34;popup = false&#34;&gt;&lt;/div&gt; &lt;div class=&#34;wx_main&#34;&gt; &lt;div class=&#34;wx_header&#34;&gt; &lt;div&gt;掘金抽奖&lt;/div&gt; &lt;div class=&#34;wx_score&#34;&gt;当前矿石：{{ score }}&lt;/div&gt; &lt;/div&gt; &lt;div class=&#34;wx_body&#34;&gt; &lt;div class=&#34;wx_options&#34;&gt; &lt;div @click=&#34;check_in&#34; v-if=&#34;check_status === -1 || check_status === false&#34;&gt;签到&lt;/div&gt; &lt;div @click=&#34;get_free&#34; v-else&gt;签到成功&lt;/div&gt; &lt;div @click=&#34;draw(5)&#34;&gt;5 连抽&lt;/div&gt; &lt;div @click=&#34;draw(10)&#34;&gt;10 连抽&lt;/div&gt; &lt;div @click=&#34;draw(undefined)&#34;&gt;梭哈抽奖&lt;/div&gt; &lt;/div&gt; &lt;table cellpadding=&#34;0&#34; cellspacing=&#34;0&#34; border=&#34;0&#34; width=&#34;100%&#34;&gt; &lt;thead&gt; &lt;tr&gt; &lt;th&gt;奖品图片&lt;/th&gt; &lt;th&gt;奖品名称&lt;/th&gt; &lt;th&gt;中奖次数&lt;/th&gt; &lt;/tr&gt; &lt;/thead&gt; &lt;tbody&gt; &lt;tr v-for=&#34;item in award&#34;&gt; &lt;td&gt;&lt;img :src=&#34;item.lottery_image&#34;/&gt;&lt;/td&gt; &lt;td&gt;{{ item.lottery_name }}&lt;/td&gt; &lt;td&gt;{{ item.times }}&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; &lt;div class=&#34;wx_loading&#34; v-if=&#34;loading&#34;&gt; &lt;svg class=&#34;circular&#34; viewBox=&#34;25 25 50 50&#34;&gt; &lt;circle class=&#34;path&#34; cx=&#34;50&#34; cy=&#34;50&#34; r=&#34;20&#34; fill=&#34;none&#34; /&gt; &lt;/svg&gt; &lt;/div&gt; &lt;/div&gt; &lt;div class=&#34;wx_footer&#34;&gt; &lt;div class=&#34;wx_confirm wx_btn&#34; @click=&#34;popup = false&#34;&gt;关闭&lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;/div&gt; ">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2022-06-22T00:00:00+00:00">
+    <meta property="article:modified_time" content="2022-06-22T00:00:00+00:00">
+    <meta property="article:tag" content="掘金">
+    <meta property="article:tag" content="油猴脚本">
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="http://localhost:1313/"><img class="app-header-avatar" src="https://imgurl.zishu.me/author.webp" alt="子舒" /></a>
+      <span class="app-header-title">zishu.me</span>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/">Home</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/message/">Message</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/about/">About</a>
+      </nav>
+      <p>无人扶我青云志，我自踏雪至山巅。一名 Web 前端开发工程师，热爱生活。</p>
+      <div class="app-header-social">
+        
+          <a href="https://github.com/dlzmoe" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>Github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg>
+          </a>
+        
+          <a href="https://twitter.com/dlzmoe" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>Twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg>
+          </a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">掘金抽奖脚本</h1>
+      <div class="post-meta">
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Jun 22, 2022
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          5 min read
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line>
+</svg>
+              <a class="tag" href="http://localhost:1313/tags/%E6%8E%98%E9%87%91/">掘金</a>
+              <a class="tag" href="http://localhost:1313/tags/%E6%B2%B9%E7%8C%B4%E8%84%9A%E6%9C%AC/">油猴脚本</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <p>分享一个掘金抽奖的油猴脚本，可以一键签到，抽奖，梭哈。</p>
+<p>攒多一点矿石，体验买彩票的感觉。</p>
+<!-- raw HTML omitted -->
+<p>(async function () {
+&lsquo;use strict&rsquo;;</p>
+<p>const { createApp } = PetiteVue; // 不会吧不会吧，不会还有人不知道 petite-vue 吧</p>
+<p>const root = document.createElement(&lsquo;div&rsquo;);
+root.class = &lsquo;wx_draw_wrap&rsquo;;
+root.innerHTML = `
+&lt;div v-show=&quot;!popup&quot; class=&ldquo;wx_draw&rdquo; @click=&ldquo;open&rdquo;&gt;掘金抽奖<!-- raw HTML omitted --></p>
+<pre><code>&lt;div v-if=&quot;popup&quot; class=&quot;wx_popup&quot;&gt;
+  &lt;div class=&quot;wx_mask&quot; @click=&quot;popup = false&quot;&gt;&lt;/div&gt;
+
+  &lt;div class=&quot;wx_main&quot;&gt;
+    &lt;div class=&quot;wx_header&quot;&gt;
+      &lt;div&gt;掘金抽奖&lt;/div&gt;
+      &lt;div class=&quot;wx_score&quot;&gt;当前矿石：{{ score }}&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;wx_body&quot;&gt;
+      &lt;div class=&quot;wx_options&quot;&gt;
+        &lt;div @click=&quot;check_in&quot; v-if=&quot;check_status === -1 || check_status === false&quot;&gt;签到&lt;/div&gt;
+        &lt;div @click=&quot;get_free&quot; v-else&gt;签到成功&lt;/div&gt;
+        &lt;div @click=&quot;draw(5)&quot;&gt;5 连抽&lt;/div&gt;
+        &lt;div @click=&quot;draw(10)&quot;&gt;10 连抽&lt;/div&gt;
+        &lt;div @click=&quot;draw(undefined)&quot;&gt;梭哈抽奖&lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot; width=&quot;100%&quot;&gt;
+        &lt;thead&gt;
+          &lt;tr&gt;
+            &lt;th&gt;奖品图片&lt;/th&gt;
+            &lt;th&gt;奖品名称&lt;/th&gt;
+            &lt;th&gt;中奖次数&lt;/th&gt;
+          &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+          &lt;tr v-for=&quot;item in award&quot;&gt;
+            &lt;td&gt;&lt;img :src=&quot;item.lottery_image&quot;/&gt;&lt;/td&gt;
+            &lt;td&gt;{{ item.lottery_name }}&lt;/td&gt;
+            &lt;td&gt;{{ item.times }}&lt;/td&gt;
+          &lt;/tr&gt;
+        &lt;/tbody&gt;
+      &lt;/table&gt;
+
+      &lt;div class=&quot;wx_loading&quot; v-if=&quot;loading&quot;&gt;
+        &lt;svg class=&quot;circular&quot; viewBox=&quot;25 25 50 50&quot;&gt;
+          &lt;circle class=&quot;path&quot; cx=&quot;50&quot; cy=&quot;50&quot; r=&quot;20&quot; fill=&quot;none&quot; /&gt;
+        &lt;/svg&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;wx_footer&quot;&gt;
+      &lt;div class=&quot;wx_confirm wx_btn&quot; @click=&quot;popup = false&quot;&gt;关闭&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<p>`;</p>
+<p>// 查询奖品列表
+const res = await fetch(&lsquo;<a href="https://api.juejin.cn/growth_api/v1/lottery_config/get'">https://api.juejin.cn/growth_api/v1/lottery_config/get'</a>, {
+headers: {
+cookie: document.cookie
+},
+method: &lsquo;GET&rsquo;,
+credentials: &lsquo;include&rsquo;
+}).then((res) =&gt; res.json());</p>
+<p>const award = (res.data &amp;&amp; res.data.lottery ? res.data.lottery : []).map((item) =&gt; ({ &hellip;item, times: 0 }));
+const { free_count, point_cost } = res.data; // 剩余免费抽奖次数，单次抽奖消耗数</p>
+<p>document.body.appendChild(root); // 插入 DOM</p>
+<p>// petite-vue init 初始化
+createApp({
+award,
+popup: false,
+loading: false,
+score: 0,
+free_count,
+check_status: -1,</p>
+<pre><code>async open() {
+  const res = await fetch('https://api.juejin.cn/growth_api/v1/get_cur_point', {
+    headers: {
+      cookie: document.cookie
+    },
+    method: 'GET',
+    credentials: 'include'
+  }).then((res) =&gt; res.json());
+
+  this.score = res.data; // 当前分数
+
+  this.popup = true;
+
+  (this.check_status === -1 || this.check_status === false) &amp;&amp; this.get_status();
+},
+async draw(times, is_not_free = true) {
+  if (this.loading || times === 0) return;
+
+  // const is_not_free = !(this.free_count &amp;&amp; times === 1);
+
+  if (is_not_free &amp;&amp; this.score &lt; point_cost * (times || 1)) return alert('分都不够想啥呢？');
+
+  let i = 0;
+  const drawFn = async () =&gt; {
+    if ((is_not_free &amp;&amp; this.score &lt; point_cost) || i === times) {
+      this.free_count = 0;
+      this.loading = false;
+      this.open();
+      console.log(`${times ? times + '连抽' : '梭哈'}结束！`);
+      return;
+    }
+
+    const result = await fetch('https://api.juejin.cn/growth_api/v1/lottery/draw', {
+      headers: {
+        cookie: document.cookie
+      },
+      method: 'POST',
+      credentials: 'include'
+    }).then((res) =&gt; res.json());
+
+    if (result.err_no !== 0) {
+      console.log(result.err_msg);
+      this.loading = false;
+      this.open();
+      return;
+    }
+
+    i++;
+    is_not_free &amp;&amp; (this.score -= point_cost);
+
+    if (result.data.lottery_type === 1) this.score += 66;
+
+    const item = this.award.find((item) =&gt; item.lottery_id === result.data.lottery_id);
+    item.times++;
+
+    console.log(`抽到：${result.data.lottery_name}`);
+    drawFn();
+  };
+
+  console.log(`开始${times ? times + '连抽' : '梭哈'}！`);
+  this.loading = true;
+  this.award.forEach((item) =&gt; {
+    item.times = 0;
+  });
+  try {
+    drawFn();
+  } catch (error) {
+    this.loading = false;
+    console.error(error);
+  }
+},
+async check_in() {
+  if (this.check_status) {
+    this.get_free(); // 免费抽奖
+    return;
+  }
+
+  // 签到
+  const check_in = await fetch('https://api.juejin.cn/growth_api/v1/check_in', {
+    headers: {
+      cookie: document.cookie
+    },
+    method: 'POST',
+    credentials: 'include'
+  }).then((res) =&gt; res.json());
+
+  if (check_in.err_no !== 0) {
+    alert('签到失败！');
+    this.check_status = false;
+    return;
+  }
+
+  this.check_status = true;
+  this.score = check_in.data.sum_point;
+  this.get_free(); // 免费抽奖
+},
+async get_status() {
+  // 查询签到状态
+  const today_status = await fetch('https://api.juejin.cn/growth_api/v1/get_today_status', {
+    headers: {
+      cookie: document.cookie
+    },
+    method: 'GET',
+    credentials: 'include'
+  }).then((res) =&gt; res.json());
+
+  this.check_status = today_status.data;
+},
+async get_free() {
+  // 查询是否有免费抽奖次数
+  const res = await fetch('https://api.juejin.cn/growth_api/v1/lottery_config/get', {
+    headers: {
+      cookie: document.cookie
+    },
+    method: 'GET',
+    credentials: 'include'
+  }).then((res) =&gt; res.json());
+
+  this.free_count = res.data.free_count;
+
+  if (res.data.free_count) {
+    // 有免费抽奖次数
+    this.draw(res.data.free_count, false);
+  }
+}
+</code></pre>
+<p>}).mount();</p>
+<p>// 处理样式
+const style = <code>.wx_draw_wrap { box-sizing: border-box; position: fixed; top: 50%; left: 0px; z-index: 888888; margin-top: -20px; } .wx_draw { box-sizing: border-box; position: fixed; top: 50%; left: 0px; z-index: 888888; width: 40px; height: 40px; line-height: 16px; font-size: 12px; padding: 4px; background-color: rgb(232, 243, 255); border: 1px solid rgb(232, 243, 255); color: rgb(30, 128, 255); text-align: center; overflow: hidden; cursor: pointer; } .wx_popup { position: fixed; left: 0; top: 0; right: 0; bottom: 0; z-index: 999999; } .wx_mask { width: 100%; height: 100%; background: rgba(0,0,0,0.5); } .wx_main { --width: 460px; position: absolute; left: 50%; top: 50%; width: var(--width); transform: translate(-50%, -50%); background: #fff; border-radius: 4px; } .wx_main .wx_header { height: 40px; line-height: 40px; font-size: 16px; padding: 0 16px; border-bottom: 1px solid #999; display: flex; align-items: center; justify-content: space-between; color: #000; font-weight: 400; } .wx_score { font-size: 12px; font-size: #00a100; } .wx_main .wx_body { padding: 16px; border-bottom: 1px solid #999; position: relative; } .wx_main .wx_options { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; } .wx_main .wx_options div { width: 80px; text-align: center; height: 24px; line-height: 24px; background-color: rgb(232, 243, 255); border: 1px solid #c9d4e3; color: rgb(30, 128, 255); cursor: pointer; border-radius: 2px; } .wx_main .wx_body p { margin: 0 0 8px; } .wx_body table { width: 100%; text-align: center; border-left: 1px solid #ccc; border-top: 1px solid #ccc; } .wx_body table th, .wx_body table td { border-right: 1px solid #ccc; border-bottom: 1px solid #ccc; line-height: 20px; } .wx_body table th { line-height: 28px; } .wx_main .wx_body img { vertical-align: middle; width: 40px; height: 40px; } .wx_main .wx_footer { padding: 12px 16px; text-align: right; } .wx_btn { display: inline-block; width: 48px; cursor: pointer; text-align: center; height: 20px; line-height: 20px; background-color: rgb(232, 243, 255); border: 1px solid #c9d4e3; color: rgb(30, 128, 255); border-radius: 2px; } .wx_loading { position: absolute; left: 0; top: 0; right: 0; bottom: 0; z-index: 9999999; background: rgba(0,0,0,0.65); } .wx_loading .circular { height: 42px; width: 42px; -webkit-animation: loading-rotate 2s linear infinite; animation: loading-rotate 2s linear infinite; position: absolute; left: 50%; top: 50%; margin-top: -21px; margin-left: -21px; } .wx_loading .path { -webkit-animation: loading-dash 1.5s ease-in-out infinite; animation: loading-dash 1.5s ease-in-out infinite; stroke-dasharray: 90, 150; stroke-dashoffset: 0; stroke-width: 2; stroke: #409eff; stroke-linecap: round; } @keyframes loading-rotate { 100% { -webkit-transform: rotate(360deg); transform: rotate(360deg); } } @keyframes loading-dash { 0% { stroke-dasharray: 1, 200; stroke-dashoffset: 0; } 50% { stroke-dasharray: 90, 150; stroke-dashoffset: -40px; } 100% { stroke-dasharray: 90, 150; stroke-dashoffset: -120px; } }</code>;</p>
+<p>const styleEl = document.createElement(&lsquo;style&rsquo;);
+styleEl.textContent = style;
+document.head.appendChild(styleEl);
+})();</p>
+<pre tabindex="0"><code>&lt;/details&gt;
+&lt;/summary&gt;
+</code></pre>
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
