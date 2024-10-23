@@ -22,7 +22,7 @@
 "articleSection" : "blog",
 "name" : "增加了站内搜索功能",
 "headline" : "增加了站内搜索功能",
-"description" : "如题，我花了一个多小时，参照 nuxt 文档，把搜索功能给加上了，记录一下相关代码。\n可以选择放在 components\/\u0026lt;Search \/\u0026gt; 里面，然后引入到 head 模板，也可以单独创建一个页面，我选择的是后者。\n新建一个页面模板 \/pages\/search.vue 。\n\u0026lt;template\u0026gt; \u0026lt;div\u0026gt; \u0026lt;HeaderMe \/\u0026gt; \u0026lt;div class=\u0026#34;wrapper\u0026#34;\u0026gt; \u0026lt;PageSidebar \/\u0026gt; \u0026lt;div class=\u0026#34;archive\u0026#34;\u0026gt; \u0026lt;h2\u0026gt;{{ article.attributes.title }}\u0026lt;\/h2\u0026gt; \u0026lt;div class=\u0026#34;article-content markdown-body\u0026#34; v-html=\u0026#34;article.html\u0026#34;\u0026gt;\u0026lt;\/div\u0026gt; \u0026lt;div class=\u0026#34;search\u0026#34;\u0026gt; \u0026lt;input v-model=\u0026#34;searchQuery\u0026#34; type=\u0026#34;search\u0026#34; autocomplete=\u0026#34;off\u0026#34; placeholder=\u0026#34;文章关键词\u0026#34; \/\u0026gt; \u0026lt;ul v-if=\u0026#34;articles.length\u0026#34;\u0026gt; \u0026lt;li v-for=\u0026#34;article of articles\u0026#34; :key=\u0026#34;article.slug\u0026#34;\u0026gt; \u0026lt;NuxtLink :to=\u0026#34;article.path\u002b\u0026#39;\/\u0026#39;\u0026#34;\u0026gt;{{ article.title }}\u0026lt;\/NuxtLink\u0026gt; \u0026lt;!-- 在url地址后加一个\/，配置全站的url格式，防止错乱 --\u0026gt; \u0026lt;\/li\u0026gt; \u0026lt;\/ul\u0026gt; \u0026lt;\/div\u0026gt; \u0026lt;\/div\u0026gt; \u0026lt;\/div\u0026gt; \u0026lt;\/div\u0026gt; \u0026lt;\/template\u0026gt; \u0026lt;script\u0026gt; import HeaderMe from \u0026#34;@\/components\/HeaderMe\u0026#34;; import PageSidebar from \u0026#39;@\/components\/PageSidebar\u0026#39;; export default { components: { HeaderMe, PageSidebar }, data () { return { searchQuery: \u0026#39;\u0026#39;, articles: [] } }, async asyncData () { \/\/ 调用 search.md 内的数据 const article = await import(\u0060~\/content\/search.md\u0060); return { article }; }, watch: { async searchQuery (searchQuery) { if (!searchQuery) { this.articles = [] return } this.articles = await this.$content(\u0026#39;posts\u0026#39;) \/\/ posts 是文章所在的文件夹的名称 .limit(10) .search(searchQuery) .fetch() } } } \u0026lt;\/script\u0026gt; ",
+"description" : "如题，我花了一个多小时，参照 nuxt 文档，把搜索功能给加上了，记录一下相关代码。\n",
 "inLanguage" : "en-US",
 "author" : "子舒",
 "creator" : "子舒",
@@ -39,16 +39,14 @@
 <meta property="og:title" content="增加了站内搜索功能" />
 <meta property="og:type" content="article" />
 <meta property="og:description" content="如题，我花了一个多小时，参照 nuxt 文档，把搜索功能给加上了，记录一下相关代码。
-可以选择放在 components/&lt;Search /&gt; 里面，然后引入到 head 模板，也可以单独创建一个页面，我选择的是后者。
-新建一个页面模板 /pages/search.vue 。
-&lt;template&gt; &lt;div&gt; &lt;HeaderMe /&gt; &lt;div class=&#34;wrapper&#34;&gt; &lt;PageSidebar /&gt; &lt;div class=&#34;archive&#34;&gt; &lt;h2&gt;{{ article.attributes.title }}&lt;/h2&gt; &lt;div class=&#34;article-content markdown-body&#34; v-html=&#34;article.html&#34;&gt;&lt;/div&gt; &lt;div class=&#34;search&#34;&gt; &lt;input v-model=&#34;searchQuery&#34; type=&#34;search&#34; autocomplete=&#34;off&#34; placeholder=&#34;文章关键词&#34; /&gt; &lt;ul v-if=&#34;articles.length&#34;&gt; &lt;li v-for=&#34;article of articles&#34; :key=&#34;article.slug&#34;&gt; &lt;NuxtLink :to=&#34;article.path&#43;&#39;/&#39;&#34;&gt;{{ article.title }}&lt;/NuxtLink&gt; &lt;!-- 在url地址后加一个/，配置全站的url格式，防止错乱 --&gt; &lt;/li&gt; &lt;/ul&gt; &lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;/template&gt; &lt;script&gt; import HeaderMe from &#34;@/components/HeaderMe&#34;; import PageSidebar from &#39;@/components/PageSidebar&#39;; export default { components: { HeaderMe, PageSidebar }, data () { return { searchQuery: &#39;&#39;, articles: [] } }, async asyncData () { // 调用 search.md 内的数据 const article = await import(`~/content/search.md`); return { article }; }, watch: { async searchQuery (searchQuery) { if (!searchQuery) { this.articles = [] return } this.articles = await this.$content(&#39;posts&#39;) // posts 是文章所在的文件夹的名称 .limit(10) .search(searchQuery) .fetch() } } } &lt;/script&gt; " />
+" />
 <meta name="description" content="如题，我花了一个多小时，参照 nuxt 文档，把搜索功能给加上了，记录一下相关代码。
-可以选择放在 components/&lt;Search /&gt; 里面，然后引入到 head 模板，也可以单独创建一个页面，我选择的是后者。
-新建一个页面模板 /pages/search.vue 。
-&lt;template&gt; &lt;div&gt; &lt;HeaderMe /&gt; &lt;div class=&#34;wrapper&#34;&gt; &lt;PageSidebar /&gt; &lt;div class=&#34;archive&#34;&gt; &lt;h2&gt;{{ article.attributes.title }}&lt;/h2&gt; &lt;div class=&#34;article-content markdown-body&#34; v-html=&#34;article.html&#34;&gt;&lt;/div&gt; &lt;div class=&#34;search&#34;&gt; &lt;input v-model=&#34;searchQuery&#34; type=&#34;search&#34; autocomplete=&#34;off&#34; placeholder=&#34;文章关键词&#34; /&gt; &lt;ul v-if=&#34;articles.length&#34;&gt; &lt;li v-for=&#34;article of articles&#34; :key=&#34;article.slug&#34;&gt; &lt;NuxtLink :to=&#34;article.path&#43;&#39;/&#39;&#34;&gt;{{ article.title }}&lt;/NuxtLink&gt; &lt;!-- 在url地址后加一个/，配置全站的url格式，防止错乱 --&gt; &lt;/li&gt; &lt;/ul&gt; &lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;/template&gt; &lt;script&gt; import HeaderMe from &#34;@/components/HeaderMe&#34;; import PageSidebar from &#39;@/components/PageSidebar&#39;; export default { components: { HeaderMe, PageSidebar }, data () { return { searchQuery: &#39;&#39;, articles: [] } }, async asyncData () { // 调用 search.md 内的数据 const article = await import(`~/content/search.md`); return { article }; }, watch: { async searchQuery (searchQuery) { if (!searchQuery) { this.articles = [] return } this.articles = await this.$content(&#39;posts&#39;) // posts 是文章所在的文件夹的名称 .limit(10) .search(searchQuery) .fetch() } } } &lt;/script&gt; " />
+" />
 <meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
 
-
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="/css/base.css">
 <link rel="stylesheet" href="/css/index.css">
 <link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
@@ -57,7 +55,6 @@
 <body>
   <nav class="headnav">
   <a href="/" class="logo">ZISHU.ME</a>
-  <p>无人扶我青云志，我自踏雪至山巅。一名 Web 前端开发工程师，热爱生活。</p>
   <ul id="menu">
     
     <li><a href="/tags/">标签</a></li>
@@ -73,44 +70,44 @@
     <li><a href="/index.xml" target="_blank">RSS</a></li>
   </ul>
 </nav>
-  <section id="body">
-    <div class="container">
-      <div class="body-title">增加了站内搜索功能</div>
+  <section>
+    
+    <div class="body-title">增加了站内搜索功能</div>
 
+    
+    <div class="post-meta">
+      <time> 2022-03-25</time>
       
-      <div class="post-meta">
-        <time> 2022-03-25</time>
-        
-        
-        <span class="namenode">分类：
-          <a href="/categories/%E6%8A%80%E6%9C%AF">技术</a>
-        </span>
-        
-        
-
-        <span class="tag-node">
-          
-          标签：
-          
-          <a href="/tags/%E5%8D%9A%E5%AE%A2">#博客</a>
-          
-          <a href="/tags/%E6%90%9C%E7%B4%A2">#搜索</a>
-          
-          
-        </span>
-
-      </div>
+      
+      <span class="namenode">分类：
+        <a href="/categories/%E6%8A%80%E6%9C%AF">技术</a>
+      </span>
+      
       
 
-      
-      <div class="toc">
-        <nav id="TableOfContents"></nav>
-      </div>
-      
-
-      <article class="post-content">
+      <span class="tag-node">
         
-        <p>如题，我花了一个多小时，参照 nuxt 文档，把搜索功能给加上了，记录一下相关代码。</p>
+        标签：
+        
+        <a href="/tags/%E5%8D%9A%E5%AE%A2">#博客</a>
+        
+        <a href="/tags/%E6%90%9C%E7%B4%A2">#搜索</a>
+        
+        
+      </span>
+
+    </div>
+    
+
+    
+    <div class="toc">
+      <nav id="TableOfContents"></nav>
+    </div>
+    
+
+    <article class="post-content">
+      
+      <p>如题，我花了一个多小时，参照 nuxt 文档，把搜索功能给加上了，记录一下相关代码。</p>
 <p>可以选择放在 <code>components/&lt;Search /&gt;</code> 里面，然后引入到 head 模板，也可以单独创建一个页面，我选择的是后者。</p>
 <p>新建一个页面模板 <code>/pages/search.vue</code> 。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">template</span><span class="o">&gt;</span>
@@ -235,10 +232,10 @@ css 代码
 </span></span><span class="line"><span class="cl">  <span class="err">}</span>
 </span></span><span class="line"><span class="cl"><span class="err">}</span>
 </span></span></code></pre></div></details>
-      </article>
+    </article>
 
-      
-      <div class="comments">
+    
+    <div class="comments">
   <div class="giscus"></div>
 </div>
 <script 
@@ -252,16 +249,17 @@ css 代码
   data-reactions-enabled="1" 
   data-emit-metadata="1" 
   data-input-position="top" 
-  data-theme="dark_dimmed"
+  data-theme="light_protanopia"
   data-lang="zh-CN" 
   data-loading="lazy" 
   crossorigin="anonymous" 
   async>
 </script>
 
-      
-    </div>
-    <footer class="footer">
+    
+    
+  </section>
+  <footer class="footer">
   <p>© 2020 - 2024 Powered by
     <a href="https://github.com/dlzmoe" target="_blank">Github</a>
     / <a href="/index.xml" target="_blank">RSS</a>
@@ -269,7 +267,6 @@ css 代码
 </footer>
 
 
-  </section>
 </body>
 
 </html>

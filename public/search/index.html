@@ -42,7 +42,9 @@
 <meta name="description" content="" />
 <meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
 
-
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="/css/base.css">
 <link rel="stylesheet" href="/css/index.css">
 <link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
@@ -51,7 +53,6 @@
 <body>
   <nav class="headnav">
   <a href="/" class="logo">ZISHU.ME</a>
-  <p>无人扶我青云志，我自踏雪至山巅。一名 Web 前端开发工程师，热爱生活。</p>
   <ul id="menu">
     
     <li><a href="/tags/">标签</a></li>
@@ -68,87 +69,88 @@
   </ul>
 </nav>
   <section id="body">
-    <div class="container">
-      <div class="body-title">Search</div>
 
-      <article class="post-content">
-        
-        
+    <div class="body-title">Search</div>
 
-        <form id="searchForm">
-          <input autocomplete="off" type="text" id="searchInput" placeholder="输入搜索内容..." required>
-          <button type="submit">搜索</button>
-        </form>
+    <article class="post-content">
+      
+      
 
-        <ul id="resultsList"></ul>
+      <form id="searchForm">
+        <input autocomplete="off" type="text" id="searchInput" placeholder="输入搜索内容..." required>
+        <button type="submit">搜索</button>
+      </form>
 
-      </article>
+      <ul id="resultsList"></ul>
 
-      <script>
-        let data = [];
+    </article>
 
-        
-        fetch('/index.json')
-          .then(response => response.json())
-          .then(json => {
-            data = json; 
-          })
-          .catch(error => console.error('Error loading data:', error));
+    <script>
+      let data = [];
 
-        document.getElementById('searchForm').addEventListener('submit', function (event) {
-          event.preventDefault();
-          const query = document.getElementById('searchInput').value.toLowerCase();
-          const resultsList = document.getElementById('resultsList');
+      
+      fetch('/index.json')
+        .then(response => response.json())
+        .then(json => {
+          data = json; 
+        })
+        .catch(error => console.error('Error loading data:', error));
 
-          resultsList.innerHTML = ''; 
+      document.getElementById('searchForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const query = document.getElementById('searchInput').value.toLowerCase();
+        const resultsList = document.getElementById('resultsList');
 
-          if (query) {
-            const results = data.filter(item =>
-              item.title.toLowerCase().includes(query) ||
-              item.summary.toLowerCase().includes(query)
-            );
+        resultsList.innerHTML = ''; 
 
-            if (results.length > 0) {
-              results.forEach(item => {
-                const listItem = document.createElement('li');
-                const truncatedSummary = getTruncatedSummary(item.summary, query);
-                listItem.innerHTML = `
+        if (query) {
+          const results = data.filter(item =>
+            item.title.toLowerCase().includes(query) ||
+            item.summary.toLowerCase().includes(query)
+          );
+
+          if (results.length > 0) {
+            results.forEach(item => {
+              const listItem = document.createElement('li');
+              const truncatedSummary = getTruncatedSummary(item.summary, query);
+              listItem.innerHTML = `
                     <a href="${item.permalink}">${highlightKeywords(item.title, query)}</a>
                     <p>${highlightKeywords(truncatedSummary, query)}</p>
                 `;
-                resultsList.appendChild(listItem);
-              });
-            } else {
-              resultsList.innerHTML = '<li>没有找到相关内容。</li>';
-            }
+              resultsList.appendChild(listItem);
+            });
+          } else {
+            resultsList.innerHTML = '<li>没有找到相关内容。</li>';
           }
-        });
+        }
+      });
 
-        function highlightKeywords(text, query) {
-          const regex = new RegExp(`(${query})`, 'gi');
-          return text.replace(regex, '<span class="keyword-highlight">$1</span>');
+      function highlightKeywords(text, query) {
+        const regex = new RegExp(`(${query})`, 'gi');
+        return text.replace(regex, '<span class="keyword-highlight">$1</span>');
+      }
+
+      function getTruncatedSummary(summary, query) {
+        const index = summary.toLowerCase().indexOf(query);
+        if (index === -1) return highlightKeywords(summary, query); 
+
+        const start = Math.max(0, index - 50);
+        const end = Math.min(summary.length, index + query.length + 50);
+        const truncated = summary.substring(start, end);
+
+        
+        if (start > 0) {
+          return '...' + highlightKeywords(truncated, query); 
+        } else if (end < summary.length) {
+          return highlightKeywords(truncated, query) + '...'; 
         }
 
-        function getTruncatedSummary(summary, query) {
-          const index = summary.toLowerCase().indexOf(query);
-          if (index === -1) return highlightKeywords(summary, query); 
+        return highlightKeywords(truncated, query); 
+      }
+    </script>
 
-          const start = Math.max(0, index - 50);
-          const end = Math.min(summary.length, index + query.length + 50);
-          const truncated = summary.substring(start, end);
-
-          
-          if (start > 0) {
-            return '...' + highlightKeywords(truncated, query); 
-          } else if (end < summary.length) {
-            return highlightKeywords(truncated, query) + '...'; 
-          }
-
-          return highlightKeywords(truncated, query); 
-        }
-      </script>
-    </div>
-    <footer class="footer">
+  </section>
+  <footer class="footer">
   <p>© 2020 - 2024 Powered by
     <a href="https://github.com/dlzmoe" target="_blank">Github</a>
     / <a href="/index.xml" target="_blank">RSS</a>
@@ -156,7 +158,6 @@
 </footer>
 
 
-  </section>
 </body>
 
 </html>
