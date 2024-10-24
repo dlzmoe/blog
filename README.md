@@ -1,5 +1,5 @@
 <h2 align="center"> 子舒的博客 </h2>
-<p align="center"> 分享生活和笔记！</p>
+<p align="center"> 一个热爱生活的前端开发工程师。</p>
 
 [在线访问](https://zishu.me)
 
