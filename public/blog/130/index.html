@@ -1,200 +1,793 @@
-<!doctype html>
-<html lang="en">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-    <title>宝塔自动备份网站到邮箱教程 // 子舒的博客</title>
-    <link rel="shortcut icon" href="/favicon.ico" />
-    <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.134.1">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="author" content="子舒" />
-    <meta name="description" content="" />
-    <link rel="stylesheet" href="/css/main.min.5b1fcc8902588589c4767187402a3c29f8b8d7a6fdef6d9f8f77045bb0d14fee.css" />
-    
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="前言 网站经常备份好处就是遇到问题以后可以迅速的恢复，不那么被动，防止信息丢失，操作性很大。虽然搭建一个网站非常容易，但为了应对网络上各种各样的意外情况，避免自己的网站付诸东流，做好网站备份是非常有必要的。\n现在邮箱接收都支持附件文件，将网站文件和数据库文件备份到我们自己的邮箱也是一种很好地备份方式，也防止备份文件丢失。\n邮箱接收附件文件大小，取决于使用的邮箱服务。一般来说个人博客网站源文件，数据库文件不大，常见邮箱服务都是可以使用的。\n下面开始教程，宝塔安装教程可去宝塔官网查看安装教程。\n系统环境：CentOS 7.9.2009 x86_64（其他系统可参考方式，命令安装自行解决）\n宝塔面板：7.9.0\n安装 mailx 浏览器登录进入宝塔面板，左侧-》终端。首次使用宝塔终端，需要登录服务器，填写 root 用户密码后登录。\n在终端中输入以下 mailx 安装命令，回车安装。\n1 yum install -y mailx 编辑配置文件 安装完成后，编辑邮箱服务的相关配置文件。 在终端输入以下命令，然后回车进入编辑文件界面。\n1 vim /etc/mail.rc 使用键盘上下键，找到大约 69 行位置，按‘i’键输入，添加以下配置。\n1 2 3 4 5 6 7 set from=发件人@qq.com #发送邮件后显示的邮件发送方 需要修改 set smtp=smtps://smtp.qq.com:465 #SMTP服务器的网址及端口 需要修改 set smtp-auth-user=发件人@qq.com #发送邮箱 需要修改 set smtp-auth-password=邮箱密码/SMTP授权码 #设置的邮箱密码，SMTP授权密码 需要修改 set smtp-auth=login #动作、登录 无需修改 set ssl-verify=ignore #ssl验证忽略 无需修改 set nss-config-dir=/etc/pki/nssdb #证书存放目录 无需修改 请将配置按要求修改为自己所使用的邮箱服务配置。服务器需要开启 465 端口。\n配置修改完成后，按 Esc 键，输入:wq回车保存退出编辑界面。\n">
+<title>宝塔自动备份网站到邮箱教程</title>
 
-    
-    
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="宝塔自动备份网站到邮箱教程">
-  <meta name="twitter:description" content="前言 网站经常备份好处就是遇到问题以后可以迅速的恢复，不那么被动，防止信息丢失，操作性很大。虽然搭建一个网站非常容易，但为了应对网络上各种各样的意外情况，避免自己的网站付诸东流，做好网站备份是非常有必要的。
-现在邮箱接收都支持附件文件，将网站文件和数据库文件备份到我们自己的邮箱也是一种很好地备份方式，也防止备份文件丢失。
-邮箱接收附件文件大小，取决于使用的邮箱服务。一般来说个人博客网站源文件，数据库文件不大，常见邮箱服务都是可以使用的。
-下面开始教程，宝塔安装教程可去宝塔官网查看安装教程。
-系统环境：CentOS 7.9.2009 x86_64（其他系统可参考方式，命令安装自行解决）
-宝塔面板：7.9.0
-安装 mailx 浏览器登录进入宝塔面板，左侧-》终端。首次使用宝塔终端，需要登录服务器，填写 root 用户密码后登录。
-在终端中输入以下 mailx 安装命令，回车安装。
-yum install -y mailx 编辑配置文件 安装完成后，编辑邮箱服务的相关配置文件。 在终端输入以下命令，然后回车进入编辑文件界面。
-vim /etc/mail.rc 使用键盘上下键，找到大约 69 行位置，按‘i’键输入，添加以下配置。
-set from=发件人@qq.com #发送邮件后显示的邮件发送方 需要修改 set smtp=smtps://smtp.qq.com:465 #SMTP服务器的网址及端口 需要修改 set smtp-auth-user=发件人@qq.com #发送邮箱 需要修改 set smtp-auth-password=邮箱密码/SMTP授权码 #设置的邮箱密码，SMTP授权密码 需要修改 set smtp-auth=login #动作、登录 无需修改 set ssl-verify=ignore #ssl验证忽略 无需修改 set nss-config-dir=/etc/pki/nssdb #证书存放目录 无需修改 ">
+<link rel='canonical' href='http://localhost:1313/blog/130/'>
 
-    <meta property="og:url" content="http://localhost:1313/blog/130/">
-  <meta property="og:site_name" content="子舒的博客">
-  <meta property="og:title" content="宝塔自动备份网站到邮箱教程">
-  <meta property="og:description" content="前言 网站经常备份好处就是遇到问题以后可以迅速的恢复，不那么被动，防止信息丢失，操作性很大。虽然搭建一个网站非常容易，但为了应对网络上各种各样的意外情况，避免自己的网站付诸东流，做好网站备份是非常有必要的。
-现在邮箱接收都支持附件文件，将网站文件和数据库文件备份到我们自己的邮箱也是一种很好地备份方式，也防止备份文件丢失。
-邮箱接收附件文件大小，取决于使用的邮箱服务。一般来说个人博客网站源文件，数据库文件不大，常见邮箱服务都是可以使用的。
-下面开始教程，宝塔安装教程可去宝塔官网查看安装教程。
-系统环境：CentOS 7.9.2009 x86_64（其他系统可参考方式，命令安装自行解决）
-宝塔面板：7.9.0
-安装 mailx 浏览器登录进入宝塔面板，左侧-》终端。首次使用宝塔终端，需要登录服务器，填写 root 用户密码后登录。
-在终端中输入以下 mailx 安装命令，回车安装。
-yum install -y mailx 编辑配置文件 安装完成后，编辑邮箱服务的相关配置文件。 在终端输入以下命令，然后回车进入编辑文件界面。
-vim /etc/mail.rc 使用键盘上下键，找到大约 69 行位置，按‘i’键输入，添加以下配置。
-set from=发件人@qq.com #发送邮件后显示的邮件发送方 需要修改 set smtp=smtps://smtp.qq.com:465 #SMTP服务器的网址及端口 需要修改 set smtp-auth-user=发件人@qq.com #发送邮箱 需要修改 set smtp-auth-password=邮箱密码/SMTP授权码 #设置的邮箱密码，SMTP授权密码 需要修改 set smtp-auth=login #动作、登录 无需修改 set ssl-verify=ignore #ssl验证忽略 无需修改 set nss-config-dir=/etc/pki/nssdb #证书存放目录 无需修改 ">
-  <meta property="og:locale" content="en">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="blog">
-    <meta property="article:published_time" content="2022-05-25T00:00:00+00:00">
-    <meta property="article:modified_time" content="2022-05-25T00:00:00+00:00">
-    <meta property="article:tag" content="宝塔">
-    <meta property="article:tag" content="备份">
-    <meta property="article:tag" content="邮箱">
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="宝塔自动备份网站到邮箱教程">
+<meta property='og:description' content="前言 网站经常备份好处就是遇到问题以后可以迅速的恢复，不那么被动，防止信息丢失，操作性很大。虽然搭建一个网站非常容易，但为了应对网络上各种各样的意外情况，避免自己的网站付诸东流，做好网站备份是非常有必要的。\n现在邮箱接收都支持附件文件，将网站文件和数据库文件备份到我们自己的邮箱也是一种很好地备份方式，也防止备份文件丢失。\n邮箱接收附件文件大小，取决于使用的邮箱服务。一般来说个人博客网站源文件，数据库文件不大，常见邮箱服务都是可以使用的。\n下面开始教程，宝塔安装教程可去宝塔官网查看安装教程。\n系统环境：CentOS 7.9.2009 x86_64（其他系统可参考方式，命令安装自行解决）\n宝塔面板：7.9.0\n安装 mailx 浏览器登录进入宝塔面板，左侧-》终端。首次使用宝塔终端，需要登录服务器，填写 root 用户密码后登录。\n在终端中输入以下 mailx 安装命令，回车安装。\n1 yum install -y mailx 编辑配置文件 安装完成后，编辑邮箱服务的相关配置文件。 在终端输入以下命令，然后回车进入编辑文件界面。\n1 vim /etc/mail.rc 使用键盘上下键，找到大约 69 行位置，按‘i’键输入，添加以下配置。\n1 2 3 4 5 6 7 set from=发件人@qq.com #发送邮件后显示的邮件发送方 需要修改 set smtp=smtps://smtp.qq.com:465 #SMTP服务器的网址及端口 需要修改 set smtp-auth-user=发件人@qq.com #发送邮箱 需要修改 set smtp-auth-password=邮箱密码/SMTP授权码 #设置的邮箱密码，SMTP授权密码 需要修改 set smtp-auth=login #动作、登录 无需修改 set ssl-verify=ignore #ssl验证忽略 无需修改 set nss-config-dir=/etc/pki/nssdb #证书存放目录 无需修改 请将配置按要求修改为自己所使用的邮箱服务配置。服务器需要开启 465 端口。\n配置修改完成后，按 Esc 键，输入:wq回车保存退出编辑界面。\n">
+<meta property='og:url' content='http://localhost:1313/blog/130/'>
+<meta property='og:site_name' content='Example Site'>
+<meta property='og:type' content='article'><meta property='article:section' content='Blog' /><meta property='article:tag' content='宝塔' /><meta property='article:tag' content='备份' /><meta property='article:tag' content='邮箱' /><meta property='article:published_time' content='2022-05-25T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-05-25T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="宝塔自动备份网站到邮箱教程">
+<meta name="twitter:description" content="前言 网站经常备份好处就是遇到问题以后可以迅速的恢复，不那么被动，防止信息丢失，操作性很大。虽然搭建一个网站非常容易，但为了应对网络上各种各样的意外情况，避免自己的网站付诸东流，做好网站备份是非常有必要的。\n现在邮箱接收都支持附件文件，将网站文件和数据库文件备份到我们自己的邮箱也是一种很好地备份方式，也防止备份文件丢失。\n邮箱接收附件文件大小，取决于使用的邮箱服务。一般来说个人博客网站源文件，数据库文件不大，常见邮箱服务都是可以使用的。\n下面开始教程，宝塔安装教程可去宝塔官网查看安装教程。\n系统环境：CentOS 7.9.2009 x86_64（其他系统可参考方式，命令安装自行解决）\n宝塔面板：7.9.0\n安装 mailx 浏览器登录进入宝塔面板，左侧-》终端。首次使用宝塔终端，需要登录服务器，填写 root 用户密码后登录。\n在终端中输入以下 mailx 安装命令，回车安装。\n1 yum install -y mailx 编辑配置文件 安装完成后，编辑邮箱服务的相关配置文件。 在终端输入以下命令，然后回车进入编辑文件界面。\n1 vim /etc/mail.rc 使用键盘上下键，找到大约 69 行位置，按‘i’键输入，添加以下配置。\n1 2 3 4 5 6 7 set from=发件人@qq.com #发送邮件后显示的邮件发送方 需要修改 set smtp=smtps://smtp.qq.com:465 #SMTP服务器的网址及端口 需要修改 set smtp-auth-user=发件人@qq.com #发送邮箱 需要修改 set smtp-auth-password=邮箱密码/SMTP授权码 #设置的邮箱密码，SMTP授权密码 需要修改 set smtp-auth=login #动作、登录 无需修改 set ssl-verify=ignore #ssl验证忽略 无需修改 set nss-config-dir=/etc/pki/nssdb #证书存放目录 无需修改 请将配置按要求修改为自己所使用的邮箱服务配置。服务器需要开启 465 端口。\n配置修改完成后，按 Esc 键，输入:wq回车保存退出编辑界面。\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
 
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
 
-  </head>
-  <body>
-    <header class="app-header">
-      <a href="http://localhost:1313/"><img class="app-header-avatar" src="https://imgurl.zishu.me/author.webp" alt="子舒" /></a>
-      <span class="app-header-title">zishu.me</span>
-      <nav class="app-header-menu">
-          <a class="app-header-menu-item" href="/">Home</a>
-             - 
-          
-          <a class="app-header-menu-item" href="/message/">Message</a>
-             - 
-          
-          <a class="app-header-menu-item" href="/about/">About</a>
-      </nav>
-      <p>无人扶我青云志，我自踏雪至山巅。一名 Web 前端开发工程师，热爱生活。</p>
-      <div class="app-header-social">
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
         
-          <a href="https://github.com/dlzmoe" target="_blank" rel="noreferrer noopener me">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
-  <title>Github</title>
-  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu13739649187745961479.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🍥</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Example Site</a></h1>
+            <h2 class="site-description">一个热爱生活的前端开发工程师。</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/CaiJimmy/hugo-theme-stack'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
 </svg>
-          </a>
-        
-          <a href="https://twitter.com/dlzmoe" target="_blank" rel="noreferrer noopener me">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
-  <title>Twitter</title>
-  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
 </svg>
-          </a>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
         
-      </div>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li>
+      <ol>
+        <li><a href="#前言">前言</a></li>
+        <li><a href="#安装-mailx">安装 mailx</a></li>
+        <li><a href="#编辑配置文件">编辑配置文件</a></li>
+        <li><a href="#测试发送邮件">测试发送邮件</a></li>
+        <li><a href="#宝塔定时任务">宝塔定时任务</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E6%8A%80%E6%9C%AF/" >
+                技术
+            </a>
+        
     </header>
-    <main class="app-container">
-      
-  <article class="post">
-    <header class="post-header">
-      <h1 class ="post-title">宝塔自动备份网站到邮箱教程</h1>
-      <div class="post-meta">
-        <div>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
-  <title>calendar</title>
-  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/blog/130/">宝塔自动备份网站到邮箱教程</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
 </svg>
-          May 25, 2022
-        </div>
-        <div>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
-  <title>clock</title>
-  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+                <time class="article-time--published">May 25, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
 </svg>
-          1 min read
-        </div>
-        <div>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
-  <title>tag</title>
-  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line>
-</svg>
-              <a class="tag" href="http://localhost:1313/tags/%E5%AE%9D%E5%A1%94/">宝塔</a>
-              <a class="tag" href="http://localhost:1313/tags/%E5%A4%87%E4%BB%BD/">备份</a>
-              <a class="tag" href="http://localhost:1313/tags/%E9%82%AE%E7%AE%B1/">邮箱</a>
-        </div>
-      </div>
-    </header>
-    <div class="post-content">
-      <h3 id="前言">前言</h3>
-<p>网站经常备份好处就是遇到问题以后可以迅速的恢复，不那么被动，防止信息丢失，操作性很大。虽然搭建一个网站非常容易，但为了应对网络上各种各样的意外情况，避免自己的网站付诸东流，做好网站备份是非常有必要的。</p>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h3 id="前言">前言
+</h3><p>网站经常备份好处就是遇到问题以后可以迅速的恢复，不那么被动，防止信息丢失，操作性很大。虽然搭建一个网站非常容易，但为了应对网络上各种各样的意外情况，避免自己的网站付诸东流，做好网站备份是非常有必要的。</p>
 <p>现在邮箱接收都支持附件文件，将网站文件和数据库文件备份到我们自己的邮箱也是一种很好地备份方式，也防止备份文件丢失。</p>
 <p>邮箱接收附件文件大小，取决于使用的邮箱服务。一般来说个人博客网站源文件，数据库文件不大，常见邮箱服务都是可以使用的。</p>
-<p>下面开始教程，宝塔安装教程可去<a href="https://bt.cn/new/product.html">宝塔官网</a>查看安装教程。</p>
+<p>下面开始教程，宝塔安装教程可去<a class="link" href="https://bt.cn/new/product.html"  target="_blank" rel="noopener"
+    >宝塔官网</a>查看安装教程。</p>
 <p>系统环境：CentOS 7.9.2009 x86_64（其他系统可参考方式，命令安装自行解决）</p>
 <p>宝塔面板：7.9.0</p>
-<h3 id="安装-mailx">安装 mailx</h3>
-<p>浏览器登录进入宝塔面板，左侧-》<strong>终端</strong>。首次使用宝塔终端，需要登录服务器，填写 root 用户密码后登录。</p>
-<p><img src="https://img.emoao.com/post-img/2022-05-13/53c6eca1cfb4eef40e63c916a59fa44b.webp" alt="13-1.webp"></p>
+<h3 id="安装-mailx">安装 mailx
+</h3><p>浏览器登录进入宝塔面板，左侧-》<strong>终端</strong>。首次使用宝塔终端，需要登录服务器，填写 root 用户密码后登录。</p>
+<p><img src="https://img.emoao.com/post-img/2022-05-13/53c6eca1cfb4eef40e63c916a59fa44b.webp"
+	
+	
+	
+	loading="lazy"
+	
+		alt="13-1.webp"
+	
+	
+></p>
 <p>在终端中输入以下 mailx 安装命令，回车安装。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>yum install -y mailx
-</span></span></code></pre></div><p><img src="https://img.emoao.com/post-img/2022-05-13/30bec003dc2046e71c18494c305b21cc.webp" alt="13-2.webp"></p>
-<h3 id="编辑配置文件">编辑配置文件</h3>
-<p>安装完成后，编辑邮箱服务的相关配置文件。
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">yum install -y mailx
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="https://img.emoao.com/post-img/2022-05-13/30bec003dc2046e71c18494c305b21cc.webp"
+	
+	
+	
+	loading="lazy"
+	
+		alt="13-2.webp"
+	
+	
+></p>
+<h3 id="编辑配置文件">编辑配置文件
+</h3><p>安装完成后，编辑邮箱服务的相关配置文件。
 在终端输入以下命令，然后回车进入编辑文件界面。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>vim /etc/mail.rc
-</span></span></code></pre></div><p><img src="https://img.emoao.com/post-img/2022-05-13/56989b03520d4abd7823fe5283d2b519.webp" alt="13-3.webp"></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vim /etc/mail.rc
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="https://img.emoao.com/post-img/2022-05-13/56989b03520d4abd7823fe5283d2b519.webp"
+	
+	
+	
+	loading="lazy"
+	
+		alt="13-3.webp"
+	
+	
+></p>
 <p>使用键盘上下键，找到大约 69 行位置，按‘i’键输入，添加以下配置。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>set from<span style="color:#f92672">=</span>发件人@qq.com <span style="color:#75715e">#发送邮件后显示的邮件发送方 需要修改</span>
-</span></span><span style="display:flex;"><span>set smtp<span style="color:#f92672">=</span>smtps://smtp.qq.com:465 <span style="color:#75715e">#SMTP服务器的网址及端口 需要修改</span>
-</span></span><span style="display:flex;"><span>set smtp-auth-user<span style="color:#f92672">=</span>发件人@qq.com <span style="color:#75715e">#发送邮箱 需要修改</span>
-</span></span><span style="display:flex;"><span>set smtp-auth-password<span style="color:#f92672">=</span>邮箱密码/SMTP授权码 <span style="color:#75715e">#设置的邮箱密码，SMTP授权密码 需要修改</span>
-</span></span><span style="display:flex;"><span>set smtp-auth<span style="color:#f92672">=</span>login <span style="color:#75715e">#动作、登录 无需修改</span>
-</span></span><span style="display:flex;"><span>set ssl-verify<span style="color:#f92672">=</span>ignore <span style="color:#75715e">#ssl验证忽略 无需修改</span>
-</span></span><span style="display:flex;"><span>set nss-config-dir<span style="color:#f92672">=</span>/etc/pki/nssdb <span style="color:#75715e">#证书存放目录 无需修改</span>
-</span></span></code></pre></div><p><strong>请将配置按要求修改为自己所使用的邮箱服务配置。服务器需要开启 465 端口。</strong></p>
-<p><img src="https://img.emoao.com/post-img/2022-05-13/e7c11a400bb3d30c2a81293f732d84fe.webp" alt="13-4.webp"></p>
-<p><img src="https://img.emoao.com/post-img/2022-05-13/acde4506e7a574d1baf6588f7f5b178d.webp" alt="13-5.webp"></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">set</span> <span class="nv">from</span><span class="o">=</span>发件人@qq.com <span class="c1">#发送邮件后显示的邮件发送方 需要修改</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="nv">smtp</span><span class="o">=</span>smtps://smtp.qq.com:465 <span class="c1">#SMTP服务器的网址及端口 需要修改</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> smtp-auth-user<span class="o">=</span>发件人@qq.com <span class="c1">#发送邮箱 需要修改</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> smtp-auth-password<span class="o">=</span>邮箱密码/SMTP授权码 <span class="c1">#设置的邮箱密码，SMTP授权密码 需要修改</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> smtp-auth<span class="o">=</span>login <span class="c1">#动作、登录 无需修改</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> ssl-verify<span class="o">=</span>ignore <span class="c1">#ssl验证忽略 无需修改</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> nss-config-dir<span class="o">=</span>/etc/pki/nssdb <span class="c1">#证书存放目录 无需修改</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>请将配置按要求修改为自己所使用的邮箱服务配置。服务器需要开启 465 端口。</strong></p>
+<p><img src="https://img.emoao.com/post-img/2022-05-13/e7c11a400bb3d30c2a81293f732d84fe.webp"
+	
+	
+	
+	loading="lazy"
+	
+		alt="13-4.webp"
+	
+	
+></p>
+<p><img src="https://img.emoao.com/post-img/2022-05-13/acde4506e7a574d1baf6588f7f5b178d.webp"
+	
+	
+	
+	loading="lazy"
+	
+		alt="13-5.webp"
+	
+	
+></p>
 <p>配置修改完成后，按 Esc 键，输入<code>:wq</code>回车保存退出编辑界面。</p>
-<h3 id="测试发送邮件">测试发送邮件</h3>
-<p>在终端输入发送测试邮件命令，需要修改收件人邮箱，回车执行。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;这是一封测试邮件&#34;</span> | mail -s <span style="color:#e6db74">&#34;邮件主题&#34;</span> 收件人@qq.com
-</span></span></code></pre></div><p><img src="https://img.emoao.com/post-img/2022-05-13/e5192c7240feebf85e2f8dc5e4858e5e.webp" alt="13-6.webp"></p>
+<h3 id="测试发送邮件">测试发送邮件
+</h3><p>在终端输入发送测试邮件命令，需要修改收件人邮箱，回车执行。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;这是一封测试邮件&#34;</span> <span class="p">|</span> mail -s <span class="s2">&#34;邮件主题&#34;</span> 收件人@qq.com
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="https://img.emoao.com/post-img/2022-05-13/e5192c7240feebf85e2f8dc5e4858e5e.webp"
+	
+	
+	
+	loading="lazy"
+	
+		alt="13-6.webp"
+	
+	
+></p>
 <p>查看邮箱是否收到测试邮件。</p>
-<p><img src="https://img.emoao.com/post-img/2022-05-13/47dcafa9c8b6307406aec0f12712872b.webp" alt="13-7.webp"></p>
+<p><img src="https://img.emoao.com/post-img/2022-05-13/47dcafa9c8b6307406aec0f12712872b.webp"
+	
+	
+	
+	loading="lazy"
+	
+		alt="13-7.webp"
+	
+	
+></p>
 <p>如果发现终端报以下错误（但没有影响收件），没有错误请跳过。</p>
 <p><code>Error in certificate: Peer's certificate issuer has been marked as not trusted by the.</code></p>
-<p><img src="https://img.emoao.com/post-img/2022-05-13/8db1d9c84d292df3841c535ef8ad724b.webp" alt="13-8.webp"></p>
+<p><img src="https://img.emoao.com/post-img/2022-05-13/8db1d9c84d292df3841c535ef8ad724b.webp"
+	
+	
+	
+	loading="lazy"
+	
+		alt="13-8.webp"
+	
+	
+></p>
 <p><code>Ctrl+C</code>结束命令后，修改邮箱服务配置文件，将<code>set ssl-verify=ignore</code>修改为<code>set ssl-verify=strict</code>后保存退出（编辑方法同上）。</p>
-<p><img src="https://img.emoao.com/post-img/2022-05-13/c12d5ffecf4e6e48061bdc495d7570ff.webp" alt="13-9.webp"></p>
+<p><img src="https://img.emoao.com/post-img/2022-05-13/c12d5ffecf4e6e48061bdc495d7570ff.webp"
+	
+	
+	
+	loading="lazy"
+	
+		alt="13-9.webp"
+	
+	
+></p>
 <p>修改完成后在终端输入以下命令。</p>
 <p>获取邮件服务器证书</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo   -n <span style="color:#e6db74">&#34; &#34;</span> |  openssl s_client -connect smtp.qq.com:465 | sed -ne  <span style="color:#e6db74">&#39;/-BEGIN CERTIFICATE-/,/-END CERTIFIICATE-/p&#39;</span>  &gt;  /etc/pki/nssdb/qq.crt
-</span></span></code></pre></div><p>把证书添加到受信任表</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>certutil    -A    -n   <span style="color:#e6db74">&#39;yeah&#39;</span>    -t    <span style="color:#e6db74">&#34;P,P,P&#34;</span>    -d    /etc/pki/nssdb    -i    /etc/pki/nssdb/qq.crt
-</span></span></code></pre></div><p><strong>注：如果是 163 或者其他邮箱服务器请将<code>smtp.qq.com</code>改为<code>smtp.163.com</code>，<code>qq.crt</code>改为<code>163.crt</code> 以此类推。</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span>   -n <span class="s2">&#34; &#34;</span> <span class="p">|</span>  openssl s_client -connect smtp.qq.com:465 <span class="p">|</span> sed -ne  <span class="s1">&#39;/-BEGIN CERTIFICATE-/,/-END CERTIFIICATE-/p&#39;</span>  &gt;  /etc/pki/nssdb/qq.crt
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>把证书添加到受信任表</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">certutil    -A    -n   <span class="s1">&#39;yeah&#39;</span>    -t    <span class="s2">&#34;P,P,P&#34;</span>    -d    /etc/pki/nssdb    -i    /etc/pki/nssdb/qq.crt
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>注：如果是 163 或者其他邮箱服务器请将<code>smtp.qq.com</code>改为<code>smtp.163.com</code>，<code>qq.crt</code>改为<code>163.crt</code> 以此类推。</strong></p>
 <p>命令执行完成后，重新执行发送测试邮件命令，不在报错。</p>
-<p><img src="https://img.emoao.com/post-img/2022-05-13/3252062ac53690690f832dd73d0863aa.webp" alt="13-10.webp"></p>
-<h3 id="宝塔定时任务">宝塔定时任务</h3>
-<p>左侧-》<strong>计划任务</strong></p>
+<p><img src="https://img.emoao.com/post-img/2022-05-13/3252062ac53690690f832dd73d0863aa.webp"
+	
+	
+	
+	loading="lazy"
+	
+		alt="13-10.webp"
+	
+	
+></p>
+<h3 id="宝塔定时任务">宝塔定时任务
+</h3><p>左侧-》<strong>计划任务</strong></p>
 <p>首先按自己需求（计划任务执行时间，保留文件数量等）添加网站和数据库源文件备份任务。</p>
-<p><img src="https://img.emoao.com/post-img/2022-05-13/4968cb73cd43ee6ece060bb011feef8d.webp" alt="13-11.webp"></p>
+<p><img src="https://img.emoao.com/post-img/2022-05-13/4968cb73cd43ee6ece060bb011feef8d.webp"
+	
+	
+	
+	loading="lazy"
+	
+		alt="13-11.webp"
+	
+	
+></p>
 <p><strong>然后添加</strong><code>shell</code>脚本任务，在脚本内容中添加以下脚本命令，修改收件人为自己的邮箱。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>cd /www/backup/site
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> file in <span style="color:#66d9ef">$(</span>ls *<span style="color:#66d9ef">)</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">do</span>
-</span></span><span style="display:flex;"><span>  str<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>str<span style="color:#e6db74">}</span><span style="color:#e6db74"> -a </span><span style="color:#e6db74">${</span>file<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">done</span>
-</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;主人，今天的网站备份又到了哦，请注意查收！&#34;</span> | mail -s <span style="color:#e6db74">&#34;网站备份&#34;</span> $str 2502393029@qq.com
-</span></span></code></pre></div><p><img src="https://img.emoao.com/post-img/2022-05-13/89e2ce5cfc848ae5688021f650415776.webp" alt="13-12.webp"></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nb">cd</span> /www/backup/site
+</span></span><span class="line"><span class="cl"><span class="k">for</span> file in <span class="k">$(</span>ls *<span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">do</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">str</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">str</span><span class="si">}</span><span class="s2"> -a </span><span class="si">${</span><span class="nv">file</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">done</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;主人，今天的网站备份又到了哦，请注意查收！&#34;</span> <span class="p">|</span> mail -s <span class="s2">&#34;网站备份&#34;</span> <span class="nv">$str</span> 2502393029@qq.com
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="https://img.emoao.com/post-img/2022-05-13/89e2ce5cfc848ae5688021f650415776.webp"
+	
+	
+	
+	loading="lazy"
+	
+		alt="13-12.webp"
+	
+	
+></p>
 <p>执行时间可按需求，晚于网站，数据库备份任务执行时间。</p>
 <p>数据库备份和网站备份一样需要再添加一次计划任务，将<code>cd /www/backup/site </code>修改为<code>cd /www/backup/database</code>数据库备份文件所在目录即可，参考改一下邮件主题，和内容信息。</p>
 <p>计划任务添加完成后，可先执行网站，数据库源文件备份任务，再执行网站，数据库邮箱<code>shell</code>脚本备份任务，然后前往邮箱查看文件是否收到，文件过大，邮件会有延迟。</p>
-<p><img src="https://img.emoao.com/post-img/2022-05-13/deb9c05584f5bc00013188daa3e758b0.webp" alt="13-13.webp"></p>
-<p><img src="https://img.emoao.com/post-img/2022-05-13/1564dc76c2f6b94299a153d25d9d15d9.webp" alt="13-14.webp"></p>
+<p><img src="https://img.emoao.com/post-img/2022-05-13/deb9c05584f5bc00013188daa3e758b0.webp"
+	
+	
+	
+	loading="lazy"
+	
+		alt="13-13.webp"
+	
+	
+></p>
+<p><img src="https://img.emoao.com/post-img/2022-05-13/1564dc76c2f6b94299a153d25d9d15d9.webp"
+	
+	
+	
+	loading="lazy"
+	
+		alt="13-14.webp"
+	
+	
+></p>
 <p><strong>注：如果有报错或收不到邮件情况，请仔细检查命令，配置文件是否有误，或者查看脚本执行日志进行排查。</strong></p>
 <blockquote>
 <p>转载自梦繁星博客：https://blog.emoao.com/13.html</p>
 </blockquote>
 <p>如果问题请在评论区留言。</p>
 
-    </div>
-    <div class="post-footer">
-      
-    </div>
-  </article>
+</section>
 
-    </main>
-  </body>
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E5%AE%9D%E5%A1%94/">宝塔</a>
+        
+            <a href="/tags/%E5%A4%87%E4%BB%BD/">备份</a>
+        
+            <a href="/tags/%E9%82%AE%E7%AE%B1/">邮箱</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/blog/152/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">出错了，面板运行时发生错误！</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/blog/116/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">在宝塔中使用青龙面板代挂京豆</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/blog/70/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">宝塔如何实现进程守护？</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/blog/239/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Python &#43; GPT 自动翻译 README 文档</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/blog/237/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">记录 vite 中引入 tailwindcss</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2024 Example Person
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.f3c625e8bc5ed08f30cda9df39d47a457bf3121a2aebe7e3d04c7e727d278926.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
 </html>

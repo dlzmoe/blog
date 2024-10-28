@@ -1,189 +1,667 @@
-<!doctype html>
-<html lang="en">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-    <title>在 vue 中使用 axios 调用数据 // 子舒的博客</title>
-    <link rel="shortcut icon" href="/favicon.ico" />
-    <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.134.1">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="author" content="子舒" />
-    <meta name="description" content="" />
-    <link rel="stylesheet" href="/css/main.min.5b1fcc8902588589c4767187402a3c29f8b8d7a6fdef6d9f8f77045bb0d14fee.css" />
-    
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="如何在 vue 中完成一次接口的调用？首选就是 axios，方便快捷又好用，支持各种 api ,封装也很方便。\n先用 node 安装一下。\n1 npm install axios 然后在 main.js 文件中引入。\n1 2 3 4 import axios from &#39;axios&#39; import VueAxios from &#39;vue-axios&#39; Vue.use(VueAxios, axios) 以我的一个工程目录作为实例，看一下代码。\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 // ListThere.vue // html 代码 ... &lt;div&gt;{{ info }}&lt;/div&gt; ... // js 代码 import axios from &#34;axios&#34;; export default { name: &#34;ListThere&#34;, data() { return { ... }; }, components: { ... }, methods: { ... }, mounted() { axios .get(&#34;http://api.h-camel.com/api?mod=interview&amp;ctr=issues&amp;act=today&#34;) .then((response) =&gt; (this.info = response)) }, }; 数据成功的被取到，然后需要将它在页面中展示出来。使用 vue 自带的 v-for 列表渲染。\n">
+<title>在 vue 中使用 axios 调用数据</title>
 
-    
-    
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="在 vue 中使用 axios 调用数据">
-  <meta name="twitter:description" content="如何在 vue 中完成一次接口的调用？首选就是 axios，方便快捷又好用，支持各种 api ,封装也很方便。
-先用 node 安装一下。
-npm install axios 然后在 main.js 文件中引入。
-import axios from &#39;axios&#39; import VueAxios from &#39;vue-axios&#39; Vue.use(VueAxios, axios) 以我的一个工程目录作为实例，看一下代码。
-// ListThere.vue // html 代码 ... &lt;div&gt;{{ info }}&lt;/div&gt; ... // js 代码 import axios from &#34;axios&#34;; export default { name: &#34;ListThere&#34;, data() { return { ... }; }, components: { ... }, methods: { ... }, mounted() { axios .get(&#34;http://api.h-camel.com/api?mod=interview&amp;ctr=issues&amp;act=today&#34;) .then((response) =&gt; (this.info = response)) }, }; ">
+<link rel='canonical' href='http://localhost:1313/blog/71/'>
 
-    <meta property="og:url" content="http://localhost:1313/blog/71/">
-  <meta property="og:site_name" content="子舒的博客">
-  <meta property="og:title" content="在 vue 中使用 axios 调用数据">
-  <meta property="og:description" content="如何在 vue 中完成一次接口的调用？首选就是 axios，方便快捷又好用，支持各种 api ,封装也很方便。
-先用 node 安装一下。
-npm install axios 然后在 main.js 文件中引入。
-import axios from &#39;axios&#39; import VueAxios from &#39;vue-axios&#39; Vue.use(VueAxios, axios) 以我的一个工程目录作为实例，看一下代码。
-// ListThere.vue // html 代码 ... &lt;div&gt;{{ info }}&lt;/div&gt; ... // js 代码 import axios from &#34;axios&#34;; export default { name: &#34;ListThere&#34;, data() { return { ... }; }, components: { ... }, methods: { ... }, mounted() { axios .get(&#34;http://api.h-camel.com/api?mod=interview&amp;ctr=issues&amp;act=today&#34;) .then((response) =&gt; (this.info = response)) }, }; ">
-  <meta property="og:locale" content="en">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="blog">
-    <meta property="article:published_time" content="2021-06-08T00:00:00+00:00">
-    <meta property="article:modified_time" content="2021-06-08T00:00:00+00:00">
-    <meta property="article:tag" content="Vue">
-    <meta property="article:tag" content="Ajax">
-    <meta property="article:tag" content="Axios">
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="在 vue 中使用 axios 调用数据">
+<meta property='og:description' content="如何在 vue 中完成一次接口的调用？首选就是 axios，方便快捷又好用，支持各种 api ,封装也很方便。\n先用 node 安装一下。\n1 npm install axios 然后在 main.js 文件中引入。\n1 2 3 4 import axios from &#39;axios&#39; import VueAxios from &#39;vue-axios&#39; Vue.use(VueAxios, axios) 以我的一个工程目录作为实例，看一下代码。\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 // ListThere.vue // html 代码 ... &lt;div&gt;{{ info }}&lt;/div&gt; ... // js 代码 import axios from &#34;axios&#34;; export default { name: &#34;ListThere&#34;, data() { return { ... }; }, components: { ... }, methods: { ... }, mounted() { axios .get(&#34;http://api.h-camel.com/api?mod=interview&amp;ctr=issues&amp;act=today&#34;) .then((response) =&gt; (this.info = response)) }, }; 数据成功的被取到，然后需要将它在页面中展示出来。使用 vue 自带的 v-for 列表渲染。\n">
+<meta property='og:url' content='http://localhost:1313/blog/71/'>
+<meta property='og:site_name' content='Example Site'>
+<meta property='og:type' content='article'><meta property='article:section' content='Blog' /><meta property='article:tag' content='vue' /><meta property='article:tag' content='ajax' /><meta property='article:tag' content='axios' /><meta property='article:published_time' content='2021-06-08T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-06-08T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="在 vue 中使用 axios 调用数据">
+<meta name="twitter:description" content="如何在 vue 中完成一次接口的调用？首选就是 axios，方便快捷又好用，支持各种 api ,封装也很方便。\n先用 node 安装一下。\n1 npm install axios 然后在 main.js 文件中引入。\n1 2 3 4 import axios from &#39;axios&#39; import VueAxios from &#39;vue-axios&#39; Vue.use(VueAxios, axios) 以我的一个工程目录作为实例，看一下代码。\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 // ListThere.vue // html 代码 ... &lt;div&gt;{{ info }}&lt;/div&gt; ... // js 代码 import axios from &#34;axios&#34;; export default { name: &#34;ListThere&#34;, data() { return { ... }; }, components: { ... }, methods: { ... }, mounted() { axios .get(&#34;http://api.h-camel.com/api?mod=interview&amp;ctr=issues&amp;act=today&#34;) .then((response) =&gt; (this.info = response)) }, }; 数据成功的被取到，然后需要将它在页面中展示出来。使用 vue 自带的 v-for 列表渲染。\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
 
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
 
-  </head>
-  <body>
-    <header class="app-header">
-      <a href="http://localhost:1313/"><img class="app-header-avatar" src="https://imgurl.zishu.me/author.webp" alt="子舒" /></a>
-      <span class="app-header-title">zishu.me</span>
-      <nav class="app-header-menu">
-          <a class="app-header-menu-item" href="/">Home</a>
-             - 
-          
-          <a class="app-header-menu-item" href="/message/">Message</a>
-             - 
-          
-          <a class="app-header-menu-item" href="/about/">About</a>
-      </nav>
-      <p>无人扶我青云志，我自踏雪至山巅。一名 Web 前端开发工程师，热爱生活。</p>
-      <div class="app-header-social">
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
         
-          <a href="https://github.com/dlzmoe" target="_blank" rel="noreferrer noopener me">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
-  <title>Github</title>
-  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu13739649187745961479.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🍥</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Example Site</a></h1>
+            <h2 class="site-description">一个热爱生活的前端开发工程师。</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/CaiJimmy/hugo-theme-stack'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
 </svg>
-          </a>
-        
-          <a href="https://twitter.com/dlzmoe" target="_blank" rel="noreferrer noopener me">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
-  <title>Twitter</title>
-  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
 </svg>
-          </a>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
         
-      </div>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E6%8A%80%E6%9C%AF/" >
+                技术
+            </a>
+        
     </header>
-    <main class="app-container">
-      
-  <article class="post">
-    <header class="post-header">
-      <h1 class ="post-title">在 vue 中使用 axios 调用数据</h1>
-      <div class="post-meta">
-        <div>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
-  <title>calendar</title>
-  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/blog/71/">在 vue 中使用 axios 调用数据</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
 </svg>
-          Jun 8, 2021
-        </div>
-        <div>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
-  <title>clock</title>
-  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+                <time class="article-time--published">Jun 08, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
 </svg>
-          1 min read
-        </div>
-        <div>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
-  <title>tag</title>
-  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line>
-</svg>
-              <a class="tag" href="http://localhost:1313/tags/vue/">Vue</a>
-              <a class="tag" href="http://localhost:1313/tags/ajax/">Ajax</a>
-              <a class="tag" href="http://localhost:1313/tags/axios/">Axios</a>
-        </div>
-      </div>
-    </header>
-    <div class="post-content">
-      <p>如何在 vue 中完成一次接口的调用？首选就是 axios，方便快捷又好用，支持各种 api ,封装也很方便。</p>
+
+
+
+                <time class="article-time--reading">
+                    2 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>如何在 vue 中完成一次接口的调用？首选就是 axios，方便快捷又好用，支持各种 api ,封装也很方便。</p>
 <p>先用 node 安装一下。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">npm</span> <span style="color:#a6e22e">install</span> <span style="color:#a6e22e">axios</span>
-</span></span></code></pre></div><p>然后在 main.js 文件中引入。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">axios</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;axios&#39;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">VueAxios</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;vue-axios&#39;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">use</span>(<span style="color:#a6e22e">VueAxios</span>, <span style="color:#a6e22e">axios</span>)
-</span></span></code></pre></div><p>以我的一个工程目录作为实例，看一下代码。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// ListThere.vue
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// html 代码
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>...
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span><span style="color:#f92672">&gt;</span>{{ <span style="color:#a6e22e">info</span> }}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
-</span></span><span style="display:flex;"><span>...
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// js 代码
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">axios</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;axios&#34;</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;ListThere&#34;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">data</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {
-</span></span><span style="display:flex;"><span>      ...
-</span></span><span style="display:flex;"><span>    };
-</span></span><span style="display:flex;"><span>  },
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">components</span><span style="color:#f92672">:</span> {
-</span></span><span style="display:flex;"><span>    ...
-</span></span><span style="display:flex;"><span>  },
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span> {
-</span></span><span style="display:flex;"><span>    ...
-</span></span><span style="display:flex;"><span>  },
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mounted</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">axios</span>
-</span></span><span style="display:flex;"><span>      .<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#34;http://api.h-camel.com/api?mod=interview&amp;ctr=issues&amp;act=today&#34;</span>)
-</span></span><span style="display:flex;"><span>      .<span style="color:#a6e22e">then</span>((<span style="color:#a6e22e">response</span>) =&gt; (<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">info</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">response</span>))
-</span></span><span style="display:flex;"><span>  },
-</span></span><span style="display:flex;"><span>};
-</span></span></code></pre></div><p>数据成功的被取到，然后需要将它在页面中展示出来。使用 vue 自带的 <code>v-for</code> 列表渲染。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">ul</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;list-api-show&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">li</span> <span style="color:#a6e22e">v-for</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;(item, index) in show&#34;</span> <span style="color:#a6e22e">:key</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;index&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>    {{ item.title }}
-</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">li</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">ul</span>&gt;
-</span></span></code></pre></div><p>然后通过 axios 把数据指向 v-for.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">mounted</span>() {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">axios</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ...
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    .<span style="color:#a6e22e">then</span>((<span style="color:#a6e22e">response</span>) =&gt; (<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">show</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">today</span>))
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>数据成功取出然后展示在 <code>v-for</code> 里面。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">npm</span> <span class="nx">install</span> <span class="nx">axios</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后在 main.js 文件中引入。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">axios</span> <span class="nx">from</span> <span class="s1">&#39;axios&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">VueAxios</span> <span class="nx">from</span> <span class="s1">&#39;vue-axios&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">Vue</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">VueAxios</span><span class="p">,</span> <span class="nx">axios</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>以我的一个工程目录作为实例，看一下代码。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// ListThere.vue
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// html 代码
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">...</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="p">{{</span> <span class="nx">info</span> <span class="p">}}</span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">...</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// js 代码
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">import</span> <span class="nx">axios</span> <span class="nx">from</span> <span class="s2">&#34;axios&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;ListThere&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="p">...</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">components</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">...</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">methods</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">...</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">mounted</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">axios</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&#34;http://api.h-camel.com/api?mod=interview&amp;ctr=issues&amp;act=today&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">info</span> <span class="o">=</span> <span class="nx">response</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>数据成功的被取到，然后需要将它在页面中展示出来。使用 vue 自带的 <code>v-for</code> 列表渲染。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">ul</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;list-api-show&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">li</span> <span class="na">v-for</span><span class="o">=</span><span class="s">&#34;(item, index) in show&#34;</span> <span class="na">:key</span><span class="o">=</span><span class="s">&#34;index&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    {{ item.title }}
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后通过 axios 把数据指向 v-for.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">mounted</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">axios</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">show</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">today</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>数据成功取出然后展示在 <code>v-for</code> 里面。</p>
 <p>当然了，这是成功的情况，加入失败了呢？我们需要浏览器给出提示，所以 axios 给出了一个 api &mdash; <code>err 语法</code>。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">mounted</span>() {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">axios</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ...
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    .<span style="color:#66d9ef">catch</span>(<span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">error</span>) {
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">error</span>.<span style="color:#a6e22e">response</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">error</span>.<span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">data</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">error</span>.<span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">status</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">error</span>.<span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">headers</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;err&#39;</span>)
-</span></span><span style="display:flex;"><span>      } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">error</span>.<span style="color:#a6e22e">request</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">error</span>.<span style="color:#a6e22e">request</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;err&#39;</span>)
-</span></span><span style="display:flex;"><span>      } <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Error&#39;</span>, <span style="color:#a6e22e">error</span>.<span style="color:#a6e22e">message</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;err&#39;</span>)
-</span></span><span style="display:flex;"><span>      }
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">error</span>.<span style="color:#a6e22e">config</span>);
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;err&#39;</span>)
-</span></span><span style="display:flex;"><span>    });
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>如果接口有问题，或者我们调用时代码写错了，都会给出报错提示，具体什么样的错误会有什么样的警告，需要我们一一去经历摸索。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">mounted</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">axios</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">.</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">status</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">headers</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;err&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">.</span><span class="nx">request</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">.</span><span class="nx">request</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;err&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Error&#39;</span><span class="p">,</span> <span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;err&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">.</span><span class="nx">config</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;err&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果接口有问题，或者我们调用时代码写错了，都会给出报错提示，具体什么样的错误会有什么样的警告，需要我们一一去经历摸索。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/vue/">Vue</a>
+        
+            <a href="/tags/ajax/">Ajax</a>
+        
+            <a href="/tags/axios/">Axios</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/blog/226/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">vue 中配置 env 文件</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/blog/218/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">无法从非 EcmaScript 模块导入命名导出</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/blog/186/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">this.$set 给 vue 数组添加数据</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/blog/111/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">在 vue 中制作 canvas 波浪图</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/blog/73/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">将数据库中的图片信息导出并调用</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2024 Example Person
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
 
     </div>
-    <div class="post-footer">
-      
-    </div>
-  </article>
 
-    </main>
-  </body>
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.f3c625e8bc5ed08f30cda9df39d47a457bf3121a2aebe7e3d04c7e727d278926.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
 </html>
