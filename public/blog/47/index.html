@@ -1,272 +1,131 @@
-<!DOCTYPE html>
-<html lang="en-us" dir="ltr">
-    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="1.webpack 的核心概念 entry（入口）：一个可执行模块或者库的入口。定义了打包后的入口文件。 output（出口）：指示 webpack 如何去输出，以及在哪里输出。 path: 打包文件存放的绝对路径 publicPath: 网站运行时的访问路径 filename: 打包后的文件名 module（模块）：在 webpack 里，一切皆模块，一个模块对应一个文件。webpack 会从配置的 entry 中开始递归找出所有依赖的模块。 chunk（代码块）：一个 chunk 由多个 模块 组合而成。可以将可执行的模块和他所依赖的模块组合成一个 chunk，这就是打包。 loader（模块转换器）：用于把一个模块原内容按照需求转换成新的内容。例如：es6 转换为 es5，scss 转换为 css 等。 plugin（扩展）：扩展 webpack 功能的插件。在 webpack 构建的生命周期节点上加入扩展 hook，添加功能。 2.webpack 构建流程 初始化参数：解析 webpack 的配置参数，合并 shell 传入和 webpack.config.js 文件配置的参数，形成最后的配置结果。 开始编译：上一步得到的参数初始化 compiler 对象，注册所有配置的插件，插件监听 webpack 构建生命周期的事件节点，做出相应的反应，执行对象的 run 方法开始执行编译。 确定入口：其配置的 entry 入口，开始解析文件构建的 AST 语法树，找出依赖，递归下去。 编译模块：根据文件类型和 loader 配置，调用所有配置的 loader 对文件进行转换，再找出该模块依赖的模块，再递归本步骤知道所有入口依赖的文件都经过了本步骤的处理。 完成模块编译并输出：递归完后，得到每个文件结果，包含了每个模块及她们之间的依赖关系，根据 entry 配置生成代码块 chunk。 输出完成：输出所有的 chunk 到文件系统。 3.有哪些常见的 loader？ babel-loader：把 es6 转成 es5； css-loader：加载 css，支持模块化，压缩，文件导入等特性； style-loader：把 css 代码注入到 js 中，通过 dom 操作去加载 css； eslint-loader：通过 Eslint 检查 js 代码； image-loader：加载并且压缩图片晚间； file-loader：文件输出到一个文件夹中，在代码中通过相对 url 去引用输出的文件； url-loader：和 file-loader 类似，文件很小的时候可以 base64 方式吧文件内容注入到代码中。 source-map-loader：加载额外的 source map 文件，方便调试。 4.业务场景和对应解决方案 1.单页应用 一个单页应用需要配置一个 entry 指明执行入口，web-webpack-plugin 里的 WebPlugin 可以自动的完成这些工作：webpack 会为 entry 生成一个包含这个入口的所有依赖文件的 chunk，但是还需要一个 html 来加载 chunk 生成的 js，如果还提取出 css 需要 HTML 文件中引入提取的 css。\n">
-<title>webpack 的核心概念和构建流程</title>
+<!doctype html>
+<html
+  lang="en-us"
+  dir="ltr"
+>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width" />
+<title>
+    webpack 的核心概念和构建流程 | Michael Henriksen
+</title>
+  <meta name="description" content=" 1.webpack 的核心概念 entry（入口）：一个可执行模块或者库的入口。定义了打包后的入口文件。 output（出口）：指示 webpack 如何去输出，以及在哪里输出。 path: 打包文件存放的绝对路径 publicPath: 网站运行时的访问路径 filename: 打包后的文件名 module（模块）：在 webpack 里，一切皆模块，一个模块对应一个文件。webpack 会从配置的 entry 中开始递归找出所有依赖的模块。 chunk（代码块）：一个 chunk 由多个 模块 组合而成。可以将可执行的模块和他所依赖的模块组合成一个 chunk，这就是打包。 loader（模块转换器）：用于把一个模块原内容按照需求转换成新的内容。例如：es6 转换为 es5，scss 转换为 css 等。 plugin（扩展）：扩展 webpack 功能的插件。在 webpack 构建的生命周期节点上加入扩展 hook，添加功能。 2.webpack 构建流程 初始化参数：解析 webpack 的配置参数，合并 shell 传入和 webpack.config.js 文件配置的参数，形成最后的配置结果。 开始编译：上一步得到的参数初始化 compiler 对象，注册所有配置的插件，插件监听 webpack 构建生命周期的事件节点，做出相应的反应，执行对象的 run 方法开始执行编译。 确定入口：其配置的 entry 入口，开始解析文件构建的 AST 语法树，找出依赖，递归下去。 编译模块：根据文件类型和 loader 配置，调用所有配置的 loader 对文件进行转换，再找出该模块依赖的模块，再递归本步骤知道所有入口依赖的文件都经过了本步骤的处理。 完成模块编译并输出：递归完后，得到每个文件结果，包含了每个模块及她们之间的依赖关系，根据 entry 配置生成代码块 chunk。 输出完成：输出所有的 chunk 到文件系统。 3.有哪些常见的 loader？ babel-loader：把 es6 转成 es5； css-loader：加载 css，支持模块化，压缩，文件导入等特性； style-loader：把 css 代码注入到 js 中，通过 dom 操作去加载 css； eslint-loader：通过 Eslint 检查 js 代码； image-loader：加载并且压缩图片晚间； file-loader：文件输出到一个文件夹中，在代码中通过相对 url 去引用输出的文件； url-loader：和 file-loader 类似，文件很小的时候可以 base64 方式吧文件内容注入到代码中。 source-map-loader：加载额外的 source map 文件，方便调试。 4.业务场景和对应解决方案 1.单页应用 一个单页应用需要配置一个 entry 指明执行入口，web-webpack-plugin 里的 WebPlugin 可以自动的完成这些工作：webpack 会为 entry 生成一个包含这个入口的所有依赖文件的 chunk，但是还需要一个 html 来加载 chunk 生成的 js，如果还提取出 css 需要 HTML 文件中引入提取的 css。" />
+<meta property="og:url" content="http://localhost:1313/blog/47/">
+  <meta property="og:site_name" content="Michael Henriksen">
+  <meta property="og:title" content="webpack 的核心概念和构建流程">
+  <meta property="og:description" content="1.webpack 的核心概念 entry（入口）：一个可执行模块或者库的入口。定义了打包后的入口文件。 output（出口）：指示 webpack 如何去输出，以及在哪里输出。 path: 打包文件存放的绝对路径 publicPath: 网站运行时的访问路径 filename: 打包后的文件名 module（模块）：在 webpack 里，一切皆模块，一个模块对应一个文件。webpack 会从配置的 entry 中开始递归找出所有依赖的模块。 chunk（代码块）：一个 chunk 由多个 模块 组合而成。可以将可执行的模块和他所依赖的模块组合成一个 chunk，这就是打包。 loader（模块转换器）：用于把一个模块原内容按照需求转换成新的内容。例如：es6 转换为 es5，scss 转换为 css 等。 plugin（扩展）：扩展 webpack 功能的插件。在 webpack 构建的生命周期节点上加入扩展 hook，添加功能。 2.webpack 构建流程 初始化参数：解析 webpack 的配置参数，合并 shell 传入和 webpack.config.js 文件配置的参数，形成最后的配置结果。 开始编译：上一步得到的参数初始化 compiler 对象，注册所有配置的插件，插件监听 webpack 构建生命周期的事件节点，做出相应的反应，执行对象的 run 方法开始执行编译。 确定入口：其配置的 entry 入口，开始解析文件构建的 AST 语法树，找出依赖，递归下去。 编译模块：根据文件类型和 loader 配置，调用所有配置的 loader 对文件进行转换，再找出该模块依赖的模块，再递归本步骤知道所有入口依赖的文件都经过了本步骤的处理。 完成模块编译并输出：递归完后，得到每个文件结果，包含了每个模块及她们之间的依赖关系，根据 entry 配置生成代码块 chunk。 输出完成：输出所有的 chunk 到文件系统。 3.有哪些常见的 loader？ babel-loader：把 es6 转成 es5； css-loader：加载 css，支持模块化，压缩，文件导入等特性； style-loader：把 css 代码注入到 js 中，通过 dom 操作去加载 css； eslint-loader：通过 Eslint 检查 js 代码； image-loader：加载并且压缩图片晚间； file-loader：文件输出到一个文件夹中，在代码中通过相对 url 去引用输出的文件； url-loader：和 file-loader 类似，文件很小的时候可以 base64 方式吧文件内容注入到代码中。 source-map-loader：加载额外的 source map 文件，方便调试。 4.业务场景和对应解决方案 1.单页应用 一个单页应用需要配置一个 entry 指明执行入口，web-webpack-plugin 里的 WebPlugin 可以自动的完成这些工作：webpack 会为 entry 生成一个包含这个入口的所有依赖文件的 chunk，但是还需要一个 html 来加载 chunk 生成的 js，如果还提取出 css 需要 HTML 文件中引入提取的 css。">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2021-01-18T00:00:00+00:00">
+    <meta property="article:tag" content="Js">
+    <meta property="article:tag" content="Webpack">
 
-<link rel='canonical' href='http://localhost:1313/blog/47/'>
 
-<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="webpack 的核心概念和构建流程">
-<meta property='og:description' content="1.webpack 的核心概念 entry（入口）：一个可执行模块或者库的入口。定义了打包后的入口文件。 output（出口）：指示 webpack 如何去输出，以及在哪里输出。 path: 打包文件存放的绝对路径 publicPath: 网站运行时的访问路径 filename: 打包后的文件名 module（模块）：在 webpack 里，一切皆模块，一个模块对应一个文件。webpack 会从配置的 entry 中开始递归找出所有依赖的模块。 chunk（代码块）：一个 chunk 由多个 模块 组合而成。可以将可执行的模块和他所依赖的模块组合成一个 chunk，这就是打包。 loader（模块转换器）：用于把一个模块原内容按照需求转换成新的内容。例如：es6 转换为 es5，scss 转换为 css 等。 plugin（扩展）：扩展 webpack 功能的插件。在 webpack 构建的生命周期节点上加入扩展 hook，添加功能。 2.webpack 构建流程 初始化参数：解析 webpack 的配置参数，合并 shell 传入和 webpack.config.js 文件配置的参数，形成最后的配置结果。 开始编译：上一步得到的参数初始化 compiler 对象，注册所有配置的插件，插件监听 webpack 构建生命周期的事件节点，做出相应的反应，执行对象的 run 方法开始执行编译。 确定入口：其配置的 entry 入口，开始解析文件构建的 AST 语法树，找出依赖，递归下去。 编译模块：根据文件类型和 loader 配置，调用所有配置的 loader 对文件进行转换，再找出该模块依赖的模块，再递归本步骤知道所有入口依赖的文件都经过了本步骤的处理。 完成模块编译并输出：递归完后，得到每个文件结果，包含了每个模块及她们之间的依赖关系，根据 entry 配置生成代码块 chunk。 输出完成：输出所有的 chunk 到文件系统。 3.有哪些常见的 loader？ babel-loader：把 es6 转成 es5； css-loader：加载 css，支持模块化，压缩，文件导入等特性； style-loader：把 css 代码注入到 js 中，通过 dom 操作去加载 css； eslint-loader：通过 Eslint 检查 js 代码； image-loader：加载并且压缩图片晚间； file-loader：文件输出到一个文件夹中，在代码中通过相对 url 去引用输出的文件； url-loader：和 file-loader 类似，文件很小的时候可以 base64 方式吧文件内容注入到代码中。 source-map-loader：加载额外的 source map 文件，方便调试。 4.业务场景和对应解决方案 1.单页应用 一个单页应用需要配置一个 entry 指明执行入口，web-webpack-plugin 里的 WebPlugin 可以自动的完成这些工作：webpack 会为 entry 生成一个包含这个入口的所有依赖文件的 chunk，但是还需要一个 html 来加载 chunk 生成的 js，如果还提取出 css 需要 HTML 文件中引入提取的 css。\n">
-<meta property='og:url' content='http://localhost:1313/blog/47/'>
-<meta property='og:site_name' content='Example Site'>
-<meta property='og:type' content='article'><meta property='article:section' content='Blog' /><meta property='article:tag' content='js' /><meta property='article:tag' content='webpack' /><meta property='article:published_time' content='2021-01-18T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-01-18T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="webpack 的核心概念和构建流程">
-<meta name="twitter:description" content="1.webpack 的核心概念 entry（入口）：一个可执行模块或者库的入口。定义了打包后的入口文件。 output（出口）：指示 webpack 如何去输出，以及在哪里输出。 path: 打包文件存放的绝对路径 publicPath: 网站运行时的访问路径 filename: 打包后的文件名 module（模块）：在 webpack 里，一切皆模块，一个模块对应一个文件。webpack 会从配置的 entry 中开始递归找出所有依赖的模块。 chunk（代码块）：一个 chunk 由多个 模块 组合而成。可以将可执行的模块和他所依赖的模块组合成一个 chunk，这就是打包。 loader（模块转换器）：用于把一个模块原内容按照需求转换成新的内容。例如：es6 转换为 es5，scss 转换为 css 等。 plugin（扩展）：扩展 webpack 功能的插件。在 webpack 构建的生命周期节点上加入扩展 hook，添加功能。 2.webpack 构建流程 初始化参数：解析 webpack 的配置参数，合并 shell 传入和 webpack.config.js 文件配置的参数，形成最后的配置结果。 开始编译：上一步得到的参数初始化 compiler 对象，注册所有配置的插件，插件监听 webpack 构建生命周期的事件节点，做出相应的反应，执行对象的 run 方法开始执行编译。 确定入口：其配置的 entry 入口，开始解析文件构建的 AST 语法树，找出依赖，递归下去。 编译模块：根据文件类型和 loader 配置，调用所有配置的 loader 对文件进行转换，再找出该模块依赖的模块，再递归本步骤知道所有入口依赖的文件都经过了本步骤的处理。 完成模块编译并输出：递归完后，得到每个文件结果，包含了每个模块及她们之间的依赖关系，根据 entry 配置生成代码块 chunk。 输出完成：输出所有的 chunk 到文件系统。 3.有哪些常见的 loader？ babel-loader：把 es6 转成 es5； css-loader：加载 css，支持模块化，压缩，文件导入等特性； style-loader：把 css 代码注入到 js 中，通过 dom 操作去加载 css； eslint-loader：通过 Eslint 检查 js 代码； image-loader：加载并且压缩图片晚间； file-loader：文件输出到一个文件夹中，在代码中通过相对 url 去引用输出的文件； url-loader：和 file-loader 类似，文件很小的时候可以 base64 方式吧文件内容注入到代码中。 source-map-loader：加载额外的 source map 文件，方便调试。 4.业务场景和对应解决方案 1.单页应用 一个单页应用需要配置一个 entry 指明执行入口，web-webpack-plugin 里的 WebPlugin 可以自动的完成这些工作：webpack 会为 entry 生成一个包含这个入口的所有依赖文件的 chunk，但是还需要一个 html 来加载 chunk 生成的 js，如果还提取出 css 需要 HTML 文件中引入提取的 css。\n">
-    </head>
-    <body class="
-    article-page
-    ">
-    <script>
-        (function() {
-            const colorSchemeKey = 'StackColorScheme';
-            if(!localStorage.getItem(colorSchemeKey)){
-                localStorage.setItem(colorSchemeKey, "auto");
-            }
-        })();
-    </script><script>
-    (function() {
-        const colorSchemeKey = 'StackColorScheme';
-        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
-        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+  <meta itemprop="name" content="webpack 的核心概念和构建流程">
+  <meta itemprop="description" content="1.webpack 的核心概念 entry（入口）：一个可执行模块或者库的入口。定义了打包后的入口文件。 output（出口）：指示 webpack 如何去输出，以及在哪里输出。 path: 打包文件存放的绝对路径 publicPath: 网站运行时的访问路径 filename: 打包后的文件名 module（模块）：在 webpack 里，一切皆模块，一个模块对应一个文件。webpack 会从配置的 entry 中开始递归找出所有依赖的模块。 chunk（代码块）：一个 chunk 由多个 模块 组合而成。可以将可执行的模块和他所依赖的模块组合成一个 chunk，这就是打包。 loader（模块转换器）：用于把一个模块原内容按照需求转换成新的内容。例如：es6 转换为 es5，scss 转换为 css 等。 plugin（扩展）：扩展 webpack 功能的插件。在 webpack 构建的生命周期节点上加入扩展 hook，添加功能。 2.webpack 构建流程 初始化参数：解析 webpack 的配置参数，合并 shell 传入和 webpack.config.js 文件配置的参数，形成最后的配置结果。 开始编译：上一步得到的参数初始化 compiler 对象，注册所有配置的插件，插件监听 webpack 构建生命周期的事件节点，做出相应的反应，执行对象的 run 方法开始执行编译。 确定入口：其配置的 entry 入口，开始解析文件构建的 AST 语法树，找出依赖，递归下去。 编译模块：根据文件类型和 loader 配置，调用所有配置的 loader 对文件进行转换，再找出该模块依赖的模块，再递归本步骤知道所有入口依赖的文件都经过了本步骤的处理。 完成模块编译并输出：递归完后，得到每个文件结果，包含了每个模块及她们之间的依赖关系，根据 entry 配置生成代码块 chunk。 输出完成：输出所有的 chunk 到文件系统。 3.有哪些常见的 loader？ babel-loader：把 es6 转成 es5； css-loader：加载 css，支持模块化，压缩，文件导入等特性； style-loader：把 css 代码注入到 js 中，通过 dom 操作去加载 css； eslint-loader：通过 Eslint 检查 js 代码； image-loader：加载并且压缩图片晚间； file-loader：文件输出到一个文件夹中，在代码中通过相对 url 去引用输出的文件； url-loader：和 file-loader 类似，文件很小的时候可以 base64 方式吧文件内容注入到代码中。 source-map-loader：加载额外的 source map 文件，方便调试。 4.业务场景和对应解决方案 1.单页应用 一个单页应用需要配置一个 entry 指明执行入口，web-webpack-plugin 里的 WebPlugin 可以自动的完成这些工作：webpack 会为 entry 生成一个包含这个入口的所有依赖文件的 chunk，但是还需要一个 html 来加载 chunk 生成的 js，如果还提取出 css 需要 HTML 文件中引入提取的 css。">
+  <meta itemprop="datePublished" content="2021-01-18T00:00:00+00:00">
+  <meta itemprop="wordCount" content="656">
+  <meta itemprop="keywords" content="Js,Webpack">
 
-        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
-            
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="webpack 的核心概念和构建流程">
+  <meta name="twitter:description" content="1.webpack 的核心概念 entry（入口）：一个可执行模块或者库的入口。定义了打包后的入口文件。 output（出口）：指示 webpack 如何去输出，以及在哪里输出。 path: 打包文件存放的绝对路径 publicPath: 网站运行时的访问路径 filename: 打包后的文件名 module（模块）：在 webpack 里，一切皆模块，一个模块对应一个文件。webpack 会从配置的 entry 中开始递归找出所有依赖的模块。 chunk（代码块）：一个 chunk 由多个 模块 组合而成。可以将可执行的模块和他所依赖的模块组合成一个 chunk，这就是打包。 loader（模块转换器）：用于把一个模块原内容按照需求转换成新的内容。例如：es6 转换为 es5，scss 转换为 css 等。 plugin（扩展）：扩展 webpack 功能的插件。在 webpack 构建的生命周期节点上加入扩展 hook，添加功能。 2.webpack 构建流程 初始化参数：解析 webpack 的配置参数，合并 shell 传入和 webpack.config.js 文件配置的参数，形成最后的配置结果。 开始编译：上一步得到的参数初始化 compiler 对象，注册所有配置的插件，插件监听 webpack 构建生命周期的事件节点，做出相应的反应，执行对象的 run 方法开始执行编译。 确定入口：其配置的 entry 入口，开始解析文件构建的 AST 语法树，找出依赖，递归下去。 编译模块：根据文件类型和 loader 配置，调用所有配置的 loader 对文件进行转换，再找出该模块依赖的模块，再递归本步骤知道所有入口依赖的文件都经过了本步骤的处理。 完成模块编译并输出：递归完后，得到每个文件结果，包含了每个模块及她们之间的依赖关系，根据 entry 配置生成代码块 chunk。 输出完成：输出所有的 chunk 到文件系统。 3.有哪些常见的 loader？ babel-loader：把 es6 转成 es5； css-loader：加载 css，支持模块化，压缩，文件导入等特性； style-loader：把 css 代码注入到 js 中，通过 dom 操作去加载 css； eslint-loader：通过 Eslint 检查 js 代码； image-loader：加载并且压缩图片晚间； file-loader：文件输出到一个文件夹中，在代码中通过相对 url 去引用输出的文件； url-loader：和 file-loader 类似，文件很小的时候可以 base64 方式吧文件内容注入到代码中。 source-map-loader：加载额外的 source map 文件，方便调试。 4.业务场景和对应解决方案 1.单页应用 一个单页应用需要配置一个 entry 指明执行入口，web-webpack-plugin 里的 WebPlugin 可以自动的完成这些工作：webpack 会为 entry 生成一个包含这个入口的所有依赖文件的 chunk，但是还需要一个 html 来加载 chunk 生成的 js，如果还提取出 css 需要 HTML 文件中引入提取的 css。">
 
-            document.documentElement.dataset.scheme = 'dark';
-        } else {
-            document.documentElement.dataset.scheme = 'light';
-        }
-    })();
+<link rel="canonical" href="http://localhost:1313/blog/47/" />
+
+    <link rel="stylesheet" href="/css/index.css" />
+
+
+      <script src="/ts/main.ts" defer></script>
+  
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "author": {
+    "@type": "Person",
+    "email": "mchnrksn@gmail.com",
+    "name": "Michael Henriksen",
+    "url": "http://localhost:1313/about/"
+  },
+  "copyrightNotice": "Michael Henriksen",
+  "description": " 1.webpack 的核心概念 entry（入口）：一个可执行模块或者库的入口。定义了打包后的入口文件。 output（出口）：指示 webpack 如何去输出，以及在哪里输出。 path: 打包文件存放的绝对路径 publicPath: 网站运行时的访问路径 filename: 打包后的文件名 module（模块）：在 webpack 里，一切皆模块，一个模块对应一个文件。webpack 会从配置的 entry 中开始递归找出所有依赖的模块。 chunk（代码块）：一个 chunk 由多个 模块 组合而成。可以将可执行的模块和他所依赖的模块组合成一个 chunk，这就是打包。 loader（模块转换器）：用于把一个模块原内容按照需求转换成新的内容。例如：es6 转换为 es5，scss 转换为 css 等。 plugin（扩展）：扩展 webpack 功能的插件。在 webpack 构建的生命周期节点上加入扩展 hook，添加功能。 2.webpack 构建流程 初始化参数：解析 webpack 的配置参数，合并 shell 传入和 webpack.config.js 文件配置的参数，形成最后的配置结果。 开始编译：上一步得到的参数初始化 compiler 对象，注册所有配置的插件，插件监听 webpack 构建生命周期的事件节点，做出相应的反应，执行对象的 run 方法开始执行编译。 确定入口：其配置的 entry 入口，开始解析文件构建的 AST 语法树，找出依赖，递归下去。 编译模块：根据文件类型和 loader 配置，调用所有配置的 loader 对文件进行转换，再找出该模块依赖的模块，再递归本步骤知道所有入口依赖的文件都经过了本步骤的处理。 完成模块编译并输出：递归完后，得到每个文件结果，包含了每个模块及她们之间的依赖关系，根据 entry 配置生成代码块 chunk。 输出完成：输出所有的 chunk 到文件系统。 3.有哪些常见的 loader？ babel-loader：把 es6 转成 es5； css-loader：加载 css，支持模块化，压缩，文件导入等特性； style-loader：把 css 代码注入到 js 中，通过 dom 操作去加载 css； eslint-loader：通过 Eslint 检查 js 代码； image-loader：加载并且压缩图片晚间； file-loader：文件输出到一个文件夹中，在代码中通过相对 url 去引用输出的文件； url-loader：和 file-loader 类似，文件很小的时候可以 base64 方式吧文件内容注入到代码中。 source-map-loader：加载额外的 source map 文件，方便调试。 4.业务场景和对应解决方案 1.单页应用 一个单页应用需要配置一个 entry 指明执行入口，web-webpack-plugin 里的 WebPlugin 可以自动的完成这些工作：webpack 会为 entry 生成一个包含这个入口的所有依赖文件的 chunk，但是还需要一个 html 来加载 chunk 生成的 js，如果还提取出 css 需要 HTML 文件中引入提取的 css。",
+  "headline": "Webpack 的核心概念和构建流程"
+}
 </script>
-<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
-    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
-        <span class="hamburger-box">
-            <span class="hamburger-inner"></span>
-        </span>
-    </button>
-
-    <header>
-        
-            
-            <figure class="site-avatar">
-                <a href="/">
-                
-                    
-                    
-                    
-                        
-                        <img src="/img/avatar_hu13739649187745961479.png" width="300"
-                            height="300" class="site-logo" loading="lazy" alt="Avatar">
-                    
-                
-                </a>
-                
-                    <span class="emoji">🍥</span>
-                
-            </figure>
-            
-        
-        
-        <div class="site-meta">
-            <h1 class="site-name"><a href="/">Example Site</a></h1>
-            <h2 class="site-description">一个热爱生活的前端开发工程师。</h2>
-        </div>
-    </header><ol class="menu-social">
-            
-                <li>
-                    <a 
-                        href='https://github.com/CaiJimmy/hugo-theme-stack'
-                        target="_blank"
-                        title="GitHub"
-                        rel="me"
-                    >
-                        
-                        
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
-</svg>
 
 
-
-                        
-                    </a>
-                </li>
-            
-                <li>
-                    <a 
-                        href='https://twitter.com'
-                        target="_blank"
-                        title="Twitter"
-                        rel="me"
-                    >
-                        
-                        
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
-</svg>
-
-
-
-                        
-                    </a>
-                </li>
-            
-        </ol><ol class="menu" id="main-menu">
-        
-        
-        <li class="menu-bottom-section">
-            <ol class="menu">
-
-                
-                    <li id="dark-mode-toggle">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="8" cy="12" r="2" />
-  <rect x="2" y="6" width="20" height="12" rx="6" />
-</svg>
-
-
-
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="16" cy="12" r="2" />
-  <rect x="2" y="6" width="20" height="12" rx="6" />
-</svg>
-
-
-
-                        <span>Dark Mode</span>
-                    </li>
-                
-            </ol>
-        </li>
-    </ol>
-</aside>
-
-    <aside class="sidebar right-sidebar sticky">
-        
-            
-                
-    <section class="widget archives">
-        <div class="widget-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <line x1="5" y1="9" x2="19" y2="9" />
-  <line x1="5" y1="15" x2="19" y2="15" />
-  <line x1="11" y1="4" x2="7" y2="20" />
-  <line x1="17" y1="4" x2="13" y2="20" />
-</svg>
-
-
-
-        </div>
-        <h2 class="widget-title section-title">Table of contents</h2>
-        
-        <div class="widget--toc">
-            <nav id="TableOfContents">
-  <ol>
-    <li><a href="#1webpack-的核心概念">1.webpack 的核心概念</a></li>
-    <li><a href="#2webpack-构建流程">2.webpack 构建流程</a></li>
-    <li><a href="#3有哪些常见的-loader">3.有哪些常见的 loader？</a></li>
-    <li><a href="#4业务场景和对应解决方案">4.业务场景和对应解决方案</a>
-      <ol>
-        <li><a href="#1单页应用">1.单页应用</a></li>
-        <li><a href="#2一个项目管理多个单页面">2.一个项目管理多个单页面</a></li>
-        <li><a href="#3代码分隔优化">3.代码分隔优化</a></li>
-        <li><a href="#4构建服务端渲染">4.构建服务端渲染</a></li>
-        <li><a href="#5fis3-迁移到-webpack">5.fis3 迁移到 webpack</a></li>
-      </ol>
-    </li>
-    <li><a href="#5自定义-webpack-扩展">5.自定义 webpack 扩展</a>
-      <ol>
-        <li><a href="#1编写-webpack-loader">1.编写 webpack loader</a></li>
-        <li><a href="#2-编写-webpack-plugin">2. 编写 webpack plugin</a></li>
-      </ol>
-    </li>
-  </ol>
-</nav>
-        </div>
-    </section>
-
-            
-        
-    </aside>
-
-
-            <main class="main full-width">
-    <article class="main-article">
-    <header class="article-header">
-
-    <div class="article-details">
-    
-    <header class="article-category">
-        
-            <a href="/categories/%E6%8A%80%E6%9C%AF/" >
-                技术
-            </a>
-        
-    </header>
-    
-
-    <div class="article-title-wrapper">
-        <h2 class="article-title">
-            <a href="/blog/47/">webpack 的核心概念和构建流程</a>
-        </h2>
-    
-        
-    </div>
-
-    
-    
-    
-    
-    <footer class="article-time">
-        
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
-  <circle cx="18" cy="18" r="4" />
-  <path d="M15 3v4" />
-  <path d="M7 3v4" />
-  <path d="M3 11h16" />
-  <path d="M18 16.496v1.504l1 1" />
-</svg>
-                <time class="article-time--published">Jan 18, 2021</time>
-            </div>
-        
-
-        
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="12" cy="12" r="9" />
-  <polyline points="12 7 12 12 15 15" />
-</svg>
-
-
-
-                <time class="article-time--reading">
-                    4 minute read
-                </time>
-            </div>
-        
-    </footer>
-    
-
-    
+  </head>
+  <body>
+    <div class="container mx-auto flex max-w-prose flex-col space-y-10 p-4 md:p-6">
+      <header class="flex flex-row items-center justify-between">
+        <div>
+  <a id="skip-nav" class="sr-only" href="#maincontent">Skip to main content</a>
+  <a class="font-semibold" href="/">Michael Henriksen</a>
 </div>
 
-</header>
+  <nav>
+    <ul class="flex flex-row items-center justify-end space-x-4">
+    <li>
+      <a href="/about/">About</a
+      >
+    </li>
+    <li>
+      <a>Posts</a
+      >
+    </li>
+    <li>
+      <a>Notes</a
+      >
+    </li>
+    <li>
+      <a href="/graph/">Graph</a
+      >
+    </li>
+    </ul>
+  </nav>
 
-    <section class="article-content">
-    
-    
-    <h2 id="1webpack-的核心概念">1.webpack 的核心概念
-</h2><ol>
+
+      </header>
+      <main class="prose prose-slate relative md:prose-lg prose-h1:text-[2em]" id="maincontent">
+        
+  <article class="main">
+    <header>
+      <h1 class="!mb-1">Webpack 的核心概念和构建流程</h1><div class="flex flex-row items-center space-x-4">
+          <time class="text-sm italic opacity-80" datetime="2021-01-18T00:00:00&#43;00:00"
+            >January 18, 2021</time
+          >
+        </div>
+    </header>
+
+    <h3 id="1webpack-的核心概念" class="scroll-mt-8 group">
+  1.webpack 的核心概念
+  
+    <a href="#1webpack-%e7%9a%84%e6%a0%b8%e5%bf%83%e6%a6%82%e5%bf%b5"
+        class="no-underline hidden opacity-50 hover:opacity-100 !text-inherit group-hover:inline-block"
+        aria-hidden="true" title="Link to this heading" tabindex="-1">
+        <svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="16"
+  height="16"
+  fill="none"
+  stroke="currentColor"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  class="lucide lucide-link w-4 h-4 block"
+  viewBox="0 0 24 24"
+>
+  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+</svg>
+
+    </a>
+  
+</h3>
+<ol>
 <li><strong>entry（入口）</strong>：一个可执行模块或者库的入口。定义了打包后的入口文件。</li>
 <li><strong>output（出口）</strong>：指示 webpack 如何去输出，以及在哪里输出。
 path: 打包文件存放的绝对路径
@@ -277,8 +136,32 @@ filename: 打包后的文件名</li>
 <li><strong>loader（模块转换器）</strong>：用于把一个模块原内容按照需求转换成新的内容。例如：es6 转换为 es5，scss 转换为 css 等。</li>
 <li><strong>plugin（扩展）</strong>：扩展 webpack 功能的插件。在 webpack 构建的生命周期节点上加入扩展 hook，添加功能。</li>
 </ol>
-<h2 id="2webpack-构建流程">2.webpack 构建流程
-</h2><ol>
+<h3 id="2webpack-构建流程" class="scroll-mt-8 group">
+  2.webpack 构建流程
+  
+    <a href="#2webpack-%e6%9e%84%e5%bb%ba%e6%b5%81%e7%a8%8b"
+        class="no-underline hidden opacity-50 hover:opacity-100 !text-inherit group-hover:inline-block"
+        aria-hidden="true" title="Link to this heading" tabindex="-1">
+        <svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="16"
+  height="16"
+  fill="none"
+  stroke="currentColor"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  class="lucide lucide-link w-4 h-4 block"
+  viewBox="0 0 24 24"
+>
+  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+</svg>
+
+    </a>
+  
+</h3>
+<ol>
 <li><strong>初始化参数</strong>：解析 webpack 的配置参数，合并 shell 传入和 webpack.config.js 文件配置的参数，形成最后的配置结果。</li>
 <li><strong>开始编译</strong>：上一步得到的参数初始化 compiler 对象，注册所有配置的插件，插件监听 webpack 构建生命周期的事件节点，做出相应的反应，执行对象的 run 方法开始执行编译。</li>
 <li><strong>确定入口</strong>：其配置的 entry 入口，开始解析文件构建的 AST 语法树，找出依赖，递归下去。</li>
@@ -286,8 +169,32 @@ filename: 打包后的文件名</li>
 <li><strong>完成模块编译并输出</strong>：递归完后，得到每个文件结果，包含了每个模块及她们之间的依赖关系，根据 entry 配置生成代码块 chunk。</li>
 <li><strong>输出完成</strong>：输出所有的 chunk 到文件系统。</li>
 </ol>
-<h2 id="3有哪些常见的-loader">3.有哪些常见的 loader？
-</h2><ol>
+<h3 id="3有哪些常见的-loader" class="scroll-mt-8 group">
+  3.有哪些常见的 loader？
+  
+    <a href="#3%e6%9c%89%e5%93%aa%e4%ba%9b%e5%b8%b8%e8%a7%81%e7%9a%84-loader"
+        class="no-underline hidden opacity-50 hover:opacity-100 !text-inherit group-hover:inline-block"
+        aria-hidden="true" title="Link to this heading" tabindex="-1">
+        <svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="16"
+  height="16"
+  fill="none"
+  stroke="currentColor"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  class="lucide lucide-link w-4 h-4 block"
+  viewBox="0 0 24 24"
+>
+  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+</svg>
+
+    </a>
+  
+</h3>
+<ol>
 <li>babel-loader：把 es6 转成 es5；</li>
 <li>css-loader：加载 css，支持模块化，压缩，文件导入等特性；</li>
 <li>style-loader：把 css 代码注入到 js 中，通过 dom 操作去加载 css；</li>
@@ -297,31 +204,61 @@ filename: 打包后的文件名</li>
 <li>url-loader：和 file-loader 类似，文件很小的时候可以 base64 方式吧文件内容注入到代码中。</li>
 <li>source-map-loader：加载额外的 source map 文件，方便调试。</li>
 </ol>
-<h2 id="4业务场景和对应解决方案">4.业务场景和对应解决方案
-</h2><h3 id="1单页应用">1.单页应用
-</h3><p>一个单页应用需要配置一个 entry 指明执行入口，web-webpack-plugin 里的 WebPlugin 可以自动的完成这些工作：webpack 会为 entry 生成一个包含这个入口的所有依赖文件的 chunk，但是还需要一个 html 来加载 chunk 生成的 js，如果还提取出 css 需要 HTML 文件中引入提取的 css。</p>
+<h3 id="4业务场景和对应解决方案" class="scroll-mt-8 group">
+  4.业务场景和对应解决方案
+  
+    <a href="#4%e4%b8%9a%e5%8a%a1%e5%9c%ba%e6%99%af%e5%92%8c%e5%af%b9%e5%ba%94%e8%a7%a3%e5%86%b3%e6%96%b9%e6%a1%88"
+        class="no-underline hidden opacity-50 hover:opacity-100 !text-inherit group-hover:inline-block"
+        aria-hidden="true" title="Link to this heading" tabindex="-1">
+        <svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="16"
+  height="16"
+  fill="none"
+  stroke="currentColor"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  class="lucide lucide-link w-4 h-4 block"
+  viewBox="0 0 24 24"
+>
+  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+</svg>
+
+    </a>
+  
+</h3>
+<h4 id="1单页应用" class="scroll-mt-8 group">
+  1.单页应用
+  
+    <a href="#1%e5%8d%95%e9%a1%b5%e5%ba%94%e7%94%a8"
+        class="no-underline hidden opacity-50 hover:opacity-100 !text-inherit group-hover:inline-block"
+        aria-hidden="true" title="Link to this heading" tabindex="-1">
+        <svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="16"
+  height="16"
+  fill="none"
+  stroke="currentColor"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  class="lucide lucide-link w-4 h-4 block"
+  viewBox="0 0 24 24"
+>
+  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+</svg>
+
+    </a>
+  
+</h4>
+<p>一个单页应用需要配置一个 entry 指明执行入口，web-webpack-plugin 里的 WebPlugin 可以自动的完成这些工作：webpack 会为 entry 生成一个包含这个入口的所有依赖文件的 chunk，但是还需要一个 html 来加载 chunk 生成的 js，如果还提取出 css 需要 HTML 文件中引入提取的 css。</p>
 <p>一个简单的 webpack 配置文件例子：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">{</span> <span class="nx">WebPlugin</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;web-webpack-plugin&#39;</span><span class="p">);</span>
+<figure class="codeblock not-prose scroll-mt-8" id="codeblock-01">
+  <p class="sr-only">js code snippet start</p>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="p">{</span> <span class="nx">WebPlugin</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;web-webpack-plugin&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="nx">entry</span><span class="o">:</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">app</span><span class="o">:</span> <span class="s1">&#39;./src/doc/index.js&#39;</span><span class="p">,</span>
@@ -336,10 +273,12 @@ filename: 打包后的文件名</li>
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="nx">requires</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;app&#39;</span><span class="p">,</span><span class="s1">&#39;home&#39;</span><span class="p">],</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}),</span>
 </span></span><span class="line"><span class="cl">  <span class="p">],</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><blockquote>
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div>
+  <p class="sr-only">js code snippet end</p>
+
+  
+</figure>
+<blockquote>
 <p>说明：require: [&lsquo;app&rsquo;, &lsquo;home&rsquo;]指明这个 html 依赖哪些 entry，entry 生成的 js 和 css 会自动注入到 html 中。</p>
 </blockquote>
 <p>还支持配置这些资源注入方式，支持如下属性：</p>
@@ -350,20 +289,9 @@ filename: 打包后的文件名</li>
 <li>_ie 只有 IE 浏览器才需要引入的资源。</li>
 </ol>
 <p>这些属性可以通过在 js 里配置，看个简单例子：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="k">new</span> <span class="nx">WebPlugin</span><span class="p">({</span>
+<figure class="codeblock not-prose scroll-mt-8" id="codeblock-02">
+  <p class="sr-only">js code snippet start</p>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="k">new</span> <span class="nx">WebPlugin</span><span class="p">({</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">filename</span><span class="o">:</span> <span class="s1">&#39;index.html&#39;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">requires</span><span class="o">:</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">         <span class="nx">app</span><span class="o">:</span><span class="p">{</span>
@@ -371,40 +299,25 @@ filename: 打包后的文件名</li>
 </span></span><span class="line"><span class="cl">              <span class="nx">_inline</span><span class="o">:</span><span class="kc">false</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">         <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">},</span>
-</span></span><span class="line"><span class="cl"><span class="p">}),</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>这些属性还可以在模板中设置，使用模板好处就是可以灵活的控制资源的注入点</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="k">new</span> <span class="nx">WebPlugin</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl"><span class="p">}),</span></span></span></code></pre></div>
+  <p class="sr-only">js code snippet end</p>
+
+  
+</figure>
+<p>这些属性还可以在模板中设置，使用模板好处就是可以灵活的控制资源的注入点</p>
+<figure class="codeblock not-prose scroll-mt-8" id="codeblock-03">
+  <p class="sr-only">js code snippet start</p>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="k">new</span> <span class="nx">WebPlugin</span><span class="p">({</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">filename</span><span class="o">:</span> <span class="s1">&#39;index.html&#39;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">template</span><span class="o">:</span> <span class="s1">&#39;./template.html&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl"><span class="p">}),</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}),</span></span></span></code></pre></div>
+  <p class="sr-only">js code snippet end</p>
+
+  
+</figure>
+<figure class="codeblock not-prose scroll-mt-8" id="codeblock-04">
+  <p class="sr-only">html code snippet start</p>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="cp">&lt;!DOCTYPE html&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;zh-cn&#34;</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;stylesheet&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;app?_inline&#34;</span><span class="p">&gt;</span>
@@ -414,61 +327,88 @@ filename: 打包后的文件名</li>
 </span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;react-body&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;app&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>WebPlugin 插件借鉴了 fis3 的思想，补足了 webpack 缺失的以 HTML 为入口的功能。想了解 WebPlugin 的更多功能，见文档。</p>
-<h3 id="2一个项目管理多个单页面">2.一个项目管理多个单页面
-</h3><p>一个项目中会包含多个单页应用，虽然多个单页面应用可以合成一个，但是这样做会导致用户没有访问的部分也加载了，如果项目中有很多的单页应用。为每一个单页应用配置一个 entry 和 WebPlugin？如果又新增，又要新增 webpack 配置，这样做麻烦，这时候有一个插件 web-webpack-plugin 里的 AutoWebPlugin 方法可以解决这些问题。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span></span></span></code></pre></div>
+  <p class="sr-only">html code snippet end</p>
+
+  
+</figure>
+<p>WebPlugin 插件借鉴了 fis3 的思想，补足了 webpack 缺失的以 HTML 为入口的功能。想了解 WebPlugin 的更多功能，见文档。</p>
+<h4 id="2一个项目管理多个单页面" class="scroll-mt-8 group">
+  2.一个项目管理多个单页面
+  
+    <a href="#2%e4%b8%80%e4%b8%aa%e9%a1%b9%e7%9b%ae%e7%ae%a1%e7%90%86%e5%a4%9a%e4%b8%aa%e5%8d%95%e9%a1%b5%e9%9d%a2"
+        class="no-underline hidden opacity-50 hover:opacity-100 !text-inherit group-hover:inline-block"
+        aria-hidden="true" title="Link to this heading" tabindex="-1">
+        <svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="16"
+  height="16"
+  fill="none"
+  stroke="currentColor"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  class="lucide lucide-link w-4 h-4 block"
+  viewBox="0 0 24 24"
+>
+  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+</svg>
+
+    </a>
+  
+</h4>
+<p>一个项目中会包含多个单页应用，虽然多个单页面应用可以合成一个，但是这样做会导致用户没有访问的部分也加载了，如果项目中有很多的单页应用。为每一个单页应用配置一个 entry 和 WebPlugin？如果又新增，又要新增 webpack 配置，这样做麻烦，这时候有一个插件 web-webpack-plugin 里的 AutoWebPlugin 方法可以解决这些问题。</p>
+<figure class="codeblock not-prose scroll-mt-8" id="codeblock-05">
+  <p class="sr-only">js code snippet start</p>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">plugins</span><span class="o">:</span> <span class="p">[</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">// 所有页面的入口目录
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">new</span> <span class="nx">AutoWebPlugin</span><span class="p">(</span><span class="s1">&#39;./src/&#39;</span><span class="p">),</span>
 </span></span><span class="line"><span class="cl">    <span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p><strong>分析：</strong></p>
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div>
+  <p class="sr-only">js code snippet end</p>
+
+  
+</figure>
+<p><strong>分析：</strong></p>
 <ol>
 <li><code>AutoWebPlugin</code>会把./src/目录下所有每个文件夹作为一个单页页面的入口，自动为所有的页面入口配置一个 <code>WebPlugin</code> 输出对应的 html。</li>
 <li>要新增一个页面就在 <code>./src/</code> 下新建一个文件夹包含这个单页应用所依赖的代码，<code>AutoWebPlugin</code> 自动生成一个名叫文件夹名称的 html 文件。</li>
 </ol>
-<h3 id="3代码分隔优化">3.代码分隔优化
-</h3><p>一个好的代码分割对浏览器首屏效果提升很大。</p>
+<h4 id="3代码分隔优化" class="scroll-mt-8 group">
+  3.代码分隔优化
+  
+    <a href="#3%e4%bb%a3%e7%a0%81%e5%88%86%e9%9a%94%e4%bc%98%e5%8c%96"
+        class="no-underline hidden opacity-50 hover:opacity-100 !text-inherit group-hover:inline-block"
+        aria-hidden="true" title="Link to this heading" tabindex="-1">
+        <svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="16"
+  height="16"
+  fill="none"
+  stroke="currentColor"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  class="lucide lucide-link w-4 h-4 block"
+  viewBox="0 0 24 24"
+>
+  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+</svg>
+
+    </a>
+  
+</h4>
+<p>一个好的代码分割对浏览器首屏效果提升很大。</p>
 <p><strong>最常见的 react 体系：</strong></p>
 <ol>
 <li>先抽出基础库 react react-dom redux react-redux 到一个单独的文件而不是和其它文件放在一起打包为一个文件，这样做的好处是只要你不升级他们的版本这个文件永远不会被刷新。如果你把这些基础库和业务代码打包在一个文件里每次改动业务代码都会导致文件 hash 值变化从而导致缓存失效浏览器重复下载这些包含基础库的代码。所以把基础库打包成一个文件。</li>
 </ol>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// vender.js 文件抽离基础库到单独的一个文件里防止跟随业务代码被刷新
+<figure class="codeblock not-prose scroll-mt-8" id="codeblock-06">
+  <p class="sr-only">js code snippet start</p>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// vender.js 文件抽离基础库到单独的一个文件里防止跟随业务代码被刷新
 </span></span></span><span class="line"><span class="cl"><span class="c1">// 所有页面都依赖的第三方库
 </span></span></span><span class="line"><span class="cl"><span class="c1">// react 基础
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">import</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
@@ -482,42 +422,44 @@ filename: 打包后的文件名</li>
 </span></span><span class="line"><span class="cl">  <span class="nx">entry</span><span class="o">:</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">vendor</span><span class="o">:</span> <span class="s1">&#39;./path/to/vendor.js&#39;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">  <span class="p">},</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><ol start="2">
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+  <p class="sr-only">js code snippet end</p>
+
+  
+</figure>
+<ol start="2">
 <li>通过 CommonsChunkPlugin 可以提取出多个代码块都依赖的代码形成一个单独的 chunk。在应用有多个页面的场景下提取出所有页面公共的代码减少单个页面的代码，在不同页面之间切换时所有页面公共的代码之前被加载过而不必重新加载。所以通过 CommonsChunkPlugin 可以提取出多个代码块都依赖的代码形成一个单独的 chunk。</li>
 </ol>
-<h3 id="4构建服务端渲染">4.构建服务端渲染
-</h3><p>服务端渲染的代码要运行在 nodejs 环境，和浏览器不同的是，服务端渲染代码需要采用 commonjs 规范同时不应该包含除 js 之外的文件比如 css。</p>
+<h4 id="4构建服务端渲染" class="scroll-mt-8 group">
+  4.构建服务端渲染
+  
+    <a href="#4%e6%9e%84%e5%bb%ba%e6%9c%8d%e5%8a%a1%e7%ab%af%e6%b8%b2%e6%9f%93"
+        class="no-underline hidden opacity-50 hover:opacity-100 !text-inherit group-hover:inline-block"
+        aria-hidden="true" title="Link to this heading" tabindex="-1">
+        <svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="16"
+  height="16"
+  fill="none"
+  stroke="currentColor"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  class="lucide lucide-link w-4 h-4 block"
+  viewBox="0 0 24 24"
+>
+  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+</svg>
+
+    </a>
+  
+</h4>
+<p>服务端渲染的代码要运行在 nodejs 环境，和浏览器不同的是，服务端渲染代码需要采用 commonjs 规范同时不应该包含除 js 之外的文件比如 css。</p>
 <p>webpack 配置如下：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+<figure class="codeblock not-prose scroll-mt-8" id="codeblock-07">
+  <p class="sr-only">js code snippet start</p>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="nx">target</span><span class="o">:</span> <span class="s1">&#39;node&#39;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">  <span class="nx">entry</span><span class="o">:</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="s1">&#39;server_render&#39;</span><span class="o">:</span> <span class="s1">&#39;./src/server_render&#39;</span><span class="p">,</span>
@@ -538,38 +480,83 @@ filename: 打包后的文件名</li>
 </span></span><span class="line"><span class="cl">      <span class="p">},</span>
 </span></span><span class="line"><span class="cl">    <span class="p">]</span>
 </span></span><span class="line"><span class="cl">  <span class="p">},</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p><strong>分析一下：</strong></p>
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div>
+  <p class="sr-only">js code snippet end</p>
+
+  
+</figure>
+<p><strong>分析一下：</strong></p>
 <ol>
 <li><code>target: 'node'</code> 指明构建出代码要运行在 node 环境中。</li>
 <li><code>libraryTarget: 'commonjs2'</code> 指明输出的代码要是 commonjs 规范。</li>
 <li><code>{test: /\.(scss|css|pdf)$/,loader: 'ignore-loader'}</code> 是为了防止不能在 node 里执行服务端渲染也用不上的文件被打包进去。</li>
 </ol>
-<h3 id="5fis3-迁移到-webpack">5.fis3 迁移到 webpack
-</h3><p>fis3 和 webpack 有很多相似地方也有不同的地方，相似地方：都采用 commonjs 规范，不同地方：导入 css 这些非 js 资源的方式。</p>
+<h4 id="5fis3-迁移到-webpack" class="scroll-mt-8 group">
+  5.fis3 迁移到 webpack
+  
+    <a href="#5fis3-%e8%bf%81%e7%a7%bb%e5%88%b0-webpack"
+        class="no-underline hidden opacity-50 hover:opacity-100 !text-inherit group-hover:inline-block"
+        aria-hidden="true" title="Link to this heading" tabindex="-1">
+        <svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="16"
+  height="16"
+  fill="none"
+  stroke="currentColor"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  class="lucide lucide-link w-4 h-4 block"
+  viewBox="0 0 24 24"
+>
+  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+</svg>
+
+    </a>
+  
+</h4>
+<p>fis3 和 webpack 有很多相似地方也有不同的地方，相似地方：都采用 commonjs 规范，不同地方：导入 css 这些非 js 资源的方式。</p>
 <p>fis3 通过@require &lsquo;./index.scss&rsquo;，而 webpack 是通过 require(&rsquo;./index.scss&rsquo;)。</p>
 <p>如果想把 fis3 平滑迁移到 webpack，可以使用 comment-require-loader。</p>
 <p>比如：你想在 webpack 构建是使用采用了 fis3 方式的 imui 模块</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">loaders</span><span class="o">:</span><span class="p">[{</span>
+<figure class="codeblock not-prose scroll-mt-8" id="codeblock-08">
+  <p class="sr-only">js code snippet start</p>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">loaders</span><span class="o">:</span><span class="p">[{</span>
 </span></span><span class="line"><span class="cl">     <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.js$/</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">     <span class="nx">loaders</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;comment-require-loader&#39;</span><span class="p">],</span>
 </span></span><span class="line"><span class="cl">     <span class="nx">include</span><span class="o">:</span> <span class="p">[</span><span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;node_modules/imui&#39;</span><span class="p">),]</span>
-</span></span><span class="line"><span class="cl"><span class="p">}]</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="5自定义-webpack-扩展">5.自定义 webpack 扩展
-</h2><p>如果你在社区找不到你的应用场景的解决方案，那就需要自己动手了写 loader 或者 plugin 了。</p>
+</span></span><span class="line"><span class="cl"><span class="p">}]</span></span></span></code></pre></div>
+  <p class="sr-only">js code snippet end</p>
+
+  
+</figure>
+<h3 id="5自定义-webpack-扩展" class="scroll-mt-8 group">
+  5.自定义 webpack 扩展
+  
+    <a href="#5%e8%87%aa%e5%ae%9a%e4%b9%89-webpack-%e6%89%a9%e5%b1%95"
+        class="no-underline hidden opacity-50 hover:opacity-100 !text-inherit group-hover:inline-block"
+        aria-hidden="true" title="Link to this heading" tabindex="-1">
+        <svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="16"
+  height="16"
+  fill="none"
+  stroke="currentColor"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  class="lucide lucide-link w-4 h-4 block"
+  viewBox="0 0 24 24"
+>
+  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+</svg>
+
+    </a>
+  
+</h3>
+<p>如果你在社区找不到你的应用场景的解决方案，那就需要自己动手了写 loader 或者 plugin 了。</p>
 <p>在你编写自定义 webpack 扩展前你需要想明白到底是要做一个 loader 还是 plugin 呢？可以这样判断：</p>
 <p>如果你的扩展是想对一个个单独的文件进行转换那么就编写 loader 剩下的都是 plugin。</p>
 <p>其中对文件进行转换可以是像：</p>
@@ -578,48 +565,72 @@ filename: 打包后的文件名</li>
 <li>file-loader 把文件替换成对应的 url；</li>
 <li>raw-loader 注入文本文件内容到代码中。</li>
 </ol>
-<h3 id="1编写-webpack-loader">1.编写 webpack loader
-</h3><p>编写 loader 非常简单，以 comment-require-loader 为例：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">content</span><span class="p">)</span> <span class="p">{</span>
+<h4 id="1编写-webpack-loader" class="scroll-mt-8 group">
+  1.编写 webpack loader
+  
+    <a href="#1%e7%bc%96%e5%86%99-webpack-loader"
+        class="no-underline hidden opacity-50 hover:opacity-100 !text-inherit group-hover:inline-block"
+        aria-hidden="true" title="Link to this heading" tabindex="-1">
+        <svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="16"
+  height="16"
+  fill="none"
+  stroke="currentColor"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  class="lucide lucide-link w-4 h-4 block"
+  viewBox="0 0 24 24"
+>
+  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+</svg>
+
+    </a>
+  
+</h4>
+<p>编写 loader 非常简单，以 comment-require-loader 为例：</p>
+<figure class="codeblock not-prose scroll-mt-8" id="codeblock-09">
+  <p class="sr-only">js code snippet start</p>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">content</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">replace</span><span class="p">(</span><span class="nx">content</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>loader 的入口需要导出一个函数，这个函数要干的事情就是转换一个文件的内容。</p>
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div>
+  <p class="sr-only">js code snippet end</p>
+
+  
+</figure>
+<p>loader 的入口需要导出一个函数，这个函数要干的事情就是转换一个文件的内容。</p>
 <p>函数接收的参数 content 是一个文件在转换前的字符串形式内容，需要返回一个新的字符串形式内容作为转换后的结果，所有通过模块化倒入的文件都会经过 loader。从这里可以看出 loader 只能处理一个个单独的文件而不能处理代码块。可以参考官方文档。</p>
-<h3 id="2-编写-webpack-plugin">2. 编写 webpack plugin
-</h3><p>plugin 应用场景广泛，所以稍微复杂点。以 end-webpack-plugin 为例：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">EndWebpackPlugin</span> <span class="p">{</span>
+<h4 id="2-编写-webpack-plugin" class="scroll-mt-8 group">
+  2. 编写 webpack plugin
+  
+    <a href="#2-%e7%bc%96%e5%86%99-webpack-plugin"
+        class="no-underline hidden opacity-50 hover:opacity-100 !text-inherit group-hover:inline-block"
+        aria-hidden="true" title="Link to this heading" tabindex="-1">
+        <svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="16"
+  height="16"
+  fill="none"
+  stroke="currentColor"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  class="lucide lucide-link w-4 h-4 block"
+  viewBox="0 0 24 24"
+>
+  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+</svg>
+
+    </a>
+  
+</h4>
+<p>plugin 应用场景广泛，所以稍微复杂点。以 end-webpack-plugin 为例：</p>
+<figure class="codeblock not-prose scroll-mt-8" id="codeblock-10">
+  <p class="sr-only">js code snippet start</p>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">EndWebpackPlugin</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="nx">constructor</span><span class="p">(</span><span class="nx">doneCallback</span><span class="p">,</span> <span class="nx">failCallback</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">doneCallback</span> <span class="o">=</span> <span class="nx">doneCallback</span><span class="p">;</span>
@@ -637,10 +648,12 @@ filename: 打包后的文件名</li>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">EndWebpackPlugin</span><span class="p">;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>loader 的入口需要导出一个 class，在 new EndWebpackPlugin() 的时候通过构造函数传入这个插件需要的参数，在 webpack 启动的时候会先实例化 plugin，再调用 plugin 的 apply 方法，插件在 apply 函数里监听 webpack 生命周期里的事件，做相应的处理。</p>
+</span></span><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">EndWebpackPlugin</span><span class="p">;</span></span></span></code></pre></div>
+  <p class="sr-only">js code snippet end</p>
+
+  
+</figure>
+<p>loader 的入口需要导出一个 class，在 new EndWebpackPlugin() 的时候通过构造函数传入这个插件需要的参数，在 webpack 启动的时候会先实例化 plugin，再调用 plugin 的 apply 方法，插件在 apply 函数里监听 webpack 生命周期里的事件，做相应的处理。</p>
 <p><strong>webpack plugin 的两个核心概念：</strong></p>
 <ol>
 <li>compiler：从 webpack 启动到退出只存在一个 Compiler，compiler 存放着 webpack 的配置。</li>
@@ -652,275 +665,82 @@ filename: 打包后的文件名</li>
 <p>参考文章：https://www.cnblogs.com/chengxs/p/11022842.html</p>
 </blockquote>
 
+  </article>
+
+      </main>
+      <footer class="mt-20 border-t border-neutral-100 pt-2 text-xs">
+        <section class="items-top flex flex-row justify-between opacity-70">
+  <div class="flex flex-col space-y-2">
+      <p>Copyright &copy; 2024, Michael Henriksen.</p>
+      <div
+        xmlns:cc="https://creativecommons.org/ns#"
+        xmlns:dct="http://purl.org/dc/terms/"
+        about="https://creativecommons.org"
+      >
+        Content is available under
+        <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license" class="inline-block" title="Creative Commons Attribution-ShareAlike 4.0 International"
+          >CC BY-SA 4.0</a
+        >
+        unless otherwise noted.
+      </div>
+        <div
+          class="mt-2 flex items-center space-x-2 fill-slate-400 hover:fill-slate-600 motion-safe:transition-colors"
+        >
+          <div class="flex-none cursor-help"><svg
+  version="1.0"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="5.5 -3.5 64 64"
+  xml:space="preserve"
+  class="w-5 h-5 block"
+  aria-hidden="true"
+>
+  <title>Creative Commons</title>
+  <circle fill="transparent" cx="37.785" cy="28.501" r="28.836" />
+  <path
+    d="M37.441-3.5c8.951 0 16.572 3.125 22.857 9.372 3.008 3.009 5.295 6.448 6.857 10.314 1.561 3.867 2.344 7.971 2.344 12.314 0 4.381-.773 8.486-2.314 12.313-1.543 3.828-3.82 7.21-6.828 10.143-3.123 3.085-6.666 5.448-10.629 7.086-3.961 1.638-8.057 2.457-12.285 2.457s-8.276-.808-12.143-2.429c-3.866-1.618-7.333-3.961-10.4-7.027-3.067-3.066-5.4-6.524-7-10.372S5.5 32.767 5.5 28.5c0-4.229.809-8.295 2.428-12.2 1.619-3.905 3.972-7.4 7.057-10.486C21.08-.394 28.565-3.5 37.441-3.5zm.116 5.772c-7.314 0-13.467 2.553-18.458 7.657-2.515 2.553-4.448 5.419-5.8 8.6a25.204 25.204 0 0 0-2.029 9.972c0 3.429.675 6.734 2.029 9.913 1.353 3.183 3.285 6.021 5.8 8.516 2.514 2.496 5.351 4.399 8.515 5.715a25.652 25.652 0 0 0 9.943 1.971c3.428 0 6.75-.665 9.973-1.999 3.219-1.335 6.121-3.257 8.713-5.771 4.99-4.876 7.484-10.99 7.484-18.344 0-3.543-.648-6.895-1.943-10.057-1.293-3.162-3.18-5.98-5.654-8.458-5.146-5.143-11.335-7.715-18.573-7.715zm-.401 20.915-4.287 2.229c-.458-.951-1.019-1.619-1.685-2-.667-.38-1.286-.571-1.858-.571-2.856 0-4.286 1.885-4.286 5.657 0 1.714.362 3.084 1.085 4.113.724 1.029 1.791 1.544 3.201 1.544 1.867 0 3.181-.915 3.944-2.743l3.942 2c-.838 1.563-2 2.791-3.486 3.686-1.484.896-3.123 1.343-4.914 1.343-2.857 0-5.163-.875-6.915-2.629-1.752-1.752-2.628-4.19-2.628-7.313 0-3.048.886-5.466 2.657-7.257 1.771-1.79 4.009-2.686 6.715-2.686 3.963-.002 6.8 1.541 8.515 4.627zm18.457 0-4.229 2.229c-.457-.951-1.02-1.619-1.686-2-.668-.38-1.307-.571-1.914-.571-2.857 0-4.287 1.885-4.287 5.657 0 1.714.363 3.084 1.086 4.113.723 1.029 1.789 1.544 3.201 1.544 1.865 0 3.18-.915 3.941-2.743l4 2c-.875 1.563-2.057 2.791-3.541 3.686a9.233 9.233 0 0 1-4.857 1.343c-2.896 0-5.209-.875-6.941-2.629-1.736-1.752-2.602-4.19-2.602-7.313 0-3.048.885-5.466 2.658-7.257 1.77-1.79 4.008-2.686 6.713-2.686 3.962-.002 6.783 1.541 8.458 4.627z"
+  />
+</svg>
+</div><div class="flex-none cursor-help"><svg
+  version="1.0"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="5.5 -3.5 64 64"
+  xml:space="preserve"
+  class="w-5 h-5 block"
+>
+  <title>Credit must be given to the creator</title>
+  <circle fill="transparent" cx="37.637" cy="28.806" r="28.276" />
+  <path
+    d="M37.443-3.5c8.988 0 16.57 3.085 22.742 9.257C66.393 11.967 69.5 19.548 69.5 28.5c0 8.991-3.049 16.476-9.145 22.456-6.476 6.363-14.113 9.544-22.912 9.544-8.649 0-16.153-3.144-22.514-9.43C8.644 44.784 5.5 37.262 5.5 28.5c0-8.761 3.144-16.342 9.429-22.742C21.101-.415 28.604-3.5 37.443-3.5zm.114 5.772c-7.276 0-13.428 2.553-18.457 7.657-5.22 5.334-7.829 11.525-7.829 18.572 0 7.086 2.59 13.22 7.77 18.398 5.181 5.182 11.352 7.771 18.514 7.771 7.123 0 13.334-2.607 18.629-7.828 5.029-4.838 7.543-10.952 7.543-18.343 0-7.276-2.553-13.465-7.656-18.571-5.104-5.104-11.276-7.656-18.514-7.656zm8.572 18.285v13.085h-3.656v15.542h-9.944V33.643h-3.656V20.557c0-.572.2-1.057.599-1.457.401-.399.887-.6 1.457-.6h13.144c.533 0 1.01.2 1.428.6.417.4.628.886.628 1.457zm-13.087-8.228c0-3.008 1.485-4.514 4.458-4.514s4.457 1.504 4.457 4.514c0 2.971-1.486 4.457-4.457 4.457s-4.458-1.486-4.458-4.457z"
+  />
+</svg>
+</div><div class="flex-none cursor-help"><svg
+  version="1.0"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="5.5 -3.5 64 64"
+  xml:space="preserve"
+  class="w-5 h-5 block"
+>
+  <title>Adaptations must be shared under the same terms</title>
+  <circle fill="transparent" cx="36.944" cy="28.631" r="29.105" />
+  <path
+    d="M37.443-3.5c8.951 0 16.531 3.105 22.742 9.315C66.393 11.987 69.5 19.548 69.5 28.5c0 8.954-3.049 16.457-9.145 22.514-6.437 6.324-14.076 9.486-22.912 9.486-8.649 0-16.153-3.143-22.514-9.429C8.644 44.786 5.5 37.264 5.5 28.501c0-8.723 3.144-16.285 9.429-22.685C21.138-.395 28.643-3.5 37.443-3.5zm.114 5.772c-7.276 0-13.428 2.572-18.457 7.715-5.22 5.296-7.829 11.467-7.829 18.513 0 7.125 2.59 13.257 7.77 18.4 5.181 5.182 11.352 7.771 18.514 7.771 7.123 0 13.334-2.609 18.629-7.828 5.029-4.876 7.543-10.99 7.543-18.343 0-7.313-2.553-13.485-7.656-18.513-5.067-5.145-11.239-7.715-18.514-7.715zM23.271 23.985c.609-3.924 2.189-6.962 4.742-9.114 2.552-2.152 5.656-3.228 9.314-3.228 5.027 0 9.029 1.62 12 4.856 2.971 3.238 4.457 7.391 4.457 12.457 0 4.915-1.543 9-4.627 12.256-3.088 3.256-7.086 4.886-12.002 4.886-3.619 0-6.743-1.085-9.371-3.257-2.629-2.172-4.209-5.257-4.743-9.257H31.1c.19 3.886 2.533 5.829 7.029 5.829 2.246 0 4.057-.972 5.428-2.914 1.373-1.942 2.059-4.534 2.059-7.771 0-3.391-.629-5.971-1.885-7.743-1.258-1.771-3.066-2.657-5.43-2.657-4.268 0-6.667 1.885-7.2 5.656h2.343l-6.342 6.343-6.343-6.343 2.512.001z"
+  />
+</svg>
+</div>
+        </div>
+
+  </div>
+    <div>
+      <a
+        href="https://github.com/michenriksen/hugo-theme-til"
+        title="Today I Learned &#8212; A Hugo theme by Michael Henriksen"
+        data-theme-version="0.1.0"
+        >theme: til</a
+      >
+    </div>
 </section>
 
-
-    <footer class="article-footer">
-    
-    <section class="article-tags">
-        
-            <a href="/tags/js/">Js</a>
-        
-            <a href="/tags/webpack/">Webpack</a>
-        
-    </section>
-
-
-    
-    <section class="article-copyright">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="12" cy="12" r="9" />
-  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
-</svg>
-
-
-
-        <span>Licensed under CC BY-NC-SA 4.0</span>
-    </section>
-    </footer>
-
-
-    
-</article>
-
-    
-
-    
-
-<aside class="related-content--wrapper">
-    <h2 class="section-title">Related content</h2>
-    <div class="related-content">
-        <div class="flex article-list--tile">
-            
-                
-<article class="">
-    <a href="/blog/220/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">值传递和引用传递、深拷贝和浅拷贝</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/blog/218/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">无法从非 EcmaScript 模块导入命名导出</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/blog/194/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">hugo 纯静态编写一个字数统计脚本</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/blog/189/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">用原生 js 给网站写个搜索功能</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/blog/181/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">利用 memos 生成的在线动态列表</h2>
-        </div>
-    </a>
-</article>
-
-            
-        </div>
+      </footer>
     </div>
-</aside>
-
-     
-    
-        
-    <div class="disqus-container">
-    <div id="disqus_thread"></div>
-<script>
-    window.disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-</div>
-
-<style>
-    .disqus-container {
-        background-color: var(--card-background);
-        border-radius: var(--card-border-radius);
-        box-shadow: var(--shadow-l1);
-        padding: var(--card-padding);
-    }
-</style>
-
-<script>
-    window.addEventListener('onColorSchemeChange', (e) => {
-        if (typeof DISQUS == 'object') {
-            DISQUS.reset({
-                reload: true
-            });
-        }
-    })
-</script>
-
-    
-
-    <footer class="site-footer">
-    <section class="copyright">
-        &copy; 
-        
-            2020 - 
-        
-        2024 Example Person
-    </section>
-    
-    <section class="powerby">
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
-    </section>
-</footer>
-
-
-    
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-
-    
-    <div class="pswp__bg"></div>
-
-    
-    <div class="pswp__scroll-wrap">
-
-        
-        <div class="pswp__container">
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-        </div>
-
-        
-        <div class="pswp__ui pswp__ui--hidden">
-
-            <div class="pswp__top-bar">
-
-                
-
-                <div class="pswp__counter"></div>
-
-                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-
-                <button class="pswp__button pswp__button--share" title="Share"></button>
-
-                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-
-                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-
-                
-                
-                <div class="pswp__preloader">
-                    <div class="pswp__preloader__icn">
-                        <div class="pswp__preloader__cut">
-                            <div class="pswp__preloader__donut"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                <div class="pswp__share-tooltip"></div>
-            </div>
-
-            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-            </button>
-
-            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-            </button>
-
-            <div class="pswp__caption">
-                <div class="pswp__caption__center"></div>
-            </div>
-
-        </div>
-
-    </div>
-
-</div><script 
-                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
-                defer
-                >
-            </script><script 
-                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
-                defer
-                >
-            </script><link 
-                rel="stylesheet" 
-                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
-            ><link 
-                rel="stylesheet" 
-                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
-            >
-
-            </main>
-        </div>
-        <script 
-                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
-                
-                >
-            </script><script type="text/javascript" src="/ts/main.f3c625e8bc5ed08f30cda9df39d47a457bf3121a2aebe7e3d04c7e727d278926.js" defer></script>
-<script>
-    (function () {
-        const customFont = document.createElement('link');
-        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
-
-        customFont.type = "text/css";
-        customFont.rel = "stylesheet";
-
-        document.head.appendChild(customFont);
-    }());
-</script>
-
-    </body>
+  </body>
 </html>

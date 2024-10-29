@@ -11,32 +11,34 @@
 <body>
   {{ partial "header.html" . }}
 
-  <section id="body">
-    <div class="container">
-      <article class="post-content">
-        <p>这是我的个人博客，已经运行了 <span id="days"></span> 天，写了 {{ $articleCount }} 篇文章，共 {{ $totalWordCount }} 字。</p>
-        <p><strong>最新的 9 篇文章：</strong></p>
-        <div class="indexpost">
-          {{ $pages := .Site.RegularPages }}
-          {{ $paginator := .Paginate ($pages) }}
-          {{ $count := 0 }}
+  <section>
 
-          {{ range $paginator.Pages }}
-          {{ $title := .Title }}
-          {{ $summary := .Summary }}
-          <div class="posts-item">
-            <span class="date">{{ .Date.Format "2006-01-02"}}</span>
-            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-          </div>
-          {{ end }}
+    <article class="post-content">
+      <p>这是我的个人博客，已经运行了 <span id="days"></span> 天，写了 {{ $articleCount }} 篇文章，共 {{ $totalWordCount }} 字。</p>
+      <p><strong>最新的 9 篇文章：</strong></p>
+      <div class="indexpost">
+        {{ $pages := .Site.RegularPages }}
+        {{ $paginator := .Paginate ($pages) }}
+        {{ $count := 0 }}
+
+        {{ range $paginator.Pages }}
+        {{ $title := .Title }}
+        {{ $summary := .Summary }}
+        <div class="posts-item">
+          <span class="date">{{ .Date.Format "2006-01-02"}}</span>
+          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
         </div>
-        {{ .Site.Params.postHeaderContent | safeHTML }}
-        {{ .Content }}
+        {{ end }}
+      </div>
 
-      </article>
-    </div>
-    {{ partial "footer.html" . }}
+      {{ .Site.Params.postHeaderContent | safeHTML }}
+      {{ .Content }}
+
+    </article>
+
+
   </section>
+  {{ partial "footer.html" . }}
 
   <script>
     const time = "{{ .Site.Params.buildDate }}";

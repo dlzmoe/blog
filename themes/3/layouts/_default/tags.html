@@ -5,22 +5,23 @@
 <body>
   {{ partial "header.html" . }}
   <section id="body">
-    <div class="container">
-      <div class="body-title">{{ .Title }}</div>
 
-      <article class="post-content">
-        {{ .Site.Params.postHeaderContent | safeHTML }}
-        {{ .Content }}
+    <div class="body-title">{{ .Title }}</div>
 
-        <ul class="tags-list">
-          {{ range .Site.Taxonomies.tags }}
-          <li><a href="{{ .Page.Permalink }}">{{ .Page.Title }} <sup>{{ .Count }}</sup></a> </li>
-          {{ end }}
-        </ul>
-      </article>
-    </div>
-    {{ partial "footer.html" . }}
+    <article class="post-content">
+      {{ .Site.Params.postHeaderContent | safeHTML }}
+      {{ .Content }}
+
+      <ul class="tags-list">
+        {{ range .Site.Taxonomies.tags }}
+        <li><a href="{{ .Page.Permalink }}">{{ .Page.Title }} <sup>{{ .Count }}</sup></a> </li>
+        {{ end }}
+      </ul>
+    </article>
+
+    {{ partial "comment.html" . }}
   </section>
+  {{ partial "footer.html" . }}
 </body>
 
 </html>
