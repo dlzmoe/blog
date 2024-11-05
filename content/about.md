@@ -26,23 +26,7 @@ const author = {
 
 点击查看 [骑行记录](/riding/), [计划单](/plan/)
 
-暂不做友链，请勿留言友链信息。
 
+### 2.版权声明
 
-### 2.推荐博客
-
-有时候就会遇到一些文章写的不错的博主，于是就记录在这里了。
-
-[余果的博客](https://yuguo.github.io/) // 
-[涛叔](https://taoshu.in/) // 
-[江卮可乐](https://emo.ijann.com/) // 
-[东东博客](https://shutwin.com/) // 
-[Leon Fong](https://www.leonfong.me/) // 
-[卢涛南博客](https://lutaonan.com/) // 
-[Airing 的博客](https://ursb.me) // 
-[Jiang's Blog](https://jiangxueqiao.com/) // 
-[ImQi1 的博客](https://imqi1.com) 
-
-### 3.版权声明
-
-本站文章所有版权均归本人所有，未经允许，不允许转载。
+本站文章所有版权均归本人所有，允许转载，需在文章开头著名来源，如：网站链接，作者，网站名称。
