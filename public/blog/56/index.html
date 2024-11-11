@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en"
+  x-data
+  :class="$store.darkMode.class()"
+  :data-theme="$store.darkMode.theme()">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IE10 的兼容性处理 | 子舒的博客</title>
+
+    
+
+<link rel="canonical" href="http://localhost:1313/blog/56/" />
+
+
+
+<meta name="author" content="Dream" />
+<meta name="description" content="" />
+
+
+
+<meta name="generator" content="Hugo 0.136.5">
+
+
+<meta property="og:url" content="http://localhost:1313/blog/56/">
+  <meta property="og:site_name" content="子舒的博客">
+  <meta property="og:title" content="IE10 的兼容性处理">
+  <meta property="og:description" content="IE10 不支持箭头函数，写 js 的时候慎用。
+IE10 下对 js 的语法要求严格，正常参数后如果没有多余的代码，写个,会报错，如果加了删掉就 OK，Chrome 下不会产生影响。
+zoom 属性能不用，尽量别用。我在 Chrome 使用 zoom 进行大小调整，放到 IE10 运行，整个页面都错位了，找半天才想起来之前给一个容器设置了zoom: 1.1;，真是让人头大。
+IE10 下img标签自带白边，在默认样式里面设置border: none;即可。
+img { border: none; } IE10 能兼容大部分的 html5 新标签，唯独不能兼容 main。
+box-shadow 阴影属性其实 IE10 是支持的，但是需要注意语法问题，在普通浏览器 color 可以用rgba,#等写法，但是在 IE10 下，只能通过#000000写法，#和六位的颜色标记，不可以简写，否则不生效。
+IE10 不兼容 es6 新语法。">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2021-03-18T00:00:00+00:00">
+    <meta property="article:modified_time" content="2021-03-18T00:00:00+00:00">
+    <meta property="article:tag" content="浏览器">
+    <meta property="article:tag" content="IE">
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="IE10 的兼容性处理">
+  <meta name="twitter:description" content="IE10 不支持箭头函数，写 js 的时候慎用。
+IE10 下对 js 的语法要求严格，正常参数后如果没有多余的代码，写个,会报错，如果加了删掉就 OK，Chrome 下不会产生影响。
+zoom 属性能不用，尽量别用。我在 Chrome 使用 zoom 进行大小调整，放到 IE10 运行，整个页面都错位了，找半天才想起来之前给一个容器设置了zoom: 1.1;，真是让人头大。
+IE10 下img标签自带白边，在默认样式里面设置border: none;即可。
+img { border: none; } IE10 能兼容大部分的 html5 新标签，唯独不能兼容 main。
+box-shadow 阴影属性其实 IE10 是支持的，但是需要注意语法问题，在普通浏览器 color 可以用rgba,#等写法，但是在 IE10 下，只能通过#000000写法，#和六位的颜色标记，不可以简写，否则不生效。
+IE10 不兼容 es6 新语法。">
+
+
+
+
+<link rel="stylesheet" href="/css/output.css" />
+
+
+
+
+    
+
+
+<style>
+  pre {
+    padding: 1em;
+    overflow: auto;
+  }
+</style>
+
+
+
+
+
+
+
+
+
+    
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  </head>
+
+  <body x-data="{
+    flip: false,
+  }">
+    
+    <div id="dream-global-bg"></div>
+
+    
+<nav class="mt-4 lg:mt-8 py-4">
+
+  
+  <div class="container flex justify-between max-w-[65ch] mx-auto px-4 md:px-0">
+  
+    <section class="flex items-center gap-4">
+      <div class="avatar cursor-pointer hover:online" @click="flip = !flip" title="Flip it!">
+        <div class="h-10 rounded-full">
+          <img src="/" alt="Hugo Theme Dream" />
+        </div>
+      </div>
+
+      
+      <div>
+        
+        <a href="http://localhost:1313/" class="text-lg font-semibold cursor-pointer">
+          Hugo Theme Dream
+        </a>
+        
+        
+      </div>
+      
+    </section>
+
+    <div class="dropdown dropdown-end sm:hidden">
+      <div tabindex="0" role="button" class="btn btn-ghost btn-square" aria-label="Select an option">
+        <ion-icon name="menu" class="text-2xl"></ion-icon>
+      </div>
+      <ul class="dropdown-content menu w-36 bg-base-100 rounded-box z-[1] shadow-md">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/categories" title="All Categories">
+    <ion-icon name="grid"></ion-icon>
+    All Categories
+  </a>
+</li>
+
+
+
+
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/tags" title="All Tags">
+    <ion-icon name="pricetags"></ion-icon>
+    All Tags
+  </a>
+</li>
+
+
+
+
+
+
+      </ul>
+    </div>
+    <section class="hidden sm:flex sm:items-center sm:gap-2 md:gap-4">
+      
+      
+      
+      
+
+      
+      
+
+      
+
+      
+      
+
+
+
+
+
+      
+      
+
+
+
+
+
+      
+      
+
+
+
+
+
+      
+      
+<a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href="/categories" title="All Categories">
+  <ion-icon class="group-hover:text-primary-content" name="grid"></ion-icon>
+</a>
+
+
+      
+      
+<a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href="/tags" title="All Tags">
+  <ion-icon class="group-hover:text-primary-content" name="pricetags"></ion-icon>
+</a>
+
+
+      
+
+      
+
+      
+    </section>
+  </div>
+</nav>
+
+
+    <div class="flip-container" :class="{ 'flip-it': flip }">
+      <div class="flipper">
+        <div class="front">
+          <div class="container">
+            
+<div class="mt-4 px-4">
+  
+  <div>
+  
+    
+    <article class="mx-auto prose prose-quoteless dark:prose-invert" id="dream-single-post-main" itemscope itemtype="http://schema.org/Article">
+      
+  <meta itemprop="name" content="IE10 的兼容性处理">
+  <meta itemprop="description" content="IE10 不支持箭头函数，写 js 的时候慎用。
+IE10 下对 js 的语法要求严格，正常参数后如果没有多余的代码，写个,会报错，如果加了删掉就 OK，Chrome 下不会产生影响。
+zoom 属性能不用，尽量别用。我在 Chrome 使用 zoom 进行大小调整，放到 IE10 运行，整个页面都错位了，找半天才想起来之前给一个容器设置了zoom: 1.1;，真是让人头大。
+IE10 下img标签自带白边，在默认样式里面设置border: none;即可。
+img { border: none; } IE10 能兼容大部分的 html5 新标签，唯独不能兼容 main。
+box-shadow 阴影属性其实 IE10 是支持的，但是需要注意语法问题，在普通浏览器 color 可以用rgba,#等写法，但是在 IE10 下，只能通过#000000写法，#和六位的颜色标记，不可以简写，否则不生效。
+IE10 不兼容 es6 新语法。">
+  <meta itemprop="datePublished" content="2021-03-18T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2021-03-18T00:00:00+00:00">
+  <meta itemprop="wordCount" content="44">
+  <meta itemprop="keywords" content="浏览器,IE">
+
+      <header>
+        <h1 itemprop="headline">IE10 的兼容性处理</h1>
+        <p class="text-sm">
+          
+            Thursday, Mar 18, 2021
+          
+
+          | <span>1 minute read</span>
+
+          
+          | <span>Updated at
+            
+              Thursday, Mar 18, 2021
+            </span>
+          
+        </p>
+        <div class="flex justify-between">
+          <div class="flex items-center">
+  
+  <span>@</span>
+  
+
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+  
+    <span itemprop="name">Dream</span>
+  
+  </span>
+</div>
+
+
+          <div class="flex items-center gap-2">
+  
+  
+
+  
+  
+  
+  
+  
+    <a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary"
+      href="https://x.com/intent/post?text=IE10%20%e7%9a%84%e5%85%bc%e5%ae%b9%e6%80%a7%e5%a4%84%e7%90%86&amp;url=http://localhost:1313/blog/56/" target="_blank" rel="noopener noreferrer"
+      title="Share on X">
+      <ion-icon class="group-hover:text-primary-content" name="logo-x"></ion-icon>
+    </a>
+  
+    <a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary"
+      href="https://facebook.com/sharer/sharer.php?u=http://localhost:1313/blog/56/" target="_blank" rel="noopener noreferrer"
+      title="Share on Facebook">
+      <ion-icon class="group-hover:text-primary-content" name="logo-facebook"></ion-icon>
+    </a>
+  
+    <a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary"
+      href="https://wa.me/?text=IE10%20%e7%9a%84%e5%85%bc%e5%ae%b9%e6%80%a7%e5%a4%84%e7%90%86%20http://localhost:1313/blog/56/" target="_blank" rel="noopener noreferrer"
+      title="Share on WhatsApp">
+      <ion-icon class="group-hover:text-primary-content" name="logo-whatsapp"></ion-icon>
+    </a>
+  
+
+  
+  
+</div>
+
+        </div>
+      </header>
+
+      
+
+      <ol>
+<li>
+<p>IE10 不支持箭头函数，写 js 的时候慎用。</p>
+</li>
+<li>
+<p>IE10 下对 js 的语法要求严格，正常参数后如果没有多余的代码，写个<code>,</code>会报错，如果加了删掉就 OK，Chrome 下不会产生影响。</p>
+</li>
+<li>
+<p>zoom 属性能不用，尽量别用。我在 Chrome 使用 zoom 进行大小调整，放到 IE10 运行，整个页面都错位了，找半天才想起来之前给一个容器设置了<code>zoom: 1.1;</code>，真是让人头大。</p>
+</li>
+<li>
+<p>IE10 下<code>img</code>标签自带白边，在默认样式里面设置<code>border: none;</code>即可。</p>
+</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span><span style="color:#f92672">img</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">border</span>: <span style="color:#66d9ef">none</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ol start="5">
+<li>
+<p>IE10 能兼容大部分的 html5 新标签，唯独不能兼容 <code>main</code>。</p>
+</li>
+<li>
+<p>box-shadow 阴影属性其实 IE10 是支持的，但是需要注意语法问题，在普通浏览器 color 可以用<code>rgba</code>,<code>#</code>等写法，但是在 IE10 下，只能通过<code>#000000</code>写法，<code>#</code>和六位的颜色标记，不可以简写，否则不生效。</p>
+</li>
+<li>
+<p>IE10 不兼容 es6 新语法。</p>
+</li>
+</ol>
+
+
+      
+    </article>
+  </div>
+
+  
+</div>
+
+
+            
+            <footer class="flex justify-between items-center gap-2 max-w-[65ch] mx-auto px-4 md:px-0 py-12">
+            
+              <div>
+  
+  <p>
+    © 2016 - 2024 子舒的博客
+  </p>
+  
+
+  
+  <p class="text-sm">
+    🌱
+    <span class="text-base-content/60">
+      Powered by <a class="hover:underline" href="https://gohugo.io/" target="_blank">Hugo</a> with theme
+      <a class="hover:underline" href="https://github.com/g1eny0ung/hugo-theme-dream" target="_blank">Dream</a>.</span
+    >
+  </p>
+  
+</div>
+
+              <div
+  x-data="{ icons: [
+    { name: 'moon', status: 'y' },
+    { name: 'sunny', status: 'n' },
+    { name: 'desktop', status: 'auto' }
+  ] }"
+  class="flex items-center h-[32px] px-2 gap-2 border border-base-content/30 rounded-full"
+>
+  <template x-for="icon in icons">
+    <div
+      role="button"
+      tabindex="0"
+      :aria-label="'Select ' + icon.name + ' mode'"
+      class="group inline-flex justify-center items-center p-1 rounded-full cursor-pointer hover:bg-primary"
+      :class="$store.darkMode.icon() === icon.name && 'bg-primary'"
+      @click="$store.darkMode.toggle(icon.status)"
+    >
+      <ion-icon
+        :name="`${icon.name}-outline`"
+        class="group-hover:text-primary-content"
+        :class="$store.darkMode.icon() === icon.name && 'text-primary-content'"
+      >
+      </ion-icon>
+    </div>
+  </template>
+</div>
+
+            </footer>
+          </div>
+        </div>
+        <div class="back">
+          <div class="container">
+            
+            <div class="max-w-[65ch] mt-8 mx-auto px-4">
+  
+  
+  
+  
+
+  
+
+  
+</div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+  window.lightTheme = "emerald"
+  window.darkTheme = "forest"
+</script>
+
+
+
+
+
+<script src="/js/main.js"></script>
+
+    
+
+
+
+
+
+
+
+    
+
+    
+
+    
+
+    <script type="module" src="https://unpkg.com/ionicons@7.4.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.4.0/dist/ionicons/ionicons.js"></script>
+  </body>
+</html>

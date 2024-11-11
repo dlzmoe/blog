@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en"
+  x-data
+  :class="$store.darkMode.class()"
+  :data-theme="$store.darkMode.theme()">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>奇趣周刊 - 第 26 期 | 子舒的博客</title>
+
+    
+
+<link rel="canonical" href="http://localhost:1313/blog/weekly-26/" />
+
+
+
+<meta name="author" content="Dream" />
+<meta name="description" content="" />
+
+
+
+<meta name="generator" content="Hugo 0.136.5">
+
+
+<meta property="og:url" content="http://localhost:1313/blog/weekly-26/">
+  <meta property="og:site_name" content="子舒的博客">
+  <meta property="og:title" content="奇趣周刊 - 第 26 期">
+  <meta property="og:description" content="奇趣周刊，每周四发布，分享有趣的软件，程序，动态新闻等。 周刊列表 | rss 订阅
+江畔渔火对愁眠。
+1.Clash 系列删库事件 2023 年 11 月 2 日，Fndroid/clash_for_windows_pkg 作者由于某些原因，删除仓库中的 releases 包。
+3 日，clash 核心也随之删库，紧接着，一系列基于 clash 核心的软件都宣告删库或者 archived。
+2.令人困惑的 git 术语 https://jvns.ca/blog/2023/11/01/confusing-git-terminology/
+作者举例了很多有关 git 指令奇怪的术语。
+3.GitHub 如何恢复旧的 feed 流推送？ https://github.com/wangrongding/github-old-feed
+一个油猴脚本，将 GitHub 首页的推送信息进行优化，显示效果也是非常不错的。
+4.知乎评论时间精确到秒 - 油猴脚本 https://meta.appinn.net/t/topic/47711/18
+来自一位网友的分享，我修改了一些内容和知乎网页风格保持一致。将显示 几小时前 的时间显示改为正常 年-月-日 时-分-秒
+// ==UserScript== // @name 知乎评论时间精确到秒 // @namespace http://tampermonkey.net/ // @version 0.3 // @description try to take over the world! // @author You // @match https://www.zhihu.com/* // @match https://zhuanlan.zhihu.com/* // @icon http://zhihu.com/favicon.ico // @grant GM_addStyle // @run-at document-start // @require https://scriptcat.org/lib/637/1.3.3/ajaxHooker.js // ==/UserScript== (function () { &#39;use strict&#39;; function timestampToTime(timestamp) { const milliseconds = timestamp * 1000; const date = new Date(milliseconds); const year = date.getFullYear(); const month = addZero(date.getMonth() &#43; 1); const day = addZero(date.getDate()); const hour = addZero(date.getHours()); const minute = addZero(date.getMinutes()); const second = addZero(date.getSeconds()); return `${ year }-${ month }-${ day } ${ hour }:${ minute }:${ second }`; } function addZero(num) { return num &lt; 10 ? `0${ num }` : `${ num }`; } ajaxHooker.hook(request =&gt; { if (request.url.includes(&#34;https://www.zhihu.com/api/v4/comment_v5/comment/&#34;) || request.url.includes(&#34;https://www.zhihu.com/api/v4/comment_v5/answers/&#34;) || request.url.includes(&#34;https://www.zhihu.com/api/v4/comment_v5/articles/&#34;)) { request.response = res =&gt; { // console.log(&#39;\n== ↓ ↓ ↓ ↓ ↓ == \n&#39;, res) if (res.json.data) { res.json.data.forEach(item =&gt; { // console.log(timestampToTime(item.created_time)); item.content = item.content &#43; &#39;&lt;span class=&#34;css-nm6sok commentTime&#34;&gt;&#39; &#43; timestampToTime(item.created_time) &#43; &#39;&lt;/span&gt;&#39; if (item.child_comments.length &gt;= 1) { item.child_comments.forEach(child =&gt; { child.content = child.content &#43; &#39;&lt;span class=&#34;css-nm6sok commentTime&#34;&gt;&#39; &#43; timestampToTime(child.created_time) &#43; &#39;&lt;/&lt;span&gt;&#39; }); } }); GM_addStyle(` .CommentContent { position: relative; overflow: visible; } /* 精确时间 */ .commentTime { position: absolute; left: 0; bottom: -22px; color: #999; } .css-140jo2 { position: relative; } /* 原时间	*/ .css-12cl38p, .css-12cl38p &#43; span, .css-nm6sok &#43; span { display: none; } /* ip 属地	*/ .css-8hxn0r .css-nm6sok { position: absolute; left: 160px; top: 3px; } /* 热评	*/ .css-8hxn0r .css-33kuns { position: absolute; left: 240px; top: 3px; } /* 作者置顶	*/ .css-1o87v1m{ position: absolute; top: 22px; left: -4px; } `); } }; } }); })(); 5.rubick - uTools 的开源替代品 https://github.com/rubickCenter/rubick">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2023-11-09T00:00:00+00:00">
+    <meta property="article:modified_time" content="2023-11-09T00:00:00+00:00">
+    <meta property="article:tag" content="Weekly">
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="奇趣周刊 - 第 26 期">
+  <meta name="twitter:description" content="奇趣周刊，每周四发布，分享有趣的软件，程序，动态新闻等。 周刊列表 | rss 订阅
+江畔渔火对愁眠。
+1.Clash 系列删库事件 2023 年 11 月 2 日，Fndroid/clash_for_windows_pkg 作者由于某些原因，删除仓库中的 releases 包。
+3 日，clash 核心也随之删库，紧接着，一系列基于 clash 核心的软件都宣告删库或者 archived。
+2.令人困惑的 git 术语 https://jvns.ca/blog/2023/11/01/confusing-git-terminology/
+作者举例了很多有关 git 指令奇怪的术语。
+3.GitHub 如何恢复旧的 feed 流推送？ https://github.com/wangrongding/github-old-feed
+一个油猴脚本，将 GitHub 首页的推送信息进行优化，显示效果也是非常不错的。
+4.知乎评论时间精确到秒 - 油猴脚本 https://meta.appinn.net/t/topic/47711/18
+来自一位网友的分享，我修改了一些内容和知乎网页风格保持一致。将显示 几小时前 的时间显示改为正常 年-月-日 时-分-秒
+// ==UserScript== // @name 知乎评论时间精确到秒 // @namespace http://tampermonkey.net/ // @version 0.3 // @description try to take over the world! // @author You // @match https://www.zhihu.com/* // @match https://zhuanlan.zhihu.com/* // @icon http://zhihu.com/favicon.ico // @grant GM_addStyle // @run-at document-start // @require https://scriptcat.org/lib/637/1.3.3/ajaxHooker.js // ==/UserScript== (function () { &#39;use strict&#39;; function timestampToTime(timestamp) { const milliseconds = timestamp * 1000; const date = new Date(milliseconds); const year = date.getFullYear(); const month = addZero(date.getMonth() &#43; 1); const day = addZero(date.getDate()); const hour = addZero(date.getHours()); const minute = addZero(date.getMinutes()); const second = addZero(date.getSeconds()); return `${ year }-${ month }-${ day } ${ hour }:${ minute }:${ second }`; } function addZero(num) { return num &lt; 10 ? `0${ num }` : `${ num }`; } ajaxHooker.hook(request =&gt; { if (request.url.includes(&#34;https://www.zhihu.com/api/v4/comment_v5/comment/&#34;) || request.url.includes(&#34;https://www.zhihu.com/api/v4/comment_v5/answers/&#34;) || request.url.includes(&#34;https://www.zhihu.com/api/v4/comment_v5/articles/&#34;)) { request.response = res =&gt; { // console.log(&#39;\n== ↓ ↓ ↓ ↓ ↓ == \n&#39;, res) if (res.json.data) { res.json.data.forEach(item =&gt; { // console.log(timestampToTime(item.created_time)); item.content = item.content &#43; &#39;&lt;span class=&#34;css-nm6sok commentTime&#34;&gt;&#39; &#43; timestampToTime(item.created_time) &#43; &#39;&lt;/span&gt;&#39; if (item.child_comments.length &gt;= 1) { item.child_comments.forEach(child =&gt; { child.content = child.content &#43; &#39;&lt;span class=&#34;css-nm6sok commentTime&#34;&gt;&#39; &#43; timestampToTime(child.created_time) &#43; &#39;&lt;/&lt;span&gt;&#39; }); } }); GM_addStyle(` .CommentContent { position: relative; overflow: visible; } /* 精确时间 */ .commentTime { position: absolute; left: 0; bottom: -22px; color: #999; } .css-140jo2 { position: relative; } /* 原时间	*/ .css-12cl38p, .css-12cl38p &#43; span, .css-nm6sok &#43; span { display: none; } /* ip 属地	*/ .css-8hxn0r .css-nm6sok { position: absolute; left: 160px; top: 3px; } /* 热评	*/ .css-8hxn0r .css-33kuns { position: absolute; left: 240px; top: 3px; } /* 作者置顶	*/ .css-1o87v1m{ position: absolute; top: 22px; left: -4px; } `); } }; } }); })(); 5.rubick - uTools 的开源替代品 https://github.com/rubickCenter/rubick">
+
+
+
+
+<link rel="stylesheet" href="/css/output.css" />
+
+
+
+
+    
+
+
+<style>
+  pre {
+    padding: 1em;
+    overflow: auto;
+  }
+</style>
+
+
+
+
+
+
+
+
+
+    
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  </head>
+
+  <body x-data="{
+    flip: false,
+  }">
+    
+    <div id="dream-global-bg"></div>
+
+    
+<nav class="mt-4 lg:mt-8 py-4">
+
+  
+  <div class="container flex justify-between max-w-[65ch] mx-auto px-4 md:px-0">
+  
+    <section class="flex items-center gap-4">
+      <div class="avatar cursor-pointer hover:online" @click="flip = !flip" title="Flip it!">
+        <div class="h-10 rounded-full">
+          <img src="/" alt="Hugo Theme Dream" />
+        </div>
+      </div>
+
+      
+      <div>
+        
+        <a href="http://localhost:1313/" class="text-lg font-semibold cursor-pointer">
+          Hugo Theme Dream
+        </a>
+        
+        
+      </div>
+      
+    </section>
+
+    <div class="dropdown dropdown-end sm:hidden">
+      <div tabindex="0" role="button" class="btn btn-ghost btn-square" aria-label="Select an option">
+        <ion-icon name="menu" class="text-2xl"></ion-icon>
+      </div>
+      <ul class="dropdown-content menu w-36 bg-base-100 rounded-box z-[1] shadow-md">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/categories" title="All Categories">
+    <ion-icon name="grid"></ion-icon>
+    All Categories
+  </a>
+</li>
+
+
+
+
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/tags" title="All Tags">
+    <ion-icon name="pricetags"></ion-icon>
+    All Tags
+  </a>
+</li>
+
+
+
+
+
+
+      </ul>
+    </div>
+    <section class="hidden sm:flex sm:items-center sm:gap-2 md:gap-4">
+      
+      
+      
+      
+
+      
+      
+
+      
+
+      
+      
+
+
+
+
+
+      
+      
+
+
+
+
+
+      
+      
+
+
+
+
+
+      
+      
+<a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href="/categories" title="All Categories">
+  <ion-icon class="group-hover:text-primary-content" name="grid"></ion-icon>
+</a>
+
+
+      
+      
+<a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href="/tags" title="All Tags">
+  <ion-icon class="group-hover:text-primary-content" name="pricetags"></ion-icon>
+</a>
+
+
+      
+
+      
+
+      
+    </section>
+  </div>
+</nav>
+
+
+    <div class="flip-container" :class="{ 'flip-it': flip }">
+      <div class="flipper">
+        <div class="front">
+          <div class="container">
+            
+<div class="mt-4 px-4">
+  
+  <div>
+  
+    
+    <article class="mx-auto prose prose-quoteless dark:prose-invert" id="dream-single-post-main" itemscope itemtype="http://schema.org/Article">
+      
+  <meta itemprop="name" content="奇趣周刊 - 第 26 期">
+  <meta itemprop="description" content="奇趣周刊，每周四发布，分享有趣的软件，程序，动态新闻等。 周刊列表 | rss 订阅
+江畔渔火对愁眠。
+1.Clash 系列删库事件 2023 年 11 月 2 日，Fndroid/clash_for_windows_pkg 作者由于某些原因，删除仓库中的 releases 包。
+3 日，clash 核心也随之删库，紧接着，一系列基于 clash 核心的软件都宣告删库或者 archived。
+2.令人困惑的 git 术语 https://jvns.ca/blog/2023/11/01/confusing-git-terminology/
+作者举例了很多有关 git 指令奇怪的术语。
+3.GitHub 如何恢复旧的 feed 流推送？ https://github.com/wangrongding/github-old-feed
+一个油猴脚本，将 GitHub 首页的推送信息进行优化，显示效果也是非常不错的。
+4.知乎评论时间精确到秒 - 油猴脚本 https://meta.appinn.net/t/topic/47711/18
+来自一位网友的分享，我修改了一些内容和知乎网页风格保持一致。将显示 几小时前 的时间显示改为正常 年-月-日 时-分-秒
+// ==UserScript== // @name 知乎评论时间精确到秒 // @namespace http://tampermonkey.net/ // @version 0.3 // @description try to take over the world! // @author You // @match https://www.zhihu.com/* // @match https://zhuanlan.zhihu.com/* // @icon http://zhihu.com/favicon.ico // @grant GM_addStyle // @run-at document-start // @require https://scriptcat.org/lib/637/1.3.3/ajaxHooker.js // ==/UserScript== (function () { &#39;use strict&#39;; function timestampToTime(timestamp) { const milliseconds = timestamp * 1000; const date = new Date(milliseconds); const year = date.getFullYear(); const month = addZero(date.getMonth() &#43; 1); const day = addZero(date.getDate()); const hour = addZero(date.getHours()); const minute = addZero(date.getMinutes()); const second = addZero(date.getSeconds()); return `${ year }-${ month }-${ day } ${ hour }:${ minute }:${ second }`; } function addZero(num) { return num &lt; 10 ? `0${ num }` : `${ num }`; } ajaxHooker.hook(request =&gt; { if (request.url.includes(&#34;https://www.zhihu.com/api/v4/comment_v5/comment/&#34;) || request.url.includes(&#34;https://www.zhihu.com/api/v4/comment_v5/answers/&#34;) || request.url.includes(&#34;https://www.zhihu.com/api/v4/comment_v5/articles/&#34;)) { request.response = res =&gt; { // console.log(&#39;\n== ↓ ↓ ↓ ↓ ↓ == \n&#39;, res) if (res.json.data) { res.json.data.forEach(item =&gt; { // console.log(timestampToTime(item.created_time)); item.content = item.content &#43; &#39;&lt;span class=&#34;css-nm6sok commentTime&#34;&gt;&#39; &#43; timestampToTime(item.created_time) &#43; &#39;&lt;/span&gt;&#39; if (item.child_comments.length &gt;= 1) { item.child_comments.forEach(child =&gt; { child.content = child.content &#43; &#39;&lt;span class=&#34;css-nm6sok commentTime&#34;&gt;&#39; &#43; timestampToTime(child.created_time) &#43; &#39;&lt;/&lt;span&gt;&#39; }); } }); GM_addStyle(` .CommentContent { position: relative; overflow: visible; } /* 精确时间 */ .commentTime { position: absolute; left: 0; bottom: -22px; color: #999; } .css-140jo2 { position: relative; } /* 原时间	*/ .css-12cl38p, .css-12cl38p &#43; span, .css-nm6sok &#43; span { display: none; } /* ip 属地	*/ .css-8hxn0r .css-nm6sok { position: absolute; left: 160px; top: 3px; } /* 热评	*/ .css-8hxn0r .css-33kuns { position: absolute; left: 240px; top: 3px; } /* 作者置顶	*/ .css-1o87v1m{ position: absolute; top: 22px; left: -4px; } `); } }; } }); })(); 5.rubick - uTools 的开源替代品 https://github.com/rubickCenter/rubick">
+  <meta itemprop="datePublished" content="2023-11-09T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2023-11-09T00:00:00+00:00">
+  <meta itemprop="wordCount" content="367">
+  <meta itemprop="keywords" content="Weekly">
+
+      <header>
+        <h1 itemprop="headline">奇趣周刊 - 第 26 期</h1>
+        <p class="text-sm">
+          
+            Thursday, Nov 9, 2023
+          
+
+          | <span>2 minute read</span>
+
+          
+          | <span>Updated at
+            
+              Thursday, Nov 9, 2023
+            </span>
+          
+        </p>
+        <div class="flex justify-between">
+          <div class="flex items-center">
+  
+  <span>@</span>
+  
+
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+  
+    <span itemprop="name">Dream</span>
+  
+  </span>
+</div>
+
+
+          <div class="flex items-center gap-2">
+  
+  
+
+  
+  
+  
+  
+  
+    <a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary"
+      href="https://x.com/intent/post?text=%e5%a5%87%e8%b6%a3%e5%91%a8%e5%88%8a%20-%20%e7%ac%ac%2026%20%e6%9c%9f&amp;url=http://localhost:1313/blog/weekly-26/" target="_blank" rel="noopener noreferrer"
+      title="Share on X">
+      <ion-icon class="group-hover:text-primary-content" name="logo-x"></ion-icon>
+    </a>
+  
+    <a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary"
+      href="https://facebook.com/sharer/sharer.php?u=http://localhost:1313/blog/weekly-26/" target="_blank" rel="noopener noreferrer"
+      title="Share on Facebook">
+      <ion-icon class="group-hover:text-primary-content" name="logo-facebook"></ion-icon>
+    </a>
+  
+    <a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary"
+      href="https://wa.me/?text=%e5%a5%87%e8%b6%a3%e5%91%a8%e5%88%8a%20-%20%e7%ac%ac%2026%20%e6%9c%9f%20http://localhost:1313/blog/weekly-26/" target="_blank" rel="noopener noreferrer"
+      title="Share on WhatsApp">
+      <ion-icon class="group-hover:text-primary-content" name="logo-whatsapp"></ion-icon>
+    </a>
+  
+
+  
+  
+</div>
+
+        </div>
+      </header>
+
+      
+
+      
+
+
+  <blockquote>
+    <p>奇趣周刊，每周四发布，分享有趣的软件，程序，动态新闻等。 <a href="/categories/weekly/">周刊列表</a> | <a href="/categories/weekly/index.xml">rss 订阅</a></p>
+
+  </blockquote>
+
+<p><img src="https://imgurl.zishu.me/images/old/ffb7a901f304e7532c799881928b558_z8lb0v_.webp" alt=""></p>
+<p><em>江畔渔火对愁眠。</em></p>
+<hr>
+<h3 id="1clash-系列删库事件">1.Clash 系列删库事件</h3>
+<p>2023 年 11 月 2 日，Fndroid/clash_for_windows_pkg 作者由于某些原因，删除仓库中的 releases 包。</p>
+<p>3 日，clash 核心也随之删库，紧接着，一系列基于 clash 核心的软件都宣告删库或者 archived。</p>
+<h3 id="2令人困惑的-git-术语">2.令人困惑的 git 术语</h3>
+<p><a href="https://jvns.ca/blog/2023/11/01/confusing-git-terminology/">https://jvns.ca/blog/2023/11/01/confusing-git-terminology/</a></p>
+<p>作者举例了很多有关 git 指令奇怪的术语。</p>
+<h3 id="3github-如何恢复旧的-feed-流推送">3.GitHub 如何恢复旧的 feed 流推送？</h3>
+<p><a href="https://github.com/wangrongding/github-old-feed">https://github.com/wangrongding/github-old-feed</a></p>
+<p>一个油猴脚本，将 GitHub 首页的推送信息进行优化，显示效果也是非常不错的。</p>
+<h3 id="4知乎评论时间精确到秒---油猴脚本">4.知乎评论时间精确到秒 - 油猴脚本</h3>
+<p><a href="https://meta.appinn.net/t/topic/47711/18">https://meta.appinn.net/t/topic/47711/18</a></p>
+<p>来自一位网友的分享，我修改了一些内容和知乎网页风格保持一致。将显示 <code>几小时前</code> 的时间显示改为正常 <code>年-月-日 时-分-秒</code></p>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// ==UserScript==
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// @name         知乎评论时间精确到秒
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// @namespace    http://tampermonkey.net/
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// @version      0.3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// @description  try to take over the world!
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// @author       You
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// @match        https://www.zhihu.com/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// @match        https://zhuanlan.zhihu.com/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// @icon         http://zhihu.com/favicon.ico
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// @grant       GM_addStyle
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// @run-at document-start
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// @require https://scriptcat.org/lib/637/1.3.3/ajaxHooker.js
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ==/UserScript==
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">function</span> () {
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#39;use strict&#39;</span>;
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">timestampToTime</span>(<span style="color:#a6e22e">timestamp</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">milliseconds</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">timestamp</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000</span>;
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">date</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Date(<span style="color:#a6e22e">milliseconds</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">year</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">date</span>.<span style="color:#a6e22e">getFullYear</span>();
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">month</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">addZero</span>(<span style="color:#a6e22e">date</span>.<span style="color:#a6e22e">getMonth</span>() <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">day</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">addZero</span>(<span style="color:#a6e22e">date</span>.<span style="color:#a6e22e">getDate</span>());
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">hour</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">addZero</span>(<span style="color:#a6e22e">date</span>.<span style="color:#a6e22e">getHours</span>());
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">minute</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">addZero</span>(<span style="color:#a6e22e">date</span>.<span style="color:#a6e22e">getMinutes</span>());
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">second</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">addZero</span>(<span style="color:#a6e22e">date</span>.<span style="color:#a6e22e">getSeconds</span>());
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#e6db74">`</span><span style="color:#e6db74">${</span> <span style="color:#a6e22e">year</span> <span style="color:#e6db74">}</span><span style="color:#e6db74">-</span><span style="color:#e6db74">${</span> <span style="color:#a6e22e">month</span> <span style="color:#e6db74">}</span><span style="color:#e6db74">-</span><span style="color:#e6db74">${</span> <span style="color:#a6e22e">day</span> <span style="color:#e6db74">}</span><span style="color:#e6db74"> </span><span style="color:#e6db74">${</span> <span style="color:#a6e22e">hour</span> <span style="color:#e6db74">}</span><span style="color:#e6db74">:</span><span style="color:#e6db74">${</span> <span style="color:#a6e22e">minute</span> <span style="color:#e6db74">}</span><span style="color:#e6db74">:</span><span style="color:#e6db74">${</span> <span style="color:#a6e22e">second</span> <span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">addZero</span>(<span style="color:#a6e22e">num</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">num</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">`0</span><span style="color:#e6db74">${</span> <span style="color:#a6e22e">num</span> <span style="color:#e6db74">}</span><span style="color:#e6db74">`</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">`</span><span style="color:#e6db74">${</span> <span style="color:#a6e22e">num</span> <span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">ajaxHooker</span>.<span style="color:#a6e22e">hook</span>(<span style="color:#a6e22e">request</span> =&gt; {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">request</span>.<span style="color:#a6e22e">url</span>.<span style="color:#a6e22e">includes</span>(<span style="color:#e6db74">&#34;https://www.zhihu.com/api/v4/comment_v5/comment/&#34;</span>) <span style="color:#f92672">||</span> <span style="color:#a6e22e">request</span>.<span style="color:#a6e22e">url</span>.<span style="color:#a6e22e">includes</span>(<span style="color:#e6db74">&#34;https://www.zhihu.com/api/v4/comment_v5/answers/&#34;</span>) <span style="color:#f92672">||</span> <span style="color:#a6e22e">request</span>.<span style="color:#a6e22e">url</span>.<span style="color:#a6e22e">includes</span>(<span style="color:#e6db74">&#34;https://www.zhihu.com/api/v4/comment_v5/articles/&#34;</span>)) {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">request</span>.<span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">res</span> =&gt; {
+</span></span><span style="display:flex;"><span>				<span style="color:#75715e">// console.log(&#39;\n== ↓ ↓ ↓ ↓ ↓ == \n&#39;, res)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>				<span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">data</span>) {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>					<span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">forEach</span>(<span style="color:#a6e22e">item</span> =&gt; {
+</span></span><span style="display:flex;"><span>						<span style="color:#75715e">// console.log(timestampToTime(item.created_time));
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>						<span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">content</span> <span style="color:#f92672">=</span>  <span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">content</span> <span style="color:#f92672">+</span>   <span style="color:#e6db74">&#39;&lt;span class=&#34;css-nm6sok commentTime&#34;&gt;&#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">timestampToTime</span>(<span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">created_time</span>) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;&lt;/span&gt;&#39;</span>
+</span></span><span style="display:flex;"><span>						<span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">child_comments</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>							<span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">child_comments</span>.<span style="color:#a6e22e">forEach</span>(<span style="color:#a6e22e">child</span> =&gt; {
+</span></span><span style="display:flex;"><span>								<span style="color:#a6e22e">child</span>.<span style="color:#a6e22e">content</span> <span style="color:#f92672">=</span>   <span style="color:#a6e22e">child</span>.<span style="color:#a6e22e">content</span>  <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;&lt;span class=&#34;css-nm6sok commentTime&#34;&gt;&#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">timestampToTime</span>(<span style="color:#a6e22e">child</span>.<span style="color:#a6e22e">created_time</span>) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;&lt;/&lt;span&gt;&#39;</span>
+</span></span><span style="display:flex;"><span>							});
+</span></span><span style="display:flex;"><span>						}
+</span></span><span style="display:flex;"><span>					});
+</span></span><span style="display:flex;"><span>					<span style="color:#a6e22e">GM_addStyle</span>(<span style="color:#e6db74">`
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">					.CommentContent {
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">							position: relative;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">							overflow: visible;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">						}
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">						/* 	精确时间 */
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">						.commentTime {
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">							position: absolute;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">							left: 0;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">							bottom: -22px;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">							color: #999;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">						}
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">						.css-140jo2 {
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">							position: relative;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">						}
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">						/* 原时间	 */
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">						.css-12cl38p,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">						.css-12cl38p + span,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">						.css-nm6sok + span {
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">							display: none;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">						}
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">						/* ip 属地	 */
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">						.css-8hxn0r .css-nm6sok {
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">							position: absolute;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">							left: 160px;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">							top: 3px;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">						}
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">						/* 热评	 */
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">						.css-8hxn0r .css-33kuns {
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">							position: absolute;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">							left: 240px;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">							top: 3px;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">						}
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">						/*  作者置顶	 */
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">						.css-1o87v1m{
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">						    position: absolute;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  						    top: 22px;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   						    left: -4px;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">						}
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">					`</span>);
+</span></span><span style="display:flex;"><span>				}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>			};
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	});
+</span></span><span style="display:flex;"><span>})();
+</span></span></code></pre></div><!-- raw HTML omitted -->
+<h3 id="5rubick---utools-的开源替代品">5.rubick - uTools 的开源替代品</h3>
+<p><a href="https://github.com/rubickCenter/rubick">https://github.com/rubickCenter/rubick</a></p>
+<p>虽然我已经购买了 uTools 的永久会员，但还是觉得 rubick 非常棒，试用了一下很符合前端的使用习惯，可以自己本地开发插件。</p>
+<!-- raw HTML omitted -->
+<ul>
+<li><input checked="" disabled="" type="checkbox"> 基于 electron 的开源工具箱，自由集成丰富插件。</li>
+<li><input checked="" disabled="" type="checkbox"> 基于 npm 包模式的插件管理，安装插件和安装 npm 包一样简单</li>
+<li><input checked="" disabled="" type="checkbox"> 支持 webdav 多端数据同步，真正的数据安全同步</li>
+<li><input checked="" disabled="" type="checkbox"> 独一无二的系统插件模式，让插件成为 rubick 的一部分</li>
+<li><input checked="" disabled="" type="checkbox"> 支持快速启动本地 app、文件、文件夹</li>
+<li><input checked="" disabled="" type="checkbox"> 支持企业化内网部署</li>
+<li><input checked="" disabled="" type="checkbox"> 支持多语言</li>
+</ul>
+<!-- raw HTML omitted -->
+<p><img src="https://camo.githubusercontent.com/1857703c574326d1a1b331a9307b75bcc370584ae339aeca2616279ca5464e72/68747470733a2f2f706963312e7a68696d672e636f6d2f38302f76322d37306331303566663766623165393535666336376666613561353536343039325f373230772e676966" alt=""></p>
+<h3 id="6openai-发布会">6.OpenAI 发布会</h3>
+<p>11 月 6 日，OpenAI 官方发布会上公布最新的模型 GPT-4 Turbo 发布，功能非常强大，并且开启了 GPT 4 的内测，小部分 GPT 3.5 用户可以体验到 GPT 4 的快感，预计很快就可以开放到所有 GPT 3.5 用户。</p>
+
+
+      
+    </article>
+  </div>
+
+  
+</div>
+
+
+            
+            <footer class="flex justify-between items-center gap-2 max-w-[65ch] mx-auto px-4 md:px-0 py-12">
+            
+              <div>
+  
+  <p>
+    © 2016 - 2024 子舒的博客
+  </p>
+  
+
+  
+  <p class="text-sm">
+    🌱
+    <span class="text-base-content/60">
+      Powered by <a class="hover:underline" href="https://gohugo.io/" target="_blank">Hugo</a> with theme
+      <a class="hover:underline" href="https://github.com/g1eny0ung/hugo-theme-dream" target="_blank">Dream</a>.</span
+    >
+  </p>
+  
+</div>
+
+              <div
+  x-data="{ icons: [
+    { name: 'moon', status: 'y' },
+    { name: 'sunny', status: 'n' },
+    { name: 'desktop', status: 'auto' }
+  ] }"
+  class="flex items-center h-[32px] px-2 gap-2 border border-base-content/30 rounded-full"
+>
+  <template x-for="icon in icons">
+    <div
+      role="button"
+      tabindex="0"
+      :aria-label="'Select ' + icon.name + ' mode'"
+      class="group inline-flex justify-center items-center p-1 rounded-full cursor-pointer hover:bg-primary"
+      :class="$store.darkMode.icon() === icon.name && 'bg-primary'"
+      @click="$store.darkMode.toggle(icon.status)"
+    >
+      <ion-icon
+        :name="`${icon.name}-outline`"
+        class="group-hover:text-primary-content"
+        :class="$store.darkMode.icon() === icon.name && 'text-primary-content'"
+      >
+      </ion-icon>
+    </div>
+  </template>
+</div>
+
+            </footer>
+          </div>
+        </div>
+        <div class="back">
+          <div class="container">
+            
+            <div class="max-w-[65ch] mt-8 mx-auto px-4">
+  
+  
+  
+  
+
+  
+
+  
+</div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+  window.lightTheme = "emerald"
+  window.darkTheme = "forest"
+</script>
+
+
+
+
+
+<script src="/js/main.js"></script>
+
+    
+
+
+
+
+
+
+
+    
+
+    
+
+    
+
+    <script type="module" src="https://unpkg.com/ionicons@7.4.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.4.0/dist/ionicons/ionicons.js"></script>
+  </body>
+</html>

@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en"
+  x-data
+  :class="$store.darkMode.class()"
+  :data-theme="$store.darkMode.theme()">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hugo 如何使用 Cusdis ? | 子舒的博客</title>
+
+    
+
+<link rel="canonical" href="http://localhost:1313/blog/77/" />
+
+
+
+<meta name="author" content="Dream" />
+<meta name="description" content="" />
+
+
+
+<meta name="generator" content="Hugo 0.136.5">
+
+
+<meta property="og:url" content="http://localhost:1313/blog/77/">
+  <meta property="og:site_name" content="子舒的博客">
+  <meta property="og:title" content="hugo 如何使用 Cusdis ?">
+  <meta property="og:description" content="Cusdis 是一个界面清爽、注重隐私的轻量级 (~5kb gzip) 评论系统，可以很方便地与 React、Vue 或其他博客系统结合，并且还提供了一个后台来管理所有的评论。
+由于 Cusdis 自称是 Disqus 的替代方案，因此它还支持一键从 Disqus 导入、支持邮件通知等功能。
+官方地址：https://cusdis.com/
+他通常是用于静态博客的一个第三方评论系统，但是官方文档没有提供如何在 hugo 中使用的参数，我也是报错了多次才琢磨出来。
+1. 本地部署 根据提示，注册账号，然后 Add website ，建立一个仓库。
+进入它，然后点击 setting。
+Embed Code 会提供几行代码以及一些 api，复制他们。
+data-app-id 是注册时自动生成的，注意保密，每个人都不一样。
+&lt;div id=&#34;cusdis_thread&#34; data-host=&#34;https://cusdis.com&#34; data-app-id=&#34;xxxxxxxxx&#34; data-page-id=&#34;{{ PAGE_ID }}&#34; data-page-url=&#34;{{ PAGE_URL }}&#34; data-page-title=&#34;{{ PAGE_TITLE }}&#34; &gt;&lt;/div&gt; &lt;script async defer src=&#34;https://cusdis.com/js/cusdis.es.js&#34;&gt;&lt;/script&gt; 将这些代码复制到本地主题的 comments.html 文件内（就是评论的那个模块，每个主题或许都不一样，注意分辨）。
+这个时候如果你 hugo server 基本都会报错，因为没有修改 {{ PAGE_ID }} 等内容，这不是 hugo 官方提供的参数，按照我下面的格式，将 id, url, title 重写一下即可。
+&lt;div id=&#34;cusdis_thread&#34; data-host=&#34;https://cusdis.com&#34; data-app-id=&#34;c1d43485-e8a7-4895-972e-247eddaf242d&#34; data-page-id=&#34;{{ .RelPermalink }}&#34; data-page-url=&#34;{{ .RelPermalink }}&#34; data-page-title=&#34;{{ .Title }}&#34; &gt;&lt;/div&gt; &lt;script async defer src=&#34;https://cusdis.com/js/cusdis.es.js&#34;&gt;&lt;/script&gt; 保存重新 hugo server 即可。">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2021-09-16T00:00:00+00:00">
+    <meta property="article:modified_time" content="2021-09-16T00:00:00+00:00">
+    <meta property="article:tag" content="博客">
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="hugo 如何使用 Cusdis ?">
+  <meta name="twitter:description" content="Cusdis 是一个界面清爽、注重隐私的轻量级 (~5kb gzip) 评论系统，可以很方便地与 React、Vue 或其他博客系统结合，并且还提供了一个后台来管理所有的评论。
+由于 Cusdis 自称是 Disqus 的替代方案，因此它还支持一键从 Disqus 导入、支持邮件通知等功能。
+官方地址：https://cusdis.com/
+他通常是用于静态博客的一个第三方评论系统，但是官方文档没有提供如何在 hugo 中使用的参数，我也是报错了多次才琢磨出来。
+1. 本地部署 根据提示，注册账号，然后 Add website ，建立一个仓库。
+进入它，然后点击 setting。
+Embed Code 会提供几行代码以及一些 api，复制他们。
+data-app-id 是注册时自动生成的，注意保密，每个人都不一样。
+&lt;div id=&#34;cusdis_thread&#34; data-host=&#34;https://cusdis.com&#34; data-app-id=&#34;xxxxxxxxx&#34; data-page-id=&#34;{{ PAGE_ID }}&#34; data-page-url=&#34;{{ PAGE_URL }}&#34; data-page-title=&#34;{{ PAGE_TITLE }}&#34; &gt;&lt;/div&gt; &lt;script async defer src=&#34;https://cusdis.com/js/cusdis.es.js&#34;&gt;&lt;/script&gt; 将这些代码复制到本地主题的 comments.html 文件内（就是评论的那个模块，每个主题或许都不一样，注意分辨）。
+这个时候如果你 hugo server 基本都会报错，因为没有修改 {{ PAGE_ID }} 等内容，这不是 hugo 官方提供的参数，按照我下面的格式，将 id, url, title 重写一下即可。
+&lt;div id=&#34;cusdis_thread&#34; data-host=&#34;https://cusdis.com&#34; data-app-id=&#34;c1d43485-e8a7-4895-972e-247eddaf242d&#34; data-page-id=&#34;{{ .RelPermalink }}&#34; data-page-url=&#34;{{ .RelPermalink }}&#34; data-page-title=&#34;{{ .Title }}&#34; &gt;&lt;/div&gt; &lt;script async defer src=&#34;https://cusdis.com/js/cusdis.es.js&#34;&gt;&lt;/script&gt; 保存重新 hugo server 即可。">
+
+
+
+
+<link rel="stylesheet" href="/css/output.css" />
+
+
+
+
+    
+
+
+<style>
+  pre {
+    padding: 1em;
+    overflow: auto;
+  }
+</style>
+
+
+
+
+
+
+
+
+
+    
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  </head>
+
+  <body x-data="{
+    flip: false,
+  }">
+    
+    <div id="dream-global-bg"></div>
+
+    
+<nav class="mt-4 lg:mt-8 py-4">
+
+  
+  <div class="container flex justify-between max-w-[65ch] mx-auto px-4 md:px-0">
+  
+    <section class="flex items-center gap-4">
+      <div class="avatar cursor-pointer hover:online" @click="flip = !flip" title="Flip it!">
+        <div class="h-10 rounded-full">
+          <img src="/" alt="Hugo Theme Dream" />
+        </div>
+      </div>
+
+      
+      <div>
+        
+        <a href="http://localhost:1313/" class="text-lg font-semibold cursor-pointer">
+          Hugo Theme Dream
+        </a>
+        
+        
+      </div>
+      
+    </section>
+
+    <div class="dropdown dropdown-end sm:hidden">
+      <div tabindex="0" role="button" class="btn btn-ghost btn-square" aria-label="Select an option">
+        <ion-icon name="menu" class="text-2xl"></ion-icon>
+      </div>
+      <ul class="dropdown-content menu w-36 bg-base-100 rounded-box z-[1] shadow-md">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/categories" title="All Categories">
+    <ion-icon name="grid"></ion-icon>
+    All Categories
+  </a>
+</li>
+
+
+
+
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/tags" title="All Tags">
+    <ion-icon name="pricetags"></ion-icon>
+    All Tags
+  </a>
+</li>
+
+
+
+
+
+
+      </ul>
+    </div>
+    <section class="hidden sm:flex sm:items-center sm:gap-2 md:gap-4">
+      
+      
+      
+      
+
+      
+      
+
+      
+
+      
+      
+
+
+
+
+
+      
+      
+
+
+
+
+
+      
+      
+
+
+
+
+
+      
+      
+<a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href="/categories" title="All Categories">
+  <ion-icon class="group-hover:text-primary-content" name="grid"></ion-icon>
+</a>
+
+
+      
+      
+<a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href="/tags" title="All Tags">
+  <ion-icon class="group-hover:text-primary-content" name="pricetags"></ion-icon>
+</a>
+
+
+      
+
+      
+
+      
+    </section>
+  </div>
+</nav>
+
+
+    <div class="flip-container" :class="{ 'flip-it': flip }">
+      <div class="flipper">
+        <div class="front">
+          <div class="container">
+            
+<div class="mt-4 px-4">
+  
+  <div>
+  
+    
+    <article class="mx-auto prose prose-quoteless dark:prose-invert" id="dream-single-post-main" itemscope itemtype="http://schema.org/Article">
+      
+  <meta itemprop="name" content="hugo 如何使用 Cusdis ?">
+  <meta itemprop="description" content="Cusdis 是一个界面清爽、注重隐私的轻量级 (~5kb gzip) 评论系统，可以很方便地与 React、Vue 或其他博客系统结合，并且还提供了一个后台来管理所有的评论。
+由于 Cusdis 自称是 Disqus 的替代方案，因此它还支持一键从 Disqus 导入、支持邮件通知等功能。
+官方地址：https://cusdis.com/
+他通常是用于静态博客的一个第三方评论系统，但是官方文档没有提供如何在 hugo 中使用的参数，我也是报错了多次才琢磨出来。
+1. 本地部署 根据提示，注册账号，然后 Add website ，建立一个仓库。
+进入它，然后点击 setting。
+Embed Code 会提供几行代码以及一些 api，复制他们。
+data-app-id 是注册时自动生成的，注意保密，每个人都不一样。
+&lt;div id=&#34;cusdis_thread&#34; data-host=&#34;https://cusdis.com&#34; data-app-id=&#34;xxxxxxxxx&#34; data-page-id=&#34;{{ PAGE_ID }}&#34; data-page-url=&#34;{{ PAGE_URL }}&#34; data-page-title=&#34;{{ PAGE_TITLE }}&#34; &gt;&lt;/div&gt; &lt;script async defer src=&#34;https://cusdis.com/js/cusdis.es.js&#34;&gt;&lt;/script&gt; 将这些代码复制到本地主题的 comments.html 文件内（就是评论的那个模块，每个主题或许都不一样，注意分辨）。
+这个时候如果你 hugo server 基本都会报错，因为没有修改 {{ PAGE_ID }} 等内容，这不是 hugo 官方提供的参数，按照我下面的格式，将 id, url, title 重写一下即可。
+&lt;div id=&#34;cusdis_thread&#34; data-host=&#34;https://cusdis.com&#34; data-app-id=&#34;c1d43485-e8a7-4895-972e-247eddaf242d&#34; data-page-id=&#34;{{ .RelPermalink }}&#34; data-page-url=&#34;{{ .RelPermalink }}&#34; data-page-title=&#34;{{ .Title }}&#34; &gt;&lt;/div&gt; &lt;script async defer src=&#34;https://cusdis.com/js/cusdis.es.js&#34;&gt;&lt;/script&gt; 保存重新 hugo server 即可。">
+  <meta itemprop="datePublished" content="2021-09-16T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2021-09-16T00:00:00+00:00">
+  <meta itemprop="wordCount" content="141">
+  <meta itemprop="keywords" content="博客">
+
+      <header>
+        <h1 itemprop="headline">hugo 如何使用 Cusdis ?</h1>
+        <p class="text-sm">
+          
+            Thursday, Sep 16, 2021
+          
+
+          | <span>1 minute read</span>
+
+          
+          | <span>Updated at
+            
+              Thursday, Sep 16, 2021
+            </span>
+          
+        </p>
+        <div class="flex justify-between">
+          <div class="flex items-center">
+  
+  <span>@</span>
+  
+
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+  
+    <span itemprop="name">Dream</span>
+  
+  </span>
+</div>
+
+
+          <div class="flex items-center gap-2">
+  
+  
+
+  
+  
+  
+  
+  
+    <a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary"
+      href="https://x.com/intent/post?text=hugo%20%e5%a6%82%e4%bd%95%e4%bd%bf%e7%94%a8%20Cusdis%20?&amp;url=http://localhost:1313/blog/77/" target="_blank" rel="noopener noreferrer"
+      title="Share on X">
+      <ion-icon class="group-hover:text-primary-content" name="logo-x"></ion-icon>
+    </a>
+  
+    <a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary"
+      href="https://facebook.com/sharer/sharer.php?u=http://localhost:1313/blog/77/" target="_blank" rel="noopener noreferrer"
+      title="Share on Facebook">
+      <ion-icon class="group-hover:text-primary-content" name="logo-facebook"></ion-icon>
+    </a>
+  
+    <a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary"
+      href="https://wa.me/?text=hugo%20%e5%a6%82%e4%bd%95%e4%bd%bf%e7%94%a8%20Cusdis%20?%20http://localhost:1313/blog/77/" target="_blank" rel="noopener noreferrer"
+      title="Share on WhatsApp">
+      <ion-icon class="group-hover:text-primary-content" name="logo-whatsapp"></ion-icon>
+    </a>
+  
+
+  
+  
+</div>
+
+        </div>
+      </header>
+
+      
+
+      <p>Cusdis 是一个界面清爽、注重隐私的轻量级 (~5kb gzip) 评论系统，可以很方便地与 React、Vue 或其他博客系统结合，并且还提供了一个后台来管理所有的评论。</p>
+<p>由于 Cusdis 自称是 Disqus 的替代方案，因此它还支持一键从 Disqus 导入、支持邮件通知等功能。</p>
+<p>官方地址：<a href="https://cusdis.com/">https://cusdis.com/</a></p>
+<p>他通常是用于静态博客的一个第三方评论系统，但是官方文档没有提供如何在 hugo 中使用的参数，我也是报错了多次才琢磨出来。</p>
+<h2 id="1-本地部署">1. 本地部署</h2>
+<p>根据提示，注册账号，然后 <code>Add website</code> ，建立一个仓库。</p>
+<p>进入它，然后点击 <code>setting</code>。</p>
+<p><img src="https://imgurl.zishu.me/images/old/2021/09/16/68aa68c985a8a9560645c60a98adad6f.png" alt=""></p>
+<p><code>Embed Code</code> 会提供几行代码以及一些 api，复制他们。</p>
+<p><img src="https://imgurl.zishu.me/images/old/2021/09/16/059b79361e36b23f0c4ee59f2d69a990.png" alt=""></p>
+<p><code>data-app-id</code> 是注册时自动生成的，注意保密，每个人都不一样。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;cusdis_thread&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">data-host</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://cusdis.com&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">data-app-id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;xxxxxxxxx&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">data-page-id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ PAGE_ID }}&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">data-page-url</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ PAGE_URL }}&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">data-page-title</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ PAGE_TITLE }}&#34;</span>
+</span></span><span style="display:flex;"><span>&gt;&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">async</span> <span style="color:#a6e22e">defer</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://cusdis.com/js/cusdis.es.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span></code></pre></div><p>将这些代码复制到本地主题的 <code>comments.html</code> 文件内（就是评论的那个模块，每个主题或许都不一样，注意分辨）。</p>
+<p>这个时候如果你 hugo server 基本都会报错，因为没有修改 <code>{{ PAGE_ID }}</code> 等内容，这不是 hugo 官方提供的参数，按照我下面的格式，将 id, url, title 重写一下即可。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;cusdis_thread&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">data-host</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://cusdis.com&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">data-app-id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;c1d43485-e8a7-4895-972e-247eddaf242d&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">data-page-id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ .RelPermalink }}&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">data-page-url</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ .RelPermalink }}&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">data-page-title</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ .Title }}&#34;</span>
+</span></span><span style="display:flex;"><span>&gt;&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">async</span> <span style="color:#a6e22e">defer</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://cusdis.com/js/cusdis.es.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span></code></pre></div><p>保存重新 hugo server 即可。</p>
+
+
+
+  <blockquote>
+    <p>这样做的好处是当你接受一条评论信息后，审核列表可以清楚地标明来自哪一篇文章。通常大多数博客都提供了这么一个功能。</p>
+
+  </blockquote>
+
+<h2 id="2-邮箱提醒">2. 邮箱提醒</h2>
+<p>除了必备的评论功能，Cusdis 还提供了一个非常快速的邮箱提醒功能，不需要绑定密匙，直接输入自己的邮箱即可。</p>
+<p>先勾选这个 Email Notification，然后点击下方的 Advanced Notification Settings (高级通知设置)</p>
+<p><img src="https://imgurl.zishu.me/images/old/2021/09/16/75641c05cbe66afcbb4ffdfb79bb464e.png" alt=""></p>
+<p>就可以进入设置，输入自己的邮箱。</p>
+<p><img src="https://imgurl.zishu.me/images/old/2021/09/16/a3d47cb11f1662d3894da79ead79d852.png" alt=""></p>
+<h2 id="3-中文化">3. 中文化</h2>
+<p>默认的评论和提示文字均为英文，对我们很不友好，这里提供一个不错的解决方案，在引入 Cusdis 之后，顺便复制引入下面这段代码。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>  window.<span style="color:#a6e22e">CUSDIS_LOCALE</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;powered_by&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;评论由 Cusdis 提供&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;post_comment&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;发送&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;loading&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;加载中&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;email&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;邮箱地址 (可选)&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;nickname&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;昵称&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;reply_placeholder&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;回复内容...&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;reply_btn&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;回复&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;sending&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;发送中...&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;mod_badge&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;管理员&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;content_is_required&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;内容不能为空&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;nickname_is_required&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;昵称不能为空&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;comment_has_been_sent&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;评论已发送，管理员审核通过后会展示&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span></code></pre></div><p>。。。</p>
+
+
+      
+    </article>
+  </div>
+
+  
+</div>
+
+
+            
+            <footer class="flex justify-between items-center gap-2 max-w-[65ch] mx-auto px-4 md:px-0 py-12">
+            
+              <div>
+  
+  <p>
+    © 2016 - 2024 子舒的博客
+  </p>
+  
+
+  
+  <p class="text-sm">
+    🌱
+    <span class="text-base-content/60">
+      Powered by <a class="hover:underline" href="https://gohugo.io/" target="_blank">Hugo</a> with theme
+      <a class="hover:underline" href="https://github.com/g1eny0ung/hugo-theme-dream" target="_blank">Dream</a>.</span
+    >
+  </p>
+  
+</div>
+
+              <div
+  x-data="{ icons: [
+    { name: 'moon', status: 'y' },
+    { name: 'sunny', status: 'n' },
+    { name: 'desktop', status: 'auto' }
+  ] }"
+  class="flex items-center h-[32px] px-2 gap-2 border border-base-content/30 rounded-full"
+>
+  <template x-for="icon in icons">
+    <div
+      role="button"
+      tabindex="0"
+      :aria-label="'Select ' + icon.name + ' mode'"
+      class="group inline-flex justify-center items-center p-1 rounded-full cursor-pointer hover:bg-primary"
+      :class="$store.darkMode.icon() === icon.name && 'bg-primary'"
+      @click="$store.darkMode.toggle(icon.status)"
+    >
+      <ion-icon
+        :name="`${icon.name}-outline`"
+        class="group-hover:text-primary-content"
+        :class="$store.darkMode.icon() === icon.name && 'text-primary-content'"
+      >
+      </ion-icon>
+    </div>
+  </template>
+</div>
+
+            </footer>
+          </div>
+        </div>
+        <div class="back">
+          <div class="container">
+            
+            <div class="max-w-[65ch] mt-8 mx-auto px-4">
+  
+  
+  
+  
+
+  
+
+  
+</div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+  window.lightTheme = "emerald"
+  window.darkTheme = "forest"
+</script>
+
+
+
+
+
+<script src="/js/main.js"></script>
+
+    
+
+
+
+
+
+
+
+    
+
+    
+
+    
+
+    <script type="module" src="https://unpkg.com/ionicons@7.4.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.4.0/dist/ionicons/ionicons.js"></script>
+  </body>
+</html>

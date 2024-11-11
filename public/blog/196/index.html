@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en"
+  x-data
+  :class="$store.darkMode.class()"
+  :data-theme="$store.darkMode.theme()">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于 HugoFast 这个项目 | 子舒的博客</title>
+
+    
+
+<link rel="canonical" href="http://localhost:1313/blog/196/" />
+
+
+
+<meta name="author" content="Dream" />
+<meta name="description" content="" />
+
+
+
+<meta name="generator" content="Hugo 0.136.5">
+
+
+<meta property="og:url" content="http://localhost:1313/blog/196/">
+  <meta property="og:site_name" content="子舒的博客">
+  <meta property="og:title" content="关于 HugoFast 这个项目">
+  <meta property="og:description" content="项目来源于我的突发奇想，并且基于热爱折腾的心理，利用 GitHub 本身提供的 Api，将博客管理面板化。
+目前仅支持 hugo，其他程序有对应的工具，就不造轮子了。
+Github: https://github.com/dlzmoe/HugoFast
+网站：https://hugofast.netlify.app/
+用户文档：https://hugofast-docs.netlify.app/
+1. 自托管 前往 https://github.com/dlzmoe/HugoFast fork 本项目，然后下载到本地。
+git clone https://github.com/dlzmoe/HugoFast.git ::: warning 这里默认你有一定的代码基础，本地提前安装好了 node 依赖等。 :::
+# 进入项目安装依赖包 cd HugoFast yarn # 使用 `yarn serve` 运行项目 yarn serve # 打包到 dist 文件 yarn build 打包后的文件可以放在的任意空间部署。
+2. 准备工作 (1) 获取 Github Token 前往 https://github.com/settings/tokens/ 。
+新建一个 token，选择 repo / user 这两个权限，名称随意，最后生成 token。
+注意要保存好这个密钥，在新的终端打开网站需要用到这个密钥。
+(2) 操作 hugo 源码仓库 前往你的 hugo 源码仓库，如下图。
+在仓库的 setting/actions，滑到最下面，打开 actions 的 pr 权限，不然 actions 自动部署会失败。">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2023-06-02T00:00:00+00:00">
+    <meta property="article:modified_time" content="2023-06-02T00:00:00+00:00">
+    <meta property="article:tag" content="HugoFast">
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="关于 HugoFast 这个项目">
+  <meta name="twitter:description" content="项目来源于我的突发奇想，并且基于热爱折腾的心理，利用 GitHub 本身提供的 Api，将博客管理面板化。
+目前仅支持 hugo，其他程序有对应的工具，就不造轮子了。
+Github: https://github.com/dlzmoe/HugoFast
+网站：https://hugofast.netlify.app/
+用户文档：https://hugofast-docs.netlify.app/
+1. 自托管 前往 https://github.com/dlzmoe/HugoFast fork 本项目，然后下载到本地。
+git clone https://github.com/dlzmoe/HugoFast.git ::: warning 这里默认你有一定的代码基础，本地提前安装好了 node 依赖等。 :::
+# 进入项目安装依赖包 cd HugoFast yarn # 使用 `yarn serve` 运行项目 yarn serve # 打包到 dist 文件 yarn build 打包后的文件可以放在的任意空间部署。
+2. 准备工作 (1) 获取 Github Token 前往 https://github.com/settings/tokens/ 。
+新建一个 token，选择 repo / user 这两个权限，名称随意，最后生成 token。
+注意要保存好这个密钥，在新的终端打开网站需要用到这个密钥。
+(2) 操作 hugo 源码仓库 前往你的 hugo 源码仓库，如下图。
+在仓库的 setting/actions，滑到最下面，打开 actions 的 pr 权限，不然 actions 自动部署会失败。">
+
+
+
+
+<link rel="stylesheet" href="/css/output.css" />
+
+
+
+
+    
+
+
+<style>
+  pre {
+    padding: 1em;
+    overflow: auto;
+  }
+</style>
+
+
+
+
+
+
+
+
+
+    
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  </head>
+
+  <body x-data="{
+    flip: false,
+  }">
+    
+    <div id="dream-global-bg"></div>
+
+    
+<nav class="mt-4 lg:mt-8 py-4">
+
+  
+  <div class="container flex justify-between max-w-[65ch] mx-auto px-4 md:px-0">
+  
+    <section class="flex items-center gap-4">
+      <div class="avatar cursor-pointer hover:online" @click="flip = !flip" title="Flip it!">
+        <div class="h-10 rounded-full">
+          <img src="/" alt="Hugo Theme Dream" />
+        </div>
+      </div>
+
+      
+      <div>
+        
+        <a href="http://localhost:1313/" class="text-lg font-semibold cursor-pointer">
+          Hugo Theme Dream
+        </a>
+        
+        
+      </div>
+      
+    </section>
+
+    <div class="dropdown dropdown-end sm:hidden">
+      <div tabindex="0" role="button" class="btn btn-ghost btn-square" aria-label="Select an option">
+        <ion-icon name="menu" class="text-2xl"></ion-icon>
+      </div>
+      <ul class="dropdown-content menu w-36 bg-base-100 rounded-box z-[1] shadow-md">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/categories" title="All Categories">
+    <ion-icon name="grid"></ion-icon>
+    All Categories
+  </a>
+</li>
+
+
+
+
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/tags" title="All Tags">
+    <ion-icon name="pricetags"></ion-icon>
+    All Tags
+  </a>
+</li>
+
+
+
+
+
+
+      </ul>
+    </div>
+    <section class="hidden sm:flex sm:items-center sm:gap-2 md:gap-4">
+      
+      
+      
+      
+
+      
+      
+
+      
+
+      
+      
+
+
+
+
+
+      
+      
+
+
+
+
+
+      
+      
+
+
+
+
+
+      
+      
+<a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href="/categories" title="All Categories">
+  <ion-icon class="group-hover:text-primary-content" name="grid"></ion-icon>
+</a>
+
+
+      
+      
+<a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href="/tags" title="All Tags">
+  <ion-icon class="group-hover:text-primary-content" name="pricetags"></ion-icon>
+</a>
+
+
+      
+
+      
+
+      
+    </section>
+  </div>
+</nav>
+
+
+    <div class="flip-container" :class="{ 'flip-it': flip }">
+      <div class="flipper">
+        <div class="front">
+          <div class="container">
+            
+<div class="mt-4 px-4">
+  
+  <div>
+  
+    
+    <article class="mx-auto prose prose-quoteless dark:prose-invert" id="dream-single-post-main" itemscope itemtype="http://schema.org/Article">
+      
+  <meta itemprop="name" content="关于 HugoFast 这个项目">
+  <meta itemprop="description" content="项目来源于我的突发奇想，并且基于热爱折腾的心理，利用 GitHub 本身提供的 Api，将博客管理面板化。
+目前仅支持 hugo，其他程序有对应的工具，就不造轮子了。
+Github: https://github.com/dlzmoe/HugoFast
+网站：https://hugofast.netlify.app/
+用户文档：https://hugofast-docs.netlify.app/
+1. 自托管 前往 https://github.com/dlzmoe/HugoFast fork 本项目，然后下载到本地。
+git clone https://github.com/dlzmoe/HugoFast.git ::: warning 这里默认你有一定的代码基础，本地提前安装好了 node 依赖等。 :::
+# 进入项目安装依赖包 cd HugoFast yarn # 使用 `yarn serve` 运行项目 yarn serve # 打包到 dist 文件 yarn build 打包后的文件可以放在的任意空间部署。
+2. 准备工作 (1) 获取 Github Token 前往 https://github.com/settings/tokens/ 。
+新建一个 token，选择 repo / user 这两个权限，名称随意，最后生成 token。
+注意要保存好这个密钥，在新的终端打开网站需要用到这个密钥。
+(2) 操作 hugo 源码仓库 前往你的 hugo 源码仓库，如下图。
+在仓库的 setting/actions，滑到最下面，打开 actions 的 pr 权限，不然 actions 自动部署会失败。">
+  <meta itemprop="datePublished" content="2023-06-02T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2023-06-02T00:00:00+00:00">
+  <meta itemprop="wordCount" content="207">
+  <meta itemprop="keywords" content="HugoFast">
+
+      <header>
+        <h1 itemprop="headline">关于 HugoFast 这个项目</h1>
+        <p class="text-sm">
+          
+            Friday, Jun 2, 2023
+          
+
+          | <span>1 minute read</span>
+
+          
+          | <span>Updated at
+            
+              Friday, Jun 2, 2023
+            </span>
+          
+        </p>
+        <div class="flex justify-between">
+          <div class="flex items-center">
+  
+  <span>@</span>
+  
+
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+  
+    <span itemprop="name">Dream</span>
+  
+  </span>
+</div>
+
+
+          <div class="flex items-center gap-2">
+  
+  
+
+  
+  
+  
+  
+  
+    <a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary"
+      href="https://x.com/intent/post?text=%e5%85%b3%e4%ba%8e%20HugoFast%20%e8%bf%99%e4%b8%aa%e9%a1%b9%e7%9b%ae&amp;url=http://localhost:1313/blog/196/" target="_blank" rel="noopener noreferrer"
+      title="Share on X">
+      <ion-icon class="group-hover:text-primary-content" name="logo-x"></ion-icon>
+    </a>
+  
+    <a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary"
+      href="https://facebook.com/sharer/sharer.php?u=http://localhost:1313/blog/196/" target="_blank" rel="noopener noreferrer"
+      title="Share on Facebook">
+      <ion-icon class="group-hover:text-primary-content" name="logo-facebook"></ion-icon>
+    </a>
+  
+    <a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary"
+      href="https://wa.me/?text=%e5%85%b3%e4%ba%8e%20HugoFast%20%e8%bf%99%e4%b8%aa%e9%a1%b9%e7%9b%ae%20http://localhost:1313/blog/196/" target="_blank" rel="noopener noreferrer"
+      title="Share on WhatsApp">
+      <ion-icon class="group-hover:text-primary-content" name="logo-whatsapp"></ion-icon>
+    </a>
+  
+
+  
+  
+</div>
+
+        </div>
+      </header>
+
+      
+
+      <p>项目来源于我的突发奇想，并且基于热爱折腾的心理，利用 GitHub 本身提供的 Api，将博客管理面板化。</p>
+<p>目前仅支持 hugo，其他程序有对应的工具，就不造轮子了。</p>
+<p>Github: <a href="https://github.com/dlzmoe/HugoFast">https://github.com/dlzmoe/HugoFast</a><br>
+网站：<a href="https://hugofast.netlify.app/">https://hugofast.netlify.app/</a><br>
+用户文档：<a href="https://hugofast-docs.netlify.app/">https://hugofast-docs.netlify.app/</a></p>
+<h2 id="1-自托管">1. 自托管</h2>
+<p>前往 <a href="https://github.com/dlzmoe/HugoFast">https://github.com/dlzmoe/HugoFast</a> fork 本项目，然后下载到本地。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git clone https://github.com/dlzmoe/HugoFast.git
+</span></span></code></pre></div><p>::: warning
+这里默认你有一定的代码基础，本地提前安装好了 node 依赖等。
+:::</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 进入项目安装依赖包</span>
+</span></span><span style="display:flex;"><span>cd HugoFast
+</span></span><span style="display:flex;"><span>yarn
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 使用 `yarn serve` 运行项目</span>
+</span></span><span style="display:flex;"><span>yarn serve
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 打包到 dist 文件</span>
+</span></span><span style="display:flex;"><span>yarn build
+</span></span></code></pre></div><p>打包后的文件可以放在的任意空间部署。</p>
+<h2 id="2-准备工作">2. 准备工作</h2>
+<h3 id="1-获取-github-token">(1) 获取 Github Token</h3>
+<p>前往 <a href="https://github.com/settings/tokens/">https://github.com/settings/tokens/</a> 。</p>
+<p><img src="https://imgurl.zishu.me/images/old/image.78dovytsm800.png" alt="image"></p>
+<p>新建一个 token，选择 repo / user 这两个权限，名称随意，最后生成 token。</p>
+<p>注意要保存好这个密钥，在新的终端打开网站需要用到这个密钥。</p>
+<h3 id="2-操作-hugo-源码仓库">(2) 操作 hugo 源码仓库</h3>
+<p>前往你的 hugo 源码仓库，如下图。</p>
+<p><img src="https://imgurl.zishu.me/images/old/image.3uzka7ljq5k0.webp" alt="image"></p>
+<p><img src="https://imgurl.zishu.me/images/old/image.61dcey3vxtk0.webp" alt="image"></p>
+<p>在仓库的 <code>setting/actions</code>，滑到最下面，打开 actions 的 pr 权限，不然 actions 自动部署会失败。</p>
+<p><img src="https://imgurl.zishu.me/images/old/image.22kcble6v8zk.webp" alt="image"></p>
+<h3 id="3-添加-githubworkflowsmainyml">(3) 添加 <code>.github/workflows/main.yml</code></h3>
+<p>点击 <code>actions</code> &gt; <code>set up a workflow yourself</code> 新建一个 actions 工作流。</p>
+<p>注意：
+<code>git config --global user.email &quot;&quot;</code> 和 <code>git config --global user.name &quot;&quot;</code> 里面要填写你的 GitHub 邮箱以及用户名。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span><span style="color:#f92672">name</span>: <span style="color:#ae81ff">hugo deploy</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">on</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">push</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">workflow_dispatch</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">schedule</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Runs everyday at 8:00 AM</span>
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">cron</span>: <span style="color:#e6db74">&#34;0 0 * * *&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">jobs</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">build</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">runs-on</span>: <span style="color:#ae81ff">ubuntu-latest</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>            - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Checkout</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/checkout@v2</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">with</span>:
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">submodules</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">fetch-depth</span>: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Setup Hugo</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">peaceiris/actions-hugo@v2</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">with</span>:
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">hugo-version</span>: <span style="color:#e6db74">&#34;latest&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Build Web</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">run</span>: <span style="color:#ae81ff">hugo</span>
+</span></span><span style="display:flex;"><span>            - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Commit changes</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">run</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                git config --global user.email &#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                git config --global user.name &#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                git pull
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                git add .
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                git commit -m &#34;my commit&#34;</span>                
+</span></span><span style="display:flex;"><span>            - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Push changes</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">ad-m/github-push-action@master</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">with</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">github_token</span>: <span style="color:#ae81ff">${{ secrets.GITHUB_TOKEN }}</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">branch</span>: <span style="color:#ae81ff">main</span>
+</span></span></code></pre></div><h2 id="3-hugofast-网站">3. HugoFast 网站</h2>
+<p>使用官方提供的版本。</p>
+<p>在线管理：<a href="https://hugofast.netlify.app/">https://hugofast.netlify.app/</a></p>
+<p><img src="https://imgurl.zishu.me/images/old/image.5ocupnuzhjs0.webp" alt="image"></p>
+<p>第一行：获取的 GitHub Token<br>
+第二行：hugo 源码仓库</p>
+<p><img src="https://imgurl.zishu.me/images/old/image.5jmwjxbnk0c0.webp" alt="image"></p>
+<p>填写完成后，会自动获取文章目录，选择后点击确认。</p>
+<p><img src="https://imgurl.zishu.me/images/old/2023/647e9e250aeff.png" alt="image"></p>
+<p>进入网站就可以正常使用功能了，如修改文章，发布新文章，其他功能还在开发中。</p>
+<hr>
+<p>未完待续&hellip;</p>
+
+
+      
+    </article>
+  </div>
+
+  
+</div>
+
+
+            
+            <footer class="flex justify-between items-center gap-2 max-w-[65ch] mx-auto px-4 md:px-0 py-12">
+            
+              <div>
+  
+  <p>
+    © 2016 - 2024 子舒的博客
+  </p>
+  
+
+  
+  <p class="text-sm">
+    🌱
+    <span class="text-base-content/60">
+      Powered by <a class="hover:underline" href="https://gohugo.io/" target="_blank">Hugo</a> with theme
+      <a class="hover:underline" href="https://github.com/g1eny0ung/hugo-theme-dream" target="_blank">Dream</a>.</span
+    >
+  </p>
+  
+</div>
+
+              <div
+  x-data="{ icons: [
+    { name: 'moon', status: 'y' },
+    { name: 'sunny', status: 'n' },
+    { name: 'desktop', status: 'auto' }
+  ] }"
+  class="flex items-center h-[32px] px-2 gap-2 border border-base-content/30 rounded-full"
+>
+  <template x-for="icon in icons">
+    <div
+      role="button"
+      tabindex="0"
+      :aria-label="'Select ' + icon.name + ' mode'"
+      class="group inline-flex justify-center items-center p-1 rounded-full cursor-pointer hover:bg-primary"
+      :class="$store.darkMode.icon() === icon.name && 'bg-primary'"
+      @click="$store.darkMode.toggle(icon.status)"
+    >
+      <ion-icon
+        :name="`${icon.name}-outline`"
+        class="group-hover:text-primary-content"
+        :class="$store.darkMode.icon() === icon.name && 'text-primary-content'"
+      >
+      </ion-icon>
+    </div>
+  </template>
+</div>
+
+            </footer>
+          </div>
+        </div>
+        <div class="back">
+          <div class="container">
+            
+            <div class="max-w-[65ch] mt-8 mx-auto px-4">
+  
+  
+  
+  
+
+  
+
+  
+</div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+  window.lightTheme = "emerald"
+  window.darkTheme = "forest"
+</script>
+
+
+
+
+
+<script src="/js/main.js"></script>
+
+    
+
+
+
+
+
+
+
+    
+
+    
+
+    
+
+    <script type="module" src="https://unpkg.com/ionicons@7.4.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.4.0/dist/ionicons/ionicons.js"></script>
+  </body>
+</html>

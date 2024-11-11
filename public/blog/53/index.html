@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en"
+  x-data
+  :class="$store.darkMode.class()"
+  :data-theme="$store.darkMode.theme()">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>怎么让 css3 里面的动画属性看起来更流畅？ | 子舒的博客</title>
+
+    
+
+<link rel="canonical" href="http://localhost:1313/blog/53/" />
+
+
+
+<meta name="author" content="Dream" />
+<meta name="description" content="" />
+
+
+
+<meta name="generator" content="Hugo 0.136.5">
+
+
+<meta property="og:url" content="http://localhost:1313/blog/53/">
+  <meta property="og:site_name" content="子舒的博客">
+  <meta property="og:title" content="怎么让 css3 里面的动画属性看起来更流畅？">
+  <meta property="og:description" content="ps：先说点题外话，因为工作的原因很久没更新博客了，最近也是告一段落，处理一了一些事情之后可以安心坐下来，把我的博客重新整理一下。
+今天要讲的是 css3 的一个新属性 animation，也算是一个回顾吧，我只是将平时如何使用，以及一些技巧分享出来。如果想学习更基础的内容，可以点击链接：https://www.runoob.com/css3/css3-animations.html，网上类似的教程还是蛮多的。
+这篇文章并不细讲动画的基础属性，而是稍微扩展一个话题：怎么让 css3 里面的动画属性看起来更流畅？
+当然在讲之前还是要简单介绍一下 animation 基本属性。
+animation 属性 animation 属性有下面几个值：
+@keyframes | 动画本身（最重要的） animation-name | 动画的名称 animation-duration | 动画所经历的时间 animation-fill-mode | 当属性为 forwards 时，动画停留在最后一帧 动画主要可以用于一些官网特效，或者自适应的布局。
+如何写一个最基本的动画 动画就是由一个状态到另一个状态的过程，比如从左到右的一个移动过程。
+首先要先了解各个属性具体的作用是什么，就拿从白到黑举个例子吧，首先写一个 @keyframes 的动画过程。
+@keyframes leftright { 0% { transform: translateX(0); } 100% { transform: translateX(100px); } } 这段代码的意思就是有一个名为 leftright 的动画，将容器从左到右移动了 100px。
+然后我们进一步补全这个动画。
+&lt;!DOCTYPE html&gt; &lt;html&gt; &lt;head&gt; &lt;title&gt;动画&lt;/title&gt; &lt;style&gt; .demo { width: 100px; height: 100px; background: #000; animation-name: leftright; animation-duration: 1s; } @keyframes leftright { 0% { transform: translateX(0); } 100% { transform: translateX(100px); } } &lt;/style&gt; &lt;/head&gt; &lt;body&gt; &lt;div class=&#34;demo&#34;&gt;&lt;/div&gt; &lt;/body&gt; &lt;/html&gt; 然后我们到浏览器跑一下这个页面试试看，可以看到一个黑色的方块从左右移动了 100px 的距离，总计 1 秒完成。">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2021-03-14T00:00:00+00:00">
+    <meta property="article:modified_time" content="2021-03-14T00:00:00+00:00">
+    <meta property="article:tag" content="Css">
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="怎么让 css3 里面的动画属性看起来更流畅？">
+  <meta name="twitter:description" content="ps：先说点题外话，因为工作的原因很久没更新博客了，最近也是告一段落，处理一了一些事情之后可以安心坐下来，把我的博客重新整理一下。
+今天要讲的是 css3 的一个新属性 animation，也算是一个回顾吧，我只是将平时如何使用，以及一些技巧分享出来。如果想学习更基础的内容，可以点击链接：https://www.runoob.com/css3/css3-animations.html，网上类似的教程还是蛮多的。
+这篇文章并不细讲动画的基础属性，而是稍微扩展一个话题：怎么让 css3 里面的动画属性看起来更流畅？
+当然在讲之前还是要简单介绍一下 animation 基本属性。
+animation 属性 animation 属性有下面几个值：
+@keyframes | 动画本身（最重要的） animation-name | 动画的名称 animation-duration | 动画所经历的时间 animation-fill-mode | 当属性为 forwards 时，动画停留在最后一帧 动画主要可以用于一些官网特效，或者自适应的布局。
+如何写一个最基本的动画 动画就是由一个状态到另一个状态的过程，比如从左到右的一个移动过程。
+首先要先了解各个属性具体的作用是什么，就拿从白到黑举个例子吧，首先写一个 @keyframes 的动画过程。
+@keyframes leftright { 0% { transform: translateX(0); } 100% { transform: translateX(100px); } } 这段代码的意思就是有一个名为 leftright 的动画，将容器从左到右移动了 100px。
+然后我们进一步补全这个动画。
+&lt;!DOCTYPE html&gt; &lt;html&gt; &lt;head&gt; &lt;title&gt;动画&lt;/title&gt; &lt;style&gt; .demo { width: 100px; height: 100px; background: #000; animation-name: leftright; animation-duration: 1s; } @keyframes leftright { 0% { transform: translateX(0); } 100% { transform: translateX(100px); } } &lt;/style&gt; &lt;/head&gt; &lt;body&gt; &lt;div class=&#34;demo&#34;&gt;&lt;/div&gt; &lt;/body&gt; &lt;/html&gt; 然后我们到浏览器跑一下这个页面试试看，可以看到一个黑色的方块从左右移动了 100px 的距离，总计 1 秒完成。">
+
+
+
+
+<link rel="stylesheet" href="/css/output.css" />
+
+
+
+
+    
+
+
+<style>
+  pre {
+    padding: 1em;
+    overflow: auto;
+  }
+</style>
+
+
+
+
+
+
+
+
+
+    
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  </head>
+
+  <body x-data="{
+    flip: false,
+  }">
+    
+    <div id="dream-global-bg"></div>
+
+    
+<nav class="mt-4 lg:mt-8 py-4">
+
+  
+  <div class="container flex justify-between max-w-[65ch] mx-auto px-4 md:px-0">
+  
+    <section class="flex items-center gap-4">
+      <div class="avatar cursor-pointer hover:online" @click="flip = !flip" title="Flip it!">
+        <div class="h-10 rounded-full">
+          <img src="/" alt="Hugo Theme Dream" />
+        </div>
+      </div>
+
+      
+      <div>
+        
+        <a href="http://localhost:1313/" class="text-lg font-semibold cursor-pointer">
+          Hugo Theme Dream
+        </a>
+        
+        
+      </div>
+      
+    </section>
+
+    <div class="dropdown dropdown-end sm:hidden">
+      <div tabindex="0" role="button" class="btn btn-ghost btn-square" aria-label="Select an option">
+        <ion-icon name="menu" class="text-2xl"></ion-icon>
+      </div>
+      <ul class="dropdown-content menu w-36 bg-base-100 rounded-box z-[1] shadow-md">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/categories" title="All Categories">
+    <ion-icon name="grid"></ion-icon>
+    All Categories
+  </a>
+</li>
+
+
+
+
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/tags" title="All Tags">
+    <ion-icon name="pricetags"></ion-icon>
+    All Tags
+  </a>
+</li>
+
+
+
+
+
+
+      </ul>
+    </div>
+    <section class="hidden sm:flex sm:items-center sm:gap-2 md:gap-4">
+      
+      
+      
+      
+
+      
+      
+
+      
+
+      
+      
+
+
+
+
+
+      
+      
+
+
+
+
+
+      
+      
+
+
+
+
+
+      
+      
+<a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href="/categories" title="All Categories">
+  <ion-icon class="group-hover:text-primary-content" name="grid"></ion-icon>
+</a>
+
+
+      
+      
+<a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href="/tags" title="All Tags">
+  <ion-icon class="group-hover:text-primary-content" name="pricetags"></ion-icon>
+</a>
+
+
+      
+
+      
+
+      
+    </section>
+  </div>
+</nav>
+
+
+    <div class="flip-container" :class="{ 'flip-it': flip }">
+      <div class="flipper">
+        <div class="front">
+          <div class="container">
+            
+<div class="mt-4 px-4">
+  
+  <div>
+  
+    
+    <article class="mx-auto prose prose-quoteless dark:prose-invert" id="dream-single-post-main" itemscope itemtype="http://schema.org/Article">
+      
+  <meta itemprop="name" content="怎么让 css3 里面的动画属性看起来更流畅？">
+  <meta itemprop="description" content="ps：先说点题外话，因为工作的原因很久没更新博客了，最近也是告一段落，处理一了一些事情之后可以安心坐下来，把我的博客重新整理一下。
+今天要讲的是 css3 的一个新属性 animation，也算是一个回顾吧，我只是将平时如何使用，以及一些技巧分享出来。如果想学习更基础的内容，可以点击链接：https://www.runoob.com/css3/css3-animations.html，网上类似的教程还是蛮多的。
+这篇文章并不细讲动画的基础属性，而是稍微扩展一个话题：怎么让 css3 里面的动画属性看起来更流畅？
+当然在讲之前还是要简单介绍一下 animation 基本属性。
+animation 属性 animation 属性有下面几个值：
+@keyframes | 动画本身（最重要的） animation-name | 动画的名称 animation-duration | 动画所经历的时间 animation-fill-mode | 当属性为 forwards 时，动画停留在最后一帧 动画主要可以用于一些官网特效，或者自适应的布局。
+如何写一个最基本的动画 动画就是由一个状态到另一个状态的过程，比如从左到右的一个移动过程。
+首先要先了解各个属性具体的作用是什么，就拿从白到黑举个例子吧，首先写一个 @keyframes 的动画过程。
+@keyframes leftright { 0% { transform: translateX(0); } 100% { transform: translateX(100px); } } 这段代码的意思就是有一个名为 leftright 的动画，将容器从左到右移动了 100px。
+然后我们进一步补全这个动画。
+&lt;!DOCTYPE html&gt; &lt;html&gt; &lt;head&gt; &lt;title&gt;动画&lt;/title&gt; &lt;style&gt; .demo { width: 100px; height: 100px; background: #000; animation-name: leftright; animation-duration: 1s; } @keyframes leftright { 0% { transform: translateX(0); } 100% { transform: translateX(100px); } } &lt;/style&gt; &lt;/head&gt; &lt;body&gt; &lt;div class=&#34;demo&#34;&gt;&lt;/div&gt; &lt;/body&gt; &lt;/html&gt; 然后我们到浏览器跑一下这个页面试试看，可以看到一个黑色的方块从左右移动了 100px 的距离，总计 1 秒完成。">
+  <meta itemprop="datePublished" content="2021-03-14T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2021-03-14T00:00:00+00:00">
+  <meta itemprop="wordCount" content="200">
+  <meta itemprop="keywords" content="Css">
+
+      <header>
+        <h1 itemprop="headline">怎么让 css3 里面的动画属性看起来更流畅？</h1>
+        <p class="text-sm">
+          
+            Sunday, Mar 14, 2021
+          
+
+          | <span>1 minute read</span>
+
+          
+          | <span>Updated at
+            
+              Sunday, Mar 14, 2021
+            </span>
+          
+        </p>
+        <div class="flex justify-between">
+          <div class="flex items-center">
+  
+  <span>@</span>
+  
+
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+  
+    <span itemprop="name">Dream</span>
+  
+  </span>
+</div>
+
+
+          <div class="flex items-center gap-2">
+  
+  
+
+  
+  
+  
+  
+  
+    <a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary"
+      href="https://x.com/intent/post?text=%e6%80%8e%e4%b9%88%e8%ae%a9%20css3%20%e9%87%8c%e9%9d%a2%e7%9a%84%e5%8a%a8%e7%94%bb%e5%b1%9e%e6%80%a7%e7%9c%8b%e8%b5%b7%e6%9d%a5%e6%9b%b4%e6%b5%81%e7%95%85%ef%bc%9f&amp;url=http://localhost:1313/blog/53/" target="_blank" rel="noopener noreferrer"
+      title="Share on X">
+      <ion-icon class="group-hover:text-primary-content" name="logo-x"></ion-icon>
+    </a>
+  
+    <a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary"
+      href="https://facebook.com/sharer/sharer.php?u=http://localhost:1313/blog/53/" target="_blank" rel="noopener noreferrer"
+      title="Share on Facebook">
+      <ion-icon class="group-hover:text-primary-content" name="logo-facebook"></ion-icon>
+    </a>
+  
+    <a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary"
+      href="https://wa.me/?text=%e6%80%8e%e4%b9%88%e8%ae%a9%20css3%20%e9%87%8c%e9%9d%a2%e7%9a%84%e5%8a%a8%e7%94%bb%e5%b1%9e%e6%80%a7%e7%9c%8b%e8%b5%b7%e6%9d%a5%e6%9b%b4%e6%b5%81%e7%95%85%ef%bc%9f%20http://localhost:1313/blog/53/" target="_blank" rel="noopener noreferrer"
+      title="Share on WhatsApp">
+      <ion-icon class="group-hover:text-primary-content" name="logo-whatsapp"></ion-icon>
+    </a>
+  
+
+  
+  
+</div>
+
+        </div>
+      </header>
+
+      
+
+      <p>ps：先说点题外话，因为工作的原因很久没更新博客了，最近也是告一段落，处理一了一些事情之后可以安心坐下来，把我的博客重新整理一下。</p>
+<p>今天要讲的是 css3 的一个新属性 <code>animation</code>，也算是一个回顾吧，我只是将平时如何使用，以及一些技巧分享出来。如果想学习更基础的内容，可以点击链接：<a href="https://www.runoob.com/css3/css3-animations.html">https://www.runoob.com/css3/css3-animations.html</a>，网上类似的教程还是蛮多的。</p>
+<p>这篇文章并不细讲动画的基础属性，而是稍微扩展一个话题：<strong>怎么让 css3 里面的动画属性看起来更流畅？</strong></p>
+<p>当然在讲之前还是要简单介绍一下 animation 基本属性。</p>
+<h3 id="animation-属性">animation 属性</h3>
+<p>animation 属性有下面几个值：</p>
+<ol>
+<li>@keyframes | 动画本身（最重要的）</li>
+<li>animation-name | 动画的名称</li>
+<li>animation-duration | 动画所经历的时间</li>
+<li>animation-fill-mode | 当属性为 forwards 时，动画停留在最后一帧</li>
+</ol>
+<p>动画主要可以用于一些官网特效，或者自适应的布局。</p>
+<h3 id="如何写一个最基本的动画">如何写一个最基本的动画</h3>
+<p>动画就是由一个状态到另一个状态的过程，比如从左到右的一个移动过程。</p>
+<p>首先要先了解各个属性具体的作用是什么，就拿从白到黑举个例子吧，首先写一个 <code>@keyframes</code> 的动画过程。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>@<span style="color:#66d9ef">keyframes</span> <span style="color:#f92672">leftright</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">0</span><span style="color:#f92672">%</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">transform</span>: translateX(<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">100</span><span style="color:#f92672">%</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">transform</span>: translateX(<span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>这段代码的意思就是有一个名为 <code>leftright</code> 的动画，将容器从左到右移动了 100px。</p>
+<p>然后我们进一步补全这个动画。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">title</span>&gt;动画&lt;/<span style="color:#f92672">title</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">style</span>&gt;
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">demo</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">height</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">background</span>: <span style="color:#ae81ff">#000</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">animation-name</span>: leftright;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">animation-duration</span>: <span style="color:#ae81ff">1</span><span style="color:#66d9ef">s</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        @<span style="color:#66d9ef">keyframes</span> <span style="color:#f92672">leftright</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">0</span><span style="color:#f92672">%</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">transform</span>: translateX(<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">100</span><span style="color:#f92672">%</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">transform</span>: translateX(<span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">style</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;demo&#34;</span>&gt;&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
+</span></span></code></pre></div><p>然后我们到浏览器跑一下这个页面试试看，可以看到一个黑色的方块从左右移动了 100px 的距离，总计 1 秒完成。</p>
+<p>但是这个动画结束的很突兀，容器突然回到原地，这是为什么呢？因为我们没有保留最后一帧，这需要一个属性，最上面我们讲过了。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>.<span style="color:#a6e22e">demo</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">height</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">background</span>: <span style="color:#ae81ff">#fff</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">animation-name</span>: leftright; <span style="color:#75715e">/* 将动画的名称绑定到该标签 */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">animation-duration</span>: <span style="color:#ae81ff">1</span><span style="color:#66d9ef">s</span>;     <span style="color:#75715e">/* 给动画的过程设一个时长 */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">animation-fill-mode</span>: <span style="color:#66d9ef">forwards</span>; <span style="color:#75715e">/* 动画停留在最后一帧 */</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>运行一下，可以看到动画最后停住了。</p>
+<h3 id="让动画拥有一个惯性">让动画拥有一个惯性</h3>
+<p>我们仔细观察这个动画，发现他整个过程不拖泥带水，很迅速的完成了，但是我发现一个问题，整个过程不流畅圆滑，很死板，从左到右，一点也不圆滑。</p>
+<p>分析一下，因为缺少了一个日常生活的习惯动画，那就是惯性，这个属性可不存在啊，没法直接设置，只能通过动画本身的属性来进行调整，继续看这一段代码。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span> @<span style="color:#66d9ef">keyframes</span> <span style="color:#f92672">leftright</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">0</span><span style="color:#f92672">%</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">transform</span>: translateX(<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">100</span><span style="color:#f92672">%</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">transform</span>: translateX(<span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><code>0%</code>代表开始，<code>100%</code>代表结束，他们指的是一个时间节点，在这个时间点动画要运行到他们指定的位置。</p>
+<p>所以我们可以添加一个新的时间节点，<code>50%</code>，我们让当时间过了一半的时候，方块运行到 120px 的位置，然后再折回来。</p>
+<p>下面是完整的代码，可以复制到本地，自己运行一下试试看。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span><span style="color:#f92672">&lt;!</span><span style="color:#f92672">DOCTYPE</span> <span style="color:#f92672">html</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#f92672">html</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#f92672">head</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#f92672">title</span><span style="color:#f92672">&gt;</span><span style="color:#f92672">动画</span><span style="color:#f92672">&lt;/</span><span style="color:#f92672">title</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#f92672">style</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">demo</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">height</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">background</span>: <span style="color:#ae81ff">#000</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">animation-name</span>: leftright;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">animation-duration</span>: <span style="color:#ae81ff">1</span><span style="color:#66d9ef">s</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">animation-fill-mode</span>: <span style="color:#66d9ef">forwards</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        @<span style="color:#66d9ef">keyframes</span> <span style="color:#f92672">leftright</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">0</span><span style="color:#f92672">%</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">transform</span>: translateX(<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">50</span><span style="color:#f92672">%</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">transform</span>: translateX(<span style="color:#ae81ff">120</span><span style="color:#66d9ef">px</span>);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">100</span><span style="color:#f92672">%</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">transform</span>: translateX(<span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/</span><span style="color:#f92672">style</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/</span><span style="color:#f92672">head</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#f92672">body</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;</span><span style="color:#f92672">div</span> <span style="color:#f92672">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;demo&#34;</span><span style="color:#f92672">&gt;&lt;/</span><span style="color:#f92672">div</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/</span><span style="color:#f92672">body</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/</span><span style="color:#f92672">html</span><span style="color:#f92672">&gt;</span>
+</span></span></code></pre></div><p>修改完之后，到浏览器看一下效果。</p>
+<p>是不是流畅了很多，有了一种惯性的感觉，这一点在工作中如何遇到写动画的需求就很关键了，怎么让用户的体验更强，是一门技巧。</p>
+<p>虽说这都是一些基础的东西，但是我觉得体验感上去了，网站的回头率才会更高。打一个比方，去某个商城网站购物，整个页面看起来很舒服，特效细节很流畅，是不是就增加了购物的欲望。虽然这么说很浅薄，但是真的会有一些心里作用。</p>
+<p>如何用好动画特效，是一门学问，将 css 玩出花样来，可不是那么简单的。</p>
+
+
+      
+    </article>
+  </div>
+
+  
+</div>
+
+
+            
+            <footer class="flex justify-between items-center gap-2 max-w-[65ch] mx-auto px-4 md:px-0 py-12">
+            
+              <div>
+  
+  <p>
+    © 2016 - 2024 子舒的博客
+  </p>
+  
+
+  
+  <p class="text-sm">
+    🌱
+    <span class="text-base-content/60">
+      Powered by <a class="hover:underline" href="https://gohugo.io/" target="_blank">Hugo</a> with theme
+      <a class="hover:underline" href="https://github.com/g1eny0ung/hugo-theme-dream" target="_blank">Dream</a>.</span
+    >
+  </p>
+  
+</div>
+
+              <div
+  x-data="{ icons: [
+    { name: 'moon', status: 'y' },
+    { name: 'sunny', status: 'n' },
+    { name: 'desktop', status: 'auto' }
+  ] }"
+  class="flex items-center h-[32px] px-2 gap-2 border border-base-content/30 rounded-full"
+>
+  <template x-for="icon in icons">
+    <div
+      role="button"
+      tabindex="0"
+      :aria-label="'Select ' + icon.name + ' mode'"
+      class="group inline-flex justify-center items-center p-1 rounded-full cursor-pointer hover:bg-primary"
+      :class="$store.darkMode.icon() === icon.name && 'bg-primary'"
+      @click="$store.darkMode.toggle(icon.status)"
+    >
+      <ion-icon
+        :name="`${icon.name}-outline`"
+        class="group-hover:text-primary-content"
+        :class="$store.darkMode.icon() === icon.name && 'text-primary-content'"
+      >
+      </ion-icon>
+    </div>
+  </template>
+</div>
+
+            </footer>
+          </div>
+        </div>
+        <div class="back">
+          <div class="container">
+            
+            <div class="max-w-[65ch] mt-8 mx-auto px-4">
+  
+  
+  
+  
+
+  
+
+  
+</div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+  window.lightTheme = "emerald"
+  window.darkTheme = "forest"
+</script>
+
+
+
+
+
+<script src="/js/main.js"></script>
+
+    
+
+
+
+
+
+
+
+    
+
+    
+
+    
+
+    <script type="module" src="https://unpkg.com/ionicons@7.4.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.4.0/dist/ionicons/ionicons.js"></script>
+  </body>
+</html>

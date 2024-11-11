@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en"
+  x-data
+  :class="$store.darkMode.class()"
+  :data-theme="$store.darkMode.theme()">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ES5 和 ES6 的区别？ | 子舒的博客</title>
+
+    
+
+<link rel="canonical" href="http://localhost:1313/blog/48/" />
+
+
+
+<meta name="author" content="Dream" />
+<meta name="description" content="" />
+
+
+
+<meta name="generator" content="Hugo 0.136.5">
+
+
+<meta property="og:url" content="http://localhost:1313/blog/48/">
+  <meta property="og:site_name" content="子舒的博客">
+  <meta property="og:title" content="ES5 和 ES6 的区别？">
+  <meta property="og:description" content="一、javascript 由三部分组成 1.ECMAScript（核心） 它规定了语言的组成部分：法语，类型，语句，关键字，操作符等等。
+2.DOM（文档对象模型） DOM 把整个页面映射为一个多层节点结果，开发人员可借助 DOM 提供的 API，轻松地删除、添加、替换或修改任何节点。
+3.BOM（浏览器对象模型） 支持可以访问和操作浏览器窗口的浏览器对象模型，开发人员可以控制浏览器显示的页面以外的部分。
+二、什么是 ES5？ 作为 ECMAScript 第五个版本（第四版因为过于复杂废弃了），浏览器支持情况可看第一副图，增加特性如下。
+1.strict 模式 严格模式，限制一些用法，‘use strict’;
+2.Array 增加方法 增加了 every、some、forEach、filter、indexOf、lastIndexOf、isArray、map、reduce、reduceRight 方法
+PS：还有其他方法 Function.prototype.bind、String.prototype.trim、Date.now
+3.Object 方法 Object.getPrototypeOf Object.create Object.getOwnPropertyNames Object.defineProperty Object.getOwnPropertyDescriptor Object.defineProperties Object.keys Object.preventExtensions / Object.isExtensible Object.seal / Object.isSealed Object.freeze / Object.isFrozen PS：只讲有什么，不讲是什么。
+2.什么是 ES6? ECMAScript6 在保证向下兼容的前提下，提供大量新特性，目前浏览器兼容情况如下：
+ES6 特性如下：
+块级作用域 关键字 let, 常量 const
+对象字面量的属性赋值简写（property value shorthand）
+var obj = { // __proto__ __proto__: theProtoObj, // Shorthand for ‘handler: handler’ handler, // Method definitions toString() { // Super calls return &#34;d &#34; &#43; super.toString(); }, // Computed (dynamic) property names [ &#39;prop_&#39; &#43; (() =&gt; 42)() ]: 42 }; 赋值解构 let singer = { first: &#34;Bob&#34;, last: &#34;Dylan&#34; }; let { first: f, last: l } = singer; // 相当于 f = &#34;Bob&#34;, l = &#34;Dylan&#34; let [all, year, month, day] = /^(\d\d\d\d)-(\d\d)-(\d\d)$/.exec(&#34;2015-10-25&#34;); let [x, y] = [1, 2, 3]; // x = 1, y = 2 函数参数 - 默认值、参数打包、数组展开（Default、Rest、Spread） //Default function findArtist(name=&#39;lu&#39;, age=&#39;26&#39;) { ... } //Rest function f(x, ...y) { // y is an Array return x * y.length; } f(3, &#34;hello&#34;, true) == 6 //Spread function f(x, y, z) { return x &#43; y &#43; z; } // Pass each elem of array as argument f(...[1,2,3]) == 6 箭头函数 Arrow functions (1) 简化了代码形式，默认 return 表达式结果。">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2021-01-20T00:00:00+00:00">
+    <meta property="article:modified_time" content="2021-01-20T00:00:00+00:00">
+    <meta property="article:tag" content="Js">
+    <meta property="article:tag" content="ES6">
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ES5 和 ES6 的区别？">
+  <meta name="twitter:description" content="一、javascript 由三部分组成 1.ECMAScript（核心） 它规定了语言的组成部分：法语，类型，语句，关键字，操作符等等。
+2.DOM（文档对象模型） DOM 把整个页面映射为一个多层节点结果，开发人员可借助 DOM 提供的 API，轻松地删除、添加、替换或修改任何节点。
+3.BOM（浏览器对象模型） 支持可以访问和操作浏览器窗口的浏览器对象模型，开发人员可以控制浏览器显示的页面以外的部分。
+二、什么是 ES5？ 作为 ECMAScript 第五个版本（第四版因为过于复杂废弃了），浏览器支持情况可看第一副图，增加特性如下。
+1.strict 模式 严格模式，限制一些用法，‘use strict’;
+2.Array 增加方法 增加了 every、some、forEach、filter、indexOf、lastIndexOf、isArray、map、reduce、reduceRight 方法
+PS：还有其他方法 Function.prototype.bind、String.prototype.trim、Date.now
+3.Object 方法 Object.getPrototypeOf Object.create Object.getOwnPropertyNames Object.defineProperty Object.getOwnPropertyDescriptor Object.defineProperties Object.keys Object.preventExtensions / Object.isExtensible Object.seal / Object.isSealed Object.freeze / Object.isFrozen PS：只讲有什么，不讲是什么。
+2.什么是 ES6? ECMAScript6 在保证向下兼容的前提下，提供大量新特性，目前浏览器兼容情况如下：
+ES6 特性如下：
+块级作用域 关键字 let, 常量 const
+对象字面量的属性赋值简写（property value shorthand）
+var obj = { // __proto__ __proto__: theProtoObj, // Shorthand for ‘handler: handler’ handler, // Method definitions toString() { // Super calls return &#34;d &#34; &#43; super.toString(); }, // Computed (dynamic) property names [ &#39;prop_&#39; &#43; (() =&gt; 42)() ]: 42 }; 赋值解构 let singer = { first: &#34;Bob&#34;, last: &#34;Dylan&#34; }; let { first: f, last: l } = singer; // 相当于 f = &#34;Bob&#34;, l = &#34;Dylan&#34; let [all, year, month, day] = /^(\d\d\d\d)-(\d\d)-(\d\d)$/.exec(&#34;2015-10-25&#34;); let [x, y] = [1, 2, 3]; // x = 1, y = 2 函数参数 - 默认值、参数打包、数组展开（Default、Rest、Spread） //Default function findArtist(name=&#39;lu&#39;, age=&#39;26&#39;) { ... } //Rest function f(x, ...y) { // y is an Array return x * y.length; } f(3, &#34;hello&#34;, true) == 6 //Spread function f(x, y, z) { return x &#43; y &#43; z; } // Pass each elem of array as argument f(...[1,2,3]) == 6 箭头函数 Arrow functions (1) 简化了代码形式，默认 return 表达式结果。">
+
+
+
+
+<link rel="stylesheet" href="/css/output.css" />
+
+
+
+
+    
+
+
+<style>
+  pre {
+    padding: 1em;
+    overflow: auto;
+  }
+</style>
+
+
+
+
+
+
+
+
+
+    
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  </head>
+
+  <body x-data="{
+    flip: false,
+  }">
+    
+    <div id="dream-global-bg"></div>
+
+    
+<nav class="mt-4 lg:mt-8 py-4">
+
+  
+  <div class="container flex justify-between max-w-[65ch] mx-auto px-4 md:px-0">
+  
+    <section class="flex items-center gap-4">
+      <div class="avatar cursor-pointer hover:online" @click="flip = !flip" title="Flip it!">
+        <div class="h-10 rounded-full">
+          <img src="/" alt="Hugo Theme Dream" />
+        </div>
+      </div>
+
+      
+      <div>
+        
+        <a href="http://localhost:1313/" class="text-lg font-semibold cursor-pointer">
+          Hugo Theme Dream
+        </a>
+        
+        
+      </div>
+      
+    </section>
+
+    <div class="dropdown dropdown-end sm:hidden">
+      <div tabindex="0" role="button" class="btn btn-ghost btn-square" aria-label="Select an option">
+        <ion-icon name="menu" class="text-2xl"></ion-icon>
+      </div>
+      <ul class="dropdown-content menu w-36 bg-base-100 rounded-box z-[1] shadow-md">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/categories" title="All Categories">
+    <ion-icon name="grid"></ion-icon>
+    All Categories
+  </a>
+</li>
+
+
+
+
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/tags" title="All Tags">
+    <ion-icon name="pricetags"></ion-icon>
+    All Tags
+  </a>
+</li>
+
+
+
+
+
+
+      </ul>
+    </div>
+    <section class="hidden sm:flex sm:items-center sm:gap-2 md:gap-4">
+      
+      
+      
+      
+
+      
+      
+
+      
+
+      
+      
+
+
+
+
+
+      
+      
+
+
+
+
+
+      
+      
+
+
+
+
+
+      
+      
+<a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href="/categories" title="All Categories">
+  <ion-icon class="group-hover:text-primary-content" name="grid"></ion-icon>
+</a>
+
+
+      
+      
+<a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href="/tags" title="All Tags">
+  <ion-icon class="group-hover:text-primary-content" name="pricetags"></ion-icon>
+</a>
+
+
+      
+
+      
+
+      
+    </section>
+  </div>
+</nav>
+
+
+    <div class="flip-container" :class="{ 'flip-it': flip }">
+      <div class="flipper">
+        <div class="front">
+          <div class="container">
+            
+<div class="mt-4 px-4">
+  
+  <div>
+  
+    
+    <article class="mx-auto prose prose-quoteless dark:prose-invert" id="dream-single-post-main" itemscope itemtype="http://schema.org/Article">
+      
+  <meta itemprop="name" content="ES5 和 ES6 的区别？">
+  <meta itemprop="description" content="一、javascript 由三部分组成 1.ECMAScript（核心） 它规定了语言的组成部分：法语，类型，语句，关键字，操作符等等。
+2.DOM（文档对象模型） DOM 把整个页面映射为一个多层节点结果，开发人员可借助 DOM 提供的 API，轻松地删除、添加、替换或修改任何节点。
+3.BOM（浏览器对象模型） 支持可以访问和操作浏览器窗口的浏览器对象模型，开发人员可以控制浏览器显示的页面以外的部分。
+二、什么是 ES5？ 作为 ECMAScript 第五个版本（第四版因为过于复杂废弃了），浏览器支持情况可看第一副图，增加特性如下。
+1.strict 模式 严格模式，限制一些用法，‘use strict’;
+2.Array 增加方法 增加了 every、some、forEach、filter、indexOf、lastIndexOf、isArray、map、reduce、reduceRight 方法
+PS：还有其他方法 Function.prototype.bind、String.prototype.trim、Date.now
+3.Object 方法 Object.getPrototypeOf Object.create Object.getOwnPropertyNames Object.defineProperty Object.getOwnPropertyDescriptor Object.defineProperties Object.keys Object.preventExtensions / Object.isExtensible Object.seal / Object.isSealed Object.freeze / Object.isFrozen PS：只讲有什么，不讲是什么。
+2.什么是 ES6? ECMAScript6 在保证向下兼容的前提下，提供大量新特性，目前浏览器兼容情况如下：
+ES6 特性如下：
+块级作用域 关键字 let, 常量 const
+对象字面量的属性赋值简写（property value shorthand）
+var obj = { // __proto__ __proto__: theProtoObj, // Shorthand for ‘handler: handler’ handler, // Method definitions toString() { // Super calls return &#34;d &#34; &#43; super.toString(); }, // Computed (dynamic) property names [ &#39;prop_&#39; &#43; (() =&gt; 42)() ]: 42 }; 赋值解构 let singer = { first: &#34;Bob&#34;, last: &#34;Dylan&#34; }; let { first: f, last: l } = singer; // 相当于 f = &#34;Bob&#34;, l = &#34;Dylan&#34; let [all, year, month, day] = /^(\d\d\d\d)-(\d\d)-(\d\d)$/.exec(&#34;2015-10-25&#34;); let [x, y] = [1, 2, 3]; // x = 1, y = 2 函数参数 - 默认值、参数打包、数组展开（Default、Rest、Spread） //Default function findArtist(name=&#39;lu&#39;, age=&#39;26&#39;) { ... } //Rest function f(x, ...y) { // y is an Array return x * y.length; } f(3, &#34;hello&#34;, true) == 6 //Spread function f(x, y, z) { return x &#43; y &#43; z; } // Pass each elem of array as argument f(...[1,2,3]) == 6 箭头函数 Arrow functions (1) 简化了代码形式，默认 return 表达式结果。">
+  <meta itemprop="datePublished" content="2021-01-20T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2021-01-20T00:00:00+00:00">
+  <meta itemprop="wordCount" content="752">
+  <meta itemprop="keywords" content="Js,ES6">
+
+      <header>
+        <h1 itemprop="headline">ES5 和 ES6 的区别？</h1>
+        <p class="text-sm">
+          
+            Wednesday, Jan 20, 2021
+          
+
+          | <span>4 minute read</span>
+
+          
+          | <span>Updated at
+            
+              Wednesday, Jan 20, 2021
+            </span>
+          
+        </p>
+        <div class="flex justify-between">
+          <div class="flex items-center">
+  
+  <span>@</span>
+  
+
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+  
+    <span itemprop="name">Dream</span>
+  
+  </span>
+</div>
+
+
+          <div class="flex items-center gap-2">
+  
+  
+
+  
+  
+  
+  
+  
+    <a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary"
+      href="https://x.com/intent/post?text=ES5%20%e5%92%8c%20ES6%20%e7%9a%84%e5%8c%ba%e5%88%ab%ef%bc%9f&amp;url=http://localhost:1313/blog/48/" target="_blank" rel="noopener noreferrer"
+      title="Share on X">
+      <ion-icon class="group-hover:text-primary-content" name="logo-x"></ion-icon>
+    </a>
+  
+    <a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary"
+      href="https://facebook.com/sharer/sharer.php?u=http://localhost:1313/blog/48/" target="_blank" rel="noopener noreferrer"
+      title="Share on Facebook">
+      <ion-icon class="group-hover:text-primary-content" name="logo-facebook"></ion-icon>
+    </a>
+  
+    <a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary"
+      href="https://wa.me/?text=ES5%20%e5%92%8c%20ES6%20%e7%9a%84%e5%8c%ba%e5%88%ab%ef%bc%9f%20http://localhost:1313/blog/48/" target="_blank" rel="noopener noreferrer"
+      title="Share on WhatsApp">
+      <ion-icon class="group-hover:text-primary-content" name="logo-whatsapp"></ion-icon>
+    </a>
+  
+
+  
+  
+</div>
+
+        </div>
+      </header>
+
+      
+
+      <h2 id="一javascript-由三部分组成">一、javascript 由三部分组成</h2>
+<h3 id="1ecmascript核心">1.ECMAScript（核心）</h3>
+<p>它规定了语言的组成部分：法语，类型，语句，关键字，操作符等等。</p>
+<h3 id="2dom文档对象模型">2.DOM（文档对象模型）</h3>
+<p>DOM 把整个页面映射为一个多层节点结果，开发人员可借助 DOM 提供的 API，轻松地删除、添加、替换或修改任何节点。</p>
+<h3 id="3bom浏览器对象模型">3.BOM（浏览器对象模型）</h3>
+<p>支持可以访问和操作浏览器窗口的浏览器对象模型，开发人员可以控制浏览器显示的页面以外的部分。</p>
+<h2 id="二什么是-es5">二、什么是 ES5？</h2>
+<p>作为 ECMAScript 第五个版本（第四版因为过于复杂废弃了），浏览器支持情况可看第一副图，增加特性如下。</p>
+<h3 id="1strict-模式">1.strict 模式</h3>
+<p>严格模式，限制一些用法，&lsquo;use strict&rsquo;;</p>
+<h3 id="2array-增加方法">2.Array 增加方法</h3>
+<p>增加了 every、some、forEach、filter、indexOf、lastIndexOf、isArray、map、reduce、reduceRight 方法</p>
+<p>PS：还有其他方法 Function.prototype.bind、String.prototype.trim、Date.now</p>
+<h3 id="3object-方法">3.Object 方法</h3>
+<ul>
+<li>Object.getPrototypeOf</li>
+<li>Object.create</li>
+<li>Object.getOwnPropertyNames</li>
+<li>Object.defineProperty</li>
+<li>Object.getOwnPropertyDescriptor</li>
+<li>Object.defineProperties</li>
+<li>Object.keys</li>
+<li>Object.preventExtensions / Object.isExtensible</li>
+<li>Object.seal / Object.isSealed</li>
+<li>Object.freeze / Object.isFrozen</li>
+</ul>
+<p>PS：只讲有什么，不讲是什么。</p>
+<h3 id="2什么是-es6">2.什么是 ES6?</h3>
+<p>ECMAScript6 在保证向下兼容的前提下，提供大量新特性，目前浏览器兼容情况如下：</p>
+<p><strong>ES6 特性如下：</strong></p>
+<ol>
+<li>
+<p>块级作用域 关键字 let, 常量 const</p>
+</li>
+<li>
+<p>对象字面量的属性赋值简写（property value shorthand）</p>
+</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">obj</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// __proto__
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">__proto__</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">theProtoObj</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Shorthand for ‘handler: handler’
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">handler</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Method definitions
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">toString</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Super calls
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;d &#34;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">super</span>.<span style="color:#a6e22e">toString</span>();
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Computed (dynamic) property names
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    [ <span style="color:#e6db74">&#39;prop_&#39;</span> <span style="color:#f92672">+</span> (() =&gt; <span style="color:#ae81ff">42</span>)() ]<span style="color:#f92672">:</span> <span style="color:#ae81ff">42</span>
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><ol start="3">
+<li>赋值解构</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">singer</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">first</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Bob&#34;</span>, <span style="color:#a6e22e">last</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Dylan&#34;</span> };
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> { <span style="color:#a6e22e">first</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">f</span>, <span style="color:#a6e22e">last</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">l</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">singer</span>; <span style="color:#75715e">// 相当于 f = &#34;Bob&#34;, l = &#34;Dylan&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> [<span style="color:#a6e22e">all</span>, <span style="color:#a6e22e">year</span>, <span style="color:#a6e22e">month</span>, <span style="color:#a6e22e">day</span>] <span style="color:#f92672">=</span>  <span style="color:#e6db74">/^(\d\d\d\d)-(\d\d)-(\d\d)$/</span>.<span style="color:#a6e22e">exec</span>(<span style="color:#e6db74">&#34;2015-10-25&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> [<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span>] <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>]; <span style="color:#75715e">// x = 1, y = 2
+</span></span></span></code></pre></div><ol start="4">
+<li>函数参数 - 默认值、参数打包、数组展开（Default、Rest、Spread）</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">//Default
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">findArtist</span>(<span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;lu&#39;</span>, <span style="color:#a6e22e">age</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;26&#39;</span>) {
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//Rest
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">f</span>(<span style="color:#a6e22e">x</span>, ...<span style="color:#a6e22e">y</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// y is an Array
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">y</span>.<span style="color:#a6e22e">length</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">f</span>(<span style="color:#ae81ff">3</span>, <span style="color:#e6db74">&#34;hello&#34;</span>, <span style="color:#66d9ef">true</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">6</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//Spread
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">f</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span>, <span style="color:#a6e22e">z</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">y</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">z</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Pass each elem of array as argument
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">f</span>(...[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>]) <span style="color:#f92672">==</span> <span style="color:#ae81ff">6</span>
+</span></span></code></pre></div><ol start="5">
+<li>箭头函数 Arrow functions</li>
+</ol>
+<p>(1) 简化了代码形式，默认 return 表达式结果。</p>
+<p>(2) 自动绑定语义 this，即定义函数时的 this。如上面例子中，forEach 的匿名函数参数中用到的 this。</p>
+<p>6.字符串模板 Template strings</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Bob&#34;</span>, <span style="color:#a6e22e">time</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;today&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">`Hello </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">name</span><span style="color:#e6db74">}</span><span style="color:#e6db74">, how are you </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">time</span><span style="color:#e6db74">}</span><span style="color:#e6db74">?`</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// return &#34;Hello Bob, how are you today?&#34;
+</span></span></span></code></pre></div><ol start="7">
+<li>Iterators（迭代器）+ for..of</li>
+</ol>
+<p>迭代器有个 next 方法，调用会返回：</p>
+<p>(1) 返回迭代对象的一个元素：{ done: false, value: elem }</p>
+<p>(2) 如果已到迭代对象的末端：{ done: true, value: retVal }</p>
+<pre tabindex="0"><code>for (var n of [&#39;a&#39;,&#39;b&#39;,&#39;c&#39;]) {
+  console.log(n);
+}
+// 打印a、b、c
+</code></pre><ol start="8">
+<li>
+<p>生成器（Generators）</p>
+</li>
+<li>
+<p>Class</p>
+</li>
+</ol>
+<p>Class，有 constructor、extends、super，但本质上是语法糖（对语言的功能并没有影响，但是更方便程序员使用）。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Artist</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">name</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">perform</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; performs &#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Singer</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">Artist</span> {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">song</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">super</span>.<span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">name</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">song</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">song</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">perform</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">super</span>.<span style="color:#a6e22e">perform</span>() <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;[&#34;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">song</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;]&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">james</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Singer</span>(<span style="color:#e6db74">&#34;Etta James&#34;</span>, <span style="color:#e6db74">&#34;At last&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">james</span> <span style="color:#66d9ef">instanceof</span> <span style="color:#a6e22e">Artist</span>; <span style="color:#75715e">// true
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">james</span> <span style="color:#66d9ef">instanceof</span> <span style="color:#a6e22e">Singer</span>; <span style="color:#75715e">// true
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">james</span>.<span style="color:#a6e22e">perform</span>(); <span style="color:#75715e">// &#34;Etta James performs [At last]&#34;
+</span></span></span></code></pre></div><ol start="10">
+<li>Modules</li>
+</ol>
+<p>ES6 的内置模块功能借鉴了 CommonJS 和 AMD 各自的优点：</p>
+<p>(1) 具有 CommonJS 的精简语法、唯一导出出口 (single exports) 和循环依赖 (cyclic dependencies) 的特点。</p>
+<p>(2) 类似 AMD，支持异步加载和可配置的模块加载。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// lib/math.js
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">sum</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">y</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">pi</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">3.141593</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// app.js
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">math</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;lib/math&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">alert</span>(<span style="color:#e6db74">&#34;2π = &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">sum</span>(<span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">pi</span>, <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">pi</span>));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// otherApp.js
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> {<span style="color:#a6e22e">sum</span>, <span style="color:#a6e22e">pi</span>} <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;lib/math&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">alert</span>(<span style="color:#e6db74">&#34;2π = &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">sum</span>(<span style="color:#a6e22e">pi</span>, <span style="color:#a6e22e">pi</span>));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Module</span> <span style="color:#a6e22e">Loaders</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Dynamic loading – ‘System’ is default loader
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">System</span>.<span style="color:#66d9ef">import</span>(<span style="color:#e6db74">&#39;lib/math&#39;</span>).<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">m</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">alert</span>(<span style="color:#e6db74">&#34;2π = &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">sum</span>(<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">pi</span>, <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">pi</span>));
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Directly manipulate module cache
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">System</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;jquery&#39;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">System</span>.<span style="color:#a6e22e">set</span>(<span style="color:#e6db74">&#39;jquery&#39;</span>, <span style="color:#a6e22e">Module</span>({<span style="color:#a6e22e">$</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">$</span>})); <span style="color:#75715e">// WARNING: not yet finalized
+</span></span></span></code></pre></div><ol start="11">
+<li>Map + Set + WeakMap + WeakSet</li>
+</ol>
+<p>四种集合类型，WeakMap、WeakSet 作为属性键的对象如果没有别的变量在引用它们，则会被回收释放掉。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// Sets
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">s</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Set</span>();
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">add</span>(<span style="color:#e6db74">&#34;hello&#34;</span>).<span style="color:#a6e22e">add</span>(<span style="color:#e6db74">&#34;goodbye&#34;</span>).<span style="color:#a6e22e">add</span>(<span style="color:#e6db74">&#34;hello&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">size</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">has</span>(<span style="color:#e6db74">&#34;hello&#34;</span>) <span style="color:#f92672">===</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Maps
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">m</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Map</span>();
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">set</span>(<span style="color:#e6db74">&#34;hello&#34;</span>, <span style="color:#ae81ff">42</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">set</span>(<span style="color:#a6e22e">s</span>, <span style="color:#ae81ff">34</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">get</span>(<span style="color:#a6e22e">s</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">34</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//WeakMap
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">wm</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">WeakMap</span>();
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">wm</span>.<span style="color:#a6e22e">set</span>(<span style="color:#a6e22e">s</span>, { <span style="color:#a6e22e">extra</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">42</span> });
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">wm</span>.<span style="color:#a6e22e">size</span> <span style="color:#f92672">===</span> <span style="color:#66d9ef">undefined</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Weak Sets
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">ws</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">WeakSet</span>();
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ws</span>.<span style="color:#a6e22e">add</span>({ <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">42</span> });<span style="color:#75715e">//Because the added object has no other references, it will not be held in the set
+</span></span></span></code></pre></div><ol start="12">
+<li>Math + Number + String + Array + Object APIs</li>
+</ol>
+<p>一些新的 API</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>Number.<span style="color:#a6e22e">EPSILON</span>
+</span></span><span style="display:flex;"><span>Number.<span style="color:#a6e22e">isInteger</span>(<span style="color:#66d9ef">Infinity</span>) <span style="color:#75715e">// false
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>Number.isNaN(<span style="color:#e6db74">&#34;NaN&#34;</span>) <span style="color:#75715e">// false
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>Math.<span style="color:#a6e22e">acosh</span>(<span style="color:#ae81ff">3</span>) <span style="color:#75715e">// 1.762747174039086
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>Math.<span style="color:#a6e22e">hypot</span>(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>) <span style="color:#75715e">// 5
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>Math.<span style="color:#a6e22e">imul</span>(Math.<span style="color:#a6e22e">pow</span>(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">32</span>) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, Math.<span style="color:#a6e22e">pow</span>(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">32</span>) <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span>) <span style="color:#75715e">// 2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;abcde&#34;</span>.<span style="color:#a6e22e">includes</span>(<span style="color:#e6db74">&#34;cd&#34;</span>) <span style="color:#75715e">// true
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#e6db74">&#34;abc&#34;</span>.<span style="color:#a6e22e">repeat</span>(<span style="color:#ae81ff">3</span>) <span style="color:#75715e">// &#34;abcabcabc&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>Array.<span style="color:#a6e22e">from</span>(document.<span style="color:#a6e22e">querySelectorAll</span>(<span style="color:#e6db74">&#39;*&#39;</span>)) <span style="color:#75715e">// Returns a real Array
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>Array.<span style="color:#66d9ef">of</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>) <span style="color:#75715e">// Similar to new Array(...), but without special one-arg behavior
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>[<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">fill</span>(<span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">1</span>) <span style="color:#75715e">// [0,7,7]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>].<span style="color:#a6e22e">find</span>(<span style="color:#a6e22e">x</span> =&gt; <span style="color:#a6e22e">x</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">3</span>) <span style="color:#75715e">// 3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>].<span style="color:#a6e22e">findIndex</span>(<span style="color:#a6e22e">x</span> =&gt; <span style="color:#a6e22e">x</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span>) <span style="color:#75715e">// 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>].<span style="color:#a6e22e">copyWithin</span>(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">0</span>) <span style="color:#75715e">// [1, 2, 3, 1, 2]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>[<span style="color:#e6db74">&#34;a&#34;</span>, <span style="color:#e6db74">&#34;b&#34;</span>, <span style="color:#e6db74">&#34;c&#34;</span>].<span style="color:#a6e22e">entries</span>() <span style="color:#75715e">// iterator [0, &#34;a&#34;], [1,&#34;b&#34;], [2,&#34;c&#34;]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>[<span style="color:#e6db74">&#34;a&#34;</span>, <span style="color:#e6db74">&#34;b&#34;</span>, <span style="color:#e6db74">&#34;c&#34;</span>].<span style="color:#a6e22e">keys</span>() <span style="color:#75715e">// iterator 0, 1, 2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>[<span style="color:#e6db74">&#34;a&#34;</span>, <span style="color:#e6db74">&#34;b&#34;</span>, <span style="color:#e6db74">&#34;c&#34;</span>].<span style="color:#a6e22e">values</span>() <span style="color:#75715e">// iterator &#34;a&#34;, &#34;b&#34;, &#34;c&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>Object.<span style="color:#a6e22e">assign</span>(<span style="color:#a6e22e">Point</span>, { <span style="color:#a6e22e">origin</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Point</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>) })
+</span></span></code></pre></div><ol start="13">
+<li>Proxies</li>
+</ol>
+<p>使用代理（Proxy）监听对象的操作，然后可以做一些相应事情。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">target</span> <span style="color:#f92672">=</span> {};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">handler</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">get</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">receiver</span>, <span style="color:#a6e22e">name</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">`Hello, </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">name</span><span style="color:#e6db74">}</span><span style="color:#e6db74">!`</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Proxy(<span style="color:#a6e22e">target</span>, <span style="color:#a6e22e">handler</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">world</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;Hello, world!&#39;</span>;
+</span></span></code></pre></div><p>可监听的操作：get、set、has、deleteProperty、apply、construct、getOwnPropertyDescriptor、defineProperty、getPrototypeOf、setPrototypeOf、enumerate、ownKeys、preventExtensions、isExtensible。</p>
+<ol start="14">
+<li>Symbols</li>
+</ol>
+<p>Symbol 是一种基本类型。Symbol 通过调用 symbol 函数产生，它接收一个可选的名字参数，该函数返回的 symbol 是唯一的。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">key</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Symbol</span>(<span style="color:#e6db74">&#34;key&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">key2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Symbol</span>(<span style="color:#e6db74">&#34;key&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">key</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">key2</span>  <span style="color:#75715e">//false
+</span></span></span></code></pre></div><ol start="15">
+<li>Promises</li>
+</ol>
+<p>Promises 是处理异步操作的对象，使用了 Promise 对象之后可以用一种链式调用的方式来组织代码，让代码更加直观（类似 jQuery 的 deferred 对象）。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">fakeAjax</span>(<span style="color:#a6e22e">url</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Promise(<span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// setTimeouts are for effect, typically we would handle XHR
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">url</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">setTimeout</span>(<span style="color:#a6e22e">reject</span>, <span style="color:#ae81ff">1000</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">setTimeout</span>(<span style="color:#a6e22e">resolve</span>, <span style="color:#ae81ff">1000</span>);
+</span></span><span style="display:flex;"><span>  });
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// no url, promise rejected
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">fakeAjax</span>().<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span> () {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;success&#39;</span>);
+</span></span><span style="display:flex;"><span>},<span style="color:#66d9ef">function</span> () {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;fail&#39;</span>);
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre></div>
+
+      
+    </article>
+  </div>
+
+  
+</div>
+
+
+            
+            <footer class="flex justify-between items-center gap-2 max-w-[65ch] mx-auto px-4 md:px-0 py-12">
+            
+              <div>
+  
+  <p>
+    © 2016 - 2024 子舒的博客
+  </p>
+  
+
+  
+  <p class="text-sm">
+    🌱
+    <span class="text-base-content/60">
+      Powered by <a class="hover:underline" href="https://gohugo.io/" target="_blank">Hugo</a> with theme
+      <a class="hover:underline" href="https://github.com/g1eny0ung/hugo-theme-dream" target="_blank">Dream</a>.</span
+    >
+  </p>
+  
+</div>
+
+              <div
+  x-data="{ icons: [
+    { name: 'moon', status: 'y' },
+    { name: 'sunny', status: 'n' },
+    { name: 'desktop', status: 'auto' }
+  ] }"
+  class="flex items-center h-[32px] px-2 gap-2 border border-base-content/30 rounded-full"
+>
+  <template x-for="icon in icons">
+    <div
+      role="button"
+      tabindex="0"
+      :aria-label="'Select ' + icon.name + ' mode'"
+      class="group inline-flex justify-center items-center p-1 rounded-full cursor-pointer hover:bg-primary"
+      :class="$store.darkMode.icon() === icon.name && 'bg-primary'"
+      @click="$store.darkMode.toggle(icon.status)"
+    >
+      <ion-icon
+        :name="`${icon.name}-outline`"
+        class="group-hover:text-primary-content"
+        :class="$store.darkMode.icon() === icon.name && 'text-primary-content'"
+      >
+      </ion-icon>
+    </div>
+  </template>
+</div>
+
+            </footer>
+          </div>
+        </div>
+        <div class="back">
+          <div class="container">
+            
+            <div class="max-w-[65ch] mt-8 mx-auto px-4">
+  
+  
+  
+  
+
+  
+
+  
+</div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+  window.lightTheme = "emerald"
+  window.darkTheme = "forest"
+</script>
+
+
+
+
+
+<script src="/js/main.js"></script>
+
+    
+
+
+
+
+
+
+
+    
+
+    
+
+    
+
+    <script type="module" src="https://unpkg.com/ionicons@7.4.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.4.0/dist/ionicons/ionicons.js"></script>
+  </body>
+</html>
