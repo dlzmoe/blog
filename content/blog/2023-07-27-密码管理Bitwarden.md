@@ -79,9 +79,9 @@ services:
       - "3012:3012"
 ```
 
-### 4.chrome 扩展
+### 4.Chrome 扩展
 
-通过反向代理可以使用域名登陆 web 端，并且使用了 chrome 扩展方式，在登陆网站可以自动保存密码。
+通过反向代理可以使用域名登陆 web 端，并且使用了 Chrome 扩展方式，在登陆网站可以自动保存密码。
 
 https://chrome.google.com/webstore/detail/bitwarden-free-password-m/nngceckbapebfimnlniiiahkandclblb
 
