@@ -51,112 +51,114 @@
 </head>
 
 <body>
-  <nav class="headnav">
-  <a href="/" class="logo">ZISHU.ME</a>
-  <ul id="menu">
-    
-    <li><a href="/tags/">标签</a></li>
-    
-    <li><a href="/blog/">博客</a></li>
-    
-    <li><a href="/categories/weekly/">周刊</a></li>
-    
-    <li><a href="/message/">留言</a></li>
-    
-    <li><a href="/links">友链</a></li>
-    
-    <li><a href="/search">搜索</a></li>
-    
-    <li><a href="/index.xml" target="_blank">RSS</a></li>
-  </ul>
-</nav>
-  <section id="body">
-
-    <div class="body-title">Search</div>
-
-    <article class="post-content">
+  <header class="header">
+  <div class="l-wrap">
+    <a href="/" class="logo">ZISHU.ME</a>
+    <ul class="nav">
       
+      <li><a href="/blog/">归档</a></li>
       
-
-      <form id="searchForm">
-        <input autocomplete="off" type="text" id="searchInput" placeholder="输入搜索内容..." required>
-        <button type="submit">搜索</button>
-      </form>
-
-      <ul id="resultsList"></ul>
-
-    </article>
-
-    <script>
-      let data = [];
-
+      <li><a href="/categories/weekly/">周刊</a></li>
       
-      fetch('/index.json')
-        .then(response => response.json())
-        .then(json => {
-          data = json; 
-        })
-        .catch(error => console.error('Error loading data:', error));
+      <li><a href="/message/">留言</a></li>
+      
+      <li><a href="/links">友链</a></li>
+      
+      <li><a href="/search">搜索</a></li>
+      
+      <li><a href="/index.xml" target="_blank">RSS</a></li>
+    </ul>
+  </div>
+</header>
+  <section>
+    <div class="l-wrap">
+      <div class="h1">Search</div>
 
-      document.getElementById('searchForm').addEventListener('submit', function (event) {
-        event.preventDefault();
-        const query = document.getElementById('searchInput').value.toLowerCase();
-        const resultsList = document.getElementById('resultsList');
+      <article class="post-content">
+        
+        
 
-        resultsList.innerHTML = ''; 
+        <form id="searchForm">
+          <input autocomplete="off" type="text" id="searchInput" placeholder="输入搜索内容..." required>
+          <button type="submit">搜索</button>
+        </form>
 
-        if (query) {
-          const results = data.filter(item =>
-            item.title.toLowerCase().includes(query) ||
-            item.summary.toLowerCase().includes(query)
-          );
+        <ul id="resultsList"></ul>
 
-          if (results.length > 0) {
-            results.forEach(item => {
-              const listItem = document.createElement('li');
-              const truncatedSummary = getTruncatedSummary(item.summary, query);
-              listItem.innerHTML = `
+      </article>
+
+      <script>
+        let data = [];
+
+        
+        fetch('/index.json')
+          .then(response => response.json())
+          .then(json => {
+            data = json; 
+          })
+          .catch(error => console.error('Error loading data:', error));
+
+        document.getElementById('searchForm').addEventListener('submit', function (event) {
+          event.preventDefault();
+          const query = document.getElementById('searchInput').value.toLowerCase();
+          const resultsList = document.getElementById('resultsList');
+
+          resultsList.innerHTML = ''; 
+
+          if (query) {
+            const results = data.filter(item =>
+              item.title.toLowerCase().includes(query) ||
+              item.summary.toLowerCase().includes(query)
+            );
+
+            if (results.length > 0) {
+              results.forEach(item => {
+                const listItem = document.createElement('li');
+                const truncatedSummary = getTruncatedSummary(item.summary, query);
+                listItem.innerHTML = `
                     <a href="${item.permalink}">${highlightKeywords(item.title, query)}</a>
                     <p>${highlightKeywords(truncatedSummary, query)}</p>
                 `;
-              resultsList.appendChild(listItem);
-            });
-          } else {
-            resultsList.innerHTML = '<li>没有找到相关内容。</li>';
+                resultsList.appendChild(listItem);
+              });
+            } else {
+              resultsList.innerHTML = '<li>没有找到相关内容。</li>';
+            }
           }
-        }
-      });
+        });
 
-      function highlightKeywords(text, query) {
-        const regex = new RegExp(`(${query})`, 'gi');
-        return text.replace(regex, '<span class="keyword-highlight">$1</span>');
-      }
-
-      function getTruncatedSummary(summary, query) {
-        const index = summary.toLowerCase().indexOf(query);
-        if (index === -1) return highlightKeywords(summary, query); 
-
-        const start = Math.max(0, index - 50);
-        const end = Math.min(summary.length, index + query.length + 50);
-        const truncated = summary.substring(start, end);
-
-        
-        if (start > 0) {
-          return '...' + highlightKeywords(truncated, query); 
-        } else if (end < summary.length) {
-          return highlightKeywords(truncated, query) + '...'; 
+        function highlightKeywords(text, query) {
+          const regex = new RegExp(`(${query})`, 'gi');
+          return text.replace(regex, '<span class="keyword-highlight">$1</span>');
         }
 
-        return highlightKeywords(truncated, query); 
-      }
-    </script>
+        function getTruncatedSummary(summary, query) {
+          const index = summary.toLowerCase().indexOf(query);
+          if (index === -1) return highlightKeywords(summary, query); 
 
+          const start = Math.max(0, index - 50);
+          const end = Math.min(summary.length, index + query.length + 50);
+          const truncated = summary.substring(start, end);
+
+          
+          if (start > 0) {
+            return '...' + highlightKeywords(truncated, query); 
+          } else if (end < summary.length) {
+            return highlightKeywords(truncated, query) + '...'; 
+          }
+
+          return highlightKeywords(truncated, query); 
+        }
+      </script>
+    </div>
   </section>
   <footer class="footer">
-  <p>© 2020 - 2024 Powered by
-    <a href="https://github.com/dlzmoe" target="_blank">Github</a>
-    / <a href="/index.xml" target="_blank">RSS</a>
-  </p>
+  <div class="l-wrap">
+    <p>© 2020 - 2024 Powered by
+      <a href="https://github.com/dlzmoe" target="_blank">Github</a>
+      / <a href="/index.xml" target="_blank">RSS</a>
+    </p>
+  </div>
 </footer>
 
 

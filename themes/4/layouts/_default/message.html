@@ -4,16 +4,17 @@
 
 <body>
   {{ partial "header.html" . }}
-  <section id="body">
+  <section>
+    <div class="l-wrap">
+      <div class="h1">{{ .Title }}</div>
 
-    <h1 class="body-title">{{ .Title }}</h1>
+      <article class="post-content">
+        {{ .Site.Params.postHeaderContent | safeHTML }}
+        {{ .Content }}
+      </article>
 
-    <article class="post-content">
-      {{ .Site.Params.postHeaderContent | safeHTML }}
-      {{ .Content }}
-    </article>
-
-    {{ partial "comment.html" . }}
+      {{ partial "comment.html" . }}
+    </div>
   </section>
   {{ partial "footer.html" . }}
 </body>

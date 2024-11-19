@@ -4,21 +4,23 @@
 
 <body>
   {{ partial "header.html" . }}
-  <section id="body">
+  <section>
+    <div class="l-wrap">
+      <div class="h1">{{ .Title }}</div>
 
-    <h1 class="body-title">{{ .Title }}</h1>
+      <article class="post-content">
+        {{ .Site.Params.postHeaderContent | safeHTML }}
+        {{ .Content }}
 
-    <article class="post-content">
-      {{ .Site.Params.postHeaderContent | safeHTML }}
-      {{ .Content }}
+        <ul class="tags-list">
+          {{ range .Site.Taxonomies.tags }}
+          <li><a href="{{ .Page.Permalink }}">{{ .Page.Title }} <sup>{{ .Count }}</sup></a> </li>
+          {{ end }}
+        </ul>
+      </article>
 
-      <ul class="tags-list">
-        {{ range .Site.Taxonomies.tags }}
-        <li><a href="{{ .Page.Permalink }}">{{ .Page.Title }} <sup>{{ .Count }}</sup></a> </li>
-        {{ end }}
-      </ul>
-    </article>
-
+      {{ partial "comment.html" . }}
+    </div>
   </section>
   {{ partial "footer.html" . }}
 </body>

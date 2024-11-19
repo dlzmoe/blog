@@ -5,49 +5,45 @@
 <body>
   {{ partial "header.html" . }}
   <section>
-    
-    <h1 class="body-title">{{ .Title }}</h1>
+    <div class="l-wrap">
+      <div class="h1">{{ .Title }}</div>
 
-    {{ if in .Site.Params.mainSections .Type }}
-    <div class="meta">
-      <span class="time"> <time> {{ .Date.Format "2006-01-02"}}</time></span>
-     
-      {{ with .Params.categories }}
-      {{ range . }}
-      <span class="tags">分类：
-        <a href="{{ "categories/" | relURL }}{{ . | urlize }}">{{ . }}</a>
-      </span>
-      {{ end }}
-      {{ end }}
-
-      <span class="tags">
-        {{ with .Params.tags }}
-        标签：
+      {{ if in .Site.Params.mainSections .Type }}
+      <div class="post-meta">
+        <time> {{ .Date.Format "2006-01-02"}}</time>
+        {{ with .Params.categories }}
         {{ range . }}
-        <a href="{{ "tags/" | relURL }}{{ . | urlize }}">#{{ . }}</a>
+        <span class="jj">-</span>
+        <span class="namenode"><a href="{{ "categories/" | relURL }}{{ . | urlize }}">{{ . }}</a></span>
         {{ end }}
         {{ end }}
-      </span>
+        <span class="jj">-</span>
+        <span class="tag-node">
+          {{ with .Params.tags }}
+          {{ range . }}
+          <a href="{{ "tags/" | relURL }}{{ . | urlize }}">#{{ . }}</a>
+          {{ end }}
+          {{ end }}
+        </span>
 
+      </div>
+      {{ end }}
+
+      {{ if in .Site.Params.mainSections .Type }}
+      <div class="toc">
+        {{ .TableOfContents }}
+      </div>
+      {{ end }}
+
+      <article class="post-content">
+        {{ .Site.Params.postHeaderContent | safeHTML }}
+        {{ .Content }}
+      </article>
+
+      {{ if in .Site.Params.mainSections .Type }}
+      {{ partial "comment.html" . }}
+      {{ end }}
     </div>
-    {{ end }}
-
-    {{ if in .Site.Params.mainSections .Type }}
-    <div class="toc">
-      {{ .TableOfContents }}
-    </div>
-    {{ end }}
-
-    <article class="post-content">
-      {{ .Site.Params.postHeaderContent | safeHTML }}
-      {{ .Content }}
-      <div class="weekly-pagination"></div>
-    </article>
-
-    {{ if in .Site.Params.mainSections .Type }}
-    {{ partial "comment.html" . }}
-    {{ end }}
-    
   </section>
   {{ partial "footer.html" . }}
 </body>

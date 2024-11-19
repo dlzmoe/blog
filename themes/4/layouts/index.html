@@ -12,32 +12,37 @@
   {{ partial "header.html" . }}
 
   <section>
+    <div class="l-wrap">
+      <article class="post-content">
+        <p class="aboutme">这是我的个人博客，已经运行了 <span id="days"></span> 天，写了 {{ $articleCount }} 篇文章，共 {{ $totalWordCount }} 字。</p>
+        <div class="aside-list">
+          <a href="/blog/">🐼 全部</a>
+          <a href="/categories/技术/">💻 技术</a>
+          <a href="/categories/随笔/">📝 随笔</a>
+          <a href="/categories/weekly/">📰 周刊</a>
+        </div>
+        <p><strong>最新的 7 篇文章</strong></p>
+        <div class="indexpost">
+          {{ $pages := .Site.RegularPages }}
+          {{ $paginator := .Paginate ($pages) }}
+          {{ $count := 0 }}
 
-    <article class="post-content">
-      <p>这是我的个人博客，已经运行了 <span id="days"></span> 天，写了 {{ $articleCount }} 篇文章，共 {{ $totalWordCount }} 字。</p>
-      
-      <ul class="listing">
-        <li class="listing-seperator">最新的 6 篇文章：</li>
-        {{ $pages := .Site.RegularPages }}
-        {{ $paginator := .Paginate ($pages) }}
-        {{ $count := 0 }}
+          {{ range $paginator.Pages }}
+          {{ $title := .Title }}
+          {{ $summary := .Summary }}
+          <a href="{{ .RelPermalink }}" class="posts-item">
+            <span class="title">{{ .Title }}</span>
+            <span class="dashed"></span>
+            <time class="date">{{ .Date.Format "2006-01-02"}}</time>
+          </a>
+          {{ end }}
+        </div>
+        <div style="height:50px;border-bottom:1px dashed #ccc;margin-bottom:20px;"></div>
+        {{ .Site.Params.postHeaderContent | safeHTML }}
+        {{ .Content }}
 
-        {{ range $paginator.Pages }}
-        {{ $title := .Title }}
-        {{ $summary := .Summary }}
-        <li class="listing-item">
-          <time class="date">{{ .Date.Format "2006-01-02"}}</time>
-          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-        </li>
-        {{ end }}
-      </ul>
-
-      {{ .Site.Params.postHeaderContent | safeHTML }}
-      {{ .Content }}
-
-    </article>
-
-
+      </article>
+    </div>
   </section>
   {{ partial "footer.html" . }}
 
