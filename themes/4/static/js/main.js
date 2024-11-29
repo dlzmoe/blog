@@ -45,7 +45,7 @@ $(function () {
     }
   }
 
-  $('.inner-post-content iframe').wrap('<div class="iframe"></div>');
+  $('.post-content iframe').wrap('<div class="iframe"></div>');
 
   $("#TableOfContents a").click(function (e) {
     e.preventDefault();
