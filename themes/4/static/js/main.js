@@ -78,3 +78,12 @@ $(function () {
     $('#zimgbox-wrap img').attr('src', '');
   })
 })
+
+function goTop() {
+  $(".gotop").click(function () {
+    $("html,body").animate({
+      scrollTop: 0,
+    }, 500, )
+  })
+}
+goTop();
