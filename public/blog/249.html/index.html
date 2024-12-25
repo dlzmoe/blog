@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8" />
+<meta name="generator" content="Hugo 0.136.5">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="toTop" content="true">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="author" content="子舒" />
+<meta property="og:url" content="https://zishu.me/blog/249.html/" />
+<link rel="canonical" href="https://zishu.me/blog/249.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="shortcut" href="https://imgurl.zishu.me/favicon.ico" /><link rel="alternate" type="application/atom+xml" href="https://zishu.me/index.xml" title="子舒的博客">
+<script type="application/ld+json">
+{
+"@context" : "http://schema.org",
+"@type" : "BlogPosting",
+"mainEntityOfPage": {
+"@type": "WebPage",
+"@id": "https:\/\/zishu.me\/"
+},
+"articleSection" : "blog",
+"name" : "记录使用 wxt 框架开发扩展的问题",
+"headline" : "记录使用 wxt 框架开发扩展的问题",
+"description" : "最近在使用 wxt 框架开发浏览器扩展，记录一些问题。\nhttps:\/\/wxt.dev\/\n1. 隔离脚本与网站本身的样式 使用 Shadow Root，可以不让 content-scripts 侵入式影响网站本身，然后引入并渲染 App.vue 组件。\nimport \u0026#39;.\/style.css\u0026#39;; import { createApp } from \u0026#39;vue\u0026#39;; import App from \u0026#39;.\/App.vue\u0026#39;; export default defineContentScript({ matches: [\u0026#39;https:\/\/google.com\/*\u0026#39;], cssInjectionMode: \u0026#39;ui\u0026#39;, async main(ctx) { const ui = await createShadowRootUi(ctx, { name: \u0026#39;example-ui\u0026#39;, position: \u0026#39;inline\u0026#39;, anchor: \u0026#39;body\u0026#39;, onMount: (container) =\u0026gt; { const app = createApp(App); app.mount(container); return app; }, onRemove: (app) =\u0026gt; { app?.unmount(); }, }); ui.mount(); }, }); 2. 在 config.js 中配置 import { defineConfig } from \u0026#39;wxt\u0026#39;; import pkg from \u0026#39;.\/package.json\u0026#39;; \/\/ See https:\/\/wxt.dev\/api\/config.html export default defineConfig({ extensionApi: \u0026#39;chrome\u0026#39;, modules: [\u0026#39;@wxt-dev\/module-vue\u0026#39;], manifest: { name: \u0026#39;xxx\u0026#39;, version: pkg.version, description: ..., permissions: [\u0026#39;storage\u0026#39;, \u0026#39;scripting\u0026#39;] \/\/ 存储、插入脚本 }, hooks: { \u0026#39;build:manifestGenerated\u0026#39;: (wxt, manifest) =\u0026gt; { if (wxt.config.command === \u0026#39;serve\u0026#39;) { manifest.content_scripts ??= []; manifest.content_scripts.push({ matches: [\u0026#39;https:\/\/google.com\/*\u0026#39;], js: [\u0026#39;content-scripts\/content.js\u0026#39;], css: [\u0026#39;content-scripts\/content.css\u0026#39;] }); } } } }); ",
+"inLanguage" : "en-US",
+"author" : "子舒",
+"creator" : "子舒",
+"publisher": "子舒",
+"accountablePerson" : "子舒",
+"copyrightHolder" : "子舒",
+"copyrightYear" : "2024",
+"datePublished": "2024-12-25 00:00:00 \u002b0000 UTC",
+"dateModified" : "2024-12-25 00:00:00 \u002b0000 UTC",
+"url" : "https:\/\/zishu.me\/blog\/249.html\/",
+"keywords" : [ "wtx", ]
+}
+</script><title>记录使用 wxt 框架开发扩展的问题 - 子舒的博客</title>
+<meta property="og:title" content="记录使用 wxt 框架开发扩展的问题" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="最近在使用 wxt 框架开发浏览器扩展，记录一些问题。
+https://wxt.dev/
+1. 隔离脚本与网站本身的样式 使用 Shadow Root，可以不让 content-scripts 侵入式影响网站本身，然后引入并渲染 App.vue 组件。
+import &#39;./style.css&#39;; import { createApp } from &#39;vue&#39;; import App from &#39;./App.vue&#39;; export default defineContentScript({ matches: [&#39;https://google.com/*&#39;], cssInjectionMode: &#39;ui&#39;, async main(ctx) { const ui = await createShadowRootUi(ctx, { name: &#39;example-ui&#39;, position: &#39;inline&#39;, anchor: &#39;body&#39;, onMount: (container) =&gt; { const app = createApp(App); app.mount(container); return app; }, onRemove: (app) =&gt; { app?.unmount(); }, }); ui.mount(); }, }); 2. 在 config.js 中配置 import { defineConfig } from &#39;wxt&#39;; import pkg from &#39;./package.json&#39;; // See https://wxt.dev/api/config.html export default defineConfig({ extensionApi: &#39;chrome&#39;, modules: [&#39;@wxt-dev/module-vue&#39;], manifest: { name: &#39;xxx&#39;, version: pkg.version, description: ..., permissions: [&#39;storage&#39;, &#39;scripting&#39;] // 存储、插入脚本 }, hooks: { &#39;build:manifestGenerated&#39;: (wxt, manifest) =&gt; { if (wxt.config.command === &#39;serve&#39;) { manifest.content_scripts ??= []; manifest.content_scripts.push({ matches: [&#39;https://google.com/*&#39;], js: [&#39;content-scripts/content.js&#39;], css: [&#39;content-scripts/content.css&#39;] }); } } } }); " />
+<meta name="description" content="最近在使用 wxt 框架开发浏览器扩展，记录一些问题。
+https://wxt.dev/
+1. 隔离脚本与网站本身的样式 使用 Shadow Root，可以不让 content-scripts 侵入式影响网站本身，然后引入并渲染 App.vue 组件。
+import &#39;./style.css&#39;; import { createApp } from &#39;vue&#39;; import App from &#39;./App.vue&#39;; export default defineContentScript({ matches: [&#39;https://google.com/*&#39;], cssInjectionMode: &#39;ui&#39;, async main(ctx) { const ui = await createShadowRootUi(ctx, { name: &#39;example-ui&#39;, position: &#39;inline&#39;, anchor: &#39;body&#39;, onMount: (container) =&gt; { const app = createApp(App); app.mount(container); return app; }, onRemove: (app) =&gt; { app?.unmount(); }, }); ui.mount(); }, }); 2. 在 config.js 中配置 import { defineConfig } from &#39;wxt&#39;; import pkg from &#39;./package.json&#39;; // See https://wxt.dev/api/config.html export default defineConfig({ extensionApi: &#39;chrome&#39;, modules: [&#39;@wxt-dev/module-vue&#39;], manifest: { name: &#39;xxx&#39;, version: pkg.version, description: ..., permissions: [&#39;storage&#39;, &#39;scripting&#39;] // 存储、插入脚本 }, hooks: { &#39;build:manifestGenerated&#39;: (wxt, manifest) =&gt; { if (wxt.config.command === &#39;serve&#39;) { manifest.content_scripts ??= []; manifest.content_scripts.push({ matches: [&#39;https://google.com/*&#39;], js: [&#39;content-scripts/content.js&#39;], css: [&#39;content-scripts/content.css&#39;] }); } } } }); " />
+<meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
+
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/index.css">
+<link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
+<script src="/js/jquery3.6.0.min.js"></script>
+</head>
+
+<body>
+  <header class="header">
+  <div class="l-wrap">
+    <a href="/" class="logo">ZISHU.ME</a>
+    <ul class="nav">
+      
+      <li><a href="/blog/">博客</a></li>
+      
+      <li><a href="/categories/weekly/">周刊</a></li>
+      
+      <li><a href="/message/">留言</a></li>
+      
+      <li><a href="/links">友链</a></li>
+      
+      <li><a href="/search">搜索</a></li>
+      
+      <li><a href="/index.xml" target="_blank">RSS</a></li>
+    </ul>
+  </div>
+</header>
+  <section>
+    <div class="l-wrap">
+      
+      <table class="header-table">
+        <tbody>
+          <tr>
+            <td colspan="2" rowspan="2" class="width-auto">
+              <div class="h1">记录使用 wxt 框架开发扩展的问题</div>
+              
+            </td>
+            <th>Category</th>
+            <td class="width-min">
+              
+              
+              <span class="namenode"><a href="/categories/%E6%8A%80%E6%9C%AF">技术</a></span>
+              
+              
+            </td>
+          </tr>
+          <tr>
+            <th>Updated</th>
+            <td class="width-min"><time style="white-space: pre;">2024-12-25</time></td>
+          </tr>
+          <tr>
+            <th class="width-min">Tags</th>
+            <td class="width-auto">
+              
+              
+              <a href="/tags/wtx">#wtx</a>
+              
+              
+            </td>
+            <th class="width-min">Author</th>
+            <td>子舒</td>
+          </tr>
+        </tbody>
+      </table> 
+      
+
+      
+      <div class="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1-隔离脚本与网站本身的样式">1. 隔离脚本与网站本身的样式</a></li>
+        <li><a href="#2-在-configjs-中配置">2. 在 config.js 中配置</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </div>
+      
+
+      <article class="post-content">
+        
+        <p>最近在使用 wxt 框架开发浏览器扩展，记录一些问题。</p>
+<p><a href="https://wxt.dev/">https://wxt.dev/</a></p>
+<h3 id="1-隔离脚本与网站本身的样式">1. 隔离脚本与网站本身的样式</h3>
+<p>使用 <a href="https://wxt.dev/guide/essentials/content-scripts.html#shadow-root">Shadow Root</a>，可以不让 content-scripts 侵入式影响网站本身，然后引入并渲染 App.vue 组件。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">import</span> <span class="s1">&#39;./style.css&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">createApp</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;vue&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">App</span> <span class="nx">from</span> <span class="s1">&#39;./App.vue&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">defineContentScript</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">matches</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;https://google.com/*&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">cssInjectionMode</span><span class="o">:</span> <span class="s1">&#39;ui&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kr">async</span> <span class="nx">main</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">ui</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">createShadowRootUi</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;example-ui&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">position</span><span class="o">:</span> <span class="s1">&#39;inline&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">anchor</span><span class="o">:</span> <span class="s1">&#39;body&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">onMount</span><span class="o">:</span> <span class="p">(</span><span class="nx">container</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">createApp</span><span class="p">(</span><span class="nx">App</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">app</span><span class="p">.</span><span class="nx">mount</span><span class="p">(</span><span class="nx">container</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">app</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">onRemove</span><span class="o">:</span> <span class="p">(</span><span class="nx">app</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">app</span><span class="o">?</span><span class="p">.</span><span class="nx">unmount</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">ui</span><span class="p">.</span><span class="nx">mount</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></div><h3 id="2-在-configjs-中配置">2. 在 config.js 中配置</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">defineConfig</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;wxt&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">pkg</span> <span class="nx">from</span> <span class="s1">&#39;./package.json&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// See https://wxt.dev/api/config.html
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">export</span> <span class="k">default</span> <span class="nx">defineConfig</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">extensionApi</span><span class="o">:</span> <span class="s1">&#39;chrome&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">modules</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;@wxt-dev/module-vue&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">manifest</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;xxx&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">version</span><span class="o">:</span> <span class="nx">pkg</span><span class="p">.</span><span class="nx">version</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">description</span><span class="o">:</span> <span class="p">...,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">permissions</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;storage&#39;</span><span class="p">,</span> <span class="s1">&#39;scripting&#39;</span><span class="p">]</span> <span class="c1">// 存储、插入脚本
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">hooks</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;build:manifestGenerated&#39;</span><span class="o">:</span> <span class="p">(</span><span class="nx">wxt</span><span class="p">,</span> <span class="nx">manifest</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="nx">wxt</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">command</span> <span class="o">===</span> <span class="s1">&#39;serve&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">manifest</span><span class="p">.</span><span class="nx">content_scripts</span> <span class="o">??=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">manifest</span><span class="p">.</span><span class="nx">content_scripts</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">matches</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;https://google.com/*&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">js</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;content-scripts/content.js&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">css</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;content-scripts/content.css&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></div>
+        <div class="weekly-pagination"></div>
+      </article>
+
+      
+      <div class="comments">
+  <div class="giscus"></div>
+</div>
+<script 
+  src="https://giscus.app/client.js" 
+  data-repo="dlzmoe/blog" 
+  data-repo-id="R_kgDOJkJvtw"
+  data-category="Announcements" 
+  data-category-id="DIC_kwDOJkJvt84CX9d6" 
+  data-mapping="url" 
+  data-strict="0"
+  data-reactions-enabled="1" 
+  data-emit-metadata="1" 
+  data-input-position="top" 
+  data-theme="light_protanopia"
+  data-lang="zh-CN" 
+  data-loading="lazy" 
+  crossorigin="anonymous" 
+  async>
+</script>
+
+      
+    </div>
+  </section>
+  <footer class="footer">
+  <div class="l-wrap">
+    <p>© 2020 - 2024 Powered by
+      <a href="https://github.com/dlzmoe" target="_blank">Github</a>
+      / <a href="/index.xml" target="_blank">RSS</a>
+    </p>
+  </div>
+  <div class="gotop"></div>
+</footer>
+
+<script src="/js/main.js"></script>
+
+</body>
+
+</html>
