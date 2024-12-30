@@ -12,3 +12,4 @@ title: 友情链接
 - [Airing 的博客](https://ursb.me)
 - [独钓寒江雪](https://jiangxueqiao.com/) - 孤舟蓑笠翁，独钓寒江雪。
 - [余果的博客](https://yuguo.github.io/) - 一个产品设计师。
+- [大橙子](https://log.660066.xyz/) - 大橙子的知识杂货铺
