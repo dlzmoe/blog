@@ -27,9 +27,9 @@ $(function () {
 
       // 使用 fetch 检查下一期是否存在
       fetch(nextUrl, {
-          method: 'HEAD'
-        }) // 使用 HEAD 请求只获取响应头
-        .then(response => {
+        method: 'HEAD'
+      }) // 使用 HEAD 请求只获取响应头
+        .then((response) => {
           if (!response.ok) {
             // 如果响应不成功，隐藏下一期链接和“|”符号
             $('.weekly-pagination').html(`
@@ -39,7 +39,7 @@ $(function () {
             `);
           }
         })
-        .catch(error => {
+        .catch((error) => {
           console.error('Error fetching next link:', error);
         });
     }
@@ -47,21 +47,29 @@ $(function () {
 
   $('.post-content iframe').wrap('<div class="iframe"></div>');
 
-  $("#TableOfContents a").click(function (e) {
+  $('#TableOfContents a').click(function (e) {
     e.preventDefault();
     const id = $(this).attr('href');
-    $("html,body").animate({
-      scrollTop: $(id).offset().top - 30,
-    }, 500, )
+    $('html,body').animate(
+      {
+        scrollTop: $(id).offset().top - 30
+      },
+      500
+    );
   });
 
   $('.post-content img').addClass('zimgbox');
-  $('body').append('<div id="zimgbox-wrap" style="display:none"><img src></div>');
-  $(".top-link").click(function () {
-    $("html,body").animate({
-      scrollTop: 0
-    }, 500)
-  })
+  $('body').append(
+    '<div id="zimgbox-wrap" style="display:none"><img src></div>'
+  );
+  $('.top-link').click(function () {
+    $('html,body').animate(
+      {
+        scrollTop: 0
+      },
+      500
+    );
+  });
   $('.zimgbox').each(function () {
     $(this).click(function () {
       var $url = $(this).attr('src');
@@ -69,21 +77,26 @@ $(function () {
       $('#zimgbox-wrap').css('display', 'flex');
       $('#zimgbox-wrap img').addClass('zimgbox-act');
       $('#zimgbox-wrap img').attr('src', $url);
-    })
-  })
+    });
+  });
   $('#zimgbox-wrap').click(function () {
     $('html').css('overflow-y', 'scroll');
     $('#zimgbox-wrap').css('display', 'none');
     $('#zimgbox-wrap img').removeClass('zimgbox-act');
     $('#zimgbox-wrap img').attr('src', '');
-  })
-})
+  });
+
+  $('.post-content a img').removeClass('zimgbox');
+});
 
 function goTop() {
-  $(".gotop").click(function () {
-    $("html,body").animate({
-      scrollTop: 0,
-    }, 500, )
-  })
+  $('.gotop').click(function () {
+    $('html,body').animate(
+      {
+        scrollTop: 0
+      },
+      500
+    );
+  });
 }
 goTop();

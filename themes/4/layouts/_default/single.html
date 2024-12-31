@@ -6,64 +6,14 @@
   {{ partial "header.html" . }}
   <section>
     <div class="l-wrap">
+      <h1 class="body-title">{{ .Title }}</h1>
+
       {{ if in .Site.Params.mainSections .Type }}
-      <table class="header-table">
-        <tbody>
-          <tr>
-            <td colspan="2" rowspan="2" class="width-auto">
-              <div class="h1">{{ .Title }}</div>
-              <!-- <span class="subtitle">这是我的个人博客</span> -->
-            </td>
-            <th>Category</th>
-            <td class="width-min">
-              {{ with .Params.categories }}
-              {{ range . }}
-              <span class="namenode"><a href="{{ "categories/" | relURL }}{{ . | urlize }}">{{ . }}</a></span>
-              {{ end }}
-              {{ end }}
-            </td>
-          </tr>
-          <tr>
-            <th>Updated</th>
-            <td class="width-min"><time style="white-space: pre;">{{ .Date.Format "2006-01-02"}}</time></td>
-          </tr>
-          <tr>
-            <th class="width-min">Tags</th>
-            <td class="width-auto">
-              {{ with .Params.tags }}
-              {{ range . }}
-              <a href="{{ "tags/" | relURL }}{{ . | urlize }}">#{{ . }}</a>
-              {{ end }}
-              {{ end }}
-            </td>
-            <th class="width-min">Author</th>
-            <td>子舒</td>
-          </tr>
-        </tbody>
-      </table>
-      {{- else -}}
-      <div class="h1">{{ .Title }}</div>
-      {{ end }} 
-      <!-- {{ if in .Site.Params.mainSections .Type }}
       <div class="post-meta">
-        <time> {{ .Date.Format "2006-01-02"}}</time>
-        {{ with .Params.categories }}
-        {{ range . }}
-        <span class="jj">-</span>
-        <span class="namenode"><a href="{{ "categories/" | relURL }}{{ . | urlize }}">{{ . }}</a></span>
-        {{ end }}
-        {{ end }}
-
-        <span class="tag-node">
-          {{ with .Params.tags }}
-          {{ range . }}
-          <a href="{{ "tags/" | relURL }}{{ . | urlize }}">#{{ . }}</a>
-          {{ end }}
-          {{ end }}
-        </span>
-
+        <time> {{ .Date.Format "2006/01/02"}}</time>
       </div>
-      {{ end }} -->
+      {{ end }}
+
 
       {{ if in .Site.Params.mainSections .Type }}
       <div class="toc">
@@ -76,6 +26,23 @@
         {{ .Content }}
         <div class="weekly-pagination"></div>
       </article>
+
+      {{ if in .Site.Params.mainSections .Type }}
+      <div class="post-tags">
+        {{ with .Params.categories }}
+        {{ range . }}
+        <span class="namenode">分类：<a href="{{ "categories/" | relURL }}{{ . | urlize }}">{{ . }}</a>
+        </span>
+        {{ end }}
+        {{ end }}
+        <span class="tag-node">
+          {{ with .Params.tags }}
+          标签：{{ range . }}<a href="{{ "tags/" | relURL }}{{ . | urlize }}">#{{ . }}</a>
+          {{ end }}
+          {{ end }}
+        </span>
+        {{ end }}
+      </div>
 
       {{ if in .Site.Params.mainSections .Type }}
       {{ partial "comment.html" . }}
