@@ -90,6 +90,14 @@ $(function () {
 });
 
 function goTop() {
+  $(window).on('scroll', function () {
+    if ($(window).scrollTop() >= 200) {
+      $('.gotop').addClass('act');
+    } else {
+      $('.gotop').removeClass('act');
+    }
+  });
+
   $('.gotop').click(function () {
     $('html,body').animate(
       {
