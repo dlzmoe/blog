@@ -5,7 +5,6 @@ title: 友情链接
 
 收录写的不错的友链，可以在留言板留言，经审核后会通过。
 
-- [LINUX DO](https://linux.do/?source=zishu_me) - 新的理想型社区
 - [涛叔](https://taoshu.in/)
 - [Leon Fong](https://www.leonfong.me/) - 记录生活，表达热爱。
 - [卢涛南博客](https://lutaonan.com/)
