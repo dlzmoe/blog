@@ -2,7 +2,7 @@
 <html lang="en-us">
 <head>
 <meta charset="utf-8" />
-<meta name="generator" content="Hugo 0.136.5">
+<meta name="generator" content="Hugo 0.143.0">
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="toTop" content="true">
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -250,8 +250,7 @@ Vue 的实现方法 在子组件中我们只需编写一个函数，将一个值
 <p>转载于：https://blog.csdn.net/csdnnews/article/details/81880378
 原文：https://medium.com/javascript-in-plain-english/i-created-the-exact-same-app-in-react-and-vue-here-are-the-differences-e9a1ae8077fd
 作者简介：Sunil Sandhu，一位 Web 全栈工程师 + 空想家。
-译者：安翔，责编：屠敏</p>
-</blockquote>
+译者：安翔，责编：屠敏</p></blockquote>
 <p>众所周知，Vue 和 React 都是目前非常著名的前端框架。我在工作中经常使用 Vue，因此我对它有很深入的了解。同时，我也对 React 充满了好奇，想要学习一下，一探究竟。</p>
 <p>于是我阅读了 React 文档并观看了一些视频教程，虽然这些资料很不错，但是我真正想了解的是 React 与 Vue 之间的不同之处。所谓“不同之处”，我并非想知道它们是否都具有虚拟 DOMS 或者它们如何渲染页面，而是希望有人能够从代码的角度解释这两者之间的差异。我想找到一篇解释这些差异的文章，以便 Vue 或者 React 的初学者可以更好地理解它们两者之间的差异。</p>
 <p>很遗憾，我并未找到一篇这样的文章。于是我意识到必须自己动手来比较 Vue 与 React 之间的异同。在我自力更生的过程中，我用这篇文章记录下了具体过程。</p>
@@ -273,8 +272,7 @@ Vue 的实现方法 在子组件中我们只需编写一个函数，将一个值
 <p>在 React 中，我们通过调用 this.state.name 来引用同一段数据。现在关键的区别在于，我们不能简单地写成 this.state.name =&lsquo;John&rsquo;，因为 React 有限制机制，它会阻止这种简单的修改方式。在 React 中，我们需要这样写：this.setState({name：&lsquo;John&rsquo;})。</p>
 <p>虽然这基本上与我们在 Vue 中实现的结果一样，但是 React 的操作更为繁琐，那是因为 Vue 在每次更新数据时默认组合了自己的 setState 版本。简单来说就是，React 需要 setState，然后更新其内部数据，而对于 Vue 来说，当你更新数据对象的值时它就默认了你的更改意图。那么为什么 React 没有进行简化，为什么需要 setState 呢？Revanth Kumar 对此做出了解释：</p>
 <blockquote>
-<p>“这是因为 React 希望在状态发生变化时重新运行某些生命周期 hook，比如 componentWillReceiveProps、shouldComponentUpdate、componentWillUpdate、render、componentDidUpdate。当你调用 setState 函数时，它知道状态已经改变。如果你直接改变状态，React 将需要做更多工作来跟踪更改以及运行生命周期 hook 等等。所以为了简单起见，React 使用 setState。&quot;</p>
-</blockquote>
+<p>“这是因为 React 希望在状态发生变化时重新运行某些生命周期 hook，比如 componentWillReceiveProps、shouldComponentUpdate、componentWillUpdate、render、componentDidUpdate。当你调用 setState 函数时，它知道状态已经改变。如果你直接改变状态，React 将需要做更多工作来跟踪更改以及运行生命周期 hook 等等。所以为了简单起见，React 使用 setState。&quot;</p></blockquote>
 <h2 id="3添加新的待办事项">3.添加新的待办事项</h2>
 <h3 id="react-的实现方法">React 的实现方法</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">createNewToDoItem</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
@@ -369,8 +367,7 @@ Vue 的实现方法 在子组件中我们只需编写一个函数，将一个值
 <p>Vue 的事件监听器更加直接。我们只需要使用一个简单的 @ 符号，就可以构建出我们想要的事件监听器。例如，想要添加 click 事件监听器，代码：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">”ToDo-Add”</span> <span class="err">@</span><span class="na">click</span><span class="o">=</span><span class="s">”createNewToDoItem()”</span><span class="p">&gt;</span>+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span> 
 </span></span></code></pre></div><blockquote>
-<p>注意：@click 实际上是 v-on:click 的简写。Vue 事件监听器很强大，你可以为其选择属性，例如 .once 可以防止事件监听器被多次触发。此外，它还包含很多快捷方式。按下回车按钮时，React 就需要花费更长的时间来创建事件监听器，从而创建新的 ToDo 项目。在 Vue，代码如下：</p>
-</blockquote>
+<p>注意：@click 实际上是 v-on:click 的简写。Vue 事件监听器很强大，你可以为其选择属性，例如 .once 可以防止事件监听器被多次触发。此外，它还包含很多快捷方式。按下回车按钮时，React 就需要花费更长的时间来创建事件监听器，从而创建新的 ToDo 项目。在 Vue，代码如下：</p></blockquote>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">”text”</span> <span class="na">v-on:keyup</span><span class="err">.</span><span class="na">enter</span><span class="o">=</span><span class="s">”createNewToDoItem”/</span><span class="p">&gt;</span>
 </span></span></code></pre></div><h2 id="6如何将数据传递给子组件">6.如何将数据传递给子组件</h2>
 <h3 id="react-的实现方法-3">React 的实现方法</h3>
