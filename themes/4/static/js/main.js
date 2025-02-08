@@ -27,8 +27,8 @@ $(function () {
 
       // 使用 fetch 检查下一期是否存在
       fetch(nextUrl, {
-        method: 'HEAD'
-      }) // 使用 HEAD 请求只获取响应头
+          method: 'HEAD'
+        }) // 使用 HEAD 请求只获取响应头
         .then((response) => {
           if (!response.ok) {
             // 如果响应不成功，隐藏下一期链接和“|”符号
@@ -47,11 +47,14 @@ $(function () {
 
   $('.post-content iframe').wrap('<div class="iframe"></div>');
 
+  if ($('#TableOfContents').html() == "") {
+    $('.toc').hide();
+  }
+
   $('#TableOfContents a').click(function (e) {
     e.preventDefault();
     const id = $(this).attr('href');
-    $('html,body').animate(
-      {
+    $('html,body').animate({
         scrollTop: $(id).offset().top - 30
       },
       500
@@ -63,8 +66,7 @@ $(function () {
     '<div id="zimgbox-wrap" style="display:none"><img src></div>'
   );
   $('.top-link').click(function () {
-    $('html,body').animate(
-      {
+    $('html,body').animate({
         scrollTop: 0
       },
       500
@@ -99,8 +101,7 @@ function goTop() {
   });
 
   $('.gotop').click(function () {
-    $('html,body').animate(
-      {
+    $('html,body').animate({
         scrollTop: 0
       },
       500
