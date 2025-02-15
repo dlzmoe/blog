@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+{{ partial "head.html" . }}
+
+<body>
+  {{ partial "header.html" . }}
+
+  <section>
+    <!-- <div class="h1">{{ .Title }}</div> -->
+    <div class="l-wrap">
+      <div class="container">
+        <div class="aside-list">
+          <a href="/categories/技术/">技术</a>
+          <a href="/categories/随笔/">随笔</a>
+          <a href="/categories/weekly/">周刊</a>
+        </div>
+
+        <div class="posts">
+          {{ range (where .Data.Pages "Type" "in" site.Params.mainSections).GroupByDate "2006" -}}
+          <h3 class="posts-year" id="{{ .Key }}">{{ .Key }}</h3>
+          <div class="posts-list">
+            {{ range .Pages }}
+            <div class="posts-item">
+              <time class="date">{{ .Date.Format "2006-01-02"}}</time>
+              <a href="{{ .RelPermalink }}" class="title">{{ .Title }}</a>
+            </div>
+            {{ end }}
+          </div>
+          {{ end }}
+        </div>
+
+      </div>
+    </div>
+  </section>
+  {{ partial "footer.html" . }}
+</body>
+
+</html>

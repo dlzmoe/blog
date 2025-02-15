@@ -3,6 +3,8 @@ slug: about
 title: 关于
 ---
 
+<img class="not author" src="https://imgurl.zishu.me/author.webp" />
+
 一个热爱生活的前端开发工程师，喜欢写点开源程序，托管了不少项目在 [GitHub](https://github.com/dlzmoe/) 上。
 
 经常混迹在 LinuxDo，V2EX 等各大技术社交论坛，喜欢折腾，感兴趣的可以联系我一起交流。
