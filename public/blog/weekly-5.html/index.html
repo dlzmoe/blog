@@ -2,7 +2,7 @@
 <html lang="en-us">
 <head>
 <meta charset="utf-8" />
-<meta name="generator" content="Hugo 0.143.0">
+<meta name="generator" content="Hugo 0.143.1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="toTop" content="true">
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -194,8 +194,13 @@ https://github.com/replicate/scribble-diffusion
       </div>
 
       
-      <div class="comments">
+      <ul class="comment-tabs">
+  <li class="active">giscus</li>
+  <li>twikoo</li>
+</ul>
+<div class="comments">
   <div class="giscus"></div>
+  <div id="tcomment"></div>
 </div>
 <script 
   src="https://giscus.app/client.js" 
@@ -215,6 +220,31 @@ https://github.com/replicate/scribble-diffusion
   async>
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/twikoo@1.6.40/dist/twikoo.min.js"></script>
+<script>
+twikoo.init({
+  envId: 'https://twikoo-cloudflare.anghunk.workers.dev/',
+  el: '#tcomment',
+  lang: 'zh-CN', 
+})
+</script>
+
+<script>
+  const tabs = document.querySelectorAll('.comment-tabs li');
+  const contents = document.querySelectorAll('.comments > div');
+
+  tabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => {
+      
+      tabs.forEach(t => t.classList.remove('active'));
+      contents.forEach(c => c.classList.remove('active'));
+      
+      
+      tab.classList.add('active');
+      contents[index].classList.add('active');
+    });
+  });
+</script>
       
     </div>
   </section>
