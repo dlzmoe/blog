@@ -12,3 +12,4 @@ title: 友情链接
 - [独钓寒江雪](https://jiangxueqiao.com/) - 孤舟蓑笠翁，独钓寒江雪。
 - [余果的博客](https://yuguo.github.io/) - 一个产品设计师。
 - [大橙子](https://log.660066.xyz/) - 大橙子的知识杂货铺
+- [崔话记](https://cuixiping.com/) - 向着理想的方向，爬一会儿，躺一会儿
