@@ -11,6 +11,21 @@
 <img src="https://img.shields.io/github/license/dlzmoe/blog">
 </p>
 
+---
+
+**引入 OpenAI 进行提炼文章 TDK，自定义 api 信息。**
+
+```shell
+# 安装依赖
+pip install markdown beautifulsoup4 openai python-dotenv
+pip install openai==0.28
+```
+
+```shell
+# 使用，直接复制文件名
+python aitdk.py xxx.md
+```
+
 ## 1.介绍
 
 使用 Hugo 框架构建，在 GitHub 托管代码，Netlify 部署，CloudFlare 解析域名。

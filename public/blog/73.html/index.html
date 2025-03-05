@@ -38,6 +38,28 @@
 </script><title>将数据库中的图片信息导出并调用 - 子舒的博客</title>
 <meta property="og:title" content="将数据库中的图片信息导出并调用" />
 <meta property="og:type" content="article" />
+
+
+<meta property="og:keywords" content=" 接口链接：http://121.196.166.173/img/img.php 展示 demo：http://121.196.166.173/img
+前言 为了写博客以及其他的一些用途，我使用服务器搭建了一个连接 github 仓库的上传网页，并且在数据库中记录上传的信息，比如缩略名、时间戳和图片链接。分别对应 GitHub 仓库中的图片，但是后期我发现在 GitHub 查看图片非常别扭，因此我打算写一个可展示图片的网页，把 GitHub 仓库中的图片通过链接展示出来，当然我们不可能一张张复制，还好有数据库。
+看一下具体内容
+写一个接口 很好，拥有我们需要的字段。事不宜迟，直接开动，下面是完成的接口代码。
+&lt;?php header(&#39;Content-Type:application/json; charset=utf-8&#39;); header(&#34;Access-Control-Allow-Origin:*&#34;); $servername = &#34;localhost&#34;; $username = &#34;imgbed&#34;; $password = &#34;imgbed&#34;; $dbname = &#34;imgbed&#34;; // 创建连接 $conn = new mysqli($servername, $username, $password, $dbname); // 检测连接 if ($conn-&gt;connect_error) { die(&#34;连接失败：&#34; . $conn-&gt;connect_error); } // imgmd5 名称转 md5 // imguploadtime 上传时间戳 // imgurl 链接 // 上传 ip $sql = &#34;select imgmd5,imguploadtime,imgurl,imguploadip from remote_imgs &#34;; $result = $conn-&gt;query($sql); if ($result-&gt;num_rows &gt; 0) { // 输出数据 while($row = $result-&gt;fetch_assoc()) { $data[]=$row; } $json = json_encode($data,JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);//把数据转换为 JSON 数据。 exit($json) ; } else { echo &#34;未查询到结果！&#34;; } $conn-&gt;close(); ?&gt; 分别将缩略名，时间戳，图片链接，和上传 ip 通过 json 格式导出，非常完美。接口链接：http://121.196.166.173/img/img.php
+使用 ajax 进行调用 然后只需要在前端将接口调用，然后简单写一个页面即可，下面是 html 代码，，通过 ajax 调用。
+&lt;!DOCTYPE html&gt; &lt;html lang=&#34;en&#34;&gt; &lt;head&gt; &lt;meta charset=&#34;UTF-8&#34;&gt; &lt;meta http-equiv=&#34;X-UA-Compatible&#34; content=&#34;IE=edge&#34;&gt; &lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1.0&#34;&gt; &lt;title&gt;图床&lt;/title&gt; &lt;style&gt; .container { max-width: 1000px; margin: 40px auto; display: flex; flex-wrap: wrap; justify-content: space-between; } .item { width:300px; /* height: 300px; */ overflow: hidden; border: 2px solid #bbb; margin-bottom: 24px; } .item a{ display: block; width: 300px; /* height: 300px; */ overflow: hidden; } .item img{ max-width: 300px; max-height: 300px; } &lt;/style&gt; &lt;/head&gt; &lt;body&gt; &lt;div class=&#34;container&#34;&gt;&lt;/div&gt; &lt;script src=&#34;https://cdn.zburu.com/list/jquery3.6.0.js&#34;&gt;&lt;/script&gt; &lt;script&gt; var str = &#39;&#39;; $.ajax({ url: &#39;http://121.196.166.173/img/img.php&#39;, type: &#39;get&#39;, dataType: &#39;json&#39;, async: false, success: function (data) { $.each(data, function (i, item) { console.log(item) list = &#34;&lt;div class=&#39;item&#39;&gt;&lt;p&gt;缩略名：&#34; &#43; item.imgmd5 &#43; &#34;&lt;/p&gt;&#34; &#43; &#34;&lt;p&gt;时间戳：&#34; &#43; item.imguploadtime &#43; &#34;&lt;/p&gt;&#34; &#43; &#34;&lt;a target=&#39;_blank&#39; href=&#39;&#34;&#43; item.imgurl &#43;&#34;&#39;&gt;&lt;img src=&#39;&#34; &#43; item.imgurl &#43; &#34;&#39;&gt;&lt;/a&gt;&#34; &#43; &#34;&lt;p&gt;上传 ip：&#34; &#43; item.imguploadip &#43; &#34;&lt;/p&gt;&lt;/div&gt;&#34; str &#43;= list; }), $(&#34;.container&#34;).html(str); console.log(&#39;数据请求成功&#39;) }, error: function () { console.log(&#39;数据请求失败&#39;) } }); &lt;/script&gt; &lt;/body&gt; &lt;/html&gt; 最后我把这个页面传到我的服务器当中，可以看一下效果 http://121.196.166.173/img
+时间仓促，我也没使用更好的 ui 进行优化，只是大致写一下这个过程，待到以后具体使用时，我会对这个展示图片的页面进一步优化。
+" />
+<meta name="keywords" content=" 接口链接：http://121.196.166.173/img/img.php 展示 demo：http://121.196.166.173/img
+前言 为了写博客以及其他的一些用途，我使用服务器搭建了一个连接 github 仓库的上传网页，并且在数据库中记录上传的信息，比如缩略名、时间戳和图片链接。分别对应 GitHub 仓库中的图片，但是后期我发现在 GitHub 查看图片非常别扭，因此我打算写一个可展示图片的网页，把 GitHub 仓库中的图片通过链接展示出来，当然我们不可能一张张复制，还好有数据库。
+看一下具体内容
+写一个接口 很好，拥有我们需要的字段。事不宜迟，直接开动，下面是完成的接口代码。
+&lt;?php header(&#39;Content-Type:application/json; charset=utf-8&#39;); header(&#34;Access-Control-Allow-Origin:*&#34;); $servername = &#34;localhost&#34;; $username = &#34;imgbed&#34;; $password = &#34;imgbed&#34;; $dbname = &#34;imgbed&#34;; // 创建连接 $conn = new mysqli($servername, $username, $password, $dbname); // 检测连接 if ($conn-&gt;connect_error) { die(&#34;连接失败：&#34; . $conn-&gt;connect_error); } // imgmd5 名称转 md5 // imguploadtime 上传时间戳 // imgurl 链接 // 上传 ip $sql = &#34;select imgmd5,imguploadtime,imgurl,imguploadip from remote_imgs &#34;; $result = $conn-&gt;query($sql); if ($result-&gt;num_rows &gt; 0) { // 输出数据 while($row = $result-&gt;fetch_assoc()) { $data[]=$row; } $json = json_encode($data,JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);//把数据转换为 JSON 数据。 exit($json) ; } else { echo &#34;未查询到结果！&#34;; } $conn-&gt;close(); ?&gt; 分别将缩略名，时间戳，图片链接，和上传 ip 通过 json 格式导出，非常完美。接口链接：http://121.196.166.173/img/img.php
+使用 ajax 进行调用 然后只需要在前端将接口调用，然后简单写一个页面即可，下面是 html 代码，，通过 ajax 调用。
+&lt;!DOCTYPE html&gt; &lt;html lang=&#34;en&#34;&gt; &lt;head&gt; &lt;meta charset=&#34;UTF-8&#34;&gt; &lt;meta http-equiv=&#34;X-UA-Compatible&#34; content=&#34;IE=edge&#34;&gt; &lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1.0&#34;&gt; &lt;title&gt;图床&lt;/title&gt; &lt;style&gt; .container { max-width: 1000px; margin: 40px auto; display: flex; flex-wrap: wrap; justify-content: space-between; } .item { width:300px; /* height: 300px; */ overflow: hidden; border: 2px solid #bbb; margin-bottom: 24px; } .item a{ display: block; width: 300px; /* height: 300px; */ overflow: hidden; } .item img{ max-width: 300px; max-height: 300px; } &lt;/style&gt; &lt;/head&gt; &lt;body&gt; &lt;div class=&#34;container&#34;&gt;&lt;/div&gt; &lt;script src=&#34;https://cdn.zburu.com/list/jquery3.6.0.js&#34;&gt;&lt;/script&gt; &lt;script&gt; var str = &#39;&#39;; $.ajax({ url: &#39;http://121.196.166.173/img/img.php&#39;, type: &#39;get&#39;, dataType: &#39;json&#39;, async: false, success: function (data) { $.each(data, function (i, item) { console.log(item) list = &#34;&lt;div class=&#39;item&#39;&gt;&lt;p&gt;缩略名：&#34; &#43; item.imgmd5 &#43; &#34;&lt;/p&gt;&#34; &#43; &#34;&lt;p&gt;时间戳：&#34; &#43; item.imguploadtime &#43; &#34;&lt;/p&gt;&#34; &#43; &#34;&lt;a target=&#39;_blank&#39; href=&#39;&#34;&#43; item.imgurl &#43;&#34;&#39;&gt;&lt;img src=&#39;&#34; &#43; item.imgurl &#43; &#34;&#39;&gt;&lt;/a&gt;&#34; &#43; &#34;&lt;p&gt;上传 ip：&#34; &#43; item.imguploadip &#43; &#34;&lt;/p&gt;&lt;/div&gt;&#34; str &#43;= list; }), $(&#34;.container&#34;).html(str); console.log(&#39;数据请求成功&#39;) }, error: function () { console.log(&#39;数据请求失败&#39;) } }); &lt;/script&gt; &lt;/body&gt; &lt;/html&gt; 最后我把这个页面传到我的服务器当中，可以看一下效果 http://121.196.166.173/img
+时间仓促，我也没使用更好的 ui 进行优化，只是大致写一下这个过程，待到以后具体使用时，我会对这个展示图片的页面进一步优化。
+" />
+
+
 <meta property="og:description" content=" 接口链接：http://121.196.166.173/img/img.php 展示 demo：http://121.196.166.173/img
 前言 为了写博客以及其他的一些用途，我使用服务器搭建了一个连接 github 仓库的上传网页，并且在数据库中记录上传的信息，比如缩略名、时间戳和图片链接。分别对应 GitHub 仓库中的图片，但是后期我发现在 GitHub 查看图片非常别扭，因此我打算写一个可展示图片的网页，把 GitHub 仓库中的图片通过链接展示出来，当然我们不可能一张张复制，还好有数据库。
 看一下具体内容
@@ -61,7 +83,6 @@
 <link href="https://fonts.googleapis.com" rel="preconnect">
 <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;700&display=swap" rel="stylesheet" />
-
 <link rel="stylesheet" href="/css/base.css">
 <link rel="stylesheet" href="/css/index.css">
 <link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">

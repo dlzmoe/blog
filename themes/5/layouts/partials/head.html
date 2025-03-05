@@ -24,8 +24,16 @@
 <title>{{ .Title }} - {{ .Site.Title }}</title>
 <meta property="og:title" content="{{ .Title }}" />
 <meta property="og:type" content="article" />
-<meta property="og:description" content="{{ default .Summary .Description | plainify }}" />
-<meta name="description" content="{{ default .Summary .Description | plainify }}" />
+
+<!-- Keywords -->
+<meta property="og:keywords" content="{{ with .Keywords }}{{ delimit . ", " }}{{ else }}{{ .Summary | plainify }}{{ end }}" />
+<meta name="keywords" content="{{ with .Keywords }}{{ delimit . ", " }}{{ else }}{{ .Summary | plainify }}{{ end }}" />
+
+<!-- Description -->
+<meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Summary | plainify }}{{ end }}" />
+<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Summary | plainify }}{{ end }}" />
+
+
 {{- end }}
 <meta property="og:locale" content="{{ .Site.LanguageCode }}" />
 {{- if .Params.album -}}
@@ -36,7 +44,6 @@
 <link href="https://fonts.googleapis.com" rel="preconnect">
 <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;700&display=swap" rel="stylesheet" />
-<!-- <link rel="stylesheet" href="{{ .Site.Params.staticPrefix }}{{ "css/primer.css" | relURL }}"> -->
 <link rel="stylesheet" href="{{ .Site.Params.staticPrefix }}{{ "css/base.css" | relURL }}">
 <link rel="stylesheet" href="{{ .Site.Params.staticPrefix }}{{ "css/index.css" | relURL }}">
 <link href="{{ .Site.Params.staticPrefix }}{{ "index.xml" | relURL }}" rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}">

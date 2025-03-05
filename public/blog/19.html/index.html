@@ -38,6 +38,26 @@
 </script><title>getElementBy 系列和 querySelector 系列的区别 - 子舒的博客</title>
 <meta property="og:title" content="getElementBy 系列和 querySelector 系列的区别" />
 <meta property="og:type" content="article" />
+
+
+<meta property="og:keywords" content="querySelector和querySelectorAll的用法和getElementBy大致一样，获取的时候带上符号，getElementBy 获取的是元素的动态集合，querySelector 获取的是元素的静态集合。
+但是需要注意：getElementBy 系列和 querySelector 系列的区别
+比如，我们写一个 for 循环，每次获取 li 标签的时候，ul 生成一个 li 子元素
+&lt;ul id=&#34;ul&#34;&gt; &lt;li&gt;a&lt;/li&gt; &lt;li&gt;b&lt;/li&gt; &lt;li&gt;c&lt;/li&gt; &lt;/ul&gt; &lt;script&gt; var ul = document.getElementById(&#39;ul&#39;); var li = document.getElementsByTagName(&#39;li&#39;); for(var i = 0;i &lt; li.length; i&#43;&#43;) { ul.appendChild(document.createElement(&#39;li&#39;)) }; console.log(li.length); // 陷入死循环 &lt;/script&gt; 用i &lt; li.length来进行判断时，会导致浏览器死循环，因为循环一次的时候，浏览器又重新获取 li 标签数组，每调用一次就会重新对文档进行查询，就会进入死循环
+进行修改：把i &lt; li.length改成i &lt; 3，把 li 标签数组静态化，然后打印
+conosle.log(li.length) // 6 重新用 querySelector 获取一遍元素
+&lt;ul id=&#34;ul&#34;&gt; &lt;li&gt;a&lt;/li&gt; &lt;li&gt;b&lt;/li&gt; &lt;li&gt;c&lt;/li&gt; &lt;/ul&gt; &lt;script&gt; var ul = document.querySelector(&#39;ul&#39;); var li = document.querySelectorAll(&#39;li&#39;); for(var i = 0;i&lt;li.length;i&#43;&#43;) { ul.appendChild(document.createElement(&#39;li&#39;)) }; console.log(li.length); // 输出对结果是原来的 li.length = 3，而不是增加后的 6 &lt;/script&gt; 静态集合体现在querySelectorAll(&#39;li&#39;)获取到 ul 里所有 li 后，不管后续再动态添加了多少 li，都是不会对其参数影响
+" />
+<meta name="keywords" content="querySelector和querySelectorAll的用法和getElementBy大致一样，获取的时候带上符号，getElementBy 获取的是元素的动态集合，querySelector 获取的是元素的静态集合。
+但是需要注意：getElementBy 系列和 querySelector 系列的区别
+比如，我们写一个 for 循环，每次获取 li 标签的时候，ul 生成一个 li 子元素
+&lt;ul id=&#34;ul&#34;&gt; &lt;li&gt;a&lt;/li&gt; &lt;li&gt;b&lt;/li&gt; &lt;li&gt;c&lt;/li&gt; &lt;/ul&gt; &lt;script&gt; var ul = document.getElementById(&#39;ul&#39;); var li = document.getElementsByTagName(&#39;li&#39;); for(var i = 0;i &lt; li.length; i&#43;&#43;) { ul.appendChild(document.createElement(&#39;li&#39;)) }; console.log(li.length); // 陷入死循环 &lt;/script&gt; 用i &lt; li.length来进行判断时，会导致浏览器死循环，因为循环一次的时候，浏览器又重新获取 li 标签数组，每调用一次就会重新对文档进行查询，就会进入死循环
+进行修改：把i &lt; li.length改成i &lt; 3，把 li 标签数组静态化，然后打印
+conosle.log(li.length) // 6 重新用 querySelector 获取一遍元素
+&lt;ul id=&#34;ul&#34;&gt; &lt;li&gt;a&lt;/li&gt; &lt;li&gt;b&lt;/li&gt; &lt;li&gt;c&lt;/li&gt; &lt;/ul&gt; &lt;script&gt; var ul = document.querySelector(&#39;ul&#39;); var li = document.querySelectorAll(&#39;li&#39;); for(var i = 0;i&lt;li.length;i&#43;&#43;) { ul.appendChild(document.createElement(&#39;li&#39;)) }; console.log(li.length); // 输出对结果是原来的 li.length = 3，而不是增加后的 6 &lt;/script&gt; 静态集合体现在querySelectorAll(&#39;li&#39;)获取到 ul 里所有 li 后，不管后续再动态添加了多少 li，都是不会对其参数影响
+" />
+
+
 <meta property="og:description" content="querySelector和querySelectorAll的用法和getElementBy大致一样，获取的时候带上符号，getElementBy 获取的是元素的动态集合，querySelector 获取的是元素的静态集合。
 但是需要注意：getElementBy 系列和 querySelector 系列的区别
 比如，我们写一个 for 循环，每次获取 li 标签的时候，ul 生成一个 li 子元素
@@ -59,7 +79,6 @@ conosle.log(li.length) // 6 重新用 querySelector 获取一遍元素
 <link href="https://fonts.googleapis.com" rel="preconnect">
 <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;700&display=swap" rel="stylesheet" />
-
 <link rel="stylesheet" href="/css/base.css">
 <link rel="stylesheet" href="/css/index.css">
 <link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">

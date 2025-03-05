@@ -22,7 +22,7 @@
 "articleSection" : "blog",
 "name" : "Cloudflare 上部署 Twikoo 服务时报错",
 "headline" : "Cloudflare 上部署 Twikoo 服务时报错",
-"description" : "GitHub: https:\/\/github.com\/twikoojs\/twikoo-cloudflare\nTwikoo 支持通过 Cloudflare Workers 进行部署服务和数据库，GitHub 仓库地址如上。\n但是部署文档中有一点小坑需要注意一下，官方没有进行标注，我不清楚是只有我遇到这个问题还是怎么样，记录下来以防有其他人遇到这个问题，在搜索引擎可以看到这篇文章而解决。\n由于 Cloudflare Workers 的免费套餐对捆绑包大小有严格的 1MiB 限制，因此我们需要手动删除一些包以使捆绑包保持在限制范围内。由于 Cloudflare 工作线程的 Node.js 兼容性问题，这些包无论如何都无法使用。\n因为上面那个问题，所以需要把这几个文件清空，（不能删除会报错），但是这个指令存在问题，会把文件格式转为 utf-16，如果不处理它的话就会导致最后部署的时候报错，如下图所示。\n解决方法也很简单，只需要在 vscode 中找到这三个文件。\n把编码格式改为 utf-8，然后清空乱码即可。\n",
+"description" : "本篇文章记录了在 Cloudflare 上部署 Twikoo 服务时遇到的编码与捆绑包大小问题，提供了解决方案，帮助其他开发者顺利完成部署。",
 "inLanguage" : "en-US",
 "author" : "子舒",
 "creator" : "子舒",
@@ -38,28 +38,19 @@
 </script><title>Cloudflare 上部署 Twikoo 服务时报错 - 子舒的博客</title>
 <meta property="og:title" content="Cloudflare 上部署 Twikoo 服务时报错" />
 <meta property="og:type" content="article" />
-<meta property="og:description" content="GitHub: https://github.com/twikoojs/twikoo-cloudflare
-Twikoo 支持通过 Cloudflare Workers 进行部署服务和数据库，GitHub 仓库地址如上。
-但是部署文档中有一点小坑需要注意一下，官方没有进行标注，我不清楚是只有我遇到这个问题还是怎么样，记录下来以防有其他人遇到这个问题，在搜索引擎可以看到这篇文章而解决。
-由于 Cloudflare Workers 的免费套餐对捆绑包大小有严格的 1MiB 限制，因此我们需要手动删除一些包以使捆绑包保持在限制范围内。由于 Cloudflare 工作线程的 Node.js 兼容性问题，这些包无论如何都无法使用。
-因为上面那个问题，所以需要把这几个文件清空，（不能删除会报错），但是这个指令存在问题，会把文件格式转为 utf-16，如果不处理它的话就会导致最后部署的时候报错，如下图所示。
-解决方法也很简单，只需要在 vscode 中找到这三个文件。
-把编码格式改为 utf-8，然后清空乱码即可。
-" />
-<meta name="description" content="GitHub: https://github.com/twikoojs/twikoo-cloudflare
-Twikoo 支持通过 Cloudflare Workers 进行部署服务和数据库，GitHub 仓库地址如上。
-但是部署文档中有一点小坑需要注意一下，官方没有进行标注，我不清楚是只有我遇到这个问题还是怎么样，记录下来以防有其他人遇到这个问题，在搜索引擎可以看到这篇文章而解决。
-由于 Cloudflare Workers 的免费套餐对捆绑包大小有严格的 1MiB 限制，因此我们需要手动删除一些包以使捆绑包保持在限制范围内。由于 Cloudflare 工作线程的 Node.js 兼容性问题，这些包无论如何都无法使用。
-因为上面那个问题，所以需要把这几个文件清空，（不能删除会报错），但是这个指令存在问题，会把文件格式转为 utf-16，如果不处理它的话就会导致最后部署的时候报错，如下图所示。
-解决方法也很简单，只需要在 vscode 中找到这三个文件。
-把编码格式改为 utf-8，然后清空乱码即可。
-" />
+
+
+<meta property="og:keywords" content="Cloudflare,, Twikoo,, 部署，Workers,, 编码问题，包大小，技术问题" />
+<meta name="keywords" content="Cloudflare,, Twikoo,, 部署，Workers,, 编码问题，包大小，技术问题" />
+
+
+<meta property="og:description" content="本篇文章记录了在 Cloudflare 上部署 Twikoo 服务时遇到的编码与捆绑包大小问题，提供了解决方案，帮助其他开发者顺利完成部署。" />
+<meta name="description" content="本篇文章记录了在 Cloudflare 上部署 Twikoo 服务时遇到的编码与捆绑包大小问题，提供了解决方案，帮助其他开发者顺利完成部署。" />
 <meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
 
 <link href="https://fonts.googleapis.com" rel="preconnect">
 <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;700&display=swap" rel="stylesheet" />
-
 <link rel="stylesheet" href="/css/base.css">
 <link rel="stylesheet" href="/css/index.css">
 <link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">

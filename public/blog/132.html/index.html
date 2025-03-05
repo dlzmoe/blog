@@ -38,6 +38,20 @@
 </script><title>typecho 评论回复艾特评论人 - 子舒的博客</title>
 <meta property="og:title" content="typecho 评论回复艾特评论人" />
 <meta property="og:type" content="article" />
+
+
+<meta property="og:keywords" content="typecho 在评论时默认是没有 @ 评论人的功能，可以用代码加一下。
+在 functions.php 中：
+/* * 评论回复时 @ 评论人 */ function get_comment_at($coid) { $db = Typecho_Db::get(); $prow = $db-&gt;fetchRow($db-&gt;select(&#39;parent,status&#39;)-&gt;from(&#39;table.comments&#39;) -&gt;where(&#39;coid = ?&#39;, $coid)); $mail = &#34;&#34;; $parent = @$prow[&#39;parent&#39;]; if ($parent != &#34;0&#34;) { $arow = $db-&gt;fetchRow($db-&gt;select(&#39;author,status,mail&#39;)-&gt;from(&#39;table.comments&#39;) -&gt;where(&#39;coid = ?&#39;, $parent)); @$author = @$arow[&#39;author&#39;]; $mail = @$arow[&#39;mail&#39;]; if(@$author &amp;&amp; $arow[&#39;status&#39;] == &#34;approved&#34;){ if (@$prow[&#39;status&#39;] == &#34;waiting&#34;){ echo &#39;&lt;p class=&#34;commentReview&#34;&gt;（评论审核中）)&lt;/p&gt;&#39;; } echo &#39;&lt;a href=&#34;#comment-&#39; . $parent . &#39;&#34;&gt;@&#39; . $author . &#39;&lt;/a&gt;&#39;; }else{ if (@$prow[&#39;status&#39;] == &#34;waiting&#34;){ echo &#39;&lt;p class=&#34;commentReview&#34;&gt;（评论审核中）)&lt;/p&gt;&#39;; }else{ echo &#39;&#39;; } } } else { if (@$prow[&#39;status&#39;] == &#34;waiting&#34;){ echo &#39;&lt;p class=&#34;commentReview&#34;&gt;（评论审核中）)&lt;/p&gt;&#39;; }else{ echo &#39;&#39;; } } } 然后在 comments.php 中输出评论内容代码的前面加上：
+&lt;?php $parentMail = get_comment_at($comments-&gt;coid)?&gt;&lt;?php echo $parentMail;?&gt; ▼代码所示 ▼效果图 我的博客即将同步至腾讯云&#43;社区，邀请大家一同入驻：https://cloud.tencent.com/developer/support-plan?invite_code=17ctk6evsjk5b
+" />
+<meta name="keywords" content="typecho 在评论时默认是没有 @ 评论人的功能，可以用代码加一下。
+在 functions.php 中：
+/* * 评论回复时 @ 评论人 */ function get_comment_at($coid) { $db = Typecho_Db::get(); $prow = $db-&gt;fetchRow($db-&gt;select(&#39;parent,status&#39;)-&gt;from(&#39;table.comments&#39;) -&gt;where(&#39;coid = ?&#39;, $coid)); $mail = &#34;&#34;; $parent = @$prow[&#39;parent&#39;]; if ($parent != &#34;0&#34;) { $arow = $db-&gt;fetchRow($db-&gt;select(&#39;author,status,mail&#39;)-&gt;from(&#39;table.comments&#39;) -&gt;where(&#39;coid = ?&#39;, $parent)); @$author = @$arow[&#39;author&#39;]; $mail = @$arow[&#39;mail&#39;]; if(@$author &amp;&amp; $arow[&#39;status&#39;] == &#34;approved&#34;){ if (@$prow[&#39;status&#39;] == &#34;waiting&#34;){ echo &#39;&lt;p class=&#34;commentReview&#34;&gt;（评论审核中）)&lt;/p&gt;&#39;; } echo &#39;&lt;a href=&#34;#comment-&#39; . $parent . &#39;&#34;&gt;@&#39; . $author . &#39;&lt;/a&gt;&#39;; }else{ if (@$prow[&#39;status&#39;] == &#34;waiting&#34;){ echo &#39;&lt;p class=&#34;commentReview&#34;&gt;（评论审核中）)&lt;/p&gt;&#39;; }else{ echo &#39;&#39;; } } } else { if (@$prow[&#39;status&#39;] == &#34;waiting&#34;){ echo &#39;&lt;p class=&#34;commentReview&#34;&gt;（评论审核中）)&lt;/p&gt;&#39;; }else{ echo &#39;&#39;; } } } 然后在 comments.php 中输出评论内容代码的前面加上：
+&lt;?php $parentMail = get_comment_at($comments-&gt;coid)?&gt;&lt;?php echo $parentMail;?&gt; ▼代码所示 ▼效果图 我的博客即将同步至腾讯云&#43;社区，邀请大家一同入驻：https://cloud.tencent.com/developer/support-plan?invite_code=17ctk6evsjk5b
+" />
+
+
 <meta property="og:description" content="typecho 在评论时默认是没有 @ 评论人的功能，可以用代码加一下。
 在 functions.php 中：
 /* * 评论回复时 @ 评论人 */ function get_comment_at($coid) { $db = Typecho_Db::get(); $prow = $db-&gt;fetchRow($db-&gt;select(&#39;parent,status&#39;)-&gt;from(&#39;table.comments&#39;) -&gt;where(&#39;coid = ?&#39;, $coid)); $mail = &#34;&#34;; $parent = @$prow[&#39;parent&#39;]; if ($parent != &#34;0&#34;) { $arow = $db-&gt;fetchRow($db-&gt;select(&#39;author,status,mail&#39;)-&gt;from(&#39;table.comments&#39;) -&gt;where(&#39;coid = ?&#39;, $parent)); @$author = @$arow[&#39;author&#39;]; $mail = @$arow[&#39;mail&#39;]; if(@$author &amp;&amp; $arow[&#39;status&#39;] == &#34;approved&#34;){ if (@$prow[&#39;status&#39;] == &#34;waiting&#34;){ echo &#39;&lt;p class=&#34;commentReview&#34;&gt;（评论审核中）)&lt;/p&gt;&#39;; } echo &#39;&lt;a href=&#34;#comment-&#39; . $parent . &#39;&#34;&gt;@&#39; . $author . &#39;&lt;/a&gt;&#39;; }else{ if (@$prow[&#39;status&#39;] == &#34;waiting&#34;){ echo &#39;&lt;p class=&#34;commentReview&#34;&gt;（评论审核中）)&lt;/p&gt;&#39;; }else{ echo &#39;&#39;; } } } else { if (@$prow[&#39;status&#39;] == &#34;waiting&#34;){ echo &#39;&lt;p class=&#34;commentReview&#34;&gt;（评论审核中）)&lt;/p&gt;&#39;; }else{ echo &#39;&#39;; } } } 然后在 comments.php 中输出评论内容代码的前面加上：
@@ -53,7 +67,6 @@
 <link href="https://fonts.googleapis.com" rel="preconnect">
 <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;700&display=swap" rel="stylesheet" />
-
 <link rel="stylesheet" href="/css/base.css">
 <link rel="stylesheet" href="/css/index.css">
 <link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">

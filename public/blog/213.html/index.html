@@ -38,6 +38,16 @@
 </script><title>hugo 的一些模板语法 - 子舒的博客</title>
 <meta property="og:title" content="hugo 的一些模板语法" />
 <meta property="og:type" content="article" />
+
+
+<meta property="og:keywords" content="分享一下 hugo 的语法模板，如何获取总文章数和总字数，效果可以参考我的首页。
+{{ $articleCount := len .Site.RegularPages }} {{ $totalWordCount := 0 }} {{ range .Site.Pages }} {{ $totalWordCount = add $totalWordCount .WordCount }} {{ end }} &lt;p&gt;已经写了 {{ $articleCount }} 篇文章，共 {{ $totalWordCount }} 字。&lt;/p&gt; 在首页过滤某个分类。
+{{ $pages := .Site.RegularPages }} {{ $paginator := .Paginate ($pages) }} {{ $count := 0 }} {{ range $paginator.Pages }} {{ $title := .Title }} {{ $summary := .Summary }} {{ if and (not (in .Params.categories &#34;weekly&#34;)) (lt $count 7) }} {{ $count = add $count 1 }} &lt;article class=&#34;post-entry&#34;&gt; &lt;header class=&#34;entry-header&#34;&gt; &lt;h2 class=&#34;entry-hint-parent&#34;&gt;{{ .Title }}&lt;/h2&gt; &lt;/header&gt; &lt;div class=&#34;entry-content&#34;&gt; &lt;p&gt;{{ .Summary }}&lt;/p&gt; &lt;/div&gt; &lt;footer class=&#34;entry-footer&#34;&gt; &lt;time datetime=&#34;{{ .Date.Format &#34; 2006-01-02 15:04:05 MST&#34; }}&#34;&gt;{{ .Date.Format &#34;2006-01-02&#34;}}&lt;/time&gt; &lt;span class=&#34;category&#34;&gt; {{ range $key, $value := .Params.categories -}} {{- if $key }}, {{ end }} {{ . }} {{- end }} &lt;/span&gt; &lt;/footer&gt; &lt;a class=&#34;entry-link&#34; href=&#34;{{ .RelPermalink }}&#34;&gt;&lt;/a&gt; &lt;/article&gt; {{ end }} {{ end }} " />
+<meta name="keywords" content="分享一下 hugo 的语法模板，如何获取总文章数和总字数，效果可以参考我的首页。
+{{ $articleCount := len .Site.RegularPages }} {{ $totalWordCount := 0 }} {{ range .Site.Pages }} {{ $totalWordCount = add $totalWordCount .WordCount }} {{ end }} &lt;p&gt;已经写了 {{ $articleCount }} 篇文章，共 {{ $totalWordCount }} 字。&lt;/p&gt; 在首页过滤某个分类。
+{{ $pages := .Site.RegularPages }} {{ $paginator := .Paginate ($pages) }} {{ $count := 0 }} {{ range $paginator.Pages }} {{ $title := .Title }} {{ $summary := .Summary }} {{ if and (not (in .Params.categories &#34;weekly&#34;)) (lt $count 7) }} {{ $count = add $count 1 }} &lt;article class=&#34;post-entry&#34;&gt; &lt;header class=&#34;entry-header&#34;&gt; &lt;h2 class=&#34;entry-hint-parent&#34;&gt;{{ .Title }}&lt;/h2&gt; &lt;/header&gt; &lt;div class=&#34;entry-content&#34;&gt; &lt;p&gt;{{ .Summary }}&lt;/p&gt; &lt;/div&gt; &lt;footer class=&#34;entry-footer&#34;&gt; &lt;time datetime=&#34;{{ .Date.Format &#34; 2006-01-02 15:04:05 MST&#34; }}&#34;&gt;{{ .Date.Format &#34;2006-01-02&#34;}}&lt;/time&gt; &lt;span class=&#34;category&#34;&gt; {{ range $key, $value := .Params.categories -}} {{- if $key }}, {{ end }} {{ . }} {{- end }} &lt;/span&gt; &lt;/footer&gt; &lt;a class=&#34;entry-link&#34; href=&#34;{{ .RelPermalink }}&#34;&gt;&lt;/a&gt; &lt;/article&gt; {{ end }} {{ end }} " />
+
+
 <meta property="og:description" content="分享一下 hugo 的语法模板，如何获取总文章数和总字数，效果可以参考我的首页。
 {{ $articleCount := len .Site.RegularPages }} {{ $totalWordCount := 0 }} {{ range .Site.Pages }} {{ $totalWordCount = add $totalWordCount .WordCount }} {{ end }} &lt;p&gt;已经写了 {{ $articleCount }} 篇文章，共 {{ $totalWordCount }} 字。&lt;/p&gt; 在首页过滤某个分类。
 {{ $pages := .Site.RegularPages }} {{ $paginator := .Paginate ($pages) }} {{ $count := 0 }} {{ range $paginator.Pages }} {{ $title := .Title }} {{ $summary := .Summary }} {{ if and (not (in .Params.categories &#34;weekly&#34;)) (lt $count 7) }} {{ $count = add $count 1 }} &lt;article class=&#34;post-entry&#34;&gt; &lt;header class=&#34;entry-header&#34;&gt; &lt;h2 class=&#34;entry-hint-parent&#34;&gt;{{ .Title }}&lt;/h2&gt; &lt;/header&gt; &lt;div class=&#34;entry-content&#34;&gt; &lt;p&gt;{{ .Summary }}&lt;/p&gt; &lt;/div&gt; &lt;footer class=&#34;entry-footer&#34;&gt; &lt;time datetime=&#34;{{ .Date.Format &#34; 2006-01-02 15:04:05 MST&#34; }}&#34;&gt;{{ .Date.Format &#34;2006-01-02&#34;}}&lt;/time&gt; &lt;span class=&#34;category&#34;&gt; {{ range $key, $value := .Params.categories -}} {{- if $key }}, {{ end }} {{ . }} {{- end }} &lt;/span&gt; &lt;/footer&gt; &lt;a class=&#34;entry-link&#34; href=&#34;{{ .RelPermalink }}&#34;&gt;&lt;/a&gt; &lt;/article&gt; {{ end }} {{ end }} " />
@@ -49,7 +59,6 @@
 <link href="https://fonts.googleapis.com" rel="preconnect">
 <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;700&display=swap" rel="stylesheet" />
-
 <link rel="stylesheet" href="/css/base.css">
 <link rel="stylesheet" href="/css/index.css">
 <link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">

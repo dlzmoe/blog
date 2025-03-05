@@ -38,6 +38,174 @@
 </script><title>HTML 事件属性--DOM - 子舒的博客</title>
 <meta property="og:title" content="HTML 事件属性--DOM" />
 <meta property="og:type" content="article" />
+
+
+<meta property="og:keywords" content="研究 html 的对象，事件和方法，从 js 的角度来思考，这个标签的属性是通过什么方法，触发什么事件来实现的
+键盘鼠标事件
+页面窗口事件
+表单事件
+一、window 事件属性 针对 window 对象触发的事件，在&lt;body&gt;中执行
+1.onbeforeprint／onafterprint 在浏览器打印之间/后触发
+&lt;body onbeforeprint = print()&gt; &lt;script&gt; function print() { alert(&#34;打印之间！&#34;) } &lt;/script&gt; 打印前和打印后的事件方法类似，一个是在打印前触发事件，一个是在打印这个事件结束之后触发onafterprint这个事件
+2.onbeforeunload/unload 离开页面之间触发的事件／之后触发的事件
+打开 f12，然后刷新，或者关闭浏览器，可以在浏览器触发事件
+&lt;script&gt; window.onbeforeunload = function(){ return &#34;提示&#34; //返回的内容不会显示， //在刷新的时候触发，或者关闭浏览器，浏览会直接提示是否重新加载，不能直接返回return } &lt;/script&gt; 3.onerror 当图片出错是可以触发该事件，支持该事件的标签只有 &lt;img&gt;,&lt;object&gt;,&lt;style&gt;
+&lt;img src=&#34;1.gif&#34; onerror = &#34;myfun()&#34;&gt; &lt;script&gt; function myfun() { alert(&#34;图片出错&#34;) } &lt;/script&gt; 1.gif 不存在，因此触发了一个 myfun() 事件，弹出窗口
+4.onhashchange 当文档改变时发生的脚本
+5.onload 页面加载完成之后触发
+6.onmessage 在消息被触发时运行 ???
+7.onoffline 当浏览器离线时触发
+&lt;body onoffline=&#34;myfun()&#34;&gt; 8.ononline 当浏览器在线工作时触发
+&lt;body ononline=&#34;myfun()&#34;&gt; ononline和onoffline在网络断线或者连线时触发，可以控制电脑网络查看效果
+9.onpagehide 当用户从网页离开时触发，也可以理解成当窗口隐藏时运行的脚本
+刷新页面可以触发事件
+10.onpageshow 打开一个新页面或者刷新的时候触发
+相当于onload，加载页面时触发，但是在不同浏览器触发的有所不同
+第一次加载页面时，onpageshow在ie浏览器中不触发，其他情况都触发
+11.onresize 当浏览器窗口被改变大小时触发事件
+&lt;body onresize=&#34;myfun()&#34;&gt; &lt;script&gt; function myfun() { alert(&#39;浏览器窗口改变了&#39;) } &lt;/script&gt; &lt;/body&gt; 12.onunload 页面被下载时触发，就是刷新或者关闭页面时触发
+window.onunload = function() { return &#39;确定关闭吗？&#39; } 13.onpopstate 当浏览器窗口记录改变时运行的脚本，
+14.onredo 当文档执行撤销时触发的事件
+二、form 事件属性 由 html 表单内触发的事件，通常使用在 form 元素中
+1.onblur 失去焦点时运行的脚本
+&lt;input name=&#34;int&#34; id=&#34;int&#34; onblur=&#34;myfun()&#34;&gt; &lt;script&gt; function myfun() { var int = document.getElementById(&#39;int&#39;).value; document.getElementById(&#39;int&#39;).value = int.toUpperCase(); } &lt;/script&gt; 给 input 绑定一个 onblur=myfun() 的事件，当 input 失去焦点的时候产生什么样的效果
+2.onfocus 元素获得焦点时触发事件，和 onblur 相反
+3.onchange 当元素值被改变的时候触发事件
+&lt;input type=&#34;text&#34; id=&#34;int&#34; name=&#34;int&#34; onchange=&#34;myfun()&#34;&gt; &lt;script&gt; function myfun() { alert(&#39;我的元素被改变啦！&#39;) } &lt;/script&gt; 这个事件的意思就是，当我对 input 内容进行操作改变后，浏览器会弹出一个 alert
+4.oncontextmenu 当用户右键操作时触发该事件
+可以绑定在任意元素中触发，可以一直触发，不用刷新
+&lt;div oncontextmenu=&#34;myfun()&#34;&gt;这是一个文本框！&lt;/div&gt; &lt;script&gt; function myfun() { alert(&#39;oncontentmenu事件触发&#39;) } &lt;/script&gt; 5.onformchange 当表单获得输入时可以触发事件
+触发发不了脚本
+6.onforminput 当表单获得用户输入时触发的事件，无法触发
+浏览器不支持
+6.oninput 当元素获得用户输入时触发的事件 当输入框输入或者删除时都会触发 oninput
+&lt;input type=&#34;text&#34; oninput=&#34;myfun()&#34;&gt; &lt;script&gt; function myfun() { alert(&#39;oninput触发了&#39;) } &lt;/script&gt; onchange和oninput有相似的地方，都是改变文本内容时触发事件
+但是onchange是在 input 失去焦点时才触发，oninput是立刻触发
+7.oninvalid oninvalid事件要搭配required属性来使用
+required如果使用该属性，代表必填字段，oninvalid是当元素无效时触发的事件
+&lt;form&gt; &lt;input type=&#34;text&#34; oninvalid=&#34;myfun()&#34; required&gt; &lt;input type=&#34;submit&#34;&gt; &lt;/form&gt; &lt;script&gt; function myfun() { alert(&#39;填写为空&#39;) } &lt;/script&gt; 8.onreset 表单中重置按钮被点击时触发
+&lt;form onreset=&#34;myfun()&#34;&gt; &lt;input type=&#34;text&#34;&gt; &lt;input type=&#34;reset&#34; value=&#34;reset&#34;&gt; &lt;/form&gt; &lt;script&gt; function myfun(){ alert(&#39;重置成功&#39;) } &lt;/script&gt; 9.onselect 文本被选中时触发
+&lt;input onselect=&#34;myfun()&#34; value=&#34;选中我&#34;&gt; &lt;script&gt; function myfun() { alert(&#39;onselect被触发 &#39;) } &lt;/script&gt; 10.onsubmit 当表单被提交时触发
+要把事件绑定到 form 标签里面
+&lt;form onsubmit=&#34;myfun()&#34;&gt; &lt;!-- 注意：事件要绑定到form标签上面 --&gt; &lt;input type=&#34;text&#34; name=&#34;name&#34;&gt; &lt;input type=&#34;submit&#34; value=&#34;submit&#34;&gt; &lt;/form&gt; &lt;script&gt; function myfun() { alert(&#39;提交了&#39;) } &lt;/script&gt; 注意：提交了之后会自动刷新页面，document 和 console 的触发内容会立刻刷新，一闪而过，只有 alert 能停留在页面上，等待点击确定
+三、key 键盘事件 1.onkeydown 按下任意键时触发，包括系统按钮，箭头和功能键
+2.onkeypress 按下任意字母数字键时触发，但系统按钮，箭头和功能无法识别
+3.onkeyup 松开任何之前按下的键盘时触发
+四、mouse 鼠标事件 利用鼠标触发的事件
+1.onclick 鼠标点击元素触发的事件
+&lt;p onclick=&#34;myfun()&#34;&gt;点击我&lt;/p&gt; &lt;script&gt; function myfun() { alert(&#39;点击成功&#39;) } &lt;/script&gt; 2.ondblclick 鼠标双击时触发的事件
+&lt;div ondblclick=&#34;myfun()&#34;&gt;测试文本！&lt;/div&gt; &lt;script&gt; function myfun() { alert(&#39;双击测试成功！&#39;) } &lt;/script&gt; 3.拖动事件 ondrag/ 元素被拖动时触发的事件
+ondragstart/在拖动操作开端运行的脚本
+ondrop/ 当元素正在被拖动时触发的事件
+ondragend/在拖动操作末端运行的脚本
+ondragenter/当元素元素已被拖动到有效拖放区域时运行的脚本
+ondragleave/当元素离开有效拖放目标时运行的脚本
+ondragover/当元素在有效拖放目标上正在被拖动时运行的脚本
+4.onmousedown/onmouseup 当元素按下鼠标时触发的事件/鼠标释放时触发的事件
+一个是按下去的瞬间就触发 一个是当鼠标被松开的时候触发 onmouseup效果和onclick一样，因为click也是点击过后触发
+这两个事件加起来相当于一个click事件，但是并不能用这两个事件来做点击事件的效果
+5.onmousemove 当鼠标移动到元素上时触发
+相当于 css 里面的 :hover，但是作为事件拥有更灵活多变的用法
+6.onmouseout 当鼠标离开元素时触发
+7.onmouseover 当鼠标进入元素时触发
+onmouseover和onmousemove都是鼠标进入元素触发
+区别：
+1.
+over在进入元素时触发，但在元素内部移动时不触发 move是进入元素时和在元素里面移动时都触发
+2.
+over优先触发，然后才触发move
+8.onmousewheel 当鼠标滚动被滚动时触发的事件
+&lt;style&gt; div { height: 1000px; } &lt;/style&gt; &lt;body&gt; &lt;div onmousewheel=&#34;myfun()&#34;&gt;测试&lt;/div&gt; &lt;script&gt; function myfun() { alert(&#39;onmousewheel&#39;) } &lt;/script&gt; &lt;/body&gt; 每次滚动时都可以触发，可以绑定到 body 上
+9.onscroll 当元素滚动条被滚动时触发的事件
+&lt;div onscroll=&#34;myfun()&#34;&gt;In my younger and more vulnerable years my father gave me some advice that I&#39;ve been turning over in my mind ever since.&lt;/div&gt; &lt;p&gt;滑动了&lt;span id=&#34;ci&#34;&gt;&lt;/span&gt;次&lt;/p&gt; &lt;script&gt; x = 0 function myfun() { document.getElementById(&#39;ci&#39;).innerHTML = x &#43;= 1 } &lt;/script&gt; 这个案例－－－滑动滚动计数
+区别：
+1.wheel在滚轮滑动的时候有效，鼠标拖拽的时候无效
+2.onscroll不管在滑动还是拖动的时候，均生效
+" />
+<meta name="keywords" content="研究 html 的对象，事件和方法，从 js 的角度来思考，这个标签的属性是通过什么方法，触发什么事件来实现的
+键盘鼠标事件
+页面窗口事件
+表单事件
+一、window 事件属性 针对 window 对象触发的事件，在&lt;body&gt;中执行
+1.onbeforeprint／onafterprint 在浏览器打印之间/后触发
+&lt;body onbeforeprint = print()&gt; &lt;script&gt; function print() { alert(&#34;打印之间！&#34;) } &lt;/script&gt; 打印前和打印后的事件方法类似，一个是在打印前触发事件，一个是在打印这个事件结束之后触发onafterprint这个事件
+2.onbeforeunload/unload 离开页面之间触发的事件／之后触发的事件
+打开 f12，然后刷新，或者关闭浏览器，可以在浏览器触发事件
+&lt;script&gt; window.onbeforeunload = function(){ return &#34;提示&#34; //返回的内容不会显示， //在刷新的时候触发，或者关闭浏览器，浏览会直接提示是否重新加载，不能直接返回return } &lt;/script&gt; 3.onerror 当图片出错是可以触发该事件，支持该事件的标签只有 &lt;img&gt;,&lt;object&gt;,&lt;style&gt;
+&lt;img src=&#34;1.gif&#34; onerror = &#34;myfun()&#34;&gt; &lt;script&gt; function myfun() { alert(&#34;图片出错&#34;) } &lt;/script&gt; 1.gif 不存在，因此触发了一个 myfun() 事件，弹出窗口
+4.onhashchange 当文档改变时发生的脚本
+5.onload 页面加载完成之后触发
+6.onmessage 在消息被触发时运行 ???
+7.onoffline 当浏览器离线时触发
+&lt;body onoffline=&#34;myfun()&#34;&gt; 8.ononline 当浏览器在线工作时触发
+&lt;body ononline=&#34;myfun()&#34;&gt; ononline和onoffline在网络断线或者连线时触发，可以控制电脑网络查看效果
+9.onpagehide 当用户从网页离开时触发，也可以理解成当窗口隐藏时运行的脚本
+刷新页面可以触发事件
+10.onpageshow 打开一个新页面或者刷新的时候触发
+相当于onload，加载页面时触发，但是在不同浏览器触发的有所不同
+第一次加载页面时，onpageshow在ie浏览器中不触发，其他情况都触发
+11.onresize 当浏览器窗口被改变大小时触发事件
+&lt;body onresize=&#34;myfun()&#34;&gt; &lt;script&gt; function myfun() { alert(&#39;浏览器窗口改变了&#39;) } &lt;/script&gt; &lt;/body&gt; 12.onunload 页面被下载时触发，就是刷新或者关闭页面时触发
+window.onunload = function() { return &#39;确定关闭吗？&#39; } 13.onpopstate 当浏览器窗口记录改变时运行的脚本，
+14.onredo 当文档执行撤销时触发的事件
+二、form 事件属性 由 html 表单内触发的事件，通常使用在 form 元素中
+1.onblur 失去焦点时运行的脚本
+&lt;input name=&#34;int&#34; id=&#34;int&#34; onblur=&#34;myfun()&#34;&gt; &lt;script&gt; function myfun() { var int = document.getElementById(&#39;int&#39;).value; document.getElementById(&#39;int&#39;).value = int.toUpperCase(); } &lt;/script&gt; 给 input 绑定一个 onblur=myfun() 的事件，当 input 失去焦点的时候产生什么样的效果
+2.onfocus 元素获得焦点时触发事件，和 onblur 相反
+3.onchange 当元素值被改变的时候触发事件
+&lt;input type=&#34;text&#34; id=&#34;int&#34; name=&#34;int&#34; onchange=&#34;myfun()&#34;&gt; &lt;script&gt; function myfun() { alert(&#39;我的元素被改变啦！&#39;) } &lt;/script&gt; 这个事件的意思就是，当我对 input 内容进行操作改变后，浏览器会弹出一个 alert
+4.oncontextmenu 当用户右键操作时触发该事件
+可以绑定在任意元素中触发，可以一直触发，不用刷新
+&lt;div oncontextmenu=&#34;myfun()&#34;&gt;这是一个文本框！&lt;/div&gt; &lt;script&gt; function myfun() { alert(&#39;oncontentmenu事件触发&#39;) } &lt;/script&gt; 5.onformchange 当表单获得输入时可以触发事件
+触发发不了脚本
+6.onforminput 当表单获得用户输入时触发的事件，无法触发
+浏览器不支持
+6.oninput 当元素获得用户输入时触发的事件 当输入框输入或者删除时都会触发 oninput
+&lt;input type=&#34;text&#34; oninput=&#34;myfun()&#34;&gt; &lt;script&gt; function myfun() { alert(&#39;oninput触发了&#39;) } &lt;/script&gt; onchange和oninput有相似的地方，都是改变文本内容时触发事件
+但是onchange是在 input 失去焦点时才触发，oninput是立刻触发
+7.oninvalid oninvalid事件要搭配required属性来使用
+required如果使用该属性，代表必填字段，oninvalid是当元素无效时触发的事件
+&lt;form&gt; &lt;input type=&#34;text&#34; oninvalid=&#34;myfun()&#34; required&gt; &lt;input type=&#34;submit&#34;&gt; &lt;/form&gt; &lt;script&gt; function myfun() { alert(&#39;填写为空&#39;) } &lt;/script&gt; 8.onreset 表单中重置按钮被点击时触发
+&lt;form onreset=&#34;myfun()&#34;&gt; &lt;input type=&#34;text&#34;&gt; &lt;input type=&#34;reset&#34; value=&#34;reset&#34;&gt; &lt;/form&gt; &lt;script&gt; function myfun(){ alert(&#39;重置成功&#39;) } &lt;/script&gt; 9.onselect 文本被选中时触发
+&lt;input onselect=&#34;myfun()&#34; value=&#34;选中我&#34;&gt; &lt;script&gt; function myfun() { alert(&#39;onselect被触发 &#39;) } &lt;/script&gt; 10.onsubmit 当表单被提交时触发
+要把事件绑定到 form 标签里面
+&lt;form onsubmit=&#34;myfun()&#34;&gt; &lt;!-- 注意：事件要绑定到form标签上面 --&gt; &lt;input type=&#34;text&#34; name=&#34;name&#34;&gt; &lt;input type=&#34;submit&#34; value=&#34;submit&#34;&gt; &lt;/form&gt; &lt;script&gt; function myfun() { alert(&#39;提交了&#39;) } &lt;/script&gt; 注意：提交了之后会自动刷新页面，document 和 console 的触发内容会立刻刷新，一闪而过，只有 alert 能停留在页面上，等待点击确定
+三、key 键盘事件 1.onkeydown 按下任意键时触发，包括系统按钮，箭头和功能键
+2.onkeypress 按下任意字母数字键时触发，但系统按钮，箭头和功能无法识别
+3.onkeyup 松开任何之前按下的键盘时触发
+四、mouse 鼠标事件 利用鼠标触发的事件
+1.onclick 鼠标点击元素触发的事件
+&lt;p onclick=&#34;myfun()&#34;&gt;点击我&lt;/p&gt; &lt;script&gt; function myfun() { alert(&#39;点击成功&#39;) } &lt;/script&gt; 2.ondblclick 鼠标双击时触发的事件
+&lt;div ondblclick=&#34;myfun()&#34;&gt;测试文本！&lt;/div&gt; &lt;script&gt; function myfun() { alert(&#39;双击测试成功！&#39;) } &lt;/script&gt; 3.拖动事件 ondrag/ 元素被拖动时触发的事件
+ondragstart/在拖动操作开端运行的脚本
+ondrop/ 当元素正在被拖动时触发的事件
+ondragend/在拖动操作末端运行的脚本
+ondragenter/当元素元素已被拖动到有效拖放区域时运行的脚本
+ondragleave/当元素离开有效拖放目标时运行的脚本
+ondragover/当元素在有效拖放目标上正在被拖动时运行的脚本
+4.onmousedown/onmouseup 当元素按下鼠标时触发的事件/鼠标释放时触发的事件
+一个是按下去的瞬间就触发 一个是当鼠标被松开的时候触发 onmouseup效果和onclick一样，因为click也是点击过后触发
+这两个事件加起来相当于一个click事件，但是并不能用这两个事件来做点击事件的效果
+5.onmousemove 当鼠标移动到元素上时触发
+相当于 css 里面的 :hover，但是作为事件拥有更灵活多变的用法
+6.onmouseout 当鼠标离开元素时触发
+7.onmouseover 当鼠标进入元素时触发
+onmouseover和onmousemove都是鼠标进入元素触发
+区别：
+1.
+over在进入元素时触发，但在元素内部移动时不触发 move是进入元素时和在元素里面移动时都触发
+2.
+over优先触发，然后才触发move
+8.onmousewheel 当鼠标滚动被滚动时触发的事件
+&lt;style&gt; div { height: 1000px; } &lt;/style&gt; &lt;body&gt; &lt;div onmousewheel=&#34;myfun()&#34;&gt;测试&lt;/div&gt; &lt;script&gt; function myfun() { alert(&#39;onmousewheel&#39;) } &lt;/script&gt; &lt;/body&gt; 每次滚动时都可以触发，可以绑定到 body 上
+9.onscroll 当元素滚动条被滚动时触发的事件
+&lt;div onscroll=&#34;myfun()&#34;&gt;In my younger and more vulnerable years my father gave me some advice that I&#39;ve been turning over in my mind ever since.&lt;/div&gt; &lt;p&gt;滑动了&lt;span id=&#34;ci&#34;&gt;&lt;/span&gt;次&lt;/p&gt; &lt;script&gt; x = 0 function myfun() { document.getElementById(&#39;ci&#39;).innerHTML = x &#43;= 1 } &lt;/script&gt; 这个案例－－－滑动滚动计数
+区别：
+1.wheel在滚轮滑动的时候有效，鼠标拖拽的时候无效
+2.onscroll不管在滑动还是拖动的时候，均生效
+" />
+
+
 <meta property="og:description" content="研究 html 的对象，事件和方法，从 js 的角度来思考，这个标签的属性是通过什么方法，触发什么事件来实现的
 键盘鼠标事件
 页面窗口事件
@@ -207,7 +375,6 @@ over优先触发，然后才触发move
 <link href="https://fonts.googleapis.com" rel="preconnect">
 <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;700&display=swap" rel="stylesheet" />
-
 <link rel="stylesheet" href="/css/base.css">
 <link rel="stylesheet" href="/css/index.css">
 <link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">

@@ -38,6 +38,28 @@
 </script><title>在 js 中运算不能随便把 value 属性定义成变量 - 子舒的博客</title>
 <meta property="og:title" content="在 js 中运算不能随便把 value 属性定义成变量" />
 <meta property="og:type" content="article" />
+
+
+<meta property="og:keywords" content="在写一个小 demo 的时候，无意中发现定义变量的时候直接写入 value，会导致获取不到数据，或者获取的不是我们想要的内容，在 js 中运算不能随便把 value 属性定义成变量
+先看一段代码
+&lt;input type=&#34;text&#34;&#34; id=&#34;a&#34;&gt; &lt;span&gt;*&lt;/span&gt; &lt;input type=&#34;text&#34; id=&#34;b&#34;&gt; &lt;input type=&#34;button&#34; value=&#34;=&#34; onclick=&#34;beto()&#34;&gt; &lt;input type=&#34;text&#34; id=&#34;sub&#34; disabled&gt; &lt;script&gt; function beto() { var a = document.getElementById(&#39;a&#39;).value var b = document.getElementById(&#39;b&#39;).value var sub = document.getElementById(&#39;sub&#39;).value sub = a &#43; b } &lt;/script&gt; 就这么一看，逻辑貌似没有问题，获取 a 和 b 的 value，乘法运算，然后输出 sub
+但是放在浏览器运行的时候，发现完全没有反应
+为什么呢？
+（假装思考五分钟&hellip;）
+因为 sub.value 不能直接定义在变量中
+// 先定义 id 为 sub 的 input 框 var sub = document.getElementById(&#39;sub&#39;) // 然后在运算的时候在直接使用 sub.value sub.value = a * b 顺手放一个写 demo 时候用的简易计算器
+&lt;!DOCTYPE html&gt; &lt;html lang=&#34;en&#34;&gt; &lt;head&gt; &lt;meta charset=&#34;UTF-8&#34;&gt; &lt;title&gt;简易计算器&lt;/title&gt; &lt;/head&gt; &lt;body&gt; &lt;input type=&#34;text&#34;&#34; id=&#34;a&#34;&gt; &lt;select id=&#34;c&#34;&gt; &lt;option value=&#34;&#43;&#34;&gt;&#43;&lt;/option&gt; &lt;option value=&#34;-&#34;&gt;-&lt;/option&gt; &lt;option value=&#34;*&#34;&gt;*&lt;/option&gt; &lt;option value=&#34;/&#34;&gt;/&lt;/option&gt; &lt;/select&gt; &lt;input type=&#34;text&#34; id=&#34;b&#34;&gt; &lt;input type=&#34;button&#34; value=&#34;=&#34; onclick=&#34;beto()&#34;&gt; &lt;input type=&#34;text&#34; id=&#34;sub&#34; disabled&gt; &lt;script&gt; function beto() { var a = document.getElementById(&#39;a&#39;).value var b = document.getElementById(&#39;b&#39;).value var c = document.getElementById(&#39;c&#39;).value var sub = document.getElementById(&#39;sub&#39;) switch(c) { case &#34;&#43;&#34;: sub.value = parseInt(a) &#43; parseInt(b); break; case &#34;-&#34;: sub.value = parseInt(a) - parseInt(b); break; case &#34;*&#34;: sub.value = parseInt(a) * parseInt(b); break; case &#34;/&#34;: sub.value = parseInt(a) / parseInt(b); break; } } &lt;/script&gt; &lt;/body&gt; &lt;/html&gt; " />
+<meta name="keywords" content="在写一个小 demo 的时候，无意中发现定义变量的时候直接写入 value，会导致获取不到数据，或者获取的不是我们想要的内容，在 js 中运算不能随便把 value 属性定义成变量
+先看一段代码
+&lt;input type=&#34;text&#34;&#34; id=&#34;a&#34;&gt; &lt;span&gt;*&lt;/span&gt; &lt;input type=&#34;text&#34; id=&#34;b&#34;&gt; &lt;input type=&#34;button&#34; value=&#34;=&#34; onclick=&#34;beto()&#34;&gt; &lt;input type=&#34;text&#34; id=&#34;sub&#34; disabled&gt; &lt;script&gt; function beto() { var a = document.getElementById(&#39;a&#39;).value var b = document.getElementById(&#39;b&#39;).value var sub = document.getElementById(&#39;sub&#39;).value sub = a &#43; b } &lt;/script&gt; 就这么一看，逻辑貌似没有问题，获取 a 和 b 的 value，乘法运算，然后输出 sub
+但是放在浏览器运行的时候，发现完全没有反应
+为什么呢？
+（假装思考五分钟&hellip;）
+因为 sub.value 不能直接定义在变量中
+// 先定义 id 为 sub 的 input 框 var sub = document.getElementById(&#39;sub&#39;) // 然后在运算的时候在直接使用 sub.value sub.value = a * b 顺手放一个写 demo 时候用的简易计算器
+&lt;!DOCTYPE html&gt; &lt;html lang=&#34;en&#34;&gt; &lt;head&gt; &lt;meta charset=&#34;UTF-8&#34;&gt; &lt;title&gt;简易计算器&lt;/title&gt; &lt;/head&gt; &lt;body&gt; &lt;input type=&#34;text&#34;&#34; id=&#34;a&#34;&gt; &lt;select id=&#34;c&#34;&gt; &lt;option value=&#34;&#43;&#34;&gt;&#43;&lt;/option&gt; &lt;option value=&#34;-&#34;&gt;-&lt;/option&gt; &lt;option value=&#34;*&#34;&gt;*&lt;/option&gt; &lt;option value=&#34;/&#34;&gt;/&lt;/option&gt; &lt;/select&gt; &lt;input type=&#34;text&#34; id=&#34;b&#34;&gt; &lt;input type=&#34;button&#34; value=&#34;=&#34; onclick=&#34;beto()&#34;&gt; &lt;input type=&#34;text&#34; id=&#34;sub&#34; disabled&gt; &lt;script&gt; function beto() { var a = document.getElementById(&#39;a&#39;).value var b = document.getElementById(&#39;b&#39;).value var c = document.getElementById(&#39;c&#39;).value var sub = document.getElementById(&#39;sub&#39;) switch(c) { case &#34;&#43;&#34;: sub.value = parseInt(a) &#43; parseInt(b); break; case &#34;-&#34;: sub.value = parseInt(a) - parseInt(b); break; case &#34;*&#34;: sub.value = parseInt(a) * parseInt(b); break; case &#34;/&#34;: sub.value = parseInt(a) / parseInt(b); break; } } &lt;/script&gt; &lt;/body&gt; &lt;/html&gt; " />
+
+
 <meta property="og:description" content="在写一个小 demo 的时候，无意中发现定义变量的时候直接写入 value，会导致获取不到数据，或者获取的不是我们想要的内容，在 js 中运算不能随便把 value 属性定义成变量
 先看一段代码
 &lt;input type=&#34;text&#34;&#34; id=&#34;a&#34;&gt; &lt;span&gt;*&lt;/span&gt; &lt;input type=&#34;text&#34; id=&#34;b&#34;&gt; &lt;input type=&#34;button&#34; value=&#34;=&#34; onclick=&#34;beto()&#34;&gt; &lt;input type=&#34;text&#34; id=&#34;sub&#34; disabled&gt; &lt;script&gt; function beto() { var a = document.getElementById(&#39;a&#39;).value var b = document.getElementById(&#39;b&#39;).value var sub = document.getElementById(&#39;sub&#39;).value sub = a &#43; b } &lt;/script&gt; 就这么一看，逻辑貌似没有问题，获取 a 和 b 的 value，乘法运算，然后输出 sub
@@ -61,7 +83,6 @@
 <link href="https://fonts.googleapis.com" rel="preconnect">
 <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;700&display=swap" rel="stylesheet" />
-
 <link rel="stylesheet" href="/css/base.css">
 <link rel="stylesheet" href="/css/index.css">
 <link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">

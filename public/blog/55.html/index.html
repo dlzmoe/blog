@@ -38,6 +38,24 @@
 </script><title>window.scroll 方法只能存在一次该如何解决？ - 子舒的博客</title>
 <meta property="og:title" content="window.scroll 方法只能存在一次该如何解决？" />
 <meta property="og:type" content="article" />
+
+
+<meta property="og:keywords" content="页面监听是我们经常用的一个功能，下面两个段代码表示两个事件，分别在页面滚动 500px 和 1000px 的时候触发，在代码中使用了箭头函数。
+window.addEventListener(&#39;scroll&#39;, () =&gt; { var scrollTop = document.documentElement.scrollTop if (scrollTop &gt; 500) { console.log(&#39;滚动了 500px&#39;) } }) window.addEventListener(&#39;scroll&#39;, () =&gt; { var scrollTop = document.documentElement.scrollTop if (scrollTop &gt; 1000) { console.log(&#39;滚动了 1000px&#39;) } }) 但是后面又要求代码兼容到 IE10，就不能采用这种写法了。然后我就想使用原生的function写法。
+window.onscroll = function() { // ... } 在用的过程中我发现，如果只有一个window.scroll没有任何问题，但是如果有多个window.scroll，后面的就不会生效。
+那么如何解决这个问题呢？
+window.scroll只能存在一次，第一个会生效，后面的不生效，可以通过 js 处理这个问题。
+function addEvent(type, toDo) { if (window.attachEvent) { window.attachEvent(&#39;on&#39; &#43; type, function() { toDo.call(window) }) } else { window.addEventListener(type, toDo, false) } } addEvent(&#39;scroll&#39;, function(){ console.log(&#39;第一次调用window.scroll&#39;) } addEvent(&#39;scroll&#39;, function(){ console.log(&#39;第一次调用window.scroll&#39;) } 运行一下，多个scroll可以同时运行。
+" />
+<meta name="keywords" content="页面监听是我们经常用的一个功能，下面两个段代码表示两个事件，分别在页面滚动 500px 和 1000px 的时候触发，在代码中使用了箭头函数。
+window.addEventListener(&#39;scroll&#39;, () =&gt; { var scrollTop = document.documentElement.scrollTop if (scrollTop &gt; 500) { console.log(&#39;滚动了 500px&#39;) } }) window.addEventListener(&#39;scroll&#39;, () =&gt; { var scrollTop = document.documentElement.scrollTop if (scrollTop &gt; 1000) { console.log(&#39;滚动了 1000px&#39;) } }) 但是后面又要求代码兼容到 IE10，就不能采用这种写法了。然后我就想使用原生的function写法。
+window.onscroll = function() { // ... } 在用的过程中我发现，如果只有一个window.scroll没有任何问题，但是如果有多个window.scroll，后面的就不会生效。
+那么如何解决这个问题呢？
+window.scroll只能存在一次，第一个会生效，后面的不生效，可以通过 js 处理这个问题。
+function addEvent(type, toDo) { if (window.attachEvent) { window.attachEvent(&#39;on&#39; &#43; type, function() { toDo.call(window) }) } else { window.addEventListener(type, toDo, false) } } addEvent(&#39;scroll&#39;, function(){ console.log(&#39;第一次调用window.scroll&#39;) } addEvent(&#39;scroll&#39;, function(){ console.log(&#39;第一次调用window.scroll&#39;) } 运行一下，多个scroll可以同时运行。
+" />
+
+
 <meta property="og:description" content="页面监听是我们经常用的一个功能，下面两个段代码表示两个事件，分别在页面滚动 500px 和 1000px 的时候触发，在代码中使用了箭头函数。
 window.addEventListener(&#39;scroll&#39;, () =&gt; { var scrollTop = document.documentElement.scrollTop if (scrollTop &gt; 500) { console.log(&#39;滚动了 500px&#39;) } }) window.addEventListener(&#39;scroll&#39;, () =&gt; { var scrollTop = document.documentElement.scrollTop if (scrollTop &gt; 1000) { console.log(&#39;滚动了 1000px&#39;) } }) 但是后面又要求代码兼容到 IE10，就不能采用这种写法了。然后我就想使用原生的function写法。
 window.onscroll = function() { // ... } 在用的过程中我发现，如果只有一个window.scroll没有任何问题，但是如果有多个window.scroll，后面的就不会生效。
@@ -57,7 +75,6 @@ function addEvent(type, toDo) { if (window.attachEvent) { window.attachEvent(&#3
 <link href="https://fonts.googleapis.com" rel="preconnect">
 <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;700&display=swap" rel="stylesheet" />
-
 <link rel="stylesheet" href="/css/base.css">
 <link rel="stylesheet" href="/css/index.css">
 <link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">

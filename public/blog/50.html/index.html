@@ -38,6 +38,26 @@
 </script><title>typecho 博客小表情无法显示问题 - 子舒的博客</title>
 <meta property="og:title" content="typecho 博客小表情无法显示问题" />
 <meta property="og:type" content="article" />
+
+
+<meta property="og:keywords" content="typecho 博客建立完成之后，会发现如果插入一些小表情，页面渲染完之后，表情不会显示，并且表情之后的内容全部消失，导致体验感很差。
+表情无法显示的原因是 uft-8 编码的问题，无法识别小表情，需要将其改成 utf8mb4
+第一步，进入数据库 首先登陆博客后台的数据库，然后点击 sql，输入下列代码：
+alter table typecho_comments convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_contents convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_fields convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_metas convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_options convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_relationships convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_users convert to character set utf8mb4 collate utf8mb4_unicode_ci; 直接复制，然后点击右下角的执行
+第二步，修改 typecho 配置文件 我使用的宝塔面板，点击左侧 网站 ，然后点击我们这个网站的根目录，进入之后，可以找到一个 config.inc.php 的文件，进入然后滑到最下面。
+**可以发现 &#39;charset&#39; =&gt; &#39;utf8&#39;,**下面我为了更直观的显示，将其注释掉，重新写的，实际操作中，将 utf8 改为 utf8mb4 即可。
+/** 定义数据库参数 */ $db = new Typecho_Db(&#39;Pdo_Mysql&#39;, &#39;typecho_&#39;); $db-&gt;addServer(array ( &#39;host&#39; =&gt; &#39;localhost&#39;, &#39;user&#39; =&gt; &#39;blog&#39;, &#39;password&#39; =&gt; &#39;blog&#39;, /** &#39;charset&#39; =&gt; &#39;utf8&#39;, */ &#39;charset&#39; =&gt; &#39;utf8mb4&#39;, &#39;port&#39; =&gt; &#39;3306&#39;, &#39;database&#39; =&gt; &#39;blog&#39;, ), Typecho_Db::READ | Typecho_Db::WRITE); Typecho_Db::set($db); 在文章后台重新输入小表情，然后保存回到页面，小表情成功显示了。
+" />
+<meta name="keywords" content="typecho 博客建立完成之后，会发现如果插入一些小表情，页面渲染完之后，表情不会显示，并且表情之后的内容全部消失，导致体验感很差。
+表情无法显示的原因是 uft-8 编码的问题，无法识别小表情，需要将其改成 utf8mb4
+第一步，进入数据库 首先登陆博客后台的数据库，然后点击 sql，输入下列代码：
+alter table typecho_comments convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_contents convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_fields convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_metas convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_options convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_relationships convert to character set utf8mb4 collate utf8mb4_unicode_ci; alter table typecho_users convert to character set utf8mb4 collate utf8mb4_unicode_ci; 直接复制，然后点击右下角的执行
+第二步，修改 typecho 配置文件 我使用的宝塔面板，点击左侧 网站 ，然后点击我们这个网站的根目录，进入之后，可以找到一个 config.inc.php 的文件，进入然后滑到最下面。
+**可以发现 &#39;charset&#39; =&gt; &#39;utf8&#39;,**下面我为了更直观的显示，将其注释掉，重新写的，实际操作中，将 utf8 改为 utf8mb4 即可。
+/** 定义数据库参数 */ $db = new Typecho_Db(&#39;Pdo_Mysql&#39;, &#39;typecho_&#39;); $db-&gt;addServer(array ( &#39;host&#39; =&gt; &#39;localhost&#39;, &#39;user&#39; =&gt; &#39;blog&#39;, &#39;password&#39; =&gt; &#39;blog&#39;, /** &#39;charset&#39; =&gt; &#39;utf8&#39;, */ &#39;charset&#39; =&gt; &#39;utf8mb4&#39;, &#39;port&#39; =&gt; &#39;3306&#39;, &#39;database&#39; =&gt; &#39;blog&#39;, ), Typecho_Db::READ | Typecho_Db::WRITE); Typecho_Db::set($db); 在文章后台重新输入小表情，然后保存回到页面，小表情成功显示了。
+" />
+
+
 <meta property="og:description" content="typecho 博客建立完成之后，会发现如果插入一些小表情，页面渲染完之后，表情不会显示，并且表情之后的内容全部消失，导致体验感很差。
 表情无法显示的原因是 uft-8 编码的问题，无法识别小表情，需要将其改成 utf8mb4
 第一步，进入数据库 首先登陆博客后台的数据库，然后点击 sql，输入下列代码：
@@ -59,7 +79,6 @@ alter table typecho_comments convert to character set utf8mb4 collate utf8mb4_un
 <link href="https://fonts.googleapis.com" rel="preconnect">
 <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;700&display=swap" rel="stylesheet" />
-
 <link rel="stylesheet" href="/css/base.css">
 <link rel="stylesheet" href="/css/index.css">
 <link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">

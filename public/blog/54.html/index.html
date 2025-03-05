@@ -38,6 +38,24 @@
 </script><title>IE10 下`,`符号不能留白 - 子舒的博客</title>
 <meta property="og:title" content="IE10 下`,`符号不能留白" />
 <meta property="og:type" content="article" />
+
+
+<meta property="og:keywords" content="$(&#34;#test&#34;).click(function () { $(&#39;html,body&#39;).animate({ &#39;scrollTop&#39;: &#39;0&#39; }, 500,) }) 这行代码使用的是 jquery 的写法，一个 500 毫秒的动画，这样写在 Chrome 浏览器等没问题，可以正常运行。
+但是今天在写项目的过程中，要求代码兼容到 IE10，没办法，被迫在 IE 浏览器下运行，结果发现这行代码会报错。这是怎么回事呢？
+简单分析一下，这有点类似 js 中定时器的写法，setimeout，两个参数，分别代表指定的时间，和定时时间。
+而 animate 是动画的属性，这个时间共花费 500 毫秒执行完毕。但是这个不是重点，为什么会报错呢？
+这时候我注意到 500 后面的,，我突然想到一种可能，先把,删掉。果然不出我所料。控制台不会报错了。
+我猜测，这是由 IE 的机制引起的，浏览器识别到,的时候，会自动默认后面跟有语句，但是如果空着不写，与浏览器预期的后果不同，就会产生报错。可能 IE 内核要求也比较严格吧。
+" />
+<meta name="keywords" content="$(&#34;#test&#34;).click(function () { $(&#39;html,body&#39;).animate({ &#39;scrollTop&#39;: &#39;0&#39; }, 500,) }) 这行代码使用的是 jquery 的写法，一个 500 毫秒的动画，这样写在 Chrome 浏览器等没问题，可以正常运行。
+但是今天在写项目的过程中，要求代码兼容到 IE10，没办法，被迫在 IE 浏览器下运行，结果发现这行代码会报错。这是怎么回事呢？
+简单分析一下，这有点类似 js 中定时器的写法，setimeout，两个参数，分别代表指定的时间，和定时时间。
+而 animate 是动画的属性，这个时间共花费 500 毫秒执行完毕。但是这个不是重点，为什么会报错呢？
+这时候我注意到 500 后面的,，我突然想到一种可能，先把,删掉。果然不出我所料。控制台不会报错了。
+我猜测，这是由 IE 的机制引起的，浏览器识别到,的时候，会自动默认后面跟有语句，但是如果空着不写，与浏览器预期的后果不同，就会产生报错。可能 IE 内核要求也比较严格吧。
+" />
+
+
 <meta property="og:description" content="$(&#34;#test&#34;).click(function () { $(&#39;html,body&#39;).animate({ &#39;scrollTop&#39;: &#39;0&#39; }, 500,) }) 这行代码使用的是 jquery 的写法，一个 500 毫秒的动画，这样写在 Chrome 浏览器等没问题，可以正常运行。
 但是今天在写项目的过程中，要求代码兼容到 IE10，没办法，被迫在 IE 浏览器下运行，结果发现这行代码会报错。这是怎么回事呢？
 简单分析一下，这有点类似 js 中定时器的写法，setimeout，两个参数，分别代表指定的时间，和定时时间。
@@ -57,7 +75,6 @@
 <link href="https://fonts.googleapis.com" rel="preconnect">
 <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;700&display=swap" rel="stylesheet" />
-
 <link rel="stylesheet" href="/css/base.css">
 <link rel="stylesheet" href="/css/index.css">
 <link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">

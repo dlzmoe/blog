@@ -38,6 +38,20 @@
 </script><title>hugo 纯静态编写一个字数统计脚本 - 子舒的博客</title>
 <meta property="og:title" content="hugo 纯静态编写一个字数统计脚本" />
 <meta property="og:type" content="article" />
+
+
+<meta property="og:keywords" content="早上起来的时候看到微信群中有博友分享自己的建站时间，聊着聊着说到总字数上面，这时我才发现我的网站没有统计的地方，索性就自己写一个吧，因为是静态博客，所以不涉及后端、服务器等，只用前端的方式来解决。
+这里需要借助我之前的一篇文章，《用原生 js 给网站写个搜索功能》，里面有提到如何生成一个文章列表 json 文件，这里我们会用到这个文件 index.json。
+写一个 ajax 方法，让浏览器遍历每个页面。
+$(document).ready(function () { $.ajax({ url: &#39;/index.json&#39;, type: &#39;get&#39;, dataType: &#39;json&#39;, success: function (data) { const pageUrls = data; const totalNum = pageUrls.length; $(&#39;#totalNum&#39;).html(totalNum); let totalWords = 0; pageUrls.forEach(urlObj =&gt; { $.get(urlObj.permalink, function(data) { const content = data.replace(/(&lt;([^&gt;]&#43;)&gt;)/gi, &#34; &#34;).replace(/[^\w\s]/gi, &#34; &#34;); const words = content.split(&#34; &#34;); const wordCount = words.filter(word =&gt; word !== &#34;&#34;).length; totalWords &#43;= wordCount; $(&#39;#totalWords&#39;).html(totalWords); }); }); }, error: function () { console.log(&#39;error&#39;) } }) }); 我是将信息放在我的 关于 页面下。
+经过脚本统计，我已经写了 &lt;span id=&#34;totalNum&#34;&gt;&lt;/span&gt; 篇文章，总共 &lt;span id=&#34;totalWords&#34;&gt;&lt;/span&gt; 个字。 &lt;!-- 经过脚本统计，我已经写了 164 篇文章，总共 97577 个字。 --&gt; " />
+<meta name="keywords" content="早上起来的时候看到微信群中有博友分享自己的建站时间，聊着聊着说到总字数上面，这时我才发现我的网站没有统计的地方，索性就自己写一个吧，因为是静态博客，所以不涉及后端、服务器等，只用前端的方式来解决。
+这里需要借助我之前的一篇文章，《用原生 js 给网站写个搜索功能》，里面有提到如何生成一个文章列表 json 文件，这里我们会用到这个文件 index.json。
+写一个 ajax 方法，让浏览器遍历每个页面。
+$(document).ready(function () { $.ajax({ url: &#39;/index.json&#39;, type: &#39;get&#39;, dataType: &#39;json&#39;, success: function (data) { const pageUrls = data; const totalNum = pageUrls.length; $(&#39;#totalNum&#39;).html(totalNum); let totalWords = 0; pageUrls.forEach(urlObj =&gt; { $.get(urlObj.permalink, function(data) { const content = data.replace(/(&lt;([^&gt;]&#43;)&gt;)/gi, &#34; &#34;).replace(/[^\w\s]/gi, &#34; &#34;); const words = content.split(&#34; &#34;); const wordCount = words.filter(word =&gt; word !== &#34;&#34;).length; totalWords &#43;= wordCount; $(&#39;#totalWords&#39;).html(totalWords); }); }); }, error: function () { console.log(&#39;error&#39;) } }) }); 我是将信息放在我的 关于 页面下。
+经过脚本统计，我已经写了 &lt;span id=&#34;totalNum&#34;&gt;&lt;/span&gt; 篇文章，总共 &lt;span id=&#34;totalWords&#34;&gt;&lt;/span&gt; 个字。 &lt;!-- 经过脚本统计，我已经写了 164 篇文章，总共 97577 个字。 --&gt; " />
+
+
 <meta property="og:description" content="早上起来的时候看到微信群中有博友分享自己的建站时间，聊着聊着说到总字数上面，这时我才发现我的网站没有统计的地方，索性就自己写一个吧，因为是静态博客，所以不涉及后端、服务器等，只用前端的方式来解决。
 这里需要借助我之前的一篇文章，《用原生 js 给网站写个搜索功能》，里面有提到如何生成一个文章列表 json 文件，这里我们会用到这个文件 index.json。
 写一个 ajax 方法，让浏览器遍历每个页面。
@@ -53,7 +67,6 @@ $(document).ready(function () { $.ajax({ url: &#39;/index.json&#39;, type: &#39;
 <link href="https://fonts.googleapis.com" rel="preconnect">
 <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;700&display=swap" rel="stylesheet" />
-
 <link rel="stylesheet" href="/css/base.css">
 <link rel="stylesheet" href="/css/index.css">
 <link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
