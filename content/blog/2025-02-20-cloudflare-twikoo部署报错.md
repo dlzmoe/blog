@@ -7,7 +7,7 @@ categories:
 tags:
   - cloudflare
   - twikoo
-keywords: "Cloudflare, Twikoo, 部署，Workers, 编码问题，包大小，技术问题"
+keywords: "Cloudflare，Twikoo，部署，Workers，编码问题，包大小，技术问题"
 description: "本篇文章记录了在 Cloudflare 上部署 Twikoo 服务时遇到的编码与捆绑包大小问题，提供了解决方案，帮助其他开发者顺利完成部署。"
 ---
 

@@ -20,9 +20,9 @@
 "@id": "https:\/\/zishu.me\/"
 },
 "articleSection" : "blog",
-"name" : "记录使用 wxt 框架开发扩展的问题",
-"headline" : "记录使用 wxt 框架开发扩展的问题",
-"description" : "最近在使用 wxt 框架开发浏览器扩展，记录一些问题。\nhttps:\/\/wxt.dev\/\n1. 隔离脚本与网站本身的样式 使用 Shadow Root，可以不让 content-scripts 侵入式影响网站本身，然后引入并渲染 App.vue 组件。\nimport \u0026#39;.\/style.css\u0026#39;; import { createApp } from \u0026#39;vue\u0026#39;; import App from \u0026#39;.\/App.vue\u0026#39;; export default defineContentScript({ matches: [\u0026#39;https:\/\/google.com\/*\u0026#39;], cssInjectionMode: \u0026#39;ui\u0026#39;, async main(ctx) { const ui = await createShadowRootUi(ctx, { name: \u0026#39;example-ui\u0026#39;, position: \u0026#39;inline\u0026#39;, anchor: \u0026#39;body\u0026#39;, onMount: (container) =\u0026gt; { const app = createApp(App); app.mount(container); return app; }, onRemove: (app) =\u0026gt; { app?.unmount(); }, }); ui.mount(); }, }); 2. 在 config.js 中配置 import { defineConfig } from \u0026#39;wxt\u0026#39;; import pkg from \u0026#39;.\/package.json\u0026#39;; \/\/ See https:\/\/wxt.dev\/api\/config.html export default defineConfig({ extensionApi: \u0026#39;chrome\u0026#39;, modules: [\u0026#39;@wxt-dev\/module-vue\u0026#39;], manifest: { name: \u0026#39;xxx\u0026#39;, version: pkg.version, description: ..., permissions: [\u0026#39;storage\u0026#39;, \u0026#39;scripting\u0026#39;] \/\/ 存储、插入脚本 }, hooks: { \u0026#39;build:manifestGenerated\u0026#39;: (wxt, manifest) =\u0026gt; { if (wxt.config.command === \u0026#39;serve\u0026#39;) { manifest.content_scripts ??= []; manifest.content_scripts.push({ matches: [\u0026#39;https:\/\/google.com\/*\u0026#39;], js: [\u0026#39;content-scripts\/content.js\u0026#39;], css: [\u0026#39;content-scripts\/content.css\u0026#39;] }); } } } }); ",
+"name" : "使用 wxt 框架开发浏览器扩展时遇到的问题解决方案",
+"headline" : "使用 wxt 框架开发浏览器扩展时遇到的问题解决方案",
+"description" : "在使用 wxt 框架开发浏览器扩展的过程中，记录了关于隔离脚本与网站样式、配置文件等问题的解决方案。",
 "inLanguage" : "en-US",
 "author" : "子舒",
 "creator" : "子舒",
@@ -35,29 +35,17 @@
 "url" : "https:\/\/zishu.me\/blog\/249.html\/",
 "keywords" : [ "wtx", ]
 }
-</script><title>记录使用 wxt 框架开发扩展的问题 - 子舒的博客</title>
-<meta property="og:title" content="记录使用 wxt 框架开发扩展的问题" />
+</script><title>使用 wxt 框架开发浏览器扩展时遇到的问题解决方案 - 子舒的博客</title>
+<meta property="og:title" content="使用 wxt 框架开发浏览器扩展时遇到的问题解决方案" />
 <meta property="og:type" content="article" />
 
 
-<meta property="og:keywords" content="最近在使用 wxt 框架开发浏览器扩展，记录一些问题。
-https://wxt.dev/
-1. 隔离脚本与网站本身的样式 使用 Shadow Root，可以不让 content-scripts 侵入式影响网站本身，然后引入并渲染 App.vue 组件。
-import &#39;./style.css&#39;; import { createApp } from &#39;vue&#39;; import App from &#39;./App.vue&#39;; export default defineContentScript({ matches: [&#39;https://google.com/*&#39;], cssInjectionMode: &#39;ui&#39;, async main(ctx) { const ui = await createShadowRootUi(ctx, { name: &#39;example-ui&#39;, position: &#39;inline&#39;, anchor: &#39;body&#39;, onMount: (container) =&gt; { const app = createApp(App); app.mount(container); return app; }, onRemove: (app) =&gt; { app?.unmount(); }, }); ui.mount(); }, }); 2. 在 config.js 中配置 import { defineConfig } from &#39;wxt&#39;; import pkg from &#39;./package.json&#39;; // See https://wxt.dev/api/config.html export default defineConfig({ extensionApi: &#39;chrome&#39;, modules: [&#39;@wxt-dev/module-vue&#39;], manifest: { name: &#39;xxx&#39;, version: pkg.version, description: ..., permissions: [&#39;storage&#39;, &#39;scripting&#39;] // 存储、插入脚本 }, hooks: { &#39;build:manifestGenerated&#39;: (wxt, manifest) =&gt; { if (wxt.config.command === &#39;serve&#39;) { manifest.content_scripts ??= []; manifest.content_scripts.push({ matches: [&#39;https://google.com/*&#39;], js: [&#39;content-scripts/content.js&#39;], css: [&#39;content-scripts/content.css&#39;] }); } } } }); " />
-<meta name="keywords" content="最近在使用 wxt 框架开发浏览器扩展，记录一些问题。
-https://wxt.dev/
-1. 隔离脚本与网站本身的样式 使用 Shadow Root，可以不让 content-scripts 侵入式影响网站本身，然后引入并渲染 App.vue 组件。
-import &#39;./style.css&#39;; import { createApp } from &#39;vue&#39;; import App from &#39;./App.vue&#39;; export default defineContentScript({ matches: [&#39;https://google.com/*&#39;], cssInjectionMode: &#39;ui&#39;, async main(ctx) { const ui = await createShadowRootUi(ctx, { name: &#39;example-ui&#39;, position: &#39;inline&#39;, anchor: &#39;body&#39;, onMount: (container) =&gt; { const app = createApp(App); app.mount(container); return app; }, onRemove: (app) =&gt; { app?.unmount(); }, }); ui.mount(); }, }); 2. 在 config.js 中配置 import { defineConfig } from &#39;wxt&#39;; import pkg from &#39;./package.json&#39;; // See https://wxt.dev/api/config.html export default defineConfig({ extensionApi: &#39;chrome&#39;, modules: [&#39;@wxt-dev/module-vue&#39;], manifest: { name: &#39;xxx&#39;, version: pkg.version, description: ..., permissions: [&#39;storage&#39;, &#39;scripting&#39;] // 存储、插入脚本 }, hooks: { &#39;build:manifestGenerated&#39;: (wxt, manifest) =&gt; { if (wxt.config.command === &#39;serve&#39;) { manifest.content_scripts ??= []; manifest.content_scripts.push({ matches: [&#39;https://google.com/*&#39;], js: [&#39;content-scripts/content.js&#39;], css: [&#39;content-scripts/content.css&#39;] }); } } } }); " />
+<meta property="og:keywords" content="wxt, 框架，浏览器扩展，Shadow, Root，Vue，content-scripts，技术问题，开发指南" />
+<meta name="keywords" content="wxt, 框架，浏览器扩展，Shadow, Root，Vue，content-scripts，技术问题，开发指南" />
 
 
-<meta property="og:description" content="最近在使用 wxt 框架开发浏览器扩展，记录一些问题。
-https://wxt.dev/
-1. 隔离脚本与网站本身的样式 使用 Shadow Root，可以不让 content-scripts 侵入式影响网站本身，然后引入并渲染 App.vue 组件。
-import &#39;./style.css&#39;; import { createApp } from &#39;vue&#39;; import App from &#39;./App.vue&#39;; export default defineContentScript({ matches: [&#39;https://google.com/*&#39;], cssInjectionMode: &#39;ui&#39;, async main(ctx) { const ui = await createShadowRootUi(ctx, { name: &#39;example-ui&#39;, position: &#39;inline&#39;, anchor: &#39;body&#39;, onMount: (container) =&gt; { const app = createApp(App); app.mount(container); return app; }, onRemove: (app) =&gt; { app?.unmount(); }, }); ui.mount(); }, }); 2. 在 config.js 中配置 import { defineConfig } from &#39;wxt&#39;; import pkg from &#39;./package.json&#39;; // See https://wxt.dev/api/config.html export default defineConfig({ extensionApi: &#39;chrome&#39;, modules: [&#39;@wxt-dev/module-vue&#39;], manifest: { name: &#39;xxx&#39;, version: pkg.version, description: ..., permissions: [&#39;storage&#39;, &#39;scripting&#39;] // 存储、插入脚本 }, hooks: { &#39;build:manifestGenerated&#39;: (wxt, manifest) =&gt; { if (wxt.config.command === &#39;serve&#39;) { manifest.content_scripts ??= []; manifest.content_scripts.push({ matches: [&#39;https://google.com/*&#39;], js: [&#39;content-scripts/content.js&#39;], css: [&#39;content-scripts/content.css&#39;] }); } } } }); " />
-<meta name="description" content="最近在使用 wxt 框架开发浏览器扩展，记录一些问题。
-https://wxt.dev/
-1. 隔离脚本与网站本身的样式 使用 Shadow Root，可以不让 content-scripts 侵入式影响网站本身，然后引入并渲染 App.vue 组件。
-import &#39;./style.css&#39;; import { createApp } from &#39;vue&#39;; import App from &#39;./App.vue&#39;; export default defineContentScript({ matches: [&#39;https://google.com/*&#39;], cssInjectionMode: &#39;ui&#39;, async main(ctx) { const ui = await createShadowRootUi(ctx, { name: &#39;example-ui&#39;, position: &#39;inline&#39;, anchor: &#39;body&#39;, onMount: (container) =&gt; { const app = createApp(App); app.mount(container); return app; }, onRemove: (app) =&gt; { app?.unmount(); }, }); ui.mount(); }, }); 2. 在 config.js 中配置 import { defineConfig } from &#39;wxt&#39;; import pkg from &#39;./package.json&#39;; // See https://wxt.dev/api/config.html export default defineConfig({ extensionApi: &#39;chrome&#39;, modules: [&#39;@wxt-dev/module-vue&#39;], manifest: { name: &#39;xxx&#39;, version: pkg.version, description: ..., permissions: [&#39;storage&#39;, &#39;scripting&#39;] // 存储、插入脚本 }, hooks: { &#39;build:manifestGenerated&#39;: (wxt, manifest) =&gt; { if (wxt.config.command === &#39;serve&#39;) { manifest.content_scripts ??= []; manifest.content_scripts.push({ matches: [&#39;https://google.com/*&#39;], js: [&#39;content-scripts/content.js&#39;], css: [&#39;content-scripts/content.css&#39;] }); } } } }); " />
+<meta property="og:description" content="在使用 wxt 框架开发浏览器扩展的过程中，记录了关于隔离脚本与网站样式、配置文件等问题的解决方案。" />
+<meta name="description" content="在使用 wxt 框架开发浏览器扩展的过程中，记录了关于隔离脚本与网站样式、配置文件等问题的解决方案。" />
 <meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
 
 <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -92,7 +80,7 @@ import &#39;./style.css&#39;; import { createApp } from &#39;vue&#39;; import Ap
 </header>
   <section>
     <div class="l-wrap">
-      <h1 class="body-title">记录使用 wxt 框架开发扩展的问题</h1>
+      <h1 class="body-title">使用 wxt 框架开发浏览器扩展时遇到的问题解决方案</h1>
 
       
       <div class="post-meta">

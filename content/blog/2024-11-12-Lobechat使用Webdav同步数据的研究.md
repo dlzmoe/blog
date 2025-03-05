@@ -7,6 +7,9 @@ categories:
 tags:
   - Lobechat
   - Webdav
+  - 数据同步
+keywords: "Lobechat，Webdav，数据同步，Tampermonkey，开源，IndexedDB，云同步"
+description: "本文探讨如何利用 Webdav 技术在社区版 Lobechat 中实现数据同步，提供详细的操作流程及代码实现，帮助用户 在无额外成本下完成数据的云端备份与恢复。"
 ---
 
 ## 1. 前言

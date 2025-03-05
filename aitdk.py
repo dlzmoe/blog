@@ -24,7 +24,7 @@ def generate_seo_content(text, api_key, api_url, model):
     if api_url:
         openai.api_base = api_url
 
-    prompt = f"请根据文章内容从 SEO 友好的角度提取出标题、关键词和描述:\n\n{text}\n\n请以 JSON 格式输出，包含 slug、title、keywords 和 description 字段。"
+    prompt = f"请根据文章内容从 SEO 友好的角度提取出标题、关键词和描述:\n\n{text}\n\n请以 JSON 格式输出，包含 slug、title、keywords 和 description 字段。如果遇到逗号强制用中文逗号。"
     
     try:
         response = openai.ChatCompletion.create(
