@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+{{ partial "head.html" . }}
+
+<body>
+  <div class="wrapper">
+    <div class="main">
+      {{ partial "header.html" . }}
+
+      <h1>{{ .Title }}</h1>
+
+      {{ if in .Site.Params.mainSections .Type }}
+      <div class="date">{{ .Date.Format "Oct 24, 2023"}}</div>
+      {{ end }}
+
+      {{ if in .Site.Params.mainSections .Type }}
+      <div class="toc">
+        <details open>
+          <summary accesskey="c" title="(Alt + C)"><span class="details">Table of Contents</span></summary>
+          <div class="inner"> {{ .TableOfContents }}</div>
+        </details>
+      </div>
+      {{ end }}
+
+      <article class="content">
+        {{ .Site.Params.postHeaderContent | safeHTML }}
+        {{ .Content }}
+        <div class="weekly-pagination"></div>
+      </article>
+
+      {{ if in .Site.Params.mainSections .Type }}
+      <div class="post-tags">
+        {{ with .Params.categories }}
+        {{ range . }}
+        <span class="namenode">分类：<a href="{{ "categories/" | relURL }}{{ . | urlize }}">{{ . }}</a>
+        </span>
+        {{ end }}
+        {{ end }}
+        <span class="tag-node">
+          {{ with .Params.tags }}
+          标签：{{ range . }}<a href="{{ "tags/" | relURL }}{{ . | urlize }}">#{{ . }}</a>
+          {{ end }}
+          {{ end }}
+        </span>
+      </div>
+      {{ end }}
+
+      {{ if in .Site.Params.mainSections .Type }}
+      {{ partial "comment.html" . }}
+      {{ end }}
+
+      {{ partial "footer.html" . }}
+    </div>
+  </div>
+</body>
+
+</html>

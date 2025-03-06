@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="toTop" content="true">
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="author" content="子舒" />
+<meta name="author" content="zishu" />
 <meta property="og:url" content="https://zishu.me/blog/28.html/" />
 <link rel="canonical" href="https://zishu.me/blog/28.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
 <link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
@@ -24,11 +24,11 @@
 "headline" : "vue 学习笔记 (2)－－vue 实例和模板语法",
 "description" : "一、vue 实例 1.创建 vue 实例 一个 vue 实例应该通过new Vue来创建根实例，所有的 vue 组件其实都是 vue 实例\nvar vm = new Vue({ ... }) 当一个实例被创建时，data对象中的 property 都被加入到 vue 的响应式系统中，当值发生改变时，试图也会改变\nvar data = {a: 1} var vm = new Vue({ data: data }) 此时在控制台输入vm.a == data.a会返回 true，变量data已经被赋给vue实例中的data对象了\n同时，对两个对象的数据进行操作改变也会影响到另一个\nvm.a = 2 \/\/ data.a = 2 data.a = 3 \/\/ vm.a = 3 当数据改变时，视图也会重新渲染，如果在 vue 实例被创建后，又添加了一个新的 property，则不会被加入到响应式系统中\n如果一开始就知道后面会添加一个 property，但是一开始不存在或为空，需要设置一些初始值\ndata: { newTodoText: \u0026#39;\u0026#39;, visitCount: 0, hideCompletedTods: fasle, todos: [], error: null } 使用 Object.freeze() 方法的时候，无法修改数据引起视图变化\nObject.freeze() 方法可以冻结一个对象。一个被冻结的对象再也不能被修改；冻结了一个对象则不能向这个对象添加新的属性，不能删除已有属性，不能修改该对象已有属性的可枚举性、可配置性、可写性，以及不能修改已有属性的值。此外，冻结一个对象后该对象的原型也不能被修改。freeze() 返回和传入的参数相同的对象。\n\u0026lt;div id=\u0026#34;app\u0026#34;\u0026gt;{{message}}\u0026lt;\/div\u0026gt; \u0026lt;script\u0026gt; var data = {message: \u0026#39;hello,wolrd\u0026#39;} Object.freeze(data) var vm = new Vue({ el: \u0026#39;#app\u0026#39;, data: data }) \u0026lt;\/script\u0026gt; 在控制台改变vm.message的值会直接报错，因为 data 对象已经被冻结了，不可改变\nvm.$data\n代表 vue 实例观察的数据对象\nconsole.log(vm.$data) \/\/ 返回数据对象的数组形式 var data = { a: 1 } var vm = new Vue({ el: \u0026#39;#app\u0026#39;, data: data }) vm.$data === data \/\/ true vm.$el === document.getElementById(\u0026#39;app\u0026#39;) \/\/ true 2.生命周期函数 每个实例在被创建的时候，都要经历一些初始化过程，比如：设置数据监听，编译模板，将实例挂载到 dom，更新 dom 等\n在这个过程中会运行一些叫做生命周期的钩子函数，可以在不同阶段添加自己需要的代码\n比如created钩子可以用来表示一个实例被创建之后执行的代码\nnew Vue({ data: { a: 1 }, created: function () { console.log(\u0026#39;a is: \u0026#39; \u002b this.a) } }) \/\/ \u0026#34;a is: 1\u0026#34; this用来指向 vm 实例\n但是不要在 property 或者回调上使用箭头函数，created: () =\u0026gt; console.log(this.a)，因为箭头函数没有this的概念，他会把this当作变量一直向上级作用域查找，经常产生Uncaught TypeError: Cannot read property of undefined或Uncaught TypeError: this.myMethod is not a function之类的报错\n二、模板语法 1.插值 最简单的就是\n\u0026lt;div id=\u0026#34;app\u0026#34;\u0026gt;{{message}}\u0026lt;\/div\u0026gt; \u0026lt;script\u0026gt; var app = new Vue({ el: \u0026#34;#app\u0026#34;, data: { message: \u0026#39;hello,world\u0026#39; } }) \u0026lt;\/script\u0026gt; \u0026lt;\/script\u0026gt; 。。。\n下面这段代码给input绑定了一个disabled属性，但是通过ok的真伪来控制属性是否渲染\n当ok为fasle,null,undefined值时，属性都不会被渲染，有点类似于v-if，但是这种写法只是针对属性\n\u0026lt;div id=\u0026#34;app\u0026#34;\u0026gt; \u0026lt;input type=\u0026#34;text\u0026#34; v-bind:disabled=\u0026#34;ok\u0026#34;\u0026gt; \u0026lt;\/div\u0026gt; \u0026lt;script\u0026gt; var vm = new Vue({ el: \u0026#39;#app\u0026#39;, data: { message: \u0026#39;hello,wolrd\u0026#39;, ok: false } }) \u0026lt;\/script\u0026gt; 在模板语法中还可以使用 javascript 表达式\n\u0026lt;div id=\u0026#34;app\u0026#34;\u0026gt; \u0026lt;div\u0026gt;{{number \u002b 1}}\u0026lt;\/div\u0026gt; \u0026lt;div v-bind:id=\u0026#34;\u0026#39;list-\u0026#39; \u002b id\u0026#34;\u0026gt;\u0026lt;\/div\u0026gt; \u0026lt;div\u0026gt;{{message.split(\u0026#39;\u0026#39;).reverse().join(\u0026#39;\u0026#39;)}}\u0026lt;\/div\u0026gt; \u0026lt;\/div\u0026gt; \u0026lt;script\u0026gt; var vm = new Vue({ el: \u0026#39;#app\u0026#39;, data: { number: 2, id: \u0026#39;li\u0026#39;, message: \u0026#39;hello,wolrd\u0026#39; } }) \u0026lt;\/script\u0026gt; 每个模板只能包含一个 javascript 表达式，如果有多个，则不会生效\n\u0026lt;!-- 这是语句，不是表达式 --\u0026gt; {{ var a = 1 }} \u0026lt;!-- 流控制也不会生效，请使用三元表达式 --\u0026gt; {{ if (ok) { return message } }} 2.指令 参数\n一些指令能够接收一个“参数”，在指令名称之后以冒号表示。例如，v-bind指令可以用于响应式地更新 HTML attribute：\n\u0026lt;div id=\u0026#34;app\u0026#34;\u0026gt; \u0026lt;a v-bind:href=\u0026#34;url\u0026#34;\u0026gt;百度\u0026lt;\/a\u0026gt; \u0026lt;\/div\u0026gt; \u0026lt;script\u0026gt; var vm = new Vue({ el: \u0026#39;#app\u0026#39;, data: { url: \u0026#39;https:\/\/www.baidu.com\u0026#39; } }) \u0026lt;\/script\u0026gt; 在这里href是参数，告知v-bind指令将该元素的hrefattribute 与表达式url的值绑定\n另一个例子是v-on指令，它用于监听 dom 事件\n\u0026lt;a v-on:click=\u0026#34;doSomething\u0026#34;\u0026gt;...\u0026lt;\/a\u0026gt; 动态参数\n从 2.6.0 开始，可以用方括号括起来的 JavaScript 表达式作为一个指令的参数\n\u0026lt;!--注意，参数表达式的写法存在一些约束，如之后的“对动态参数表达式的约束”章节所述。--\u0026gt; \u0026lt;a v-bind:[attributeName]=\u0026#34;url\u0026#34;\u0026gt;...\u0026lt;\/a\u0026gt; 这里的attributeName会被作为一个 javascript 表达式进行动态求值，最终结果被作为参数来使用\n比如：vue 实例中有一个attributeName属性其值为href，则这个绑定将等价于v-bind:href\n\u0026lt;a v-bind:href=\u0026#34;url\u0026gt;...\u0026lt;\/a\u0026gt; 也可以使用动态的事件名绑定监听函数\n\u0026lt;a v-on:[eventName]=\u0026#34;doSomething\u0026#34;\u0026gt; ... \u0026lt;\/a\u0026gt; 如果eventName值为click，则该绑定等价于v-on:click=\u0026quot;doSomething\u0026quot;，一个鼠标点击事件\n对动态参数的值的约束\n动态参数预期会求出一个字符串，异常情况下值为null，这个特殊的null值可以被显性地用于移除绑定。任何其它非字符串类型的值都将会触发一个警告。\n对动态参数表达式的约束\n动态参数表达式有一些语法约束，因为某些字符，如空格和引号，放在 HTML attribute 名里是无效的，例如：\n\u0026lt;!-- 这会触发一个编译警告 --\u0026gt; \u0026lt;a v-bind:[\u0026#39;foo\u0026#39; \u002b bar]=\u0026#34;value\u0026#34;\u0026gt; ... \u0026lt;\/a\u0026gt; 因此，尽量不要使用空格和引号的表达式，或者采用计算属性来替代这种复杂表达式\n在 DOM 中使用模板时 (直接在一个 HTML 文件里撰写模板)，还需要避免使用大写字符来命名键名，因为浏览器会把 attribute 名全部强制转为小写\n修饰符\n修饰符是以.指明的特殊后缀，用于指出一个指令应该以特殊方式绑定，例如，.prevent修饰符告诉v-on指令对于触发的事件调用event.preentDefault()\n\u0026lt;form v-on:submit.prevent=\u0026#34;onSubmit\u0026#34;\u0026gt;...\u0026lt;\/form\u0026gt; 3.缩写 v-前缀作为一种视觉提示，用来识别模板中 Vue 特定的 attribute。当你在使用 Vue.js 为现有标签添加动态行为 (dynamic behavior) 时，v-前缀很有帮助，然而，对于一些频繁用到的指令来说，就会感到使用繁琐。同时，在构建由 Vue 管理所有模板的单页面应用程序 (SPA - single page application) 时，v-前缀也变得没那么重要了。因此，Vue 为v-bind和v-on这两个最常用的指令，提供了特定简写\nv-bind\n\u0026lt;!-- 完整语法 --\u0026gt; \u0026lt;a v-bind:href=\u0026#34;url\u0026#34;\u0026gt;...\u0026lt;\/a\u0026gt; \u0026lt;!-- 缩写 --\u0026gt; \u0026lt;a :href=\u0026#34;url\u0026#34;\u0026gt;...\u0026lt;\/a\u0026gt; \u0026lt;!-- 动态参数的缩写 (2.6.0\u002b) --\u0026gt; \u0026lt;a :[key]=\u0026#34;url\u0026#34;\u0026gt; ... \u0026lt;\/a\u0026gt; v-on\n\u0026lt;!-- 完整语法 --\u0026gt; \u0026lt;a v-on:click=\u0026#34;doSomething\u0026#34;\u0026gt;...\u0026lt;\/a\u0026gt; \u0026lt;!-- 缩写 --\u0026gt; \u0026lt;a @click=\u0026#34;doSomething\u0026#34;\u0026gt;...\u0026lt;\/a\u0026gt; \u0026lt;!-- 动态参数的缩写 (2.6.0\u002b) --\u0026gt; \u0026lt;a @[event]=\u0026#34;doSomething\u0026#34;\u0026gt; ... \u0026lt;\/a\u0026gt; 它们看起来可能与普通的 HTML 略有不同，但:与@对于 attribute 名来说都是合法字符，在所有支持 Vue 的浏览器都能被正确地解析。而且，它们不会出现在最终渲染的标记中。缩写语法是完全可选的，但随着你更深入地了解它们的作用，你会庆幸拥有它们。\n",
 "inLanguage" : "en-US",
-"author" : "子舒",
-"creator" : "子舒",
-"publisher": "子舒",
-"accountablePerson" : "子舒",
-"copyrightHolder" : "子舒",
+"author" : "zishu",
+"creator" : "zishu",
+"publisher": "zishu",
+"accountablePerson" : "zishu",
+"copyrightHolder" : "zishu",
 "copyrightYear" : "2020",
 "datePublished": "2020-11-24 00:00:00 \u002b0000 UTC",
 "dateModified" : "2020-11-24 00:00:00 \u002b0000 UTC",
@@ -234,40 +234,49 @@ v-bind
 </head>
 
 <body>
-  <header class="header">
-  <div class="l-wrap">
-    
-    <nav>
-      
-      <a href="/">首页</a>
-      
-      <a href="/blog/">文章</a>
-      
-      <a href="/categories/weekly/">周刊</a>
-      
-      <a href="/message/">留言</a>
-      
-      <a href="/about/">关于</a>
-      
-      <a href="/index.xml">RSS</a>
-      
-    </nav>
+  <div class="wrapper">
+    <div class="main">
+      <div class="top">
+  <a href="/"><img src="https://imgurl.zishu.me/author.webp" width="72" height="72" class="avatar" border="0"></a>
+  <div class="site-info">
+    <div class="site-title">zishu</div>
+    <div class="site-about">
+      <p>一个热爱生活的前端开发工程师。</p>
+    </div>
   </div>
-</header>
-  <section>
-    <div class="l-wrap">
-      <h1 class="body-title">vue 学习笔记 (2)－－vue 实例和模板语法</h1>
+</div>
+
+<div class="nav-container">
+  <div class="nav">
+    
+    <a href="/" class="nav-item">首页</a>
+    
+    <a href="/blog/" class="nav-item">文章</a>
+    
+    <a href="/categories/weekly/" class="nav-item">周刊</a>
+    
+    <a href="/message/" class="nav-item">留言</a>
+    
+    <a href="/about/" class="nav-item">关于</a>
+    
+    <a href="/links/" class="nav-item">友链</a>
+    
+
+    <a href="./index.xml" target="_blank"><img src="/images/rss.svg" alt="RSS" class="social-icon" width="1em"></a>
+    <a href="https://github.com/dlzmoe" target="_blank"><img src="/images/github.svg" alt="github.com/dlzmoe" class="social-icon" width="1em"></a>
+    <a href="https://discord.com/invite/n2pErsD7Kg" target="_blank"><img src="/images/discord.svg" alt="Discord Invite" class="social-icon" width="1em"></a>
+  </div>
+</div>
+
+      <h1>vue 学习笔记 (2)－－vue 实例和模板语法</h1>
 
       
-      <div class="post-meta">
-        <time>2020.11.24</time>
-      </div>
+      <div class="date">Oct 240, 242412</div>
       
-
 
       
       <div class="toc">
-        <details>
+        <details open>
           <summary accesskey="c" title="(Alt + C)"><span class="details">Table of Contents</span></summary>
           <div class="inner"> <nav id="TableOfContents">
   <ul>
@@ -290,7 +299,7 @@ v-bind
       </div>
       
 
-      <article class="post-content">
+      <article class="content">
         
         <h2 id="一vue-实例">一、vue 实例</h2>
 <h3 id="1创建-vue-实例">1.创建 vue 实例</h3>
@@ -500,8 +509,8 @@ v-bind
           
           
         </span>
-        
       </div>
+      
 
       
       <ul class="comment-tabs">
@@ -556,10 +565,864 @@ twikoo.init({
   });
 </script>
       
-    </div>
-  </section>
-  <footer class="footer">
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<footer class="footer">
   <div class="l-wrap">
+    <p class="aboutme">这是我的个人博客，已经运行了 <span id="days"></span> 天，写了 306 篇文章，共 194656 字。</p>
     <p>© 2020 - 2025 Powered by
       <a href="https://github.com/dlzmoe" target="_blank">Github</a>
       / <a href="/index.xml" target="_blank">RSS</a>
@@ -569,6 +1432,8 @@ twikoo.init({
 </footer>
 
 <script src="/js/main.js"></script>
+    </div>
+  </div>
 </body>
 
 </html>

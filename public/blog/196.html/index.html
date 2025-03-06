@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="toTop" content="true">
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="author" content="子舒" />
+<meta name="author" content="zishu" />
 <meta property="og:url" content="https://zishu.me/blog/196.html/" />
 <link rel="canonical" href="https://zishu.me/blog/196.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
 <link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
@@ -24,11 +24,11 @@
 "headline" : "关于 HugoFast 这个项目",
 "description" : "项目来源于我的突发奇想，并且基于热爱折腾的心理，利用 GitHub 本身提供的 Api，将博客管理面板化。\n目前仅支持 hugo，其他程序有对应的工具，就不造轮子了。\nGithub: https:\/\/github.com\/dlzmoe\/HugoFast\n网站：https:\/\/hugofast.netlify.app\/\n用户文档：https:\/\/hugofast-docs.netlify.app\/\n1. 自托管 前往 https:\/\/github.com\/dlzmoe\/HugoFast fork 本项目，然后下载到本地。\ngit clone https:\/\/github.com\/dlzmoe\/HugoFast.git ::: warning 这里默认你有一定的代码基础，本地提前安装好了 node 依赖等。 :::\n# 进入项目安装依赖包 cd HugoFast yarn # 使用 \u0060yarn serve\u0060 运行项目 yarn serve # 打包到 dist 文件 yarn build 打包后的文件可以放在的任意空间部署。\n2. 准备工作 (1) 获取 Github Token 前往 https:\/\/github.com\/settings\/tokens\/ 。\n新建一个 token，选择 repo \/ user 这两个权限，名称随意，最后生成 token。\n注意要保存好这个密钥，在新的终端打开网站需要用到这个密钥。\n(2) 操作 hugo 源码仓库 前往你的 hugo 源码仓库，如下图。\n在仓库的 setting\/actions，滑到最下面，打开 actions 的 pr 权限，不然 actions 自动部署会失败。\n(3) 添加 .github\/workflows\/main.yml 点击 actions \u0026gt; set up a workflow yourself 新建一个 actions 工作流。\n注意： git config --global user.email \u0026quot;\u0026quot; 和 git config --global user.name \u0026quot;\u0026quot; 里面要填写你的 GitHub 邮箱以及用户名。\nname: hugo deploy on: push: workflow_dispatch: schedule: # Runs everyday at 8:00 AM - cron: \u0026#34;0 0 * * *\u0026#34; jobs: build: runs-on: ubuntu-latest steps: - name: Checkout uses: actions\/checkout@v2 with: submodules: true fetch-depth: 0 - name: Setup Hugo uses: peaceiris\/actions-hugo@v2 with: hugo-version: \u0026#34;latest\u0026#34; - name: Build Web run: hugo - name: Commit changes run: | git config --global user.email \u0026#34;\u0026#34; git config --global user.name \u0026#34;\u0026#34; git pull git add . git commit -m \u0026#34;my commit\u0026#34; - name: Push changes uses: ad-m\/github-push-action@master with: github_token: ${{ secrets.GITHUB_TOKEN }} branch: main 3. HugoFast 网站 使用官方提供的版本。\n在线管理：https:\/\/hugofast.netlify.app\/\n第一行：获取的 GitHub Token\n第二行：hugo 源码仓库\n填写完成后，会自动获取文章目录，选择后点击确认。\n进入网站就可以正常使用功能了，如修改文章，发布新文章，其他功能还在开发中。\n未完待续\u0026hellip;\n",
 "inLanguage" : "en-US",
-"author" : "子舒",
-"creator" : "子舒",
-"publisher": "子舒",
-"accountablePerson" : "子舒",
-"copyrightHolder" : "子舒",
+"author" : "zishu",
+"creator" : "zishu",
+"publisher": "zishu",
+"accountablePerson" : "zishu",
+"copyrightHolder" : "zishu",
 "copyrightYear" : "2023",
 "datePublished": "2023-06-02 00:00:00 \u002b0000 UTC",
 "dateModified" : "2023-06-02 00:00:00 \u002b0000 UTC",
@@ -146,40 +146,49 @@ name: hugo deploy on: push: workflow_dispatch: schedule: # Runs everyday at 8:00
 </head>
 
 <body>
-  <header class="header">
-  <div class="l-wrap">
-    
-    <nav>
-      
-      <a href="/">首页</a>
-      
-      <a href="/blog/">文章</a>
-      
-      <a href="/categories/weekly/">周刊</a>
-      
-      <a href="/message/">留言</a>
-      
-      <a href="/about/">关于</a>
-      
-      <a href="/index.xml">RSS</a>
-      
-    </nav>
+  <div class="wrapper">
+    <div class="main">
+      <div class="top">
+  <a href="/"><img src="https://imgurl.zishu.me/author.webp" width="72" height="72" class="avatar" border="0"></a>
+  <div class="site-info">
+    <div class="site-title">zishu</div>
+    <div class="site-about">
+      <p>一个热爱生活的前端开发工程师。</p>
+    </div>
   </div>
-</header>
-  <section>
-    <div class="l-wrap">
-      <h1 class="body-title">关于 HugoFast 这个项目</h1>
+</div>
+
+<div class="nav-container">
+  <div class="nav">
+    
+    <a href="/" class="nav-item">首页</a>
+    
+    <a href="/blog/" class="nav-item">文章</a>
+    
+    <a href="/categories/weekly/" class="nav-item">周刊</a>
+    
+    <a href="/message/" class="nav-item">留言</a>
+    
+    <a href="/about/" class="nav-item">关于</a>
+    
+    <a href="/links/" class="nav-item">友链</a>
+    
+
+    <a href="./index.xml" target="_blank"><img src="/images/rss.svg" alt="RSS" class="social-icon" width="1em"></a>
+    <a href="https://github.com/dlzmoe" target="_blank"><img src="/images/github.svg" alt="github.com/dlzmoe" class="social-icon" width="1em"></a>
+    <a href="https://discord.com/invite/n2pErsD7Kg" target="_blank"><img src="/images/discord.svg" alt="Discord Invite" class="social-icon" width="1em"></a>
+  </div>
+</div>
+
+      <h1>关于 HugoFast 这个项目</h1>
 
       
-      <div class="post-meta">
-        <time>2023.06.02</time>
-      </div>
+      <div class="date">Oct 20, 20212</div>
       
-
 
       
       <div class="toc">
-        <details>
+        <details open>
           <summary accesskey="c" title="(Alt + C)"><span class="details">Table of Contents</span></summary>
           <div class="inner"> <nav id="TableOfContents">
   <ul>
@@ -198,7 +207,7 @@ name: hugo deploy on: push: workflow_dispatch: schedule: # Runs everyday at 8:00
       </div>
       
 
-      <article class="post-content">
+      <article class="content">
         
         <p>项目来源于我的突发奇想，并且基于热爱折腾的心理，利用 GitHub 本身提供的 Api，将博客管理面板化。</p>
 <p>目前仅支持 hugo，其他程序有对应的工具，就不造轮子了。</p>
@@ -311,8 +320,8 @@ name: hugo deploy on: push: workflow_dispatch: schedule: # Runs everyday at 8:00
           
           
         </span>
-        
       </div>
+      
 
       
       <ul class="comment-tabs">
@@ -367,10 +376,864 @@ twikoo.init({
   });
 </script>
       
-    </div>
-  </section>
-  <footer class="footer">
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<footer class="footer">
   <div class="l-wrap">
+    <p class="aboutme">这是我的个人博客，已经运行了 <span id="days"></span> 天，写了 306 篇文章，共 194656 字。</p>
     <p>© 2020 - 2025 Powered by
       <a href="https://github.com/dlzmoe" target="_blank">Github</a>
       / <a href="/index.xml" target="_blank">RSS</a>
@@ -380,6 +1243,8 @@ twikoo.init({
 </footer>
 
 <script src="/js/main.js"></script>
+    </div>
+  </div>
 </body>
 
 </html>

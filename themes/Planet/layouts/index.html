@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+{{ partial "head.html" . }}
+
+
+
+<body>
+
+  <div class="wrapper">
+    <div class="main">
+      {{ partial "header.html" . }}
+
+      <div class="items">
+        {{ $pages := .Site.RegularPages }}
+        {{ $paginator := .Paginate ($pages) }}
+        {{ $count := 0 }}
+
+        {{ range $paginator.Pages }}
+        {{ $title := .Title }}
+        {{ $summary := .Summary }}
+        <div class="item">
+          <div class="item-main">
+            <div class="item-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></div>
+            <div class="item-info">
+              <div class="item-date">{{ .Date.Format "Oct 24, 2023"}}</div>
+            </div>
+          </div>
+        </div>
+        {{ end }}
+
+        <!-- {{ $pages := .Site.RegularPages }}
+        {{ $paginator := .Paginate ($pages) }}
+        {{ $count := 0 }}
+
+        {{ range $paginator.Pages }}
+        {{ $title := .Title }}
+        {{ $summary := .Summary }}
+
+        {{ if and (not (in .Params.categories "weekly")) (lt $count 9) }}
+        {{ $count = add $count 1 }}
+
+        <div class="posts-item">
+          <time class="date">{{ .Date.Format "2006-01-02"}}</time>
+          <a href="{{ .RelPermalink }}" class="title">{{ .Title }}</a>
+        </div>
+        {{ end }}
+        {{ end }} -->
+      </div>
+       
+      {{ partial "footer.html" . }}
+    </div>
+  </div>
+
+  <script>
+    const time = "{{ .Site.Params.buildDate }}";
+    var now = new Date();
+    var end = new Date(time);
+    var diff = Math.abs(now - end);
+    var days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+    document.getElementById('days').innerHTML = days;
+
+  </script>
+</body>
+
+</html>

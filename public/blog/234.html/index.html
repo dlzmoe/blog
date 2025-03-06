@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="toTop" content="true">
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="author" content="子舒" />
+<meta name="author" content="zishu" />
 <meta property="og:url" content="https://zishu.me/blog/234.html/" />
 <link rel="canonical" href="https://zishu.me/blog/234.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
 <link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
@@ -24,11 +24,11 @@
 "headline" : "vite 配置相关笔记",
 "description" : "一、配置 route 路由 使用 vite \u002b vue 构建项目默认是没有 route 的，所以需要手动引入。\n1. 基础配置 # 建立一个 vite 项目 npm create vite@latest yarn create vite # 安装 route 依赖 npm install vue-router@4 yarn add vue-router@4 接下来，需要在项目中配置 Vue Router。首先在 src 目录下创建一个 router 目录，并在该目录下创建 index.js，并配置路由。\nsrc\/ ├── router\/ │ └── index.js \/\/ src\/router\/index.js import { createRouter, createWebHistory } from \u0026#39;vue-router\u0026#39;; const routes = [{ path: \u0026#39;\/\u0026#39;, name: \u0026#39;Home\u0026#39;, component: () =\u0026gt; import(\u0026#39;@\/views\/Home.vue\u0026#39;) }, { path: \u0026#39;\/login\u0026#39;, name: \u0026#39;Login\u0026#39;, component: () =\u0026gt; import(\u0026#39;@\/views\/Login.vue\u0026#39;) } ] const router = createRouter({ history: createWebHistory(import.meta.env.BASE_URL), routes }) export default router 在 main.js 声明一下 route 文件。\nimport { createApp } from \u0026#39;vue\u0026#39;; import App from \u0026#39;.\/App.vue\u0026#39;; import router from \u0026#39;.\/router\u0026#39;; const app = createApp(App) app.use(router) app.mount(\u0026#39;#app\u0026#39;) 并且在 App.vue 中要使用 router-view 来显示当前路由对应的组件，所以修改下文件。\n\u0026lt;template\u0026gt; \u0026lt;div id=\u0026#34;app\u0026#34;\u0026gt; \u0026lt;router-view\u0026gt;\u0026lt;\/router-view\u0026gt; \u0026lt;\/div\u0026gt; \u0026lt;\/template\u0026gt; \u0026lt;script\u0026gt; export default { name: \u0026#39;App\u0026#39; } \u0026lt;\/script\u0026gt; 2. 添加多路由 要添加更多的页面或动态路由，可以继续在 routes 数组中添加配置。例如：\n{ path: \u0026#39;\/user\/:id\u0026#39;, name: \u0026#39;User\u0026#39;, component: () =\u0026gt; import(\u0026#39;@\/views\/User.vue\u0026#39;) } 这样，访问 \/user\/1 就会加载 User.vue 组件并显示相应内容。\n二、配置 @ 路径别名 注意，vite 默认是没有配置路径别名 @ 的，所以要手动添加，配置如下：\nimport { defineConfig } from \u0026#39;vite\u0026#39; import vue from \u0026#39;@vitejs\/plugin-vue\u0026#39; import { fileURLToPath, URL } from \u0026#39;node:url\u0026#39; export default defineConfig({ plugins: [vue()], resolve: { alias: { \u0026#39;@\u0026#39;: fileURLToPath(new URL(\u0026#39;.\/src\u0026#39;, import.meta.url)) } } }) 配置完别名后，就可以在项目中使用 @ 来代替 src 目录的路径，从而简化模块引用。\n三、dev 时自动访问本地服务 open: true 表示当你运行 vite 或 vite dev 时，开发服务器将自动在浏览器中打开本地服务器的 URL（例如 http:\/\/localhost:5173）。你也可以指定一个具体的 URL，例如：\n\/\/ vite.config.js export default defineConfig({ server: { open: true, \/\/ 自动打开浏览器并访问本地服务器网址 open: \u0026#39;http:\/\/localhost:5173\u0026#39;, \/\/ 在浏览器中打开指定的路径 }, }); 四、允许本地 ip 访问 local \/\/ vite.config.js export default { server: { host: true, \/\/ 允许使用本地 IP 访问 port: 3000 \/\/ 可以根据需要修改端口 } } vite.config.js 配置集合 \/\/ vite.config.js import { defineConfig } from \u0026#39;vite\u0026#39;; import vue from \u0026#39;@vitejs\/plugin-vue\u0026#39;; import { fileURLToPath, URL } from \u0026#39;node:url\u0026#39;; \/\/ https:\/\/vitejs.dev\/config\/ export default defineConfig({ base: \u0026#39;\/single-template\/\u0026#39;, \/\/ 设置打开目录 plugins: [vue()], resolve: { alias: { \u0026#39;@\u0026#39;: fileURLToPath(new URL(\u0026#39;.\/src\u0026#39;, import.meta.url)) \/\/ 允许使用 @ 别名 } }, server: { host: true, \/\/ 允许本地 ip 访问 open: true, \/\/ 自动打开浏览器并访问本地服务器网址 \/\/ open: \u0026#39;http:\/\/localhost:5173\u0026#39;, \/\/ 在浏览器中打开指定的路径 }, }) ",
 "inLanguage" : "en-US",
-"author" : "子舒",
-"creator" : "子舒",
-"publisher": "子舒",
-"accountablePerson" : "子舒",
-"copyrightHolder" : "子舒",
+"author" : "zishu",
+"creator" : "zishu",
+"publisher": "zishu",
+"accountablePerson" : "zishu",
+"copyrightHolder" : "zishu",
 "copyrightYear" : "2024",
 "datePublished": "2024-08-15 00:00:00 \u002b0000 UTC",
 "dateModified" : "2024-08-15 00:00:00 \u002b0000 UTC",
@@ -94,40 +94,49 @@ import { defineConfig } from &#39;vite&#39; import vue from &#39;@vitejs/plugin-
 </head>
 
 <body>
-  <header class="header">
-  <div class="l-wrap">
-    
-    <nav>
-      
-      <a href="/">首页</a>
-      
-      <a href="/blog/">文章</a>
-      
-      <a href="/categories/weekly/">周刊</a>
-      
-      <a href="/message/">留言</a>
-      
-      <a href="/about/">关于</a>
-      
-      <a href="/index.xml">RSS</a>
-      
-    </nav>
+  <div class="wrapper">
+    <div class="main">
+      <div class="top">
+  <a href="/"><img src="https://imgurl.zishu.me/author.webp" width="72" height="72" class="avatar" border="0"></a>
+  <div class="site-info">
+    <div class="site-title">zishu</div>
+    <div class="site-about">
+      <p>一个热爱生活的前端开发工程师。</p>
+    </div>
   </div>
-</header>
-  <section>
-    <div class="l-wrap">
-      <h1 class="body-title">vite 配置相关笔记</h1>
+</div>
+
+<div class="nav-container">
+  <div class="nav">
+    
+    <a href="/" class="nav-item">首页</a>
+    
+    <a href="/blog/" class="nav-item">文章</a>
+    
+    <a href="/categories/weekly/" class="nav-item">周刊</a>
+    
+    <a href="/message/" class="nav-item">留言</a>
+    
+    <a href="/about/" class="nav-item">关于</a>
+    
+    <a href="/links/" class="nav-item">友链</a>
+    
+
+    <a href="./index.xml" target="_blank"><img src="/images/rss.svg" alt="RSS" class="social-icon" width="1em"></a>
+    <a href="https://github.com/dlzmoe" target="_blank"><img src="/images/github.svg" alt="github.com/dlzmoe" class="social-icon" width="1em"></a>
+    <a href="https://discord.com/invite/n2pErsD7Kg" target="_blank"><img src="/images/discord.svg" alt="Discord Invite" class="social-icon" width="1em"></a>
+  </div>
+</div>
+
+      <h1>vite 配置相关笔记</h1>
 
       
-      <div class="post-meta">
-        <time>2024.08.15</time>
-      </div>
+      <div class="date">Oct 150, 151512</div>
       
-
 
       
       <div class="toc">
-        <details>
+        <details open>
           <summary accesskey="c" title="(Alt + C)"><span class="details">Table of Contents</span></summary>
           <div class="inner"> <nav id="TableOfContents">
   <ul>
@@ -147,7 +156,7 @@ import { defineConfig } from &#39;vite&#39; import vue from &#39;@vitejs/plugin-
       </div>
       
 
-      <article class="post-content">
+      <article class="content">
         
         <h2 id="一配置-route-路由">一、配置 route 路由</h2>
 <p>使用 vite + vue 构建项目默认是没有 route 的，所以需要手动引入。</p>
@@ -285,8 +294,8 @@ import { defineConfig } from &#39;vite&#39; import vue from &#39;@vitejs/plugin-
           
           
         </span>
-        
       </div>
+      
 
       
       <ul class="comment-tabs">
@@ -341,10 +350,864 @@ twikoo.init({
   });
 </script>
       
-    </div>
-  </section>
-  <footer class="footer">
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<footer class="footer">
   <div class="l-wrap">
+    <p class="aboutme">这是我的个人博客，已经运行了 <span id="days"></span> 天，写了 306 篇文章，共 194656 字。</p>
     <p>© 2020 - 2025 Powered by
       <a href="https://github.com/dlzmoe" target="_blank">Github</a>
       / <a href="/index.xml" target="_blank">RSS</a>
@@ -354,6 +1217,8 @@ twikoo.init({
 </footer>
 
 <script src="/js/main.js"></script>
+    </div>
+  </div>
 </body>
 
 </html>

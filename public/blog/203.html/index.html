@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="toTop" content="true">
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="author" content="子舒" />
+<meta name="author" content="zishu" />
 <meta property="og:url" content="https://zishu.me/blog/203.html/" />
 <link rel="canonical" href="https://zishu.me/blog/203.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
 <link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
@@ -24,11 +24,11 @@
 "headline" : "Bitwarden \/ Vaultwarden 密码管理工具",
 "description" : "1.介绍 Bitwarden 是一款自由且开源的密码管理服务，用户可在加密的保管库中存储敏感信息。Bitwarden 平台提供有多种客户端应用程序，包括网页用户界面、桌面应用，浏览器扩展、移动应用以及命令行界面。Bitwarden 提供云端托管服务，并支持自行部署解决方案。\n在调研一些市面常用的密码管理工具之后，我选择了 Bitwarden。然后使用自托管的方式部署在服务器上，定时备份数据库，导出密码，安全性也有保证。\nhttps:\/\/bitwarden.com\/\n而 Vaultwarden 是一个使用 Rust 编写的非官方 Bitwarden 服务器实现，提供了不错的 web 管理界面，并与 Bitwarden 兼容。\n2.部署 先在服务器执行指令。\ndocker run -d --name bitwardenrs \\ --restart unless-stopped \\ -e WEBSOCKET_ENABLED=true \\ -v \/data\/password\/data\/:\/data\/ \\ -p 6666:80 \\ -p 3012:3012 \\ vaultwarden\/server:latest 部署完成后打开网站，登陆注册之后，删除容器。\n需要配置禁止注册的功能，因为我只想自己使用。如果不禁止注册，可以忽略下面这两步。\ndocker stop bitwardenrs #停止容器 docker rm -f bitwardenrs #删除容器 docker run -d --name bitwardenrs \\ --restart unless-stopped \\ -e SIGNUPS_ALLOWED=false \\ -e WEBSOCKET_ENABLED=true \\ -v \/data\/password\/data\/:\/data\/ \\ -p 6666:80 \\ -p 3012:3012 \\ vaultwarden\/server:latest 3.docker-compose.yml 通过 ChatGPT 我将这段代码转化成了docker-compose.yml 文件，可以更方便的部署安装。\nversion: \u0026#39;3\u0026#39; services: bitwardenrs: image: vaultwarden\/server:latest container_name: bitwardenrs restart: unless-stopped environment: - SIGNUPS_ALLOWED=false - WEBSOCKET_ENABLED=true volumes: - \/data\/password\/data\/:\/data\/ ports: - \u0026#34;6666:80\u0026#34; - \u0026#34;3012:3012\u0026#34; 4.Chrome 扩展 通过反向代理可以使用域名登陆 web 端，并且使用了 Chrome 扩展方式，在登陆网站可以自动保存密码。\nhttps:\/\/chrome.google.com\/webstore\/detail\/bitwarden-free-password-m\/nngceckbapebfimnlniiiahkandclblb\n之后我只需要记住一个主密码，其他网站密码全部采用加密方式生成，方便与安全并存。\n",
 "inLanguage" : "en-US",
-"author" : "子舒",
-"creator" : "子舒",
-"publisher": "子舒",
-"accountablePerson" : "子舒",
-"copyrightHolder" : "子舒",
+"author" : "zishu",
+"creator" : "zishu",
+"publisher": "zishu",
+"accountablePerson" : "zishu",
+"copyrightHolder" : "zishu",
 "copyrightYear" : "2023",
 "datePublished": "2023-07-27 00:00:00 \u002b0000 UTC",
 "dateModified" : "2023-07-27 00:00:00 \u002b0000 UTC",
@@ -102,40 +102,49 @@ https://chrome.google.com/webstore/detail/bitwarden-free-password-m/nngceckbapeb
 </head>
 
 <body>
-  <header class="header">
-  <div class="l-wrap">
-    
-    <nav>
-      
-      <a href="/">首页</a>
-      
-      <a href="/blog/">文章</a>
-      
-      <a href="/categories/weekly/">周刊</a>
-      
-      <a href="/message/">留言</a>
-      
-      <a href="/about/">关于</a>
-      
-      <a href="/index.xml">RSS</a>
-      
-    </nav>
+  <div class="wrapper">
+    <div class="main">
+      <div class="top">
+  <a href="/"><img src="https://imgurl.zishu.me/author.webp" width="72" height="72" class="avatar" border="0"></a>
+  <div class="site-info">
+    <div class="site-title">zishu</div>
+    <div class="site-about">
+      <p>一个热爱生活的前端开发工程师。</p>
+    </div>
   </div>
-</header>
-  <section>
-    <div class="l-wrap">
-      <h1 class="body-title">Bitwarden / Vaultwarden 密码管理工具</h1>
+</div>
+
+<div class="nav-container">
+  <div class="nav">
+    
+    <a href="/" class="nav-item">首页</a>
+    
+    <a href="/blog/" class="nav-item">文章</a>
+    
+    <a href="/categories/weekly/" class="nav-item">周刊</a>
+    
+    <a href="/message/" class="nav-item">留言</a>
+    
+    <a href="/about/" class="nav-item">关于</a>
+    
+    <a href="/links/" class="nav-item">友链</a>
+    
+
+    <a href="./index.xml" target="_blank"><img src="/images/rss.svg" alt="RSS" class="social-icon" width="1em"></a>
+    <a href="https://github.com/dlzmoe" target="_blank"><img src="/images/github.svg" alt="github.com/dlzmoe" class="social-icon" width="1em"></a>
+    <a href="https://discord.com/invite/n2pErsD7Kg" target="_blank"><img src="/images/discord.svg" alt="Discord Invite" class="social-icon" width="1em"></a>
+  </div>
+</div>
+
+      <h1>Bitwarden / Vaultwarden 密码管理工具</h1>
 
       
-      <div class="post-meta">
-        <time>2023.07.27</time>
-      </div>
+      <div class="date">Oct 270, 272712</div>
       
-
 
       
       <div class="toc">
-        <details>
+        <details open>
           <summary accesskey="c" title="(Alt + C)"><span class="details">Table of Contents</span></summary>
           <div class="inner"> <nav id="TableOfContents">
   <ul>
@@ -153,7 +162,7 @@ https://chrome.google.com/webstore/detail/bitwarden-free-password-m/nngceckbapeb
       </div>
       
 
-      <article class="post-content">
+      <article class="content">
         
         <h3 id="1介绍">1.介绍</h3>
 <p>Bitwarden 是一款自由且开源的密码管理服务，用户可在加密的保管库中存储敏感信息。Bitwarden 平台提供有多种客户端应用程序，包括网页用户界面、桌面应用，浏览器扩展、移动应用以及命令行界面。Bitwarden 提供云端托管服务，并支持自行部署解决方案。</p>
@@ -225,8 +234,8 @@ https://chrome.google.com/webstore/detail/bitwarden-free-password-m/nngceckbapeb
           
           
         </span>
-        
       </div>
+      
 
       
       <ul class="comment-tabs">
@@ -281,10 +290,864 @@ twikoo.init({
   });
 </script>
       
-    </div>
-  </section>
-  <footer class="footer">
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<footer class="footer">
   <div class="l-wrap">
+    <p class="aboutme">这是我的个人博客，已经运行了 <span id="days"></span> 天，写了 306 篇文章，共 194656 字。</p>
     <p>© 2020 - 2025 Powered by
       <a href="https://github.com/dlzmoe" target="_blank">Github</a>
       / <a href="/index.xml" target="_blank">RSS</a>
@@ -294,6 +1157,8 @@ twikoo.init({
 </footer>
 
 <script src="/js/main.js"></script>
+    </div>
+  </div>
 </body>
 
 </html>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="toTop" content="true">
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="author" content="子舒" />
+<meta name="author" content="zishu" />
 <meta property="og:url" content="https://zishu.me/blog/71.html/" />
 <link rel="canonical" href="https://zishu.me/blog/71.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
 <link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
@@ -24,11 +24,11 @@
 "headline" : "在 vue 中使用 axios 调用数据",
 "description" : "如何在 vue 中完成一次接口的调用？首选就是 axios，方便快捷又好用，支持各种 api ,封装也很方便。\n先用 node 安装一下。\nnpm install axios 然后在 main.js 文件中引入。\nimport axios from \u0026#39;axios\u0026#39; import VueAxios from \u0026#39;vue-axios\u0026#39; Vue.use(VueAxios, axios) 以我的一个工程目录作为实例，看一下代码。\n\/\/ ListThere.vue \/\/ html 代码 ... \u0026lt;div\u0026gt;{{ info }}\u0026lt;\/div\u0026gt; ... \/\/ js 代码 import axios from \u0026#34;axios\u0026#34;; export default { name: \u0026#34;ListThere\u0026#34;, data() { return { ... }; }, components: { ... }, methods: { ... }, mounted() { axios .get(\u0026#34;http:\/\/api.h-camel.com\/api?mod=interview\u0026amp;ctr=issues\u0026amp;act=today\u0026#34;) .then((response) =\u0026gt; (this.info = response)) }, }; 数据成功的被取到，然后需要将它在页面中展示出来。使用 vue 自带的 v-for 列表渲染。\n\u0026lt;ul class=\u0026#34;list-api-show\u0026#34;\u0026gt; \u0026lt;li v-for=\u0026#34;(item, index) in show\u0026#34; :key=\u0026#34;index\u0026#34;\u0026gt; {{ item.title }} \u0026lt;\/li\u0026gt; \u0026lt;\/ul\u0026gt; 然后通过 axios 把数据指向 v-for.\nmounted() { axios \/\/ ... .then((response) =\u0026gt; (this.show = response.data.result.today)) } 数据成功取出然后展示在 v-for 里面。\n当然了，这是成功的情况，加入失败了呢？我们需要浏览器给出提示，所以 axios 给出了一个 api \u0026mdash; err 语法。\nmounted() { axios \/\/ ... .catch(function (error) { if (error.response) { console.log(error.response.data); console.log(error.response.status); console.log(error.response.headers); console.log(\u0026#39;err\u0026#39;) } else if (error.request) { console.log(error.request); console.log(\u0026#39;err\u0026#39;) } else { console.log(\u0026#39;Error\u0026#39;, error.message); console.log(\u0026#39;err\u0026#39;) } console.log(error.config); console.log(\u0026#39;err\u0026#39;) }); } 如果接口有问题，或者我们调用时代码写错了，都会给出报错提示，具体什么样的错误会有什么样的警告，需要我们一一去经历摸索。\n",
 "inLanguage" : "en-US",
-"author" : "子舒",
-"creator" : "子舒",
-"publisher": "子舒",
-"accountablePerson" : "子舒",
-"copyrightHolder" : "子舒",
+"author" : "zishu",
+"creator" : "zishu",
+"publisher": "zishu",
+"accountablePerson" : "zishu",
+"copyrightHolder" : "zishu",
 "copyrightYear" : "2021",
 "datePublished": "2021-06-08 00:00:00 \u002b0000 UTC",
 "dateModified" : "2021-06-08 00:00:00 \u002b0000 UTC",
@@ -94,47 +94,56 @@ mounted() { axios // ... .catch(function (error) { if (error.response) { console
 </head>
 
 <body>
-  <header class="header">
-  <div class="l-wrap">
-    
-    <nav>
-      
-      <a href="/">首页</a>
-      
-      <a href="/blog/">文章</a>
-      
-      <a href="/categories/weekly/">周刊</a>
-      
-      <a href="/message/">留言</a>
-      
-      <a href="/about/">关于</a>
-      
-      <a href="/index.xml">RSS</a>
-      
-    </nav>
+  <div class="wrapper">
+    <div class="main">
+      <div class="top">
+  <a href="/"><img src="https://imgurl.zishu.me/author.webp" width="72" height="72" class="avatar" border="0"></a>
+  <div class="site-info">
+    <div class="site-title">zishu</div>
+    <div class="site-about">
+      <p>一个热爱生活的前端开发工程师。</p>
+    </div>
   </div>
-</header>
-  <section>
-    <div class="l-wrap">
-      <h1 class="body-title">在 vue 中使用 axios 调用数据</h1>
+</div>
+
+<div class="nav-container">
+  <div class="nav">
+    
+    <a href="/" class="nav-item">首页</a>
+    
+    <a href="/blog/" class="nav-item">文章</a>
+    
+    <a href="/categories/weekly/" class="nav-item">周刊</a>
+    
+    <a href="/message/" class="nav-item">留言</a>
+    
+    <a href="/about/" class="nav-item">关于</a>
+    
+    <a href="/links/" class="nav-item">友链</a>
+    
+
+    <a href="./index.xml" target="_blank"><img src="/images/rss.svg" alt="RSS" class="social-icon" width="1em"></a>
+    <a href="https://github.com/dlzmoe" target="_blank"><img src="/images/github.svg" alt="github.com/dlzmoe" class="social-icon" width="1em"></a>
+    <a href="https://discord.com/invite/n2pErsD7Kg" target="_blank"><img src="/images/discord.svg" alt="Discord Invite" class="social-icon" width="1em"></a>
+  </div>
+</div>
+
+      <h1>在 vue 中使用 axios 调用数据</h1>
 
       
-      <div class="post-meta">
-        <time>2021.06.08</time>
-      </div>
+      <div class="date">Oct 80, 80812</div>
       
-
 
       
       <div class="toc">
-        <details>
+        <details open>
           <summary accesskey="c" title="(Alt + C)"><span class="details">Table of Contents</span></summary>
           <div class="inner"> <nav id="TableOfContents"></nav></div>
         </details>
       </div>
       
 
-      <article class="post-content">
+      <article class="content">
         
         <p>如何在 vue 中完成一次接口的调用？首选就是 axios，方便快捷又好用，支持各种 api ,封装也很方便。</p>
 <p>先用 node 安装一下。</p>
@@ -229,8 +238,8 @@ mounted() { axios // ... .catch(function (error) { if (error.response) { console
           
           
         </span>
-        
       </div>
+      
 
       
       <ul class="comment-tabs">
@@ -285,10 +294,864 @@ twikoo.init({
   });
 </script>
       
-    </div>
-  </section>
-  <footer class="footer">
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<footer class="footer">
   <div class="l-wrap">
+    <p class="aboutme">这是我的个人博客，已经运行了 <span id="days"></span> 天，写了 306 篇文章，共 194656 字。</p>
     <p>© 2020 - 2025 Powered by
       <a href="https://github.com/dlzmoe" target="_blank">Github</a>
       / <a href="/index.xml" target="_blank">RSS</a>
@@ -298,6 +1161,8 @@ twikoo.init({
 </footer>
 
 <script src="/js/main.js"></script>
+    </div>
+  </div>
 </body>
 
 </html>

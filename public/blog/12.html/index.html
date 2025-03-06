@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="toTop" content="true">
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="author" content="子舒" />
+<meta name="author" content="zishu" />
 <meta property="og:url" content="https://zishu.me/blog/12.html/" />
 <link rel="canonical" href="https://zishu.me/blog/12.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
 <link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
@@ -24,11 +24,11 @@
 "headline" : "HTML 事件属性--DOM",
 "description" : "研究 html 的对象，事件和方法，从 js 的角度来思考，这个标签的属性是通过什么方法，触发什么事件来实现的\n键盘鼠标事件\n页面窗口事件\n表单事件\n一、window 事件属性 针对 window 对象触发的事件，在\u0026lt;body\u0026gt;中执行\n1.onbeforeprint／onafterprint 在浏览器打印之间\/后触发\n\u0026lt;body onbeforeprint = print()\u0026gt; \u0026lt;script\u0026gt; function print() { alert(\u0026#34;打印之间！\u0026#34;) } \u0026lt;\/script\u0026gt; 打印前和打印后的事件方法类似，一个是在打印前触发事件，一个是在打印这个事件结束之后触发onafterprint这个事件\n2.onbeforeunload\/unload 离开页面之间触发的事件／之后触发的事件\n打开 f12，然后刷新，或者关闭浏览器，可以在浏览器触发事件\n\u0026lt;script\u0026gt; window.onbeforeunload = function(){ return \u0026#34;提示\u0026#34; \/\/返回的内容不会显示， \/\/在刷新的时候触发，或者关闭浏览器，浏览会直接提示是否重新加载，不能直接返回return } \u0026lt;\/script\u0026gt; 3.onerror 当图片出错是可以触发该事件，支持该事件的标签只有 \u0026lt;img\u0026gt;,\u0026lt;object\u0026gt;,\u0026lt;style\u0026gt;\n\u0026lt;img src=\u0026#34;1.gif\u0026#34; onerror = \u0026#34;myfun()\u0026#34;\u0026gt; \u0026lt;script\u0026gt; function myfun() { alert(\u0026#34;图片出错\u0026#34;) } \u0026lt;\/script\u0026gt; 1.gif 不存在，因此触发了一个 myfun() 事件，弹出窗口\n4.onhashchange 当文档改变时发生的脚本\n5.onload 页面加载完成之后触发\n6.onmessage 在消息被触发时运行 ???\n7.onoffline 当浏览器离线时触发\n\u0026lt;body onoffline=\u0026#34;myfun()\u0026#34;\u0026gt; 8.ononline 当浏览器在线工作时触发\n\u0026lt;body ononline=\u0026#34;myfun()\u0026#34;\u0026gt; ononline和onoffline在网络断线或者连线时触发，可以控制电脑网络查看效果\n9.onpagehide 当用户从网页离开时触发，也可以理解成当窗口隐藏时运行的脚本\n刷新页面可以触发事件\n10.onpageshow 打开一个新页面或者刷新的时候触发\n相当于onload，加载页面时触发，但是在不同浏览器触发的有所不同\n第一次加载页面时，onpageshow在ie浏览器中不触发，其他情况都触发\n11.onresize 当浏览器窗口被改变大小时触发事件\n\u0026lt;body onresize=\u0026#34;myfun()\u0026#34;\u0026gt; \u0026lt;script\u0026gt; function myfun() { alert(\u0026#39;浏览器窗口改变了\u0026#39;) } \u0026lt;\/script\u0026gt; \u0026lt;\/body\u0026gt; 12.onunload 页面被下载时触发，就是刷新或者关闭页面时触发\nwindow.onunload = function() { return \u0026#39;确定关闭吗？\u0026#39; } 13.onpopstate 当浏览器窗口记录改变时运行的脚本，\n14.onredo 当文档执行撤销时触发的事件\n二、form 事件属性 由 html 表单内触发的事件，通常使用在 form 元素中\n1.onblur 失去焦点时运行的脚本\n\u0026lt;input name=\u0026#34;int\u0026#34; id=\u0026#34;int\u0026#34; onblur=\u0026#34;myfun()\u0026#34;\u0026gt; \u0026lt;script\u0026gt; function myfun() { var int = document.getElementById(\u0026#39;int\u0026#39;).value; document.getElementById(\u0026#39;int\u0026#39;).value = int.toUpperCase(); } \u0026lt;\/script\u0026gt; 给 input 绑定一个 onblur=myfun() 的事件，当 input 失去焦点的时候产生什么样的效果\n2.onfocus 元素获得焦点时触发事件，和 onblur 相反\n3.onchange 当元素值被改变的时候触发事件\n\u0026lt;input type=\u0026#34;text\u0026#34; id=\u0026#34;int\u0026#34; name=\u0026#34;int\u0026#34; onchange=\u0026#34;myfun()\u0026#34;\u0026gt; \u0026lt;script\u0026gt; function myfun() { alert(\u0026#39;我的元素被改变啦！\u0026#39;) } \u0026lt;\/script\u0026gt; 这个事件的意思就是，当我对 input 内容进行操作改变后，浏览器会弹出一个 alert\n4.oncontextmenu 当用户右键操作时触发该事件\n可以绑定在任意元素中触发，可以一直触发，不用刷新\n\u0026lt;div oncontextmenu=\u0026#34;myfun()\u0026#34;\u0026gt;这是一个文本框！\u0026lt;\/div\u0026gt; \u0026lt;script\u0026gt; function myfun() { alert(\u0026#39;oncontentmenu事件触发\u0026#39;) } \u0026lt;\/script\u0026gt; 5.onformchange 当表单获得输入时可以触发事件\n触发发不了脚本\n6.onforminput 当表单获得用户输入时触发的事件，无法触发\n浏览器不支持\n6.oninput 当元素获得用户输入时触发的事件 当输入框输入或者删除时都会触发 oninput\n\u0026lt;input type=\u0026#34;text\u0026#34; oninput=\u0026#34;myfun()\u0026#34;\u0026gt; \u0026lt;script\u0026gt; function myfun() { alert(\u0026#39;oninput触发了\u0026#39;) } \u0026lt;\/script\u0026gt; onchange和oninput有相似的地方，都是改变文本内容时触发事件\n但是onchange是在 input 失去焦点时才触发，oninput是立刻触发\n7.oninvalid oninvalid事件要搭配required属性来使用\nrequired如果使用该属性，代表必填字段，oninvalid是当元素无效时触发的事件\n\u0026lt;form\u0026gt; \u0026lt;input type=\u0026#34;text\u0026#34; oninvalid=\u0026#34;myfun()\u0026#34; required\u0026gt; \u0026lt;input type=\u0026#34;submit\u0026#34;\u0026gt; \u0026lt;\/form\u0026gt; \u0026lt;script\u0026gt; function myfun() { alert(\u0026#39;填写为空\u0026#39;) } \u0026lt;\/script\u0026gt; 8.onreset 表单中重置按钮被点击时触发\n\u0026lt;form onreset=\u0026#34;myfun()\u0026#34;\u0026gt; \u0026lt;input type=\u0026#34;text\u0026#34;\u0026gt; \u0026lt;input type=\u0026#34;reset\u0026#34; value=\u0026#34;reset\u0026#34;\u0026gt; \u0026lt;\/form\u0026gt; \u0026lt;script\u0026gt; function myfun(){ alert(\u0026#39;重置成功\u0026#39;) } \u0026lt;\/script\u0026gt; 9.onselect 文本被选中时触发\n\u0026lt;input onselect=\u0026#34;myfun()\u0026#34; value=\u0026#34;选中我\u0026#34;\u0026gt; \u0026lt;script\u0026gt; function myfun() { alert(\u0026#39;onselect被触发 \u0026#39;) } \u0026lt;\/script\u0026gt; 10.onsubmit 当表单被提交时触发\n要把事件绑定到 form 标签里面\n\u0026lt;form onsubmit=\u0026#34;myfun()\u0026#34;\u0026gt; \u0026lt;!-- 注意：事件要绑定到form标签上面 --\u0026gt; \u0026lt;input type=\u0026#34;text\u0026#34; name=\u0026#34;name\u0026#34;\u0026gt; \u0026lt;input type=\u0026#34;submit\u0026#34; value=\u0026#34;submit\u0026#34;\u0026gt; \u0026lt;\/form\u0026gt; \u0026lt;script\u0026gt; function myfun() { alert(\u0026#39;提交了\u0026#39;) } \u0026lt;\/script\u0026gt; 注意：提交了之后会自动刷新页面，document 和 console 的触发内容会立刻刷新，一闪而过，只有 alert 能停留在页面上，等待点击确定\n三、key 键盘事件 1.onkeydown 按下任意键时触发，包括系统按钮，箭头和功能键\n2.onkeypress 按下任意字母数字键时触发，但系统按钮，箭头和功能无法识别\n3.onkeyup 松开任何之前按下的键盘时触发\n四、mouse 鼠标事件 利用鼠标触发的事件\n1.onclick 鼠标点击元素触发的事件\n\u0026lt;p onclick=\u0026#34;myfun()\u0026#34;\u0026gt;点击我\u0026lt;\/p\u0026gt; \u0026lt;script\u0026gt; function myfun() { alert(\u0026#39;点击成功\u0026#39;) } \u0026lt;\/script\u0026gt; 2.ondblclick 鼠标双击时触发的事件\n\u0026lt;div ondblclick=\u0026#34;myfun()\u0026#34;\u0026gt;测试文本！\u0026lt;\/div\u0026gt; \u0026lt;script\u0026gt; function myfun() { alert(\u0026#39;双击测试成功！\u0026#39;) } \u0026lt;\/script\u0026gt; 3.拖动事件 ondrag\/ 元素被拖动时触发的事件\nondragstart\/在拖动操作开端运行的脚本\nondrop\/ 当元素正在被拖动时触发的事件\nondragend\/在拖动操作末端运行的脚本\nondragenter\/当元素元素已被拖动到有效拖放区域时运行的脚本\nondragleave\/当元素离开有效拖放目标时运行的脚本\nondragover\/当元素在有效拖放目标上正在被拖动时运行的脚本\n4.onmousedown\/onmouseup 当元素按下鼠标时触发的事件\/鼠标释放时触发的事件\n一个是按下去的瞬间就触发 一个是当鼠标被松开的时候触发 onmouseup效果和onclick一样，因为click也是点击过后触发\n这两个事件加起来相当于一个click事件，但是并不能用这两个事件来做点击事件的效果\n5.onmousemove 当鼠标移动到元素上时触发\n相当于 css 里面的 :hover，但是作为事件拥有更灵活多变的用法\n6.onmouseout 当鼠标离开元素时触发\n7.onmouseover 当鼠标进入元素时触发\nonmouseover和onmousemove都是鼠标进入元素触发\n区别：\n1.\nover在进入元素时触发，但在元素内部移动时不触发 move是进入元素时和在元素里面移动时都触发\n2.\nover优先触发，然后才触发move\n8.onmousewheel 当鼠标滚动被滚动时触发的事件\n\u0026lt;style\u0026gt; div { height: 1000px; } \u0026lt;\/style\u0026gt; \u0026lt;body\u0026gt; \u0026lt;div onmousewheel=\u0026#34;myfun()\u0026#34;\u0026gt;测试\u0026lt;\/div\u0026gt; \u0026lt;script\u0026gt; function myfun() { alert(\u0026#39;onmousewheel\u0026#39;) } \u0026lt;\/script\u0026gt; \u0026lt;\/body\u0026gt; 每次滚动时都可以触发，可以绑定到 body 上\n9.onscroll 当元素滚动条被滚动时触发的事件\n\u0026lt;div onscroll=\u0026#34;myfun()\u0026#34;\u0026gt;In my younger and more vulnerable years my father gave me some advice that I\u0026#39;ve been turning over in my mind ever since.\u0026lt;\/div\u0026gt; \u0026lt;p\u0026gt;滑动了\u0026lt;span id=\u0026#34;ci\u0026#34;\u0026gt;\u0026lt;\/span\u0026gt;次\u0026lt;\/p\u0026gt; \u0026lt;script\u0026gt; x = 0 function myfun() { document.getElementById(\u0026#39;ci\u0026#39;).innerHTML = x \u002b= 1 } \u0026lt;\/script\u0026gt; 这个案例－－－滑动滚动计数\n区别：\n1.wheel在滚轮滑动的时候有效，鼠标拖拽的时候无效\n2.onscroll不管在滑动还是拖动的时候，均生效\n",
 "inLanguage" : "en-US",
-"author" : "子舒",
-"creator" : "子舒",
-"publisher": "子舒",
-"accountablePerson" : "子舒",
-"copyrightHolder" : "子舒",
+"author" : "zishu",
+"creator" : "zishu",
+"publisher": "zishu",
+"accountablePerson" : "zishu",
+"copyrightHolder" : "zishu",
 "copyrightYear" : "2020",
 "datePublished": "2020-10-29 00:00:00 \u002b0000 UTC",
 "dateModified" : "2020-10-29 00:00:00 \u002b0000 UTC",
@@ -382,40 +382,49 @@ over优先触发，然后才触发move
 </head>
 
 <body>
-  <header class="header">
-  <div class="l-wrap">
-    
-    <nav>
-      
-      <a href="/">首页</a>
-      
-      <a href="/blog/">文章</a>
-      
-      <a href="/categories/weekly/">周刊</a>
-      
-      <a href="/message/">留言</a>
-      
-      <a href="/about/">关于</a>
-      
-      <a href="/index.xml">RSS</a>
-      
-    </nav>
+  <div class="wrapper">
+    <div class="main">
+      <div class="top">
+  <a href="/"><img src="https://imgurl.zishu.me/author.webp" width="72" height="72" class="avatar" border="0"></a>
+  <div class="site-info">
+    <div class="site-title">zishu</div>
+    <div class="site-about">
+      <p>一个热爱生活的前端开发工程师。</p>
+    </div>
   </div>
-</header>
-  <section>
-    <div class="l-wrap">
-      <h1 class="body-title">HTML 事件属性--DOM</h1>
+</div>
+
+<div class="nav-container">
+  <div class="nav">
+    
+    <a href="/" class="nav-item">首页</a>
+    
+    <a href="/blog/" class="nav-item">文章</a>
+    
+    <a href="/categories/weekly/" class="nav-item">周刊</a>
+    
+    <a href="/message/" class="nav-item">留言</a>
+    
+    <a href="/about/" class="nav-item">关于</a>
+    
+    <a href="/links/" class="nav-item">友链</a>
+    
+
+    <a href="./index.xml" target="_blank"><img src="/images/rss.svg" alt="RSS" class="social-icon" width="1em"></a>
+    <a href="https://github.com/dlzmoe" target="_blank"><img src="/images/github.svg" alt="github.com/dlzmoe" class="social-icon" width="1em"></a>
+    <a href="https://discord.com/invite/n2pErsD7Kg" target="_blank"><img src="/images/discord.svg" alt="Discord Invite" class="social-icon" width="1em"></a>
+  </div>
+</div>
+
+      <h1>HTML 事件属性--DOM</h1>
 
       
-      <div class="post-meta">
-        <time>2020.10.29</time>
-      </div>
+      <div class="date">Oct 290, 292912</div>
       
-
 
       
       <div class="toc">
-        <details>
+        <details open>
           <summary accesskey="c" title="(Alt + C)"><span class="details">Table of Contents</span></summary>
           <div class="inner"> <nav id="TableOfContents">
   <ul>
@@ -475,7 +484,7 @@ over优先触发，然后才触发move
       </div>
       
 
-      <article class="post-content">
+      <article class="content">
         
         <p>研究 html 的<code>对象，事件和方法</code>，从 js 的角度来思考，这个标签的属性是通过什么方法，触发什么事件来实现的</p>
 <ol>
@@ -768,8 +777,8 @@ over优先触发，然后才触发move
           
           
         </span>
-        
       </div>
+      
 
       
       <ul class="comment-tabs">
@@ -824,10 +833,864 @@ twikoo.init({
   });
 </script>
       
-    </div>
-  </section>
-  <footer class="footer">
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<footer class="footer">
   <div class="l-wrap">
+    <p class="aboutme">这是我的个人博客，已经运行了 <span id="days"></span> 天，写了 306 篇文章，共 194656 字。</p>
     <p>© 2020 - 2025 Powered by
       <a href="https://github.com/dlzmoe" target="_blank">Github</a>
       / <a href="/index.xml" target="_blank">RSS</a>
@@ -837,6 +1700,8 @@ twikoo.init({
 </footer>
 
 <script src="/js/main.js"></script>
+    </div>
+  </div>
 </body>
 
 </html>

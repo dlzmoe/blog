@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="toTop" content="true">
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="author" content="子舒" />
+<meta name="author" content="zishu" />
 <meta property="og:url" content="https://zishu.me/blog/43.html/" />
 <link rel="canonical" href="https://zishu.me/blog/43.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
 <link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
@@ -24,11 +24,11 @@
 "headline" : "使用 React 与 Vue 创建同一款 App，差别究竟有多大？",
 "description" : "关于 React 框架 和 Vue 框架 的对比，用两者写出同一个程序，对比其代码实现的过程，看看它们的差异究竟有多大？\n转载于：https:\/\/blog.csdn.net\/csdnnews\/article\/details\/81880378 原文：https:\/\/medium.com\/javascript-in-plain-english\/i-created-the-exact-same-app-in-react-and-vue-here-are-the-differences-e9a1ae8077fd 作者简介：Sunil Sandhu，一位 Web 全栈工程师 \u002b 空想家。 译者：安翔，责编：屠敏\n众所周知，Vue 和 React 都是目前非常著名的前端框架。我在工作中经常使用 Vue，因此我对它有很深入的了解。同时，我也对 React 充满了好奇，想要学习一下，一探究竟。\n于是我阅读了 React 文档并观看了一些视频教程，虽然这些资料很不错，但是我真正想了解的是 React 与 Vue 之间的不同之处。所谓“不同之处”，我并非想知道它们是否都具有虚拟 DOMS 或者它们如何渲染页面，而是希望有人能够从代码的角度解释这两者之间的差异。我想找到一篇解释这些差异的文章，以便 Vue 或者 React 的初学者可以更好地理解它们两者之间的差异。\n很遗憾，我并未找到一篇这样的文章。于是我意识到必须自己动手来比较 Vue 与 React 之间的异同。在我自力更生的过程中，我用这篇文章记录下了具体过程。\n1.目标 我将会构建一个标准的待办事项应用程序，允许用户添加和删除列表中的项目。这两个应用程序都使用默认的 CLI（command-line interface，命令行界面）构建，React 使用 create-react-app，Vue 使用 vue-cli。\n两个应用程序的外观如下：\n两个应用程序的 CSS 代码几乎一样，但这些代码的位置存在差异。考虑到这一点，我们来看看这两个应用程序的文件结构：\n你会发现它们的结构几乎完全相同。唯一的区别在于 React App 拥有三个 CSS 文件，而 Vue App 中没有 CSS 文件。这是因为 React 的 create-react-app 组件需要一个附带文件来保存其样式，而 Vue CLI 采用全包方法，其样式在实际组件文件中声明。\n两种不同的策略得到的结果是一样的，相信开发者很快能够掌握这两种不同的策略。开发者可以根据自己的偏好做出选择，你会听到开发社区关于如何构建 CSS 的大量讨论。以上，我们遵循两个 CLI 列出了代码结构。\n在我们进一步讨论之前，先快速看一下典型的 Vue 和 React 组件的外观：\n现在让我们正式开始，深入其中的细节！\n2.如何修改数据 首先，我们需要明白“修改数据”的意思是什么。它听起来有些学术，但实际上很简单，就是把我们已经存储好的数据进行更改。比如，如果我们想把一个人的名字变量从“Jhon”改为“Mark”，我们就需要执行“修改数据”的操作。在这一点上，React 和 Vue 的处理方式有所区别。Vue 本质上会创建一个数据对象，其中的数据可以自由更改；React 则创建一个状态对象，更改数据需要一些额外的操作。React 之所以需要额外的操作有着自己的理由，稍后我会深入介绍。在此之前，我们先看看 Vue 中的数据对象和 React 中的状态对象：\nvue 数据对象\nReact 状态对象\n从图中可以看出，我们传入了相同的数据，但它们的标记方法不同。因此，将初始数据传递到组件的方式非常相似。但正如我们提到的那样，在两个框架中更改数据的方式有所不同。\n假设我们有一个名为 name: ‘Sunil’的数据元素。\n在 Vue 中，我们通过调用 this.name 来引用它。我们也可以通过调用 this.name =\u0026lsquo;John\u0026rsquo; 来更新它。这样一来，名字就被成功改为了“Jhon”。\n在 React 中，我们通过调用 this.state.name 来引用同一段数据。现在关键的区别在于，我们不能简单地写成 this.state.name =\u0026lsquo;John\u0026rsquo;，因为 React 有限制机制，它会阻止这种简单的修改方式。在 React 中，我们需要这样写：this.setState({name：\u0026lsquo;John\u0026rsquo;})。\n虽然这基本上与我们在 Vue 中实现的结果一样，但是 React 的操作更为繁琐，那是因为 Vue 在每次更新数据时默认组合了自己的 setState 版本。简单来说就是，React 需要 setState，然后更新其内部数据，而对于 Vue 来说，当你更新数据对象的值时它就默认了你的更改意图。那么为什么 React 没有进行简化，为什么需要 setState 呢？Revanth Kumar 对此做出了解释：\n“这是因为 React 希望在状态发生变化时重新运行某些生命周期 hook，比如 componentWillReceiveProps、shouldComponentUpdate、componentWillUpdate、render、componentDidUpdate。当你调用 setState 函数时，它知道状态已经改变。如果你直接改变状态，React 将需要做更多工作来跟踪更改以及运行生命周期 hook 等等。所以为了简单起见，React 使用 setState。\u0026quot;\n3.添加新的待办事项 React 的实现方法 createNewToDoItem = () =\u0026gt; { this.setState( ({ list, todo }) =\u0026gt; ({ list: [ ...list, { todo } ], todo: \u0026#39;\u0026#39; }) ); }; 在 React 中，我们的输入字段有一个名为 value 的属性。这个 value 通过使用几个函数自动更新，这些函数绑定在一起以创建双向绑定。我们通过在输入字段上附加一个 onChange 事件监听器来创建这种形式的双向绑定。看看代码，一探究竟：\n\u0026lt;input type=\u0026#34;text\u0026#34; value={this.state.todo} onChange={this.handleInput}\/\u0026gt; 只要输入字段的值发生更改，handleInput 函数就会运行。它通过将状态对象设置为输入字段中的任何内容来更新状态对象内的 todo。handleInput 函数如下：\nhandleInput = e =\u0026gt; { this.setState({ todo: e.target.value }); }; 现在，只要用户按下页面上的 \u002b 按钮添加新项目，createNewToDoItem 函数就会运行 this.setState 并向其传递一个函数。该函数有两个参数，第一个是来自状态对象的整个列表数组，第二个是由 handleInput 函数更新的 todo。然后该函数返回一个新对象，该对象包含之前的整个列表，并在其末尾添加 todo。整个列表是通过使用扩展运算符添加的。\n最后，我们将 todo 设置为空字符串，它会自动更新输入字段中的 value。\nVue 的实现方法 createNewToDoItem() { this.list.push( { \u0026#39;todo\u0026#39;: this.todo } ); this.todo = \u0026#39;\u0026#39;; } 在 Vue 中，我们的输入字段中有一个名为 v-model 的句柄。这实现了**双向绑定。输入字段代码如下：\n\u0026lt;input type=\u0026#34;text\u0026#34; v-model=\u0026#34;todo\u0026#34;\/\u0026gt; V-Model 将输入字段的内容绑定到名为 toDoItem 的数据对象的键（key）上。当页面加载时，我们将 toDoItem 设置为空字符串，比如：todo：\u0026rsquo; \u0026lsquo;。如果已经存在数据，例如 todo：\u0026lsquo;添加文本处\u0026rsquo;，输入字段将加载添加文本处的输入内容。无论如何，将其作为空字符串，我们在输入字段中键入的任何文本都会绑定到 todo。这实际上是双向绑定（输入字段可以更新数据对象，数据对象可以更新输入字段）。\n因此，回顾前面的 createNewToDoItem() 代码块，我们将 todo 的内容存放到列表数组中，然后将 todo 改为空字符串。\n4.删除待办事项 React 的实现方法 deleteItem = indexToDelete =\u0026gt; { this.setState(({ list }) =\u0026gt; ({ list: list.filter((toDo, index) =\u0026gt; index !== indexToDelete) })); }; 尽管 deleteItem 函数位于 ToDo.js 文件中，但是从 ToDoItem.js 文件中引用它也很容易，将 deleteItem() 函数作为 上的 prop 传递：\n\u0026lt;ToDoItem deleteItem={this.deleteItem.bind(this, key)}\/\u0026gt; 这会将该函数传递给子组件，使其可以访问。我们绑定了 this 并传递 key 参数，当用户点击删除项时，函数通过 key 区分用户点击的是哪一条 ToDoItem。然后，在 ToDoItem 组件内部，我们执行以下操作：\n\u0026lt;div className=”ToDoItem-Delete” onClick={this.props.deleteItem}\u0026gt;-\u0026lt;\/div\u0026gt; 想要引用位于父组件内部的函数，只需引用 this.props.deleteItem 即可。\nVue 的实现方法 onDeleteItem(todo){ this.list = this.list.filter(item =\u0026gt; item !== todo); } Vue 的实现方法稍有不同，我们需要做到以下三点：\n首先，在元素上调用函数： \u0026lt;div class=”ToDoItem-Delete” @click=”deleteItem(todo)”\u0026gt;-\u0026lt;\/div\u0026gt; 然后我们必须创建一个 emit 函数，将其作为子组件的内部方法（在本例中为 ToDoItem.vue），如下所示： deleteItem(todo) { this.$emit(\u0026#39;delete\u0026#39;, todo) } 之后，你会发现，当我们添加 ToDo.vue 的 ToDoItem.vue 时，实际上引用了一个函数： \u0026lt;ToDoItem v-for=\u0026#34;todo in list\u0026#34; :todo=\u0026#34;todo\u0026#34; @delete=\u0026#34;onDeleteItem\u0026#34; \/\/ \u0026lt;-- this :) :key=\u0026#34;todo.id\u0026#34; \/\u0026gt; 这就是所谓的自定义事件监听器。它会监听任何使用 \u0026lsquo;delete\u0026rsquo; 字符串的触发事件。一旦监听到事件，它会触发一个名为 onDeleteItem 的函数。此函数位于 ToDo.vue 内部，而不是 ToDoItem.vue。如前所述，该函数只是过滤数据对象内的 todo 数组，以删除被点击的待办事项。\n在 Vue 示例中还需要注意的是，我们可以在 @click 侦听器中编写 $emit 部分，这样更加简单，如下所示：\n\u0026lt;div class=”ToDoItem-Delete” @click=”$emit(‘delete’, todo)”\u0026gt;-\u0026lt;\/div\u0026gt; 如果你喜欢，这样做可以把 3 步减少到 2 步。\nReact 中的子组件可以通过 this.props 访问父函数，而在 Vue 中，你需要从子组件中发出事件，父组件来收集事件。\n5.如何传递事件监听器 React 的实现方法 事件监听器处理简单事件（比如点击）非常直接。我们为待办事项创建了点击事件，用于创建新的待办事项，代码如下：\n\u0026lt;div className=”ToDo-Add” onClick={this.createNewToDoItem}\u0026gt;\u002b\u0026lt;\/div\u0026gt; 非常简单，就像使用 vanilla JS 处理内联 onClick 一样。正如前文所述，只要按下回车按钮，设置事件监听器就需要花费更长的时间。这需要输入标签处理 onKeyPress 事件，代码如下：\n\u0026lt;input type=”text” onKeyPress={this.handleKeyPress}\/\u0026gt; 该函数只要识别到\u0026rsquo;enter\u0026rsquo;键被按下，它就会触发 createNewToDoItem 函数，代码如下所示：\nhandleKeyPress = (e) =\u0026gt; { if (e.key === ‘Enter’) { this.createNewToDoItem(); } }; Vue 的实现方法 Vue 的事件监听器更加直接。我们只需要使用一个简单的 @ 符号，就可以构建出我们想要的事件监听器。例如，想要添加 click 事件监听器，代码：\n\u0026lt;div class=”ToDo-Add” @click=”createNewToDoItem()”\u0026gt;\u002b\u0026lt;\/div\u0026gt; 注意：@click 实际上是 v-on:click 的简写。Vue 事件监听器很强大，你可以为其选择属性，例如 .once 可以防止事件监听器被多次触发。此外，它还包含很多快捷方式。按下回车按钮时，React 就需要花费更长的时间来创建事件监听器，从而创建新的 ToDo 项目。在 Vue，代码如下：\n\u0026lt;input type=”text” v-on:keyup.enter=”createNewToDoItem”\/\u0026gt; 6.如何将数据传递给子组件 React 的实现方法 在 React 中，我们将 props 传递到子组件的创建处。比如：\n\u0026lt;ToDoItem key={key} item={todo} \/\u0026gt; 此处我们向 ToDoItem 组件传递了两个 prop。之后，我们可以在子组件中通过 this.props 引用它们。因此，想要访问 item.todo prop，我们只需调用 this.props.item。\nVue 的实现方法 在 Vue 中，我们将 props 传递到子组件创建处的方式如下：\n\u0026lt;ToDoItem v-for=\u0026#34;todo in list\u0026#34; :todo=\u0026#34;todo\u0026#34; :key=\u0026#34;todo.id\u0026#34; @delete=\u0026#34;onDeleteItem\u0026#34; \/\u0026gt; 我们将它们传递给子组件中的 props 数组，如：props：[\u0026lsquo;id\u0026rsquo;，\u0026rsquo;todo\u0026rsquo;]。然后可以在子组件中通过名字引用它们。\n7.如何将数据发送回父组件 React 的实现方法 我们首先将函数传递给子组件，方法是在我们调用子组件时将其引用为 prop。然后我们通过引用 this.props.whateverTheFunctionIsCalled，为子组件添加调用函数，例如 onClick。然后，这将触发父组件中的函数。删除待办事项一节中详细介绍了整个过程。\nVue 的实现方法 在子组件中我们只需编写一个函数，将一个值发送回父函数。在父组件中编写一个函数来监听子组件何时发出该值的事件，监听到事件之后触发函数调用。同样，删除待办事项一节中详细介绍了整个过程。\n8.总结 我们研究了添加、删除和更改数据，以 prop 形式从父组件到子组件传递数据，以及通过事件监听器的形式将数据从子组件发送到父组件。当然，React 和 Vue 之间存在一些小差异，希望本文的内容有助于理解这两个框架。\n两个应用程序的 GitHub 地址：\n**Vue ToDo:**https:\/\/github.com\/sunil-sandhu\/vue-todo\n**React ToDo:**https:\/\/github.com\/sunil-sandhu\/react-todo\n",
 "inLanguage" : "en-US",
-"author" : "子舒",
-"creator" : "子舒",
-"publisher": "子舒",
-"accountablePerson" : "子舒",
-"copyrightHolder" : "子舒",
+"author" : "zishu",
+"creator" : "zishu",
+"publisher": "zishu",
+"accountablePerson" : "zishu",
+"copyrightHolder" : "zishu",
 "copyrightYear" : "2021",
 "datePublished": "2021-01-06 00:00:00 \u002b0000 UTC",
 "dateModified" : "2021-01-06 00:00:00 \u002b0000 UTC",
@@ -262,40 +262,49 @@ Vue 的实现方法 在子组件中我们只需编写一个函数，将一个值
 </head>
 
 <body>
-  <header class="header">
-  <div class="l-wrap">
-    
-    <nav>
-      
-      <a href="/">首页</a>
-      
-      <a href="/blog/">文章</a>
-      
-      <a href="/categories/weekly/">周刊</a>
-      
-      <a href="/message/">留言</a>
-      
-      <a href="/about/">关于</a>
-      
-      <a href="/index.xml">RSS</a>
-      
-    </nav>
+  <div class="wrapper">
+    <div class="main">
+      <div class="top">
+  <a href="/"><img src="https://imgurl.zishu.me/author.webp" width="72" height="72" class="avatar" border="0"></a>
+  <div class="site-info">
+    <div class="site-title">zishu</div>
+    <div class="site-about">
+      <p>一个热爱生活的前端开发工程师。</p>
+    </div>
   </div>
-</header>
-  <section>
-    <div class="l-wrap">
-      <h1 class="body-title">使用 React 与 Vue 创建同一款 App，差别究竟有多大？</h1>
+</div>
+
+<div class="nav-container">
+  <div class="nav">
+    
+    <a href="/" class="nav-item">首页</a>
+    
+    <a href="/blog/" class="nav-item">文章</a>
+    
+    <a href="/categories/weekly/" class="nav-item">周刊</a>
+    
+    <a href="/message/" class="nav-item">留言</a>
+    
+    <a href="/about/" class="nav-item">关于</a>
+    
+    <a href="/links/" class="nav-item">友链</a>
+    
+
+    <a href="./index.xml" target="_blank"><img src="/images/rss.svg" alt="RSS" class="social-icon" width="1em"></a>
+    <a href="https://github.com/dlzmoe" target="_blank"><img src="/images/github.svg" alt="github.com/dlzmoe" class="social-icon" width="1em"></a>
+    <a href="https://discord.com/invite/n2pErsD7Kg" target="_blank"><img src="/images/discord.svg" alt="Discord Invite" class="social-icon" width="1em"></a>
+  </div>
+</div>
+
+      <h1>使用 React 与 Vue 创建同一款 App，差别究竟有多大？</h1>
 
       
-      <div class="post-meta">
-        <time>2021.01.06</time>
-      </div>
+      <div class="date">Oct 60, 60612</div>
       
-
 
       
       <div class="toc">
-        <details>
+        <details open>
           <summary accesskey="c" title="(Alt + C)"><span class="details">Table of Contents</span></summary>
           <div class="inner"> <nav id="TableOfContents">
   <ul>
@@ -338,7 +347,7 @@ Vue 的实现方法 在子组件中我们只需编写一个函数，将一个值
       </div>
       
 
-      <article class="post-content">
+      <article class="content">
         
         <p>关于 <a href="https://react.docschina.org/">React 框架</a> 和 <a href="https://cn.vuejs.org/">Vue 框架</a> 的对比，用两者写出同一个程序，对比其代码实现的过程，看看它们的差异究竟有多大？</p>
 <blockquote>
@@ -506,8 +515,8 @@ Vue 的实现方法 在子组件中我们只需编写一个函数，将一个值
           
           
         </span>
-        
       </div>
+      
 
       
       <ul class="comment-tabs">
@@ -562,10 +571,864 @@ twikoo.init({
   });
 </script>
       
-    </div>
-  </section>
-  <footer class="footer">
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<footer class="footer">
   <div class="l-wrap">
+    <p class="aboutme">这是我的个人博客，已经运行了 <span id="days"></span> 天，写了 306 篇文章，共 194656 字。</p>
     <p>© 2020 - 2025 Powered by
       <a href="https://github.com/dlzmoe" target="_blank">Github</a>
       / <a href="/index.xml" target="_blank">RSS</a>
@@ -575,6 +1438,8 @@ twikoo.init({
 </footer>
 
 <script src="/js/main.js"></script>
+    </div>
+  </div>
 </body>
 
 </html>

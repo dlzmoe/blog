@@ -3,7 +3,9 @@ slug: about
 title: 关于
 ---
 
-<img class="not author" src="https://imgurl.zishu.me/author.webp" />
+你可以通过下面几种方式检索我的文章：
+
+[全部文章](/blog/)、[标签管理](/tags/)、[关键词搜索](/search/)、[RSS 订阅](/index.xml)。
 
 一个热爱生活的前端开发工程师，喜欢写点开源程序，托管了不少项目在 [GitHub](https://github.com/dlzmoe/) 上。
 
@@ -17,6 +19,7 @@ title: 关于
 
 前几年也喜欢上了骑行，露营等等各种爱好。
 
+点击查看 [更多关于我](/about/)，[友情链接](/links/)。
 
 ### 项目
 

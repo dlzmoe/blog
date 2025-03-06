@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="toTop" content="true">
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="author" content="子舒" />
+<meta name="author" content="zishu" />
 <meta property="og:url" content="https://zishu.me/blog/53.html/" />
 <link rel="canonical" href="https://zishu.me/blog/53.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
 <link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
@@ -24,11 +24,11 @@
 "headline" : "怎么让 css3 里面的动画属性看起来更流畅？",
 "description" : "ps：先说点题外话，因为工作的原因很久没更新博客了，最近也是告一段落，处理一了一些事情之后可以安心坐下来，把我的博客重新整理一下。\n今天要讲的是 css3 的一个新属性 animation，也算是一个回顾吧，我只是将平时如何使用，以及一些技巧分享出来。如果想学习更基础的内容，可以点击链接：https:\/\/www.runoob.com\/css3\/css3-animations.html，网上类似的教程还是蛮多的。\n这篇文章并不细讲动画的基础属性，而是稍微扩展一个话题：怎么让 css3 里面的动画属性看起来更流畅？\n当然在讲之前还是要简单介绍一下 animation 基本属性。\nanimation 属性 animation 属性有下面几个值：\n@keyframes | 动画本身（最重要的） animation-name | 动画的名称 animation-duration | 动画所经历的时间 animation-fill-mode | 当属性为 forwards 时，动画停留在最后一帧 动画主要可以用于一些官网特效，或者自适应的布局。\n如何写一个最基本的动画 动画就是由一个状态到另一个状态的过程，比如从左到右的一个移动过程。\n首先要先了解各个属性具体的作用是什么，就拿从白到黑举个例子吧，首先写一个 @keyframes 的动画过程。\n@keyframes leftright { 0% { transform: translateX(0); } 100% { transform: translateX(100px); } } 这段代码的意思就是有一个名为 leftright 的动画，将容器从左到右移动了 100px。\n然后我们进一步补全这个动画。\n\u0026lt;!DOCTYPE html\u0026gt; \u0026lt;html\u0026gt; \u0026lt;head\u0026gt; \u0026lt;title\u0026gt;动画\u0026lt;\/title\u0026gt; \u0026lt;style\u0026gt; .demo { width: 100px; height: 100px; background: #000; animation-name: leftright; animation-duration: 1s; } @keyframes leftright { 0% { transform: translateX(0); } 100% { transform: translateX(100px); } } \u0026lt;\/style\u0026gt; \u0026lt;\/head\u0026gt; \u0026lt;body\u0026gt; \u0026lt;div class=\u0026#34;demo\u0026#34;\u0026gt;\u0026lt;\/div\u0026gt; \u0026lt;\/body\u0026gt; \u0026lt;\/html\u0026gt; 然后我们到浏览器跑一下这个页面试试看，可以看到一个黑色的方块从左右移动了 100px 的距离，总计 1 秒完成。\n但是这个动画结束的很突兀，容器突然回到原地，这是为什么呢？因为我们没有保留最后一帧，这需要一个属性，最上面我们讲过了。\n.demo { width: 100px; height: 100px; background: #fff; animation-name: leftright; \/* 将动画的名称绑定到该标签 *\/ animation-duration: 1s; \/* 给动画的过程设一个时长 *\/ animation-fill-mode: forwards; \/* 动画停留在最后一帧 *\/ } 运行一下，可以看到动画最后停住了。\n让动画拥有一个惯性 我们仔细观察这个动画，发现他整个过程不拖泥带水，很迅速的完成了，但是我发现一个问题，整个过程不流畅圆滑，很死板，从左到右，一点也不圆滑。\n分析一下，因为缺少了一个日常生活的习惯动画，那就是惯性，这个属性可不存在啊，没法直接设置，只能通过动画本身的属性来进行调整，继续看这一段代码。\n@keyframes leftright { 0% { transform: translateX(0); } 100% { transform: translateX(100px); } } 0%代表开始，100%代表结束，他们指的是一个时间节点，在这个时间点动画要运行到他们指定的位置。\n所以我们可以添加一个新的时间节点，50%，我们让当时间过了一半的时候，方块运行到 120px 的位置，然后再折回来。\n下面是完整的代码，可以复制到本地，自己运行一下试试看。\n\u0026lt;!DOCTYPE html\u0026gt; \u0026lt;html\u0026gt; \u0026lt;head\u0026gt; \u0026lt;title\u0026gt;动画\u0026lt;\/title\u0026gt; \u0026lt;style\u0026gt; .demo { width: 100px; height: 100px; background: #000; animation-name: leftright; animation-duration: 1s; animation-fill-mode: forwards; } @keyframes leftright { 0% { transform: translateX(0); } 50% { transform: translateX(120px); } 100% { transform: translateX(100px); } } \u0026lt;\/style\u0026gt; \u0026lt;\/head\u0026gt; \u0026lt;body\u0026gt; \u0026lt;div class=\u0026#34;demo\u0026#34;\u0026gt;\u0026lt;\/div\u0026gt; \u0026lt;\/body\u0026gt; \u0026lt;\/html\u0026gt; 修改完之后，到浏览器看一下效果。\n是不是流畅了很多，有了一种惯性的感觉，这一点在工作中如何遇到写动画的需求就很关键了，怎么让用户的体验更强，是一门技巧。\n虽说这都是一些基础的东西，但是我觉得体验感上去了，网站的回头率才会更高。打一个比方，去某个商城网站购物，整个页面看起来很舒服，特效细节很流畅，是不是就增加了购物的欲望。虽然这么说很浅薄，但是真的会有一些心里作用。\n如何用好动画特效，是一门学问，将 css 玩出花样来，可不是那么简单的。\n",
 "inLanguage" : "en-US",
-"author" : "子舒",
-"creator" : "子舒",
-"publisher": "子舒",
-"accountablePerson" : "子舒",
-"copyrightHolder" : "子舒",
+"author" : "zishu",
+"creator" : "zishu",
+"publisher": "zishu",
+"accountablePerson" : "zishu",
+"copyrightHolder" : "zishu",
 "copyrightYear" : "2021",
 "datePublished": "2021-03-14 00:00:00 \u002b0000 UTC",
 "dateModified" : "2021-03-14 00:00:00 \u002b0000 UTC",
@@ -146,40 +146,49 @@ animation 属性 animation 属性有下面几个值：
 </head>
 
 <body>
-  <header class="header">
-  <div class="l-wrap">
-    
-    <nav>
-      
-      <a href="/">首页</a>
-      
-      <a href="/blog/">文章</a>
-      
-      <a href="/categories/weekly/">周刊</a>
-      
-      <a href="/message/">留言</a>
-      
-      <a href="/about/">关于</a>
-      
-      <a href="/index.xml">RSS</a>
-      
-    </nav>
+  <div class="wrapper">
+    <div class="main">
+      <div class="top">
+  <a href="/"><img src="https://imgurl.zishu.me/author.webp" width="72" height="72" class="avatar" border="0"></a>
+  <div class="site-info">
+    <div class="site-title">zishu</div>
+    <div class="site-about">
+      <p>一个热爱生活的前端开发工程师。</p>
+    </div>
   </div>
-</header>
-  <section>
-    <div class="l-wrap">
-      <h1 class="body-title">怎么让 css3 里面的动画属性看起来更流畅？</h1>
+</div>
+
+<div class="nav-container">
+  <div class="nav">
+    
+    <a href="/" class="nav-item">首页</a>
+    
+    <a href="/blog/" class="nav-item">文章</a>
+    
+    <a href="/categories/weekly/" class="nav-item">周刊</a>
+    
+    <a href="/message/" class="nav-item">留言</a>
+    
+    <a href="/about/" class="nav-item">关于</a>
+    
+    <a href="/links/" class="nav-item">友链</a>
+    
+
+    <a href="./index.xml" target="_blank"><img src="/images/rss.svg" alt="RSS" class="social-icon" width="1em"></a>
+    <a href="https://github.com/dlzmoe" target="_blank"><img src="/images/github.svg" alt="github.com/dlzmoe" class="social-icon" width="1em"></a>
+    <a href="https://discord.com/invite/n2pErsD7Kg" target="_blank"><img src="/images/discord.svg" alt="Discord Invite" class="social-icon" width="1em"></a>
+  </div>
+</div>
+
+      <h1>怎么让 css3 里面的动画属性看起来更流畅？</h1>
 
       
-      <div class="post-meta">
-        <time>2021.03.14</time>
-      </div>
+      <div class="date">Oct 140, 141412</div>
       
-
 
       
       <div class="toc">
-        <details>
+        <details open>
           <summary accesskey="c" title="(Alt + C)"><span class="details">Table of Contents</span></summary>
           <div class="inner"> <nav id="TableOfContents">
   <ul>
@@ -196,7 +205,7 @@ animation 属性 animation 属性有下面几个值：
       </div>
       
 
-      <article class="post-content">
+      <article class="content">
         
         <p>ps：先说点题外话，因为工作的原因很久没更新博客了，最近也是告一段落，处理一了一些事情之后可以安心坐下来，把我的博客重新整理一下。</p>
 <p>今天要讲的是 css3 的一个新属性 <code>animation</code>，也算是一个回顾吧，我只是将平时如何使用，以及一些技巧分享出来。如果想学习更基础的内容，可以点击链接：<a href="https://www.runoob.com/css3/css3-animations.html">https://www.runoob.com/css3/css3-animations.html</a>，网上类似的教程还是蛮多的。</p>
@@ -329,8 +338,8 @@ animation 属性 animation 属性有下面几个值：
           
           
         </span>
-        
       </div>
+      
 
       
       <ul class="comment-tabs">
@@ -385,10 +394,864 @@ twikoo.init({
   });
 </script>
       
-    </div>
-  </section>
-  <footer class="footer">
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<footer class="footer">
   <div class="l-wrap">
+    <p class="aboutme">这是我的个人博客，已经运行了 <span id="days"></span> 天，写了 306 篇文章，共 194656 字。</p>
     <p>© 2020 - 2025 Powered by
       <a href="https://github.com/dlzmoe" target="_blank">Github</a>
       / <a href="/index.xml" target="_blank">RSS</a>
@@ -398,6 +1261,8 @@ twikoo.init({
 </footer>
 
 <script src="/js/main.js"></script>
+    </div>
+  </div>
 </body>
 
 </html>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="toTop" content="true">
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="author" content="子舒" />
+<meta name="author" content="zishu" />
 <meta property="og:url" content="https://zishu.me/blog/19.html/" />
 <link rel="canonical" href="https://zishu.me/blog/19.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
 <link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
@@ -24,11 +24,11 @@
 "headline" : "getElementBy 系列和 querySelector 系列的区别",
 "description" : "querySelector和querySelectorAll的用法和getElementBy大致一样，获取的时候带上符号，getElementBy 获取的是元素的动态集合，querySelector 获取的是元素的静态集合。\n但是需要注意：getElementBy 系列和 querySelector 系列的区别\n比如，我们写一个 for 循环，每次获取 li 标签的时候，ul 生成一个 li 子元素\n\u0026lt;ul id=\u0026#34;ul\u0026#34;\u0026gt; \u0026lt;li\u0026gt;a\u0026lt;\/li\u0026gt; \u0026lt;li\u0026gt;b\u0026lt;\/li\u0026gt; \u0026lt;li\u0026gt;c\u0026lt;\/li\u0026gt; \u0026lt;\/ul\u0026gt; \u0026lt;script\u0026gt; var ul = document.getElementById(\u0026#39;ul\u0026#39;); var li = document.getElementsByTagName(\u0026#39;li\u0026#39;); for(var i = 0;i \u0026lt; li.length; i\u002b\u002b) { ul.appendChild(document.createElement(\u0026#39;li\u0026#39;)) }; console.log(li.length); \/\/ 陷入死循环 \u0026lt;\/script\u0026gt; 用i \u0026lt; li.length来进行判断时，会导致浏览器死循环，因为循环一次的时候，浏览器又重新获取 li 标签数组，每调用一次就会重新对文档进行查询，就会进入死循环\n进行修改：把i \u0026lt; li.length改成i \u0026lt; 3，把 li 标签数组静态化，然后打印\nconosle.log(li.length) \/\/ 6 重新用 querySelector 获取一遍元素\n\u0026lt;ul id=\u0026#34;ul\u0026#34;\u0026gt; \u0026lt;li\u0026gt;a\u0026lt;\/li\u0026gt; \u0026lt;li\u0026gt;b\u0026lt;\/li\u0026gt; \u0026lt;li\u0026gt;c\u0026lt;\/li\u0026gt; \u0026lt;\/ul\u0026gt; \u0026lt;script\u0026gt; var ul = document.querySelector(\u0026#39;ul\u0026#39;); var li = document.querySelectorAll(\u0026#39;li\u0026#39;); for(var i = 0;i\u0026lt;li.length;i\u002b\u002b) { ul.appendChild(document.createElement(\u0026#39;li\u0026#39;)) }; console.log(li.length); \/\/ 输出对结果是原来的 li.length = 3，而不是增加后的 6 \u0026lt;\/script\u0026gt; 静态集合体现在querySelectorAll(\u0027li\u0027)获取到 ul 里所有 li 后，不管后续再动态添加了多少 li，都是不会对其参数影响\n",
 "inLanguage" : "en-US",
-"author" : "子舒",
-"creator" : "子舒",
-"publisher": "子舒",
-"accountablePerson" : "子舒",
-"copyrightHolder" : "子舒",
+"author" : "zishu",
+"creator" : "zishu",
+"publisher": "zishu",
+"accountablePerson" : "zishu",
+"copyrightHolder" : "zishu",
 "copyrightYear" : "2020",
 "datePublished": "2020-11-16 00:00:00 \u002b0000 UTC",
 "dateModified" : "2020-11-16 00:00:00 \u002b0000 UTC",
@@ -86,47 +86,56 @@ conosle.log(li.length) // 6 重新用 querySelector 获取一遍元素
 </head>
 
 <body>
-  <header class="header">
-  <div class="l-wrap">
-    
-    <nav>
-      
-      <a href="/">首页</a>
-      
-      <a href="/blog/">文章</a>
-      
-      <a href="/categories/weekly/">周刊</a>
-      
-      <a href="/message/">留言</a>
-      
-      <a href="/about/">关于</a>
-      
-      <a href="/index.xml">RSS</a>
-      
-    </nav>
+  <div class="wrapper">
+    <div class="main">
+      <div class="top">
+  <a href="/"><img src="https://imgurl.zishu.me/author.webp" width="72" height="72" class="avatar" border="0"></a>
+  <div class="site-info">
+    <div class="site-title">zishu</div>
+    <div class="site-about">
+      <p>一个热爱生活的前端开发工程师。</p>
+    </div>
   </div>
-</header>
-  <section>
-    <div class="l-wrap">
-      <h1 class="body-title">getElementBy 系列和 querySelector 系列的区别</h1>
+</div>
+
+<div class="nav-container">
+  <div class="nav">
+    
+    <a href="/" class="nav-item">首页</a>
+    
+    <a href="/blog/" class="nav-item">文章</a>
+    
+    <a href="/categories/weekly/" class="nav-item">周刊</a>
+    
+    <a href="/message/" class="nav-item">留言</a>
+    
+    <a href="/about/" class="nav-item">关于</a>
+    
+    <a href="/links/" class="nav-item">友链</a>
+    
+
+    <a href="./index.xml" target="_blank"><img src="/images/rss.svg" alt="RSS" class="social-icon" width="1em"></a>
+    <a href="https://github.com/dlzmoe" target="_blank"><img src="/images/github.svg" alt="github.com/dlzmoe" class="social-icon" width="1em"></a>
+    <a href="https://discord.com/invite/n2pErsD7Kg" target="_blank"><img src="/images/discord.svg" alt="Discord Invite" class="social-icon" width="1em"></a>
+  </div>
+</div>
+
+      <h1>getElementBy 系列和 querySelector 系列的区别</h1>
 
       
-      <div class="post-meta">
-        <time>2020.11.16</time>
-      </div>
+      <div class="date">Oct 160, 161612</div>
       
-
 
       
       <div class="toc">
-        <details>
+        <details open>
           <summary accesskey="c" title="(Alt + C)"><span class="details">Table of Contents</span></summary>
           <div class="inner"> <nav id="TableOfContents"></nav></div>
         </details>
       </div>
       
 
-      <article class="post-content">
+      <article class="content">
         
         <p><code>querySelector</code>和<code>querySelectorAll</code>的用法和<code>getElementBy</code>大致一样，获取的时候带上符号，getElementBy 获取的是元素的<code>动态集合</code>，querySelector 获取的是元素的<code>静态集合</code>。</p>
 <p><red>但是需要注意：getElementBy 系列和 querySelector 系列的区别</red></p>
@@ -188,8 +197,8 @@ conosle.log(li.length) // 6 重新用 querySelector 获取一遍元素
           
           
         </span>
-        
       </div>
+      
 
       
       <ul class="comment-tabs">
@@ -244,10 +253,864 @@ twikoo.init({
   });
 </script>
       
-    </div>
-  </section>
-  <footer class="footer">
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<footer class="footer">
   <div class="l-wrap">
+    <p class="aboutme">这是我的个人博客，已经运行了 <span id="days"></span> 天，写了 306 篇文章，共 194656 字。</p>
     <p>© 2020 - 2025 Powered by
       <a href="https://github.com/dlzmoe" target="_blank">Github</a>
       / <a href="/index.xml" target="_blank">RSS</a>
@@ -257,6 +1120,8 @@ twikoo.init({
 </footer>
 
 <script src="/js/main.js"></script>
+    </div>
+  </div>
 </body>
 
 </html>

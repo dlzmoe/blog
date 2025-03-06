@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="toTop" content="true">
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="author" content="子舒" />
+<meta name="author" content="zishu" />
 <meta property="og:url" content="https://zishu.me/blog/22.html/" />
 <link rel="canonical" href="https://zishu.me/blog/22.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
 <link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
@@ -24,11 +24,11 @@
 "headline" : "在 js 中运算不能随便把 value 属性定义成变量",
 "description" : "在写一个小 demo 的时候，无意中发现定义变量的时候直接写入 value，会导致获取不到数据，或者获取的不是我们想要的内容，在 js 中运算不能随便把 value 属性定义成变量\n先看一段代码\n\u0026lt;input type=\u0026#34;text\u0026#34;\u0026#34; id=\u0026#34;a\u0026#34;\u0026gt; \u0026lt;span\u0026gt;*\u0026lt;\/span\u0026gt; \u0026lt;input type=\u0026#34;text\u0026#34; id=\u0026#34;b\u0026#34;\u0026gt; \u0026lt;input type=\u0026#34;button\u0026#34; value=\u0026#34;=\u0026#34; onclick=\u0026#34;beto()\u0026#34;\u0026gt; \u0026lt;input type=\u0026#34;text\u0026#34; id=\u0026#34;sub\u0026#34; disabled\u0026gt; \u0026lt;script\u0026gt; function beto() { var a = document.getElementById(\u0026#39;a\u0026#39;).value var b = document.getElementById(\u0026#39;b\u0026#39;).value var sub = document.getElementById(\u0026#39;sub\u0026#39;).value sub = a \u002b b } \u0026lt;\/script\u0026gt; 就这么一看，逻辑貌似没有问题，获取 a 和 b 的 value，乘法运算，然后输出 sub\n但是放在浏览器运行的时候，发现完全没有反应\n为什么呢？\n（假装思考五分钟\u0026hellip;）\n因为 sub.value 不能直接定义在变量中\n\/\/ 先定义 id 为 sub 的 input 框 var sub = document.getElementById(\u0026#39;sub\u0026#39;) \/\/ 然后在运算的时候在直接使用 sub.value sub.value = a * b 顺手放一个写 demo 时候用的简易计算器\n\u0026lt;!DOCTYPE html\u0026gt; \u0026lt;html lang=\u0026#34;en\u0026#34;\u0026gt; \u0026lt;head\u0026gt; \u0026lt;meta charset=\u0026#34;UTF-8\u0026#34;\u0026gt; \u0026lt;title\u0026gt;简易计算器\u0026lt;\/title\u0026gt; \u0026lt;\/head\u0026gt; \u0026lt;body\u0026gt; \u0026lt;input type=\u0026#34;text\u0026#34;\u0026#34; id=\u0026#34;a\u0026#34;\u0026gt; \u0026lt;select id=\u0026#34;c\u0026#34;\u0026gt; \u0026lt;option value=\u0026#34;\u002b\u0026#34;\u0026gt;\u002b\u0026lt;\/option\u0026gt; \u0026lt;option value=\u0026#34;-\u0026#34;\u0026gt;-\u0026lt;\/option\u0026gt; \u0026lt;option value=\u0026#34;*\u0026#34;\u0026gt;*\u0026lt;\/option\u0026gt; \u0026lt;option value=\u0026#34;\/\u0026#34;\u0026gt;\/\u0026lt;\/option\u0026gt; \u0026lt;\/select\u0026gt; \u0026lt;input type=\u0026#34;text\u0026#34; id=\u0026#34;b\u0026#34;\u0026gt; \u0026lt;input type=\u0026#34;button\u0026#34; value=\u0026#34;=\u0026#34; onclick=\u0026#34;beto()\u0026#34;\u0026gt; \u0026lt;input type=\u0026#34;text\u0026#34; id=\u0026#34;sub\u0026#34; disabled\u0026gt; \u0026lt;script\u0026gt; function beto() { var a = document.getElementById(\u0026#39;a\u0026#39;).value var b = document.getElementById(\u0026#39;b\u0026#39;).value var c = document.getElementById(\u0026#39;c\u0026#39;).value var sub = document.getElementById(\u0026#39;sub\u0026#39;) switch(c) { case \u0026#34;\u002b\u0026#34;: sub.value = parseInt(a) \u002b parseInt(b); break; case \u0026#34;-\u0026#34;: sub.value = parseInt(a) - parseInt(b); break; case \u0026#34;*\u0026#34;: sub.value = parseInt(a) * parseInt(b); break; case \u0026#34;\/\u0026#34;: sub.value = parseInt(a) \/ parseInt(b); break; } } \u0026lt;\/script\u0026gt; \u0026lt;\/body\u0026gt; \u0026lt;\/html\u0026gt; ",
 "inLanguage" : "en-US",
-"author" : "子舒",
-"creator" : "子舒",
-"publisher": "子舒",
-"accountablePerson" : "子舒",
-"copyrightHolder" : "子舒",
+"author" : "zishu",
+"creator" : "zishu",
+"publisher": "zishu",
+"accountablePerson" : "zishu",
+"copyrightHolder" : "zishu",
 "copyrightYear" : "2020",
 "datePublished": "2020-11-18 00:00:00 \u002b0000 UTC",
 "dateModified" : "2020-11-18 00:00:00 \u002b0000 UTC",
@@ -90,47 +90,56 @@
 </head>
 
 <body>
-  <header class="header">
-  <div class="l-wrap">
-    
-    <nav>
-      
-      <a href="/">首页</a>
-      
-      <a href="/blog/">文章</a>
-      
-      <a href="/categories/weekly/">周刊</a>
-      
-      <a href="/message/">留言</a>
-      
-      <a href="/about/">关于</a>
-      
-      <a href="/index.xml">RSS</a>
-      
-    </nav>
+  <div class="wrapper">
+    <div class="main">
+      <div class="top">
+  <a href="/"><img src="https://imgurl.zishu.me/author.webp" width="72" height="72" class="avatar" border="0"></a>
+  <div class="site-info">
+    <div class="site-title">zishu</div>
+    <div class="site-about">
+      <p>一个热爱生活的前端开发工程师。</p>
+    </div>
   </div>
-</header>
-  <section>
-    <div class="l-wrap">
-      <h1 class="body-title">在 js 中运算不能随便把 value 属性定义成变量</h1>
+</div>
+
+<div class="nav-container">
+  <div class="nav">
+    
+    <a href="/" class="nav-item">首页</a>
+    
+    <a href="/blog/" class="nav-item">文章</a>
+    
+    <a href="/categories/weekly/" class="nav-item">周刊</a>
+    
+    <a href="/message/" class="nav-item">留言</a>
+    
+    <a href="/about/" class="nav-item">关于</a>
+    
+    <a href="/links/" class="nav-item">友链</a>
+    
+
+    <a href="./index.xml" target="_blank"><img src="/images/rss.svg" alt="RSS" class="social-icon" width="1em"></a>
+    <a href="https://github.com/dlzmoe" target="_blank"><img src="/images/github.svg" alt="github.com/dlzmoe" class="social-icon" width="1em"></a>
+    <a href="https://discord.com/invite/n2pErsD7Kg" target="_blank"><img src="/images/discord.svg" alt="Discord Invite" class="social-icon" width="1em"></a>
+  </div>
+</div>
+
+      <h1>在 js 中运算不能随便把 value 属性定义成变量</h1>
 
       
-      <div class="post-meta">
-        <time>2020.11.18</time>
-      </div>
+      <div class="date">Oct 180, 181812</div>
       
-
 
       
       <div class="toc">
-        <details>
+        <details open>
           <summary accesskey="c" title="(Alt + C)"><span class="details">Table of Contents</span></summary>
           <div class="inner"> <nav id="TableOfContents"></nav></div>
         </details>
       </div>
       
 
-      <article class="post-content">
+      <article class="content">
         
         <p>在写一个小 demo 的时候，无意中发现定义变量的时候直接写入 value，会导致获取不到数据，或者获取的不是我们想要的内容，在 js 中运算不能随便把 value 属性定义成变量</p>
 <p>先看一段代码</p>
@@ -221,8 +230,8 @@
           
           
         </span>
-        
       </div>
+      
 
       
       <ul class="comment-tabs">
@@ -277,10 +286,864 @@ twikoo.init({
   });
 </script>
       
-    </div>
-  </section>
-  <footer class="footer">
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<footer class="footer">
   <div class="l-wrap">
+    <p class="aboutme">这是我的个人博客，已经运行了 <span id="days"></span> 天，写了 306 篇文章，共 194656 字。</p>
     <p>© 2020 - 2025 Powered by
       <a href="https://github.com/dlzmoe" target="_blank">Github</a>
       / <a href="/index.xml" target="_blank">RSS</a>
@@ -290,6 +1153,8 @@ twikoo.init({
 </footer>
 
 <script src="/js/main.js"></script>
+    </div>
+  </div>
 </body>
 
 </html>
