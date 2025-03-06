@@ -17,8 +17,7 @@
 
 ```shell
 # 安装依赖
-pip install markdown beautifulsoup4 openai python-dotenv
-pip install openai==0.28
+pip install markdown beautifulsoup4 openai==0.28 python-dotenv
 ```
 
 ```shell

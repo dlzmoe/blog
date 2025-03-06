@@ -19,12 +19,12 @@ def extract_text_from_markdown(file_path):
     
     return text_content
 
-def generate_seo_content(text, api_key, api_url, model):
+def generate_seo_content(text, api_key, api_url, model, debug=False):
     openai.api_key = api_key
     if api_url:
         openai.api_base = api_url
 
-    prompt = f"请根据文章内容从 SEO 友好的角度提取出标题、关键词和描述:\n\n{text}\n\n请以 JSON 格式输出，包含 slug、title、keywords 和 description 字段。如果遇到逗号强制用中文逗号。"
+    prompt = f"请根据文章内容从 SEO 友好的角度提取出标题、关键词和描述:\n\n{text}\n\n请以 JSON 格式输出，包含 slug、title、keywords 和 description 字段。"
     
     try:
         response = openai.ChatCompletion.create(
@@ -36,7 +36,9 @@ def generate_seo_content(text, api_key, api_url, model):
         )
         
         content = response.choices[0].message['content']
-        print("API Response:", content)  # 调试输出
+        # 只在 debug 模式下输出 API 响应
+        if debug:
+            print("API Response:", content)
         return content
     except Exception as e:
         print(f"Error calling OpenAI API: {e}")
@@ -57,7 +59,7 @@ def parse_seo_content(content):
             print("无法解析 API 返回的内容为 JSON 格式")
             return None
 
-def main(file_name, api_key, api_url, model):
+def main(file_name, api_key, api_url, model, debug=False):
     current_dir = os.path.dirname(os.path.abspath(__file__))
     file_path = os.path.join(current_dir, 'content', 'blog', file_name)
     
@@ -66,7 +68,7 @@ def main(file_name, api_key, api_url, model):
         return
 
     text_content = extract_text_from_markdown(file_path)
-    seo_content = generate_seo_content(text_content, api_key, api_url, model)
+    seo_content = generate_seo_content(text_content, api_key, api_url, model, debug)
     
     if seo_content:
         seo_data = parse_seo_content(seo_content)
@@ -83,10 +85,11 @@ if __name__ == "__main__":
     parser.add_argument("--api_key", default=os.getenv("OPENAI_API_KEY"), help="OpenAI API 密钥")
     parser.add_argument("--api_url", default=os.getenv("OPENAI_API_URL"), help="OpenAI API URL")
     parser.add_argument("--model", default=os.getenv("OPENAI_API_MODEL"), help="OpenAI 模型名称")
+    parser.add_argument("--debug", action="store_true", help="开启调试模式，显示 API 响应")
     
     args = parser.parse_args()
 
     if not args.api_key:
         print("错误：未提供 API 密钥。请在命令行参数中指定或在.env 文件中设置 OPENAI_API_KEY。")
     else:
-        main(args.file_name, args.api_key, args.api_url, args.model)
+        main(args.file_name, args.api_key, args.api_url, args.model, args.debug)

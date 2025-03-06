@@ -45,7 +45,7 @@ $(function () {
     }
   }
 
-  $('.post-content iframe').wrap('<div class="iframe"></div>');
+  $('.content iframe').wrap('<div class="iframe"></div>');
 
   if ($('#TableOfContents').html() == "") {
     $('.toc').hide();
@@ -61,7 +61,7 @@ $(function () {
     );
   });
 
-  $('.post-content img:not(.not)').addClass('zimgbox');
+  $('.content img:not(.not)').addClass('zimgbox');
   $('body').append(
     '<div id="zimgbox-wrap" style="display:none"><img src></div>'
   );
@@ -88,7 +88,7 @@ $(function () {
     $('#zimgbox-wrap img').attr('src', '');
   });
 
-  $('.post-content a img').removeClass('zimgbox');
+  $('.content a img').removeClass('zimgbox');
 });
 
 function goTop() {
