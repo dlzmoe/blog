@@ -22,7 +22,7 @@
 "articleSection" : "",
 "name" : "Search",
 "headline" : "Search",
-"description" : "",
+"description" : "你可以通过下面几种方式检索我的文章：\n全部文章、标签管理、关键词搜索、RSS 订阅。\n",
 "inLanguage" : "en-US",
 "author" : "子舒",
 "creator" : "子舒",
@@ -40,12 +40,20 @@
 <meta property="og:type" content="article" />
 
 
-<meta property="og:keywords" content="" />
-<meta name="keywords" content="" />
+<meta property="og:keywords" content="你可以通过下面几种方式检索我的文章：
+全部文章、标签管理、关键词搜索、RSS 订阅。
+" />
+<meta name="keywords" content="你可以通过下面几种方式检索我的文章：
+全部文章、标签管理、关键词搜索、RSS 订阅。
+" />
 
 
-<meta property="og:description" content="" />
-<meta name="description" content="" />
+<meta property="og:description" content="你可以通过下面几种方式检索我的文章：
+全部文章、标签管理、关键词搜索、RSS 订阅。
+" />
+<meta name="description" content="你可以通过下面几种方式检索我的文章：
+全部文章、标签管理、关键词搜索、RSS 订阅。
+" />
 <meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
 
 <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -63,7 +71,7 @@
       <div class="top">
   <a href="/"><img src="https://imgurl.zishu.me/author.webp" width="72" height="72" class="avatar" border="0"></a>
   <div class="site-info">
-    <div class="site-title">子舒的博客</div>
+    <a href="/" class="site-title">子舒的博客</a>
     <div class="site-about">
       <p>一个热爱生活的前端开发工程师。</p>
     </div>
@@ -85,6 +93,8 @@
     
     <a href="/links/" class="nav-item">友链</a>
     
+    <a href="/search/" class="nav-item">搜索</a>
+    
 
     <a href="./index.xml" target="_blank"><img src="/images/rss.svg" alt="RSS" class="social-icon" width="1em"></a>
     <a href="https://github.com/dlzmoe" target="_blank"><img src="/images/github.svg" alt="github.com/dlzmoe" class="social-icon" width="1em"></a>
@@ -97,80 +107,16 @@
 
       <article class="content">
         
-        
+        <p>你可以通过下面几种方式检索我的文章：</p>
+<p><a href="/blog/">全部文章</a>、<a href="/tags/">标签管理</a>、<a href="/search/">关键词搜索</a>、<a href="/index.xml">RSS 订阅</a>。</p>
+
 
         <form id="searchForm">
           <input autocomplete="off" type="text" id="searchInput" placeholder="输入搜索内容..." required>
           <button type="submit">搜索</button>
         </form>
-
         <ul id="resultsList"></ul>
-
       </article>
-
-      <script>
-        let data = [];
-
-        
-        fetch('/index.json')
-          .then(response => response.json())
-          .then(json => {
-            data = json; 
-          })
-          .catch(error => console.error('Error loading data:', error));
-
-        document.getElementById('searchForm').addEventListener('submit', function (event) {
-          event.preventDefault();
-          const query = document.getElementById('searchInput').value.toLowerCase();
-          const resultsList = document.getElementById('resultsList');
-
-          resultsList.innerHTML = ''; 
-
-          if (query) {
-            const results = data.filter(item =>
-              item.title.toLowerCase().includes(query) ||
-              item.summary.toLowerCase().includes(query)
-            );
-
-            if (results.length > 0) {
-              results.forEach(item => {
-                const listItem = document.createElement('li');
-                const truncatedSummary = getTruncatedSummary(item.summary, query);
-                listItem.innerHTML = `
-                    <a href="${item.permalink}">${highlightKeywords(item.title, query)}</a>
-                    <p>${highlightKeywords(truncatedSummary, query)}</p>
-                `;
-                resultsList.appendChild(listItem);
-              });
-            } else {
-              resultsList.innerHTML = '<li>没有找到相关内容。</li>';
-            }
-          }
-        });
-
-        function highlightKeywords(text, query) {
-          const regex = new RegExp(`(${query})`, 'gi');
-          return text.replace(regex, '<span class="keyword-highlight">$1</span>');
-        }
-
-        function getTruncatedSummary(summary, query) {
-          const index = summary.toLowerCase().indexOf(query);
-          if (index === -1) return highlightKeywords(summary, query); 
-
-          const start = Math.max(0, index - 50);
-          const end = Math.min(summary.length, index + query.length + 50);
-          const truncated = summary.substring(start, end);
-
-          
-          if (start > 0) {
-            return '...' + highlightKeywords(truncated, query); 
-          } else if (end < summary.length) {
-            return highlightKeywords(truncated, query) + '...'; 
-          }
-
-          return highlightKeywords(truncated, query); 
-        }
-      </script>
       
 
 
@@ -1035,7 +981,7 @@
 
 <footer class="footer">
   <div class="l-wrap">
-    <p class="aboutme">这是我的个人博客，已经运行了 <span id="days"></span> 天，写了 307 篇文章，共 195619 字。</p>
+    <p class="aboutme">这是我的个人博客，已经运行了 <span id="days"></span> 天，写了 307 篇文章，共 195419 字。</p>
     <p>© 2020 - 2025 Powered by
       <a href="https://github.com/dlzmoe" target="_blank">Github</a>
       / <a href="/index.xml" target="_blank">RSS</a>
@@ -1044,7 +990,85 @@
   <div class="gotop"></div>
 </footer>
 
+<script>
+  const time = "2020-06-14";
+  var now = new Date();
+  var end = new Date(time);
+  var diff = Math.abs(now - end);
+  var days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+  document.getElementById('days').innerHTML = days;
+</script>
+
 <script src="/js/main.js"></script>
+
+      <script>
+       let data = [];
+
+        
+        fetch('/index.json')
+          .then(response => response.json())
+          .then(json => {
+            data = json;
+          })
+          .catch(error => console.error('Error loading data:', error));
+
+        
+        function stripHtml(html) {
+          const tmp = document.createElement('div');
+          tmp.innerHTML = html;
+          return tmp.textContent || tmp.innerText || '';
+        }
+
+        document.getElementById('searchForm').addEventListener('submit', function(event) {
+          event.preventDefault();
+          const query = document.getElementById('searchInput').value.toLowerCase();
+          const resultsList = document.getElementById('resultsList');
+
+          resultsList.innerHTML = '';
+
+          if (query) {
+            const results = data.filter(item => {
+              
+              const plainTitle = stripHtml(item.title).toLowerCase();
+              const plainSummary = stripHtml(item.summary).toLowerCase();
+              
+              return plainTitle.includes(query) || plainSummary.includes(query);
+            });
+
+            if (results.length > 0) {
+              results.forEach(item => {
+                const listItem = document.createElement('li');
+                const plainSummary = stripHtml(item.summary);
+                const truncatedSummary = getTruncatedSummary(plainSummary, query);
+                
+                listItem.innerHTML = `
+                  <a href="${item.permalink}">${highlightKeywords(stripHtml(item.title), query)}</a>
+                  <p>${highlightKeywords(truncatedSummary, query)}</p>
+                `;
+                resultsList.appendChild(listItem);
+              });
+            } else {
+              resultsList.innerHTML = '<li>没有找到相关内容。</li>';
+            }
+          }
+        });
+
+        function highlightKeywords(text, query) {
+          const regex = new RegExp(`(${query})`, 'gi');
+          return text.replace(regex, '<span class="keyword-highlight">$1</span>');
+        }
+
+        function getTruncatedSummary(summary, query) {
+          const index = summary.toLowerCase().indexOf(query.toLowerCase());
+          if (index === -1) return summary;
+
+          const start = Math.max(0, index - 50);
+          const end = Math.min(summary.length, index + query.length + 50);
+          const truncated = summary.substring(start, end);
+
+          return (start > 0 ? '...' : '') + truncated + (end < summary.length ? '...' : '');
+        }
+      </script>
     </div>
   </div>
 </body>
