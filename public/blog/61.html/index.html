@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="toTop" content="true">
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="author" content="zishu" />
+<meta name="author" content="子舒" />
 <meta property="og:url" content="https://zishu.me/blog/61.html/" />
 <link rel="canonical" href="https://zishu.me/blog/61.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
 <link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
@@ -24,11 +24,11 @@
 "headline" : "我的 python 学习笔记",
 "description" : "之所以学习 Python，本意是想写一些脚本之类的程序，用来在浏览器爬一些自己想要的文字，图片等资料，这些程序其实 GitHub 蛮多的，但奈何我对后端的语言一窍不通，直接拿过来给我用我都不会。\n因此就萌生了先学习 Python 基础知识的想法，一直听说廖雪峰的 Python 教程写的不错，这次趁着这个机会要好好研读一番。也没想说用的多牛逼，至少希望能为自己浅薄的技术栈再增加一点光彩，毕竟我也曾梦想成为一个全栈开发。\n下载安装完 Python 环境，就开始学习吧！\n运行我的第一个 python 程序 print(\u0026#39;hello,world\u0026#39;) 数据类型 在 Python 中，能直接处理的数据类型有几种，整数、浮点数、字符串、布尔值、空值、变量。\n这与其他语言其实差别并不大，数据类型基本都是相似的，大概只有变量有自己的特性，所以我单独拿出来记录一下。\n变量 python 是一门动态语言，在赋值时可以不断改变，比如：\na = 123 print(a) # 终端输出数值 123 a = \u0026#39;abc\u0026#39; print(a) # 终端输出字符串 abc 这是允许的，而在 Java 中则不行，它是一门静态语言，如果多次赋值会报错。相对来说，动态语言更灵活，当然，各有利弊罢了。\n并且在赋值上面有一个逻辑顺序，比如定义一个 a = \u0027a\u0027 的变量。在 Python 中其实走了两步，先创造了一个字符串 a ，然后将这个字符串赋值给变量 a。\n其实这在数学上是有些反逻辑的，x = x \u002b 2 这个计算是行不通的在数学上，但是在计算机中，先计算 x \u002b 2 ，然后将其赋值给左侧的 x ，这是计算机的逻辑。\nx = 1 x = x \u002b 2 print(x) # 3 其实很多计算机语言都是如此，比如我们所熟知的 js 等等。\n如果有多个变量相互赋值的话，都是一行一行执行\na = 1 b = a a = 2 print(a) print(b) 最后输出的结果分别是 2, 1\nPython 支持多种数据类型，在计算机内部，可以把任何数据都看成一个“对象”，而变量就是在程序中用来指向这些数据对象的，对变量赋值就是把数据和变量给关联起来。 对变量赋值 x = y 是把变量 x 指向真正的对象，该对象是变量 y 所指向的。随后对变量 y 的赋值不影响变量 x 的指向。 注意：Python 的整数没有大小限制，而某些语言的整数根据其存储长度是有大小限制的，例如 Java 对 32 位整数的范围限制在 -2147483648-2147483647。 Python 的浮点数也没有大小限制，但是超出一定范围就直接表示为 inf（无限大）。\u0026mdash;《廖雪峰的官方网站》\n字符串和编码 Python 提供了两个处理编码的属性，ord 和 chr\nord(\u0026#39;舒\u0026#39;) # 33298 # 将字符串转换为整数表示 chr(33298) # \u0026#39;舒\u0026#39; # 将整数表示的内容转换为字符串 list list 类似于 js 中的 Array，是多个数据的列表，写法如下\n\u0026gt;\u0026gt;\u0026gt; classmates = [\u0026#39;a\u0026#39;, \u0026#39;b\u0026#39;, \u0026#39;c\u0026#39;] \u0026gt;\u0026gt;\u0026gt; classmates [\u0026#39;a\u0026#39;, \u0026#39;b\u0026#39;, \u0026#39;c\u0026#39;] 这时候我们就可以说变量 classmates 是一个 list。\n有一个 len() 可以输出 list 元素的个数\n\u0026gt;\u0026gt;\u0026gt; len(classmates) \u0026gt;\u0026gt;\u0026gt; 3 同时 list 也有索引，从 0 开始，最后一个索引是 len(classmates)-1，同时如果想直接输出最后一个元素，可以使用 classmates[-1].\n\u0026gt;\u0026gt;\u0026gt; classmates[-1] \u0026gt;\u0026gt;\u0026gt; \u0026#39;c\u0026#39; 既然都可以用 -1 表示最后一个元素，能不能用 -2 表示倒数第二个呢？答案是可以的。\n\u0026gt;\u0026gt;\u0026gt; classmates[-2] \u0026gt;\u0026gt;\u0026gt; \u0026#39;b\u0026#39; 另外需要注意的是，在使用索引时不可超出范围，否则会报出下面的错误。\n\u0026gt;\u0026gt;\u0026gt; classmates[4] Traceback (most recent call last): File \u0026#34;\u0026lt;stdin\u0026gt;\u0026#34;, line 1, in \u0026lt;module\u0026gt; IndexError: list index out of range list 是一个可变的有序列表，可以往里面添加或者删除元素。\nappend 在末尾添加元素 \u0026gt;\u0026gt;\u0026gt; classmates.append(\u0026#39;d\u0026#39;) \u0026gt;\u0026gt;\u0026gt; classmates [\u0026#39;a\u0026#39;, \u0026#39;b\u0026#39;, \u0026#39;c\u0026#39;, \u0026#39;d\u0026#39;] insert 在指定位置添加元素 其中 1 是索引，表示在索引为 1 的地方插入元素，后面的元素自然往后顺延。\n\u0026gt;\u0026gt;\u0026gt; classmates.insert(1, \u0026#39;d\u0026#39;) \u0026gt;\u0026gt;\u0026gt; classmates [\u0026#39;a\u0026#39;, \u0026#39;d\u0026#39;, \u0026#39;b\u0026#39;, \u0026#39;c\u0026#39;] pop 删除末尾的元素 \u0026gt;\u0026gt;\u0026gt; classmates.pop() \u0026#39;c\u0026#39; # 输出的时候被删除的元素 \u0026gt;\u0026gt;\u0026gt; classmates [\u0026#39;a\u0026#39;, \u0026#39;b\u0026#39;] pop(i) 删除指定位置的元素 \u0026gt;\u0026gt;\u0026gt; classmates.pop(1) \u0026#39;b\u0026#39; # 输出被删除的元素 \u0026gt;\u0026gt;\u0026gt; classmates [\u0026#39;a\u0026#39;, \u0026#39;c\u0026#39;] \u0026gt;\u0026gt;\u0026gt; ",
 "inLanguage" : "en-US",
-"author" : "zishu",
-"creator" : "zishu",
-"publisher": "zishu",
-"accountablePerson" : "zishu",
-"copyrightHolder" : "zishu",
+"author" : "子舒",
+"creator" : "子舒",
+"publisher": "子舒",
+"accountablePerson" : "子舒",
+"copyrightHolder" : "子舒",
 "copyrightYear" : "2021",
 "datePublished": "2021-04-01 00:00:00 \u002b0000 UTC",
 "dateModified" : "2021-04-01 00:00:00 \u002b0000 UTC",
@@ -151,7 +151,7 @@ append 在末尾添加元素 &gt;&gt;&gt; classmates.append(&#39;d&#39;) &gt;&gt
       <div class="top">
   <a href="/"><img src="https://imgurl.zishu.me/author.webp" width="72" height="72" class="avatar" border="0"></a>
   <div class="site-info">
-    <div class="site-title">zishu</div>
+    <div class="site-title">子舒的博客</div>
     <div class="site-about">
       <p>一个热爱生活的前端开发工程师。</p>
     </div>
