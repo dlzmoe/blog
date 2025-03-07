@@ -1,7 +1,7 @@
-<h2 align="center"> 子舒的博客 </h2>
-<p align="center"> 一个热爱生活的前端开发工程师。</p>
+<h2 align="center"> Zishu's Blog </h2>
+<p align="center"> A front-end development engineer who loves life.</p>
 
-[在线访问](https://zishu.me)
+[Online access](https://zishu.me)
 
 <p align="center">
 <img src="https://img.shields.io/github/last-commit/dlzmoe/blog">
@@ -13,54 +13,54 @@
 
 ---
 
-**引入 OpenAI 进行提炼文章 TDK，自定义 api 信息。**
+**Introduce OpenAI to refine article TDK and customize API information.**
 
 ```shell
-# 安装依赖
+# Install dependencies
 pip install markdown beautifulsoup4 openai==0.28 python-dotenv
 ```
 
 ```shell
-# 使用，直接复制文件名
+# Use, directly copy the file name
 python aitdk.py xxx.md
 ```
 
-## 1.介绍
+## 1.Introduction
 
-使用 Hugo 框架构建，在 GitHub 托管代码，Netlify 部署，CloudFlare 解析域名。
+Built with the Hugo framework, code hosted on GitHub, deployed via Netlify, and domain resolved by CloudFlare.
 
-评论使用 [giscus](https://giscus.app/)，基于 Discussions 构建而成。
+Comments are powered by [giscus](https://giscus.app/), built on Discussions.
 
-博客文章数据保留版权，其他代码开源，可直接使用。
+Blog post data retains copyright, while other code is open source and can be used directly.
 
-* [/content](content)：博客文章数据
-* [/themes](themes)：博客主题文件夹，多主题
+* [/content](content)Blog post data
+* [/themes](themes)Blog theme folder, multi-theme
 
 
-## 2.运行博客
+## 2.Run a blog
 
-这是一个基于 Hugo 开源静态博客程序生成的项目，在运行本项目前，需要在你电脑中安装 Go 和 [Hugo](https://gohugo.io/documentation/) 环境。
+This is a project generated using the Hugo open-source static blog framework. Before running this project, you need to install the Go and [Hugo](https://gohugo.io/documentation/) environment on your computer.
 
-将代码 clone 到本地，把 `/content/` 目录下的文章清除，并且修改 `config.yml` 配置。
+Clone the code to your local machine, clear the articles in the `/content/` directory, and modify the `config.yml` configuration.
 
 ```shell
-# 下载项目源码
+# Download the project source code
 git clone https://github.com/dlzmoe/blog.git
-# 本地运行
+# Run locally
 hugo serve
-# 打包构建
+# Package build
 hugo
 ```
 
-可以通过 Netlify 部署上传到 GitHub 仓库的代码。
+You can deploy code uploaded to a GitHub repository via Netlify.
 
-## 3.联系我
+## 3.Contact me
 
-如对博客内容，排版等有疑问、建议或者其他问题，欢迎联系我！
+If you have any questions, suggestions, or other concerns regarding the blog content, layout, or anything else, feel free to contact me!
 
-- 邮箱：anghunk@gmail.com
-- 留言：https://zishu.me/message/
+- E-mail: anghunk@gmail.com
+- Message: https://zishu.me/message/
 
 ## 4.LICENSE
 
-开源协议：[Apache-2.0 license](LICENSE)
+Open Source License:[Apache-2.0 license](LICENSE)
