@@ -33,8 +33,8 @@ Comments are powered by [giscus](https://giscus.app/), built on Discussions.
 
 Blog post data retains copyright, while other code is open source and can be used directly.
 
-* [/content](content)Blog post data
-* [/themes](themes)Blog theme folder, multi-theme
+* [/content](content) Blog post data
+* [/themes](themes) Blog theme folder, multi-theme
 
 
 ## 2.Run a blog
@@ -63,4 +63,4 @@ If you have any questions, suggestions, or other concerns regarding the blog con
 
 ## 4.LICENSE
 
-Open Source License:[Apache-2.0 license](LICENSE)
+Open Source License: [Apache-2.0 license](LICENSE)
