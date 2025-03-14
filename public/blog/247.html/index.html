@@ -139,8 +139,14 @@
 <p>油猴管理器（Tampermonkey）无疑是浏览器插件的伟大创作之一，可以对网页注入 js 脚本来实现一些功能。</p>
 <h2 id="3-那么如何获取-lobechat-数据呢">3. 那么如何获取 Lobechat 数据呢？</h2>
 <p>我研究过 Lobechat 源码，它数据都存放在本地的 IndexedDB 数据库中，这是浏览器的一个存储机制，可以存放大量的数据，显示则是以数据库的格式。</p>
-<p><img src="https://imgurl.zishu.me/2024/11/1731404378265.webp"
-     alt="1731404378265"class="lazy"></p>
+<p>     
+<figure>
+  <img 
+		src="https://imgurl.zishu.me/2024/11/1731404378265.webp"
+    alt=""class="lazy"
+	>
+  <figcaption></figcaption>
+</figure></p>
 <p>然后我先手动导出一份 json 格式的全局数据（社区版只支持手动导入导出文件），拿这份文件跟 IndexedDB 数据库 做对比，发现字段基本保持一致，数据格式也不用转，全部都在其中。</p>
 <p>于是我翻阅了一下官方文档，有可以利用的 API，操作查询这些数据，下面是我的一些思路。</p>
 <p>先声明我想要拿到的数据，这些都在上面的截图中存在。</p>
@@ -185,8 +191,14 @@
 </span></span></code></pre></div><h2 id="4-操作流程原型">4. 操作流程原型</h2>
 <p>既然可以查询，就可以覆盖，同样也有 API 支持，所以我就构思了一下流程，利用 Webdav 的增删改查，把这些数据传到网盘中，然后在另一台设备拉取，最后优化一下整个流程，让它更加可视化。</p>
 <p>大致原型如下：</p>
-<p><img src="https://imgurl.zishu.me/2024/11/1731404855162.webp"
-     alt="1731404855162"class="lazy"></p>
+<p>     
+<figure>
+  <img 
+		src="https://imgurl.zishu.me/2024/11/1731404855162.webp"
+    alt=""class="lazy"
+	>
+  <figcaption></figcaption>
+</figure></p>
 <p>点击同步到云端，会通过 Webdav API 在网盘创建一个指定的文件夹 <code>lobechat-webdav-backup</code>(我自己随意命名的)，在本地程序中生成一个 json 文件，IndexedDB 数据会被放入该文件中，然后通过 Webdav API 传输到网盘中。</p>
 <p>点击下载到本地，会先通过 Webdav API 获取<code>lobechat-webdav-backup</code>下的 json 文件内容，利用 IndexedDB API 覆盖在浏览器 IndexedDB 数据库中。</p>
 <hr>
@@ -1137,7 +1149,7 @@ twikoo.init({
 
 <footer class="footer">
   <div class="l-wrap">
-    <p class="aboutme">这是我的个人博客，已经运行了 <span id="days"></span> 天，写了 307 篇文章，共 195419 字。</p>
+    <p class="aboutme">这是我的个人博客，已经运行了 <span id="days"></span> 天，写了 307 篇文章，共 195385 字。</p>
     <p>© 2020 - 2025 Powered by
       <a href="https://github.com/dlzmoe" target="_blank">Github</a>
       / <a href="/index.xml" target="_blank">RSS</a>

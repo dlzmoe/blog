@@ -1,0 +1,1790 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<meta charset="utf-8" />
+<meta name="generator" content="Hugo 0.144.2">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="toTop" content="true">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="author" content="子舒" />
+<meta property="og:url" content="http://localhost:1313/blog---%E5%89%AF%E6%9C%AC/239/" />
+<link rel="canonical" href="http://localhost:1313/blog---%E5%89%AF%E6%9C%AC/239/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="shortcut" href="https://imgurl.zishu.me/favicon.ico" /><link rel="alternate" type="application/atom+xml" href="http://localhost:1313/index.xml" title="子舒的博客">
+<script type="application/ld+json">
+{
+"@context" : "http://schema.org",
+"@type" : "BlogPosting",
+"mainEntityOfPage": {
+"@type": "WebPage",
+"@id": "http:\/\/localhost:1313\/"
+},
+"articleSection" : "blog---副本",
+"name" : "Python \u002b GPT 自动翻译 README 文档",
+"headline" : "Python \u002b GPT 自动翻译 README 文档",
+"description" : "在开发个人项目时，写 README 文件一直是一件很头疼的事情，所幸辛苦写完了，想做个多语言版本更头疼，为了解决整个痛点，写了个 python \u002b GPT 脚本，将这一切自动化处理了。\n源码：https:\/\/github.com\/dlzmoe\/translate-README\n在根目录下新建俩文件 .env 和 translate_md.py：\nOPENAI_URL=https:\/\/api.openai.com\/v1\/chat\/completions API_KEY=your_api_key_here MODEL=gpt-4o-mini INPUT_FILE=README.md OUTPUT_FILE=README_EN.md TARGET_LANGUAGE=en 个人是比较喜欢 gpt-4o-mini 这个模型，功能足够覆盖我日常使用，生成速度快，对 token 的消耗也比较低，作图生文、理解性也都是前排水平。\n# translate_md.py import os import requests from dotenv import load_dotenv # 加载 .env 文件中的环境变量 load_dotenv() # 配置选项 OPENAI_URL = os.getenv(\u0026#34;OPENAI_URL\u0026#34;) API_KEY = os.getenv(\u0026#34;API_KEY\u0026#34;) MODEL = os.getenv(\u0026#34;MODEL\u0026#34;) INPUT_FILE = os.getenv(\u0026#34;INPUT_FILE\u0026#34;) OUTPUT_FILE = os.getenv(\u0026#34;OUTPUT_FILE\u0026#34;) TARGET_LANGUAGE = os.getenv(\u0026#34;TARGET_LANGUAGE\u0026#34;) def read_markdown_file(file_path): with open(file_path, \u0026#39;r\u0026#39;, encoding=\u0026#39;utf-8\u0026#39;) as file: return file.read() def write_markdown_file(file_path, content): with open(file_path, \u0026#39;w\u0026#39;, encoding=\u0026#39;utf-8\u0026#39;) as file: file.write(content) def translate_text(text): headers = { \u0026#34;Authorization\u0026#34;: f\u0026#34;Bearer {API_KEY}\u0026#34;, \u0026#34;Content-Type\u0026#34;: \u0026#34;application\/json\u0026#34; } prompt = f\u0026#34;Translate the following text to {TARGET_LANGUAGE} Markdown syntax is not preserved :\\n\\n{text}\u0026#34; data = { \u0026#34;model\u0026#34;: MODEL, \u0026#34;messages\u0026#34;: [{\u0026#34;role\u0026#34;: \u0026#34;user\u0026#34;, \u0026#34;content\u0026#34;: prompt}] } response = requests.post(OPENAI_URL, headers=headers, json=data) if response.status_code == 200: return response.json()[\u0026#39;choices\u0026#39;][0][\u0026#39;message\u0026#39;][\u0026#39;content\u0026#39;] else: print(f\u0026#34;Error: {response.status_code} - {response.text}\u0026#34;) return None def main(): if not os.path.exists(INPUT_FILE): print(f\u0026#34;Input file {INPUT_FILE} does not exist.\u0026#34;) return # 读取 Markdown 文件 markdown_content = read_markdown_file(INPUT_FILE) # 去除头尾的 \u0060\u0060\u0060 语法 # 这里假设 markdown_content 的开头和结尾没有其他内容，只是代码块 if markdown_content.startswith(\u0026#39;\u0060\u0060\u0060\u0026#39;): markdown_content = markdown_content[3:].strip() if markdown_content.endswith(\u0026#39;\u0060\u0060\u0060\u0026#39;): markdown_content = markdown_content[:-3].strip() # 翻译文本 translated_content = translate_text(markdown_content) if translated_content: # 写入翻译后的内容到输出文件 write_markdown_file(OUTPUT_FILE, translated_content) print(f\u0026#34;Translation completed. Output saved to {OUTPUT_FILE}.\u0026#34;) else: print(\u0026#34;Translation failed.\u0026#34;) if __name__ == \u0026#34;__main__\u0026#34;: main() 文件创建完成后安装一下依赖：\npip install requests pip install python-dotenv 直接运行即可：\npy translate_md.py ",
+"inLanguage" : "en-US",
+"author" : "子舒",
+"creator" : "子舒",
+"publisher": "子舒",
+"accountablePerson" : "子舒",
+"copyrightHolder" : "子舒",
+"copyrightYear" : "2024",
+"datePublished": "2024-09-09 00:00:00 \u002b0000 UTC",
+"dateModified" : "2024-09-09 00:00:00 \u002b0000 UTC",
+"url" : "http:\/\/localhost:1313\/blog---%E5%89%AF%E6%9C%AC\/239\/",
+"keywords" : [ "Python","GPT", ]
+}
+</script><title>Python &#43; GPT 自动翻译 README 文档 - 子舒的博客</title>
+<meta property="og:title" content="Python &#43; GPT 自动翻译 README 文档" />
+<meta property="og:type" content="article" />
+
+
+<meta property="og:keywords" content="在开发个人项目时，写 README 文件一直是一件很头疼的事情，所幸辛苦写完了，想做个多语言版本更头疼，为了解决整个痛点，写了个 python &#43; GPT 脚本，将这一切自动化处理了。
+源码：https://github.com/dlzmoe/translate-README
+在根目录下新建俩文件 .env 和 translate_md.py：
+OPENAI_URL=https://api.openai.com/v1/chat/completions API_KEY=your_api_key_here MODEL=gpt-4o-mini INPUT_FILE=README.md OUTPUT_FILE=README_EN.md TARGET_LANGUAGE=en 个人是比较喜欢 gpt-4o-mini 这个模型，功能足够覆盖我日常使用，生成速度快，对 token 的消耗也比较低，作图生文、理解性也都是前排水平。
+# translate_md.py import os import requests from dotenv import load_dotenv # 加载 .env 文件中的环境变量 load_dotenv() # 配置选项 OPENAI_URL = os.getenv(&#34;OPENAI_URL&#34;) API_KEY = os.getenv(&#34;API_KEY&#34;) MODEL = os.getenv(&#34;MODEL&#34;) INPUT_FILE = os.getenv(&#34;INPUT_FILE&#34;) OUTPUT_FILE = os.getenv(&#34;OUTPUT_FILE&#34;) TARGET_LANGUAGE = os.getenv(&#34;TARGET_LANGUAGE&#34;) def read_markdown_file(file_path): with open(file_path, &#39;r&#39;, encoding=&#39;utf-8&#39;) as file: return file.read() def write_markdown_file(file_path, content): with open(file_path, &#39;w&#39;, encoding=&#39;utf-8&#39;) as file: file.write(content) def translate_text(text): headers = { &#34;Authorization&#34;: f&#34;Bearer {API_KEY}&#34;, &#34;Content-Type&#34;: &#34;application/json&#34; } prompt = f&#34;Translate the following text to {TARGET_LANGUAGE} Markdown syntax is not preserved :\n\n{text}&#34; data = { &#34;model&#34;: MODEL, &#34;messages&#34;: [{&#34;role&#34;: &#34;user&#34;, &#34;content&#34;: prompt}] } response = requests.post(OPENAI_URL, headers=headers, json=data) if response.status_code == 200: return response.json()[&#39;choices&#39;][0][&#39;message&#39;][&#39;content&#39;] else: print(f&#34;Error: {response.status_code} - {response.text}&#34;) return None def main(): if not os.path.exists(INPUT_FILE): print(f&#34;Input file {INPUT_FILE} does not exist.&#34;) return # 读取 Markdown 文件 markdown_content = read_markdown_file(INPUT_FILE) # 去除头尾的 ``` 语法 # 这里假设 markdown_content 的开头和结尾没有其他内容，只是代码块 if markdown_content.startswith(&#39;```&#39;): markdown_content = markdown_content[3:].strip() if markdown_content.endswith(&#39;```&#39;): markdown_content = markdown_content[:-3].strip() # 翻译文本 translated_content = translate_text(markdown_content) if translated_content: # 写入翻译后的内容到输出文件 write_markdown_file(OUTPUT_FILE, translated_content) print(f&#34;Translation completed. Output saved to {OUTPUT_FILE}.&#34;) else: print(&#34;Translation failed.&#34;) if __name__ == &#34;__main__&#34;: main() 文件创建完成后安装一下依赖：
+pip install requests pip install python-dotenv 直接运行即可：
+py translate_md.py " />
+<meta name="keywords" content="在开发个人项目时，写 README 文件一直是一件很头疼的事情，所幸辛苦写完了，想做个多语言版本更头疼，为了解决整个痛点，写了个 python &#43; GPT 脚本，将这一切自动化处理了。
+源码：https://github.com/dlzmoe/translate-README
+在根目录下新建俩文件 .env 和 translate_md.py：
+OPENAI_URL=https://api.openai.com/v1/chat/completions API_KEY=your_api_key_here MODEL=gpt-4o-mini INPUT_FILE=README.md OUTPUT_FILE=README_EN.md TARGET_LANGUAGE=en 个人是比较喜欢 gpt-4o-mini 这个模型，功能足够覆盖我日常使用，生成速度快，对 token 的消耗也比较低，作图生文、理解性也都是前排水平。
+# translate_md.py import os import requests from dotenv import load_dotenv # 加载 .env 文件中的环境变量 load_dotenv() # 配置选项 OPENAI_URL = os.getenv(&#34;OPENAI_URL&#34;) API_KEY = os.getenv(&#34;API_KEY&#34;) MODEL = os.getenv(&#34;MODEL&#34;) INPUT_FILE = os.getenv(&#34;INPUT_FILE&#34;) OUTPUT_FILE = os.getenv(&#34;OUTPUT_FILE&#34;) TARGET_LANGUAGE = os.getenv(&#34;TARGET_LANGUAGE&#34;) def read_markdown_file(file_path): with open(file_path, &#39;r&#39;, encoding=&#39;utf-8&#39;) as file: return file.read() def write_markdown_file(file_path, content): with open(file_path, &#39;w&#39;, encoding=&#39;utf-8&#39;) as file: file.write(content) def translate_text(text): headers = { &#34;Authorization&#34;: f&#34;Bearer {API_KEY}&#34;, &#34;Content-Type&#34;: &#34;application/json&#34; } prompt = f&#34;Translate the following text to {TARGET_LANGUAGE} Markdown syntax is not preserved :\n\n{text}&#34; data = { &#34;model&#34;: MODEL, &#34;messages&#34;: [{&#34;role&#34;: &#34;user&#34;, &#34;content&#34;: prompt}] } response = requests.post(OPENAI_URL, headers=headers, json=data) if response.status_code == 200: return response.json()[&#39;choices&#39;][0][&#39;message&#39;][&#39;content&#39;] else: print(f&#34;Error: {response.status_code} - {response.text}&#34;) return None def main(): if not os.path.exists(INPUT_FILE): print(f&#34;Input file {INPUT_FILE} does not exist.&#34;) return # 读取 Markdown 文件 markdown_content = read_markdown_file(INPUT_FILE) # 去除头尾的 ``` 语法 # 这里假设 markdown_content 的开头和结尾没有其他内容，只是代码块 if markdown_content.startswith(&#39;```&#39;): markdown_content = markdown_content[3:].strip() if markdown_content.endswith(&#39;```&#39;): markdown_content = markdown_content[:-3].strip() # 翻译文本 translated_content = translate_text(markdown_content) if translated_content: # 写入翻译后的内容到输出文件 write_markdown_file(OUTPUT_FILE, translated_content) print(f&#34;Translation completed. Output saved to {OUTPUT_FILE}.&#34;) else: print(&#34;Translation failed.&#34;) if __name__ == &#34;__main__&#34;: main() 文件创建完成后安装一下依赖：
+pip install requests pip install python-dotenv 直接运行即可：
+py translate_md.py " />
+
+
+<meta property="og:description" content="在开发个人项目时，写 README 文件一直是一件很头疼的事情，所幸辛苦写完了，想做个多语言版本更头疼，为了解决整个痛点，写了个 python &#43; GPT 脚本，将这一切自动化处理了。
+源码：https://github.com/dlzmoe/translate-README
+在根目录下新建俩文件 .env 和 translate_md.py：
+OPENAI_URL=https://api.openai.com/v1/chat/completions API_KEY=your_api_key_here MODEL=gpt-4o-mini INPUT_FILE=README.md OUTPUT_FILE=README_EN.md TARGET_LANGUAGE=en 个人是比较喜欢 gpt-4o-mini 这个模型，功能足够覆盖我日常使用，生成速度快，对 token 的消耗也比较低，作图生文、理解性也都是前排水平。
+# translate_md.py import os import requests from dotenv import load_dotenv # 加载 .env 文件中的环境变量 load_dotenv() # 配置选项 OPENAI_URL = os.getenv(&#34;OPENAI_URL&#34;) API_KEY = os.getenv(&#34;API_KEY&#34;) MODEL = os.getenv(&#34;MODEL&#34;) INPUT_FILE = os.getenv(&#34;INPUT_FILE&#34;) OUTPUT_FILE = os.getenv(&#34;OUTPUT_FILE&#34;) TARGET_LANGUAGE = os.getenv(&#34;TARGET_LANGUAGE&#34;) def read_markdown_file(file_path): with open(file_path, &#39;r&#39;, encoding=&#39;utf-8&#39;) as file: return file.read() def write_markdown_file(file_path, content): with open(file_path, &#39;w&#39;, encoding=&#39;utf-8&#39;) as file: file.write(content) def translate_text(text): headers = { &#34;Authorization&#34;: f&#34;Bearer {API_KEY}&#34;, &#34;Content-Type&#34;: &#34;application/json&#34; } prompt = f&#34;Translate the following text to {TARGET_LANGUAGE} Markdown syntax is not preserved :\n\n{text}&#34; data = { &#34;model&#34;: MODEL, &#34;messages&#34;: [{&#34;role&#34;: &#34;user&#34;, &#34;content&#34;: prompt}] } response = requests.post(OPENAI_URL, headers=headers, json=data) if response.status_code == 200: return response.json()[&#39;choices&#39;][0][&#39;message&#39;][&#39;content&#39;] else: print(f&#34;Error: {response.status_code} - {response.text}&#34;) return None def main(): if not os.path.exists(INPUT_FILE): print(f&#34;Input file {INPUT_FILE} does not exist.&#34;) return # 读取 Markdown 文件 markdown_content = read_markdown_file(INPUT_FILE) # 去除头尾的 ``` 语法 # 这里假设 markdown_content 的开头和结尾没有其他内容，只是代码块 if markdown_content.startswith(&#39;```&#39;): markdown_content = markdown_content[3:].strip() if markdown_content.endswith(&#39;```&#39;): markdown_content = markdown_content[:-3].strip() # 翻译文本 translated_content = translate_text(markdown_content) if translated_content: # 写入翻译后的内容到输出文件 write_markdown_file(OUTPUT_FILE, translated_content) print(f&#34;Translation completed. Output saved to {OUTPUT_FILE}.&#34;) else: print(&#34;Translation failed.&#34;) if __name__ == &#34;__main__&#34;: main() 文件创建完成后安装一下依赖：
+pip install requests pip install python-dotenv 直接运行即可：
+py translate_md.py " />
+<meta name="description" content="在开发个人项目时，写 README 文件一直是一件很头疼的事情，所幸辛苦写完了，想做个多语言版本更头疼，为了解决整个痛点，写了个 python &#43; GPT 脚本，将这一切自动化处理了。
+源码：https://github.com/dlzmoe/translate-README
+在根目录下新建俩文件 .env 和 translate_md.py：
+OPENAI_URL=https://api.openai.com/v1/chat/completions API_KEY=your_api_key_here MODEL=gpt-4o-mini INPUT_FILE=README.md OUTPUT_FILE=README_EN.md TARGET_LANGUAGE=en 个人是比较喜欢 gpt-4o-mini 这个模型，功能足够覆盖我日常使用，生成速度快，对 token 的消耗也比较低，作图生文、理解性也都是前排水平。
+# translate_md.py import os import requests from dotenv import load_dotenv # 加载 .env 文件中的环境变量 load_dotenv() # 配置选项 OPENAI_URL = os.getenv(&#34;OPENAI_URL&#34;) API_KEY = os.getenv(&#34;API_KEY&#34;) MODEL = os.getenv(&#34;MODEL&#34;) INPUT_FILE = os.getenv(&#34;INPUT_FILE&#34;) OUTPUT_FILE = os.getenv(&#34;OUTPUT_FILE&#34;) TARGET_LANGUAGE = os.getenv(&#34;TARGET_LANGUAGE&#34;) def read_markdown_file(file_path): with open(file_path, &#39;r&#39;, encoding=&#39;utf-8&#39;) as file: return file.read() def write_markdown_file(file_path, content): with open(file_path, &#39;w&#39;, encoding=&#39;utf-8&#39;) as file: file.write(content) def translate_text(text): headers = { &#34;Authorization&#34;: f&#34;Bearer {API_KEY}&#34;, &#34;Content-Type&#34;: &#34;application/json&#34; } prompt = f&#34;Translate the following text to {TARGET_LANGUAGE} Markdown syntax is not preserved :\n\n{text}&#34; data = { &#34;model&#34;: MODEL, &#34;messages&#34;: [{&#34;role&#34;: &#34;user&#34;, &#34;content&#34;: prompt}] } response = requests.post(OPENAI_URL, headers=headers, json=data) if response.status_code == 200: return response.json()[&#39;choices&#39;][0][&#39;message&#39;][&#39;content&#39;] else: print(f&#34;Error: {response.status_code} - {response.text}&#34;) return None def main(): if not os.path.exists(INPUT_FILE): print(f&#34;Input file {INPUT_FILE} does not exist.&#34;) return # 读取 Markdown 文件 markdown_content = read_markdown_file(INPUT_FILE) # 去除头尾的 ``` 语法 # 这里假设 markdown_content 的开头和结尾没有其他内容，只是代码块 if markdown_content.startswith(&#39;```&#39;): markdown_content = markdown_content[3:].strip() if markdown_content.endswith(&#39;```&#39;): markdown_content = markdown_content[:-3].strip() # 翻译文本 translated_content = translate_text(markdown_content) if translated_content: # 写入翻译后的内容到输出文件 write_markdown_file(OUTPUT_FILE, translated_content) print(f&#34;Translation completed. Output saved to {OUTPUT_FILE}.&#34;) else: print(&#34;Translation failed.&#34;) if __name__ == &#34;__main__&#34;: main() 文件创建完成后安装一下依赖：
+pip install requests pip install python-dotenv 直接运行即可：
+py translate_md.py " />
+<meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
+
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/index.css">
+<link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
+<script src="/js/jquery3.6.0.min.js"></script>
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="main">
+      <div class="top">
+  <a href="/"><img src="https://imgurl.zishu.me/author.webp" width="72" height="72" class="avatar" border="0"></a>
+  <div class="site-info">
+    <a href="/" class="site-title">子舒的博客</a>
+    <div class="site-about">
+      <p>一个热爱生活的前端开发工程师。</p>
+    </div>
+  </div>
+</div>
+
+<div class="nav-container">
+  <div class="nav">
+    
+    <a href="/" class="nav-item">首页</a>
+    
+    <a href="/blog/" class="nav-item">文章</a>
+    
+    <a href="/categories/weekly/" class="nav-item">周刊</a>
+    
+    <a href="/message/" class="nav-item">留言</a>
+    
+    <a href="/about/" class="nav-item">关于</a>
+    
+    <a href="/links/" class="nav-item">友链</a>
+    
+    <a href="/search/" class="nav-item">搜索</a>
+    
+
+    <a href="./index.xml" target="_blank"><img src="/images/rss.svg" alt="RSS" class="social-icon" width="1em"></a>
+    <a href="https://github.com/dlzmoe" target="_blank"><img src="/images/github.svg" alt="github.com/dlzmoe" class="social-icon" width="1em"></a>
+    <a href="https://discord.com/invite/n2pErsD7Kg" target="_blank"><img src="/images/discord.svg" alt="Discord Invite" class="social-icon" width="1em"></a>
+  </div>
+</div>
+
+      <h1>Python &#43; GPT 自动翻译 README 文档</h1>
+
+      
+      <div class="date">Oct 90, 90912</div>
+      
+
+      
+      <div class="toc">
+        <details open>
+          <summary accesskey="c" title="(Alt + C)"><span class="details">Table of Contents</span></summary>
+          <div class="inner"> <nav id="TableOfContents"></nav></div>
+        </details>
+      </div>
+      
+
+      <article class="content">
+        
+        <p>在开发个人项目时，写 README 文件一直是一件很头疼的事情，所幸辛苦写完了，想做个多语言版本更头疼，为了解决整个痛点，写了个 python + GPT 脚本，将这一切自动化处理了。</p>
+<p>源码：https://github.com/dlzmoe/translate-README</p>
+<p>在根目录下新建俩文件 <code>.env</code> 和 <code>translate_md.py</code>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nv">OPENAI_URL</span><span class="o">=</span>https://api.openai.com/v1/chat/completions
+</span></span><span class="line"><span class="cl"><span class="nv">API_KEY</span><span class="o">=</span>your_api_key_here
+</span></span><span class="line"><span class="cl"><span class="nv">MODEL</span><span class="o">=</span>gpt-4o-mini
+</span></span><span class="line"><span class="cl"><span class="nv">INPUT_FILE</span><span class="o">=</span>README.md
+</span></span><span class="line"><span class="cl"><span class="nv">OUTPUT_FILE</span><span class="o">=</span>README_EN.md
+</span></span><span class="line"><span class="cl"><span class="nv">TARGET_LANGUAGE</span><span class="o">=</span>en
+</span></span></code></pre></div><p>个人是比较喜欢 <code>gpt-4o-mini</code> 这个模型，功能足够覆盖我日常使用，生成速度快，对 token 的消耗也比较低，作图生文、理解性也都是前排水平。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># translate_md.py</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">requests</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">dotenv</span> <span class="kn">import</span> <span class="n">load_dotenv</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 加载 .env 文件中的环境变量</span>
+</span></span><span class="line"><span class="cl"><span class="n">load_dotenv</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 配置选项</span>
+</span></span><span class="line"><span class="cl"><span class="n">OPENAI_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&#34;OPENAI_URL&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">API_KEY</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&#34;API_KEY&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">MODEL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&#34;MODEL&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">INPUT_FILE</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&#34;INPUT_FILE&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">OUTPUT_FILE</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&#34;OUTPUT_FILE&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">TARGET_LANGUAGE</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&#34;TARGET_LANGUAGE&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">read_markdown_file</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">write_markdown_file</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">content</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">translate_text</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;Authorization&#34;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&#34;Bearer </span><span class="si">{</span><span class="n">API_KEY</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;Content-Type&#34;</span><span class="p">:</span> <span class="s2">&#34;application/json&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&#34;Translate the following text to </span><span class="si">{</span><span class="n">TARGET_LANGUAGE</span><span class="si">}</span><span class="s2"> Markdown syntax is not preserved :</span><span class="se">\n\n</span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;model&#34;</span><span class="p">:</span> <span class="n">MODEL</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;messages&#34;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&#34;role&#34;</span><span class="p">:</span> <span class="s2">&#34;user&#34;</span><span class="p">,</span> <span class="s2">&#34;content&#34;</span><span class="p">:</span> <span class="n">prompt</span><span class="p">}]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">OPENAI_URL</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s1">&#39;choices&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;message&#39;</span><span class="p">][</span><span class="s1">&#39;content&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Error: </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">INPUT_FILE</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Input file </span><span class="si">{</span><span class="n">INPUT_FILE</span><span class="si">}</span><span class="s2"> does not exist.&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># 读取 Markdown 文件</span>
+</span></span><span class="line"><span class="cl">    <span class="n">markdown_content</span> <span class="o">=</span> <span class="n">read_markdown_file</span><span class="p">(</span><span class="n">INPUT_FILE</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># 去除头尾的 ``` 语法</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 这里假设 markdown_content 的开头和结尾没有其他内容，只是代码块</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">markdown_content</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;```&#39;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">markdown_content</span> <span class="o">=</span> <span class="n">markdown_content</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">markdown_content</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;```&#39;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">markdown_content</span> <span class="o">=</span> <span class="n">markdown_content</span><span class="p">[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># 翻译文本</span>
+</span></span><span class="line"><span class="cl">    <span class="n">translated_content</span> <span class="o">=</span> <span class="n">translate_text</span><span class="p">(</span><span class="n">markdown_content</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">translated_content</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 写入翻译后的内容到输出文件</span>
+</span></span><span class="line"><span class="cl">        <span class="n">write_markdown_file</span><span class="p">(</span><span class="n">OUTPUT_FILE</span><span class="p">,</span> <span class="n">translated_content</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Translation completed. Output saved to </span><span class="si">{</span><span class="n">OUTPUT_FILE</span><span class="si">}</span><span class="s2">.&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Translation failed.&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">main</span><span class="p">()</span>
+</span></span></code></pre></div><p>文件创建完成后安装一下依赖：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">pip install requests
+</span></span><span class="line"><span class="cl">pip install python-dotenv
+</span></span></code></pre></div><p>直接运行即可：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">py translate_md.py
+</span></span></code></pre></div>
+        <div class="weekly-pagination"></div>
+      </article>
+
+      
+      <div class="post-tags">
+        
+        
+        <span class="namenode">分类：<a href="/categories/%E6%8A%80%E6%9C%AF">技术</a>
+        </span>
+        
+        
+        <span class="tag-node">
+          
+          标签：<a href="/tags/python">#Python</a>
+          <a href="/tags/gpt">#GPT</a>
+          
+          
+        </span>
+      </div>
+      
+
+      
+      <ul class="comment-tabs">
+  <li class="active">giscus</li>
+  <li>twikoo</li>
+</ul>
+<div class="comments">
+  <div class="giscus active"></div>
+  <div id="tcomment"></div>
+</div>
+<script 
+  src="https://giscus.app/client.js" 
+  data-repo="dlzmoe/blog" 
+  data-repo-id="R_kgDOJkJvtw"
+  data-category="Announcements" 
+  data-category-id="DIC_kwDOJkJvt84CX9d6" 
+  data-mapping="pathname" 
+  data-strict="0"
+  data-reactions-enabled="1" 
+  data-emit-metadata="1" 
+  data-input-position="top" 
+  data-theme="light_tritanopia"
+  data-lang="zh-CN" 
+  data-loading="lazy" 
+  crossorigin="anonymous" 
+  async>
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/twikoo@1.6.41/dist/twikoo.min.js"></script>
+<script>
+twikoo.init({
+  envId: 'https://twikoo.zishu.me/.netlify/functions/twikoo',
+  el: '#tcomment',
+  lang: 'zh-CN', 
+})
+</script>
+
+<script>
+  const tabs = document.querySelectorAll('.comment-tabs li');
+  const contents = document.querySelectorAll('.comments > div');
+
+  tabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => {
+      
+      tabs.forEach(t => t.classList.remove('active'));
+      contents.forEach(c => c.classList.remove('active'));
+      
+      
+      tab.classList.add('active');
+      contents[index].classList.add('active');
+    });
+  });
+</script>
+      
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<footer class="footer">
+  <div class="l-wrap">
+    <p class="aboutme">这是我的个人博客，已经运行了 <span id="days"></span> 天，写了 607 篇文章，共 391108 字。</p>
+    <p>© 2020 - 2025 Powered by
+      <a href="https://github.com/dlzmoe" target="_blank">Github</a>
+      / <a href="/index.xml" target="_blank">RSS</a>
+    </p>
+  </div>
+  <div class="gotop"></div>
+</footer>
+
+<script>
+  const time = "2020-06-14";
+  var now = new Date();
+  var end = new Date(time);
+  var diff = Math.abs(now - end);
+  var days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+  document.getElementById('days').innerHTML = days;
+</script>
+
+<script src="/js/main.js"></script>
+    </div>
+  </div>
+</body>
+
+</html>

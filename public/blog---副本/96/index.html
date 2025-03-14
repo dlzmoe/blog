@@ -1,0 +1,1757 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<meta charset="utf-8" />
+<meta name="generator" content="Hugo 0.144.2">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="toTop" content="true">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="author" content="子舒" />
+<meta property="og:url" content="http://localhost:1313/blog---%E5%89%AF%E6%9C%AC/96/" />
+<link rel="canonical" href="http://localhost:1313/blog---%E5%89%AF%E6%9C%AC/96/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="shortcut" href="https://imgurl.zishu.me/favicon.ico" /><link rel="alternate" type="application/atom+xml" href="http://localhost:1313/index.xml" title="子舒的博客">
+<script type="application/ld+json">
+{
+"@context" : "http://schema.org",
+"@type" : "BlogPosting",
+"mainEntityOfPage": {
+"@type": "WebPage",
+"@id": "http:\/\/localhost:1313\/"
+},
+"articleSection" : "blog---副本",
+"name" : "Nuxt 项目中如何引入百度统计？",
+"headline" : "Nuxt 项目中如何引入百度统计？",
+"description" : "在部署一个网站之后，我们最关心的事情无异于是访问量，以及对它的分析。国内的百度统计是一个不错的选择，基本的功能都是免费的。\n只需要在 head 中引入一串 javascript 代码即可。\n\u0026lt;!-- \u0026lt;script\u0026gt; var _hmt = _hmt || []; (function() { var hm = document.createElement(\u0026#34;script\u0026#34;); hm.src = \u0026#34;https:\/\/hm.baidu.com\/hm.js?xxxxxxxxxxxxxxxxxxx\u0026#34;; var s = document.getElementsByTagName(\u0026#34;script\u0026#34;)[0]; s.parentNode.insertBefore(hm, s); })(); \u0026lt;\/script\u0026gt; --\u0026gt; 上面是百度提供的统计代码，需要放在 \u0026lt;head\u0026gt;\u0026lt;\/head\u0026gt;中。\n但是在 nuxt 中，没有传统的 \u0026lt;head\u0026gt;\u0026lt;\/head\u0026gt; 。所以要对他进行一些处理。\n1. 首先在根目录下 \/plugins 新建一个文件 baidu.js \/\/ \/plugins\/baidu.js export default ({app: {router}, store}) =\u0026gt; { \/* 每次路由变更时进行 pv 统计 *\/ router.afterEach((to, from) =\u0026gt; { \/* 告诉增加一个 PV *\/ try { window._hmt = window._hmt || [] window._hmt.push([\u0026#39;_trackPageview\u0026#39;, to.fullPath]) } catch (e) { } }) } 2. 配置 nuxt.config.js 文件 在 plugins中： plugins: [ { src: \u0026#39;~\/plugins\/baidu\u0026#39; } ], 在 head中： head: { \/\/ ... link: [ \/\/ ... ], script: [ { src: \u0026#39;https:\/\/hm.baidu.com\/hm.js?xxxxxxxxxxxxxxxxxxx\u0026#39; } ] }, 在 script 中写入百度统计提供的 url 即可，按照对应的字符。\n",
+"inLanguage" : "en-US",
+"author" : "子舒",
+"creator" : "子舒",
+"publisher": "子舒",
+"accountablePerson" : "子舒",
+"copyrightHolder" : "子舒",
+"copyrightYear" : "2022",
+"datePublished": "2022-01-17 00:00:00 \u002b0000 UTC",
+"dateModified" : "2022-01-17 00:00:00 \u002b0000 UTC",
+"url" : "http:\/\/localhost:1313\/blog---%E5%89%AF%E6%9C%AC\/96\/",
+"keywords" : [ "博客","Nuxt", ]
+}
+</script><title>Nuxt 项目中如何引入百度统计？ - 子舒的博客</title>
+<meta property="og:title" content="Nuxt 项目中如何引入百度统计？" />
+<meta property="og:type" content="article" />
+
+
+<meta property="og:keywords" content="在部署一个网站之后，我们最关心的事情无异于是访问量，以及对它的分析。国内的百度统计是一个不错的选择，基本的功能都是免费的。
+只需要在 head 中引入一串 javascript 代码即可。
+&lt;!-- &lt;script&gt; var _hmt = _hmt || []; (function() { var hm = document.createElement(&#34;script&#34;); hm.src = &#34;https://hm.baidu.com/hm.js?xxxxxxxxxxxxxxxxxxx&#34;; var s = document.getElementsByTagName(&#34;script&#34;)[0]; s.parentNode.insertBefore(hm, s); })(); &lt;/script&gt; --&gt; 上面是百度提供的统计代码，需要放在 &lt;head&gt;&lt;/head&gt;中。
+但是在 nuxt 中，没有传统的 &lt;head&gt;&lt;/head&gt; 。所以要对他进行一些处理。
+1. 首先在根目录下 /plugins 新建一个文件 baidu.js // /plugins/baidu.js export default ({app: {router}, store}) =&gt; { /* 每次路由变更时进行 pv 统计 */ router.afterEach((to, from) =&gt; { /* 告诉增加一个 PV */ try { window._hmt = window._hmt || [] window._hmt.push([&#39;_trackPageview&#39;, to.fullPath]) } catch (e) { } }) } 2. 配置 nuxt.config.js 文件 在 plugins中： plugins: [ { src: &#39;~/plugins/baidu&#39; } ], 在 head中： head: { // ... link: [ // ... ], script: [ { src: &#39;https://hm.baidu.com/hm.js?xxxxxxxxxxxxxxxxxxx&#39; } ] }, 在 script 中写入百度统计提供的 url 即可，按照对应的字符。
+" />
+<meta name="keywords" content="在部署一个网站之后，我们最关心的事情无异于是访问量，以及对它的分析。国内的百度统计是一个不错的选择，基本的功能都是免费的。
+只需要在 head 中引入一串 javascript 代码即可。
+&lt;!-- &lt;script&gt; var _hmt = _hmt || []; (function() { var hm = document.createElement(&#34;script&#34;); hm.src = &#34;https://hm.baidu.com/hm.js?xxxxxxxxxxxxxxxxxxx&#34;; var s = document.getElementsByTagName(&#34;script&#34;)[0]; s.parentNode.insertBefore(hm, s); })(); &lt;/script&gt; --&gt; 上面是百度提供的统计代码，需要放在 &lt;head&gt;&lt;/head&gt;中。
+但是在 nuxt 中，没有传统的 &lt;head&gt;&lt;/head&gt; 。所以要对他进行一些处理。
+1. 首先在根目录下 /plugins 新建一个文件 baidu.js // /plugins/baidu.js export default ({app: {router}, store}) =&gt; { /* 每次路由变更时进行 pv 统计 */ router.afterEach((to, from) =&gt; { /* 告诉增加一个 PV */ try { window._hmt = window._hmt || [] window._hmt.push([&#39;_trackPageview&#39;, to.fullPath]) } catch (e) { } }) } 2. 配置 nuxt.config.js 文件 在 plugins中： plugins: [ { src: &#39;~/plugins/baidu&#39; } ], 在 head中： head: { // ... link: [ // ... ], script: [ { src: &#39;https://hm.baidu.com/hm.js?xxxxxxxxxxxxxxxxxxx&#39; } ] }, 在 script 中写入百度统计提供的 url 即可，按照对应的字符。
+" />
+
+
+<meta property="og:description" content="在部署一个网站之后，我们最关心的事情无异于是访问量，以及对它的分析。国内的百度统计是一个不错的选择，基本的功能都是免费的。
+只需要在 head 中引入一串 javascript 代码即可。
+&lt;!-- &lt;script&gt; var _hmt = _hmt || []; (function() { var hm = document.createElement(&#34;script&#34;); hm.src = &#34;https://hm.baidu.com/hm.js?xxxxxxxxxxxxxxxxxxx&#34;; var s = document.getElementsByTagName(&#34;script&#34;)[0]; s.parentNode.insertBefore(hm, s); })(); &lt;/script&gt; --&gt; 上面是百度提供的统计代码，需要放在 &lt;head&gt;&lt;/head&gt;中。
+但是在 nuxt 中，没有传统的 &lt;head&gt;&lt;/head&gt; 。所以要对他进行一些处理。
+1. 首先在根目录下 /plugins 新建一个文件 baidu.js // /plugins/baidu.js export default ({app: {router}, store}) =&gt; { /* 每次路由变更时进行 pv 统计 */ router.afterEach((to, from) =&gt; { /* 告诉增加一个 PV */ try { window._hmt = window._hmt || [] window._hmt.push([&#39;_trackPageview&#39;, to.fullPath]) } catch (e) { } }) } 2. 配置 nuxt.config.js 文件 在 plugins中： plugins: [ { src: &#39;~/plugins/baidu&#39; } ], 在 head中： head: { // ... link: [ // ... ], script: [ { src: &#39;https://hm.baidu.com/hm.js?xxxxxxxxxxxxxxxxxxx&#39; } ] }, 在 script 中写入百度统计提供的 url 即可，按照对应的字符。
+" />
+<meta name="description" content="在部署一个网站之后，我们最关心的事情无异于是访问量，以及对它的分析。国内的百度统计是一个不错的选择，基本的功能都是免费的。
+只需要在 head 中引入一串 javascript 代码即可。
+&lt;!-- &lt;script&gt; var _hmt = _hmt || []; (function() { var hm = document.createElement(&#34;script&#34;); hm.src = &#34;https://hm.baidu.com/hm.js?xxxxxxxxxxxxxxxxxxx&#34;; var s = document.getElementsByTagName(&#34;script&#34;)[0]; s.parentNode.insertBefore(hm, s); })(); &lt;/script&gt; --&gt; 上面是百度提供的统计代码，需要放在 &lt;head&gt;&lt;/head&gt;中。
+但是在 nuxt 中，没有传统的 &lt;head&gt;&lt;/head&gt; 。所以要对他进行一些处理。
+1. 首先在根目录下 /plugins 新建一个文件 baidu.js // /plugins/baidu.js export default ({app: {router}, store}) =&gt; { /* 每次路由变更时进行 pv 统计 */ router.afterEach((to, from) =&gt; { /* 告诉增加一个 PV */ try { window._hmt = window._hmt || [] window._hmt.push([&#39;_trackPageview&#39;, to.fullPath]) } catch (e) { } }) } 2. 配置 nuxt.config.js 文件 在 plugins中： plugins: [ { src: &#39;~/plugins/baidu&#39; } ], 在 head中： head: { // ... link: [ // ... ], script: [ { src: &#39;https://hm.baidu.com/hm.js?xxxxxxxxxxxxxxxxxxx&#39; } ] }, 在 script 中写入百度统计提供的 url 即可，按照对应的字符。
+" />
+<meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
+
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/index.css">
+<link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
+<script src="/js/jquery3.6.0.min.js"></script>
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="main">
+      <div class="top">
+  <a href="/"><img src="https://imgurl.zishu.me/author.webp" width="72" height="72" class="avatar" border="0"></a>
+  <div class="site-info">
+    <a href="/" class="site-title">子舒的博客</a>
+    <div class="site-about">
+      <p>一个热爱生活的前端开发工程师。</p>
+    </div>
+  </div>
+</div>
+
+<div class="nav-container">
+  <div class="nav">
+    
+    <a href="/" class="nav-item">首页</a>
+    
+    <a href="/blog/" class="nav-item">文章</a>
+    
+    <a href="/categories/weekly/" class="nav-item">周刊</a>
+    
+    <a href="/message/" class="nav-item">留言</a>
+    
+    <a href="/about/" class="nav-item">关于</a>
+    
+    <a href="/links/" class="nav-item">友链</a>
+    
+    <a href="/search/" class="nav-item">搜索</a>
+    
+
+    <a href="./index.xml" target="_blank"><img src="/images/rss.svg" alt="RSS" class="social-icon" width="1em"></a>
+    <a href="https://github.com/dlzmoe" target="_blank"><img src="/images/github.svg" alt="github.com/dlzmoe" class="social-icon" width="1em"></a>
+    <a href="https://discord.com/invite/n2pErsD7Kg" target="_blank"><img src="/images/discord.svg" alt="Discord Invite" class="social-icon" width="1em"></a>
+  </div>
+</div>
+
+      <h1>Nuxt 项目中如何引入百度统计？</h1>
+
+      
+      <div class="date">Oct 170, 171712</div>
+      
+
+      
+      <div class="toc">
+        <details open>
+          <summary accesskey="c" title="(Alt + C)"><span class="details">Table of Contents</span></summary>
+          <div class="inner"> <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1-首先在根目录下-plugins-新建一个文件-baidujs">1. 首先在根目录下 <code>/plugins</code> 新建一个文件 <code>baidu.js</code></a></li>
+        <li><a href="#2-配置-nuxtconfigjs-文件">2. 配置 nuxt.config.js 文件</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+        </details>
+      </div>
+      
+
+      <article class="content">
+        
+        <p>在部署一个网站之后，我们最关心的事情无异于是访问量，以及对它的分析。国内的百度统计是一个不错的选择，基本的功能都是免费的。</p>
+<p>只需要在 head 中引入一串 javascript 代码即可。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="c">&lt;!-- &lt;script&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c">var _hmt = _hmt || [];
+</span></span></span><span class="line"><span class="cl"><span class="c">(function() {
+</span></span></span><span class="line"><span class="cl"><span class="c">  var hm = document.createElement(&#34;script&#34;);
+</span></span></span><span class="line"><span class="cl"><span class="c">  hm.src = &#34;https://hm.baidu.com/hm.js?xxxxxxxxxxxxxxxxxxx&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="c">  var s = document.getElementsByTagName(&#34;script&#34;)[0]; 
+</span></span></span><span class="line"><span class="cl"><span class="c">  s.parentNode.insertBefore(hm, s);
+</span></span></span><span class="line"><span class="cl"><span class="c">})();
+</span></span></span><span class="line"><span class="cl"><span class="c">&lt;/script&gt; --&gt;</span>
+</span></span></code></pre></div><p>上面是百度提供的统计代码，需要放在 <code>&lt;head&gt;&lt;/head&gt;</code>中。</p>
+<p>但是在 nuxt 中，没有传统的 <code>&lt;head&gt;&lt;/head&gt;</code> 。所以要对他进行一些处理。</p>
+<h3 id="1-首先在根目录下-plugins-新建一个文件-baidujs">1. 首先在根目录下 <code>/plugins</code> 新建一个文件 <code>baidu.js</code></h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// /plugins/baidu.js
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="p">({</span><span class="nx">app</span><span class="o">:</span> <span class="p">{</span><span class="nx">router</span><span class="p">},</span> <span class="nx">store</span><span class="p">})</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* 每次路由变更时进行 pv 统计 */</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">router</span><span class="p">.</span><span class="nx">afterEach</span><span class="p">((</span><span class="nx">to</span><span class="p">,</span> <span class="nx">from</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/* 告诉增加一个 PV */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nb">window</span><span class="p">.</span><span class="nx">_hmt</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">_hmt</span> <span class="o">||</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">      <span class="nb">window</span><span class="p">.</span><span class="nx">_hmt</span><span class="p">.</span><span class="nx">push</span><span class="p">([</span><span class="s1">&#39;_trackPageview&#39;</span><span class="p">,</span> <span class="nx">to</span><span class="p">.</span><span class="nx">fullPath</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="2-配置-nuxtconfigjs-文件">2. 配置 nuxt.config.js 文件</h3>
+<ol>
+<li>在 <code>plugins</code>中：</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">plugins</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">src</span><span class="o">:</span> <span class="s1">&#39;~/plugins/baidu&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">],</span>
+</span></span></code></pre></div><ol start="2">
+<li>在 <code>head</code>中：</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">head</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">link</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">script</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span> <span class="nx">src</span><span class="o">:</span> <span class="s1">&#39;https://hm.baidu.com/hm.js?xxxxxxxxxxxxxxxxxxx&#39;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">},</span>
+</span></span></code></pre></div><p>在 script 中写入百度统计提供的 url 即可，按照对应的字符。</p>
+
+        <div class="weekly-pagination"></div>
+      </article>
+
+      
+      <div class="post-tags">
+        
+        
+        <span class="namenode">分类：<a href="/categories/%E6%8A%80%E6%9C%AF">技术</a>
+        </span>
+        
+        
+        <span class="tag-node">
+          
+          标签：<a href="/tags/%E5%8D%9A%E5%AE%A2">#博客</a>
+          <a href="/tags/nuxt">#Nuxt</a>
+          
+          
+        </span>
+      </div>
+      
+
+      
+      <ul class="comment-tabs">
+  <li class="active">giscus</li>
+  <li>twikoo</li>
+</ul>
+<div class="comments">
+  <div class="giscus active"></div>
+  <div id="tcomment"></div>
+</div>
+<script 
+  src="https://giscus.app/client.js" 
+  data-repo="dlzmoe/blog" 
+  data-repo-id="R_kgDOJkJvtw"
+  data-category="Announcements" 
+  data-category-id="DIC_kwDOJkJvt84CX9d6" 
+  data-mapping="pathname" 
+  data-strict="0"
+  data-reactions-enabled="1" 
+  data-emit-metadata="1" 
+  data-input-position="top" 
+  data-theme="light_tritanopia"
+  data-lang="zh-CN" 
+  data-loading="lazy" 
+  crossorigin="anonymous" 
+  async>
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/twikoo@1.6.41/dist/twikoo.min.js"></script>
+<script>
+twikoo.init({
+  envId: 'https://twikoo.zishu.me/.netlify/functions/twikoo',
+  el: '#tcomment',
+  lang: 'zh-CN', 
+})
+</script>
+
+<script>
+  const tabs = document.querySelectorAll('.comment-tabs li');
+  const contents = document.querySelectorAll('.comments > div');
+
+  tabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => {
+      
+      tabs.forEach(t => t.classList.remove('active'));
+      contents.forEach(c => c.classList.remove('active'));
+      
+      
+      tab.classList.add('active');
+      contents[index].classList.add('active');
+    });
+  });
+</script>
+      
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<footer class="footer">
+  <div class="l-wrap">
+    <p class="aboutme">这是我的个人博客，已经运行了 <span id="days"></span> 天，写了 607 篇文章，共 391108 字。</p>
+    <p>© 2020 - 2025 Powered by
+      <a href="https://github.com/dlzmoe" target="_blank">Github</a>
+      / <a href="/index.xml" target="_blank">RSS</a>
+    </p>
+  </div>
+  <div class="gotop"></div>
+</footer>
+
+<script>
+  const time = "2020-06-14";
+  var now = new Date();
+  var end = new Date(time);
+  var diff = Math.abs(now - end);
+  var days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+  document.getElementById('days').innerHTML = days;
+</script>
+
+<script src="/js/main.js"></script>
+    </div>
+  </div>
+</body>
+
+</html>

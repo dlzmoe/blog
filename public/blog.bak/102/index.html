@@ -1,0 +1,2025 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<meta charset="utf-8" />
+<meta name="generator" content="Hugo 0.144.2">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="toTop" content="true">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="author" content="子舒" />
+<meta property="og:url" content="http://localhost:1313/blog.bak/102/" />
+<link rel="canonical" href="http://localhost:1313/blog.bak/102/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="shortcut" href="https://imgurl.zishu.me/favicon.ico" /><link rel="alternate" type="application/atom+xml" href="http://localhost:1313/index.xml" title="子舒的博客">
+<script type="application/ld+json">
+{
+"@context" : "http://schema.org",
+"@type" : "BlogPosting",
+"mainEntityOfPage": {
+"@type": "WebPage",
+"@id": "http:\/\/localhost:1313\/"
+},
+"articleSection" : "blog.bak",
+"name" : "Nuxt.js 如何部署 Artalk 和遇到的问题",
+"headline" : "Nuxt.js 如何部署 Artalk 和遇到的问题",
+"description" : "花了两天时间，终于把 Artalk 部署好了，一款数据自托管带后端的评论程序，非常适合我。这篇文章就介绍一下我部署的流程，以及我在部署过程中遇到的一些问题，将它记录一下，以便之后研究，顺便对使用 Nuxt.js 搭建博客的伙伴提供一些参考价值。\nArtalk 地址：https:\/\/artalk.js.org\/\n这篇文章我将分为三个部分，后端部署、前端部署、问题研究。\n1.后端部署 官方有两个版本，注意分辨，php 和 go，对应的是不同的仓库，目前官方文档写的默认都是 go 语言开发的。\nArtalkGo 仓库：https:\/\/github.com\/ArtalkJS\/ArtalkGo\n我使用的也是 go 版本，功能和优化都比较好。\ndocker 构建 \u002b 宝塔 我的服务器是 Ubuntu 20.04，其他版本类似，没有很大不同。\n首先，使用 ssh 连接服务器。\nsudo su # 启用sudo模式 cd \/www\/wwwroot\/ # 进入站点目录 mkdir ArtalkGo cd ArtalkGo # 为 ArtalkGo 创建一个目录 curl -L https:\/\/raw.githubusercontent.com\/ArtalkJS\/ArtalkGo\/master\/artalk-go.example.yml \u0026gt; conf.yml # 下载配置文件模版 到这里之后，官方说的是用 vim conf.yml 进入配置文件，修改参数然后配置。我不是很建议，因为用着并不是那么顺手（因为我菜），我建议直接到达 \/www\/wwwroot\/ArtalkGo 目录下修改 conf.yml 文件，文本模式操作起来更顺手。\n里面的配置基本都是站点名称，管理员，邮箱等设置，没什么大问题。除此之外，端口等参数都不用碰，不然会报错。\n配置完文件之后直接保存就行了。\n在宝塔插件里面下载 Docker 管理器，点击镜像管理。\n然后在镜像名称输入 artalk\/artalk-go 点击获取镜像即可，大概两分钟就下载结束了。\n然后回到 ssh 连接，新建 docker 容器。\ndocker run -d \\ --name artalk-go \\ -p 0.0.0.0:8080:23366 \\ -v $(pwd)\/conf.yml:\/conf.yml \\ -v $(pwd)\/data:\/data \\ artalk\/artalk-go 将上面的命令行在命令行，直接回车就行了。\n这个时候需要去你的服务器厂商那里放行端口 8080 ，如果之前放行过不用管，没有放行的话需要去设置一下。\n然后在浏览器输入 http:\/\/ip地址:8080 。\n如果出现现在这个页面，说明你部署成功了，如果打不开或者是其他情况，请检查是否成功执行上面的步骤。\n如果之后修改配置文件了，一定要注意在修改之后执行命令，需要重启服务才能生效。\ndocker restart artalk-go 反向代理 这个如果使用宝塔太简单，就不细说了。\nhttps:\/\/artalk.js.org\/guide\/backend\/reverse-proxy.html#%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF\n文档已经说得很详细，如果出现操作失败的情况可以在下面评论。\n2.前端部署 博客使用 vue \u002b nuxt 开发。\n我使用的是通过 cdn 引入的，npm 我目前发现和我博客有些冲突，暂时不使用该方式。\n先在 \/components 目录下新建一个组件名为 Comments.vue\n\u0026lt;!-- Comments.vue --\u0026gt; \u0026lt;template\u0026gt; \u0026lt;div class=\u0026#34;wrapper\u0026#34;\u0026gt; \u0026lt;link href=\u0026#34;https:\/\/cdn.jsdelivr.net\/npm\/artalk@2.1.4\/dist\/Artalk.css\u0026#34; rel=\u0026#34;stylesheet\u0026#34;\u0026gt; \u0026lt;script src=\u0026#34;https:\/\/cdn.jsdelivr.net\/npm\/artalk@2.1.4\/dist\/Artalk.js\u0026#34;\u0026gt;\u0026lt;\/script\u0026gt; \u0026lt;div id=\u0026#34;Comments\u0026#34;\u0026gt;\u0026lt;\/div\u0026gt; \u0026lt;\/div\u0026gt; \u0026lt;\/template\u0026gt; \u0026lt;script\u0026gt; export default { name: \u0026#39;Comments\u0026#39;, } \u0026lt;\/script\u0026gt; \u0026lt;style lang=\u0026#34;scss\u0026#34; scoped\u0026gt; \u0026lt;!-- css代码 --\u0026gt; \u0026lt;\/style\u0026gt; 配置代码我单独放在 \/static\/main.js ，然后在 nuxt.config.js 引入。\n\/\/ nuxt.config.js head: { title: \u0026#39;子舒的博客 | imhan.cn\u0026#39;, meta: [ \/\/ ... ] script: [ { src: \u0026#39;\/js\/main.js\u0026#39; }, ] }, 在 main.js 中配置 Artick。\nnew Artalk({ el: \u0026#34;#Comments\u0026#34;, server: \u0026#39;https:\/\/域名\/api\u0026#39;, site: \u0026#34;子舒的博客\u0026#34;, placeholder: \u0026#39;说点什么...\u0026#39;, gravatar: { mirror: \u0026#39;https:\/\/sdn.geekzu.org\/avatar\/\u0026#39;, default: \u0026#39;mp\u0026#39;, }, pagination: { pageSize: 15, \/\/ 每页评论数 readMore: true, \/\/ 加载更多 or 分页条 autoLoad: true, \/\/ 自动加载 (加载更多) }, heightLimit: { content: 200, \/\/ 评论内容限高 children: 300, \/\/ 子评论区域限高 }, versionCheck: true, \/\/ 前端版本检测 }); 还有一个方案就是将文件放在服务器或者 github，将它引入，不过有些舍本逐末了，不是很建议。\n3.问题研究 1. 关于评论路径问题\n提交评论之后会在管理后台生成一个列表，表示哪个路径产生了评论，\n如果想把某个页面评论转到其他页面，可以直接修改页面的 url，点击KEY变更。\nArtalk 的路径判断很严格，包括 https:\/\/example.com\/1 和 https:\/\/example.com\/1\/ 的评论就属于两个页面。\n问过作者，觉得他的说法很有道理\nqwqcode: https:\/\/example.com\/1 和 https:\/\/example.com\/1\/ 本来就不属于相同路径，后者等价于 https:\/\/example.com\/1\/index.html (和 web 服务器配置有关)\n所以我直接在我博客里把路径然后默认加一个 \/ 符号，不管打开哪个页面都会跳转到带有 \/ 的 url，也是非常简单粗暴的解决了这个问题。\npath: \u0060\/posts\/${key.replace(\u0026#39;.md\u0026#39;, \u0026#39;\u0026#39;).replace(\u0026#39;.\/\u0026#39;, \u0026#39;\u0026#39;)}\/\u0060 2. localhost:3000 和域名\n由此引发的另一个问题就是我在本地构建 localhost:3000 是不会显示域名后的评论，这个问题也不是大问题，我研究过 Artalk 文档，因为他是一个后端，可以多个前端使用，如果仅仅判断二级目录会造成一个很大的问题。\nhttps:\/\/a.com\/1 和 https:\/\/b.com\/1 这两个页面使用了同一套评论数据，所以为了避免这个情况，在判断路径时直接加上域名，这样的话，域名下的评论自然不会同步到 localhost:3000 。\n这对我开发博客来说没有什么影响，所以就不打算解决了。\n这是我目前遇到的问题，我会在后续的使用中持续更新本文，以作留存。\n",
+"inLanguage" : "en-US",
+"author" : "子舒",
+"creator" : "子舒",
+"publisher": "子舒",
+"accountablePerson" : "子舒",
+"copyrightHolder" : "子舒",
+"copyrightYear" : "2022",
+"datePublished": "2022-02-18 00:00:00 \u002b0000 UTC",
+"dateModified" : "2022-02-18 00:00:00 \u002b0000 UTC",
+"url" : "http:\/\/localhost:1313\/blog.bak\/102\/",
+"keywords" : [ "博客","评论", ]
+}
+</script><title>Nuxt.js 如何部署 Artalk 和遇到的问题 - 子舒的博客</title>
+<meta property="og:title" content="Nuxt.js 如何部署 Artalk 和遇到的问题" />
+<meta property="og:type" content="article" />
+
+
+<meta property="og:keywords" content="花了两天时间，终于把 Artalk 部署好了，一款数据自托管带后端的评论程序，非常适合我。这篇文章就介绍一下我部署的流程，以及我在部署过程中遇到的一些问题，将它记录一下，以便之后研究，顺便对使用 Nuxt.js 搭建博客的伙伴提供一些参考价值。
+Artalk 地址：https://artalk.js.org/
+这篇文章我将分为三个部分，后端部署、前端部署、问题研究。
+1.后端部署 官方有两个版本，注意分辨，php 和 go，对应的是不同的仓库，目前官方文档写的默认都是 go 语言开发的。
+ArtalkGo 仓库：https://github.com/ArtalkJS/ArtalkGo
+我使用的也是 go 版本，功能和优化都比较好。
+docker 构建 &#43; 宝塔 我的服务器是 Ubuntu 20.04，其他版本类似，没有很大不同。
+首先，使用 ssh 连接服务器。
+sudo su # 启用sudo模式 cd /www/wwwroot/ # 进入站点目录 mkdir ArtalkGo cd ArtalkGo # 为 ArtalkGo 创建一个目录 curl -L https://raw.githubusercontent.com/ArtalkJS/ArtalkGo/master/artalk-go.example.yml &gt; conf.yml # 下载配置文件模版 到这里之后，官方说的是用 vim conf.yml 进入配置文件，修改参数然后配置。我不是很建议，因为用着并不是那么顺手（因为我菜），我建议直接到达 /www/wwwroot/ArtalkGo 目录下修改 conf.yml 文件，文本模式操作起来更顺手。
+里面的配置基本都是站点名称，管理员，邮箱等设置，没什么大问题。除此之外，端口等参数都不用碰，不然会报错。
+配置完文件之后直接保存就行了。
+在宝塔插件里面下载 Docker 管理器，点击镜像管理。
+然后在镜像名称输入 artalk/artalk-go 点击获取镜像即可，大概两分钟就下载结束了。
+然后回到 ssh 连接，新建 docker 容器。
+docker run -d \ --name artalk-go \ -p 0.0.0.0:8080:23366 \ -v $(pwd)/conf.yml:/conf.yml \ -v $(pwd)/data:/data \ artalk/artalk-go 将上面的命令行在命令行，直接回车就行了。
+这个时候需要去你的服务器厂商那里放行端口 8080 ，如果之前放行过不用管，没有放行的话需要去设置一下。
+然后在浏览器输入 http://ip地址:8080 。
+如果出现现在这个页面，说明你部署成功了，如果打不开或者是其他情况，请检查是否成功执行上面的步骤。
+如果之后修改配置文件了，一定要注意在修改之后执行命令，需要重启服务才能生效。
+docker restart artalk-go 反向代理 这个如果使用宝塔太简单，就不细说了。
+https://artalk.js.org/guide/backend/reverse-proxy.html#%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF
+文档已经说得很详细，如果出现操作失败的情况可以在下面评论。
+2.前端部署 博客使用 vue &#43; nuxt 开发。
+我使用的是通过 cdn 引入的，npm 我目前发现和我博客有些冲突，暂时不使用该方式。
+先在 /components 目录下新建一个组件名为 Comments.vue
+&lt;!-- Comments.vue --&gt; &lt;template&gt; &lt;div class=&#34;wrapper&#34;&gt; &lt;link href=&#34;https://cdn.jsdelivr.net/npm/artalk@2.1.4/dist/Artalk.css&#34; rel=&#34;stylesheet&#34;&gt; &lt;script src=&#34;https://cdn.jsdelivr.net/npm/artalk@2.1.4/dist/Artalk.js&#34;&gt;&lt;/script&gt; &lt;div id=&#34;Comments&#34;&gt;&lt;/div&gt; &lt;/div&gt; &lt;/template&gt; &lt;script&gt; export default { name: &#39;Comments&#39;, } &lt;/script&gt; &lt;style lang=&#34;scss&#34; scoped&gt; &lt;!-- css代码 --&gt; &lt;/style&gt; 配置代码我单独放在 /static/main.js ，然后在 nuxt.config.js 引入。
+// nuxt.config.js head: { title: &#39;子舒的博客 | imhan.cn&#39;, meta: [ // ... ] script: [ { src: &#39;/js/main.js&#39; }, ] }, 在 main.js 中配置 Artick。
+new Artalk({ el: &#34;#Comments&#34;, server: &#39;https://域名/api&#39;, site: &#34;子舒的博客&#34;, placeholder: &#39;说点什么...&#39;, gravatar: { mirror: &#39;https://sdn.geekzu.org/avatar/&#39;, default: &#39;mp&#39;, }, pagination: { pageSize: 15, // 每页评论数 readMore: true, // 加载更多 or 分页条 autoLoad: true, // 自动加载 (加载更多) }, heightLimit: { content: 200, // 评论内容限高 children: 300, // 子评论区域限高 }, versionCheck: true, // 前端版本检测 }); 还有一个方案就是将文件放在服务器或者 github，将它引入，不过有些舍本逐末了，不是很建议。
+3.问题研究 1. 关于评论路径问题
+提交评论之后会在管理后台生成一个列表，表示哪个路径产生了评论，
+如果想把某个页面评论转到其他页面，可以直接修改页面的 url，点击KEY变更。
+Artalk 的路径判断很严格，包括 https://example.com/1 和 https://example.com/1/ 的评论就属于两个页面。
+问过作者，觉得他的说法很有道理
+qwqcode: https://example.com/1 和 https://example.com/1/ 本来就不属于相同路径，后者等价于 https://example.com/1/index.html (和 web 服务器配置有关)
+所以我直接在我博客里把路径然后默认加一个 / 符号，不管打开哪个页面都会跳转到带有 / 的 url，也是非常简单粗暴的解决了这个问题。
+path: `/posts/${key.replace(&#39;.md&#39;, &#39;&#39;).replace(&#39;./&#39;, &#39;&#39;)}/` 2. localhost:3000 和域名
+由此引发的另一个问题就是我在本地构建 localhost:3000 是不会显示域名后的评论，这个问题也不是大问题，我研究过 Artalk 文档，因为他是一个后端，可以多个前端使用，如果仅仅判断二级目录会造成一个很大的问题。
+https://a.com/1 和 https://b.com/1 这两个页面使用了同一套评论数据，所以为了避免这个情况，在判断路径时直接加上域名，这样的话，域名下的评论自然不会同步到 localhost:3000 。
+这对我开发博客来说没有什么影响，所以就不打算解决了。
+这是我目前遇到的问题，我会在后续的使用中持续更新本文，以作留存。
+" />
+<meta name="keywords" content="花了两天时间，终于把 Artalk 部署好了，一款数据自托管带后端的评论程序，非常适合我。这篇文章就介绍一下我部署的流程，以及我在部署过程中遇到的一些问题，将它记录一下，以便之后研究，顺便对使用 Nuxt.js 搭建博客的伙伴提供一些参考价值。
+Artalk 地址：https://artalk.js.org/
+这篇文章我将分为三个部分，后端部署、前端部署、问题研究。
+1.后端部署 官方有两个版本，注意分辨，php 和 go，对应的是不同的仓库，目前官方文档写的默认都是 go 语言开发的。
+ArtalkGo 仓库：https://github.com/ArtalkJS/ArtalkGo
+我使用的也是 go 版本，功能和优化都比较好。
+docker 构建 &#43; 宝塔 我的服务器是 Ubuntu 20.04，其他版本类似，没有很大不同。
+首先，使用 ssh 连接服务器。
+sudo su # 启用sudo模式 cd /www/wwwroot/ # 进入站点目录 mkdir ArtalkGo cd ArtalkGo # 为 ArtalkGo 创建一个目录 curl -L https://raw.githubusercontent.com/ArtalkJS/ArtalkGo/master/artalk-go.example.yml &gt; conf.yml # 下载配置文件模版 到这里之后，官方说的是用 vim conf.yml 进入配置文件，修改参数然后配置。我不是很建议，因为用着并不是那么顺手（因为我菜），我建议直接到达 /www/wwwroot/ArtalkGo 目录下修改 conf.yml 文件，文本模式操作起来更顺手。
+里面的配置基本都是站点名称，管理员，邮箱等设置，没什么大问题。除此之外，端口等参数都不用碰，不然会报错。
+配置完文件之后直接保存就行了。
+在宝塔插件里面下载 Docker 管理器，点击镜像管理。
+然后在镜像名称输入 artalk/artalk-go 点击获取镜像即可，大概两分钟就下载结束了。
+然后回到 ssh 连接，新建 docker 容器。
+docker run -d \ --name artalk-go \ -p 0.0.0.0:8080:23366 \ -v $(pwd)/conf.yml:/conf.yml \ -v $(pwd)/data:/data \ artalk/artalk-go 将上面的命令行在命令行，直接回车就行了。
+这个时候需要去你的服务器厂商那里放行端口 8080 ，如果之前放行过不用管，没有放行的话需要去设置一下。
+然后在浏览器输入 http://ip地址:8080 。
+如果出现现在这个页面，说明你部署成功了，如果打不开或者是其他情况，请检查是否成功执行上面的步骤。
+如果之后修改配置文件了，一定要注意在修改之后执行命令，需要重启服务才能生效。
+docker restart artalk-go 反向代理 这个如果使用宝塔太简单，就不细说了。
+https://artalk.js.org/guide/backend/reverse-proxy.html#%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF
+文档已经说得很详细，如果出现操作失败的情况可以在下面评论。
+2.前端部署 博客使用 vue &#43; nuxt 开发。
+我使用的是通过 cdn 引入的，npm 我目前发现和我博客有些冲突，暂时不使用该方式。
+先在 /components 目录下新建一个组件名为 Comments.vue
+&lt;!-- Comments.vue --&gt; &lt;template&gt; &lt;div class=&#34;wrapper&#34;&gt; &lt;link href=&#34;https://cdn.jsdelivr.net/npm/artalk@2.1.4/dist/Artalk.css&#34; rel=&#34;stylesheet&#34;&gt; &lt;script src=&#34;https://cdn.jsdelivr.net/npm/artalk@2.1.4/dist/Artalk.js&#34;&gt;&lt;/script&gt; &lt;div id=&#34;Comments&#34;&gt;&lt;/div&gt; &lt;/div&gt; &lt;/template&gt; &lt;script&gt; export default { name: &#39;Comments&#39;, } &lt;/script&gt; &lt;style lang=&#34;scss&#34; scoped&gt; &lt;!-- css代码 --&gt; &lt;/style&gt; 配置代码我单独放在 /static/main.js ，然后在 nuxt.config.js 引入。
+// nuxt.config.js head: { title: &#39;子舒的博客 | imhan.cn&#39;, meta: [ // ... ] script: [ { src: &#39;/js/main.js&#39; }, ] }, 在 main.js 中配置 Artick。
+new Artalk({ el: &#34;#Comments&#34;, server: &#39;https://域名/api&#39;, site: &#34;子舒的博客&#34;, placeholder: &#39;说点什么...&#39;, gravatar: { mirror: &#39;https://sdn.geekzu.org/avatar/&#39;, default: &#39;mp&#39;, }, pagination: { pageSize: 15, // 每页评论数 readMore: true, // 加载更多 or 分页条 autoLoad: true, // 自动加载 (加载更多) }, heightLimit: { content: 200, // 评论内容限高 children: 300, // 子评论区域限高 }, versionCheck: true, // 前端版本检测 }); 还有一个方案就是将文件放在服务器或者 github，将它引入，不过有些舍本逐末了，不是很建议。
+3.问题研究 1. 关于评论路径问题
+提交评论之后会在管理后台生成一个列表，表示哪个路径产生了评论，
+如果想把某个页面评论转到其他页面，可以直接修改页面的 url，点击KEY变更。
+Artalk 的路径判断很严格，包括 https://example.com/1 和 https://example.com/1/ 的评论就属于两个页面。
+问过作者，觉得他的说法很有道理
+qwqcode: https://example.com/1 和 https://example.com/1/ 本来就不属于相同路径，后者等价于 https://example.com/1/index.html (和 web 服务器配置有关)
+所以我直接在我博客里把路径然后默认加一个 / 符号，不管打开哪个页面都会跳转到带有 / 的 url，也是非常简单粗暴的解决了这个问题。
+path: `/posts/${key.replace(&#39;.md&#39;, &#39;&#39;).replace(&#39;./&#39;, &#39;&#39;)}/` 2. localhost:3000 和域名
+由此引发的另一个问题就是我在本地构建 localhost:3000 是不会显示域名后的评论，这个问题也不是大问题，我研究过 Artalk 文档，因为他是一个后端，可以多个前端使用，如果仅仅判断二级目录会造成一个很大的问题。
+https://a.com/1 和 https://b.com/1 这两个页面使用了同一套评论数据，所以为了避免这个情况，在判断路径时直接加上域名，这样的话，域名下的评论自然不会同步到 localhost:3000 。
+这对我开发博客来说没有什么影响，所以就不打算解决了。
+这是我目前遇到的问题，我会在后续的使用中持续更新本文，以作留存。
+" />
+
+
+<meta property="og:description" content="花了两天时间，终于把 Artalk 部署好了，一款数据自托管带后端的评论程序，非常适合我。这篇文章就介绍一下我部署的流程，以及我在部署过程中遇到的一些问题，将它记录一下，以便之后研究，顺便对使用 Nuxt.js 搭建博客的伙伴提供一些参考价值。
+Artalk 地址：https://artalk.js.org/
+这篇文章我将分为三个部分，后端部署、前端部署、问题研究。
+1.后端部署 官方有两个版本，注意分辨，php 和 go，对应的是不同的仓库，目前官方文档写的默认都是 go 语言开发的。
+ArtalkGo 仓库：https://github.com/ArtalkJS/ArtalkGo
+我使用的也是 go 版本，功能和优化都比较好。
+docker 构建 &#43; 宝塔 我的服务器是 Ubuntu 20.04，其他版本类似，没有很大不同。
+首先，使用 ssh 连接服务器。
+sudo su # 启用sudo模式 cd /www/wwwroot/ # 进入站点目录 mkdir ArtalkGo cd ArtalkGo # 为 ArtalkGo 创建一个目录 curl -L https://raw.githubusercontent.com/ArtalkJS/ArtalkGo/master/artalk-go.example.yml &gt; conf.yml # 下载配置文件模版 到这里之后，官方说的是用 vim conf.yml 进入配置文件，修改参数然后配置。我不是很建议，因为用着并不是那么顺手（因为我菜），我建议直接到达 /www/wwwroot/ArtalkGo 目录下修改 conf.yml 文件，文本模式操作起来更顺手。
+里面的配置基本都是站点名称，管理员，邮箱等设置，没什么大问题。除此之外，端口等参数都不用碰，不然会报错。
+配置完文件之后直接保存就行了。
+在宝塔插件里面下载 Docker 管理器，点击镜像管理。
+然后在镜像名称输入 artalk/artalk-go 点击获取镜像即可，大概两分钟就下载结束了。
+然后回到 ssh 连接，新建 docker 容器。
+docker run -d \ --name artalk-go \ -p 0.0.0.0:8080:23366 \ -v $(pwd)/conf.yml:/conf.yml \ -v $(pwd)/data:/data \ artalk/artalk-go 将上面的命令行在命令行，直接回车就行了。
+这个时候需要去你的服务器厂商那里放行端口 8080 ，如果之前放行过不用管，没有放行的话需要去设置一下。
+然后在浏览器输入 http://ip地址:8080 。
+如果出现现在这个页面，说明你部署成功了，如果打不开或者是其他情况，请检查是否成功执行上面的步骤。
+如果之后修改配置文件了，一定要注意在修改之后执行命令，需要重启服务才能生效。
+docker restart artalk-go 反向代理 这个如果使用宝塔太简单，就不细说了。
+https://artalk.js.org/guide/backend/reverse-proxy.html#%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF
+文档已经说得很详细，如果出现操作失败的情况可以在下面评论。
+2.前端部署 博客使用 vue &#43; nuxt 开发。
+我使用的是通过 cdn 引入的，npm 我目前发现和我博客有些冲突，暂时不使用该方式。
+先在 /components 目录下新建一个组件名为 Comments.vue
+&lt;!-- Comments.vue --&gt; &lt;template&gt; &lt;div class=&#34;wrapper&#34;&gt; &lt;link href=&#34;https://cdn.jsdelivr.net/npm/artalk@2.1.4/dist/Artalk.css&#34; rel=&#34;stylesheet&#34;&gt; &lt;script src=&#34;https://cdn.jsdelivr.net/npm/artalk@2.1.4/dist/Artalk.js&#34;&gt;&lt;/script&gt; &lt;div id=&#34;Comments&#34;&gt;&lt;/div&gt; &lt;/div&gt; &lt;/template&gt; &lt;script&gt; export default { name: &#39;Comments&#39;, } &lt;/script&gt; &lt;style lang=&#34;scss&#34; scoped&gt; &lt;!-- css代码 --&gt; &lt;/style&gt; 配置代码我单独放在 /static/main.js ，然后在 nuxt.config.js 引入。
+// nuxt.config.js head: { title: &#39;子舒的博客 | imhan.cn&#39;, meta: [ // ... ] script: [ { src: &#39;/js/main.js&#39; }, ] }, 在 main.js 中配置 Artick。
+new Artalk({ el: &#34;#Comments&#34;, server: &#39;https://域名/api&#39;, site: &#34;子舒的博客&#34;, placeholder: &#39;说点什么...&#39;, gravatar: { mirror: &#39;https://sdn.geekzu.org/avatar/&#39;, default: &#39;mp&#39;, }, pagination: { pageSize: 15, // 每页评论数 readMore: true, // 加载更多 or 分页条 autoLoad: true, // 自动加载 (加载更多) }, heightLimit: { content: 200, // 评论内容限高 children: 300, // 子评论区域限高 }, versionCheck: true, // 前端版本检测 }); 还有一个方案就是将文件放在服务器或者 github，将它引入，不过有些舍本逐末了，不是很建议。
+3.问题研究 1. 关于评论路径问题
+提交评论之后会在管理后台生成一个列表，表示哪个路径产生了评论，
+如果想把某个页面评论转到其他页面，可以直接修改页面的 url，点击KEY变更。
+Artalk 的路径判断很严格，包括 https://example.com/1 和 https://example.com/1/ 的评论就属于两个页面。
+问过作者，觉得他的说法很有道理
+qwqcode: https://example.com/1 和 https://example.com/1/ 本来就不属于相同路径，后者等价于 https://example.com/1/index.html (和 web 服务器配置有关)
+所以我直接在我博客里把路径然后默认加一个 / 符号，不管打开哪个页面都会跳转到带有 / 的 url，也是非常简单粗暴的解决了这个问题。
+path: `/posts/${key.replace(&#39;.md&#39;, &#39;&#39;).replace(&#39;./&#39;, &#39;&#39;)}/` 2. localhost:3000 和域名
+由此引发的另一个问题就是我在本地构建 localhost:3000 是不会显示域名后的评论，这个问题也不是大问题，我研究过 Artalk 文档，因为他是一个后端，可以多个前端使用，如果仅仅判断二级目录会造成一个很大的问题。
+https://a.com/1 和 https://b.com/1 这两个页面使用了同一套评论数据，所以为了避免这个情况，在判断路径时直接加上域名，这样的话，域名下的评论自然不会同步到 localhost:3000 。
+这对我开发博客来说没有什么影响，所以就不打算解决了。
+这是我目前遇到的问题，我会在后续的使用中持续更新本文，以作留存。
+" />
+<meta name="description" content="花了两天时间，终于把 Artalk 部署好了，一款数据自托管带后端的评论程序，非常适合我。这篇文章就介绍一下我部署的流程，以及我在部署过程中遇到的一些问题，将它记录一下，以便之后研究，顺便对使用 Nuxt.js 搭建博客的伙伴提供一些参考价值。
+Artalk 地址：https://artalk.js.org/
+这篇文章我将分为三个部分，后端部署、前端部署、问题研究。
+1.后端部署 官方有两个版本，注意分辨，php 和 go，对应的是不同的仓库，目前官方文档写的默认都是 go 语言开发的。
+ArtalkGo 仓库：https://github.com/ArtalkJS/ArtalkGo
+我使用的也是 go 版本，功能和优化都比较好。
+docker 构建 &#43; 宝塔 我的服务器是 Ubuntu 20.04，其他版本类似，没有很大不同。
+首先，使用 ssh 连接服务器。
+sudo su # 启用sudo模式 cd /www/wwwroot/ # 进入站点目录 mkdir ArtalkGo cd ArtalkGo # 为 ArtalkGo 创建一个目录 curl -L https://raw.githubusercontent.com/ArtalkJS/ArtalkGo/master/artalk-go.example.yml &gt; conf.yml # 下载配置文件模版 到这里之后，官方说的是用 vim conf.yml 进入配置文件，修改参数然后配置。我不是很建议，因为用着并不是那么顺手（因为我菜），我建议直接到达 /www/wwwroot/ArtalkGo 目录下修改 conf.yml 文件，文本模式操作起来更顺手。
+里面的配置基本都是站点名称，管理员，邮箱等设置，没什么大问题。除此之外，端口等参数都不用碰，不然会报错。
+配置完文件之后直接保存就行了。
+在宝塔插件里面下载 Docker 管理器，点击镜像管理。
+然后在镜像名称输入 artalk/artalk-go 点击获取镜像即可，大概两分钟就下载结束了。
+然后回到 ssh 连接，新建 docker 容器。
+docker run -d \ --name artalk-go \ -p 0.0.0.0:8080:23366 \ -v $(pwd)/conf.yml:/conf.yml \ -v $(pwd)/data:/data \ artalk/artalk-go 将上面的命令行在命令行，直接回车就行了。
+这个时候需要去你的服务器厂商那里放行端口 8080 ，如果之前放行过不用管，没有放行的话需要去设置一下。
+然后在浏览器输入 http://ip地址:8080 。
+如果出现现在这个页面，说明你部署成功了，如果打不开或者是其他情况，请检查是否成功执行上面的步骤。
+如果之后修改配置文件了，一定要注意在修改之后执行命令，需要重启服务才能生效。
+docker restart artalk-go 反向代理 这个如果使用宝塔太简单，就不细说了。
+https://artalk.js.org/guide/backend/reverse-proxy.html#%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF
+文档已经说得很详细，如果出现操作失败的情况可以在下面评论。
+2.前端部署 博客使用 vue &#43; nuxt 开发。
+我使用的是通过 cdn 引入的，npm 我目前发现和我博客有些冲突，暂时不使用该方式。
+先在 /components 目录下新建一个组件名为 Comments.vue
+&lt;!-- Comments.vue --&gt; &lt;template&gt; &lt;div class=&#34;wrapper&#34;&gt; &lt;link href=&#34;https://cdn.jsdelivr.net/npm/artalk@2.1.4/dist/Artalk.css&#34; rel=&#34;stylesheet&#34;&gt; &lt;script src=&#34;https://cdn.jsdelivr.net/npm/artalk@2.1.4/dist/Artalk.js&#34;&gt;&lt;/script&gt; &lt;div id=&#34;Comments&#34;&gt;&lt;/div&gt; &lt;/div&gt; &lt;/template&gt; &lt;script&gt; export default { name: &#39;Comments&#39;, } &lt;/script&gt; &lt;style lang=&#34;scss&#34; scoped&gt; &lt;!-- css代码 --&gt; &lt;/style&gt; 配置代码我单独放在 /static/main.js ，然后在 nuxt.config.js 引入。
+// nuxt.config.js head: { title: &#39;子舒的博客 | imhan.cn&#39;, meta: [ // ... ] script: [ { src: &#39;/js/main.js&#39; }, ] }, 在 main.js 中配置 Artick。
+new Artalk({ el: &#34;#Comments&#34;, server: &#39;https://域名/api&#39;, site: &#34;子舒的博客&#34;, placeholder: &#39;说点什么...&#39;, gravatar: { mirror: &#39;https://sdn.geekzu.org/avatar/&#39;, default: &#39;mp&#39;, }, pagination: { pageSize: 15, // 每页评论数 readMore: true, // 加载更多 or 分页条 autoLoad: true, // 自动加载 (加载更多) }, heightLimit: { content: 200, // 评论内容限高 children: 300, // 子评论区域限高 }, versionCheck: true, // 前端版本检测 }); 还有一个方案就是将文件放在服务器或者 github，将它引入，不过有些舍本逐末了，不是很建议。
+3.问题研究 1. 关于评论路径问题
+提交评论之后会在管理后台生成一个列表，表示哪个路径产生了评论，
+如果想把某个页面评论转到其他页面，可以直接修改页面的 url，点击KEY变更。
+Artalk 的路径判断很严格，包括 https://example.com/1 和 https://example.com/1/ 的评论就属于两个页面。
+问过作者，觉得他的说法很有道理
+qwqcode: https://example.com/1 和 https://example.com/1/ 本来就不属于相同路径，后者等价于 https://example.com/1/index.html (和 web 服务器配置有关)
+所以我直接在我博客里把路径然后默认加一个 / 符号，不管打开哪个页面都会跳转到带有 / 的 url，也是非常简单粗暴的解决了这个问题。
+path: `/posts/${key.replace(&#39;.md&#39;, &#39;&#39;).replace(&#39;./&#39;, &#39;&#39;)}/` 2. localhost:3000 和域名
+由此引发的另一个问题就是我在本地构建 localhost:3000 是不会显示域名后的评论，这个问题也不是大问题，我研究过 Artalk 文档，因为他是一个后端，可以多个前端使用，如果仅仅判断二级目录会造成一个很大的问题。
+https://a.com/1 和 https://b.com/1 这两个页面使用了同一套评论数据，所以为了避免这个情况，在判断路径时直接加上域名，这样的话，域名下的评论自然不会同步到 localhost:3000 。
+这对我开发博客来说没有什么影响，所以就不打算解决了。
+这是我目前遇到的问题，我会在后续的使用中持续更新本文，以作留存。
+" />
+<meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
+
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/index.css">
+<link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
+<script src="/js/jquery3.6.0.min.js"></script>
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="main">
+      <div class="top">
+  <a href="/"><img src="https://imgurl.zishu.me/author.webp" width="72" height="72" class="avatar" border="0"></a>
+  <div class="site-info">
+    <a href="/" class="site-title">子舒的博客</a>
+    <div class="site-about">
+      <p>一个热爱生活的前端开发工程师。</p>
+    </div>
+  </div>
+</div>
+
+<div class="nav-container">
+  <div class="nav">
+    
+    <a href="/" class="nav-item">首页</a>
+    
+    <a href="/blog/" class="nav-item">文章</a>
+    
+    <a href="/categories/weekly/" class="nav-item">周刊</a>
+    
+    <a href="/message/" class="nav-item">留言</a>
+    
+    <a href="/about/" class="nav-item">关于</a>
+    
+    <a href="/links/" class="nav-item">友链</a>
+    
+    <a href="/search/" class="nav-item">搜索</a>
+    
+
+    <a href="./index.xml" target="_blank"><img src="/images/rss.svg" alt="RSS" class="social-icon" width="1em"></a>
+    <a href="https://github.com/dlzmoe" target="_blank"><img src="/images/github.svg" alt="github.com/dlzmoe" class="social-icon" width="1em"></a>
+    <a href="https://discord.com/invite/n2pErsD7Kg" target="_blank"><img src="/images/discord.svg" alt="Discord Invite" class="social-icon" width="1em"></a>
+  </div>
+</div>
+
+      <h1>Nuxt.js 如何部署 Artalk 和遇到的问题</h1>
+
+      
+      <div class="date">Oct 180, 181812</div>
+      
+
+      
+      <div class="toc">
+        <details open>
+          <summary accesskey="c" title="(Alt + C)"><span class="details">Table of Contents</span></summary>
+          <div class="inner"> <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1后端部署">1.后端部署</a>
+      <ul>
+        <li><a href="#docker-构建--宝塔">docker 构建 + 宝塔</a></li>
+        <li><a href="#反向代理">反向代理</a></li>
+      </ul>
+    </li>
+    <li><a href="#2前端部署">2.前端部署</a></li>
+    <li><a href="#3问题研究">3.问题研究</a></li>
+  </ul>
+</nav></div>
+        </details>
+      </div>
+      
+
+      <article class="content">
+        
+        <p>花了两天时间，终于把 Artalk 部署好了，一款数据自托管带后端的评论程序，非常适合我。这篇文章就介绍一下我部署的流程，以及我在部署过程中遇到的一些问题，将它记录一下，以便之后研究，顺便对使用 Nuxt.js 搭建博客的伙伴提供一些参考价值。</p>
+<p>Artalk 地址：<a href="https://artalk.js.org/">https://artalk.js.org/</a></p>
+<p>这篇文章我将分为三个部分，后端部署、前端部署、问题研究。</p>
+<h2 id="1后端部署">1.后端部署</h2>
+<p>官方有两个版本，注意分辨，php 和 go，对应的是不同的仓库，目前官方文档写的默认都是 go 语言开发的。</p>
+<p>ArtalkGo 仓库：<a href="https://github.com/ArtalkJS/ArtalkGo">https://github.com/ArtalkJS/ArtalkGo</a></p>
+<p>我使用的也是 go 版本，功能和优化都比较好。</p>
+<hr>
+<h3 id="docker-构建--宝塔">docker 构建 + 宝塔</h3>
+<p>我的服务器是 Ubuntu 20.04，其他版本类似，没有很大不同。</p>
+<p>首先，使用 ssh 连接服务器。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo su 
+</span></span><span class="line"><span class="cl"><span class="c1"># 启用sudo模式</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /www/wwwroot/
+</span></span><span class="line"><span class="cl"><span class="c1"># 进入站点目录</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">mkdir ArtalkGo
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> ArtalkGo
+</span></span><span class="line"><span class="cl"><span class="c1"># 为 ArtalkGo 创建一个目录</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">curl -L https://raw.githubusercontent.com/ArtalkJS/ArtalkGo/master/artalk-go.example.yml &gt; conf.yml
+</span></span><span class="line"><span class="cl"><span class="c1"># 下载配置文件模版</span>
+</span></span></code></pre></div><hr>
+<p>到这里之后，官方说的是用 <code>vim conf.yml</code> 进入配置文件，修改参数然后配置。我不是很建议，因为用着并不是那么顺手（因为我菜），我建议直接到达 <code>/www/wwwroot/ArtalkGo</code> 目录下修改 <code>conf.yml</code> 文件，文本模式操作起来更顺手。</p>
+<p>     
+<figure>
+  <img 
+		src="https://imgurl.zishu.me/images/old/2022/02/18/1861474b101c0fb69d42e7f922a52fea.png"
+    alt=""class="lazy"
+	>
+<figcaption></figcaption>
+</figure>
+
+
+     
+</p>
+<p>里面的配置基本都是站点名称，管理员，邮箱等设置，没什么大问题。除此之外，端口等参数都不用碰，不然会报错。</p>
+<p>配置完文件之后直接保存就行了。</p>
+<hr>
+<p>在宝塔插件里面下载 Docker 管理器，点击镜像管理。</p>
+<p>     
+<figure>
+  <img 
+		src="https://imgurl.zishu.me/images/old/2022/02/18/d2d1227986b852267f027bd6f815b7e9.png"
+    alt=""class="lazy"
+	>
+<figcaption></figcaption>
+</figure>
+
+
+     
+</p>
+<p>然后在镜像名称输入 <code>artalk/artalk-go</code> 点击获取镜像即可，大概两分钟就下载结束了。</p>
+<p>然后回到 ssh 连接，新建 docker 容器。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">docker run -d <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>   --name artalk-go <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>   -p 0.0.0.0:8080:23366 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>   -v <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/conf.yml:/conf.yml <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>   -v <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/data:/data <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>   artalk/artalk-go
+</span></span></code></pre></div><p>将上面的命令行在命令行，直接回车就行了。</p>
+<p>这个时候需要去你的服务器厂商那里放行端口 <code>8080</code> ，如果之前放行过不用管，没有放行的话需要去设置一下。</p>
+<p>然后在浏览器输入 <code>http://ip地址:8080</code> 。</p>
+<p>如果出现现在这个页面，说明你部署成功了，如果打不开或者是其他情况，请检查是否成功执行上面的步骤。</p>
+<p>     
+<figure>
+  <img 
+		src="https://imgurl.zishu.me/images/old/2022/02/18/571d246b4aa2e9574a2a543364a965d2.png"
+    alt=""class="lazy"
+	>
+<figcaption></figcaption>
+</figure>
+
+
+     
+</p>
+<hr>
+<p>如果之后修改配置文件了，一定要注意在修改之后执行命令，需要重启服务才能生效。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">docker restart artalk-go
+</span></span></code></pre></div><hr>
+<h3 id="反向代理">反向代理</h3>
+<p>这个如果使用宝塔太简单，就不细说了。</p>
+<p><a href="https://artalk.js.org/guide/backend/reverse-proxy.html#%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF">https://artalk.js.org/guide/backend/reverse-proxy.html#%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF</a></p>
+<p>文档已经说得很详细，如果出现操作失败的情况可以在下面评论。</p>
+<hr>
+<h2 id="2前端部署">2.前端部署</h2>
+<p>博客使用 vue + nuxt 开发。</p>
+<p>我使用的是通过 cdn 引入的，npm 我目前发现和我博客有些冲突，暂时不使用该方式。</p>
+<p>先在 <code>/components</code> 目录下新建一个组件名为 <code>Comments.vue</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="c">&lt;!-- Comments.vue --&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;wrapper&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;https://cdn.jsdelivr.net/npm/artalk@2.1.4/dist/Artalk.css&#34;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;stylesheet&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://cdn.jsdelivr.net/npm/artalk@2.1.4/dist/Artalk.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;Comments&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Comments&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">style</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;scss&#34;</span> <span class="na">scoped</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">&lt;!</span><span class="nt">--</span> <span class="nt">css代码</span> <span class="nt">--</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</span></span></code></pre></div><hr>
+<p>配置代码我单独放在 <code>/static/main.js</code> ，然后在 <code>nuxt.config.js</code> 引入。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// nuxt.config.js
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nx">head</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;子舒的博客 | imhan.cn&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">meta</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">script</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span> <span class="nx">src</span><span class="o">:</span> <span class="s1">&#39;/js/main.js&#39;</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span></code></pre></div><hr>
+<p>在 <code>main.js</code> 中配置 Artick。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="k">new</span> <span class="nx">Artalk</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">el</span><span class="o">:</span> <span class="s2">&#34;#Comments&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">server</span><span class="o">:</span> <span class="s1">&#39;https://域名/api&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">site</span><span class="o">:</span> <span class="s2">&#34;子舒的博客&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">placeholder</span><span class="o">:</span> <span class="s1">&#39;说点什么...&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">gravatar</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	  <span class="nx">mirror</span><span class="o">:</span> <span class="s1">&#39;https://sdn.geekzu.org/avatar/&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	  <span class="k">default</span><span class="o">:</span> <span class="s1">&#39;mp&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="p">},</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">pagination</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	  <span class="nx">pageSize</span><span class="o">:</span> <span class="mi">15</span><span class="p">,</span>   <span class="c1">// 每页评论数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	  <span class="nx">readMore</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> <span class="c1">// 加载更多 or 分页条
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	  <span class="nx">autoLoad</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> <span class="c1">// 自动加载 (加载更多)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="p">},</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">heightLimit</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	  <span class="nx">content</span><span class="o">:</span> <span class="mi">200</span><span class="p">,</span> <span class="c1">// 评论内容限高
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	  <span class="nx">children</span><span class="o">:</span> <span class="mi">300</span><span class="p">,</span> <span class="c1">// 子评论区域限高
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="p">},</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">versionCheck</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> <span class="c1">// 前端版本检测
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">});</span>
+</span></span></code></pre></div><p>还有一个方案就是将文件放在服务器或者 github，将它引入，不过有些舍本逐末了，不是很建议。</p>
+<hr>
+<h2 id="3问题研究">3.问题研究</h2>
+<p><strong>1. 关于评论路径问题</strong></p>
+<p>提交评论之后会在管理后台生成一个列表，表示哪个路径产生了评论，</p>
+<p>     
+<figure>
+  <img 
+		src="https://imgurl.zishu.me/images/old/2022/02/18/5bb72fd1a3427c31aaaf91c8637435c8.png"
+    alt=""class="lazy"
+	>
+<figcaption></figcaption>
+</figure>
+
+
+     
+</p>
+<p>如果想把某个页面评论转到其他页面，可以直接修改页面的 url，<code>点击KEY变更</code>。</p>
+<p>Artalk 的路径判断很严格，包括 <code>https://example.com/1</code> 和 <code>https://example.com/1/</code> 的评论就属于两个页面。</p>
+<p>问过作者，觉得他的说法很有道理</p>
+<blockquote>
+<p>qwqcode: <a href="https://example.com/1">https://example.com/1</a> 和 <a href="https://example.com/1/">https://example.com/1/</a> 本来就不属于相同路径，后者等价于 <a href="https://example.com/1/index.html">https://example.com/1/index.html</a> (和 web 服务器配置有关)</p></blockquote>
+<p>所以我直接在我博客里把路径然后默认加一个 <code>/</code> 符号，不管打开哪个页面都会跳转到带有 <code>/</code> 的 url，也是非常简单粗暴的解决了这个问题。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">path</span><span class="o">:</span> <span class="sb">`/posts/</span><span class="si">${</span><span class="nx">key</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s1">&#39;.md&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">).</span><span class="nx">replace</span><span class="p">(</span><span class="s1">&#39;./&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="si">}</span><span class="sb">/`</span>
+</span></span></code></pre></div><hr>
+<p><strong>2. localhost:3000 和域名</strong></p>
+<p>由此引发的另一个问题就是我在本地构建 <code>localhost:3000</code> 是不会显示域名后的评论，这个问题也不是大问题，我研究过 Artalk 文档，因为他是一个后端，可以多个前端使用，如果仅仅判断二级目录会造成一个很大的问题。</p>
+<p><a href="https://a.com/1">https://a.com/1</a> 和 <a href="https://b.com/1">https://b.com/1</a>  这两个页面使用了同一套评论数据，所以为了避免这个情况，在判断路径时直接加上域名，这样的话，域名下的评论自然不会同步到 <code>localhost:3000</code> 。</p>
+<p>这对我开发博客来说没有什么影响，所以就不打算解决了。</p>
+<hr>
+<p>这是我目前遇到的问题，我会在后续的使用中持续更新本文，以作留存。</p>
+
+        <div class="weekly-pagination"></div>
+      </article>
+
+      
+      <div class="post-tags">
+        
+        
+        <span class="namenode">分类：<a href="/categories/%E6%8A%80%E6%9C%AF">技术</a>
+        </span>
+        
+        
+        <span class="tag-node">
+          
+          标签：<a href="/tags/%E5%8D%9A%E5%AE%A2">#博客</a>
+          <a href="/tags/%E8%AF%84%E8%AE%BA">#评论</a>
+          
+          
+        </span>
+      </div>
+      
+
+      
+      <ul class="comment-tabs">
+  <li class="active">giscus</li>
+  <li>twikoo</li>
+</ul>
+<div class="comments">
+  <div class="giscus active"></div>
+  <div id="tcomment"></div>
+</div>
+<script 
+  src="https://giscus.app/client.js" 
+  data-repo="dlzmoe/blog" 
+  data-repo-id="R_kgDOJkJvtw"
+  data-category="Announcements" 
+  data-category-id="DIC_kwDOJkJvt84CX9d6" 
+  data-mapping="pathname" 
+  data-strict="0"
+  data-reactions-enabled="1" 
+  data-emit-metadata="1" 
+  data-input-position="top" 
+  data-theme="light_tritanopia"
+  data-lang="zh-CN" 
+  data-loading="lazy" 
+  crossorigin="anonymous" 
+  async>
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/twikoo@1.6.41/dist/twikoo.min.js"></script>
+<script>
+twikoo.init({
+  envId: 'https://twikoo.zishu.me/.netlify/functions/twikoo',
+  el: '#tcomment',
+  lang: 'zh-CN', 
+})
+</script>
+
+<script>
+  const tabs = document.querySelectorAll('.comment-tabs li');
+  const contents = document.querySelectorAll('.comments > div');
+
+  tabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => {
+      
+      tabs.forEach(t => t.classList.remove('active'));
+      contents.forEach(c => c.classList.remove('active'));
+      
+      
+      tab.classList.add('active');
+      contents[index].classList.add('active');
+    });
+  });
+</script>
+      
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<footer class="footer">
+  <div class="l-wrap">
+    <p class="aboutme">这是我的个人博客，已经运行了 <span id="days"></span> 天，写了 607 篇文章，共 390510 字。</p>
+    <p>© 2020 - 2025 Powered by
+      <a href="https://github.com/dlzmoe" target="_blank">Github</a>
+      / <a href="/index.xml" target="_blank">RSS</a>
+    </p>
+  </div>
+  <div class="gotop"></div>
+</footer>
+
+<script>
+  const time = "2020-06-14";
+  var now = new Date();
+  var end = new Date(time);
+  var diff = Math.abs(now - end);
+  var days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+  document.getElementById('days').innerHTML = days;
+</script>
+
+<script src="/js/main.js"></script>
+    </div>
+  </div>
+</body>
+
+</html>

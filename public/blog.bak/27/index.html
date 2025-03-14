@@ -1,0 +1,2191 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<meta charset="utf-8" />
+<meta name="generator" content="Hugo 0.144.2">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="toTop" content="true">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="author" content="子舒" />
+<meta property="og:url" content="http://localhost:1313/blog.bak/27/" />
+<link rel="canonical" href="http://localhost:1313/blog.bak/27/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="shortcut" href="https://imgurl.zishu.me/favicon.ico" /><link rel="alternate" type="application/atom+xml" href="http://localhost:1313/index.xml" title="子舒的博客">
+<script type="application/ld+json">
+{
+"@context" : "http://schema.org",
+"@type" : "BlogPosting",
+"mainEntityOfPage": {
+"@type": "WebPage",
+"@id": "http:\/\/localhost:1313\/"
+},
+"articleSection" : "blog.bak",
+"name" : "vue 学习笔记 (1)－－什么是 vue?",
+"headline" : "vue 学习笔记 (1)－－什么是 vue?",
+"description" : "一、什么是 vue? 练习时使用，最新版本\n\u0026lt;script src=\u0026#34;https:\/\/cdn.jsdelivr.net\/npm\/vue\/dist\/vue.js\u0026#34;\u0026gt;\u0026lt;\/script\u0026gt; 生产时使用，明确版本号的版本，避免造成不可预见的问题\n\u0026lt;script src=\u0026#34;https:\/\/cdn.jsdelivr.net\/npm\/vue@2.6.12\u0026#34;\u0026gt;\u0026lt;\/script\u0026gt; hello world\n\u0026lt;div id=\u0026#34;app\u0026#34;\u0026gt; {{message}} \u0026lt;\/div\u0026gt; \u0026lt;script\u0026gt; var app = new Vue({ el: \u0026#34;#app\u0026#34;, data: { message: \u0026#39;hello,world\u0026#39; } }) \u0026lt;\/script\u0026gt; 1.v-指令 v-bind－－绑定属性 \u0026lt;div id=\u0026#34;app-2\u0026#34;\u0026gt; \u0026lt;span v-bind:title=\u0026#34;message\u0026#34;\u0026gt; 鼠标悬停几秒钟查看此处动态绑定的提示信息！ \u0026lt;\/span\u0026gt; \u0026lt;\/div\u0026gt; \u0026lt;script\u0026gt; var app = new Vue({ el: \u0026#39;#app\u0026#39;, data: { message: \u0026#39;页面加载于 \u0026#39; \u002b new Date().toLocaleString() } }) \u0026lt;\/script\u0026gt; v-bind是 vue 特有的提供的属性，他会在 dom 上应用一个响应式的操作\n打开 console，输入app.message = \u0026quot;hello\u0026quot;，页面会改变内容只显示hello\n又或者输入app.message = false，内容会直接不显示\nvue 官网例子：\n\u0026lt;!-- 绑定一个 attribute --\u0026gt; \u0026lt;img v-bind:src=\u0026#34;imageSrc\u0026#34;\u0026gt; \u0026lt;!-- 动态 attribute 名 (2.6.0\u002b) --\u0026gt; \u0026lt;button v-bind:[key]=\u0026#34;value\u0026#34;\u0026gt;\u0026lt;\/button\u0026gt; \u0026lt;!-- 缩写 --\u0026gt; \u0026lt;img :src=\u0026#34;imageSrc\u0026#34;\u0026gt; \u0026lt;!-- 动态 attribute 名缩写 (2.6.0\u002b) --\u0026gt; \u0026lt;button :[key]=\u0026#34;value\u0026#34;\u0026gt;\u0026lt;\/button\u0026gt; \u0026lt;!-- 内联字符串拼接 --\u0026gt; \u0026lt;img :src=\u0026#34;\u0026#39;\/path\/to\/images\/\u0026#39; \u002b fileName\u0026#34;\u0026gt; \u0026lt;!-- class 绑定 --\u0026gt; \u0026lt;div :class=\u0026#34;{ red: isRed }\u0026#34;\u0026gt;\u0026lt;\/div\u0026gt; \u0026lt;div :class=\u0026#34;[classA, classB]\u0026#34;\u0026gt;\u0026lt;\/div\u0026gt; \u0026lt;div :class=\u0026#34;[classA, { classB: isB, classC: isC }]\u0026#34;\u0026gt; \u0026lt;!-- style 绑定 --\u0026gt; \u0026lt;div :style=\u0026#34;{ fontSize: size \u002b \u0026#39;px\u0026#39; }\u0026#34;\u0026gt;\u0026lt;\/div\u0026gt; \u0026lt;div :style=\u0026#34;[styleObjectA, styleObjectB]\u0026#34;\u0026gt;\u0026lt;\/div\u0026gt; \u0026lt;!-- 绑定一个全是 attribute 的对象 --\u0026gt; \u0026lt;div v-bind=\u0026#34;{ id: someProp, \u0026#39;other-attr\u0026#39;: otherProp }\u0026#34;\u0026gt;\u0026lt;\/div\u0026gt; \u0026lt;!-- 通过 prop 修饰符绑定 DOM attribute --\u0026gt; \u0026lt;div v-bind:text-content.prop=\u0026#34;text\u0026#34;\u0026gt;\u0026lt;\/div\u0026gt; \u0026lt;!-- prop 绑定。“prop”必须在 my-component 中声明。--\u0026gt; \u0026lt;my-component :prop=\u0026#34;someThing\u0026#34;\u0026gt;\u0026lt;\/my-component\u0026gt; \u0026lt;!-- 通过 $props 将父组件的 props 一起传给子组件 --\u0026gt; \u0026lt;child-component v-bind=\u0026#34;$props\u0026#34;\u0026gt;\u0026lt;\/child-component\u0026gt; \u0026lt;!-- XLink --\u0026gt; \u0026lt;svg\u0026gt;\u0026lt;a :xlink:special=\u0026#34;foo\u0026#34;\u0026gt;\u0026lt;\/a\u0026gt;\u0026lt;\/svg\u0026gt; v-if－－控制元素的显示隐藏 刚才写了，通过app.message = false，可以让message代表的内容处于隐藏状态，但是控制的只能是通过v-for引入的内容，无法直接让元素隐藏\n其实，vue 中还有一个专门控制元素显示隐藏的指令－－v-if\n\u0026lt;div id=\u0026#34;app\u0026#34;\u0026gt; \u0026lt;span v-if=\u0026#34;show\u0026#34;\u0026gt; {{message}} \u0026lt;\/span\u0026gt; \u0026lt;\/div\u0026gt; \u0026lt;script\u0026gt; var app = new Vue({ el: \u0026#34;#app\u0026#34;, data: { message: \u0026#39;hello,world\u0026#39;, show: true } }) \u0026lt;\/script\u0026gt; 给元素绑定一个指令v-if = \u0026quot;show\u0026quot;，然后在 data 中控制show的布尔值，true 显示，false 隐藏\n同时还有这个功能的指令v-show，根据表达式之真假值，切换元素的display CSS property，也是通过绑定的布尔值来显示隐藏\n但是v-if和v-show有些区别\n(1) v-if 是控制元素是否渲染最终控制元素的显示隐藏，适用于切换频率低的情况 (2) v-show 不管显示隐藏都渲染，然后通过布尔值绑定display: none属性，适用于切换频率高的情况\n注意：v-show不支持\u0026lt;tempalte\u0026gt;元素，也不支持v-else\n搭配用法\nv-else和v-else-if\n可以通过使用v-else达到v-if的效果，必须和v-if搭配使用，比如：\n\u0026lt;div v-if=\u0026#34;1\u0026gt;2\u0026#34;\u0026gt; hello \u0026lt;\/div\u0026gt; \u0026lt;div v-else\u0026gt; hi \u0026lt;\/div\u0026gt; 如果v-if不成立，执行v-else，也就是显示 v-else 里面的内容\n是不是有点 javascript 里面if函数的感觉了\nv-else-if用法大致一样，必须和v-if和v-else搭配使用\nv-for－－遍历数组并显示到页面上 v-for算是 vue 的核心指令之一了把，主要是渲染一个项目列表的\n\u0026lt;div id=\u0026#34;app\u0026#34;\u0026gt; \u0026lt;div v-for=\u0026#34;item in list\u0026#34;\u0026gt;{{item.message}}\u0026lt;\/div\u0026gt; \u0026lt;\/div\u0026gt; \u0026lt;script\u0026gt; var app = new Vue({ el: \u0026#34;#app\u0026#34;, data: { list: [ {message: \u0026#39;html\u0026#39;}, {message: \u0026#39;css\u0026#39;} ] } }) \u0026lt;\/script\u0026gt; 可以直接把列表数据循环输出\n并且在控制台中通过push()还能添加新的列表项\napp.list.push({message: \u0026#34;js\u0026#34;}) vue 对数据操作，就是这么神奇\n不推荐v-for和v-if同时使用，因为v-for拥有更高的优先级\nv-on－－绑定事件监听器 即绑定事件，通过v-on给 div 绑定了一个点击事件，注意，在reverseMessage方法中，我们更新了应用的状态，但是吗诶呀触碰到 dom，直接通过 vue 来进行处理，编写代码时只需要关注逻辑层即可\nv-on:click=\u0026quot;messagenone\u0026quot;，然后在methods里面写上事件方法\n\u0026lt;div id=\u0026#34;app\u0026#34;\u0026gt; \u0026lt;div v-on:click=\u0026#34;messagenone\u0026#34; id=\u0026#34;demo\u0026#34;\u0026gt;{{message}}\u0026lt;\/div\u0026gt; \u0026lt;\/div\u0026gt; \u0026lt;script\u0026gt; var app = new Vue({ el: \u0026#34;#app\u0026#34;, data: { message: \u0026#39;hello,wolrd\u0026#39; }, methods: { messagenone: function() { var demo = document.getElementById(\u0026#39;demo\u0026#39;); demo.innerHTML = \u0026#39;\u0026#39; } } }) \u0026lt;\/script\u0026gt; v-model－－数据的双向绑定 vue 还提供了v-model指令，它能轻松实现表单输入和应用状态之间的双向绑定\n可使用场景：标签 input, select, textarea 和 components\n\u0026lt;div id=\u0026#34;app\u0026#34;\u0026gt; \u0026lt;div\u0026gt;{{message}}\u0026lt;\/div\u0026gt; \u0026lt;input type=\u0026#34;text\u0026#34; v-model=\u0026#34;message\u0026#34;\u0026gt; \u0026lt;\/div\u0026gt; \u0026lt;script\u0026gt; var app = new Vue({ el: \u0026#34;#app\u0026#34;, data: { message: \u0026#39;hello,wolrd\u0026#39; } }) \u0026lt;\/script\u0026gt; v-text 更新元素的内容 \u0026lt;div id=\u0026#34;app\u0026#34;\u0026gt; \u0026lt;div v-text=\u0026#34;message\u0026#34;\u0026gt;\u0026lt;\/div\u0026gt; \u0026lt;div\u0026gt;{{message}}\u0026lt;\/div\u0026gt; \u0026lt;\/div\u0026gt; \u0026lt;script\u0026gt; var vm = new Vue({ el: \u0026#39;#app\u0026#39;, data: { message: \u0026#39;hello,wolrd\u0026#39; } }) \u0026lt;\/script\u0026gt; 上面的 div 和下面的 div 内容跟随一致变化\nv-html－－更新元素的 innerHTML 不建议使用，在网站上动态渲染 html 是非常危险的，容易导致XXS 攻击，不能用在用户提交的内容上，如果必须使用 v-html，可以考虑通过使用组件来代替\nv-pre 跳过绑定的元素和他的子元素的编译，直接显示原始内容\n跳过没有指令的节点不进行编译，直接显示内容，会加快页面的响应\nv-cloak 在编译没有编译完成之前，模板处于的状态\n\u0026lt;style\u0026gt;v-cloak] { display: none; }\u0026lt;\/style\u0026gt; \u0026lt;div v-cloak\u0026gt; {{message}} \u0026lt;\/div\u0026gt; \u0026lt;script\u0026gt; var vm = new Vue({ el: \u0026#39;#app\u0026#39;, data: { message: \u0026#39;hello,wolrd\u0026#39; } }) \u0026lt;\/script\u0026gt; 上述代码表示的含义是，如果网络不好，{{message}}模板代表的hello,world还没有编译成功，此时{{message}}处于隐藏状态，当编译完成，页面直接显示hello,world\nv-once－－一次性渲染 绑定该指令的元素及其子元素只会进行一次渲染，之后页面的第二次渲染会将其视为静态资源并跳过，可以用来优化性能\n\u0026lt;div id=\u0026#34;app\u0026#34;\u0026gt; \u0026lt;span v-once\u0026gt;{{message}}\u0026lt;\/span\u0026gt; \u0026lt;\/div\u0026gt; \u0026lt;script\u0026gt; var vm = new Vue({ el: \u0026#39;#app\u0026#39;, data: { message: \u0026#39;hello,wolrd\u0026#39;, } }) \u0026lt;\/script\u0026gt; 使用场景：表单提交。可防止用户在请求未及时响应时，多次提交~\n2.组件化构建应用 组件化也是 vue 的核心机制之一，它允许我们使用小型，可复用的组件来构建大型应用\nvue-learn-3.png\r在 vue 里，一个组件本质上是一个拥有预定义选项的一个 vue 实例。在 vue 中注册组件很简单\n\/\/ 定义名为 todo-item 的新组件 Vue.component(\u0026#39;todo-item\u0026#39;, { template: \u0026#39;\u0026lt;li\u0026gt;这是个待办项\u0026lt;\/li\u0026gt;\u0026#39; }) var app = new Vue(...) 现在可以用它构建另一个组件模板\n\u0026lt;ol\u0026gt; \u0026lt;!-- 创建一个 todo-item 组件的实例 --\u0026gt; \u0026lt;todo-item\u0026gt;\u0026lt;\/todo-item\u0026gt; \u0026lt;\/ol\u0026gt; 但是这样会为每个待办项渲染同样的文本，这看起来并不炫酷。我们应该能从父作用域将数据传到子组件才对。让我们来修改一下组件的定义，使之能够接受一个props\nVue.component(\u0026#39;todo-item\u0026#39;, { \/\/ todo-item 组件现在接受一个 \/\/ \u0026#34;props\u0026#34;，类似于一个自定义 attribute。 \/\/ 这个 props 名为 todo。 props: [\u0026#39;todo\u0026#39;], template: \u0026#39;\u0026lt;li\u0026gt;{{ todo.text }}\u0026lt;\/li\u0026gt;\u0026#39; }) 现在，我们可以使用v-bind指令将待办项传到循环输出的每个组件中\n现在我们为每个 todo-item 提供 todo 对象 todo 对象是变量，即其内容可以是动态的，我们也需要为每个组件提供一个key\n\u0026lt;div id=\u0026#34;app-7\u0026#34;\u0026gt; \u0026lt;ol\u0026gt; \u0026lt;todo-item v-for=\u0026#34;item in groceryList\u0026#34; v-bind:todo=\u0026#34;item\u0026#34; v-bind:key=\u0026#34;item.id\u0026#34; \u0026gt;\u0026lt;\/todo-item\u0026gt; \u0026lt;\/ol\u0026gt; \u0026lt;\/div\u0026gt; Vue.component(\u0026#39;todo-item\u0026#39;, { props: [\u0026#39;todo\u0026#39;], template: \u0026#39;\u0026lt;li\u0026gt;{{ todo.text }}\u0026lt;\/li\u0026gt;\u0026#39; }) var app7 = new Vue({ el: \u0026#39;#app-7\u0026#39;, data: { groceryList: [ { id: 0, text: \u0026#39;蔬菜\u0026#39; }, { id: 1, text: \u0026#39;奶酪\u0026#39; }, { id: 2, text: \u0026#39;随便其它什么人吃的东西\u0026#39; } ] } }) 尽管这只是一个刻意设计的例子，但是我们已经设法将应用分割成了两个更小的单元。子单元通过prop接口与父单元进行了良好的解耦。我们现在可以进一步改进 组件，提供更为复杂的模板和逻辑，而不会影响到父单元\n在一个大型应用中，有必要将整个应用程序划分为组件，以使开发更易管理\n\u0026lt;div id=\u0026#34;app\u0026#34;\u0026gt; \u0026lt;app-nav\u0026gt;\u0026lt;\/app-nav\u0026gt; \u0026lt;app-view\u0026gt; \u0026lt;app-sidebar\u0026gt;\u0026lt;\/app-sidebar\u0026gt; \u0026lt;app-content\u0026gt;\u0026lt;\/app-content\u0026gt; \u0026lt;\/app-view\u0026gt; \u0026lt;\/div\u0026gt; ",
+"inLanguage" : "en-US",
+"author" : "子舒",
+"creator" : "子舒",
+"publisher": "子舒",
+"accountablePerson" : "子舒",
+"copyrightHolder" : "子舒",
+"copyrightYear" : "2020",
+"datePublished": "2020-11-23 00:00:00 \u002b0000 UTC",
+"dateModified" : "2020-11-23 00:00:00 \u002b0000 UTC",
+"url" : "http:\/\/localhost:1313\/blog.bak\/27\/",
+"keywords" : [ "vue","笔记", ]
+}
+</script><title>vue 学习笔记 (1)－－什么是 vue? - 子舒的博客</title>
+<meta property="og:title" content="vue 学习笔记 (1)－－什么是 vue?" />
+<meta property="og:type" content="article" />
+
+
+<meta property="og:keywords" content="一、什么是 vue? 练习时使用，最新版本
+&lt;script src=&#34;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&#34;&gt;&lt;/script&gt; 生产时使用，明确版本号的版本，避免造成不可预见的问题
+&lt;script src=&#34;https://cdn.jsdelivr.net/npm/vue@2.6.12&#34;&gt;&lt;/script&gt; hello world
+&lt;div id=&#34;app&#34;&gt; {{message}} &lt;/div&gt; &lt;script&gt; var app = new Vue({ el: &#34;#app&#34;, data: { message: &#39;hello,world&#39; } }) &lt;/script&gt; 1.v-指令 v-bind－－绑定属性 &lt;div id=&#34;app-2&#34;&gt; &lt;span v-bind:title=&#34;message&#34;&gt; 鼠标悬停几秒钟查看此处动态绑定的提示信息！ &lt;/span&gt; &lt;/div&gt; &lt;script&gt; var app = new Vue({ el: &#39;#app&#39;, data: { message: &#39;页面加载于 &#39; &#43; new Date().toLocaleString() } }) &lt;/script&gt; v-bind是 vue 特有的提供的属性，他会在 dom 上应用一个响应式的操作
+打开 console，输入app.message = &quot;hello&quot;，页面会改变内容只显示hello
+又或者输入app.message = false，内容会直接不显示
+vue 官网例子：
+&lt;!-- 绑定一个 attribute --&gt; &lt;img v-bind:src=&#34;imageSrc&#34;&gt; &lt;!-- 动态 attribute 名 (2.6.0&#43;) --&gt; &lt;button v-bind:[key]=&#34;value&#34;&gt;&lt;/button&gt; &lt;!-- 缩写 --&gt; &lt;img :src=&#34;imageSrc&#34;&gt; &lt;!-- 动态 attribute 名缩写 (2.6.0&#43;) --&gt; &lt;button :[key]=&#34;value&#34;&gt;&lt;/button&gt; &lt;!-- 内联字符串拼接 --&gt; &lt;img :src=&#34;&#39;/path/to/images/&#39; &#43; fileName&#34;&gt; &lt;!-- class 绑定 --&gt; &lt;div :class=&#34;{ red: isRed }&#34;&gt;&lt;/div&gt; &lt;div :class=&#34;[classA, classB]&#34;&gt;&lt;/div&gt; &lt;div :class=&#34;[classA, { classB: isB, classC: isC }]&#34;&gt; &lt;!-- style 绑定 --&gt; &lt;div :style=&#34;{ fontSize: size &#43; &#39;px&#39; }&#34;&gt;&lt;/div&gt; &lt;div :style=&#34;[styleObjectA, styleObjectB]&#34;&gt;&lt;/div&gt; &lt;!-- 绑定一个全是 attribute 的对象 --&gt; &lt;div v-bind=&#34;{ id: someProp, &#39;other-attr&#39;: otherProp }&#34;&gt;&lt;/div&gt; &lt;!-- 通过 prop 修饰符绑定 DOM attribute --&gt; &lt;div v-bind:text-content.prop=&#34;text&#34;&gt;&lt;/div&gt; &lt;!-- prop 绑定。“prop”必须在 my-component 中声明。--&gt; &lt;my-component :prop=&#34;someThing&#34;&gt;&lt;/my-component&gt; &lt;!-- 通过 $props 将父组件的 props 一起传给子组件 --&gt; &lt;child-component v-bind=&#34;$props&#34;&gt;&lt;/child-component&gt; &lt;!-- XLink --&gt; &lt;svg&gt;&lt;a :xlink:special=&#34;foo&#34;&gt;&lt;/a&gt;&lt;/svg&gt; v-if－－控制元素的显示隐藏 刚才写了，通过app.message = false，可以让message代表的内容处于隐藏状态，但是控制的只能是通过v-for引入的内容，无法直接让元素隐藏
+其实，vue 中还有一个专门控制元素显示隐藏的指令－－v-if
+&lt;div id=&#34;app&#34;&gt; &lt;span v-if=&#34;show&#34;&gt; {{message}} &lt;/span&gt; &lt;/div&gt; &lt;script&gt; var app = new Vue({ el: &#34;#app&#34;, data: { message: &#39;hello,world&#39;, show: true } }) &lt;/script&gt; 给元素绑定一个指令v-if = &quot;show&quot;，然后在 data 中控制show的布尔值，true 显示，false 隐藏
+同时还有这个功能的指令v-show，根据表达式之真假值，切换元素的display CSS property，也是通过绑定的布尔值来显示隐藏
+但是v-if和v-show有些区别
+(1) v-if 是控制元素是否渲染最终控制元素的显示隐藏，适用于切换频率低的情况 (2) v-show 不管显示隐藏都渲染，然后通过布尔值绑定display: none属性，适用于切换频率高的情况
+注意：v-show不支持&lt;tempalte&gt;元素，也不支持v-else
+搭配用法
+v-else和v-else-if
+可以通过使用v-else达到v-if的效果，必须和v-if搭配使用，比如：
+&lt;div v-if=&#34;1&gt;2&#34;&gt; hello &lt;/div&gt; &lt;div v-else&gt; hi &lt;/div&gt; 如果v-if不成立，执行v-else，也就是显示 v-else 里面的内容
+是不是有点 javascript 里面if函数的感觉了
+v-else-if用法大致一样，必须和v-if和v-else搭配使用
+v-for－－遍历数组并显示到页面上 v-for算是 vue 的核心指令之一了把，主要是渲染一个项目列表的
+&lt;div id=&#34;app&#34;&gt; &lt;div v-for=&#34;item in list&#34;&gt;{{item.message}}&lt;/div&gt; &lt;/div&gt; &lt;script&gt; var app = new Vue({ el: &#34;#app&#34;, data: { list: [ {message: &#39;html&#39;}, {message: &#39;css&#39;} ] } }) &lt;/script&gt; 可以直接把列表数据循环输出
+并且在控制台中通过push()还能添加新的列表项
+app.list.push({message: &#34;js&#34;}) vue 对数据操作，就是这么神奇
+不推荐v-for和v-if同时使用，因为v-for拥有更高的优先级
+v-on－－绑定事件监听器 即绑定事件，通过v-on给 div 绑定了一个点击事件，注意，在reverseMessage方法中，我们更新了应用的状态，但是吗诶呀触碰到 dom，直接通过 vue 来进行处理，编写代码时只需要关注逻辑层即可
+v-on:click=&quot;messagenone&quot;，然后在methods里面写上事件方法
+&lt;div id=&#34;app&#34;&gt; &lt;div v-on:click=&#34;messagenone&#34; id=&#34;demo&#34;&gt;{{message}}&lt;/div&gt; &lt;/div&gt; &lt;script&gt; var app = new Vue({ el: &#34;#app&#34;, data: { message: &#39;hello,wolrd&#39; }, methods: { messagenone: function() { var demo = document.getElementById(&#39;demo&#39;); demo.innerHTML = &#39;&#39; } } }) &lt;/script&gt; v-model－－数据的双向绑定 vue 还提供了v-model指令，它能轻松实现表单输入和应用状态之间的双向绑定
+可使用场景：标签 input, select, textarea 和 components
+&lt;div id=&#34;app&#34;&gt; &lt;div&gt;{{message}}&lt;/div&gt; &lt;input type=&#34;text&#34; v-model=&#34;message&#34;&gt; &lt;/div&gt; &lt;script&gt; var app = new Vue({ el: &#34;#app&#34;, data: { message: &#39;hello,wolrd&#39; } }) &lt;/script&gt; v-text 更新元素的内容 &lt;div id=&#34;app&#34;&gt; &lt;div v-text=&#34;message&#34;&gt;&lt;/div&gt; &lt;div&gt;{{message}}&lt;/div&gt; &lt;/div&gt; &lt;script&gt; var vm = new Vue({ el: &#39;#app&#39;, data: { message: &#39;hello,wolrd&#39; } }) &lt;/script&gt; 上面的 div 和下面的 div 内容跟随一致变化
+v-html－－更新元素的 innerHTML 不建议使用，在网站上动态渲染 html 是非常危险的，容易导致XXS 攻击，不能用在用户提交的内容上，如果必须使用 v-html，可以考虑通过使用组件来代替
+v-pre 跳过绑定的元素和他的子元素的编译，直接显示原始内容
+跳过没有指令的节点不进行编译，直接显示内容，会加快页面的响应
+v-cloak 在编译没有编译完成之前，模板处于的状态
+&lt;style&gt;v-cloak] { display: none; }&lt;/style&gt; &lt;div v-cloak&gt; {{message}} &lt;/div&gt; &lt;script&gt; var vm = new Vue({ el: &#39;#app&#39;, data: { message: &#39;hello,wolrd&#39; } }) &lt;/script&gt; 上述代码表示的含义是，如果网络不好，{{message}}模板代表的hello,world还没有编译成功，此时{{message}}处于隐藏状态，当编译完成，页面直接显示hello,world
+v-once－－一次性渲染 绑定该指令的元素及其子元素只会进行一次渲染，之后页面的第二次渲染会将其视为静态资源并跳过，可以用来优化性能
+&lt;div id=&#34;app&#34;&gt; &lt;span v-once&gt;{{message}}&lt;/span&gt; &lt;/div&gt; &lt;script&gt; var vm = new Vue({ el: &#39;#app&#39;, data: { message: &#39;hello,wolrd&#39;, } }) &lt;/script&gt; 使用场景：表单提交。可防止用户在请求未及时响应时，多次提交~
+2.组件化构建应用 组件化也是 vue 的核心机制之一，它允许我们使用小型，可复用的组件来构建大型应用
+vue-learn-3.png在 vue 里，一个组件本质上是一个拥有预定义选项的一个 vue 实例。在 vue 中注册组件很简单
+// 定义名为 todo-item 的新组件 Vue.component(&#39;todo-item&#39;, { template: &#39;&lt;li&gt;这是个待办项&lt;/li&gt;&#39; }) var app = new Vue(...) 现在可以用它构建另一个组件模板
+&lt;ol&gt; &lt;!-- 创建一个 todo-item 组件的实例 --&gt; &lt;todo-item&gt;&lt;/todo-item&gt; &lt;/ol&gt; 但是这样会为每个待办项渲染同样的文本，这看起来并不炫酷。我们应该能从父作用域将数据传到子组件才对。让我们来修改一下组件的定义，使之能够接受一个props
+Vue.component(&#39;todo-item&#39;, { // todo-item 组件现在接受一个 // &#34;props&#34;，类似于一个自定义 attribute。 // 这个 props 名为 todo。 props: [&#39;todo&#39;], template: &#39;&lt;li&gt;{{ todo.text }}&lt;/li&gt;&#39; }) 现在，我们可以使用v-bind指令将待办项传到循环输出的每个组件中
+现在我们为每个 todo-item 提供 todo 对象 todo 对象是变量，即其内容可以是动态的，我们也需要为每个组件提供一个key
+&lt;div id=&#34;app-7&#34;&gt; &lt;ol&gt; &lt;todo-item v-for=&#34;item in groceryList&#34; v-bind:todo=&#34;item&#34; v-bind:key=&#34;item.id&#34; &gt;&lt;/todo-item&gt; &lt;/ol&gt; &lt;/div&gt; Vue.component(&#39;todo-item&#39;, { props: [&#39;todo&#39;], template: &#39;&lt;li&gt;{{ todo.text }}&lt;/li&gt;&#39; }) var app7 = new Vue({ el: &#39;#app-7&#39;, data: { groceryList: [ { id: 0, text: &#39;蔬菜&#39; }, { id: 1, text: &#39;奶酪&#39; }, { id: 2, text: &#39;随便其它什么人吃的东西&#39; } ] } }) 尽管这只是一个刻意设计的例子，但是我们已经设法将应用分割成了两个更小的单元。子单元通过prop接口与父单元进行了良好的解耦。我们现在可以进一步改进 组件，提供更为复杂的模板和逻辑，而不会影响到父单元
+在一个大型应用中，有必要将整个应用程序划分为组件，以使开发更易管理
+&lt;div id=&#34;app&#34;&gt; &lt;app-nav&gt;&lt;/app-nav&gt; &lt;app-view&gt; &lt;app-sidebar&gt;&lt;/app-sidebar&gt; &lt;app-content&gt;&lt;/app-content&gt; &lt;/app-view&gt; &lt;/div&gt; " />
+<meta name="keywords" content="一、什么是 vue? 练习时使用，最新版本
+&lt;script src=&#34;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&#34;&gt;&lt;/script&gt; 生产时使用，明确版本号的版本，避免造成不可预见的问题
+&lt;script src=&#34;https://cdn.jsdelivr.net/npm/vue@2.6.12&#34;&gt;&lt;/script&gt; hello world
+&lt;div id=&#34;app&#34;&gt; {{message}} &lt;/div&gt; &lt;script&gt; var app = new Vue({ el: &#34;#app&#34;, data: { message: &#39;hello,world&#39; } }) &lt;/script&gt; 1.v-指令 v-bind－－绑定属性 &lt;div id=&#34;app-2&#34;&gt; &lt;span v-bind:title=&#34;message&#34;&gt; 鼠标悬停几秒钟查看此处动态绑定的提示信息！ &lt;/span&gt; &lt;/div&gt; &lt;script&gt; var app = new Vue({ el: &#39;#app&#39;, data: { message: &#39;页面加载于 &#39; &#43; new Date().toLocaleString() } }) &lt;/script&gt; v-bind是 vue 特有的提供的属性，他会在 dom 上应用一个响应式的操作
+打开 console，输入app.message = &quot;hello&quot;，页面会改变内容只显示hello
+又或者输入app.message = false，内容会直接不显示
+vue 官网例子：
+&lt;!-- 绑定一个 attribute --&gt; &lt;img v-bind:src=&#34;imageSrc&#34;&gt; &lt;!-- 动态 attribute 名 (2.6.0&#43;) --&gt; &lt;button v-bind:[key]=&#34;value&#34;&gt;&lt;/button&gt; &lt;!-- 缩写 --&gt; &lt;img :src=&#34;imageSrc&#34;&gt; &lt;!-- 动态 attribute 名缩写 (2.6.0&#43;) --&gt; &lt;button :[key]=&#34;value&#34;&gt;&lt;/button&gt; &lt;!-- 内联字符串拼接 --&gt; &lt;img :src=&#34;&#39;/path/to/images/&#39; &#43; fileName&#34;&gt; &lt;!-- class 绑定 --&gt; &lt;div :class=&#34;{ red: isRed }&#34;&gt;&lt;/div&gt; &lt;div :class=&#34;[classA, classB]&#34;&gt;&lt;/div&gt; &lt;div :class=&#34;[classA, { classB: isB, classC: isC }]&#34;&gt; &lt;!-- style 绑定 --&gt; &lt;div :style=&#34;{ fontSize: size &#43; &#39;px&#39; }&#34;&gt;&lt;/div&gt; &lt;div :style=&#34;[styleObjectA, styleObjectB]&#34;&gt;&lt;/div&gt; &lt;!-- 绑定一个全是 attribute 的对象 --&gt; &lt;div v-bind=&#34;{ id: someProp, &#39;other-attr&#39;: otherProp }&#34;&gt;&lt;/div&gt; &lt;!-- 通过 prop 修饰符绑定 DOM attribute --&gt; &lt;div v-bind:text-content.prop=&#34;text&#34;&gt;&lt;/div&gt; &lt;!-- prop 绑定。“prop”必须在 my-component 中声明。--&gt; &lt;my-component :prop=&#34;someThing&#34;&gt;&lt;/my-component&gt; &lt;!-- 通过 $props 将父组件的 props 一起传给子组件 --&gt; &lt;child-component v-bind=&#34;$props&#34;&gt;&lt;/child-component&gt; &lt;!-- XLink --&gt; &lt;svg&gt;&lt;a :xlink:special=&#34;foo&#34;&gt;&lt;/a&gt;&lt;/svg&gt; v-if－－控制元素的显示隐藏 刚才写了，通过app.message = false，可以让message代表的内容处于隐藏状态，但是控制的只能是通过v-for引入的内容，无法直接让元素隐藏
+其实，vue 中还有一个专门控制元素显示隐藏的指令－－v-if
+&lt;div id=&#34;app&#34;&gt; &lt;span v-if=&#34;show&#34;&gt; {{message}} &lt;/span&gt; &lt;/div&gt; &lt;script&gt; var app = new Vue({ el: &#34;#app&#34;, data: { message: &#39;hello,world&#39;, show: true } }) &lt;/script&gt; 给元素绑定一个指令v-if = &quot;show&quot;，然后在 data 中控制show的布尔值，true 显示，false 隐藏
+同时还有这个功能的指令v-show，根据表达式之真假值，切换元素的display CSS property，也是通过绑定的布尔值来显示隐藏
+但是v-if和v-show有些区别
+(1) v-if 是控制元素是否渲染最终控制元素的显示隐藏，适用于切换频率低的情况 (2) v-show 不管显示隐藏都渲染，然后通过布尔值绑定display: none属性，适用于切换频率高的情况
+注意：v-show不支持&lt;tempalte&gt;元素，也不支持v-else
+搭配用法
+v-else和v-else-if
+可以通过使用v-else达到v-if的效果，必须和v-if搭配使用，比如：
+&lt;div v-if=&#34;1&gt;2&#34;&gt; hello &lt;/div&gt; &lt;div v-else&gt; hi &lt;/div&gt; 如果v-if不成立，执行v-else，也就是显示 v-else 里面的内容
+是不是有点 javascript 里面if函数的感觉了
+v-else-if用法大致一样，必须和v-if和v-else搭配使用
+v-for－－遍历数组并显示到页面上 v-for算是 vue 的核心指令之一了把，主要是渲染一个项目列表的
+&lt;div id=&#34;app&#34;&gt; &lt;div v-for=&#34;item in list&#34;&gt;{{item.message}}&lt;/div&gt; &lt;/div&gt; &lt;script&gt; var app = new Vue({ el: &#34;#app&#34;, data: { list: [ {message: &#39;html&#39;}, {message: &#39;css&#39;} ] } }) &lt;/script&gt; 可以直接把列表数据循环输出
+并且在控制台中通过push()还能添加新的列表项
+app.list.push({message: &#34;js&#34;}) vue 对数据操作，就是这么神奇
+不推荐v-for和v-if同时使用，因为v-for拥有更高的优先级
+v-on－－绑定事件监听器 即绑定事件，通过v-on给 div 绑定了一个点击事件，注意，在reverseMessage方法中，我们更新了应用的状态，但是吗诶呀触碰到 dom，直接通过 vue 来进行处理，编写代码时只需要关注逻辑层即可
+v-on:click=&quot;messagenone&quot;，然后在methods里面写上事件方法
+&lt;div id=&#34;app&#34;&gt; &lt;div v-on:click=&#34;messagenone&#34; id=&#34;demo&#34;&gt;{{message}}&lt;/div&gt; &lt;/div&gt; &lt;script&gt; var app = new Vue({ el: &#34;#app&#34;, data: { message: &#39;hello,wolrd&#39; }, methods: { messagenone: function() { var demo = document.getElementById(&#39;demo&#39;); demo.innerHTML = &#39;&#39; } } }) &lt;/script&gt; v-model－－数据的双向绑定 vue 还提供了v-model指令，它能轻松实现表单输入和应用状态之间的双向绑定
+可使用场景：标签 input, select, textarea 和 components
+&lt;div id=&#34;app&#34;&gt; &lt;div&gt;{{message}}&lt;/div&gt; &lt;input type=&#34;text&#34; v-model=&#34;message&#34;&gt; &lt;/div&gt; &lt;script&gt; var app = new Vue({ el: &#34;#app&#34;, data: { message: &#39;hello,wolrd&#39; } }) &lt;/script&gt; v-text 更新元素的内容 &lt;div id=&#34;app&#34;&gt; &lt;div v-text=&#34;message&#34;&gt;&lt;/div&gt; &lt;div&gt;{{message}}&lt;/div&gt; &lt;/div&gt; &lt;script&gt; var vm = new Vue({ el: &#39;#app&#39;, data: { message: &#39;hello,wolrd&#39; } }) &lt;/script&gt; 上面的 div 和下面的 div 内容跟随一致变化
+v-html－－更新元素的 innerHTML 不建议使用，在网站上动态渲染 html 是非常危险的，容易导致XXS 攻击，不能用在用户提交的内容上，如果必须使用 v-html，可以考虑通过使用组件来代替
+v-pre 跳过绑定的元素和他的子元素的编译，直接显示原始内容
+跳过没有指令的节点不进行编译，直接显示内容，会加快页面的响应
+v-cloak 在编译没有编译完成之前，模板处于的状态
+&lt;style&gt;v-cloak] { display: none; }&lt;/style&gt; &lt;div v-cloak&gt; {{message}} &lt;/div&gt; &lt;script&gt; var vm = new Vue({ el: &#39;#app&#39;, data: { message: &#39;hello,wolrd&#39; } }) &lt;/script&gt; 上述代码表示的含义是，如果网络不好，{{message}}模板代表的hello,world还没有编译成功，此时{{message}}处于隐藏状态，当编译完成，页面直接显示hello,world
+v-once－－一次性渲染 绑定该指令的元素及其子元素只会进行一次渲染，之后页面的第二次渲染会将其视为静态资源并跳过，可以用来优化性能
+&lt;div id=&#34;app&#34;&gt; &lt;span v-once&gt;{{message}}&lt;/span&gt; &lt;/div&gt; &lt;script&gt; var vm = new Vue({ el: &#39;#app&#39;, data: { message: &#39;hello,wolrd&#39;, } }) &lt;/script&gt; 使用场景：表单提交。可防止用户在请求未及时响应时，多次提交~
+2.组件化构建应用 组件化也是 vue 的核心机制之一，它允许我们使用小型，可复用的组件来构建大型应用
+vue-learn-3.png在 vue 里，一个组件本质上是一个拥有预定义选项的一个 vue 实例。在 vue 中注册组件很简单
+// 定义名为 todo-item 的新组件 Vue.component(&#39;todo-item&#39;, { template: &#39;&lt;li&gt;这是个待办项&lt;/li&gt;&#39; }) var app = new Vue(...) 现在可以用它构建另一个组件模板
+&lt;ol&gt; &lt;!-- 创建一个 todo-item 组件的实例 --&gt; &lt;todo-item&gt;&lt;/todo-item&gt; &lt;/ol&gt; 但是这样会为每个待办项渲染同样的文本，这看起来并不炫酷。我们应该能从父作用域将数据传到子组件才对。让我们来修改一下组件的定义，使之能够接受一个props
+Vue.component(&#39;todo-item&#39;, { // todo-item 组件现在接受一个 // &#34;props&#34;，类似于一个自定义 attribute。 // 这个 props 名为 todo。 props: [&#39;todo&#39;], template: &#39;&lt;li&gt;{{ todo.text }}&lt;/li&gt;&#39; }) 现在，我们可以使用v-bind指令将待办项传到循环输出的每个组件中
+现在我们为每个 todo-item 提供 todo 对象 todo 对象是变量，即其内容可以是动态的，我们也需要为每个组件提供一个key
+&lt;div id=&#34;app-7&#34;&gt; &lt;ol&gt; &lt;todo-item v-for=&#34;item in groceryList&#34; v-bind:todo=&#34;item&#34; v-bind:key=&#34;item.id&#34; &gt;&lt;/todo-item&gt; &lt;/ol&gt; &lt;/div&gt; Vue.component(&#39;todo-item&#39;, { props: [&#39;todo&#39;], template: &#39;&lt;li&gt;{{ todo.text }}&lt;/li&gt;&#39; }) var app7 = new Vue({ el: &#39;#app-7&#39;, data: { groceryList: [ { id: 0, text: &#39;蔬菜&#39; }, { id: 1, text: &#39;奶酪&#39; }, { id: 2, text: &#39;随便其它什么人吃的东西&#39; } ] } }) 尽管这只是一个刻意设计的例子，但是我们已经设法将应用分割成了两个更小的单元。子单元通过prop接口与父单元进行了良好的解耦。我们现在可以进一步改进 组件，提供更为复杂的模板和逻辑，而不会影响到父单元
+在一个大型应用中，有必要将整个应用程序划分为组件，以使开发更易管理
+&lt;div id=&#34;app&#34;&gt; &lt;app-nav&gt;&lt;/app-nav&gt; &lt;app-view&gt; &lt;app-sidebar&gt;&lt;/app-sidebar&gt; &lt;app-content&gt;&lt;/app-content&gt; &lt;/app-view&gt; &lt;/div&gt; " />
+
+
+<meta property="og:description" content="一、什么是 vue? 练习时使用，最新版本
+&lt;script src=&#34;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&#34;&gt;&lt;/script&gt; 生产时使用，明确版本号的版本，避免造成不可预见的问题
+&lt;script src=&#34;https://cdn.jsdelivr.net/npm/vue@2.6.12&#34;&gt;&lt;/script&gt; hello world
+&lt;div id=&#34;app&#34;&gt; {{message}} &lt;/div&gt; &lt;script&gt; var app = new Vue({ el: &#34;#app&#34;, data: { message: &#39;hello,world&#39; } }) &lt;/script&gt; 1.v-指令 v-bind－－绑定属性 &lt;div id=&#34;app-2&#34;&gt; &lt;span v-bind:title=&#34;message&#34;&gt; 鼠标悬停几秒钟查看此处动态绑定的提示信息！ &lt;/span&gt; &lt;/div&gt; &lt;script&gt; var app = new Vue({ el: &#39;#app&#39;, data: { message: &#39;页面加载于 &#39; &#43; new Date().toLocaleString() } }) &lt;/script&gt; v-bind是 vue 特有的提供的属性，他会在 dom 上应用一个响应式的操作
+打开 console，输入app.message = &quot;hello&quot;，页面会改变内容只显示hello
+又或者输入app.message = false，内容会直接不显示
+vue 官网例子：
+&lt;!-- 绑定一个 attribute --&gt; &lt;img v-bind:src=&#34;imageSrc&#34;&gt; &lt;!-- 动态 attribute 名 (2.6.0&#43;) --&gt; &lt;button v-bind:[key]=&#34;value&#34;&gt;&lt;/button&gt; &lt;!-- 缩写 --&gt; &lt;img :src=&#34;imageSrc&#34;&gt; &lt;!-- 动态 attribute 名缩写 (2.6.0&#43;) --&gt; &lt;button :[key]=&#34;value&#34;&gt;&lt;/button&gt; &lt;!-- 内联字符串拼接 --&gt; &lt;img :src=&#34;&#39;/path/to/images/&#39; &#43; fileName&#34;&gt; &lt;!-- class 绑定 --&gt; &lt;div :class=&#34;{ red: isRed }&#34;&gt;&lt;/div&gt; &lt;div :class=&#34;[classA, classB]&#34;&gt;&lt;/div&gt; &lt;div :class=&#34;[classA, { classB: isB, classC: isC }]&#34;&gt; &lt;!-- style 绑定 --&gt; &lt;div :style=&#34;{ fontSize: size &#43; &#39;px&#39; }&#34;&gt;&lt;/div&gt; &lt;div :style=&#34;[styleObjectA, styleObjectB]&#34;&gt;&lt;/div&gt; &lt;!-- 绑定一个全是 attribute 的对象 --&gt; &lt;div v-bind=&#34;{ id: someProp, &#39;other-attr&#39;: otherProp }&#34;&gt;&lt;/div&gt; &lt;!-- 通过 prop 修饰符绑定 DOM attribute --&gt; &lt;div v-bind:text-content.prop=&#34;text&#34;&gt;&lt;/div&gt; &lt;!-- prop 绑定。“prop”必须在 my-component 中声明。--&gt; &lt;my-component :prop=&#34;someThing&#34;&gt;&lt;/my-component&gt; &lt;!-- 通过 $props 将父组件的 props 一起传给子组件 --&gt; &lt;child-component v-bind=&#34;$props&#34;&gt;&lt;/child-component&gt; &lt;!-- XLink --&gt; &lt;svg&gt;&lt;a :xlink:special=&#34;foo&#34;&gt;&lt;/a&gt;&lt;/svg&gt; v-if－－控制元素的显示隐藏 刚才写了，通过app.message = false，可以让message代表的内容处于隐藏状态，但是控制的只能是通过v-for引入的内容，无法直接让元素隐藏
+其实，vue 中还有一个专门控制元素显示隐藏的指令－－v-if
+&lt;div id=&#34;app&#34;&gt; &lt;span v-if=&#34;show&#34;&gt; {{message}} &lt;/span&gt; &lt;/div&gt; &lt;script&gt; var app = new Vue({ el: &#34;#app&#34;, data: { message: &#39;hello,world&#39;, show: true } }) &lt;/script&gt; 给元素绑定一个指令v-if = &quot;show&quot;，然后在 data 中控制show的布尔值，true 显示，false 隐藏
+同时还有这个功能的指令v-show，根据表达式之真假值，切换元素的display CSS property，也是通过绑定的布尔值来显示隐藏
+但是v-if和v-show有些区别
+(1) v-if 是控制元素是否渲染最终控制元素的显示隐藏，适用于切换频率低的情况 (2) v-show 不管显示隐藏都渲染，然后通过布尔值绑定display: none属性，适用于切换频率高的情况
+注意：v-show不支持&lt;tempalte&gt;元素，也不支持v-else
+搭配用法
+v-else和v-else-if
+可以通过使用v-else达到v-if的效果，必须和v-if搭配使用，比如：
+&lt;div v-if=&#34;1&gt;2&#34;&gt; hello &lt;/div&gt; &lt;div v-else&gt; hi &lt;/div&gt; 如果v-if不成立，执行v-else，也就是显示 v-else 里面的内容
+是不是有点 javascript 里面if函数的感觉了
+v-else-if用法大致一样，必须和v-if和v-else搭配使用
+v-for－－遍历数组并显示到页面上 v-for算是 vue 的核心指令之一了把，主要是渲染一个项目列表的
+&lt;div id=&#34;app&#34;&gt; &lt;div v-for=&#34;item in list&#34;&gt;{{item.message}}&lt;/div&gt; &lt;/div&gt; &lt;script&gt; var app = new Vue({ el: &#34;#app&#34;, data: { list: [ {message: &#39;html&#39;}, {message: &#39;css&#39;} ] } }) &lt;/script&gt; 可以直接把列表数据循环输出
+并且在控制台中通过push()还能添加新的列表项
+app.list.push({message: &#34;js&#34;}) vue 对数据操作，就是这么神奇
+不推荐v-for和v-if同时使用，因为v-for拥有更高的优先级
+v-on－－绑定事件监听器 即绑定事件，通过v-on给 div 绑定了一个点击事件，注意，在reverseMessage方法中，我们更新了应用的状态，但是吗诶呀触碰到 dom，直接通过 vue 来进行处理，编写代码时只需要关注逻辑层即可
+v-on:click=&quot;messagenone&quot;，然后在methods里面写上事件方法
+&lt;div id=&#34;app&#34;&gt; &lt;div v-on:click=&#34;messagenone&#34; id=&#34;demo&#34;&gt;{{message}}&lt;/div&gt; &lt;/div&gt; &lt;script&gt; var app = new Vue({ el: &#34;#app&#34;, data: { message: &#39;hello,wolrd&#39; }, methods: { messagenone: function() { var demo = document.getElementById(&#39;demo&#39;); demo.innerHTML = &#39;&#39; } } }) &lt;/script&gt; v-model－－数据的双向绑定 vue 还提供了v-model指令，它能轻松实现表单输入和应用状态之间的双向绑定
+可使用场景：标签 input, select, textarea 和 components
+&lt;div id=&#34;app&#34;&gt; &lt;div&gt;{{message}}&lt;/div&gt; &lt;input type=&#34;text&#34; v-model=&#34;message&#34;&gt; &lt;/div&gt; &lt;script&gt; var app = new Vue({ el: &#34;#app&#34;, data: { message: &#39;hello,wolrd&#39; } }) &lt;/script&gt; v-text 更新元素的内容 &lt;div id=&#34;app&#34;&gt; &lt;div v-text=&#34;message&#34;&gt;&lt;/div&gt; &lt;div&gt;{{message}}&lt;/div&gt; &lt;/div&gt; &lt;script&gt; var vm = new Vue({ el: &#39;#app&#39;, data: { message: &#39;hello,wolrd&#39; } }) &lt;/script&gt; 上面的 div 和下面的 div 内容跟随一致变化
+v-html－－更新元素的 innerHTML 不建议使用，在网站上动态渲染 html 是非常危险的，容易导致XXS 攻击，不能用在用户提交的内容上，如果必须使用 v-html，可以考虑通过使用组件来代替
+v-pre 跳过绑定的元素和他的子元素的编译，直接显示原始内容
+跳过没有指令的节点不进行编译，直接显示内容，会加快页面的响应
+v-cloak 在编译没有编译完成之前，模板处于的状态
+&lt;style&gt;v-cloak] { display: none; }&lt;/style&gt; &lt;div v-cloak&gt; {{message}} &lt;/div&gt; &lt;script&gt; var vm = new Vue({ el: &#39;#app&#39;, data: { message: &#39;hello,wolrd&#39; } }) &lt;/script&gt; 上述代码表示的含义是，如果网络不好，{{message}}模板代表的hello,world还没有编译成功，此时{{message}}处于隐藏状态，当编译完成，页面直接显示hello,world
+v-once－－一次性渲染 绑定该指令的元素及其子元素只会进行一次渲染，之后页面的第二次渲染会将其视为静态资源并跳过，可以用来优化性能
+&lt;div id=&#34;app&#34;&gt; &lt;span v-once&gt;{{message}}&lt;/span&gt; &lt;/div&gt; &lt;script&gt; var vm = new Vue({ el: &#39;#app&#39;, data: { message: &#39;hello,wolrd&#39;, } }) &lt;/script&gt; 使用场景：表单提交。可防止用户在请求未及时响应时，多次提交~
+2.组件化构建应用 组件化也是 vue 的核心机制之一，它允许我们使用小型，可复用的组件来构建大型应用
+vue-learn-3.png在 vue 里，一个组件本质上是一个拥有预定义选项的一个 vue 实例。在 vue 中注册组件很简单
+// 定义名为 todo-item 的新组件 Vue.component(&#39;todo-item&#39;, { template: &#39;&lt;li&gt;这是个待办项&lt;/li&gt;&#39; }) var app = new Vue(...) 现在可以用它构建另一个组件模板
+&lt;ol&gt; &lt;!-- 创建一个 todo-item 组件的实例 --&gt; &lt;todo-item&gt;&lt;/todo-item&gt; &lt;/ol&gt; 但是这样会为每个待办项渲染同样的文本，这看起来并不炫酷。我们应该能从父作用域将数据传到子组件才对。让我们来修改一下组件的定义，使之能够接受一个props
+Vue.component(&#39;todo-item&#39;, { // todo-item 组件现在接受一个 // &#34;props&#34;，类似于一个自定义 attribute。 // 这个 props 名为 todo。 props: [&#39;todo&#39;], template: &#39;&lt;li&gt;{{ todo.text }}&lt;/li&gt;&#39; }) 现在，我们可以使用v-bind指令将待办项传到循环输出的每个组件中
+现在我们为每个 todo-item 提供 todo 对象 todo 对象是变量，即其内容可以是动态的，我们也需要为每个组件提供一个key
+&lt;div id=&#34;app-7&#34;&gt; &lt;ol&gt; &lt;todo-item v-for=&#34;item in groceryList&#34; v-bind:todo=&#34;item&#34; v-bind:key=&#34;item.id&#34; &gt;&lt;/todo-item&gt; &lt;/ol&gt; &lt;/div&gt; Vue.component(&#39;todo-item&#39;, { props: [&#39;todo&#39;], template: &#39;&lt;li&gt;{{ todo.text }}&lt;/li&gt;&#39; }) var app7 = new Vue({ el: &#39;#app-7&#39;, data: { groceryList: [ { id: 0, text: &#39;蔬菜&#39; }, { id: 1, text: &#39;奶酪&#39; }, { id: 2, text: &#39;随便其它什么人吃的东西&#39; } ] } }) 尽管这只是一个刻意设计的例子，但是我们已经设法将应用分割成了两个更小的单元。子单元通过prop接口与父单元进行了良好的解耦。我们现在可以进一步改进 组件，提供更为复杂的模板和逻辑，而不会影响到父单元
+在一个大型应用中，有必要将整个应用程序划分为组件，以使开发更易管理
+&lt;div id=&#34;app&#34;&gt; &lt;app-nav&gt;&lt;/app-nav&gt; &lt;app-view&gt; &lt;app-sidebar&gt;&lt;/app-sidebar&gt; &lt;app-content&gt;&lt;/app-content&gt; &lt;/app-view&gt; &lt;/div&gt; " />
+<meta name="description" content="一、什么是 vue? 练习时使用，最新版本
+&lt;script src=&#34;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&#34;&gt;&lt;/script&gt; 生产时使用，明确版本号的版本，避免造成不可预见的问题
+&lt;script src=&#34;https://cdn.jsdelivr.net/npm/vue@2.6.12&#34;&gt;&lt;/script&gt; hello world
+&lt;div id=&#34;app&#34;&gt; {{message}} &lt;/div&gt; &lt;script&gt; var app = new Vue({ el: &#34;#app&#34;, data: { message: &#39;hello,world&#39; } }) &lt;/script&gt; 1.v-指令 v-bind－－绑定属性 &lt;div id=&#34;app-2&#34;&gt; &lt;span v-bind:title=&#34;message&#34;&gt; 鼠标悬停几秒钟查看此处动态绑定的提示信息！ &lt;/span&gt; &lt;/div&gt; &lt;script&gt; var app = new Vue({ el: &#39;#app&#39;, data: { message: &#39;页面加载于 &#39; &#43; new Date().toLocaleString() } }) &lt;/script&gt; v-bind是 vue 特有的提供的属性，他会在 dom 上应用一个响应式的操作
+打开 console，输入app.message = &quot;hello&quot;，页面会改变内容只显示hello
+又或者输入app.message = false，内容会直接不显示
+vue 官网例子：
+&lt;!-- 绑定一个 attribute --&gt; &lt;img v-bind:src=&#34;imageSrc&#34;&gt; &lt;!-- 动态 attribute 名 (2.6.0&#43;) --&gt; &lt;button v-bind:[key]=&#34;value&#34;&gt;&lt;/button&gt; &lt;!-- 缩写 --&gt; &lt;img :src=&#34;imageSrc&#34;&gt; &lt;!-- 动态 attribute 名缩写 (2.6.0&#43;) --&gt; &lt;button :[key]=&#34;value&#34;&gt;&lt;/button&gt; &lt;!-- 内联字符串拼接 --&gt; &lt;img :src=&#34;&#39;/path/to/images/&#39; &#43; fileName&#34;&gt; &lt;!-- class 绑定 --&gt; &lt;div :class=&#34;{ red: isRed }&#34;&gt;&lt;/div&gt; &lt;div :class=&#34;[classA, classB]&#34;&gt;&lt;/div&gt; &lt;div :class=&#34;[classA, { classB: isB, classC: isC }]&#34;&gt; &lt;!-- style 绑定 --&gt; &lt;div :style=&#34;{ fontSize: size &#43; &#39;px&#39; }&#34;&gt;&lt;/div&gt; &lt;div :style=&#34;[styleObjectA, styleObjectB]&#34;&gt;&lt;/div&gt; &lt;!-- 绑定一个全是 attribute 的对象 --&gt; &lt;div v-bind=&#34;{ id: someProp, &#39;other-attr&#39;: otherProp }&#34;&gt;&lt;/div&gt; &lt;!-- 通过 prop 修饰符绑定 DOM attribute --&gt; &lt;div v-bind:text-content.prop=&#34;text&#34;&gt;&lt;/div&gt; &lt;!-- prop 绑定。“prop”必须在 my-component 中声明。--&gt; &lt;my-component :prop=&#34;someThing&#34;&gt;&lt;/my-component&gt; &lt;!-- 通过 $props 将父组件的 props 一起传给子组件 --&gt; &lt;child-component v-bind=&#34;$props&#34;&gt;&lt;/child-component&gt; &lt;!-- XLink --&gt; &lt;svg&gt;&lt;a :xlink:special=&#34;foo&#34;&gt;&lt;/a&gt;&lt;/svg&gt; v-if－－控制元素的显示隐藏 刚才写了，通过app.message = false，可以让message代表的内容处于隐藏状态，但是控制的只能是通过v-for引入的内容，无法直接让元素隐藏
+其实，vue 中还有一个专门控制元素显示隐藏的指令－－v-if
+&lt;div id=&#34;app&#34;&gt; &lt;span v-if=&#34;show&#34;&gt; {{message}} &lt;/span&gt; &lt;/div&gt; &lt;script&gt; var app = new Vue({ el: &#34;#app&#34;, data: { message: &#39;hello,world&#39;, show: true } }) &lt;/script&gt; 给元素绑定一个指令v-if = &quot;show&quot;，然后在 data 中控制show的布尔值，true 显示，false 隐藏
+同时还有这个功能的指令v-show，根据表达式之真假值，切换元素的display CSS property，也是通过绑定的布尔值来显示隐藏
+但是v-if和v-show有些区别
+(1) v-if 是控制元素是否渲染最终控制元素的显示隐藏，适用于切换频率低的情况 (2) v-show 不管显示隐藏都渲染，然后通过布尔值绑定display: none属性，适用于切换频率高的情况
+注意：v-show不支持&lt;tempalte&gt;元素，也不支持v-else
+搭配用法
+v-else和v-else-if
+可以通过使用v-else达到v-if的效果，必须和v-if搭配使用，比如：
+&lt;div v-if=&#34;1&gt;2&#34;&gt; hello &lt;/div&gt; &lt;div v-else&gt; hi &lt;/div&gt; 如果v-if不成立，执行v-else，也就是显示 v-else 里面的内容
+是不是有点 javascript 里面if函数的感觉了
+v-else-if用法大致一样，必须和v-if和v-else搭配使用
+v-for－－遍历数组并显示到页面上 v-for算是 vue 的核心指令之一了把，主要是渲染一个项目列表的
+&lt;div id=&#34;app&#34;&gt; &lt;div v-for=&#34;item in list&#34;&gt;{{item.message}}&lt;/div&gt; &lt;/div&gt; &lt;script&gt; var app = new Vue({ el: &#34;#app&#34;, data: { list: [ {message: &#39;html&#39;}, {message: &#39;css&#39;} ] } }) &lt;/script&gt; 可以直接把列表数据循环输出
+并且在控制台中通过push()还能添加新的列表项
+app.list.push({message: &#34;js&#34;}) vue 对数据操作，就是这么神奇
+不推荐v-for和v-if同时使用，因为v-for拥有更高的优先级
+v-on－－绑定事件监听器 即绑定事件，通过v-on给 div 绑定了一个点击事件，注意，在reverseMessage方法中，我们更新了应用的状态，但是吗诶呀触碰到 dom，直接通过 vue 来进行处理，编写代码时只需要关注逻辑层即可
+v-on:click=&quot;messagenone&quot;，然后在methods里面写上事件方法
+&lt;div id=&#34;app&#34;&gt; &lt;div v-on:click=&#34;messagenone&#34; id=&#34;demo&#34;&gt;{{message}}&lt;/div&gt; &lt;/div&gt; &lt;script&gt; var app = new Vue({ el: &#34;#app&#34;, data: { message: &#39;hello,wolrd&#39; }, methods: { messagenone: function() { var demo = document.getElementById(&#39;demo&#39;); demo.innerHTML = &#39;&#39; } } }) &lt;/script&gt; v-model－－数据的双向绑定 vue 还提供了v-model指令，它能轻松实现表单输入和应用状态之间的双向绑定
+可使用场景：标签 input, select, textarea 和 components
+&lt;div id=&#34;app&#34;&gt; &lt;div&gt;{{message}}&lt;/div&gt; &lt;input type=&#34;text&#34; v-model=&#34;message&#34;&gt; &lt;/div&gt; &lt;script&gt; var app = new Vue({ el: &#34;#app&#34;, data: { message: &#39;hello,wolrd&#39; } }) &lt;/script&gt; v-text 更新元素的内容 &lt;div id=&#34;app&#34;&gt; &lt;div v-text=&#34;message&#34;&gt;&lt;/div&gt; &lt;div&gt;{{message}}&lt;/div&gt; &lt;/div&gt; &lt;script&gt; var vm = new Vue({ el: &#39;#app&#39;, data: { message: &#39;hello,wolrd&#39; } }) &lt;/script&gt; 上面的 div 和下面的 div 内容跟随一致变化
+v-html－－更新元素的 innerHTML 不建议使用，在网站上动态渲染 html 是非常危险的，容易导致XXS 攻击，不能用在用户提交的内容上，如果必须使用 v-html，可以考虑通过使用组件来代替
+v-pre 跳过绑定的元素和他的子元素的编译，直接显示原始内容
+跳过没有指令的节点不进行编译，直接显示内容，会加快页面的响应
+v-cloak 在编译没有编译完成之前，模板处于的状态
+&lt;style&gt;v-cloak] { display: none; }&lt;/style&gt; &lt;div v-cloak&gt; {{message}} &lt;/div&gt; &lt;script&gt; var vm = new Vue({ el: &#39;#app&#39;, data: { message: &#39;hello,wolrd&#39; } }) &lt;/script&gt; 上述代码表示的含义是，如果网络不好，{{message}}模板代表的hello,world还没有编译成功，此时{{message}}处于隐藏状态，当编译完成，页面直接显示hello,world
+v-once－－一次性渲染 绑定该指令的元素及其子元素只会进行一次渲染，之后页面的第二次渲染会将其视为静态资源并跳过，可以用来优化性能
+&lt;div id=&#34;app&#34;&gt; &lt;span v-once&gt;{{message}}&lt;/span&gt; &lt;/div&gt; &lt;script&gt; var vm = new Vue({ el: &#39;#app&#39;, data: { message: &#39;hello,wolrd&#39;, } }) &lt;/script&gt; 使用场景：表单提交。可防止用户在请求未及时响应时，多次提交~
+2.组件化构建应用 组件化也是 vue 的核心机制之一，它允许我们使用小型，可复用的组件来构建大型应用
+vue-learn-3.png在 vue 里，一个组件本质上是一个拥有预定义选项的一个 vue 实例。在 vue 中注册组件很简单
+// 定义名为 todo-item 的新组件 Vue.component(&#39;todo-item&#39;, { template: &#39;&lt;li&gt;这是个待办项&lt;/li&gt;&#39; }) var app = new Vue(...) 现在可以用它构建另一个组件模板
+&lt;ol&gt; &lt;!-- 创建一个 todo-item 组件的实例 --&gt; &lt;todo-item&gt;&lt;/todo-item&gt; &lt;/ol&gt; 但是这样会为每个待办项渲染同样的文本，这看起来并不炫酷。我们应该能从父作用域将数据传到子组件才对。让我们来修改一下组件的定义，使之能够接受一个props
+Vue.component(&#39;todo-item&#39;, { // todo-item 组件现在接受一个 // &#34;props&#34;，类似于一个自定义 attribute。 // 这个 props 名为 todo。 props: [&#39;todo&#39;], template: &#39;&lt;li&gt;{{ todo.text }}&lt;/li&gt;&#39; }) 现在，我们可以使用v-bind指令将待办项传到循环输出的每个组件中
+现在我们为每个 todo-item 提供 todo 对象 todo 对象是变量，即其内容可以是动态的，我们也需要为每个组件提供一个key
+&lt;div id=&#34;app-7&#34;&gt; &lt;ol&gt; &lt;todo-item v-for=&#34;item in groceryList&#34; v-bind:todo=&#34;item&#34; v-bind:key=&#34;item.id&#34; &gt;&lt;/todo-item&gt; &lt;/ol&gt; &lt;/div&gt; Vue.component(&#39;todo-item&#39;, { props: [&#39;todo&#39;], template: &#39;&lt;li&gt;{{ todo.text }}&lt;/li&gt;&#39; }) var app7 = new Vue({ el: &#39;#app-7&#39;, data: { groceryList: [ { id: 0, text: &#39;蔬菜&#39; }, { id: 1, text: &#39;奶酪&#39; }, { id: 2, text: &#39;随便其它什么人吃的东西&#39; } ] } }) 尽管这只是一个刻意设计的例子，但是我们已经设法将应用分割成了两个更小的单元。子单元通过prop接口与父单元进行了良好的解耦。我们现在可以进一步改进 组件，提供更为复杂的模板和逻辑，而不会影响到父单元
+在一个大型应用中，有必要将整个应用程序划分为组件，以使开发更易管理
+&lt;div id=&#34;app&#34;&gt; &lt;app-nav&gt;&lt;/app-nav&gt; &lt;app-view&gt; &lt;app-sidebar&gt;&lt;/app-sidebar&gt; &lt;app-content&gt;&lt;/app-content&gt; &lt;/app-view&gt; &lt;/div&gt; " />
+<meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
+
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/index.css">
+<link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
+<script src="/js/jquery3.6.0.min.js"></script>
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="main">
+      <div class="top">
+  <a href="/"><img src="https://imgurl.zishu.me/author.webp" width="72" height="72" class="avatar" border="0"></a>
+  <div class="site-info">
+    <a href="/" class="site-title">子舒的博客</a>
+    <div class="site-about">
+      <p>一个热爱生活的前端开发工程师。</p>
+    </div>
+  </div>
+</div>
+
+<div class="nav-container">
+  <div class="nav">
+    
+    <a href="/" class="nav-item">首页</a>
+    
+    <a href="/blog/" class="nav-item">文章</a>
+    
+    <a href="/categories/weekly/" class="nav-item">周刊</a>
+    
+    <a href="/message/" class="nav-item">留言</a>
+    
+    <a href="/about/" class="nav-item">关于</a>
+    
+    <a href="/links/" class="nav-item">友链</a>
+    
+    <a href="/search/" class="nav-item">搜索</a>
+    
+
+    <a href="./index.xml" target="_blank"><img src="/images/rss.svg" alt="RSS" class="social-icon" width="1em"></a>
+    <a href="https://github.com/dlzmoe" target="_blank"><img src="/images/github.svg" alt="github.com/dlzmoe" class="social-icon" width="1em"></a>
+    <a href="https://discord.com/invite/n2pErsD7Kg" target="_blank"><img src="/images/discord.svg" alt="Discord Invite" class="social-icon" width="1em"></a>
+  </div>
+</div>
+
+      <h1>vue 学习笔记 (1)－－什么是 vue?</h1>
+
+      
+      <div class="date">Oct 230, 232312</div>
+      
+
+      
+      <div class="toc">
+        <details open>
+          <summary accesskey="c" title="(Alt + C)"><span class="details">Table of Contents</span></summary>
+          <div class="inner"> <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一什么是-vue">一、什么是 vue?</a>
+      <ul>
+        <li><a href="#1v-指令">1.v-指令</a></li>
+        <li><a href="#2组件化构建应用">2.组件化构建应用</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+        </details>
+      </div>
+      
+
+      <article class="content">
+        
+        <h2 id="一什么是-vue">一、什么是 vue?</h2>
+<p>练习时使用，最新版本</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p>生产时使用，明确版本号的版本，避免造成不可预见的问题</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://cdn.jsdelivr.net/npm/vue@2.6.12&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p><strong>hello world</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;app&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    {{message}}
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">el</span><span class="o">:</span> <span class="s2">&#34;#app&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;hello,world&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></div><h3 id="1v-指令">1.v-指令</h3>
+<ol>
+<li>v-bind－－绑定属性</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;app-2&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">span</span> <span class="na">v-bind:title</span><span class="o">=</span><span class="s">&#34;message&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    鼠标悬停几秒钟查看此处动态绑定的提示信息！
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">el</span><span class="o">:</span> <span class="s1">&#39;#app&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;页面加载于 &#39;</span> <span class="o">+</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">toLocaleString</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p><code>v-bind</code>是 vue 特有的提供的属性，他会在 dom 上应用一个响应式的操作</p>
+<p>打开 console，输入<code>app.message = &quot;hello&quot;</code>，页面会改变内容只显示<code>hello</code></p>
+<p>又或者输入<code>app.message = false</code>，内容会直接不显示</p>
+<p>vue 官网例子：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="c">&lt;!-- 绑定一个 attribute --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">img</span> <span class="na">v-bind:src</span><span class="o">=</span><span class="s">&#34;imageSrc&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- 动态 attribute 名 (2.6.0+) --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">button</span> <span class="na">v-bind:</span><span class="err">[</span><span class="na">key</span><span class="err">]=&#34;</span><span class="na">value</span><span class="err">&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- 缩写 --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">img</span> <span class="na">:src</span><span class="o">=</span><span class="s">&#34;imageSrc&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- 动态 attribute 名缩写 (2.6.0+) --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">button</span> <span class="na">:</span><span class="err">[</span><span class="na">key</span><span class="err">]=&#34;</span><span class="na">value</span><span class="err">&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- 内联字符串拼接 --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">img</span> <span class="na">:src</span><span class="o">=</span><span class="s">&#34;&#39;/path/to/images/&#39; + fileName&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- class 绑定 --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">:class</span><span class="o">=</span><span class="s">&#34;{ red: isRed }&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">:class</span><span class="o">=</span><span class="s">&#34;[classA, classB]&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">:class</span><span class="o">=</span><span class="s">&#34;[classA, { classB: isB, classC: isC }]&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- style 绑定 --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">:style</span><span class="o">=</span><span class="s">&#34;{ fontSize: size + &#39;px&#39; }&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">:style</span><span class="o">=</span><span class="s">&#34;[styleObjectA, styleObjectB]&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- 绑定一个全是 attribute 的对象 --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">v-bind</span><span class="o">=</span><span class="s">&#34;{ id: someProp, &#39;other-attr&#39;: otherProp }&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- 通过 prop 修饰符绑定 DOM attribute --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">v-bind:text-content</span><span class="err">.</span><span class="na">prop</span><span class="o">=</span><span class="s">&#34;text&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- prop 绑定。“prop”必须在 my-component 中声明。--&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">my-component</span> <span class="na">:prop</span><span class="o">=</span><span class="s">&#34;someThing&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">my-component</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- 通过 $props 将父组件的 props 一起传给子组件 --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">child-component</span> <span class="na">v-bind</span><span class="o">=</span><span class="s">&#34;$props&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">child-component</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- XLink --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">svg</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">:xlink:special</span><span class="o">=</span><span class="s">&#34;foo&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">svg</span><span class="p">&gt;</span>
+</span></span></code></pre></div><hr>
+<ol start="2">
+<li>v-if－－控制元素的显示隐藏</li>
+</ol>
+<p>刚才写了，通过<code>app.message = false</code>，可以让<code>message</code>代表的内容处于隐藏状态，但是控制的只能是通过<code>v-for</code>引入的内容，无法直接让元素隐藏</p>
+<p>其实，vue 中还有一个专门控制元素显示隐藏的指令－－<code>v-if</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;app&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">span</span> <span class="na">v-if</span><span class="o">=</span><span class="s">&#34;show&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    {{message}}
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">el</span><span class="o">:</span> <span class="s2">&#34;#app&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;hello,world&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">show</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p>给元素绑定一个指令<code>v-if = &quot;show&quot;</code>，然后在 data 中控制<code>show</code>的布尔值，true 显示，false 隐藏</p>
+<p>同时还有这个功能的指令<code>v-show</code>，根据表达式之真假值，切换元素的<code>display</code> CSS property，也是通过绑定的布尔值来显示隐藏</p>
+<p><strong>但是<code>v-if</code>和<code>v-show</code>有些区别</strong></p>
+<p>(1) v-if 是控制元素是否渲染最终控制元素的显示隐藏，适用于切换频率低的情况
+(2) v-show 不管显示隐藏都渲染，然后通过布尔值绑定<code>display: none</code>属性，适用于切换频率高的情况</p>
+<blockquote>
+<p>注意：<code>v-show</code>不支持<code>&lt;tempalte&gt;</code>元素，也不支持<code>v-else</code></p></blockquote>
+<p><strong>搭配用法</strong></p>
+<p><code>v-else</code>和<code>v-else-if</code></p>
+<p>可以通过使用<code>v-else</code>达到<code>v-if</code>的效果，必须和<code>v-if</code>搭配使用，比如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">v-if</span><span class="o">=</span><span class="s">&#34;1&gt;2&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  hello
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">v-else</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  hi
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p>如果<code>v-if</code>不成立，执行<code>v-else</code>，也就是显示 v-else 里面的内容</p>
+<p>是不是有点 javascript 里面<code>if函数</code>的感觉了</p>
+<p><code>v-else-if</code>用法大致一样，必须和<code>v-if</code>和<code>v-else</code>搭配使用</p>
+<hr>
+<ol start="3">
+<li>v-for－－遍历数组并显示到页面上</li>
+</ol>
+<p><code>v-for</code>算是 vue 的核心指令之一了把，主要是渲染一个项目列表的</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;app&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">v-for</span><span class="o">=</span><span class="s">&#34;item in list&#34;</span><span class="p">&gt;</span>{{item.message}}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">el</span><span class="o">:</span> <span class="s2">&#34;#app&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">list</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span><span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;html&#39;</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span><span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;css&#39;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p>可以直接把列表数据循环输出</p>
+<p>并且在控制台中通过<code>push()</code>还能添加新的列表项</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">app</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span><span class="nx">message</span><span class="o">:</span> <span class="s2">&#34;js&#34;</span><span class="p">})</span>
+</span></span></code></pre></div><p>vue 对数据操作，就是这么神奇</p>
+<p><strong>不推荐<code>v-for</code>和<code>v-if</code>同时使用，因为<code>v-for</code>拥有更高的优先级</strong></p>
+<hr>
+<ol>
+<li>v-on－－绑定事件监听器</li>
+</ol>
+<p>即绑定事件，通过<code>v-on</code>给 div 绑定了一个点击事件，注意，在<code>reverseMessage</code>方法中，我们更新了应用的状态，但是吗诶呀触碰到 dom，直接通过 vue 来进行处理，编写代码时只需要关注逻辑层即可</p>
+<p><code>v-on:click=&quot;messagenone&quot;</code>，然后在<code>methods</code>里面写上事件方法</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;app&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">v-on:click</span><span class="o">=</span><span class="s">&#34;messagenone&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;demo&#34;</span><span class="p">&gt;</span>{{message}}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">el</span><span class="o">:</span> <span class="s2">&#34;#app&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;hello,wolrd&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">methods</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">messagenone</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">demo</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;demo&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">demo</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></div><hr>
+<ol start="5">
+<li>v-model－－数据的双向绑定</li>
+</ol>
+<p>vue 还提供了<code>v-model</code>指令，它能轻松实现表单输入和应用状态之间的双向绑定</p>
+<p><strong>可使用场景：标签 input, select, textarea 和 components</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;app&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>{{message}}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">v-model</span><span class="o">=</span><span class="s">&#34;message&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">el</span><span class="o">:</span> <span class="s2">&#34;#app&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;hello,wolrd&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></div><hr>
+<ol start="6">
+<li>v-text 更新元素的内容</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;app&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">v-text</span><span class="o">=</span><span class="s">&#34;message&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>{{message}}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">vm</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">el</span><span class="o">:</span> <span class="s1">&#39;#app&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;hello,wolrd&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p>上面的 div 和下面的 div 内容跟随一致变化</p>
+<hr>
+<ol start="7">
+<li>v-html－－更新元素的 innerHTML</li>
+</ol>
+<p><red>不建议使用，在网站上动态渲染 html 是非常危险的，容易导致<code>XXS 攻击</code>，不能用在用户提交的内容上，如果必须使用 v-html，可以考虑通过使用组件来代替</red></p>
+<hr>
+<ol start="8">
+<li>v-pre</li>
+</ol>
+<p>跳过绑定的元素和他的子元素的编译，直接显示原始内容</p>
+<p>跳过没有指令的节点不进行编译，直接显示内容，会加快页面的响应</p>
+<hr>
+<ol start="9">
+<li>v-cloak</li>
+</ol>
+<p>在编译没有编译完成之前，模板处于的状态</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span><span class="nt">v-cloak</span><span class="o">]</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">v-cloak</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  {{message}}
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="nx">vm</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">el</span><span class="o">:</span> <span class="s1">&#39;#app&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    	<span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;hello,wolrd&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p>上述代码表示的含义是，如果网络不好，<code>{{message}}</code>模板代表的<code>hello,world</code>还没有编译成功，此时<code>{{message}}</code>处于隐藏状态，当编译完成，页面直接显示<code>hello,world</code></p>
+<hr>
+<ol start="10">
+<li>v-once－－一次性渲染</li>
+</ol>
+<p>绑定该指令的元素及其子元素只会进行一次渲染，之后页面的第二次渲染会将其视为静态资源并跳过，可以用来优化性能</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;app&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">span</span> <span class="na">v-once</span><span class="p">&gt;</span>{{message}}<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">vm</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">el</span><span class="o">:</span> <span class="s1">&#39;#app&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;hello,wolrd&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p>使用场景：表单提交。可防止用户在请求未及时响应时，多次提交~</p>
+<h3 id="2组件化构建应用">2.组件化构建应用</h3>
+<p>组件化也是 vue 的核心机制之一，它允许我们使用小型，可复用的组件来构建大型应用</p>
+<p>     
+<figure>
+  <img 
+		src="https://i.loli.net/2020/11/28/UDzxwoIJLq9u6nG.png"
+    alt="vue-learn-3.png"class="lazy"
+	>
+<figcaption>vue-learn-3.png</figcaption>
+</figure>
+
+
+     
+</p>
+<p>在 vue 里，一个组件本质上是一个拥有预定义选项的一个 vue 实例。在 vue 中注册组件很简单</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// 定义名为 todo-item 的新组件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">Vue</span><span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="s1">&#39;todo-item&#39;</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">template</span><span class="o">:</span> <span class="s1">&#39;&lt;li&gt;这是个待办项&lt;/li&gt;&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">(...)</span>
+</span></span></code></pre></div><p>现在可以用它构建另一个组件模板</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">ol</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- 创建一个 todo-item 组件的实例 --&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">todo-item</span><span class="p">&gt;&lt;/</span><span class="nt">todo-item</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">ol</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p>但是这样会为每个待办项渲染同样的文本，这看起来并不炫酷。我们应该能从父作用域将数据传到子组件才对。让我们来修改一下组件的定义，使之能够接受一个<code>props</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">Vue</span><span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="s1">&#39;todo-item&#39;</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// todo-item 组件现在接受一个
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// &#34;props&#34;，类似于一个自定义 attribute。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 这个 props 名为 todo。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">props</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;todo&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">template</span><span class="o">:</span> <span class="s1">&#39;&lt;li&gt;{{ todo.text }}&lt;/li&gt;&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></div><p>现在，我们可以使用<code>v-bind</code>指令将待办项传到循环输出的每个组件中</p>
+<p>现在我们为每个 todo-item 提供 todo 对象 todo 对象是变量，即其内容可以是动态的，我们也需要为每个组件提供一个<code>key</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;app-7&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">ol</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">todo-item</span>
+</span></span><span class="line"><span class="cl">      <span class="na">v-for</span><span class="o">=</span><span class="s">&#34;item in groceryList&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="na">v-bind:todo</span><span class="o">=</span><span class="s">&#34;item&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="na">v-bind:key</span><span class="o">=</span><span class="s">&#34;item.id&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&gt;&lt;/</span><span class="nt">todo-item</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">ol</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">Vue</span><span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="s1">&#39;todo-item&#39;</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">props</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;todo&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">template</span><span class="o">:</span> <span class="s1">&#39;&lt;li&gt;{{ todo.text }}&lt;/li&gt;&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">app7</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">el</span><span class="o">:</span> <span class="s1">&#39;#app-7&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">groceryList</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;蔬菜&#39;</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;奶酪&#39;</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;随便其它什么人吃的东西&#39;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></div><p>尽管这只是一个刻意设计的例子，但是我们已经设法将应用分割成了两个更小的单元。子单元通过<code>prop</code>接口与父单元进行了良好的解耦。我们现在可以进一步改进 <todo-item> 组件，提供更为复杂的模板和逻辑，而不会影响到父单元</p>
+<p>在一个大型应用中，有必要将整个应用程序划分为组件，以使开发更易管理</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;app&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">app-nav</span><span class="p">&gt;&lt;/</span><span class="nt">app-nav</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">app-view</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">app-sidebar</span><span class="p">&gt;&lt;/</span><span class="nt">app-sidebar</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">app-content</span><span class="p">&gt;&lt;/</span><span class="nt">app-content</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">app-view</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span></code></pre></div>
+        <div class="weekly-pagination"></div>
+      </article>
+
+      
+      <div class="post-tags">
+        
+        
+        <span class="namenode">分类：<a href="/categories/%E6%8A%80%E6%9C%AF">技术</a>
+        </span>
+        
+        
+        <span class="tag-node">
+          
+          标签：<a href="/tags/vue">#vue</a>
+          <a href="/tags/%E7%AC%94%E8%AE%B0">#笔记</a>
+          
+          
+        </span>
+      </div>
+      
+
+      
+      <ul class="comment-tabs">
+  <li class="active">giscus</li>
+  <li>twikoo</li>
+</ul>
+<div class="comments">
+  <div class="giscus active"></div>
+  <div id="tcomment"></div>
+</div>
+<script 
+  src="https://giscus.app/client.js" 
+  data-repo="dlzmoe/blog" 
+  data-repo-id="R_kgDOJkJvtw"
+  data-category="Announcements" 
+  data-category-id="DIC_kwDOJkJvt84CX9d6" 
+  data-mapping="pathname" 
+  data-strict="0"
+  data-reactions-enabled="1" 
+  data-emit-metadata="1" 
+  data-input-position="top" 
+  data-theme="light_tritanopia"
+  data-lang="zh-CN" 
+  data-loading="lazy" 
+  crossorigin="anonymous" 
+  async>
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/twikoo@1.6.41/dist/twikoo.min.js"></script>
+<script>
+twikoo.init({
+  envId: 'https://twikoo.zishu.me/.netlify/functions/twikoo',
+  el: '#tcomment',
+  lang: 'zh-CN', 
+})
+</script>
+
+<script>
+  const tabs = document.querySelectorAll('.comment-tabs li');
+  const contents = document.querySelectorAll('.comments > div');
+
+  tabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => {
+      
+      tabs.forEach(t => t.classList.remove('active'));
+      contents.forEach(c => c.classList.remove('active'));
+      
+      
+      tab.classList.add('active');
+      contents[index].classList.add('active');
+    });
+  });
+</script>
+      
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<footer class="footer">
+  <div class="l-wrap">
+    <p class="aboutme">这是我的个人博客，已经运行了 <span id="days"></span> 天，写了 607 篇文章，共 390510 字。</p>
+    <p>© 2020 - 2025 Powered by
+      <a href="https://github.com/dlzmoe" target="_blank">Github</a>
+      / <a href="/index.xml" target="_blank">RSS</a>
+    </p>
+  </div>
+  <div class="gotop"></div>
+</footer>
+
+<script>
+  const time = "2020-06-14";
+  var now = new Date();
+  var end = new Date(time);
+  var diff = Math.abs(now - end);
+  var days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+  document.getElementById('days').innerHTML = days;
+</script>
+
+<script src="/js/main.js"></script>
+    </div>
+  </div>
+</body>
+
+</html>

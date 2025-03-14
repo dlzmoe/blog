@@ -19,7 +19,7 @@ tags:
 
 在 R2 页面新建一个存储桶，名称可以随意，就叫做 `github-sync-imgurl`，默认不公开就行了，这个不用调整。
 
-![1724553937361](https://imgurl.zishu.me/2024/08/1724553937361.webp)
+![](https://imgurl.zishu.me/2024/08/1724553937361.webp)
 
 然后在管理 R2 API 令牌中，创建一个新的 API 令牌，权限设为 `管理员读和写`，其他不用管默认设置，保存即可。
 
@@ -29,7 +29,7 @@ tags:
 
 来到你需要备份的仓库，打开 `Setting > Actions > General`，勾选这两个设置然后保存，这个是必须的，否则 GitHub Actions 无法自动运行。
 
-![1724554184492](https://imgurl.zishu.me/2024/08/1724554184492.webp)
+![](https://imgurl.zishu.me/2024/08/1724554184492.webp)
 
 然后来到 `Setting > Secrets and variables > Actions`，点击 `New repository secret` 按钮开始创建密钥，按照下面的命名开始依次操作：
 
@@ -42,7 +42,7 @@ CLOUDFLARE_BUCKET_NAME        # 你在 Cloudflare R2 上的存储桶名称
 
 图示如下：
 
-![1724554376324](https://imgurl.zishu.me/2024/08/1724554376324.webp)
+![](https://imgurl.zishu.me/2024/08/1724554376324.webp)
 
 最后在 Actions 中新建一个新的任务，可以直接复制代码使用，无需修改，保存后运行即可。
 
