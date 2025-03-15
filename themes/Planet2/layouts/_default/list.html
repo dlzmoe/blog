@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+{{ partial "head.html" . }}
+
+<body>
+
+  <div class="wrapper">
+    <div class="main">
+      {{ partial "header.html" . }}
+
+      <h1>{{ .Title }}</h1>
+      <div class="archive-count">该分类共有 {{ len .Pages }} 篇文章</div>
+
+      <div class="container">
+        <div class="cate-list">
+          <a href="/categories/技术/">技术</a>
+          <a href="/categories/随笔/">随笔</a>
+          <a href="/categories/weekly/">周刊</a>
+        </div>
+
+        <div class="archive-list">
+          {{ range (where .Data.Pages "Type" "in" site.Params.mainSections).GroupByDate "2006" -}}
+          <div class="archive-list-header" id="{{ .Key }}">{{ .Key }}</div>
+          <div class="posts-list">
+            {{ range .Pages }}
+            <div class="archive-list-item">
+              <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+            </div>
+            {{ end }}
+          </div>
+          {{ end }}
+        </div>
+
+      </div>
+      {{ partial "footer.html" . }}
+    </div>
+  </div>
+</body>
+
+</html>
