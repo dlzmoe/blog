@@ -3,9 +3,10 @@ slug: about
 title: 关于
 ---
 
-你可以通过下面几种方式检索我的文章：
+> 你可以通过下面几种方式检索我的文章：  
+>[全部文章](/blog/)、[标签管理](/tags/)、[关键词搜索](/search/)、[RSS 订阅](/index.xml)。
 
-[全部文章](/blog/)、[标签管理](/tags/)、[关键词搜索](/search/)、[RSS 订阅](/index.xml)。
+如果你想联系我，请给我发电子邮件（anghunk@gmail.com）或者在评论区留言。
 
 一个热爱生活的前端开发工程师，喜欢写点开源程序，托管了不少项目在 [GitHub](https://github.com/dlzmoe/) 上。
 
@@ -13,9 +14,7 @@ title: 关于
 
 现在从事前端开发方面的工作，这也是我的兴趣爱好之一。写博客也是我的个人爱好，一方面是分享生活，一方面是希望自己的一些文章可以帮助到有需要的人。
 
-如果你想联系我，请给我发电子邮件（anghunk@gmail.com）或者在评论区留言。
-
-同时我还维护了一个周刊（[奇趣周刊](/categories/weekly/)），一同发布到了该网站。督促自己多扩展眼界，获取更新的知识，不管是技术类型还是娱乐，让自己的容量不断 +1。
+同时我还维护了一个周刊（[奇趣周刊](/categories/weekly/)），一同发布到了该网站。督促自己多扩展眼界，获取更新的知识，不管是技术类型还是娱乐，让自己的容量不断 +1。（暂时停更）
 
 前几年也喜欢上了骑行，露营等等各种爱好。
 
@@ -23,8 +22,11 @@ title: 关于
 
 ### 项目
 
-[LinuxDo Scripts 扩展](/dlzmoe/linuxdo-scripts) - 一个关于 linux.do 网站的增强扩展。
+- **[LinuxDo Scripts 扩展](https://github.com/dlzmoe/linuxdo-scripts)**  
+一个关于 linux.do 网站的增强扩展。
 
+- **[Obsidian AI 生成标签](https://github.com/dlzmoe/obsidian-ai-tags)**  
+一个强大的 Obsidian 插件，使用 AI 技术为笔记文件智能生成标签，帮助你更好地组织和管理知识库。
 
 ### 版权声明
 

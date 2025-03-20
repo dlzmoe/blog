@@ -49,6 +49,8 @@ $(function () {
 
   if ($('#TableOfContents').html() == "") {
     $('.toc').hide();
+  } else {
+    $('.toc').show();
   }
 
   $('#TableOfContents a').click(function (e) {
