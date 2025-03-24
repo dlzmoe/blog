@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8" />
+<meta name="generator" content="Hugo 0.144.2">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="toTop" content="true">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="author" content="子舒" />
+<meta property="og:url" content="https://zishu.me/blog/213.html/" />
+<link rel="canonical" href="https://zishu.me/blog/213.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="shortcut" href="https://imgurl.zishu.me/favicon.ico" /><link rel="alternate" type="application/atom+xml" href="https://zishu.me/index.xml" title="子舒的博客">
+<script type="application/ld+json">
+{
+"@context" : "http://schema.org",
+"@type" : "BlogPosting",
+"mainEntityOfPage": {
+"@type": "WebPage",
+"@id": "https:\/\/zishu.me\/"
+},
+"articleSection" : "blog",
+"name" : "hugo 的一些模板语法",
+"headline" : "hugo 的一些模板语法",
+"description" : "分享一下 hugo 的语法模板，如何获取总文章数和总字数，效果可以参考我的首页。\n{{ $articleCount := len .Site.RegularPages }} {{ $totalWordCount := 0 }} {{ range .Site.Pages }} {{ $totalWordCount = add $totalWordCount .WordCount }} {{ end }} \u0026lt;p\u0026gt;已经写了 {{ $articleCount }} 篇文章，共 {{ $totalWordCount }} 字。\u0026lt;\/p\u0026gt; 在首页过滤某个分类。\n{{ $pages := .Site.RegularPages }} {{ $paginator := .Paginate ($pages) }} {{ $count := 0 }} {{ range $paginator.Pages }} {{ $title := .Title }} {{ $summary := .Summary }} {{ if and (not (in .Params.categories \u0026#34;weekly\u0026#34;)) (lt $count 7) }} {{ $count = add $count 1 }} \u0026lt;article class=\u0026#34;post-entry\u0026#34;\u0026gt; \u0026lt;header class=\u0026#34;entry-header\u0026#34;\u0026gt; \u0026lt;h2 class=\u0026#34;entry-hint-parent\u0026#34;\u0026gt;{{ .Title }}\u0026lt;\/h2\u0026gt; \u0026lt;\/header\u0026gt; \u0026lt;div class=\u0026#34;entry-content\u0026#34;\u0026gt; \u0026lt;p\u0026gt;{{ .Summary }}\u0026lt;\/p\u0026gt; \u0026lt;\/div\u0026gt; \u0026lt;footer class=\u0026#34;entry-footer\u0026#34;\u0026gt; \u0026lt;time datetime=\u0026#34;{{ .Date.Format \u0026#34; 2006-01-02 15:04:05 MST\u0026#34; }}\u0026#34;\u0026gt;{{ .Date.Format \u0026#34;2006-01-02\u0026#34;}}\u0026lt;\/time\u0026gt; \u0026lt;span class=\u0026#34;category\u0026#34;\u0026gt; {{ range $key, $value := .Params.categories -}} {{- if $key }}, {{ end }} {{ . }} {{- end }} \u0026lt;\/span\u0026gt; \u0026lt;\/footer\u0026gt; \u0026lt;a class=\u0026#34;entry-link\u0026#34; href=\u0026#34;{{ .RelPermalink }}\u0026#34;\u0026gt;\u0026lt;\/a\u0026gt; \u0026lt;\/article\u0026gt; {{ end }} {{ end }} ",
+"inLanguage" : "en-US",
+"author" : "子舒",
+"creator" : "子舒",
+"publisher": "子舒",
+"accountablePerson" : "子舒",
+"copyrightHolder" : "子舒",
+"copyrightYear" : "2023",
+"datePublished": "2023-11-15 00:00:00 \u002b0000 UTC",
+"dateModified" : "2023-11-15 00:00:00 \u002b0000 UTC",
+"url" : "https:\/\/zishu.me\/blog\/213.html\/",
+"keywords" : [ "hugo", ]
+}
+</script><title>hugo 的一些模板语法 - 子舒的博客</title>
+<meta property="og:title" content="hugo 的一些模板语法" />
+<meta property="og:type" content="article" />
+
+
+<meta property="og:keywords" content="分享一下 hugo 的语法模板，如何获取总文章数和总字数，效果可以参考我的首页。
+{{ $articleCount := len .Site.RegularPages }} {{ $totalWordCount := 0 }} {{ range .Site.Pages }} {{ $totalWordCount = add $totalWordCount .WordCount }} {{ end }} &lt;p&gt;已经写了 {{ $articleCount }} 篇文章，共 {{ $totalWordCount }} 字。&lt;/p&gt; 在首页过滤某个分类。
+{{ $pages := .Site.RegularPages }} {{ $paginator := .Paginate ($pages) }} {{ $count := 0 }} {{ range $paginator.Pages }} {{ $title := .Title }} {{ $summary := .Summary }} {{ if and (not (in .Params.categories &#34;weekly&#34;)) (lt $count 7) }} {{ $count = add $count 1 }} &lt;article class=&#34;post-entry&#34;&gt; &lt;header class=&#34;entry-header&#34;&gt; &lt;h2 class=&#34;entry-hint-parent&#34;&gt;{{ .Title }}&lt;/h2&gt; &lt;/header&gt; &lt;div class=&#34;entry-content&#34;&gt; &lt;p&gt;{{ .Summary }}&lt;/p&gt; &lt;/div&gt; &lt;footer class=&#34;entry-footer&#34;&gt; &lt;time datetime=&#34;{{ .Date.Format &#34; 2006-01-02 15:04:05 MST&#34; }}&#34;&gt;{{ .Date.Format &#34;2006-01-02&#34;}}&lt;/time&gt; &lt;span class=&#34;category&#34;&gt; {{ range $key, $value := .Params.categories -}} {{- if $key }}, {{ end }} {{ . }} {{- end }} &lt;/span&gt; &lt;/footer&gt; &lt;a class=&#34;entry-link&#34; href=&#34;{{ .RelPermalink }}&#34;&gt;&lt;/a&gt; &lt;/article&gt; {{ end }} {{ end }} " />
+<meta name="keywords" content="分享一下 hugo 的语法模板，如何获取总文章数和总字数，效果可以参考我的首页。
+{{ $articleCount := len .Site.RegularPages }} {{ $totalWordCount := 0 }} {{ range .Site.Pages }} {{ $totalWordCount = add $totalWordCount .WordCount }} {{ end }} &lt;p&gt;已经写了 {{ $articleCount }} 篇文章，共 {{ $totalWordCount }} 字。&lt;/p&gt; 在首页过滤某个分类。
+{{ $pages := .Site.RegularPages }} {{ $paginator := .Paginate ($pages) }} {{ $count := 0 }} {{ range $paginator.Pages }} {{ $title := .Title }} {{ $summary := .Summary }} {{ if and (not (in .Params.categories &#34;weekly&#34;)) (lt $count 7) }} {{ $count = add $count 1 }} &lt;article class=&#34;post-entry&#34;&gt; &lt;header class=&#34;entry-header&#34;&gt; &lt;h2 class=&#34;entry-hint-parent&#34;&gt;{{ .Title }}&lt;/h2&gt; &lt;/header&gt; &lt;div class=&#34;entry-content&#34;&gt; &lt;p&gt;{{ .Summary }}&lt;/p&gt; &lt;/div&gt; &lt;footer class=&#34;entry-footer&#34;&gt; &lt;time datetime=&#34;{{ .Date.Format &#34; 2006-01-02 15:04:05 MST&#34; }}&#34;&gt;{{ .Date.Format &#34;2006-01-02&#34;}}&lt;/time&gt; &lt;span class=&#34;category&#34;&gt; {{ range $key, $value := .Params.categories -}} {{- if $key }}, {{ end }} {{ . }} {{- end }} &lt;/span&gt; &lt;/footer&gt; &lt;a class=&#34;entry-link&#34; href=&#34;{{ .RelPermalink }}&#34;&gt;&lt;/a&gt; &lt;/article&gt; {{ end }} {{ end }} " />
+
+
+<meta property="og:description" content="分享一下 hugo 的语法模板，如何获取总文章数和总字数，效果可以参考我的首页。
+{{ $articleCount := len .Site.RegularPages }} {{ $totalWordCount := 0 }} {{ range .Site.Pages }} {{ $totalWordCount = add $totalWordCount .WordCount }} {{ end }} &lt;p&gt;已经写了 {{ $articleCount }} 篇文章，共 {{ $totalWordCount }} 字。&lt;/p&gt; 在首页过滤某个分类。
+{{ $pages := .Site.RegularPages }} {{ $paginator := .Paginate ($pages) }} {{ $count := 0 }} {{ range $paginator.Pages }} {{ $title := .Title }} {{ $summary := .Summary }} {{ if and (not (in .Params.categories &#34;weekly&#34;)) (lt $count 7) }} {{ $count = add $count 1 }} &lt;article class=&#34;post-entry&#34;&gt; &lt;header class=&#34;entry-header&#34;&gt; &lt;h2 class=&#34;entry-hint-parent&#34;&gt;{{ .Title }}&lt;/h2&gt; &lt;/header&gt; &lt;div class=&#34;entry-content&#34;&gt; &lt;p&gt;{{ .Summary }}&lt;/p&gt; &lt;/div&gt; &lt;footer class=&#34;entry-footer&#34;&gt; &lt;time datetime=&#34;{{ .Date.Format &#34; 2006-01-02 15:04:05 MST&#34; }}&#34;&gt;{{ .Date.Format &#34;2006-01-02&#34;}}&lt;/time&gt; &lt;span class=&#34;category&#34;&gt; {{ range $key, $value := .Params.categories -}} {{- if $key }}, {{ end }} {{ . }} {{- end }} &lt;/span&gt; &lt;/footer&gt; &lt;a class=&#34;entry-link&#34; href=&#34;{{ .RelPermalink }}&#34;&gt;&lt;/a&gt; &lt;/article&gt; {{ end }} {{ end }} " />
+<meta name="description" content="分享一下 hugo 的语法模板，如何获取总文章数和总字数，效果可以参考我的首页。
+{{ $articleCount := len .Site.RegularPages }} {{ $totalWordCount := 0 }} {{ range .Site.Pages }} {{ $totalWordCount = add $totalWordCount .WordCount }} {{ end }} &lt;p&gt;已经写了 {{ $articleCount }} 篇文章，共 {{ $totalWordCount }} 字。&lt;/p&gt; 在首页过滤某个分类。
+{{ $pages := .Site.RegularPages }} {{ $paginator := .Paginate ($pages) }} {{ $count := 0 }} {{ range $paginator.Pages }} {{ $title := .Title }} {{ $summary := .Summary }} {{ if and (not (in .Params.categories &#34;weekly&#34;)) (lt $count 7) }} {{ $count = add $count 1 }} &lt;article class=&#34;post-entry&#34;&gt; &lt;header class=&#34;entry-header&#34;&gt; &lt;h2 class=&#34;entry-hint-parent&#34;&gt;{{ .Title }}&lt;/h2&gt; &lt;/header&gt; &lt;div class=&#34;entry-content&#34;&gt; &lt;p&gt;{{ .Summary }}&lt;/p&gt; &lt;/div&gt; &lt;footer class=&#34;entry-footer&#34;&gt; &lt;time datetime=&#34;{{ .Date.Format &#34; 2006-01-02 15:04:05 MST&#34; }}&#34;&gt;{{ .Date.Format &#34;2006-01-02&#34;}}&lt;/time&gt; &lt;span class=&#34;category&#34;&gt; {{ range $key, $value := .Params.categories -}} {{- if $key }}, {{ end }} {{ . }} {{- end }} &lt;/span&gt; &lt;/footer&gt; &lt;a class=&#34;entry-link&#34; href=&#34;{{ .RelPermalink }}&#34;&gt;&lt;/a&gt; &lt;/article&gt; {{ end }} {{ end }} " />
+<meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
+
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/index.css">
+<link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
+<script src="/js/jquery3.6.0.min.js"></script>
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="main">
+      <div class="aside">
+  <div class="top">
+    <a href="/"><img src="https://imgurl.zishu.me/author.webp" width="72" height="72" class="avatar" border="0"></a>
+    <div class="site-info">
+      <a href="/" class="site-title">子舒的博客</a>
+      <div class="site-about">
+        <p>一个热爱生活的前端开发工程师</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="nav-container">
+    <div class="nav">
+      
+      <a href="/" class="nav-item">首页</a>
+      
+      <a href="/tags/" class="nav-item">标签</a>
+      
+      <a href="/message/" class="nav-item">留言</a>
+      
+      <a href="/about/" class="nav-item">关于</a>
+      
+      <a href="/search/" class="nav-item">搜索</a>
+      
+    </div>
+    <div class="share">
+      <a href="./index.xml" target="_blank"><img src="/images/rss.svg" alt="RSS" class="social-icon" width="1em"></a>
+      <a href="https://github.com/dlzmoe" target="_blank"><img src="/images/github.svg" alt="github.com/dlzmoe" class="social-icon" width="1em"></a>
+      <a href="https://discord.com/invite/n2pErsD7Kg" target="_blank"><img src="/images/discord.svg" alt="Discord Invite" class="social-icon" width="1em"></a>
+    </div>
+  </div>
+</div>
+
+
+      <h1>hugo 的一些模板语法</h1>
+
+      
+      <div class="meta">
+        <div class="date">2023 年 11 月 15 日</div>
+        <div class="post-tags">
+          
+          
+          <span class="namenode">分类：<a href="/categories/%E6%8A%80%E6%9C%AF">技术</a>
+          </span>
+          
+          
+          <span class="tag-node">
+            
+            标签：<a href="/tags/hugo">#hugo</a>
+            
+            
+          </span>
+        </div>
+      </div>
+      
+    
+
+      
+      <div class="toc">
+        <details open>
+          <summary accesskey="c" title="(Alt + C)"><span class="details">Table of Contents</span></summary>
+          <div class="inner"> <nav id="TableOfContents"></nav></div>
+        </details>
+      </div>
+      
+
+      <article class="content">
+        
+        <p>分享一下 hugo 的语法模板，如何获取总文章数和总字数，效果可以参考我的首页。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">{{ $articleCount := len .Site.RegularPages }}
+</span></span><span class="line"><span class="cl">{{ $totalWordCount := 0 }}
+</span></span><span class="line"><span class="cl">{{ range .Site.Pages }}
+</span></span><span class="line"><span class="cl">{{ $totalWordCount = add $totalWordCount .WordCount }}
+</span></span><span class="line"><span class="cl">{{ end }}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>已经写了 {{ $articleCount }} 篇文章，共 {{ $totalWordCount }} 字。<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p>在首页过滤某个分类。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">{{ $pages := .Site.RegularPages }}
+</span></span><span class="line"><span class="cl">{{ $paginator := .Paginate ($pages) }}
+</span></span><span class="line"><span class="cl">{{ $count := 0 }}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">{{ range $paginator.Pages }}
+</span></span><span class="line"><span class="cl">{{ $title := .Title }}
+</span></span><span class="line"><span class="cl">{{ $summary := .Summary }}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">{{ if and (not (in .Params.categories &#34;weekly&#34;)) (lt $count 7) }}
+</span></span><span class="line"><span class="cl">{{ $count = add $count 1 }}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">article</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;post-entry&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">header</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;entry-header&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">h2</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;entry-hint-parent&#34;</span><span class="p">&gt;</span>{{ .Title }}<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">header</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;entry-content&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>{{ .Summary }}<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">footer</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;entry-footer&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">time</span> <span class="na">datetime</span><span class="o">=</span><span class="s">&#34;{{ .Date.Format &#34;</span> <span class="na">2006-01-02</span> <span class="na">15:04:05</span> <span class="na">MST</span><span class="err">&#34;</span> <span class="err">}}&#34;</span><span class="p">&gt;</span>{{ .Date.Format &#34;2006-01-02&#34;}}<span class="p">&lt;/</span><span class="nt">time</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;category&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      {{ range $key, $value := .Params.categories -}}
+</span></span><span class="line"><span class="cl">      {{- if $key }}, {{ end }}
+</span></span><span class="line"><span class="cl">      {{ . }}
+</span></span><span class="line"><span class="cl">      {{- end }}
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">footer</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;entry-link&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;{{ .RelPermalink }}&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">article</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">{{ end }}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">{{ end }}
+</span></span></code></pre></div>
+        <div class="weekly-pagination"></div>
+      </article>
+
+      
+      <ul class="comment-tabs">
+  <li class="active">giscus</li>
+  <li>twikoo</li>
+</ul>
+<div class="comments">
+  <div class="giscus active"></div>
+  <div id="tcomment"></div>
+</div>
+<script 
+  src="https://giscus.app/client.js" 
+  data-repo="dlzmoe/blog" 
+  data-repo-id="R_kgDOJkJvtw"
+  data-category="Announcements" 
+  data-category-id="DIC_kwDOJkJvt84CX9d6" 
+  data-mapping="pathname" 
+  data-strict="0"
+  data-reactions-enabled="1" 
+  data-emit-metadata="1" 
+  data-input-position="top" 
+  data-theme="light_tritanopia"
+  data-lang="zh-CN" 
+  data-loading="lazy" 
+  crossorigin="anonymous" 
+  async>
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/twikoo@1.6.41/dist/twikoo.min.js"></script>
+<script>
+twikoo.init({
+  envId: 'https://twikoo.zishu.me/.netlify/functions/twikoo',
+  el: '#tcomment',
+  lang: 'zh-CN', 
+})
+</script>
+
+<script>
+  const tabs = document.querySelectorAll('.comment-tabs li');
+  const contents = document.querySelectorAll('.comments > div');
+
+  tabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => {
+      
+      tabs.forEach(t => t.classList.remove('active'));
+      contents.forEach(c => c.classList.remove('active'));
+      
+      
+      tab.classList.add('active');
+      contents[index].classList.add('active');
+    });
+  });
+</script>
+      
+
+      <footer class="footer">
+  <div class="l-wrap">
+    <p>© 2020 - 2025 Powered by
+      <a href="https://github.com/dlzmoe" target="_blank">Github</a>
+      / <a href="/index.xml" target="_blank">RSS</a>
+    </p>
+  </div>
+  <div class="gotop"></div>
+</footer>
+
+<script src="/js/main.js"></script>
+    </div>
+  </div>
+</body>
+
+</html>

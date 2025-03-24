@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8" />
+<meta name="generator" content="Hugo 0.144.2">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="toTop" content="true">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="author" content="子舒" />
+<meta property="og:url" content="https://zishu.me/blog/42.html/" />
+<link rel="canonical" href="https://zishu.me/blog/42.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
+<link rel="shortcut" href="https://imgurl.zishu.me/favicon.ico" /><link rel="alternate" type="application/atom+xml" href="https://zishu.me/index.xml" title="子舒的博客">
+<script type="application/ld+json">
+{
+"@context" : "http://schema.org",
+"@type" : "BlogPosting",
+"mainEntityOfPage": {
+"@type": "WebPage",
+"@id": "https:\/\/zishu.me\/"
+},
+"articleSection" : "blog",
+"name" : "React 脚手架项目打包时的路径问题",
+"headline" : "React 脚手架项目打包时的路径问题",
+"description" : "create-react-app 脚手架指令可以生成 React 项目，在项目完成之后执行打包命令 npm run build，文件夹内生成 build文件夹，就是打包后的文件，在浏览器运行 index.html 发现页面空白，打开控制台有报错，css 和 js 文件的引用路径有问题。\n浏览 index.html 代码可以发现：\n\u0026lt;!-- index.html --\u0026gt; \u0026lt;!doctype html\u0026gt; \u0026lt;html lang=\u0026#34;zh\u0026#34;\u0026gt; \u0026lt;head\u0026gt; \u0026lt;meta charset=\u0026#34;utf-8\u0026#34; \/\u0026gt; \u0026lt;meta name=\u0026#34;viewport\u0026#34; content=\u0026#34;width=device-width,initial-scale=1\u0026#34; \/\u0026gt; \u0026lt;meta name=\u0026#34;theme-color\u0026#34; content=\u0026#34;#000000\u0026#34; \/\u0026gt; \u0026lt;meta name=\u0026#34;description\u0026#34; content=\u0026#34;Web site created using create-react-app\u0026#34; \/\u0026gt; \u0026lt;title\u0026gt;React App\u0026lt;\/title\u0026gt; \u0026lt;link href=\u0026#34;\/static\/css\/main.3394d54e.chunk.css\u0026#34; rel=\u0026#34;stylesheet\u0026#34;\u0026gt; \u0026lt;\/head\u0026gt; \u0026lt;body\u0026gt;\u0026lt;noscript\u0026gt;You need to enable JavaScript to run this app.\u0026lt;\/noscript\u0026gt; \u0026lt;div id=\u0026#34;root\u0026#34;\u0026gt;\u0026lt;\/div\u0026gt; \u0026lt;script\u0026gt;!function (e) { function r(r) { for (var n, l, f = r[0], i = r[1], a = r[2], c = 0, s = []; c \u0026lt; f.length; c\u002b\u002b)l = f[c], Object.prototype.hasOwnProperty.call(o, l) \u0026amp;\u0026amp; o[l] \u0026amp;\u0026amp; s.push(o[l][0]), o[l] = 0; for (n in i) Object.prototype.hasOwnProperty.call(i, n) \u0026amp;\u0026amp; (e[n] = i[n]); for (p \u0026amp;\u0026amp; p(r); s.length;)s.shift()(); return u.push.apply(u, a || []), t() } function t() { for (var e, r = 0; r \u0026lt; u.length; r\u002b\u002b) { for (var t = u[r], n = !0, f = 1; f \u0026lt; t.length; f\u002b\u002b) { var i = t[f]; 0 !== o[i] \u0026amp;\u0026amp; (n = !1) } n \u0026amp;\u0026amp; (u.splice(r--, 1), e = l(l.s = t[0])) } return e } var n = {}, o = { 1: 0 }, u = []; function l(r) { if (n[r]) return n[r].exports; var t = n[r] = { i: r, l: !1, exports: {} }; return e[r].call(t.exports, t, t.exports, l), t.l = !0, t.exports } l.m = e, l.c = n, l.d = function (e, r, t) { l.o(e, r) || Object.defineProperty(e, r, { enumerable: !0, get: t }) }, l.r = function (e) { \u0026#34;undefined\u0026#34; != typeof Symbol \u0026amp;\u0026amp; Symbol.toStringTag \u0026amp;\u0026amp; Object.defineProperty(e, Symbol.toStringTag, { value: \u0026#34;Module\u0026#34; }), Object.defineProperty(e, \u0026#34;__esModule\u0026#34;, { value: !0 }) }, l.t = function (e, r) { if (1 \u0026amp; r \u0026amp;\u0026amp; (e = l(e)), 8 \u0026amp; r) return e; if (4 \u0026amp; r \u0026amp;\u0026amp; \u0026#34;object\u0026#34; == typeof e \u0026amp;\u0026amp; e \u0026amp;\u0026amp; e.__esModule) return e; var t = Object.create(null); if (l.r(t), Object.defineProperty(t, \u0026#34;default\u0026#34;, { enumerable: !0, value: e }), 2 \u0026amp; r \u0026amp;\u0026amp; \u0026#34;string\u0026#34; != typeof e) for (var n in e) l.d(t, n, function (r) { return e[r] }.bind(null, n)); return t }, l.n = function (e) { var r = e \u0026amp;\u0026amp; e.__esModule ? function () { return e.default } : function () { return e }; return l.d(r, \u0026#34;a\u0026#34;, r), r }, l.o = function (e, r) { return Object.prototype.hasOwnProperty.call(e, r) }, l.p = \u0026#34;.\/\u0026#34;; var f = this.webpackJsonpdemo = this.webpackJsonpdemo || [], i = f.push.bind(f); f.push = r, f = f.slice(); for (var a = 0; a \u0026lt; f.length; a\u002b\u002b)r(f[a]); var p = i; t() }([])\u0026lt;\/script\u0026gt; \u0026lt;script src=\u0026#34;\/static\/js\/2.1902eda2.chunk.js\u0026#34;\u0026gt;\u0026lt;\/script\u0026gt; \u0026lt;script src=\u0026#34;\/static\/js\/main.cbf35db7.chunk.js\u0026#34;\u0026gt;\u0026lt;\/script\u0026gt; \u0026lt;\/body\u0026gt; \u0026lt;\/html\u0026gt; 发现 css 和 js 文件都是用绝对路径引用的，这是 webpack 打包一贯拥有的问题，将 \/static 改成 .\/static ，再运行，页面没有问题成功显示。\n但是在写实际项目的时候手动修改相对路径，不但麻烦，而且容易引起其他问题。因此直接在项目的 package.json 配置文件进行修改，添加 \u0026quot;homepage\u0026quot;: \u0026quot;.\u0026quot;\n\/\/ package.json { \u0026#34;name\u0026#34;: \u0026#34;demo\u0026#34;, \u0026#34;version\u0026#34;: \u0026#34;0.1.0\u0026#34;, \u0026#34;private\u0026#34;: true, \u0026#34;homepage\u0026#34;: \u0026#34;.\u0026#34;, \/\/ 添加这一行 \u0026#34;dependencies\u0026#34;: { \u0026#34;@babel\/core\u0026#34;: \u0026#34;7.12.3\u0026#34;, ... 然后再执行 npm run build ，运行打包后的文件，没有任何问题。\n",
+"inLanguage" : "en-US",
+"author" : "子舒",
+"creator" : "子舒",
+"publisher": "子舒",
+"accountablePerson" : "子舒",
+"copyrightHolder" : "子舒",
+"copyrightYear" : "2021",
+"datePublished": "2021-01-05 00:00:00 \u002b0000 UTC",
+"dateModified" : "2021-01-05 00:00:00 \u002b0000 UTC",
+"url" : "https:\/\/zishu.me\/blog\/42.html\/",
+"keywords" : [ "react", ]
+}
+</script><title>React 脚手架项目打包时的路径问题 - 子舒的博客</title>
+<meta property="og:title" content="React 脚手架项目打包时的路径问题" />
+<meta property="og:type" content="article" />
+
+
+<meta property="og:keywords" content="create-react-app 脚手架指令可以生成 React 项目，在项目完成之后执行打包命令 npm run build，文件夹内生成 build文件夹，就是打包后的文件，在浏览器运行 index.html 发现页面空白，打开控制台有报错，css 和 js 文件的引用路径有问题。
+浏览 index.html 代码可以发现：
+&lt;!-- index.html --&gt; &lt;!doctype html&gt; &lt;html lang=&#34;zh&#34;&gt; &lt;head&gt; &lt;meta charset=&#34;utf-8&#34; /&gt; &lt;meta name=&#34;viewport&#34; content=&#34;width=device-width,initial-scale=1&#34; /&gt; &lt;meta name=&#34;theme-color&#34; content=&#34;#000000&#34; /&gt; &lt;meta name=&#34;description&#34; content=&#34;Web site created using create-react-app&#34; /&gt; &lt;title&gt;React App&lt;/title&gt; &lt;link href=&#34;/static/css/main.3394d54e.chunk.css&#34; rel=&#34;stylesheet&#34;&gt; &lt;/head&gt; &lt;body&gt;&lt;noscript&gt;You need to enable JavaScript to run this app.&lt;/noscript&gt; &lt;div id=&#34;root&#34;&gt;&lt;/div&gt; &lt;script&gt;!function (e) { function r(r) { for (var n, l, f = r[0], i = r[1], a = r[2], c = 0, s = []; c &lt; f.length; c&#43;&#43;)l = f[c], Object.prototype.hasOwnProperty.call(o, l) &amp;&amp; o[l] &amp;&amp; s.push(o[l][0]), o[l] = 0; for (n in i) Object.prototype.hasOwnProperty.call(i, n) &amp;&amp; (e[n] = i[n]); for (p &amp;&amp; p(r); s.length;)s.shift()(); return u.push.apply(u, a || []), t() } function t() { for (var e, r = 0; r &lt; u.length; r&#43;&#43;) { for (var t = u[r], n = !0, f = 1; f &lt; t.length; f&#43;&#43;) { var i = t[f]; 0 !== o[i] &amp;&amp; (n = !1) } n &amp;&amp; (u.splice(r--, 1), e = l(l.s = t[0])) } return e } var n = {}, o = { 1: 0 }, u = []; function l(r) { if (n[r]) return n[r].exports; var t = n[r] = { i: r, l: !1, exports: {} }; return e[r].call(t.exports, t, t.exports, l), t.l = !0, t.exports } l.m = e, l.c = n, l.d = function (e, r, t) { l.o(e, r) || Object.defineProperty(e, r, { enumerable: !0, get: t }) }, l.r = function (e) { &#34;undefined&#34; != typeof Symbol &amp;&amp; Symbol.toStringTag &amp;&amp; Object.defineProperty(e, Symbol.toStringTag, { value: &#34;Module&#34; }), Object.defineProperty(e, &#34;__esModule&#34;, { value: !0 }) }, l.t = function (e, r) { if (1 &amp; r &amp;&amp; (e = l(e)), 8 &amp; r) return e; if (4 &amp; r &amp;&amp; &#34;object&#34; == typeof e &amp;&amp; e &amp;&amp; e.__esModule) return e; var t = Object.create(null); if (l.r(t), Object.defineProperty(t, &#34;default&#34;, { enumerable: !0, value: e }), 2 &amp; r &amp;&amp; &#34;string&#34; != typeof e) for (var n in e) l.d(t, n, function (r) { return e[r] }.bind(null, n)); return t }, l.n = function (e) { var r = e &amp;&amp; e.__esModule ? function () { return e.default } : function () { return e }; return l.d(r, &#34;a&#34;, r), r }, l.o = function (e, r) { return Object.prototype.hasOwnProperty.call(e, r) }, l.p = &#34;./&#34;; var f = this.webpackJsonpdemo = this.webpackJsonpdemo || [], i = f.push.bind(f); f.push = r, f = f.slice(); for (var a = 0; a &lt; f.length; a&#43;&#43;)r(f[a]); var p = i; t() }([])&lt;/script&gt; &lt;script src=&#34;/static/js/2.1902eda2.chunk.js&#34;&gt;&lt;/script&gt; &lt;script src=&#34;/static/js/main.cbf35db7.chunk.js&#34;&gt;&lt;/script&gt; &lt;/body&gt; &lt;/html&gt; 发现 css 和 js 文件都是用绝对路径引用的，这是 webpack 打包一贯拥有的问题，将 /static 改成 ./static ，再运行，页面没有问题成功显示。
+但是在写实际项目的时候手动修改相对路径，不但麻烦，而且容易引起其他问题。因此直接在项目的 package.json 配置文件进行修改，添加 &quot;homepage&quot;: &quot;.&quot;
+// package.json { &#34;name&#34;: &#34;demo&#34;, &#34;version&#34;: &#34;0.1.0&#34;, &#34;private&#34;: true, &#34;homepage&#34;: &#34;.&#34;, // 添加这一行 &#34;dependencies&#34;: { &#34;@babel/core&#34;: &#34;7.12.3&#34;, ... 然后再执行 npm run build ，运行打包后的文件，没有任何问题。
+" />
+<meta name="keywords" content="create-react-app 脚手架指令可以生成 React 项目，在项目完成之后执行打包命令 npm run build，文件夹内生成 build文件夹，就是打包后的文件，在浏览器运行 index.html 发现页面空白，打开控制台有报错，css 和 js 文件的引用路径有问题。
+浏览 index.html 代码可以发现：
+&lt;!-- index.html --&gt; &lt;!doctype html&gt; &lt;html lang=&#34;zh&#34;&gt; &lt;head&gt; &lt;meta charset=&#34;utf-8&#34; /&gt; &lt;meta name=&#34;viewport&#34; content=&#34;width=device-width,initial-scale=1&#34; /&gt; &lt;meta name=&#34;theme-color&#34; content=&#34;#000000&#34; /&gt; &lt;meta name=&#34;description&#34; content=&#34;Web site created using create-react-app&#34; /&gt; &lt;title&gt;React App&lt;/title&gt; &lt;link href=&#34;/static/css/main.3394d54e.chunk.css&#34; rel=&#34;stylesheet&#34;&gt; &lt;/head&gt; &lt;body&gt;&lt;noscript&gt;You need to enable JavaScript to run this app.&lt;/noscript&gt; &lt;div id=&#34;root&#34;&gt;&lt;/div&gt; &lt;script&gt;!function (e) { function r(r) { for (var n, l, f = r[0], i = r[1], a = r[2], c = 0, s = []; c &lt; f.length; c&#43;&#43;)l = f[c], Object.prototype.hasOwnProperty.call(o, l) &amp;&amp; o[l] &amp;&amp; s.push(o[l][0]), o[l] = 0; for (n in i) Object.prototype.hasOwnProperty.call(i, n) &amp;&amp; (e[n] = i[n]); for (p &amp;&amp; p(r); s.length;)s.shift()(); return u.push.apply(u, a || []), t() } function t() { for (var e, r = 0; r &lt; u.length; r&#43;&#43;) { for (var t = u[r], n = !0, f = 1; f &lt; t.length; f&#43;&#43;) { var i = t[f]; 0 !== o[i] &amp;&amp; (n = !1) } n &amp;&amp; (u.splice(r--, 1), e = l(l.s = t[0])) } return e } var n = {}, o = { 1: 0 }, u = []; function l(r) { if (n[r]) return n[r].exports; var t = n[r] = { i: r, l: !1, exports: {} }; return e[r].call(t.exports, t, t.exports, l), t.l = !0, t.exports } l.m = e, l.c = n, l.d = function (e, r, t) { l.o(e, r) || Object.defineProperty(e, r, { enumerable: !0, get: t }) }, l.r = function (e) { &#34;undefined&#34; != typeof Symbol &amp;&amp; Symbol.toStringTag &amp;&amp; Object.defineProperty(e, Symbol.toStringTag, { value: &#34;Module&#34; }), Object.defineProperty(e, &#34;__esModule&#34;, { value: !0 }) }, l.t = function (e, r) { if (1 &amp; r &amp;&amp; (e = l(e)), 8 &amp; r) return e; if (4 &amp; r &amp;&amp; &#34;object&#34; == typeof e &amp;&amp; e &amp;&amp; e.__esModule) return e; var t = Object.create(null); if (l.r(t), Object.defineProperty(t, &#34;default&#34;, { enumerable: !0, value: e }), 2 &amp; r &amp;&amp; &#34;string&#34; != typeof e) for (var n in e) l.d(t, n, function (r) { return e[r] }.bind(null, n)); return t }, l.n = function (e) { var r = e &amp;&amp; e.__esModule ? function () { return e.default } : function () { return e }; return l.d(r, &#34;a&#34;, r), r }, l.o = function (e, r) { return Object.prototype.hasOwnProperty.call(e, r) }, l.p = &#34;./&#34;; var f = this.webpackJsonpdemo = this.webpackJsonpdemo || [], i = f.push.bind(f); f.push = r, f = f.slice(); for (var a = 0; a &lt; f.length; a&#43;&#43;)r(f[a]); var p = i; t() }([])&lt;/script&gt; &lt;script src=&#34;/static/js/2.1902eda2.chunk.js&#34;&gt;&lt;/script&gt; &lt;script src=&#34;/static/js/main.cbf35db7.chunk.js&#34;&gt;&lt;/script&gt; &lt;/body&gt; &lt;/html&gt; 发现 css 和 js 文件都是用绝对路径引用的，这是 webpack 打包一贯拥有的问题，将 /static 改成 ./static ，再运行，页面没有问题成功显示。
+但是在写实际项目的时候手动修改相对路径，不但麻烦，而且容易引起其他问题。因此直接在项目的 package.json 配置文件进行修改，添加 &quot;homepage&quot;: &quot;.&quot;
+// package.json { &#34;name&#34;: &#34;demo&#34;, &#34;version&#34;: &#34;0.1.0&#34;, &#34;private&#34;: true, &#34;homepage&#34;: &#34;.&#34;, // 添加这一行 &#34;dependencies&#34;: { &#34;@babel/core&#34;: &#34;7.12.3&#34;, ... 然后再执行 npm run build ，运行打包后的文件，没有任何问题。
+" />
+
+
+<meta property="og:description" content="create-react-app 脚手架指令可以生成 React 项目，在项目完成之后执行打包命令 npm run build，文件夹内生成 build文件夹，就是打包后的文件，在浏览器运行 index.html 发现页面空白，打开控制台有报错，css 和 js 文件的引用路径有问题。
+浏览 index.html 代码可以发现：
+&lt;!-- index.html --&gt; &lt;!doctype html&gt; &lt;html lang=&#34;zh&#34;&gt; &lt;head&gt; &lt;meta charset=&#34;utf-8&#34; /&gt; &lt;meta name=&#34;viewport&#34; content=&#34;width=device-width,initial-scale=1&#34; /&gt; &lt;meta name=&#34;theme-color&#34; content=&#34;#000000&#34; /&gt; &lt;meta name=&#34;description&#34; content=&#34;Web site created using create-react-app&#34; /&gt; &lt;title&gt;React App&lt;/title&gt; &lt;link href=&#34;/static/css/main.3394d54e.chunk.css&#34; rel=&#34;stylesheet&#34;&gt; &lt;/head&gt; &lt;body&gt;&lt;noscript&gt;You need to enable JavaScript to run this app.&lt;/noscript&gt; &lt;div id=&#34;root&#34;&gt;&lt;/div&gt; &lt;script&gt;!function (e) { function r(r) { for (var n, l, f = r[0], i = r[1], a = r[2], c = 0, s = []; c &lt; f.length; c&#43;&#43;)l = f[c], Object.prototype.hasOwnProperty.call(o, l) &amp;&amp; o[l] &amp;&amp; s.push(o[l][0]), o[l] = 0; for (n in i) Object.prototype.hasOwnProperty.call(i, n) &amp;&amp; (e[n] = i[n]); for (p &amp;&amp; p(r); s.length;)s.shift()(); return u.push.apply(u, a || []), t() } function t() { for (var e, r = 0; r &lt; u.length; r&#43;&#43;) { for (var t = u[r], n = !0, f = 1; f &lt; t.length; f&#43;&#43;) { var i = t[f]; 0 !== o[i] &amp;&amp; (n = !1) } n &amp;&amp; (u.splice(r--, 1), e = l(l.s = t[0])) } return e } var n = {}, o = { 1: 0 }, u = []; function l(r) { if (n[r]) return n[r].exports; var t = n[r] = { i: r, l: !1, exports: {} }; return e[r].call(t.exports, t, t.exports, l), t.l = !0, t.exports } l.m = e, l.c = n, l.d = function (e, r, t) { l.o(e, r) || Object.defineProperty(e, r, { enumerable: !0, get: t }) }, l.r = function (e) { &#34;undefined&#34; != typeof Symbol &amp;&amp; Symbol.toStringTag &amp;&amp; Object.defineProperty(e, Symbol.toStringTag, { value: &#34;Module&#34; }), Object.defineProperty(e, &#34;__esModule&#34;, { value: !0 }) }, l.t = function (e, r) { if (1 &amp; r &amp;&amp; (e = l(e)), 8 &amp; r) return e; if (4 &amp; r &amp;&amp; &#34;object&#34; == typeof e &amp;&amp; e &amp;&amp; e.__esModule) return e; var t = Object.create(null); if (l.r(t), Object.defineProperty(t, &#34;default&#34;, { enumerable: !0, value: e }), 2 &amp; r &amp;&amp; &#34;string&#34; != typeof e) for (var n in e) l.d(t, n, function (r) { return e[r] }.bind(null, n)); return t }, l.n = function (e) { var r = e &amp;&amp; e.__esModule ? function () { return e.default } : function () { return e }; return l.d(r, &#34;a&#34;, r), r }, l.o = function (e, r) { return Object.prototype.hasOwnProperty.call(e, r) }, l.p = &#34;./&#34;; var f = this.webpackJsonpdemo = this.webpackJsonpdemo || [], i = f.push.bind(f); f.push = r, f = f.slice(); for (var a = 0; a &lt; f.length; a&#43;&#43;)r(f[a]); var p = i; t() }([])&lt;/script&gt; &lt;script src=&#34;/static/js/2.1902eda2.chunk.js&#34;&gt;&lt;/script&gt; &lt;script src=&#34;/static/js/main.cbf35db7.chunk.js&#34;&gt;&lt;/script&gt; &lt;/body&gt; &lt;/html&gt; 发现 css 和 js 文件都是用绝对路径引用的，这是 webpack 打包一贯拥有的问题，将 /static 改成 ./static ，再运行，页面没有问题成功显示。
+但是在写实际项目的时候手动修改相对路径，不但麻烦，而且容易引起其他问题。因此直接在项目的 package.json 配置文件进行修改，添加 &quot;homepage&quot;: &quot;.&quot;
+// package.json { &#34;name&#34;: &#34;demo&#34;, &#34;version&#34;: &#34;0.1.0&#34;, &#34;private&#34;: true, &#34;homepage&#34;: &#34;.&#34;, // 添加这一行 &#34;dependencies&#34;: { &#34;@babel/core&#34;: &#34;7.12.3&#34;, ... 然后再执行 npm run build ，运行打包后的文件，没有任何问题。
+" />
+<meta name="description" content="create-react-app 脚手架指令可以生成 React 项目，在项目完成之后执行打包命令 npm run build，文件夹内生成 build文件夹，就是打包后的文件，在浏览器运行 index.html 发现页面空白，打开控制台有报错，css 和 js 文件的引用路径有问题。
+浏览 index.html 代码可以发现：
+&lt;!-- index.html --&gt; &lt;!doctype html&gt; &lt;html lang=&#34;zh&#34;&gt; &lt;head&gt; &lt;meta charset=&#34;utf-8&#34; /&gt; &lt;meta name=&#34;viewport&#34; content=&#34;width=device-width,initial-scale=1&#34; /&gt; &lt;meta name=&#34;theme-color&#34; content=&#34;#000000&#34; /&gt; &lt;meta name=&#34;description&#34; content=&#34;Web site created using create-react-app&#34; /&gt; &lt;title&gt;React App&lt;/title&gt; &lt;link href=&#34;/static/css/main.3394d54e.chunk.css&#34; rel=&#34;stylesheet&#34;&gt; &lt;/head&gt; &lt;body&gt;&lt;noscript&gt;You need to enable JavaScript to run this app.&lt;/noscript&gt; &lt;div id=&#34;root&#34;&gt;&lt;/div&gt; &lt;script&gt;!function (e) { function r(r) { for (var n, l, f = r[0], i = r[1], a = r[2], c = 0, s = []; c &lt; f.length; c&#43;&#43;)l = f[c], Object.prototype.hasOwnProperty.call(o, l) &amp;&amp; o[l] &amp;&amp; s.push(o[l][0]), o[l] = 0; for (n in i) Object.prototype.hasOwnProperty.call(i, n) &amp;&amp; (e[n] = i[n]); for (p &amp;&amp; p(r); s.length;)s.shift()(); return u.push.apply(u, a || []), t() } function t() { for (var e, r = 0; r &lt; u.length; r&#43;&#43;) { for (var t = u[r], n = !0, f = 1; f &lt; t.length; f&#43;&#43;) { var i = t[f]; 0 !== o[i] &amp;&amp; (n = !1) } n &amp;&amp; (u.splice(r--, 1), e = l(l.s = t[0])) } return e } var n = {}, o = { 1: 0 }, u = []; function l(r) { if (n[r]) return n[r].exports; var t = n[r] = { i: r, l: !1, exports: {} }; return e[r].call(t.exports, t, t.exports, l), t.l = !0, t.exports } l.m = e, l.c = n, l.d = function (e, r, t) { l.o(e, r) || Object.defineProperty(e, r, { enumerable: !0, get: t }) }, l.r = function (e) { &#34;undefined&#34; != typeof Symbol &amp;&amp; Symbol.toStringTag &amp;&amp; Object.defineProperty(e, Symbol.toStringTag, { value: &#34;Module&#34; }), Object.defineProperty(e, &#34;__esModule&#34;, { value: !0 }) }, l.t = function (e, r) { if (1 &amp; r &amp;&amp; (e = l(e)), 8 &amp; r) return e; if (4 &amp; r &amp;&amp; &#34;object&#34; == typeof e &amp;&amp; e &amp;&amp; e.__esModule) return e; var t = Object.create(null); if (l.r(t), Object.defineProperty(t, &#34;default&#34;, { enumerable: !0, value: e }), 2 &amp; r &amp;&amp; &#34;string&#34; != typeof e) for (var n in e) l.d(t, n, function (r) { return e[r] }.bind(null, n)); return t }, l.n = function (e) { var r = e &amp;&amp; e.__esModule ? function () { return e.default } : function () { return e }; return l.d(r, &#34;a&#34;, r), r }, l.o = function (e, r) { return Object.prototype.hasOwnProperty.call(e, r) }, l.p = &#34;./&#34;; var f = this.webpackJsonpdemo = this.webpackJsonpdemo || [], i = f.push.bind(f); f.push = r, f = f.slice(); for (var a = 0; a &lt; f.length; a&#43;&#43;)r(f[a]); var p = i; t() }([])&lt;/script&gt; &lt;script src=&#34;/static/js/2.1902eda2.chunk.js&#34;&gt;&lt;/script&gt; &lt;script src=&#34;/static/js/main.cbf35db7.chunk.js&#34;&gt;&lt;/script&gt; &lt;/body&gt; &lt;/html&gt; 发现 css 和 js 文件都是用绝对路径引用的，这是 webpack 打包一贯拥有的问题，将 /static 改成 ./static ，再运行，页面没有问题成功显示。
+但是在写实际项目的时候手动修改相对路径，不但麻烦，而且容易引起其他问题。因此直接在项目的 package.json 配置文件进行修改，添加 &quot;homepage&quot;: &quot;.&quot;
+// package.json { &#34;name&#34;: &#34;demo&#34;, &#34;version&#34;: &#34;0.1.0&#34;, &#34;private&#34;: true, &#34;homepage&#34;: &#34;.&#34;, // 添加这一行 &#34;dependencies&#34;: { &#34;@babel/core&#34;: &#34;7.12.3&#34;, ... 然后再执行 npm run build ，运行打包后的文件，没有任何问题。
+" />
+<meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
+
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/index.css">
+<link href="/index.xml" rel="alternate" type="application/rss+xml" title="子舒的博客">
+<script src="/js/jquery3.6.0.min.js"></script>
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="main">
+      <div class="aside">
+  <div class="top">
+    <a href="/"><img src="https://imgurl.zishu.me/author.webp" width="72" height="72" class="avatar" border="0"></a>
+    <div class="site-info">
+      <a href="/" class="site-title">子舒的博客</a>
+      <div class="site-about">
+        <p>一个热爱生活的前端开发工程师</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="nav-container">
+    <div class="nav">
+      
+      <a href="/" class="nav-item">首页</a>
+      
+      <a href="/tags/" class="nav-item">标签</a>
+      
+      <a href="/message/" class="nav-item">留言</a>
+      
+      <a href="/about/" class="nav-item">关于</a>
+      
+      <a href="/search/" class="nav-item">搜索</a>
+      
+    </div>
+    <div class="share">
+      <a href="./index.xml" target="_blank"><img src="/images/rss.svg" alt="RSS" class="social-icon" width="1em"></a>
+      <a href="https://github.com/dlzmoe" target="_blank"><img src="/images/github.svg" alt="github.com/dlzmoe" class="social-icon" width="1em"></a>
+      <a href="https://discord.com/invite/n2pErsD7Kg" target="_blank"><img src="/images/discord.svg" alt="Discord Invite" class="social-icon" width="1em"></a>
+    </div>
+  </div>
+</div>
+
+
+      <h1>React 脚手架项目打包时的路径问题</h1>
+
+      
+      <div class="meta">
+        <div class="date">2021 年 1 月 5 日</div>
+        <div class="post-tags">
+          
+          
+          <span class="namenode">分类：<a href="/categories/%E6%8A%80%E6%9C%AF">技术</a>
+          </span>
+          
+          
+          <span class="tag-node">
+            
+            标签：<a href="/tags/react">#react</a>
+            
+            
+          </span>
+        </div>
+      </div>
+      
+    
+
+      
+      <div class="toc">
+        <details open>
+          <summary accesskey="c" title="(Alt + C)"><span class="details">Table of Contents</span></summary>
+          <div class="inner"> <nav id="TableOfContents"></nav></div>
+        </details>
+      </div>
+      
+
+      <article class="content">
+        
+        <p><code>create-react-app</code> 脚手架指令可以生成 React 项目，在项目完成之后执行打包命令 <code>npm run build</code>，文件夹内生成 <code>build</code>文件夹，就是打包后的文件，在浏览器运行 <code>index.html</code> 发现页面空白，打开控制台有报错，css 和 js 文件的引用路径有问题。</p>
+<p>浏览 <code>index.html</code> 代码可以发现：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="c">&lt;!-- index.html --&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;!doctype html&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;zh&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&#34;utf-8&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;viewport&#34;</span> <span class="na">content</span><span class="o">=</span><span class="s">&#34;width=device-width,initial-scale=1&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;theme-color&#34;</span> <span class="na">content</span><span class="o">=</span><span class="s">&#34;#000000&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;description&#34;</span> <span class="na">content</span><span class="o">=</span><span class="s">&#34;Web site created using create-react-app&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>React App<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;/static/css/main.3394d54e.chunk.css&#34;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;stylesheet&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;&lt;</span><span class="nt">noscript</span><span class="p">&gt;</span>You need to enable JavaScript to run this app.<span class="p">&lt;/</span><span class="nt">noscript</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;root&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="o">!</span><span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span> <span class="kd">function</span> <span class="nx">r</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">{</span> <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">f</span> <span class="o">=</span> <span class="nx">r</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">r</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">r</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="nx">c</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">s</span> <span class="o">=</span> <span class="p">[];</span> <span class="nx">c</span> <span class="o">&lt;</span> <span class="nx">f</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">c</span><span class="o">++</span><span class="p">)</span><span class="nx">l</span> <span class="o">=</span> <span class="nx">f</span><span class="p">[</span><span class="nx">c</span><span class="p">],</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">o</span><span class="p">,</span> <span class="nx">l</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">o</span><span class="p">[</span><span class="nx">l</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="nx">s</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">o</span><span class="p">[</span><span class="nx">l</span><span class="p">][</span><span class="mi">0</span><span class="p">]),</span> <span class="nx">o</span><span class="p">[</span><span class="nx">l</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="k">for</span> <span class="p">(</span><span class="nx">n</span> <span class="k">in</span> <span class="nx">i</span><span class="p">)</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">e</span><span class="p">[</span><span class="nx">n</span><span class="p">]</span> <span class="o">=</span> <span class="nx">i</span><span class="p">[</span><span class="nx">n</span><span class="p">]);</span> <span class="k">for</span> <span class="p">(</span><span class="nx">p</span> <span class="o">&amp;&amp;</span> <span class="nx">p</span><span class="p">(</span><span class="nx">r</span><span class="p">);</span> <span class="nx">s</span><span class="p">.</span><span class="nx">length</span><span class="p">;)</span><span class="nx">s</span><span class="p">.</span><span class="nx">shift</span><span class="p">()();</span> <span class="k">return</span> <span class="nx">u</span><span class="p">.</span><span class="nx">push</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">u</span><span class="p">,</span> <span class="nx">a</span> <span class="o">||</span> <span class="p">[]),</span> <span class="nx">t</span><span class="p">()</span> <span class="p">}</span> <span class="kd">function</span> <span class="nx">t</span><span class="p">()</span> <span class="p">{</span> <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">e</span><span class="p">,</span> <span class="nx">r</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">r</span> <span class="o">&lt;</span> <span class="nx">u</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">r</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span> <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">t</span> <span class="o">=</span> <span class="nx">u</span><span class="p">[</span><span class="nx">r</span><span class="p">],</span> <span class="nx">n</span> <span class="o">=</span> <span class="o">!</span><span class="mi">0</span><span class="p">,</span> <span class="nx">f</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">f</span> <span class="o">&lt;</span> <span class="nx">t</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">f</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">t</span><span class="p">[</span><span class="nx">f</span><span class="p">];</span> <span class="mi">0</span> <span class="o">!==</span> <span class="nx">o</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">n</span> <span class="o">=</span> <span class="o">!</span><span class="mi">1</span><span class="p">)</span> <span class="p">}</span> <span class="nx">n</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">u</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">r</span><span class="o">--</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="nx">e</span> <span class="o">=</span> <span class="nx">l</span><span class="p">(</span><span class="nx">l</span><span class="p">.</span><span class="nx">s</span> <span class="o">=</span> <span class="nx">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span> <span class="p">}</span> <span class="k">return</span> <span class="nx">e</span> <span class="p">}</span> <span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="p">{},</span> <span class="nx">o</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">1</span><span class="o">:</span> <span class="mi">0</span> <span class="p">},</span> <span class="nx">u</span> <span class="o">=</span> <span class="p">[];</span> <span class="kd">function</span> <span class="nx">l</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">{</span> <span class="k">if</span> <span class="p">(</span><span class="nx">n</span><span class="p">[</span><span class="nx">r</span><span class="p">])</span> <span class="k">return</span> <span class="nx">n</span><span class="p">[</span><span class="nx">r</span><span class="p">].</span><span class="nx">exports</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">t</span> <span class="o">=</span> <span class="nx">n</span><span class="p">[</span><span class="nx">r</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">i</span><span class="o">:</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">l</span><span class="o">:</span> <span class="o">!</span><span class="mi">1</span><span class="p">,</span> <span class="nx">exports</span><span class="o">:</span> <span class="p">{}</span> <span class="p">};</span> <span class="k">return</span> <span class="nx">e</span><span class="p">[</span><span class="nx">r</span><span class="p">].</span><span class="nx">call</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">exports</span><span class="p">,</span> <span class="nx">t</span><span class="p">,</span> <span class="nx">t</span><span class="p">.</span><span class="nx">exports</span><span class="p">,</span> <span class="nx">l</span><span class="p">),</span> <span class="nx">t</span><span class="p">.</span><span class="nx">l</span> <span class="o">=</span> <span class="o">!</span><span class="mi">0</span><span class="p">,</span> <span class="nx">t</span><span class="p">.</span><span class="nx">exports</span> <span class="p">}</span> <span class="nx">l</span><span class="p">.</span><span class="nx">m</span> <span class="o">=</span> <span class="nx">e</span><span class="p">,</span> <span class="nx">l</span><span class="p">.</span><span class="nx">c</span> <span class="o">=</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">l</span><span class="p">.</span><span class="nx">d</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">t</span><span class="p">)</span> <span class="p">{</span> <span class="nx">l</span><span class="p">.</span><span class="nx">o</span><span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span> <span class="o">||</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="p">{</span> <span class="nx">enumerable</span><span class="o">:</span> <span class="o">!</span><span class="mi">0</span><span class="p">,</span> <span class="nx">get</span><span class="o">:</span> <span class="nx">t</span> <span class="p">})</span> <span class="p">},</span> <span class="nx">l</span><span class="p">.</span><span class="nx">r</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span> <span class="s2">&#34;undefined&#34;</span> <span class="o">!=</span> <span class="k">typeof</span> <span class="nx">Symbol</span> <span class="o">&amp;&amp;</span> <span class="nx">Symbol</span><span class="p">.</span><span class="nx">toStringTag</span> <span class="o">&amp;&amp;</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">Symbol</span><span class="p">.</span><span class="nx">toStringTag</span><span class="p">,</span> <span class="p">{</span> <span class="nx">value</span><span class="o">:</span> <span class="s2">&#34;Module&#34;</span> <span class="p">}),</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="s2">&#34;__esModule&#34;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">value</span><span class="o">:</span> <span class="o">!</span><span class="mi">0</span> <span class="p">})</span> <span class="p">},</span> <span class="nx">l</span><span class="p">.</span><span class="nx">t</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span> <span class="p">{</span> <span class="k">if</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&amp;</span> <span class="nx">r</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">e</span> <span class="o">=</span> <span class="nx">l</span><span class="p">(</span><span class="nx">e</span><span class="p">)),</span> <span class="mi">8</span> <span class="o">&amp;</span> <span class="nx">r</span><span class="p">)</span> <span class="k">return</span> <span class="nx">e</span><span class="p">;</span> <span class="k">if</span> <span class="p">(</span><span class="mi">4</span> <span class="o">&amp;</span> <span class="nx">r</span> <span class="o">&amp;&amp;</span> <span class="s2">&#34;object&#34;</span> <span class="o">==</span> <span class="k">typeof</span> <span class="nx">e</span> <span class="o">&amp;&amp;</span> <span class="nx">e</span> <span class="o">&amp;&amp;</span> <span class="nx">e</span><span class="p">.</span><span class="nx">__esModule</span><span class="p">)</span> <span class="k">return</span> <span class="nx">e</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">t</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span> <span class="k">if</span> <span class="p">(</span><span class="nx">l</span><span class="p">.</span><span class="nx">r</span><span class="p">(</span><span class="nx">t</span><span class="p">),</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="s2">&#34;default&#34;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">enumerable</span><span class="o">:</span> <span class="o">!</span><span class="mi">0</span><span class="p">,</span> <span class="nx">value</span><span class="o">:</span> <span class="nx">e</span> <span class="p">}),</span> <span class="mi">2</span> <span class="o">&amp;</span> <span class="nx">r</span> <span class="o">&amp;&amp;</span> <span class="s2">&#34;string&#34;</span> <span class="o">!=</span> <span class="k">typeof</span> <span class="nx">e</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">n</span> <span class="k">in</span> <span class="nx">e</span><span class="p">)</span> <span class="nx">l</span><span class="p">.</span><span class="nx">d</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="nx">n</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">e</span><span class="p">[</span><span class="nx">r</span><span class="p">]</span> <span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">n</span><span class="p">));</span> <span class="k">return</span> <span class="nx">t</span> <span class="p">},</span> <span class="nx">l</span><span class="p">.</span><span class="nx">n</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span> <span class="kd">var</span> <span class="nx">r</span> <span class="o">=</span> <span class="nx">e</span> <span class="o">&amp;&amp;</span> <span class="nx">e</span><span class="p">.</span><span class="nx">__esModule</span> <span class="o">?</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">e</span><span class="p">.</span><span class="k">default</span> <span class="p">}</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">e</span> <span class="p">};</span> <span class="k">return</span> <span class="nx">l</span><span class="p">.</span><span class="nx">d</span><span class="p">(</span><span class="nx">r</span><span class="p">,</span> <span class="s2">&#34;a&#34;</span><span class="p">,</span> <span class="nx">r</span><span class="p">),</span> <span class="nx">r</span> <span class="p">},</span> <span class="nx">l</span><span class="p">.</span><span class="nx">o</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span> <span class="p">},</span> <span class="nx">l</span><span class="p">.</span><span class="nx">p</span> <span class="o">=</span> <span class="s2">&#34;./&#34;</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">f</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">webpackJsonpdemo</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">webpackJsonpdemo</span> <span class="o">||</span> <span class="p">[],</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">f</span><span class="p">.</span><span class="nx">push</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">f</span><span class="p">);</span> <span class="nx">f</span><span class="p">.</span><span class="nx">push</span> <span class="o">=</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">f</span> <span class="o">=</span> <span class="nx">f</span><span class="p">.</span><span class="nx">slice</span><span class="p">();</span> <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">a</span> <span class="o">&lt;</span> <span class="nx">f</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">a</span><span class="o">++</span><span class="p">)</span><span class="nx">r</span><span class="p">(</span><span class="nx">f</span><span class="p">[</span><span class="nx">a</span><span class="p">]);</span> <span class="kd">var</span> <span class="nx">p</span> <span class="o">=</span> <span class="nx">i</span><span class="p">;</span> <span class="nx">t</span><span class="p">()</span> <span class="p">}([])&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;/static/js/2.1902eda2.chunk.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;/static/js/main.cbf35db7.chunk.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p>发现 css 和 js 文件都是用绝对路径引用的，这是 webpack 打包一贯拥有的问题，将 <code>/static</code> 改成 <code>./static</code> ，再运行，页面没有问题成功显示。</p>
+<p>但是在写实际项目的时候手动修改相对路径，不但麻烦，而且容易引起其他问题。因此直接在项目的 <code>package.json</code> 配置文件进行修改，添加 <code>&quot;homepage&quot;: &quot;.&quot;</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="c1">// package.json
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;demo&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;version&#34;</span><span class="p">:</span> <span class="s2">&#34;0.1.0&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;private&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;homepage&#34;</span><span class="p">:</span> <span class="s2">&#34;.&#34;</span><span class="p">,</span>  <span class="c1">// 添加这一行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nt">&#34;dependencies&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;@babel/core&#34;</span><span class="p">:</span> <span class="s2">&#34;7.12.3&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="err">...</span>
+</span></span></code></pre></div><p>然后再执行 <code>npm run build</code> ，运行打包后的文件，没有任何问题。</p>
+
+        <div class="weekly-pagination"></div>
+      </article>
+
+      
+      <ul class="comment-tabs">
+  <li class="active">giscus</li>
+  <li>twikoo</li>
+</ul>
+<div class="comments">
+  <div class="giscus active"></div>
+  <div id="tcomment"></div>
+</div>
+<script 
+  src="https://giscus.app/client.js" 
+  data-repo="dlzmoe/blog" 
+  data-repo-id="R_kgDOJkJvtw"
+  data-category="Announcements" 
+  data-category-id="DIC_kwDOJkJvt84CX9d6" 
+  data-mapping="pathname" 
+  data-strict="0"
+  data-reactions-enabled="1" 
+  data-emit-metadata="1" 
+  data-input-position="top" 
+  data-theme="light_tritanopia"
+  data-lang="zh-CN" 
+  data-loading="lazy" 
+  crossorigin="anonymous" 
+  async>
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/twikoo@1.6.41/dist/twikoo.min.js"></script>
+<script>
+twikoo.init({
+  envId: 'https://twikoo.zishu.me/.netlify/functions/twikoo',
+  el: '#tcomment',
+  lang: 'zh-CN', 
+})
+</script>
+
+<script>
+  const tabs = document.querySelectorAll('.comment-tabs li');
+  const contents = document.querySelectorAll('.comments > div');
+
+  tabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => {
+      
+      tabs.forEach(t => t.classList.remove('active'));
+      contents.forEach(c => c.classList.remove('active'));
+      
+      
+      tab.classList.add('active');
+      contents[index].classList.add('active');
+    });
+  });
+</script>
+      
+
+      <footer class="footer">
+  <div class="l-wrap">
+    <p>© 2020 - 2025 Powered by
+      <a href="https://github.com/dlzmoe" target="_blank">Github</a>
+      / <a href="/index.xml" target="_blank">RSS</a>
+    </p>
+  </div>
+  <div class="gotop"></div>
+</footer>
+
+<script src="/js/main.js"></script>
+    </div>
+  </div>
+</body>
+
+</html>
