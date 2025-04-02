@@ -1,6 +1,6 @@
 ---
 slug: 255
-title: Cherry Studio 接入高度地图 MCP 示例
+title: Cherry Studio 接入高德地图 MCP 示例
 date: 2025-04-02
 categories: 
   - 技术
