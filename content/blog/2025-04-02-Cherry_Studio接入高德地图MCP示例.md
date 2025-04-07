@@ -48,7 +48,7 @@ tags:
 
 在 Cherry Studio 中打开 MCP 服务器设置界面，按以下参数填写：
 
-```
+```shell
 名称：@amap/amap-maps
 命令：npx
 参数：-y @amap/amap-maps-mcp-server
