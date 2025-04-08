@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+{{ partial "head.html" . }}
+
+<body>
+  <div class="wrapper">
+    <div class="main">
+      {{ partial "header.html" . }}
+      <h1>{{ .Title }}</h1>
+
+      <article class="content post-content">
+        {{ .Site.Params.postHeaderContent | safeHTML }}
+        {{ .Content }} 
+
+        <script>
+          window.addEventListener('DOMContentLoaded', (event) => {
+              new PagefindUI({ element: "#search", showSubResults: true });
+          });
+        </script>
+
+        <form id="searchForm">
+          <input autocomplete="off" type="text" id="searchInput" placeholder="输入搜索内容..." required>
+          <button type="submit">搜索</button>
+        </form>
+        <ul id="resultsList"></ul>
+      </article>
+      {{ partial "footer.html" . }}
+
+      <script>
+       let data = [];
+
+        // 从 /index.json 加载数据
+        fetch('/index.json')
+          .then(response => response.json())
+          .then(json => {
+            data = json;
+          })
+          .catch(error => console.error('Error loading data:', error));
+
+        // 移除 HTML 标签的函数
+        function stripHtml(html) {
+          const tmp = document.createElement('div');
+          tmp.innerHTML = html;
+          return tmp.textContent || tmp.innerText || '';
+        }
+
+        document.getElementById('searchForm').addEventListener('submit', function(event) {
+          event.preventDefault();
+          const query = document.getElementById('searchInput').value.toLowerCase();
+          const resultsList = document.getElementById('resultsList');
+
+          resultsList.innerHTML = '';
+
+          if (query) {
+            const results = data.filter(item => {
+              // 移除 HTML 标签后再搜索
+              const plainTitle = stripHtml(item.title).toLowerCase();
+              const plainSummary = stripHtml(item.summary).toLowerCase();
+              
+              return plainTitle.includes(query) || plainSummary.includes(query);
+            });
+
+            if (results.length > 0) {
+              results.forEach(item => {
+                const listItem = document.createElement('li');
+                const plainSummary = stripHtml(item.summary);
+                const truncatedSummary = getTruncatedSummary(plainSummary, query);
+                
+                listItem.innerHTML = `
+                  <a href="${item.permalink}">${highlightKeywords(stripHtml(item.title), query)}</a>
+                  <p>${highlightKeywords(truncatedSummary, query)}</p>
+                `;
+                resultsList.appendChild(listItem);
+              });
+            } else {
+              resultsList.innerHTML = '<li>没有找到相关内容。</li>';
+            }
+          }
+        });
+
+        function highlightKeywords(text, query) {
+          const regex = new RegExp(`(${query})`, 'gi');
+          return text.replace(regex, '<span class="keyword-highlight">$1</span>');
+        }
+
+        function getTruncatedSummary(summary, query) {
+          const index = summary.toLowerCase().indexOf(query.toLowerCase());
+          if (index === -1) return summary;
+
+          const start = Math.max(0, index - 50);
+          const end = Math.min(summary.length, index + query.length + 50);
+          const truncated = summary.substring(start, end);
+
+          return (start > 0 ? '...' : '') + truncated + (end < summary.length ? '...' : '');
+        }
+      </script>
+    </div>
+  </div>
+</body>
+
+</html>
