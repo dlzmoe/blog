@@ -58,7 +58,7 @@ You can deploy code uploaded to a GitHub repository via Netlify.
 
 If you have any questions, suggestions, or other concerns regarding the blog content, layout, or anything else, feel free to contact me!
 
-- E-mail: anghunk@gmail.com
+- E-mail: hi@zishu.me
 - Message: https://zishu.me/message/
 
 ## 4.LICENSE
