@@ -13,6 +13,10 @@
 
 ---
 
+```shell
+hugo: 0.146.5
+```
+
 **Introduce OpenAI to refine article TDK and customize API information.**
 
 ```shell
