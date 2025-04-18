@@ -13,6 +13,8 @@
 
 ---
 
+![Visitor Count](https://profile-counter.glitch.me/zishu_me/count.svg)
+
 ```shell
 hugo: 0.146.5
 ```
