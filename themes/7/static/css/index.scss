@@ -1,9 +1,11 @@
 :root {
   --background-color: #fff;
+  --aside-color: #FCFCFC;
   --foreground-color: #222;
+  --nav-hover-color: #E5E7EB;
   --link-color: #336bad;
   --foreground-secondary-color: #666;
-
+  --comment-color: #fafafa;
   --nav-current-background-color: #444;
   --nav-current-foreground-color: #fff;
   --nav-item-background-color: #f2f2f2;
@@ -31,15 +33,19 @@
   --kbd-background-image: linear-gradient(top, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0));
   --kbd-background-repeat: repeat-x;
   --kbd-box-shadow: 0px 1px 0 #bbbbbb, 0 2px 1px #999999, 0 2px 0 #bbbbbb, inset 0 1px 1px #ffffff, inset 0 -1px 2px #cccccc;
+
+  --filter-invert: invert(0);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background-color: #1c1c1e;
     --foreground-color: #fff;
+    --aside-color: #2e2e2e;
     --link-color: #6699ff;
+    --nav-hover-color: #3a3a3a;
     --foreground-secondary-color: #adadaf;
-
+    --comment-color: #272727;
     --nav-current-background-color: #0f0f0f;
     --nav-current-foreground-color: #f1f1f1;
     --nav-item-background-color: #272727;
@@ -60,6 +66,7 @@
     --kbd-background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0) 80%, rgba(0, 0, 0, 0));
     --kbd-background-repeat: no-repeat;
     --kbd-box-shadow: 0px 1px 0 #000000, 0 2px 1px rgba(90, 90, 90, 0.5), inset 0 1px 1px #aaaaaa, inset 0 -1px 2px #272727;
+    --filter-invert: invert(100%);
   }
 }
 
@@ -252,7 +259,7 @@ hr {
   height: 100vh;
   overflow-y: scroll;
   border-right: 1px solid #ccc;
-  background: #FCFCFC;
+  background: var(--aside-color);
   padding: 40px 20px;
 
   &::-webkit-scrollbar {
@@ -477,6 +484,7 @@ kbd {
 img.avatar {
   width: 80px;
   height: 80px;
+  background-color: #FCFCFC;
 }
 
 .pages-container {
@@ -534,12 +542,13 @@ img.avatar {
     align-items: center;
 
     &.act {
-      background: #E5E7EB;
+      background: var(--nav-hover-color);
     }
 
     img {
       width: 1em;
       margin-right: 5px;
+      filter: var(--filter-invert);
     }
   }
 }
@@ -577,7 +586,7 @@ img.avatar {
 }
 
 .nav-item:hover {
-  background-color: #E5E7EB;
+  background-color: var(--nav-hover-color);
   text-decoration: none;
 }
 

@@ -36,16 +36,27 @@ twikoo.init({
 <script>
   const tabs = document.querySelectorAll('.comment-tabs li');
   const contents = document.querySelectorAll('.comments > div');
-
+  
+  // 从本地存储中获取上次选择的标签索引，默认为 0
+  const savedIndex = localStorage.getItem('activeCommentTab') || 0;
+  
+  // 初始化时设置保存的标签为激活状态
+  tabs.forEach(t => t.classList.remove('active'));
+  contents.forEach(c => c.classList.remove('active'));
+  tabs[savedIndex].classList.add('active');
+  contents[savedIndex].classList.add('active');
   tabs.forEach((tab, index) => {
     tab.addEventListener('click', () => {
-      // Remove active class from all tabs and contents
+      // 移除所有标签和内容的激活类
       tabs.forEach(t => t.classList.remove('active'));
       contents.forEach(c => c.classList.remove('active'));
       
-      // Add active class to clicked tab and corresponding content
+      // 为点击的标签和对应内容添加激活类
       tab.classList.add('active');
       contents[index].classList.add('active');
+      
+      // 将当前选择的标签索引保存到本地存储
+      localStorage.setItem('activeCommentTab', index);
     });
   });
 </script>

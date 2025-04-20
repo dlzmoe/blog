@@ -360,7 +360,15 @@ twikoo.init({
 <script>
   const tabs = document.querySelectorAll('.comment-tabs li');
   const contents = document.querySelectorAll('.comments > div');
-
+  
+  
+  const savedIndex = localStorage.getItem('activeCommentTab') || 0;
+  
+  
+  tabs.forEach(t => t.classList.remove('active'));
+  contents.forEach(c => c.classList.remove('active'));
+  tabs[savedIndex].classList.add('active');
+  contents[savedIndex].classList.add('active');
   tabs.forEach((tab, index) => {
     tab.addEventListener('click', () => {
       
@@ -370,6 +378,9 @@ twikoo.init({
       
       tab.classList.add('active');
       contents[index].classList.add('active');
+      
+      
+      localStorage.setItem('activeCommentTab', index);
     });
   });
 </script>
