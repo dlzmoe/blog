@@ -25,3 +25,4 @@ title: 友情链接
 - [大橙子](https://log.660066.xyz/) - 大橙子的知识杂货铺
 - [崔话记](https://cuixiping.com/) - 向着理想的方向，爬一会儿，躺一会儿
 - [Wcowin's Blog](https://wcowin.work/) - 向循此苦旅，以达星辰
+- [Rise'blogs](https://blogs.qipai360.cn/) - Rise'blogs
