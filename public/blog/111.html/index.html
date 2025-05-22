@@ -8,9 +8,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="author" content="子舒" />
 <meta property="og:url" content="https://zishu.me/blog/111.html/" />
-<link rel="canonical" href="https://zishu.me/blog/111.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon.ico" />
-<link rel="icon" href="https://imgurl.zishu.me/favicon.ico" />
-<link rel="shortcut" href="https://imgurl.zishu.me/favicon.ico" /><link rel="alternate" type="application/atom+xml" href="https://zishu.me/index.xml" title="子舒的博客">
+<link rel="canonical" href="https://zishu.me/blog/111.html/" /><link rel="apple-touch-icon" href="https://imgurl.zishu.me/favicon1.ico" />
+<link rel="icon" href="https://imgurl.zishu.me/favicon1.ico" />
+<link rel="shortcut" href="https://imgurl.zishu.me/favicon1.ico" /><link rel="alternate" type="application/atom+xml" href="https://zishu.me/index.xml" title="子舒的博客">
 <script type="application/ld+json">
 {
 "@context" : "http://schema.org",
@@ -50,7 +50,7 @@
 // @/components/Canvas.vue &lt;template&gt; &lt;div :style=&#34;{ height: waveAllHeight &#43; &#39;px&#39;, background: bgColor }&#34; class=&#34;wave&#34;&gt; &lt;canvas id=&#34;wave1&#34;&gt;&lt;/canvas&gt; &lt;canvas id=&#34;wave2&#34;&gt;&lt;/canvas&gt; &lt;canvas id=&#34;wave3&#34;&gt;&lt;/canvas&gt; &lt;/div&gt; &lt;/template&gt; &lt;script&gt; export default { name: &#34;Canvas&#34;, props: { bgColor: { default: &#34;none&#34;, }, // 背景色 waveAllHeight: { default: 160 }, // 波浪的整体高度 waveCount: { default: 2 }, // 波峰个数 waveHeight: { default: 50 }, // 波浪起伏高度 // 波浪颜色 waveColor: { default () { return [ &#34;#f3f3f3&#34;, &#34;#f3f3f3&#34;, &#34;#f3f3f3&#34;, ]; }, }, // 波浪速率 waveTime: { default () { return [4000, 4000, 4000]; }, }, }, data () { return {}; }, mounted () { this.wavePlay(&#34;wave1&#34;, 140, this.waveColor[0], this.waveTime[0]); this.wavePlay(&#34;wave2&#34;, 140, this.waveColor[1], this.waveTime[1]); this.wavePlay(&#34;wave3&#34;, 140, this.waveColor[2], this.waveTime[2]); }, methods: { wavePlay ($canvasID, $progress, $maveColor, $time) { const that = this; let waveWidth = 3300, // 波浪长度 offset = 0, waveHeight = that.waveHeight, // 波浪起伏高度 waveCount = that.waveCount, // 波浪个数 startX = -1200, startY = 212, // canvas 高度 progress = $progress, // 波浪位置高度 d2 = waveWidth / waveCount, // 单个波浪的宽度 d = d2 / 2, hd = d / 2, c = document.getElementById($canvasID), ctx = c.getContext(&#34;2d&#34;); c.width = 1920; // 画布宽度 c.height = that.waveAllHeight; // 画布高度 function move () { offset -= 5; if (-1 * offset === d2) { offset = 0; } ctx.clearRect(0, 0, c.width, c.height); ctx.fillStyle = $maveColor; // 画布填充色 ctx.beginPath(); let offsetY = startY - progress; // 绘制贝塞尔曲线 ctx.moveTo(startX - offset, offsetY); // 开始点 for (let i = 0; i &lt; waveCount; i&#43;&#43;) { let dx = i * d2; let offsetX = dx &#43; startX - offset; ctx.quadraticCurveTo( offsetX &#43; hd, offsetY &#43; waveHeight, offsetX &#43; d, offsetY ); ctx.quadraticCurveTo( offsetX &#43; hd &#43; d, offsetY - waveHeight, offsetX &#43; d2, offsetY ); } ctx.lineTo(startX &#43; waveWidth, 3000); ctx.lineTo(startX, 0); ctx.fill(); setTimeout(move, $time / 60); // 速度 } move(); }, }, }; &lt;/script&gt; &lt;style scoped lang=&#34;scss&#34;&gt; .wave { width: 100%; height: 100%; position: relative; top: 0; left: 0; margin-top: -8%; canvas { width: 100%; opacity: 1; position: absolute; top: 0; left: 0; } } @media (max-width: 900px) { .wave { display: none; } } &lt;/style&gt; " />
 <meta name="description" content="新建组件 Canvas.vue 。
 // @/components/Canvas.vue &lt;template&gt; &lt;div :style=&#34;{ height: waveAllHeight &#43; &#39;px&#39;, background: bgColor }&#34; class=&#34;wave&#34;&gt; &lt;canvas id=&#34;wave1&#34;&gt;&lt;/canvas&gt; &lt;canvas id=&#34;wave2&#34;&gt;&lt;/canvas&gt; &lt;canvas id=&#34;wave3&#34;&gt;&lt;/canvas&gt; &lt;/div&gt; &lt;/template&gt; &lt;script&gt; export default { name: &#34;Canvas&#34;, props: { bgColor: { default: &#34;none&#34;, }, // 背景色 waveAllHeight: { default: 160 }, // 波浪的整体高度 waveCount: { default: 2 }, // 波峰个数 waveHeight: { default: 50 }, // 波浪起伏高度 // 波浪颜色 waveColor: { default () { return [ &#34;#f3f3f3&#34;, &#34;#f3f3f3&#34;, &#34;#f3f3f3&#34;, ]; }, }, // 波浪速率 waveTime: { default () { return [4000, 4000, 4000]; }, }, }, data () { return {}; }, mounted () { this.wavePlay(&#34;wave1&#34;, 140, this.waveColor[0], this.waveTime[0]); this.wavePlay(&#34;wave2&#34;, 140, this.waveColor[1], this.waveTime[1]); this.wavePlay(&#34;wave3&#34;, 140, this.waveColor[2], this.waveTime[2]); }, methods: { wavePlay ($canvasID, $progress, $maveColor, $time) { const that = this; let waveWidth = 3300, // 波浪长度 offset = 0, waveHeight = that.waveHeight, // 波浪起伏高度 waveCount = that.waveCount, // 波浪个数 startX = -1200, startY = 212, // canvas 高度 progress = $progress, // 波浪位置高度 d2 = waveWidth / waveCount, // 单个波浪的宽度 d = d2 / 2, hd = d / 2, c = document.getElementById($canvasID), ctx = c.getContext(&#34;2d&#34;); c.width = 1920; // 画布宽度 c.height = that.waveAllHeight; // 画布高度 function move () { offset -= 5; if (-1 * offset === d2) { offset = 0; } ctx.clearRect(0, 0, c.width, c.height); ctx.fillStyle = $maveColor; // 画布填充色 ctx.beginPath(); let offsetY = startY - progress; // 绘制贝塞尔曲线 ctx.moveTo(startX - offset, offsetY); // 开始点 for (let i = 0; i &lt; waveCount; i&#43;&#43;) { let dx = i * d2; let offsetX = dx &#43; startX - offset; ctx.quadraticCurveTo( offsetX &#43; hd, offsetY &#43; waveHeight, offsetX &#43; d, offsetY ); ctx.quadraticCurveTo( offsetX &#43; hd &#43; d, offsetY - waveHeight, offsetX &#43; d2, offsetY ); } ctx.lineTo(startX &#43; waveWidth, 3000); ctx.lineTo(startX, 0); ctx.fill(); setTimeout(move, $time / 60); // 速度 } move(); }, }, }; &lt;/script&gt; &lt;style scoped lang=&#34;scss&#34;&gt; .wave { width: 100%; height: 100%; position: relative; top: 0; left: 0; margin-top: -8%; canvas { width: 100%; opacity: 1; position: absolute; top: 0; left: 0; } } @media (max-width: 900px) { .wave { display: none; } } &lt;/style&gt; " />
-<meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon.ico" />
+<meta property="og:locale" content="en-us" /><meta property="og:image" content="https://imgurl.zishu.me/favicon1.ico" />
 
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -79,36 +79,36 @@
     <header>
   <div class="header">
     <h1 class="header-title">
-      <a href="/">zishu.me</a>
+      <a href="/">zishu.me | <span>子舒的博客</span></a>
     </h1>
 
     <div class="header-menu">
       
-      <p class="small  bold ">
+      <p class="small ">
         <a href="/">/首页</a>
       </p>
       
-      <p class="small  bold ">
+      <p class="small ">
         <a href="/tags/">/标签</a>
       </p>
       
-      <p class="small  bold ">
+      <p class="small ">
         <a href="/message/">/留言</a>
       </p>
       
-      <p class="small  bold ">
+      <p class="small ">
         <a href="/about/">/关于</a>
       </p>
       
-      <p class="small  bold ">
+      <p class="small ">
         <a href="/links/">/友链</a>
       </p>
       
-      <p class="small  bold ">
+      <p class="small ">
         <a href="/search/">/搜索</a>
       </p>
       
-      <p class="small  bold ">
+      <p class="small ">
         <a href="/index.xml">/订阅</a>
       </p>
       
@@ -117,10 +117,10 @@
 </header>
       
       <div class="main">
-        <h1>在 vue 中制作 canvas 波浪图</h1>
+        <h1 class="single-title">在 vue 中制作 canvas 波浪图</h1>
         
-        <div class="meta">
-          <div class="date">2022-3-29</div>
+        <div class="single-summary">
+          <div class="single-date">2022/03/29</div>
           <div class="post-tags">
             
             

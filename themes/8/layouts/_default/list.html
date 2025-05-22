@@ -11,7 +11,7 @@
       
       <div class="main">
 
-        <h1>{{ .Title }}</h1>
+        <h1 class="single-title">{{ .Title }}</h1>
         <div class="archive-count">该分类共有 {{ len .Pages }} 篇文章</div>
 
         <div class="archive-list">
@@ -19,12 +19,18 @@
           <div class="archive-list-header" id="{{ .Key }}">{{ .Key }}</div>
           <div class="posts-list">
             {{ range .Pages }}
-            <div class="item">
-              <div class="item-main">
-                <div class="item-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></div>
-                <div class="item-info">
-                  <div class="item-date">[{{ .Date.Format "2006-1-2"}}]</div>
-                </div>
+            <div class="post-line">
+              <p class="line-date">{{ .Date.Format "2006/01/01"}} </p>
+              <div>
+                <p class="line-title">
+                  <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                </p>
+                <p class="line-summary">
+                  {{ with .Params.tags }}
+                  标签：{{ range . }}<a href="{{ "tags/" | relURL }}{{ . | urlize }}">#{{ . }}</a>
+                  {{ end }}
+                  {{ end }}
+                </p>
               </div>
             </div>
             {{ end }}
